@@ -1,4 +1,3 @@
-{{-- vigneshwaran branch update --}}
 @extends('layouts.simple.buddy_master')
 @section('title', 'Premium Admin Template')
 

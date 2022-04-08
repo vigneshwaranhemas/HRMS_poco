@@ -56,8 +56,7 @@ class CandidateController extends Controller
         // return view('candidate.buddy_feedback')->with('buddy_fields',$data);
         return view('candidate.buddy_feedback');
     }
-
-
-
-
+    public function profile(){
+        return view('candidate.profile');
+        }
 }

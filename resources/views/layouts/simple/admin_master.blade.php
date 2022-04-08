@@ -7,6 +7,7 @@
     <meta name="description" content="Poco admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Poco admin template, dashboard template, flat admin template, responsive admin template, web app (Laravel 8)">
     <meta name="author" content="pixelstrap">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
     <title>Poco - @yield('title')</title>
@@ -41,11 +42,10 @@
                  <div class="row">
                     <div class="col-lg-6 main-header">
                         @yield('breadcrumb-title')
-
                     </div>
                     <div class="col-lg-6 breadcrumb-right">
                        <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href=".."><i class="pe-7s-home"></i></a></li>
+                          {{-- <li class="breadcrumb-item"><a href=".."><i class="pe-7s-home"></i></a></li> --}}
                           @yield('breadcrumb-items')
                        </ol>
                     </div>

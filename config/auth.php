@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'customusers',
     ],
 
     /*
@@ -38,12 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'customusers',
         ],
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'customusers',
             'hash' => false,
         ],
     ],
@@ -66,9 +66,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'customusers' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\CustomUser::class,
         ],
 
         // 'users' => [
@@ -93,8 +93,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'customusers' => [
+            'provider' => 'customusers',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
@@ -113,5 +113,6 @@ return [
     */
 
     'password_timeout' => 10800,
+
 
 ];

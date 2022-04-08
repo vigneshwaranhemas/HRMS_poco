@@ -19,6 +19,10 @@ class AdminController extends Controller
     {
         return view('admin.dashboard');
     }
+    public function Hr_SeatingRequest()
+    {
+        return view('admin.SeatingRequest');
+    }
     public function permission()
     {
         return view('admin.permission');
@@ -38,7 +42,7 @@ class AdminController extends Controller
     }
     /*save a menu and sub-menu*/
     public function sub_menu_save_tab(Request $req){
-   
+
       $data=$req->selected;
         // echo "<pre>";print_r($data);die();
       foreach ($data as $key => $value) {
@@ -57,7 +61,7 @@ class AdminController extends Controller
 
         return response()->json( $data );
     }
-    
+
 
     public function business()
     {
@@ -1988,4 +1992,5 @@ class AdminController extends Controller
     }
     // Client Process End
 
+>>>>>>> 6e9438b48f8e764147ce31710a27dfb239cf17c0
 }

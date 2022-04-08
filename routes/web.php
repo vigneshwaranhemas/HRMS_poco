@@ -44,6 +44,38 @@ Route::prefix('perk-ui')->group(function () {
 });
 
 //HR Controller
+Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('candidate_dashboard');
+Route::get('/hrsspreOnboarding','HrController@preOnboarding');
+Route::get("hrssdayzero","HrController@DayZero");
+Route::get("hrssOnBoarding","HrController@hrssOnBoarding");
+Route::get('seating_readiness',"HrController@SeatingArrangement");
+Route::get('EmailIdCreation','HrController@EmailIdCreation');
+Route::get('hrssCandidate','HrController@Candidate');
+Route::get('userdocuments','Hrcontroller@userdocuments');
+
+
+//Buddy Controller
+Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('candidate_dashboard');
+Route::get('buddy', 'BuddyController@buddy_info')->name('buddy_info');
+
+//Candidate Controller
+Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
+Route::get('/preOnboarding','CandidateController@preOnboarding');
+Route::get('Buddy_feedback', 'CandidateController@buddy')->name('buddy_feedback');
+
+//Admin Controller
+Route::get('/admin_dashboard', 'AdminController@admin_dashboard')->name('candidate_dashboard');
+Route::get('/Hr_SeatingRequest','AdminController@Hr_SeatingRequest');
+
+//Login Controller
+
+
+
+//ItINfra Controller
+
+Route::get('/ItInfra_Dashboard','ItInfraController@index');
+Route::get('/EmailCreation','ItInfraController@EmailIdCreation');
+
 Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('hr_dashboard');
 
 //Buddy Controller

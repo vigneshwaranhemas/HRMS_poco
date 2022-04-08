@@ -19,10 +19,10 @@
              <a class="bar-icons" href="#"><i class="pe-7s-portfolio"></i><span>Pre OnBoarding</span></a>
              <ul class="iconbar-mainmenu custom-scrollbar">
                 <li class="iconbar-header">Pre OnBoarding</li>
-                <li><a>Pre OnBoarding</a></li>
+                <li><a href="{{url('preOnboarding')}}">Pre OnBoarding</a></li>
                 <li><a >Induction Schedule</a></li>
                 <li><a>Buddy Info </a></li>
-                <li><a>Buddy Feedback</a></li>
+                <li><a href="{{url('Buddy_feedback')}}">Buddy Feedback</a></li>
              </ul>
           </li>
           <li>

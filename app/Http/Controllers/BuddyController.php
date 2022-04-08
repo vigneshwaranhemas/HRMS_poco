@@ -10,4 +10,10 @@ class BuddyController extends Controller
     {
         return view('buddy.dashboard');
     }
+
+
+    public function buddy_info()
+    {
+       return view('buddy.index');
+    }
 }

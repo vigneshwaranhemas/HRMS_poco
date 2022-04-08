@@ -18,26 +18,27 @@
               <div class="card-body p-0">
                 <div class="cont text-center">
                   <div>
-                    <form class="theme-form">
+                    <form class="theme-form" id="loginForm" method="post" action="javascript:void(0)">
                       <h4>LOGIN</h4>
-                      <h6>Enter your Username and Password</h6>
+                      {{ csrf_field() }}
+                      <h6>Enter your Employee ID and Password</h6>
                       <div class="form-group">
-                        <label class="col-form-label pt-0">Your Name</label>
-                        <input class="form-control" type="text" required="">
+                        <label class="col-form-label pt-0">Employee ID</label>
+                        <input class="form-control" name="employee_id" id="employee_id" type="text" required="">
                       </div>
                       <div class="form-group">
                         <label class="col-form-label">Password</label>
-                        <input class="form-control" type="password" required="">
+                        <input class="form-control"  name="login_password" id="login_password"  type="password" required="">
                       </div>
-                      <div class="checkbox p-0">
+                      <!-- <div class="checkbox p-0">
                         <input id="checkbox1" type="checkbox">
                         <label for="checkbox1">Remember me</label>
-                      </div>
+                      </div> -->
                       <div class="form-group form-row mt-3 mb-0">
-                        <button class="btn btn-primary btn-block" type="submit">LOGIN</button>
+                        <button class="btn btn-primary btn-block" id="btnLogin" type="submit">LOGIN</button>
                       </div>
-                      <div class="login-divider"></div>
-                      <div class="social mt-3">
+                      <!-- <div class="login-divider"></div> -->
+                      <!-- <div class="social mt-3">
                         <div class="form-row btn-showcase">
                           <div class="col-md-4 col-sm-6">
                             <button class="btn social-btn btn-fb">Facebook</button>
@@ -49,22 +50,22 @@
                             <button class="btn social-btn btn-google">Google + </button>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     </form>
                   </div>
                   <div class="sub-cont">
                     <div class="img">
                       <div class="img__text m--up">
-                        <h2>New here?</h2>
-                        <p>Sign up and discover great amount of new opportunities!</p>
+                        <h2>Welcome To Hema's !</h2>
+                        <!-- <p></p> -->
                       </div>
                       <div class="img__text m--in">
-                        <h2>One of us?</h2>
-                        <p>If you already has an account, just sign in. We've missed you!</p>
+                        <!-- <h2>One of us?</h2>
+                        <p>If you already has an account, just sign in. We've missed you!</p> -->
                       </div>
-                      <div class="img__btn"><span class="m--up">Sign up</span><span class="m--in">Sign in</span></div>
+                      <!-- <div class="img__btn"><span class="m--up">Sign up</span><span class="m--in">Sign in</span></div> -->
                     </div>
-                    <div>
+                    <!-- <div>
                       <form class="theme-form">
                         <h4 class="text-center">NEW USER</h4>
                         <h6 class="text-center">Enter your Username and Password For Signup</h6>
@@ -109,7 +110,7 @@
                           </div>
                         </div>
                       </form>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -120,6 +121,23 @@
   </div>
 </div>
 <!-- login page end-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script src="../pro_js/jquery/jquery.min.js"></script>
+<script src="../pro_js/login.js"></script>
+<script type="text/javascript">
+
+    $( document ).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+        });
+
+    var login_check_process_link = "{{url('login_check_process')}}";
+</script>
  @endsection
 
 @section('script')

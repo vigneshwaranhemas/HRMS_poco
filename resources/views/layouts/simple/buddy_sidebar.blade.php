@@ -16,7 +16,7 @@
              </ul> --}}
           </li>
           <li>
-             <a class="bar-icons" href="#"><i class="pe-7s-portfolio"></i><span>Buddy Info</span></a>
+             <a class="bar-icons" href="../buddy"><i class="pe-7s-portfolio"></i><span>Buddy Info</span></a>
              {{-- <ul class="iconbar-mainmenu custom-scrollbar">
                 <li class="iconbar-header">Ui Elements</li>
                 <li><a>State color</a></li>

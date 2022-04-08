@@ -3,7 +3,7 @@
       <ul class="iconMenu-bar custom-scrollbar">
          <li>
             <a class="bar-icons" href="#">
-               <!--img(src='{{route('/')}}/assets/images/menu/home.png' alt='')--><i class="pe-7s-home"></i><span>General    </span>
+               <!--img(src='../assets/images/menu/home.png' alt='')--><i class="pe-7s-home"></i><span>General    </span>
             </a>
             <ul class="iconbar-mainmenu custom-scrollbar">
                <li class="iconbar-header">Dashboard</li>

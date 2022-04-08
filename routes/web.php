@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('login');
 });
 
+/*login*/
+Route::get('logout','AuthController@logout');
+Route::post('login_check_process', 'LoginController@login_check_process' );
+
+
 Route::get('dashboard','AdminController@permission');
 
 Route::prefix('perk-ui')->group(function () {
@@ -39,15 +44,20 @@ Route::prefix('perk-ui')->group(function () {
 });
 
 //HR Controller
-Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('candidate_dashboard');
+Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('hr_dashboard');
 
 //Buddy Controller
-Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('candidate_dashboard');
+Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('buddy_dashboard');
 
 //Candidate Controller
 Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
+Route::get('candidate_profile','CandidateController@profile');
 
-//Admin Controller
-Route::get('/admin_dashboard', 'AdminController@admin_dashboard')->name('candidate_dashboard');
 
-//Login Controller
+// dashboard load admin
+Route::get('/admin', 'AdminController@admin_dashboard')->name('admin');
+Route::get('/permission', 'AdminController@permission')->name('permission');
+Route::post( 'role_list', 'AdminController@role_list' );
+Route::post( 'menu_listing', 'AdminController@menu_listing' );
+Route::post( 'sub_menu_save_tab', 'AdminController@sub_menu_save_tab' );
+

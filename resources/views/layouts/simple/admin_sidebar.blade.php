@@ -58,30 +58,12 @@
          </li>
          <li>
             <a class="bar-icons" href="#"><i class="pe-7s-note2"></i><span>Settings</span></a>
-            {{-- <ul class="iconbar-mainmenu custom-scrollbar">
-               <li class="iconbar-header">Form Controls</li>
-               <li><a href="{{route('form-validation')}}">Form Validation</a></li>
-               <li><a href="{{route('base-input')}}">Base Inputs</a></li>
-               <li><a href="{{route('radio-checkbox-control')}}">Checkbox & Radio</a></li>
-               <li><a href="{{route('input-group')}}">Input Groups</a></li>
-               <li><a href="{{route('megaoptions')}}">Mega Options</a></li>
-               <li class="iconbar-header sub-header">Form Widgets</li>
-               <li><a href="{{route('datepicker')}}">Datepicker</a></li>
-               <li><a href="{{route('time-picker')}}">Timepicker</a></li>
-               <li><a href="{{route('datetimepicker')}}">Datetimepicker</a></li>
-               <li><a href="{{route('daterangepicker')}}">Daterangepicker</a></li>
-               <li><a href="{{route('touchspin')}}">Touchspin</a></li>
-               <li><a href="{{route('select2')}}">Select2</a></li>
-               <li><a href="{{route('switch')}}">Switch</a></li>
-               <li><a href="{{route('typeahead')}}">Typeahead</a></li>
-               <li><a href="{{route('clipboard')}}">Clipboard</a></li>
-               <li class="iconbar-header sub-header">Form Layout</li>
-               <li><a href="{{route('default-form')}}">Default Forms</a></li>
-               <li><a href="{{route('form-wizard')}}">Form Wizard 1</a></li>
-               <li><a href="{{route('form-wizard-two')}}">Form Wizard 2</a></li>
-               <li><a href="{{route('form-wizard-three')}}">Form Wizard 3</a></li>
-               <li><a href="{{route('form-wizard-four')}}">Form Wizard 4</a></li>
-            </ul> --}}
+             <ul class="iconbar-mainmenu custom-scrollbar">
+               <li class="iconbar-header">Settings</li>
+               <li><a>Profile Settings</a></li>
+               <li><a href="{{url('/permission')}}">Roles & Permissions</a></li>
+               <li><a>Function</a>Module Settings</li>
+            </ul> 
          </li>
          {{-- <li>
             <a class="bar-icons" href="#"><i class="pe-7s-id"></i><span>Tables</span></a>

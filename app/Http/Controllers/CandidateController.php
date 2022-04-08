@@ -10,4 +10,7 @@ class CandidateController extends Controller
     {
         return view('candidate.dashboard');
     }
+    public function profile(){
+        return view('candidate.profile');
+        }
 }

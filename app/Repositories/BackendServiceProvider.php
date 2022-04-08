@@ -26,6 +26,7 @@ class BackendServiceProvider extends ServiceProvider
             'App\Repositories\IBuddyrepositories',
             'App\Repositories\Buddyrepositories'
         );
+
        $this->app->bind(
         'App\Repositories\IAdminRepository',
         'App\Repositories\AdminRepository'

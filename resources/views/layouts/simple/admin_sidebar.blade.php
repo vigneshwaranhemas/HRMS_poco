@@ -19,20 +19,20 @@
             <a class="bar-icons" href="#"><i class="pe-7s-portfolio"></i><span>Masters</span></a>
             <ul class="iconbar-mainmenu custom-scrollbar">
                <li class="iconbar-header">Masters</li>
-               <li><a>Business Unit</a></li>
-               <li><a >Division</a></li>
-               <li><a>Function </a></li>
-               <li><a>Grade</a></li>
-               <li><a>Band</a></li>
-               <li><a>Work Location</a></li>
-               <li><a>Blood Group</a></li>
-               <li><a>Roll of Intake</a></li>
-               <li><a>Department</a></li>
-               <li><a>Designation or Position</a></li>
-               <li><a>Client</a></li>
-               <li><a>State</a></li>
-               <li><a>Zone</a></li>
-               <li><a>Personnel</a></li>
+               <li><a href="{{ route('business') }}">Business Unit</a></li>
+               <li><a href="{{ route('division') }}">Division</a></li>
+               <li><a href="{{ route('function') }}">Function </a></li>
+               <li><a href="{{ route('grade') }}">Grade</a></li>
+               <li><a href="{{ route('band') }}">Band</a></li>
+               <li><a href="{{ route('location') }}">Work Location</a></li>
+               <li><a href="{{ route('blood') }}">Blood Group</a></li>
+               <li><a href="{{ route('roll') }}">Roll of Intake</a></li>
+               <li><a href="{{ route('department') }}">Department</a></li>
+               <li><a href="{{ route('designation_or_position') }}">Designation or Position</a></li>
+               <li><a href="{{ route('client') }}">Client</a></li>
+               <li><a href="{{ route('state') }}">State</a></li>
+               <li><a href="{{ route('zone') }}">Zone</a></li>
+               <li><a href="{{ route('personnel') }}">Personnel</a></li>
             </ul>
          </li>
          <li>

@@ -30,7 +30,7 @@
       <!-- Page Body Start-->
       <div class="page-body-wrapper">
         <!-- Page Sidebar Start-->
-        @include('layouts.simple.admin_sidebar')
+        @include('layouts.simple.inifra_sidebar')
         <!-- Page Sidebar Ends-->
         <!-- Right sidebar Start-->
         @include('layouts.simple.chat_sidebar')

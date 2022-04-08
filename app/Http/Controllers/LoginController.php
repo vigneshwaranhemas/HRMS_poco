@@ -38,7 +38,7 @@ class LoginController extends Controller
 
             if (auth()->user()->role_type == 'Admin') {
                
-                return response()->json( ['url'=>url( 'admin' ), 'logstatus' => 'success'] );
+                return response()->json( ['url'=>url( 'admin_dashboard' ), 'logstatus' => 'success'] );
             }else if (auth()->user()->role_type == 'can') {
                 return response()->json( ['url'=>url( 'candidate_dashboard' ), 'logstatus' => 'success'] );
             }else if (auth()->user()->role_type == 'HR') {

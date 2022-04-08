@@ -421,33 +421,23 @@ class AdminController extends Controller
 
         if($row->status == "1")
                 {
-                    $btn = '<div class="btn-group dropdown m-r-10">
-                                <button aria-expanded="false" data-toggle="dropdown"
-                                class="btn btn-default dropdown-toggle waves-effect waves-light"
-                                type="button"><i class="fa fa-gears "></i></button>
-                            <ul role="menu" class="dropdown-menu pull-right">
-                                <li><a href="javascript:;" onclick="function_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></li>
-
-                                <li><a href="javascript:;" onclick=function_status_process('."'".$row->id."'".',0);><i class="icon-settings"></i> Status</a></li>
-
-                                <li><a href="javascript:;" onclick="function_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete </a></li>
-
-                            </ul>
-                            </div>';
+                    $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="function_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick=function_status_process('."'".$row->id."'".',"Inactive");><i class="icon-settings"></i> Status</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick="function_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>
+                    </div>';
                 }else{
-                    $btn = '<div class="btn-group dropdown m-r-10">
-                                <button aria-expanded="false" data-toggle="dropdown"
-                                class="btn btn-default dropdown-toggle waves-effect waves-light"
-                                type="button"><i class="fa fa-gears "></i></button>
-                            <ul role="menu" class="dropdown-menu pull-right">
-                                <li><a href="javascript:;" onclick="function_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></li>
-
-                                <li><a href="javascript:;" onclick=function_status_process('."'".$row->id."'".',1);><i class="icon-settings"></i> Status</a></li>
-
-                                <li><a href="javascript:;" onclick="function_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete </a></li>
-
-                            </ul>
-                            </div>';
+                    $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="function_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick=function_status_process('."'".$row->id."'".',"active");><i class="icon-settings"></i> Status</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick="function_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>
+                    </div>';
                 }
 
 
@@ -564,33 +554,23 @@ class AdminController extends Controller
 
         if($row->status == "1")
                 {
-                    $btn = '<div class="btn-group dropdown m-r-10">
-                                <button aria-expanded="false" data-toggle="dropdown"
-                                class="btn btn-default dropdown-toggle waves-effect waves-light"
-                                type="button"><i class="fa fa-gears "></i></button>
-                            <ul role="menu" class="dropdown-menu pull-right">
-                                <li><a href="javascript:;" onclick="grade_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></li>
-
-                                <li><a href="javascript:;" onclick=grade_status_process('."'".$row->id."'".',0);><i class="icon-settings"></i> Status</a></li>
-
-                                <li><a href="javascript:;" onclick="grade_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete </a></li>
-
-                            </ul>
-                            </div>';
+                    $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="grade_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick=grade_status_process('."'".$row->id."'".',"Inactive");><i class="icon-settings"></i> Status</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick="grade_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>
+                    </div>';
                 }else{
-                    $btn = '<div class="btn-group dropdown m-r-10">
-                                <button aria-expanded="false" data-toggle="dropdown"
-                                class="btn btn-default dropdown-toggle waves-effect waves-light"
-                                type="button"><i class="fa fa-gears "></i></button>
-                            <ul role="menu" class="dropdown-menu pull-right">
-                                <li><a href="javascript:;" onclick="grade_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></li>
-
-                                <li><a href="javascript:;" onclick=grade_status_process('."'".$row->id."'".',1);><i class="icon-settings"></i> Status</a></li>
-
-                                <li><a href="javascript:;" onclick="grade_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete </a></li>
-
-                            </ul>
-                            </div>';
+                    $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="grade_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick=grade_status_process('."'".$row->id."'".',"active");><i class="icon-settings"></i> Status</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick="grade_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>
+                    </div>';
                 }
 
 
@@ -708,33 +688,23 @@ class AdminController extends Controller
 
         if($row->status == "1")
                 {
-                    $btn = '<div class="btn-group dropdown m-r-10">
-                                <button aria-expanded="false" data-toggle="dropdown"
-                                class="btn btn-default dropdown-toggle waves-effect waves-light"
-                                type="button"><i class="fa fa-gears "></i></button>
-                            <ul role="menu" class="dropdown-menu pull-right">
-                                <li><a href="javascript:;" onclick="location_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></li>
-
-                                <li><a href="javascript:;" onclick=location_status_process('."'".$row->id."'".',0);><i class="icon-settings"></i> Status</a></li>
-
-                                <li><a href="javascript:;" onclick="grade_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete </a></li>
-
-                            </ul>
-                            </div>';
+                    $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="location_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick=location_status_process('."'".$row->id."'".',"Inactive");><i class="icon-settings"></i> Status</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick="location_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>
+                    </div>';
                 }else{
-                    $btn = '<div class="btn-group dropdown m-r-10">
-                                <button aria-expanded="false" data-toggle="dropdown"
-                                class="btn btn-default dropdown-toggle waves-effect waves-light"
-                                type="button"><i class="fa fa-gears "></i></button>
-                            <ul role="menu" class="dropdown-menu pull-right">
-                                <li><a href="javascript:;" onclick="location_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></li>
-
-                                <li><a href="javascript:;" onclick=location_status_process('."'".$row->id."'".',1);><i class="icon-settings"></i> Status</a></li>
-
-                                <li><a href="javascript:;" onclick="location_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete </a></li>
-
-                            </ul>
-                            </div>';
+                    $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="location_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick=location_status_process('."'".$row->id."'".',"active");><i class="icon-settings"></i> Status</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick="location_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>
+                    </div>';
                 }
 
             return $btn;
@@ -851,33 +821,23 @@ class AdminController extends Controller
 
         if($row->status == "1")
                 {
-                    $btn = '<div class="btn-group dropdown m-r-10">
-                                <button aria-expanded="false" data-toggle="dropdown"
-                                class="btn btn-default dropdown-toggle waves-effect waves-light"
-                                type="button"><i class="fa fa-gears "></i></button>
-                            <ul role="menu" class="dropdown-menu pull-right">
-                                <li><a href="javascript:;" onclick="blood_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></li>
-
-                                <li><a href="javascript:;" onclick=blood_status_process('."'".$row->id."'".',0);><i class="icon-settings"></i> Status</a></li>
-
-                                <li><a href="javascript:;" onclick="blood_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete </a></li>
-
-                            </ul>
-                            </div>';
+                    $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="blood_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick=blood_status_process('."'".$row->id."'".',"Inactive");><i class="icon-settings"></i> Status</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick="blood_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>
+                    </div>';
                 }else{
-                    $btn = '<div class="btn-group dropdown m-r-10">
-                                <button aria-expanded="false" data-toggle="dropdown"
-                                class="btn btn-default dropdown-toggle waves-effect waves-light"
-                                type="button"><i class="fa fa-gears "></i></button>
-                            <ul role="menu" class="dropdown-menu pull-right">
-                                <li><a href="javascript:;" onclick="blood_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></li>
-
-                                <li><a href="javascript:;" onclick=blood_status_process('."'".$row->id."'".',1);><i class="icon-settings"></i> Status</a></li>
-
-                                <li><a href="javascript:;" onclick="blood_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete </a></li>
-
-                            </ul>
-                            </div>';
+                    $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="blood_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick=blood_status_process('."'".$row->id."'".',"Inactive");><i class="icon-settings"></i> Status</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick="blood_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>
+                    </div>';
                 }
 
             return $btn;
@@ -994,33 +954,23 @@ class AdminController extends Controller
 
         if($row->status == "1")
                 {
-                    $btn = '<div class="btn-group dropdown m-r-10">
-                                <button aria-expanded="false" data-toggle="dropdown"
-                                class="btn btn-default dropdown-toggle waves-effect waves-light"
-                                type="button"><i class="fa fa-gears "></i></button>
-                            <ul role="menu" class="dropdown-menu pull-right">
-                                <li><a href="javascript:;" onclick="roll_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></li>
-
-                                <li><a href="javascript:;" onclick=roll_status_process('."'".$row->id."'".',0);><i class="icon-settings"></i> Status</a></li>
-
-                                <li><a href="javascript:;" onclick="roll_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete </a></li>
-
-                            </ul>
-                            </div>';
+                    $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="roll_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick=roll_status_process('."'".$row->id."'".',"Inactive");><i class="icon-settings"></i> Status</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick="roll_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>
+                    </div>';
                 }else{
-                    $btn = '<div class="btn-group dropdown m-r-10">
-                                <button aria-expanded="false" data-toggle="dropdown"
-                                class="btn btn-default dropdown-toggle waves-effect waves-light"
-                                type="button"><i class="fa fa-gears "></i></button>
-                            <ul role="menu" class="dropdown-menu pull-right">
-                                <li><a href="javascript:;" onclick="roll_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></li>
-
-                                <li><a href="javascript:;" onclick=roll_status_process('."'".$row->id."'".',1);><i class="icon-settings"></i> Status</a></li>
-
-                                <li><a href="javascript:;" onclick="roll_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete </a></li>
-
-                            </ul>
-                            </div>';
+                    $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="roll_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick=roll_status_process('."'".$row->id."'".',"active");><i class="icon-settings"></i> Status</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick="roll_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>
+                    </div>';
                 }
 
             return $btn;

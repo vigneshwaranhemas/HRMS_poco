@@ -237,9 +237,6 @@
                   <!-- Individual column searching (text inputs) Starts-->
                   <div class="col-xl-12 box-col-12">
                      <div class="card height-equal">
-                        <div class="card-header">
-                           <h5>Credit Information</h5>
-                        </div>
                         <div class="card-body">
                            <div class="row">
                               <div class="col-md-4 text-center"><img class="img-fluid" src="../assets/images/ecommerce/card.png" alt=""></div>
@@ -441,6 +438,10 @@
                     <span class="navbar-brand mb-0 h1">Other Documents</span>
                     <h4><a data-target="#add-document" >+ Add Document</a></h4>
                   </nav>
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Business</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
                   <br>
                      <div class="ctm-border-radius shadow-sm card">
                      <div class="card-body">

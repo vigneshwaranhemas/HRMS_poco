@@ -78,7 +78,7 @@
                <li><a href="{{route('jsgrid-table')}}">Js Grid Table</a></li>
             </ul>
          </li>
-         <li>
+         <li>--}}
             <a class="bar-icons" href="{{url('Hr_SeatingRequest')}}"><i class="pe-7s-paperclip"></i></i><span>Seating Request</span></a>
          </li>
       </ul>

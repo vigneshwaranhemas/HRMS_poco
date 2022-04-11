@@ -11,6 +11,27 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/sweetalert2.css">
 
+<!-- Font Awesome-->
+<link rel="stylesheet" type="text/css" href="../assets/css/fontawesome.css">
+    <!-- ico-font-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/icofont.css">
+    <!-- Themify icon-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/themify.css">
+    <!-- Feather icon-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/feather-icon.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/animate.css">
+    <!-- Plugins css start-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/pe7-icon.css">
+    <!-- Plugins css Ends-->
+    <!-- Bootstrap css-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css">
+    <!-- App css-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link id="color" rel="stylesheet" href="../assets/css/color-1.css" media="screen">
+    <!-- Responsive css-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
+
 @endsection
 
 @section('style')
@@ -43,6 +64,17 @@
             </div>
         </div>
     </div>   
+
+    <div class="mb-2">
+                        <div class="col-form-label">Default Placeholder</div>
+                        <select class="js-example-placeholder-multiple col-sm-12 select2-hidden-accessible" multiple="" tabindex="-1" aria-hidden="true">
+                          <option value="AL">Alabama</option>
+                          <option value="WY">Wyoming</option>
+                          <option value="WY">Coming</option>
+                          <option value="WY">Hanry Die</option>
+                          <option value="WY">John Doe</option>
+                        </select><span class="select2 select2-container select2-container--default select2-container--focus" dir="ltr" style="width: 859px;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="Select Your Name" style="width: 847px;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                      </div>  
 
     <!-- Modal Fade Start -->
     <div class="modal fade bd-example-modal-lg" id="add-event" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -136,6 +168,8 @@
                                 </select>
                                 <div class="text-danger" id="candicate_list_options_error"></div> 
                             </div>
+                            
+
                             <!-- <div class="form-group">
                                 <label class="col-xs-3 m-t-10 required">Add Attendees</label>
                                 <div class="col-xs-7">
@@ -567,5 +601,26 @@
     <script src="../assets/js/chat-menu.js"></script>
     <!-- Plugins JS start-->
     <script src="../assets/js/sweet-alert/sweetalert.min.js"></script>
+
+
+    <!-- latest jquery-->
+    <script src="../assets/js/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap js-->
+    <script src="../assets/js/bootstrap/popper.min.js"></script>
+    <script src="../assets/js/bootstrap/bootstrap.js"></script>
+    <!-- feather icon js-->
+    <script src="../assets/js/icons/feather-icon/feather.min.js"></script>
+    <script src="../assets/js/icons/feather-icon/feather-icon.js"></script>
+    <!-- Sidebar jquery-->
+    <script src="../assets/js/sidebar-menu.js"></script>
+    <script src="../assets/js/config.js"></script>
+    <!-- Plugins JS start-->
+    <script src="../assets/js/select2/select2.full.min.js"></script>
+    <script src="../assets/js/select2/select2-custom.js"></script>
+    <script src="../assets/js/chat-menu.js"></script>
+    <!-- Plugins JS Ends-->
+    <!-- Theme js-->
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/theme-customizer/customizer.js"></script>
 @endsection
 

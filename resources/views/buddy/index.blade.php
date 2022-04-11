@@ -52,6 +52,13 @@
         word-break: break-word;
         max-width: 160px;
         min-width: 160px;
+        /* max-width: 160px; */
+        min-width: 356px;
+    }
+    .remark
+    {
+        min-width: 286px;
+
     }
 </style>
 @endsection
@@ -70,7 +77,7 @@
  <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <div class="card">                
+            <div class="card">
                 <div class="card-body">
                 <div class="dt-ext table-responsive">
                     <table class="display" id="export-button">
@@ -92,7 +99,7 @@
                             <td>
                                 <a onclick="showAdd()" class="badge badge-danger" type="button" data-original-title="btn btn-danger btn-xs" title=""><i class="icofont icofont-eye" style="color: #fff;"></i></a>
                             </td>
-                        </tr>  
+                        </tr>
                         <tr>
                             <td>Emp102</td>
                             <td>Linda Craver</td>
@@ -110,7 +117,7 @@
                             <td>
                                 <a onclick="showAdd()" class="badge badge-danger" type="button" data-original-title="btn btn-danger btn-xs" title=""><i class="icofont icofont-eye" style="color: #fff;"></i></a>
                             </td>
-                        </tr>                     
+                        </tr>
                     </tbody>
                     </table>
                 </div>
@@ -149,12 +156,20 @@
                         <tr>
                         <th scope="row">1</th>
                         <td><p class="word-warpped">My Buddy interacted with me pleasantly during the welcome session which helped me be comfortable and  bond well</p> </td>
-                        <td><p style="color:green" class="fa fa-check"></p></td>
+
+                        <td>
+                            <div class="text-center">
+                                <p style="color:green" class="fa fa-check"></p>
+                            </div>
+                        </td>
+
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>none</td>
+
+                        <td class="remark">none</td>
+
 
                         </tr>
                         <tr>
@@ -165,7 +180,9 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>none</td>
+
+                        <td class="remark">none</td>
+
                         </tr>
                         <tr>
                         <th scope="row">3</th>
@@ -175,7 +192,9 @@
                             <td></td>
                             <td></td>
                             <td><p style="color:green" class="fa fa-check"></p></td>
-                            <td>none</td>
+
+                            <td class="remark">none</td>
+
                         </tr>
                         <tr>
                         <th scope="row">4</th>
@@ -185,7 +204,9 @@
                             <td><p style="color:green" class="fa fa-check"></p></td>
                             <td></td>
                             <td></td>
-                            <td>none</td>
+
+                            <td class="remark">none</td>
+
                         </tr>
                         <tr>
                         <th scope="row">5</th>
@@ -195,7 +216,9 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>none</td>
+
+                            <td class="remark">none</td>
+
                         </tr>
                         <tr>
                         <th scope="row">6</th>
@@ -205,18 +228,22 @@
                             <td></td>
                             <td><p style="color:green" class="fa fa-check"></p></td>
                             <td></td>
-                            <td>none</td>
+
+                            <td class="remark">none</td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="row" style="margin-top: 40px;">                    
+                <div class="row" style="margin-top: 40px;">
+
                     <div class="col-md-12">
                         <h6>7.  What went very well, during  my interactions with my Buddy</h6>
                     </div>
                     <div class="col-md-4 text-center">
                         <div class="card">
                             <div class="card-body grid-showcase">
-                                <p>Auto-layout for flexbox grid columns also means you can set the width of one column and have the sibling columns automatically resize around it. You may use predefined grid classes (as shown below), grid mixins, or inline widths. Note that the other columns will resize no matter the width of the center column.</p>
+
+                                <p>No </p>
+
                             </div>
                         </div>
                     </div>
@@ -233,9 +260,11 @@
                                 <p>Auto-layout for flexbox grid columns also means you can set the width of one column and have the sibling columns automatically resize around it. You may use predefined grid classes (as shown below), grid mixins, or inline widths. Note that the other columns will resize no matter the width of the center column.</p>
                             </div>
                         </div>
-                    </div>                   
+
+                    </div>
                 </div>
-                <div class="row" style="margin-top: 40px;">                    
+                <div class="row" style="margin-top: 40px;">
+
                     <div class="col-md-12">
                         <h6>8.  What went very well, during  my interactions with my Buddy</h6>
                     </div>
@@ -259,7 +288,9 @@
                                 <p>Auto-layout for flexbox grid columns also means you can set the width of one column and have the sibling columns automatically resize around it. You may use predefined grid classes (as shown below), grid mixins, or inline widths. Note that the other columns will resize no matter the width of the center column.</p>
                             </div>
                         </div>
-                    </div>                   
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -271,42 +302,7 @@
 
 @section('script')
     <!-- latest jquery-->
-    <script src="../assets/js/jquery-3.5.1.min.js"></script>
-    <!-- Bootstrap js-->
-    <script src="../assets/js/bootstrap/popper.min.js"></script>
-    <script src="../assets/js/bootstrap/bootstrap.js"></script>
-    <!-- feather icon js-->
-    <script src="../assets/js/icons/feather-icon/feather.min.js"></script>
-    <script src="../assets/js/icons/feather-icon/feather-icon.js"></script>
-    <!-- Sidebar jquery-->
-    <script src="../assets/js/sidebar-menu.js"></script>
-    <script src="../assets/js/config.js"></script>
-    <!-- Plugins JS start-->
-    <script src="../assets/js/datatable/datatables/jquery.dataTables.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/dataTables.buttons.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/jszip.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/buttons.colVis.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/pdfmake.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/vfs_fonts.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/dataTables.autoFill.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/dataTables.select.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/buttons.bootstrap4.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/buttons.html5.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/buttons.print.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/dataTables.bootstrap4.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/dataTables.responsive.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/responsive.bootstrap4.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/dataTables.keyTable.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/dataTables.colReorder.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/dataTables.fixedHeader.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/dataTables.rowReorder.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/dataTables.scroller.min.js"></script>
-    <script src="../assets/js/datatable/datatable-extension/custom.js"></script>
-    <script src="../assets/js/chat-menu.js"></script>
-    <!-- Plugins JS Ends-->
-    <!-- Theme js-->
-    <script src="../assets/js/script.js"></script>
-    <script src="../assets/js/theme-customizer/customizer.js"></script>
+
     <script>
         function showAdd() {
             $('#edit-column-form').modal('show');
@@ -314,3 +310,4 @@
     </script>
 @endsection
 
+ 

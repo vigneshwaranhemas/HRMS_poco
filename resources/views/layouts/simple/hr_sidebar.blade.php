@@ -19,59 +19,22 @@
              <a class="bar-icons" href="#"><i class="pe-7s-portfolio"></i><span>Pre OnBoarding  </span></a>
              <ul class="iconbar-mainmenu custom-scrollbar">
                 <li class="iconbar-header">Pre OnBoarding</li>
-                <li><a>Pre OnBoarding</a></li>
-                <li><a >Day Zero</a></li>
-                <li><a>Day One </a></li>
+                <li><a href="{{url('hrsspreOnboarding')}}">Pre OnBoarding</a></li>
+                <li><a href="{{url('hrssdayzero')}}">Day Zero</a></li>
+                <li><a href="{{url('hrssOnBoarding')}}">On Boarding </a></li>
+                <li><a href="{{url('seating_readiness')}}">Seating Request </a></li>
+                <li><a href="{{url('EmailIdCreation')}}">Email IdCreation </a></li>
              </ul>
           </li>
           <li>
-             <span class="badge badge-pill badge-danger">Hot</span><a class="bar-icons" href="#"><i class="pe-7s-diamond"></i><span>Candidate</span></a>
-             {{-- <ul class="iconbar-mainmenu custom-scrollbar">
-                <li class="iconbar-header">Animation</li>
-                <li><a>Animate</a></li>
-                <li><a>Scroll Reveal</a></li>
-                <li><a>AOS animation</a></li>
-                <li><a>Tilt Animation</a></li>
-                <li><a>Wow Animation</a></li>
-                <li class="iconbar-header sub-header">Menu Options</li>
-                <li><a>Hide menu on Scroll</a></li>
-                <li><a>Vertical Menu</a></li>
-                <li><a>Mega Menu</a></li>
-                <li><a>Fix header</a></li>
-                <li><a>Fix Header & sidebar</a></li>
-                <li class="iconbar-header sub-header">Cards</li>
-                <li><a>Basic Card</a></li>
-                <li><a>Theme Card</a></li>
-                <li><a>Tabbed Card</a></li>
-             </ul> --}}
+             <span class="badge badge-pill badge-danger"></span><a class="bar-icons"  href="{{url('hrssCandidate')}}"><i class="pe-7s-diamond"></i><span>Candidate</span></a>
+
           </li>
           <li>
              <a class="bar-icons" href="#"><i class="pe-7s-note2"></i><span>Profile</span></a>
-             {{-- <ul class="iconbar-mainmenu custom-scrollbar">
-                <li class="iconbar-header">Form Controls</li>
-                <li><a href="{{route('form-validation')}}">Form Validation</a></li>
-                <li><a href="{{route('base-input')}}">Base Inputs</a></li>
-                <li><a href="{{route('radio-checkbox-control')}}">Checkbox & Radio</a></li>
-                <li><a href="{{route('input-group')}}">Input Groups</a></li>
-                <li><a href="{{route('megaoptions')}}">Mega Options</a></li>
-                <li class="iconbar-header sub-header">Form Widgets</li>
-                <li><a href="{{route('datepicker')}}">Datepicker</a></li>
-                <li><a href="{{route('time-picker')}}">Timepicker</a></li>
-                <li><a href="{{route('datetimepicker')}}">Datetimepicker</a></li>
-                <li><a href="{{route('daterangepicker')}}">Daterangepicker</a></li>
-                <li><a href="{{route('touchspin')}}">Touchspin</a></li>
-                <li><a href="{{route('select2')}}">Select2</a></li>
-                <li><a href="{{route('switch')}}">Switch</a></li>
-                <li><a href="{{route('typeahead')}}">Typeahead</a></li>
-                <li><a href="{{route('clipboard')}}">Clipboard</a></li>
-                <li class="iconbar-header sub-header">Form Layout</li>
-                <li><a href="{{route('default-form')}}">Default Forms</a></li>
-                <li><a href="{{route('form-wizard')}}">Form Wizard 1</a></li>
-                <li><a href="{{route('form-wizard-two')}}">Form Wizard 2</a></li>
-                <li><a href="{{route('form-wizard-three')}}">Form Wizard 3</a></li>
-                <li><a href="{{route('form-wizard-four')}}">Form Wizard 4</a></li>
-             </ul> --}}
+
           </li>
+
           <li>
              <a class="bar-icons" href="#"><i class="pe-7s-portfolio"></i><span>Goals </span></a>
              <ul class="iconbar-mainmenu custom-scrollbar">
@@ -80,11 +43,12 @@
                <li><a href="{{ route('hr_goal_setting') }}">Goal Setting</a></li>
              </ul>
           </li>
-          {{-- <li>
+          {{--
+           <!-- <li>
              <a class="bar-icons" href="#"><i class="pe-7s-id"></i><span>Tables</span></a>
              <ul class="iconbar-mainmenu custom-scrollbar">
                 <li class="iconbar-header">Bootstrap Tables</li>
-                <li><a href="{{route('bootstrap-basic-table')}}">Basic Tables</a></li>
+               <li><a href="{{route('bootstrap-basic-table')}}">Basic Tables</a></li> 
                 <li><a href="{{route('bootstrap-sizing-table')}}">Sizing Tables</a></li>
                 <li><a href="{{route('bootstrap-border-table')}}">Border Tables</a></li>
                 <li><a href="{{route('bootstrap-styling-table')}}">Styling Tables</a></li>
@@ -210,7 +174,10 @@
                 <li><a href="{{route('comingsoon-bg-video')}}">Coming with Bg video</a></li>
                 <li><a href="{{route('comingsoon-bg-img')}}">Coming with Bg Image</a></li>
              </ul>
-          </li> --}}
+          </li>  -->
+          --}}
+
+
        </ul>
     </div>
  </div>

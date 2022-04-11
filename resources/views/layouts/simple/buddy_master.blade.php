@@ -39,8 +39,14 @@
             <div class="container-fluid">
               <div class="page-header">
                  <div class="row">
-                    <div class="col-lg-12 main-header">
+                    <div class="col-lg-6 main-header">
                         @yield('breadcrumb-title')
+                    </div>
+                    <div class="col-lg-6 breadcrumb-right">
+                       <ol class="breadcrumb">
+                          <!-- <li class="breadcrumb-item"><a href=".."><i class="pe-7s-home"></i></a></li> -->
+                          @yield('breadcrumb-items')
+                       </ol>
                     </div>
                  </div>
               </div>

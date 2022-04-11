@@ -17,8 +17,6 @@
 @endsection
 
 @section('breadcrumb-items')
-  {{-- <li class="breadcrumb-item">Dashboard</li>
-	<li class="breadcrumb-item active">Default</li>--}}
   <a href="admin_add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
 
 @endsection
@@ -30,7 +28,7 @@
         <div class="col-sm-12">            
             <div class="card">
                 <div class="card-body">
-                    <a href="admin_add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
+                    <!-- <a href="admin_add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a> -->
                     <div class="table-responsive">
                         <table class="table" id="goal-tb">
                             <thead>

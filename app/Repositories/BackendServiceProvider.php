@@ -5,7 +5,6 @@ use Illuminate\Support\ServiceProvider;
 
 class BackendServiceProvider extends ServiceProvider
 {
-
     public function register() {
 
         $this->app->bind(
@@ -29,7 +28,27 @@ class BackendServiceProvider extends ServiceProvider
             'App\Repositories\IEventRepositories',
             'App\Repositories\EventRepositories'
         );
+        $this->app->bind(
+            'App\Repositories\IPreOnboardingrepositories',
+            'App\Repositories\PreOnboardingrepositories'
+        );
+        $this->app->bind(
+            'App\Repositories\IHrPreonboardingrepositories',
+            'App\Repositories\HrPreonboardingrepositories'
+        );
+
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
 
     }
 }
+
+
 ?>

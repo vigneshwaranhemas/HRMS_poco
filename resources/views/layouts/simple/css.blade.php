@@ -19,3 +19,24 @@
 <link id="color" rel="stylesheet" href="../assets/css/color-1.css" media="screen">
 <!-- Responsive css-->
 <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
+<!-- tost css -->
+<link rel="stylesheet" href="../assets/toastify/toastify.css">
+<style>
+.dataTables_wrapper .dataTables_length
+{
+    margin-right: 100%;
+}
+.dataTables_scrollBody
+{
+    overflow: hidden !important;
+}
+.dataTables_wrapper.no-footer .dataTables_scrollBody
+{
+    border-bottom: none !important;
+}
+</style>
+
+<!-- DataTables Plugins CSS start-->
+<link rel="stylesheet" type="text/css" href="../assets/css/datatables.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/datatable-extension.css">
+<!-- DataTables Plugins CSS Ends-->

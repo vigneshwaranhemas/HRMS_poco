@@ -10,6 +10,7 @@ class BuddyController extends Controller
     {
         return view('buddy.dashboard');
     }
+
     public function buddy_info()
     {
         //    $sess_info=Session::get("session_info");
@@ -30,4 +31,5 @@ class BuddyController extends Controller
     {
         return view('buddy.goal_setting');
     }    
+
 }

@@ -3,28 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HrController extends Controller
 {
     public function hr_dashboard()
     {
-        return view('HRSS.dashboard');
+        $current_date = date("m-d");
+        $todays_birthdays = DB::table('candidate_details')->select('*')->where('candidate_dob', 'LIKE', '%'.$current_date.'%')->get();                                        
+        return view('HRSS.dashboard', ['todays_birthdays'=> $todays_birthdays]);
     }
-
-    public function hr_goals()
-    {
-        return view('HRSS.goals');
-    }  
-    public function hr_add_goal_setting()
-    {
-        return view('HRSS.add_goal_setting');
-    }    
-    public function hr_goal_setting()
-    {
-        return view('HRSS.goal_setting');
-    }    
-
-
+    
     public function preOnboarding()
     {
         //  $sess_info=Session::get("session_info");

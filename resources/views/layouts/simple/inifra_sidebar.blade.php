@@ -8,8 +8,15 @@
           </li>
             <li>
              <a class="bar-icons" href="#"><i class="pe-7s-note2"></i><span>Settings</span></a>
+          </li>          
+          <li>
+             <a class="bar-icons" href="#"><i class="pe-7s-target"></i><span>Goals </span></a>
+             <ul class="iconbar-mainmenu custom-scrollbar">
+                <li class="iconbar-header">Goals</li>
+                <li><a href="{{ route('goals') }}">Goals</a></li>
+               <li><a href="{{ route('goal_setting') }}">Goal Setting</a></li>
+             </ul>
           </li>
-
          <li>
             <a class="bar-icons" href="{{url('EmailCreation')}}"><i class="pe-7s-paper-plane"></i></i><span>EmailId Creation </span></a>
          </li>

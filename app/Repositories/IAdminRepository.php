@@ -112,7 +112,10 @@ interface IAdminRepository {
     public function process_client_status( $input_details );
     public function process_client_delete( $input_details );
 
-
+    //Holidays
+    public function add_holidays_insert( $data );
+    public function fetch_holidays_list();
+    
     // //roles
     // public function get_role_data();
     // public function get_role_details_pop( $input_details );

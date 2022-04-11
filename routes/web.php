@@ -47,10 +47,6 @@ Route::prefix('perk-ui')->group(function () {
 //HR Controller
 Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('candidate_dashboard');
 
-Route::get('/hr_goals', 'HrController@hr_goals')->name('hr_goals');
-Route::get('/hr_goal_setting', 'HrController@hr_goal_setting')->name('hr_goal_setting');
-Route::get('/hr_add_goal_setting', 'HrController@hr_add_goal_setting')->name('hr_add_goal_setting');
-
 Route::get('/hrsspreOnboarding','HrController@preOnboarding');
 Route::get("hrssdayzero","HrController@DayZero");
 Route::get("hrssOnBoarding","HrController@hrssOnBoarding");
@@ -64,30 +60,10 @@ Route::get('userdocuments','Hrcontroller@userdocuments');
 Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('candidate_dashboard');
 Route::get('buddy', 'BuddyController@buddy_info')->name('buddy_info');
 
-Route::get('/buddy_goals', 'BuddyController@buddy_goals')->name('buddy_goals');
-Route::get('/buddy_goal_setting', 'BuddyController@buddy_goal_setting')->name('buddy_goal_setting');
-Route::get('/buddy_add_goal_setting', 'BuddyController@buddy_add_goal_setting')->name('buddy_add_goal_setting');
-
 //Candidate Controller
 Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
-Route::get('/candidate_goals', 'CandidateController@candidate_goals')->name('candidate_goals');
-Route::get('/candidate_goal_setting', 'CandidateController@candidate_goal_setting')->name('candidate_goal_setting');
-Route::get('/candidate_add_goal_setting', 'CandidateController@candidate_add_goal_setting')->name('candidate_add_goal_setting');
-
 Route::get('/preOnboarding','CandidateController@preOnboarding');
 Route::get('Buddy_feedback', 'CandidateController@buddy')->name('buddy_feedback');
-
-
-//Admin Controller  
-Route::get('/admin_dashboard', 'AdminController@admin_dashboard')->name('candidate_dashboard');
-
-Route::get('/admin_goals', 'AdminController@admin_goals')->name('admin_goals');
-Route::get('/admin_goal_setting', 'AdminController@admin_goal_setting')->name('admin_goal_setting');
-Route::get('/admin_add_goal_setting', 'AdminController@admin_add_goal_setting')->name('admin_add_goal_setting');
-Route::get('holidays', 'AdminController@holidays')->name('holidays');
-Route::get('events','AdminController@events');
-Route::get('events-category','AdminController@create');
-
 
 //Calendaer Event
 Route::post('event_category_insert', 'EventCategoryController@event_category_insert');
@@ -110,9 +86,10 @@ Route::post('event_update', 'EventController@event_update');
 
 Route::get('/Hr_SeatingRequest','AdminController@Hr_SeatingRequest');
 
-//Login Controller
-
-
+//Goals Controller
+Route::get('goals', 'GoalsController@goals')->name('goals');
+Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
+Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
 
 //ItINfra Controller
 
@@ -127,8 +104,6 @@ Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('buddy_d
 //Candidate Controller
 Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
 Route::get('candidate_profile','CandidateController@profile');
-
-
 
 // dashboard load admin
 //Route::get('/admin', 'AdminController@admin_dashboard')->name('admin');
@@ -156,6 +131,12 @@ Route::get('personnel', 'AdminController@personnel')->name('personnel');
 Route::get('user', 'AdminController@user')->name('user');
 Route::get('roles', 'AdminController@roles')->name('roles');
 Route::get('holidays', 'AdminController@holidays')->name('holidays');
+Route::get('/admin_dashboard', 'AdminController@admin_dashboard')->name('candidate_dashboard');
+Route::get('holidays', 'AdminController@holidays')->name('holidays');
+Route::get('fetch_holidays_list', 'AdminController@fetch_holidays_list');
+Route::post( 'add_new_holidays_insert', 'AdminController@add_new_holidays_insert' );
+Route::get('events','AdminController@events');
+Route::get('events-category','AdminController@create');
 
 // Business Unit
 Route::post('add_business_unit_process', 'AdminController@add_business_unit');

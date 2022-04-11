@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\menu;
 use App\sub_menu;
 use App\role_permission;
-use App\Role;
-
+use App\Holidays; 
 
 class AdminRepository implements IAdminRepository
 {
@@ -826,6 +825,19 @@ class AdminRepository implements IAdminRepository
 
         $update_clientstbl->delete();
     }
+
+    // Business Unit process start
+    public function add_holidays_insert( $data ){
+        $response = Holidays::insert($data);
+        return $response;
+    }
+    public function fetch_holidays_list()
+    {      
+       $response = DB::table("holidays")->select('*')
+                         ->get();
+       return $response;
+    }
+    
     // Client process End
 
     // /*insert data to db*/

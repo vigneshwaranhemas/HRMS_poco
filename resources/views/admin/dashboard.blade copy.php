@@ -1,4 +1,4 @@
-@extends('layouts.simple.buddy_master')
+@extends('layouts.simple.admin_master')
 @section('title', 'Premium Admin Template')
 
 @section('css')
@@ -355,7 +355,6 @@ View More&lt;/button&gt;
             </div>
          </div>
       </div>
-     
       <div class="col-xl-8 xl-100 box-col-12">
          <div class="card">
             <div class="card-header no-border">
@@ -377,8 +376,20 @@ View More&lt;/button&gt;
                   @foreach($todays_birthdays as $todays_birthday)
                   <li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>
                      <div class="align-self-center media-body" style="margin-left: 16px;">
-                        <h5 class="mt-0">{{$todays_birthday->candidate_name }}</h5>
-                        <p>Happy Birthday {{$todays_birthday->candidate_name }}, Have a great year ahead! <img style="width:34px" src="{{ asset('assets/images/cupcake.svg') }}" alt="Cupcake" class="img-fluid"></p>
+                        <h5 class="mt-0">Kandan</h5>
+                        <p>Happy Birthday Kandan, Have a great year ahead! <img style="width:34px" src="{{ asset('assets/images/cupcake.svg') }}" alt="Cupcake" class="img-fluid"></p>
+                     </div>
+                  </li>
+                  <li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>
+                     <div class="align-self-center media-body" style="margin-left: 16px;">
+                        <h5 class="mt-0">Shraddha</h5>
+                        <p>Happy Birthday Shraddha, Have a great year ahead! <img style="width:34px" src="{{ asset('assets/images/cupcake.svg') }}" alt="Cupcake" class="img-fluid"></p>
+                     </div>
+                  </li>
+                  <li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>
+                     <div class="align-self-center media-body" style="margin-left: 16px;">
+                        <h5 class="mt-0">Bineeta</h5>
+                        <p>Happy Birthday Bineeta, Have a great year ahead! <img style="width:34px" src="{{ asset('assets/images/cupcake.svg') }}" alt="Cupcake" class="img-fluid"></p>
                      </div>
                   </li>
                   @endforeach 

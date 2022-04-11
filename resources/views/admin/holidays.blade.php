@@ -47,7 +47,7 @@
    <!-- Modal Fade Start -->
    <div class="modal fade" id="add-holidays" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-         <form  id="getNewEventForm">
+         <form  id="getNewHolidaysForm">
          @csrf
             <div class="modal-content">
                <div class="modal-header">
@@ -57,15 +57,16 @@
                <div class="modal-body">
                   <div class="form-row mb-3">
                         <div class="col-md-6">
-                           <label for="event_name">Holiday</label>
-                           <input type="text" name="event_name" id="event_name" class="form-control">
-                           <div class="text-warning" id="event_name_error"></div>
+                           <label for="event_name">Occasion</label>
+                           <input type="text" name="occassion" id="occassion" class="form-control">
+                           <div class="text-warning" id="occassion_error"></div>
                         </div>
                   </div>
                </div>
                <div class="modal-footer">
+                  <input type="hidden" id="occassion_date" class="form-control" name="occassion_date">
                   <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-                  <button class="btn btn-primary" type="button">Save</button>
+                  <button class="btn btn-primary" type="submit" id="save">Save</button>
                </div>
             </div>
          </form>

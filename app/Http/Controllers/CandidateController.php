@@ -3,27 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CandidateController extends Controller
 {
     public function candidate_dashboard()
     {
-        return view('candidate.dashboard');
+        $current_date = date("m-d");
+        $todays_birthdays = DB::table('candidate_details')->select('*')->where('candidate_dob', 'LIKE', '%'.$current_date.'%')->get();                                        
+        return view('candidate.dashboard', ['todays_birthdays'=> $todays_birthdays]);
     }
-
-    public function candidate_goals()
-    {
-        return view('candidate.goals');
-    }  
-    public function candidate_add_goal_setting()
-    {
-        return view('candidate.add_goal_setting');
-    }    
-    public function candidate_goal_setting()
-    {
-        return view('candidate.goal_setting');
-    }    
-
     public function preOnboarding()
     {
         //    $sess_info=Session::get("session_info");

@@ -17,23 +17,53 @@ class AdminController extends Controller
 
     public function admin_dashboard()
     {
-        return view('admin.dashboard');
-    } 
-    public function admin_goals()
-    {
-        return view('admin.goals');
-    }  
-    public function admin_add_goal_setting()
-    {
-        return view('admin.add_goal_setting');
-    }    
-    public function admin_goal_setting()
-    {
-        return view('admin.goal_setting');
-    }    
+        $current_date = date("m-d");
+        $todays_birthdays = DB::table('candidate_details')->select('*')->where('candidate_dob', 'LIKE', '%'.$current_date.'%')->get();                                                
+        return view('admin.dashboard', ['todays_birthdays'=> $todays_birthdays]);
+    }   
     public function holidays()
     {
         return view('admin.holidays');
+    }
+    public function add_new_holidays_insert(Request $request)
+    {
+        $result = $request->validate([
+            'occassion' => 'required', 
+        ]);
+
+        $data = array(
+            'occassion' => $request->occassion,
+            'date' => $request->occassion_date,
+            'created_by' => "900386"
+        );
+
+        $result = $this->admrpy->add_holidays_insert($data);
+
+        return response($result);
+
+    }
+    public function fetch_holidays_list(Request $request)
+    {
+        $holidaysFilter = $this->admrpy->fetch_holidays_list();  
+
+        $holidays_list = array();
+
+        foreach ($holidaysFilter as $key => $value) {
+            
+            $holidays_list[] = [
+
+                'id' => $value->id,
+                'title' => $value->occassion,
+                'start' => $value->date                  
+                                  
+            ];
+
+        }
+
+        // dd($holidays_list);
+
+        return $holidays_list;
+               
     }
     public function events()
     {                

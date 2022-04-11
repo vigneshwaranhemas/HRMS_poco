@@ -12,7 +12,8 @@
     <div class="nav-right col pull-right right-menu">
       <ul class="nav-menus">
         <li>
-          {{-- <form class="form-inline search-form" action="#" method="get">
+         <!-- <form class="form-inline search-form" action="#" method="get">
+           <form class="form-inline search-form" action="#" method="get">
             <div class="form-group">
               <div class="Typeahead Typeahead--twitterUsers">
                 <div class="u-posRelative">
@@ -22,7 +23,8 @@
                 <div class="Typeahead-menu"></div>
               </div>
             </div>
-          </form> --}}
+          </form> 
+          </form>  -->
         </li>
         <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
         <li class="onhover-dropdown"><img class="img-fluid img-shadow-warning" src="../assets/images/dashboard/bookmark.png" alt="">
@@ -117,10 +119,11 @@
             <li class="gradient-primary">
               <h5 class="f-w-600 mb-0">Elana Saint</h5><span>Web Designer</span>
             </li>
-            <li><i data-feather="user"> </i>Profile</li>
+            <li><i data-feather="user"> <a href="{{url('logout')}}"></i>Profile</a></li>
             <li><i data-feather="message-square"> </i>Inbox</li>
             <li><i data-feather="file-text"> </i>Taskboard</li>
-            <li><i data-feather="settings"> </i>Settings            </li>
+            <li><i data-feather="settings"> </i>Settings</li>
+            <li><i data-feather="settings"> </i><a href="{{url('logout')}}">Logout</a></li>
           </ul>
         </li>
       </ul>

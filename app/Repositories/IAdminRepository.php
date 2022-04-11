@@ -4,6 +4,10 @@ namespace App\Repositories;
 
 interface IAdminRepository {
 
+	public function get_role_list_base( );
+	public function get_menu_list_res($role_id );
+	public function get_submenu_save_res($input_details );
+
     // Business Unit
     public function add_business_unit_process( $form_data );
     public function get_business_unit_database_data();

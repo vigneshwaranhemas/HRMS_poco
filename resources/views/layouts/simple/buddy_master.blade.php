@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-lg-6 breadcrumb-right">
                        <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href=".."><i class="pe-7s-home"></i></a></li>
+                          <!-- <li class="breadcrumb-item"><a href=".."><i class="pe-7s-home"></i></a></li> -->
                           @yield('breadcrumb-items')
                        </ol>
                     </div>
@@ -52,7 +52,7 @@
               </div>
             </div>
             @yield('content')
-            <div class="welcome-popup modal fade" id="loadModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <!-- <div class="welcome-popup modal fade" id="loadModal" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                  <div class="modal-content">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -68,7 +68,7 @@
                     </div>
                  </div>
               </div>
-            </div>
+            </div> -->
         </div>
         <!-- footer start-->
         @include('layouts.simple.footer')

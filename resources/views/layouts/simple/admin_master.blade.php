@@ -42,6 +42,7 @@
                  <div class="row">
                     <div class="col-lg-6 main-header">
                         @yield('breadcrumb-title')
+                        <!-- <h6 class="mb-0">admin panel</h6> -->
                     </div>
                     <div class="col-lg-6 breadcrumb-right">
                        <ol class="breadcrumb">

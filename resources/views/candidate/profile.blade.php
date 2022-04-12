@@ -16,6 +16,7 @@
 @section('style')
 <style type="text/css">
 img {
+
 display: block;
 max-width: 100%;
 }
@@ -29,6 +30,7 @@ border: 1px solid red;
 .modal-lg{
 max-width: 1000px !important;
 }
+
 </style>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -54,7 +56,6 @@ max-width: 1000px !important;
                   <div class="my-gallery" id="aniimated-thumbnials" itemscope="">
                      <figure itemprop="associatedMedia" itemscope="">
                         <a href="../assets/images/other-images/profile-style-img3.png" itemprop="contentUrl" data-size="1600x950"><img class="img-fluid rounded" src="../assets/images/other-images/profile-style-img3.png" itemprop="thumbnail" alt="gallery"></a>
-                        <figcaption itemprop="caption description">Image caption  1</figcaption>
                      </figure>
                   </div>
                </div>
@@ -594,7 +595,6 @@ max-width: 1000px !important;
                   <p>Family</p>
                </div>
 
-               <!-- Pop-up div starts-->
                <div class="modal fade" id="profile_image" tabindex="-1" role="dialog" aria-labelledby="profile_imageLabel" aria-hidden="true">
                    <div class="modal-dialog" role="document">
                      <div class="modal-content">
@@ -604,72 +604,39 @@ max-width: 1000px !important;
                          </div>
                            <form method="POST"  id="imageUploadForm" enctype="multipart/form-data">
                                         @csrf
-                              <!-- <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                       <div class="modal-content">
-                                          <div class="modal-header">
-                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                             <span aria-hidden="true">×</span>
-                                          </button>
-                                          </div>
-                                       <div class="modal-body">
-                                          <div class="img-container">
-                                             <div class="row">
-                                                <div class="col-md-8">
-                                                   <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
-                                                </div>
-                                                <div class="col-md-4">
-                                                   <div class="preview"></div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                          <button type="button" class="btn btn-primary" id="crop">Crop</button>
-                                       </div>
-                                       </div>
-                                    </div>
+                             <div class="container">
+                                 <input type="file" name="image" class="image">
                                  </div>
-                              </div> -->
-                              <div class="container mt-5">
-<div class="card">
-<h2 class="card-header">Laravel Cropper Js - Crop Image Before Upload - Tutsmake.com</h2>
-<div class="card-body">
-<h5 class="card-title">Please Selete Image For Cropping</h5>
-<input type="file" name="image" class="image">
-</div>
-</div>  
-</div>
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title" id="modalLabel">Laravel Cropper Js - Crop Image Before Upload - Tutsmake.com</h5>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">×</span>
-</button>
-</div>
-<div class="modal-body">
-<div class="img-container">
-<div class="row">
-<div class="col-md-8">
-<img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
-</div>
-<div class="col-md-4">
-<div class="preview"></div>
-</div>
-</div>
-</div>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-<button type="button" class="btn btn-primary" id="crop">Crop</button>
-</div>
-</div>
-</div>
-</div>
-                           </div>                            
+                                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                                 <div class="modal-dialog modal-lg" role="document">
+                                 <div class="modal-content">
+                                 <div class="modal-header">
+                                 <h5 class="modal-title" id="modalLabel">Laravel Cropper Js - Crop Image Before Upload - Tutsmake.com</h5>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">×</span>
+                                 </button>
+                                 </div>
+                                 <div class="modal-body">
+                                 <div class="img-container">
+                                 <div class="row">
+                                 <div class="col-md-8">
+                                 <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+                                 </div>
+                                 <div class="col-md-4">
+                                 <div class="preview"></div>
+                                 </div>
+                                 </div>
+                                 </div>
+                                 </div>
+                                 <div class="modal-footer">
+                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                 <button type="button" class="btn btn-primary" id="crop">Crop</button>
+                                 </div>
+                                 </div>
+                                 </div>
+                                 </div>
+                                 </div>
+                                 </div>
                           </div>
                         </div>                             
                          </form>

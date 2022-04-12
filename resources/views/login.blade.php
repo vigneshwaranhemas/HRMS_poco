@@ -18,39 +18,40 @@
               <div class="card-body p-0">
                 <div class="cont text-center">
                   <div>
+                    <div class="col-xl-8 xl-100 box-col-12">
+                       <div class="card year-overview">
+                          <div class="card-header no-border d-flex">
+                             <ul class="creative-dots">
+                                <li class="bg-primary big-dot"></li>
+                                <li class="bg-secondary semi-big-dot"></li>
+                                <li class="bg-warning medium-dot"></li>
+                                <li class="bg-info semi-medium-dot"></li>
+                                <li class="bg-secondary semi-small-dot"></li>
+                                <li class="bg-primary small-dot"></li>
+                             </ul>
+                          </div>
                     <form class="theme-form" id="loginForm" method="post" action="javascript:void(0)">
-                      <h4>LOGIN</h4>
+                      <h4>LOGIN</h4><br>
                       {{ csrf_field() }}
-                      <h6>Enter your Employee ID and Password</h6>
-                      <div class="form-group">
-                        <label class="col-form-label pt-0">Employee ID</label>
-                        <input class="form-control" name="employee_id" id="employee_id" type="text" required="">
-                      </div>
-                      <div class="form-group">
-                        <label class="col-form-label">Password</label>
-                        <input class="form-control"  name="login_password" id="login_password"  type="password" required="">
-                      </div>
-                      <!-- <div class="checkbox p-0">
-                        <input id="checkbox1" type="checkbox">
-                        <label for="checkbox1">Remember me</label>
-                      </div> -->
                       <div class="form-group form-row mt-3 mb-0">
-                        <button class="btn btn-primary btn-block" id="btnLogin" type="submit">LOGIN</button>
+                          <div class="col-sm-5">
+                           <label class="col-form-label pt-0">Employee ID</label>
+                          </div>
+                         <div class="col-sm-7">
+                            <input class="form-control" name="employee_id" id="employee_id" type="text" required="">
+                          </div>
                       </div>
-                      <!-- <div class="login-divider"></div> -->
-                      <!-- <div class="social mt-3">
-                        <div class="form-row btn-showcase">
-                          <div class="col-md-4 col-sm-6">
-                            <button class="btn social-btn btn-fb">Facebook</button>
+                      <div class="form-group form-row mt-3 mb-0">
+                        <div class="col-sm-5"> <label class="col-form-label">Password</label></div>
+                         <div class="col-sm-7">
+                        <input class="form-control"  name="login_password" id="login_password"  type="password" required=""></div>
+                      </div>
+                      <div class="form-group form-row mt-3 mb-0">
+                        <div class="col-sm-4"></div>
+                          <div class="col-sm-4">
+                            <button class="btn btn-primary btn-block" id="btnLogin" type="submit">LOGIN</button>
                           </div>
-                          <div class="col-md-4 col-sm-6">
-                            <button class="btn social-btn btn-twitter">Twitter</button>
-                          </div>
-                          <div class="col-md-4 col-sm-6">
-                            <button class="btn social-btn btn-google">Google + </button>
-                          </div>
-                        </div>
-                      </div> -->
+                      </div>
                     </form>
                   </div>
                   <div class="sub-cont">
@@ -115,6 +116,8 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
           </div>
         </div>
      </div>

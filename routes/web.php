@@ -218,3 +218,6 @@ Route::post( 'get_client_details', 'AdminController@get_client_details' );
 Route::post( 'update_client_details', 'AdminController@update_client_details' );
 Route::post( 'process_client_status', 'AdminController@process_client_status' );
 Route::post( 'process_client_delete', 'AdminController@process_client_delete' );
+
+/*image upload profile*/
+Route::post('profile_upload_images', 'AdminController@storeImage');

@@ -1,6 +1,6 @@
 
 
-function employeeid_valid(){
+/*function employeeid_valid(){
 				
     var textInput = document.getElementById("employee_id").value;
     textInput = textInput.replace(/[&\/\-_=|\][;\#,+()$~%.'":*?<>{}@^!`]/g, "");
@@ -16,9 +16,9 @@ function employeeid_valid(){
         $('#btnLogin').removeAttr("disabled");
 
     }
-}
+}*/
 
-function password_valid(){
+/*function password_valid(){
 				
     var textInput = document.getElementById("login_password").value;
     if(textInput ==''){
@@ -37,7 +37,7 @@ function password_valid(){
         
 
     }
-}
+}*/
 
 $('#loginForm').submit(function(e) {
     // alert("asdasdasdas")

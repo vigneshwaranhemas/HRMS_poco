@@ -3,9 +3,34 @@
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/photoswipe.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/croppie.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+
 @endsection
 
 @section('style')
+<style type="text/css">
+img.test {
+display: block;
+max-width: 100%;
+}
+.preview {
+overflow: hidden;
+width: 160px; 
+height: 160px;
+margin: 10px;
+border: 1px solid red;
+}
+.modal-lg{
+max-width: 1000px !important;
+}
+</style>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('breadcrumb-title')
@@ -14,8 +39,8 @@
 
 @section('breadcrumb-items')
   <li class="breadcrumb-item">Apps</li>
-    <li class="breadcrumb-item">User</li>
-  <li class="breadcrumb-item active">User Profile</li>
+    <li class="breadcrumb-item">Profile</li>
+  <li class="breadcrumb-item active">My Profile</li>
 @endsection
 
 @section('content')
@@ -25,11 +50,17 @@
          <!-- user profile first-style start-->
          <div class="col-sm-12">
             <div class="card hovercard text-center">
-               <div class="cardheader"></div>
-               <!-- <img src="assets/images/banner/3.jpg" class="img-fluid" alt="Responsive image"> -->
+               <div class="img-container">
+                  <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5" data-toggle="modal" data-original-title="test" data-target="#profile_banner"></i></div>
+                  <div class="my-gallery" id="aniimated-thumbnials" itemscope="">
+                     <figure itemprop="associatedMedia" itemscope="">
+                        <a href="../assets/images/other-images/profile-style-img3.png" itemprop="contentUrl" data-size="1600x950"><img class="img-fluid rounded" src="../assets/images/other-images/profile-style-img3.png" itemprop="thumbnail" alt="gallery"></a>
+                     </figure>
+                  </div>
+               </div>
                <div class="user-image">
                   <div class="avatar"><img alt="" src="../assets/images/user/7.jpg"></div>
-                  <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5"></i></div>
+                  <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5" data-toggle="modal" data-original-title="test" data-target="#profile_image"></i></div>
                </div>
                <div class="info">
                   <div class="row">
@@ -111,11 +142,20 @@
                      <nav class="navbar navbar-light bg-primary rounded">
                        <span class="navbar-brand mb-0 h1">Profile</span>
                      </nav>
-                     <br>
                      <div class="container-fluid">
                         <div class="row">
                            <div class="col-sm-12 col-xl-12">
                               <div class="card" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
+                                 <div class="card-header no-border d-flex">
+                                   <ul class="creative-dots">
+                                      <li class="bg-primary big-dot"></li>
+                                      <li class="bg-secondary semi-big-dot"></li>
+                                      <li class="bg-warning medium-dot"></li>
+                                      <li class="bg-info semi-medium-dot"></li>
+                                      <li class="bg-secondary semi-small-dot"></li>
+                                      <li class="bg-primary small-dot"></li>
+                                   </ul>
+                                </div>
                                  <div class="card-body rounded">
                                     <div class="row">
                                        <div class="col-md-6">
@@ -144,11 +184,20 @@
                     <nav class="navbar navbar-light bg-primary rounded">
                        <span class="navbar-brand mb-0 h1">Contant</span>
                      </nav>
-                     <br>
                   <div class="container-fluid">
                      <div class="row">
                         <div class="col-sm-12 col-xl-12">
                            <div class="card" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
+                              <div class="card-header no-border d-flex">
+                                   <ul class="creative-dots">
+                                      <li class="bg-primary big-dot"></li>
+                                      <li class="bg-secondary semi-big-dot"></li>
+                                      <li class="bg-warning medium-dot"></li>
+                                      <li class="bg-info semi-medium-dot"></li>
+                                      <li class="bg-secondary semi-small-dot"></li>
+                                      <li class="bg-primary small-dot"></li>
+                                   </ul>
+                                </div>
                               <div class="card-body rounded">
                                  <div class="row">
                                     <div class="col-md-6">
@@ -179,6 +228,16 @@
                         <div class="row">
                            <div class="col-sm-12 col-xl-12">
                               <div class="card" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
+                                 <div class="card-header no-border d-flex">
+                                   <ul class="creative-dots">
+                                      <li class="bg-primary big-dot"></li>
+                                      <li class="bg-secondary semi-big-dot"></li>
+                                      <li class="bg-warning medium-dot"></li>
+                                      <li class="bg-info semi-medium-dot"></li>
+                                      <li class="bg-secondary semi-small-dot"></li>
+                                      <li class="bg-primary small-dot"></li>
+                                   </ul>
+                                </div>
                                  <div class="card-body rounded">
                                     <div class="row">
                                        <div class="col-md-6">
@@ -210,6 +269,16 @@
                      <div class="row">
                         <div class="col-sm-12 col-xl-12">
                            <div class="card" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
+                              <div class="card-header no-border d-flex">
+                                   <ul class="creative-dots">
+                                      <li class="bg-primary big-dot"></li>
+                                      <li class="bg-secondary semi-big-dot"></li>
+                                      <li class="bg-warning medium-dot"></li>
+                                      <li class="bg-info semi-medium-dot"></li>
+                                      <li class="bg-secondary semi-small-dot"></li>
+                                      <li class="bg-primary small-dot"></li>
+                                   </ul>
+                                </div>
                               <div class="card-body rounded">
                                  <div class="row">
                                     <div class="col-md-6">
@@ -235,30 +304,36 @@
                   </nav>
                   <br>
                   <!-- Individual column searching (text inputs) Starts-->
-                  <div class="col-xl-12 box-col-12">
-                     <div class="card height-equal">
-                        <div class="card-body">
-                           <div class="row">
-                              <div class="col-md-4 text-center"><img class="img-fluid" src="../assets/images/ecommerce/card.png" alt=""></div>
-                              <div class="col-md-8">
-                                 <form class="theme-form mega-form">
-                                    <div class="form-group">
-                                       <input class="form-control" type="text" placeholder="Card number">
-                                    </div>
-                                    <div class="form-group">
-                                       <input class="form-control" type="text" placeholder="First Name">
-                                    </div>
-                                    <div class="form-group">
-                                       <input class="form-control" type="date">
-                                    </div>
-                                    <div class="form-group">
-                                       <input class="form-control" type="text" placeholder="Full Name">
-                                    </div>
-                                 </form>
-                              </div>
-                           </div>
+                  <div class="card-body">
+                     <form class="theme-form row">
+                        <div class="form-group col-12">
+                           <input class="form-control" type="text" placeholder="AC Holder name">
                         </div>
-                     </div>
+                        <div class="form-group col-12">
+                           <input class="form-control" type="text" placeholder="Account number">
+                        </div>
+                        <div class="form-group col-6 p-r-0">
+                           <select class="form-control" size="1">
+                              <option>Select Bank</option>
+                              <option>SBI</option>
+                              <option>ICICI</option>
+                              <option>KOTAK</option>
+                              <option>BOB</option>
+                           </select>
+                        </div>
+                        <div class="form-group col-6">
+                           <input class="form-control" type="text" placeholder="ICFC code">
+                        </div>
+                        <div class="form-group col-12">
+                           <input class="form-control" type="text" placeholder="Enter mobile number">
+                        </div>
+                        <div class="form-group col-12">
+                           <input class="form-control" type="text" placeholder="Other Details">
+                        </div>
+                        <div class="col-6">
+                           <button class="btn btn-info-gradien btn-block btn-pill" type="button" data-original-title="btn btn-info-gradien" title="">Submit</button>
+                        </div>
+                     </form>
                   </div>
                </div>
                <!-- Education -->
@@ -436,12 +511,8 @@
                <div class="tab-pane fade" id="v-pills-Documents" role="tabpanel" aria-labelledby="v-pills-Documents-tab">
                   <nav class="navbar navbar-light bg-primary rounded">
                     <span class="navbar-brand mb-0 h1">Other Documents</span>
-                    <h4><a data-target="#add-document" >+ Add Document</a></h4>
+                    <h4><i data-target="#add_document" >+ Add Document</i></h4>
                   </nav>
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Business</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
                   <br>
                      <div class="ctm-border-radius shadow-sm card">
                      <div class="card-body">
@@ -518,7 +589,59 @@
                   <br>
                   <p>Family</p>
                </div>
-               
+
+               <!-- Pop-up div image upload-->
+               <div class="modal fade" id="profile_image" tabindex="-1" role="dialog" aria-labelledby="profile_imageLabel" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                         <div class="modal-header">
+                             <h5 class="modal-title" id="profile_imageLabel">Add Profile Image</h5>
+                             <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                         </div>
+                           <form method="POST"  id="imageUploadForm" enctype="multipart/form-data">
+                                        @csrf
+                           <div class="container mt-3">
+                              <div class="card">
+                                 <div class="card-body">
+                                    <input type="file" name="image" class="image">
+                                 </div>
+                              </div>  
+                           </div>
+                              <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                                 <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">×</span>
+                                          </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <div class="img-container">
+                                             <div class="row">
+                                                <div class="col-md-8">
+                                                   <img id="image" class="test" src="https://avatars0.githubusercontent.com/u/3456749">
+                                                </div>
+                                             <div class="col-md-4">
+                                                <div class="preview"></div>
+                                             </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                          <button type="button" class="btn btn-primary" id="crop">Crop</button>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>                            
+                          </div>
+                        </div>                             
+                         </form>
+                     </div>
+                   </div>
+                 </div>
+               <!-- Pop-up  image upload Ends-->
                </div>
             </div>
          </div>
@@ -528,10 +651,26 @@
 @endsection
 
 @section('script')
+<script src="../assets/js/croppie.js"></script>
+
 <script src="../assets/js/counter/jquery.waypoints.min.js"></script>
  <script src="../assets/js/counter/jquery.counterup.min.js"></script>
  <script src="../assets/js/counter/counter-custom.js"></script>
  <script src="../assets/js/photoswipe/photoswipe.min.js"></script>
  <script src="../assets/js/photoswipe/photoswipe-ui-default.min.js"></script>
  <script src="../assets/js/photoswipe/photoswipe.js"></script>
+ <!-- custom js -->
+ <script src="../assets/pro_js/profile.js"></script>
+
+ <script type="text/javascript">
+
+   $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+   var upload_images = "{{url('profile_upload_images')}}";
+
+   
+ </script>
 @endsection

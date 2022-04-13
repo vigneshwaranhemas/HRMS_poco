@@ -2015,12 +2015,12 @@ class AdminController extends Controller
 
         
     }*/
+
     public function storeImage(Request $request)
     {
         $session_val = Session::get('session_info');
         $emp_ID = $session_val['empID'];
         $folderPath = public_path('uploads/profile_image');
- 
         $image_parts = explode(";base64,", $request->image);
         $image_type_aux = explode("image/", $image_parts[0]);
         $image_type = $image_type_aux[1];
@@ -2028,13 +2028,17 @@ class AdminController extends Controller
  
         $imageName = uniqid() . '.png';
  
-        $picturename = $folderPath.$imageName;
+
+        $imageFullPath = $folderPath.$imageName;
+
+
+        file_put_contents($imageFullPath, $image_base64);
  
-        file_put_contents($picturename, $image_base64);
- 
-        $data =array(
+        
+         $data =array(
             'name'=>$emp_ID,
-            'path'=>$picturename,);
+            'path'=>$imageFullPath,);
+         // echo "<pre>";print_r($data);die;
         $insert = DB::table( 'images' )->insert( $data );
     
         return response()->json(['success'=>'Crop Image Uploaded Successfully']);

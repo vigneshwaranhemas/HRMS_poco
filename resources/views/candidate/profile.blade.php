@@ -15,7 +15,10 @@
 
 @section('style')
 <style type="text/css">
+<<<<<<< HEAD
 img.test {
+=======
+
 display: block;
 max-width: 100%;
 }
@@ -29,6 +32,7 @@ border: 1px solid red;
 .modal-lg{
 max-width: 1000px !important;
 }
+
 </style>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -51,7 +55,6 @@ max-width: 1000px !important;
          <div class="col-sm-12">
             <div class="card hovercard text-center">
                <div class="img-container">
-                  <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5" data-toggle="modal" data-original-title="test" data-target="#profile_banner"></i></div>
                   <div class="my-gallery" id="aniimated-thumbnials" itemscope="">
                      <figure itemprop="associatedMedia" itemscope="">
                         <a href="../assets/images/other-images/profile-style-img3.png" itemprop="contentUrl" data-size="1600x950"><img class="img-fluid rounded" src="../assets/images/other-images/profile-style-img3.png" itemprop="thumbnail" alt="gallery"></a>
@@ -591,6 +594,7 @@ max-width: 1000px !important;
                </div>
 
                <!-- Pop-up div image upload-->
+
                <div class="modal fade" id="profile_image" tabindex="-1" role="dialog" aria-labelledby="profile_imageLabel" aria-hidden="true">
                    <div class="modal-dialog" role="document">
                      <div class="modal-content">
@@ -641,7 +645,7 @@ max-width: 1000px !important;
                      </div>
                    </div>
                  </div>
-               <!-- Pop-up  image upload Ends-->
+               <!-- Pop-up div Ends-->
                </div>
             </div>
          </div>

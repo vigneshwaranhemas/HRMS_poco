@@ -57,7 +57,7 @@
                   <div class="sub-cont">
                     <div class="img">
                       <div class="img__text m--up">
-                        <h2>Welcome To Hema's !</h2>
+                        <h2>Welcome To HEPL</h2>
                         <!-- <p></p> -->
                       </div>
                       <div class="img__text m--in">

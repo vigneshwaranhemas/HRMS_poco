@@ -179,8 +179,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Repositories\BackendServiceProvider::class,
-
+        // App\Providers\BackendServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+
+
 
     ],
 

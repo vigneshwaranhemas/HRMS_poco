@@ -22,7 +22,7 @@
 @endsection
 
 @section('breadcrumb-items')
-   <li class="breadcrumb-item">Day One</li>
+   <li class="breadcrumb-item">Candidate Seating</li>
 	{{-- <li class="breadcrumb-item active">Default</li> --}}
 @endsection
 

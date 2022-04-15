@@ -113,10 +113,10 @@ interface IAdminRepository {
     public function process_client_delete( $input_details );
 
 
-    // //roles
-    // public function get_role_data();
-    // public function get_role_details_pop( $input_details );
-    // public function update_role_unit_details( $input_details );
+    //roles
+    public function get_role_data();
+    public function get_role_details_pop( $input_details );
+    public function update_role_unit_details( $input_details );
 
     // // permission
     // public function get_permission_count_base( );

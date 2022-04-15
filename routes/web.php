@@ -265,3 +265,8 @@ Route::post( 'process_client_delete', 'AdminController@process_client_delete' );
 // Welcome Aboard
 Route::get('welcome_aboard', 'AdminController@welcome_aboard')->name('welcome_aboard');
 Route::post('add_welcome_aboard_process', 'AdminController@add_welcome_aboard_process');
+
+/*image upload profile*/
+Route::post('profile_upload_images', 'AdminController@storeImage');
+
+

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
+use Session;
+
 class AdminController extends Controller
 {
     public function __construct(IAdminRepository $admrpy)
@@ -2048,4 +2050,52 @@ class AdminController extends Controller
     }
 
 
+    //image upload
+    /*public function storeImage(Request $request)
+    {
+        $session_val = Session::get('session_info');
+        $emp_ID = $session_val['empID'];
+        // echo "<pre>";print_r($session_val['empID']);die;
+
+        $this->validate($request, ['picture' => 'mimes:jpeg,png,jpg|max:2048']);
+        $picturename = date('mdYHis').uniqid().$request->file('image')->getClientOriginalName();
+
+         $destinationPath =public_path("/uploads");
+         $public_path_upload = $request->image->move($destinationPath,$picturename);
+
+        $data =array(
+            'name'=>$emp_ID,
+            'path'=>$picturename,);
+        $insert = DB::table( 'images' )->insert( $data );
+
+
+    }*/
+
+    public function storeImage(Request $request)
+    {
+        $session_val = Session::get('session_info');
+        $emp_ID = $session_val['empID'];
+        $folderPath = public_path('uploads/profile_image');
+        $image_parts = explode(";base64,", $request->image);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+
+        $imageName = uniqid() . '.png';
+
+
+        $imageFullPath = $folderPath.$imageName;
+
+
+        file_put_contents($imageFullPath, $image_base64);
+
+
+         $data =array(
+            'name'=>$emp_ID,
+            'path'=>$imageFullPath,);
+         // echo "<pre>";print_r($data);die;
+        $insert = DB::table( 'images' )->insert( $data );
+
+        return response()->json(['success'=>'Crop Image Uploaded Successfully']);
+    }
 }

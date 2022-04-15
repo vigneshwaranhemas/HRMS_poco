@@ -157,6 +157,10 @@ class AdminController extends Controller
     {
         return view('admin.welcome_aboard');
     }
+    public function view_welcome_aboard()
+    {
+        return view('admin.view_welcome_aboard');
+    }
 
     // Business Process Start
     public function add_business_unit(Request $req)

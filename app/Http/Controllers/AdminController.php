@@ -18,29 +18,29 @@ class AdminController extends Controller
     public function admin_dashboard()
     {
         return view('admin.dashboard');
-    } 
+    }
     public function admin_goals()
     {
         return view('admin.goals');
-    }  
+    }
     public function admin_add_goal_setting()
     {
         return view('admin.add_goal_setting');
-    }    
+    }
     public function admin_goal_setting()
     {
         return view('admin.goal_setting');
-    }    
+    }
     public function holidays()
     {
         return view('admin.holidays');
     }
     public function events()
-    {                
+    {
         $candicate_details = DB::table('candidate_details')->get();
         $event_categories_data = DB::table('event_categories')->get();
         $event_types_data = DB::table('event_types')->get();
-        return view('event-calendar.index', ['candicate_details'=> $candicate_details, 'event_categories_data'=> $event_categories_data, 'event_types_data'=> $event_types_data]);    
+        return view('event-calendar.index', ['candicate_details'=> $candicate_details, 'event_categories_data'=> $event_categories_data, 'event_types_data'=> $event_types_data]);
     }
     public function Hr_SeatingRequest()
     {
@@ -150,6 +150,10 @@ class AdminController extends Controller
     public function roles()
     {
         return view('admin.masters.add_roles');
+    }
+    public function welcome_aboard()
+    {
+        return view('admin.welcome_aboard');
     }
 
     // Business Process Start
@@ -1960,6 +1964,88 @@ class AdminController extends Controller
 
     }
     // Client Process End
+
+    // Welcome Aboard Process Start
+    public function add_welcome_aboard_process(Request $req)
+    {
+        $data = $req->validate([
+            'name' => 'required',
+            'designation' => 'required',
+            'department' => 'required',
+            'today_date' => 'required',
+            'work_in' => 'required',
+            'work_designation' => 'required',
+            'work_years' => 'required',
+            'joining_at' => 'required',
+            'joining_as' => 'required',
+            ]);
+
+        $wa_id = 'WA'.((DB::table( 'welcome_aboards' )->max('id')) +1);
+
+        $today_date = Carbon::now()->format('Y-m-d');
+
+        $did_my = $req->input('did_my');
+        $did_my_json = json_encode($did_my);
+
+        $did_from = $req->input('did_from');
+        $did_from_json = json_encode($did_from);
+
+        $did_in = $req->input('did_in');
+        $did_in_json = json_encode($did_in);
+
+        $work_experience_at = $req->input('work_experience_at');
+        $work_experience_at_json = json_encode($work_experience_at);
+
+        $work_experience_as = $req->input('work_experience_as');
+        $work_experience_as_json = json_encode($work_experience_as);
+
+        $work_experience_years = $req->input('work_experience_years');
+        $work_experience_years_json = json_encode($work_experience_years);
+
+        $form_data = array(
+            'wa_id' => $wa_id,
+            'name' => $req->input('name'),
+            'designation' => $req->input('designation'),
+            'department' => $req->input('department'),
+            'today_date' => $req->input('today_date'),
+            'education_my' => $did_my_json,
+            'education_from' => $did_from_json,
+            'education_in' => $did_in_json,
+            'achievements_education' => $req->input('achievements_education'),
+            'work_in' => $req->input('work_in'),
+            'work_designation' => $req->input('work_designation'),
+            'work_years' => $req->input('work_years'),
+            'work_experience_at' => $work_experience_at_json,
+            'work_experience_as' => $work_experience_as_json,
+            'work_experience_years' => $work_experience_years_json,
+            'joining_at' => $req->input('joining_at'),
+            'joining_as' => $req->input('joining_as'),
+            'achievements_work' => $req->input('achievements_work'),
+            'my_favorite_pastime' => $req->input('my_favorite_pastime'),
+            'my_favorite_hobbies' => $req->input('my_favorite_hobbies'),
+            'my_favorite_places' => $req->input('my_favorite_places'),
+            'my_favorite_foods' => $req->input('my_favorite_foods'),
+            'my_favorite_sports' => $req->input('my_favorite_sports'),
+            'my_favorite_movies' => $req->input('my_favorite_movies'),
+            'my_favorite' => $req->input('my_favorite'),
+            'my_extracurricular_specialities' => $req->input('my_extracurricular_specialities'),
+            'my_career_aspirations' => $req->input('my_career_aspirations'),
+            'languages' => $req->input('languages'),
+            'interesting_facts' => $req->input('interesting_facts'),
+            'my_motto' => $req->input('my_motto'),
+            'books' => $req->input('books'),
+            'created_on' => $today_date,
+            'created_by' => '900315'
+
+        );
+        // echo '<pre>';print_r($form_data);
+        // die;
+        $add_welcome_aboard_process_result = $this->admrpy->add_welcome_aboard_process( $form_data );
+
+        $response = 'success';
+        return response()->json( ['response' => $response] );
+          echo json_encode($form_data);
+    }
 
 
 }

@@ -18,7 +18,7 @@ use App\menu;
 use App\sub_menu;
 use App\role_permission;
 use App\Role;
-
+use App\welcome_aboard;
 
 class AdminRepository implements IAdminRepository
 {
@@ -79,7 +79,7 @@ class AdminRepository implements IAdminRepository
                 </tr>";
                 array_push($sub_menu_items,$sub);
                  // echo"<pre>";print_r($sub);
-            } 
+            }
                  // die;
             $subitems=implode(' ', $sub_menu_items);
             $menu="<tr class='test_data2'><td><b>".$value->menu_name."</td>".$subitems."</tr>";
@@ -878,6 +878,13 @@ class AdminRepository implements IAdminRepository
     //     $permission_menu_data = role_permission::get();
     //     return $permission_menu_data;
     // }
+
+    // Division Unit process start
+    public function add_welcome_aboard_process( $form_data ){
+
+        $response = welcome_aboard::insert($form_data);
+        return $response;
+      }
 
 
 

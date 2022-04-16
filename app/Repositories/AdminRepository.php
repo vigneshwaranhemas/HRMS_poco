@@ -18,7 +18,7 @@ use App\menu;
 use App\sub_menu;
 use App\role_permission;
 use App\Role;
-
+use App\welcome_aboard;
 
 class AdminRepository implements IAdminRepository
 {
@@ -62,6 +62,16 @@ class AdminRepository implements IAdminRepository
 
         $permission_menu_data = Role::get();
         return $permission_menu_data;
+    }
+
+    public function update_profile_details( $input_details ){
+
+        $update_roletbl = DB::table('images')->where( 'emp_id', '=', $input_details['emp_id'] );
+        $update_roletbl->update( [
+            'emp_id' => $input_details['emp_id'],
+            'path' => $input_details['path'],
+        ] );
+
     }
 
     public function get_menu_list_res($role_id){
@@ -109,6 +119,7 @@ class AdminRepository implements IAdminRepository
                     $update=" ";
                     $add=" ";
                     $delete=" ";
+
                    }
                     $sub = "<tr><td><input type='hidden' value=".$value->menu_id."></td><td> ".$val->sub_menu_name."</td>
                     <td><div class='media-body  '><label class='switch modify_switch '><input name='checking' ".$view." type='checkbox'><span class='switch-state '></span></label></div></td>
@@ -117,7 +128,7 @@ class AdminRepository implements IAdminRepository
                     <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$delete." type='checkbox'><span class='switch-state '></span></label></div></td>
                     </tr>";
                     array_push($sub_menu_items,$sub);
-                } 
+                }
             $subitems=implode(' ', $sub_menu_items);
             $menu="<tr class='test_data2 header'><td><b>".$value->menu_name."</td>".$subitems."</tr>";
         }else{
@@ -886,6 +897,15 @@ class AdminRepository implements IAdminRepository
 
         return $bandtbl;
     }
+    public function get_profile_info( $input_details ){
+
+        $bandtbl = DB::table('images')
+        ->select('*')
+        ->where('emp_id', '=', $input_details['emp_ID'])
+        ->get();
+
+        return $bandtbl;
+    }
 
     public function update_client_details( $input_details ){
 
@@ -920,20 +940,17 @@ class AdminRepository implements IAdminRepository
     }
     // Client process End
 
-    // /*insert data to db*/
-    // public function add_role_process( $form_data ){
 
-    //   $response=Role::insert($form_data);
-    //   return $response;
-    //   }
+    function get_table($table, $emp_ID) {
+        
 
-    //   /*table view for role*/
-    //   public function get_role_data(){
+         $bandtbl = DB::table($table)
+        ->select('*')
+        ->where('emp_id', '=', $emp_ID['emp_ID'])
+        ->get();
 
-    //     $role_data = Role::get();
-
-    //     return $role_data;
-    // }
+        return $bandtbl;
+    }
 
     // public function get_role_details_pop( $input_details ){
 
@@ -946,30 +963,14 @@ class AdminRepository implements IAdminRepository
     //     return $roletbl;
     // }
 
-    // public function update_role_unit_details( $input_details ){
+    
 
-    //     $update_roletbl = DB::table('roles');
-    //     $update_roletbl = $update_roletbl->where( 'id', '=', $input_details['id'] );
+    // Division Unit process start
+    public function add_welcome_aboard_process( $form_data ){
 
-    //     // echo "<pre>";print_r($update_roletbl);die;
-
-    //     $update_roletbl->update( [
-    //         'name' => $input_details['name'],
-    //         'status' => $input_details['status'],
-    //     ] );
-
-    // }
-
-    // public function get_permission_count_base(){
-
-    //     $role_data = Role::get();
-    //     return $role_data;
-    // }
-    // public function get_permision_menu_base(){
-
-    //     $permission_menu_data = role_permission::get();
-    //     return $permission_menu_data;
-    // }
+        $response = welcome_aboard::insert($form_data);
+        return $response;
+      }
 
 
 

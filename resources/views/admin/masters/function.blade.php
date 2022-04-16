@@ -28,7 +28,7 @@
 @section('breadcrumb-items')
    {{-- <li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li> --}}
-    <button class="btn btn-primary" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">Add Division</button>
+    <button class="btn btn-primary" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">Add Function</button>
 @endsection
 
 @section('content')

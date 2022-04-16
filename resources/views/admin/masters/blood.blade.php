@@ -1,5 +1,5 @@
 @extends('layouts.simple.admin_master')
-@section('title', 'Grade')
+@section('title', 'Blood Group')
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
@@ -22,13 +22,13 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Grade<span> </span></h2>
+	<h2>Blood Group<span> </span></h2>
 @endsection
 
 @section('breadcrumb-items')
    {{-- <li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li> --}}
-    <button class="btn btn-primary" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">Add Grade</button>
+    <button class="btn btn-primary" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">Add Blood</button>
 @endsection
 
 @section('content')
@@ -40,11 +40,11 @@
         <div class="card">
           <div class="card-body">
             <div class="dt-ext table-responsive">
-              <table class="display" id="grade_data">
+              <table class="display" id="blood_group_data">
                 <thead>
                   <tr>
                     <th>S.No</th>
-                    <th>Grade</th>
+                    <th>Blood Group</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -66,7 +66,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Grade Unit Status</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Blood Group Status</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
 
@@ -88,7 +88,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Grade Unit Delete</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Blood Group Delete</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
 
@@ -106,19 +106,19 @@
 <!-- Delete pop-up model start -->
 
 <!-- Edit pop-up model start-->
-<div class="modal fade" id="grade_edit_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="blood_edit_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit Grade Unit Details</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Edit Blood Group Details</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
 
               <div class="modal-body">
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
-                        <label for="grade_name">Grade Name </label>
-                        <input type="text" id="grade_name" class="form-control" placeholder="Grade Name" name="grade_name" />
+                        <label for="blood_group_name">Blood Group Name </label>
+                        <input type="text" id="blood_group_name" class="form-control" placeholder="Blood Group Name" name="blood_group_name" />
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>
@@ -138,17 +138,17 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add Grade</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Add Blood Group</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
-            <form method="POST" action="javascript:void(0)" id="add_grade_unit" class="ajax-form">
+            <form method="POST" action="javascript:void(0)" id="add_vand_unit" class="ajax-form">
                 {{ csrf_field() }}
               <div class="modal-body">
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
-                          <label for="grade_name">Grade Name</label>
-                          <input class="form-control" name="grade_name" id="grade_name" type="text" placeholder="Grade Name" required="">
-                          <div class="text-warning" id="grade_name_error"></div>
+                          <label for="blood_group_name">Blood Group Name</label>
+                          <input class="form-control" name="blood_group_name" id="blood_group_name" type="text" placeholder="Blood Group Name" required="">
+                          <div class="text-warning" id="blood_group_name_error"></div>
                       </div>
                   </div>
               </div>
@@ -168,15 +168,15 @@
 
 @section('script')
 
-<script src="../assets/pro_js/grade.js"></script>
+<script src="../assets/pro_js/blood_group.js"></script>
 
 <script>
-var add_grade_process_link = "{{url('add_grade_process')}}";
-var get_grade_link_database = "{{url('get_grade_database')}}";
-var get_grade_details_link = "{{url('get_grade_details')}}";
-var update_grade_details_link = "{{url('update_grade_details')}}";
-var process_grade_status_link = "{{url('process_grade_status')}}";
-var process_grade_delete_link = "{{url('process_grade_delete')}}";
+var add_blood_process_link = "{{url('add_blood_process')}}";
+var get_blood_link_database = "{{url('get_blood_database')}}";
+var get_blood_details_link = "{{url('get_blood_details')}}";
+var update_blood_details_link = "{{url('update_blood_details')}}";
+var process_blood_status_link = "{{url('process_blood_status')}}";
+var process_blood_delete_link = "{{url('process_blood_delete')}}";
 </script>
 @endsection
 

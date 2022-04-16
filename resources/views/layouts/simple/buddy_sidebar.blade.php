@@ -46,6 +46,14 @@
                 <li><a>Tabbed Card</a></li>
              </ul> --}}
           </li>
+          <li>
+             <a class="bar-icons" href="#"><i class="pe-7s-portfolio"></i><span>Goals</span></a>
+             <ul class="iconbar-mainmenu custom-scrollbar">
+                <li class="iconbar-header">Goals</li>
+                <li><a href="{{ route('buddy_goals') }}">Goals</a></li>
+               <li><a href="{{ route('buddy_goal_setting') }}">Goal Setting</a></li>
+             </ul>
+          </li>
           {{-- <li>
              <a class="bar-icons" href="#"><i class="pe-7s-note2"></i><span>Forms</span></a>
              <ul class="iconbar-mainmenu custom-scrollbar">

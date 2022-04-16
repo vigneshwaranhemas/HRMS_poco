@@ -43,6 +43,17 @@
                 <li class="iconbar-header sub-header">Cards</li>
                 <li><a>Basic Card</a></li>
                 <li><a>Theme Card</a></li>
+
+                <li><a>Tabbed Card</a></li>
+             </ul> --}}
+          </li>          
+          <li>
+             <a class="bar-icons" href="#"><i class="pe-7s-portfolio"></i><span>Goals</span></a>
+             <ul class="iconbar-mainmenu custom-scrollbar">
+                <li class="iconbar-header">Goals</li>
+                <li><a href="{{ route('candidate_goals') }}">Goals</a></li>
+               <li><a href="{{ route('candidate_goal_setting') }}">Goal Setting</a></li>
+             </ul>
                 <li><a>Tabbed Card</a></li> -->
              </ul> 
           </li>

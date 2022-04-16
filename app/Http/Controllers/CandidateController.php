@@ -11,6 +11,18 @@ class CandidateController extends Controller
         return view('candidate.dashboard');
     }
 
+    public function candidate_goals()
+    {
+        return view('candidate.goals');
+    }  
+    public function candidate_add_goal_setting()
+    {
+        return view('candidate.add_goal_setting');
+    }    
+    public function candidate_goal_setting()
+    {
+        return view('candidate.goal_setting');
+    }    
 
     public function preOnboarding()
     {
@@ -52,11 +64,12 @@ class CandidateController extends Controller
         // $data['user_info']=$user_info;
 
 
-
+        
         // return view('candidate.buddy_feedback')->with('buddy_fields',$data);
         return view('candidate.buddy_feedback');
     }
     public function profile(){
         return view('candidate.profile');
         }
+
 }

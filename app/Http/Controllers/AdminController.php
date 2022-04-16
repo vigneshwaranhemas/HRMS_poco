@@ -59,10 +59,10 @@ class AdminController extends Controller
     }
     /*menu listing */
     public function menu_listing(Request $req){
-    // echo "<pre>";print_r($req->role_id);die();
         $role_id['role_id'] = $req->role_id;
 
         $get_menu_result = $this->admrpy->get_menu_list_res($role_id);
+         // echo "<pre>";print_r($get_menu_result);die();
         return response()->json( $get_menu_result );
     }
     /*save a menu and sub-menu*/
@@ -160,6 +160,10 @@ class AdminController extends Controller
     public function view_welcome_aboard()
     {
         return view('admin.view_welcome_aboard');
+    }
+    public function roles_s()
+    {
+        return view('admin.roll_s');
     }
 
     // Business Process Start
@@ -2042,4 +2046,100 @@ class AdminController extends Controller
 
         return response()->json(['success'=>'Crop Image Uploaded Successfully']);
     }
+
+     /* insert roles*/
+    public function add_roles_process(Request $req)
+    {
+
+        $bu_id = 'RO'.((DB::table( 'roles' )->max('id')) +1);
+
+        $today_date = Carbon::now()->format('Y-m-d');
+        $form_data = array(
+            'role_id' => $bu_id,
+            'name' => $req->input('role_name'),
+            'status' => "active",
+            'created_on' => $today_date,
+            'created_by' => '900315'
+
+        );
+        // echo '<pre>';print_r($form_data); die;
+        $add_business_unit_process_result = $this->admrpy->add_role_process( $form_data );
+
+        $response = 'success';
+        return response()->json( ['response' => $response] );
+          echo json_encode($form_data);
+    }
+
+    /*role view*/
+    public function get_role_data(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $get_role_data_result = $this->admrpy->get_role_data( );
+
+
+        return DataTables::of($get_role_data_result)
+        ->addIndexColumn()
+
+        ->addColumn('status', function($row) {
+            $btn = '';
+            $result =  $row->status;
+            // print_r($result); die();
+            if($result == "active")
+            {
+                $btn = '<span class="badge badge-success">Active</span>';
+            }elseif($result == "Inactive"){
+                $btn = '<span class="badge badge-warning">Inactive</span>';
+            }
+
+            return $btn;
+        })
+
+        ->addColumn('action', function($row) {
+
+            /*$btn = '<div class="btn-group dropdown m-r-10">
+            <button aria-expanded="false" data-toggle="dropdown"
+                class="btn btn-default dropdown-toggle waves-effect waves-light"
+                type="button"><i class="fa fa-gears "></i></button>
+            <ul role="menu" class="dropdown-menu pull-right">
+                <li><a href="javascript:;" onclick="role_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></li>
+            </ul></div>';*/
+            $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="role_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    </div>';
+            return $btn;
+        })
+
+
+        ->rawColumns(['status', 'action'])
+        ->make(true);
+        }
+        return view('add_roles');
+    }
+
+     public function update_role_unit_details(Request $req){
+
+        $input_details = array(
+            'id'=>$req->input('id'),
+            'name'=>$req->input('role_name_edit'),
+            'status'=>$req->input('role_status_edit'),
+        );
+        // echo "<pre>";print_r($input_details);die;
+        $update_role_unit_details_result = $this->admrpy->update_role_unit_details( $input_details );
+
+        $response = 'Updated';
+        return response()->json( ['response' => $response] );
+    }
+
+    public function get_role_details_pop(Request $req){
+        $input_details = array(
+            'id'=>$req->input('id'),
+        );
+
+        $get_role_details_result = $this->admrpy->get_role_details_pop( $input_details );
+
+        return response()->json( $get_role_details_result );
+    }
+
 }

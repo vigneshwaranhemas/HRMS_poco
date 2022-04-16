@@ -2017,35 +2017,16 @@ class AdminController extends Controller
     }
     // Client Process End
 
-
-    //image upload  
-    /*public function storeImage(Request $request)
-    {
+    public function storeImage(Request $request){
         $session_val = Session::get('session_info');
         $emp_ID = $session_val['empID'];
-        // echo "<pre>";print_r($session_val['empID']);die;
 
-        $this->validate($request, ['picture' => 'mimes:jpeg,png,jpg|max:2048']);
-        $picturename = date('mdYHis').uniqid().$request->file('image')->getClientOriginalName();
-
-         $destinationPath =public_path("/uploads");
-         $public_path_upload = $request->image->move($destinationPath,$picturename);
-
-        $data =array(
-            'name'=>$emp_ID,
-            'path'=>$picturename,);
-        $insert = DB::table( 'images' )->insert( $data );
-
-        
-    }*/
-
-    public function storeImage(Request $request)
-    {
-        $session_val = Session::get('session_info');
-        $emp_ID = $session_val['empID'];
-        $folderPath = public_path('uploads/profile_image');
+        $folderPath = public_path('uploads\profile_image');
+        // echo "<pre>";print_r($folderPath);
         $image_parts = explode(";base64,", $request->image);
+        // echo "2<pre>";print_r($image_parts);
         $image_type_aux = explode("image/", $image_parts[0]);
+        // echo "3<pre>";print_r($image_type_aux);die;
         $image_type = $image_type_aux[1];
         $image_base64 = base64_decode($image_parts[1]);
  
@@ -2056,15 +2037,45 @@ class AdminController extends Controller
 
 
         file_put_contents($imageFullPath, $image_base64);
- 
-        
-         $data =array(
-            'name'=>$emp_ID,
+
+
+        $user = DB::table( 'images' )->where('emp_id', '=', $emp_ID)->first();
+
+        if ($user === null) {
+         // echo "1<pre>";print_r($user);die;
+            $data =array(
+            'emp_id'=>$emp_ID,
             'path'=>$imageFullPath,);
-         // echo "<pre>";print_r($data);die;
         $insert = DB::table( 'images' )->insert( $data );
     
-        return response()->json(['success'=>'Crop Image Uploaded Successfully']);
+        return response()->json(['success'=>'insert']);
+        }else{
+         // echo "2<pre>";print_r($user);die;
+            $data =array(
+            'emp_id'=>$emp_ID,
+            'path'=>$imageFullPath,);
+            $update_role_unit_details_result = $this->admrpy->update_profile_details( $data );
+
+            $response = 'Updated';
+            return response()->json( ['success'=>'update'] );
+        }
+ 
+            
+
+        
+    }
+
+    /*PreviewImage */
+    public function PreviewImage(Request $request){
+
+        $session_val = Session::get('session_info');
+        $emp_ID = $session_val['empID'];
+        // echo "<pre>";print_r($emp_ID);die;
+         $input_details = array( "emp_ID" => $emp_ID, );
+          $get_profile_info_result = $this->admrpy->get_profile_info( $input_details );
+
+        return response()->json( $get_profile_info_result );
+        
     }
 
      /* insert roles*/
@@ -2160,6 +2171,47 @@ class AdminController extends Controller
         $get_role_details_result = $this->admrpy->get_role_details_pop( $input_details );
 
         return response()->json( $get_role_details_result );
+    }
+
+    public function masters() {
+
+        $session_val = Session::get('session_info');
+        $emp_ID = $session_val['empID'];
+        // echo "<pre>";print_r($emp_ID);die;
+         $emp_ID = array( "emp_ID" => $emp_ID, );
+
+
+        //business
+        $business = $this->admrpy->get_table('tbl_business', $emp_ID);
+        $data['business'] = $business;
+        //band
+        $band = $this->admrpy->get_table('tbl_band', $emp_ID);
+        $data['band'] = $band;
+        //work_location
+        $work_location = $this->admrpy->get_table('tbl_work_location', $emp_ID);
+        $data['work_location'] = $work_location;
+        //blood_group
+        $blood_group = $this->admrpy->get_table('tbl_blood_group', $emp_ID);
+        $data['blood_group'] = $blood_group;
+        //roll_intake
+        $roll_intake = $this->admrpy->get_table('tbl_roll_intake', $emp_ID);
+        $data['roll_intake'] = $roll_intake;
+        //Manager
+        $manager = $this->admrpy->get_table('tbl_personnel', $emp_ID);
+        $data['manager'] = $manager;
+        //Department
+        $department = $this->admrpy->get_table('tbl_department', $emp_ID);
+        $data['department'] = $department;
+        //State
+        $state = $this->admrpy->get_table('tbl_state', $emp_ID);
+        $data['state'] = $state;
+        //spoc s&d
+        $users = $this->admrpy->get_table('users', $emp_ID);
+        $data['users'] = $users;
+
+        return response()->json( $data );
+
+        // $this->load->view('admin/masters', $data);
     }
 
 }

@@ -15,9 +15,7 @@
 
 @section('style')
 <style type="text/css">
-<<<<<<< HEAD
 img.test {
-=======
 
 display: block;
 max-width: 100%;
@@ -62,7 +60,7 @@ max-width: 1000px !important;
                   </div>
                </div>
                <div class="user-image">
-                  <div class="avatar"><img alt="" src="../assets/images/user/7.jpg"></div>
+                  <div class="avatar"><img alt="" id="profile_img" src="../assets/images/user/7.jpg"></div>
                   <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5" data-toggle="modal" data-original-title="test" data-target="#profile_image"></i></div>
                </div>
                <div class="info">
@@ -514,10 +512,11 @@ max-width: 1000px !important;
                <div class="tab-pane fade" id="v-pills-Documents" role="tabpanel" aria-labelledby="v-pills-Documents-tab">
                   <nav class="navbar navbar-light bg-primary rounded">
                     <span class="navbar-brand mb-0 h1">Other Documents</span>
-                    <h4><i data-target="#add_document" >+ Add Document</i></h4>
+                    <!-- <h4><i data-target="#add_document" >+ Add Document</i></h4> -->
+                     <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">+ Add Document</button>
                   </nav>
                   <br>
-                     <div class="ctm-border-radius shadow-sm card">
+                  <div class="ctm-border-radius shadow-sm card">
                      <div class="card-body">
                          <div class="row people-grid-row">
                              <div class="col-md-3 col-lg-3 col-xl-4">
@@ -583,6 +582,34 @@ max-width: 1000px !important;
                          </div>
                      </div>
                   </div>
+                   <!-- Pop-up div starts-->
+                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                         <div class="modal-dialog" role="document">
+                           <div class="modal-content">
+                               <div class="modal-header">
+                                   <h5 class="modal-title" id="exampleModalLabel">Add Documents</h5>
+                                   <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                               </div>
+                                 <form method="POST" action="javascript:void(0)" id="add_documents_unit" class="ajax-form">
+                                     {{ csrf_field() }}
+                                   <div class="modal-body">
+                                       <div class="form-row">
+                                           <div class="col-md-12 mb-3">
+                                               <label for="documents_name">Documents Name</label>
+                                               <input class="form-control" name="documents_name" id="documents_name" type="file" placeholder="documents Name" required="">
+                                               <div class="text-warning" id="documents_name_error"></div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="modal-footer">
+                                       <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
+                                       <button class="btn btn-secondary" type="button" id="btnSubmit">Save</button>
+                                   </div>
+                                 </form>
+                           </div>
+                         </div>
+                       </div>
+                     <!-- Pop-up div Ends-->
                </div>  
                <!-- Family -->                   
                <div class="tab-pane fade" id="v-pills-Family" role="tabpanel" aria-labelledby="v-pills-Family-tab">
@@ -674,6 +701,7 @@ max-width: 1000px !important;
         }
     });
    var upload_images = "{{url('profile_upload_images')}}";
+   var display_image = "{{url('profile_display_images')}}";
 
    
  </script>

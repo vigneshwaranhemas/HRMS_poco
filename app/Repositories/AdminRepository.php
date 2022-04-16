@@ -461,6 +461,15 @@ class AdminRepository implements IAdminRepository
     }
     // Location process End
 
+    public function update_profile_details( $input_details ){
+
+        $update_roletbl = DB::table('images')->where( 'emp_id', '=', $input_details['emp_id'] );
+        $update_roletbl->update( [
+            'emp_id' => $input_details['emp_id'],
+            'path' => $input_details['path'],
+        ] );
+
+    }
     // Blood Group process start
     public function add_blood_process( $form_data ){
 

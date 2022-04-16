@@ -2045,26 +2045,38 @@ class AdminController extends Controller
         $emp_ID = $session_val['empID'];
         $folderPath = public_path('uploads/profile_image');
         $image_parts = explode(";base64,", $request->image);
+        // echo "2<pre>";print_r($image_parts);
         $image_type_aux = explode("image/", $image_parts[0]);
+        // echo "3<pre>";print_r($image_type_aux);die;
         $image_type = $image_type_aux[1];
         $image_base64 = base64_decode($image_parts[1]);
- 
+
         $imageName = uniqid() . '.png';
- 
+
 
         $imageFullPath = $folderPath.$imageName;
 
 
         file_put_contents($imageFullPath, $image_base64);
- 
-        
-         $data =array(
-            'name'=>$emp_ID,
+        $user = DB::table( 'images' )->where('emp_id', '=', $emp_ID)->first();
+
+        if ($user === null) {
+         // echo "1<pre>";print_r($user);die;
+            $data =array(
+            'emp_id'=>$emp_ID,
             'path'=>$imageFullPath,);
-         // echo "<pre>";print_r($data);die;
-        $insert = DB::table( 'images' )->insert( $data );
-    
-        return response()->json(['success'=>'Crop Image Uploaded Successfully']);
+        $insert = DB::table( 'images' )->insert( $data );    
+        return response()->json(['success'=>'insert']);
+        }else{
+         // echo "2<pre>";print_r($user);die;
+            $data =array(
+            'emp_id'=>$emp_ID,
+            'path'=>$imageFullPath,);
+            $update_role_unit_details_result = $this->admrpy->update_profile_details( $data );
+
+            $response = 'Updated';
+            return response()->json( ['success'=>'update'] );
+        }  
     }
 
      /* insert roles*/

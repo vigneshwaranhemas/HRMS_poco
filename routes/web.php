@@ -78,7 +78,7 @@ Route::get('/preOnboarding','CandidateController@preOnboarding');
 Route::get('Buddy_feedback', 'CandidateController@buddy')->name('buddy_feedback');
 
 
-//Admin Controller  
+//Admin Controller
 Route::get('/admin_dashboard', 'AdminController@admin_dashboard')->name('candidate_dashboard');
 
 Route::get('/admin_goals', 'AdminController@admin_goals')->name('admin_goals');
@@ -262,6 +262,12 @@ Route::post( 'update_client_details', 'AdminController@update_client_details' );
 Route::post( 'process_client_status', 'AdminController@process_client_status' );
 Route::post( 'process_client_delete', 'AdminController@process_client_delete' );
 
+// Welcome Aboard
+Route::get('welcome_aboard', 'AdminController@welcome_aboard')->name('welcome_aboard');
+Route::post('add_welcome_aboard_process', 'AdminController@add_welcome_aboard_process');
+
+// View Welcome Aboard
+Route::get('view_welcome_aboard', 'AdminController@view_welcome_aboard')->name('view_welcome_aboard');
 
 /*image upload profile*/
 Route::post('profile_upload_images', 'AdminController@storeImage');
@@ -273,4 +279,5 @@ Route::post('add_roles_process', 'AdminController@add_roles_process');
 Route::post('get_role_data', 'AdminController@get_role_data');
 Route::post( 'get_role_details_pop', 'AdminController@get_role_details_pop' );
 Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_details' );
+
 

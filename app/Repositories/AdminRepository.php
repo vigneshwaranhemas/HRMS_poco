@@ -18,7 +18,7 @@ use App\menu;
 use App\sub_menu;
 use App\role_permission;
 use App\Role;
-
+use App\welcome_aboard;
 
 class AdminRepository implements IAdminRepository
 {
@@ -119,6 +119,7 @@ class AdminRepository implements IAdminRepository
                     $update=" ";
                     $add=" ";
                     $delete=" ";
+
                    }
                     $sub = "<tr><td><input type='hidden' value=".$value->menu_id."></td><td> ".$val->sub_menu_name."</td>
                     <td><div class='media-body  '><label class='switch modify_switch '><input name='checking' ".$view." type='checkbox'><span class='switch-state '></span></label></div></td>
@@ -127,7 +128,7 @@ class AdminRepository implements IAdminRepository
                     <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$delete." type='checkbox'><span class='switch-state '></span></label></div></td>
                     </tr>";
                     array_push($sub_menu_items,$sub);
-                } 
+                }
             $subitems=implode(' ', $sub_menu_items);
             $menu="<tr class='test_data2 header'><td><b>".$value->menu_name."</td>".$subitems."</tr>";
         }else{
@@ -954,6 +955,13 @@ class AdminRepository implements IAdminRepository
     // }
 
     
+
+    // Division Unit process start
+    public function add_welcome_aboard_process( $form_data ){
+
+        $response = welcome_aboard::insert($form_data);
+        return $response;
+      }
 
 
 

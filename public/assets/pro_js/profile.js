@@ -1,3 +1,9 @@
+
+$(document).ready(function() {
+    profile_info_process();
+});
+
+
 var $modal = $('#modal');
 // var $profile_image = $('#profile_image');
 var image = document.getElementById('image');
@@ -55,12 +61,76 @@ $("#crop").click(function(){
           data: {'_token': $('meta[name="_token"]').attr('content'), 'image': base64data},
           success: function(data){
           // console.log(data);
-          $modal.modal('hide');
-          // $profile_image.modal('hide');
+          /*$modal.modal('hide');
           alert("Crop image successfully uploaded");
-          location.reload();
+          location.reload();*/
+          if(data =='insert'){
+
+               Toastify({
+                   text: "Image successfully uploaded..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    $modal.modal('hide');
+                    location.reload();
+                   }, 2000);
+
+           }else if(data =='update'){
+
+            Toastify({
+                   text: "Successfully uploaded..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                   $modal.modal('hide');
+                    location.reload();
+                   }, 2000);
+
+           }
+           else{
+               Toastify({
+                   text: "Request Failed..! Try Again",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#f3616d",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                       location.reload();
+                   }, 2000);
+
+           }
           }
         });
       }
   });
 })
+
+
+//Edit pop-up model and data show
+function profile_info_process(id){
+    $.ajax({
+        url: display_image,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+          console.log(data[0].path)
+          {
+            $("#profile_img").html(data);
+          }
+
+        }
+    });
+}
+
+

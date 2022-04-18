@@ -272,6 +272,7 @@ Route::post( 'get_welcome_aboard_details', 'AdminController@get_welcome_aboard_d
 
 /*image upload profile*/
 Route::post('profile_upload_images', 'AdminController@storeImage');
+Route::post('profile_display_images', 'AdminController@PreviewImage');
 Route::get('roles_s', 'AdminController@roles_s')->name('roles_s');
 
 /*roles*/

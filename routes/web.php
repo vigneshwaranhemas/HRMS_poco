@@ -268,6 +268,7 @@ Route::post('add_welcome_aboard_process', 'AdminController@add_welcome_aboard_pr
 
 // View Welcome Aboard
 Route::get('view_welcome_aboard', 'AdminController@view_welcome_aboard')->name('view_welcome_aboard');
+Route::post( 'get_welcome_aboard_details', 'AdminController@get_welcome_aboard_details' );
 
 /*image upload profile*/
 Route::post('profile_upload_images', 'AdminController@storeImage');
@@ -278,5 +279,3 @@ Route::post('add_roles_process', 'AdminController@add_roles_process');
 Route::post('get_role_data', 'AdminController@get_role_data');
 Route::post( 'get_role_details_pop', 'AdminController@get_role_details_pop' );
 Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_details' );
-
-

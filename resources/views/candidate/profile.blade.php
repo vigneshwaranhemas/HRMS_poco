@@ -60,31 +60,31 @@ max-width: 1000px !important;
                   </div>
                </div>
                <div class="user-image">
-                  <div class="avatar"><img alt="" id="profile_img" src="../assets/images/user/7.jpg"></div>
+                  <div class="avatar"><img alt="" id="profile_img" src=""></div>
                   <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5" data-toggle="modal" data-original-title="test" data-target="#profile_image"></i></div>
                </div>
                <div class="info">
                   <div class="row">
                      <div class="col-sm-6 col-lg-4 order-sm-1 order-xl-0">
                         <div class="row">
-                           <div class="col-md-6">
+                           <div class="col-md-7">
                               <div class="ttl-info text-left">
                                  <h6><i class="fa fa-envelope"></i>   Email</h6>
-                                 <span>Marekjecno@yahoo.com</span>
+                                 <div id="email"></div>
                               </div>
                            </div>
-                           <div class="col-md-6">
+                           <div class="col-md-5">
                               <div class="ttl-info text-left">
                                  <h6><i class="fa fa-calendar"></i>   BOD</h6>
-                                 <span>02 January 1990</span>
+                                 <div id="dob"></div>
                               </div>
                            </div>
                         </div>
                      </div>
                      <div class="col-sm-12 col-lg-4 order-sm-0 order-xl-1">
                         <div class="user-designation">
-                           <div class="title"><a target="_blank" href="">KUMAR</a></div>
-                           <div class="desc mt-2">designer</div>
+                           <div class="title"><a target="_blank" id="pro_name" href=""></a></div>
+                           <div class="desc mt-2" id="designation"></div>
                         </div>
                      </div>
                      <div class="col-sm-6 col-lg-4 order-sm-2 order-xl-2">
@@ -92,13 +92,13 @@ max-width: 1000px !important;
                            <div class="col-md-6">
                               <div class="ttl-info text-left">
                                  <h6><i class="fa fa-phone"></i>   Contact Us</h6>
-                                 <span>India +91 123-456-7890</span>
+                                 <span><a id="contact_no"></a></span>
                               </div>
                            </div>
                            <div class="col-md-6">
                               <div class="ttl-info text-left">
-                                 <h6><i class="fa fa-location-arrow"></i>   Location</h6>
-                                 <span>B69 Near School Demo Home</span>
+                                 <h6><i class="fa fa-location-arrow"></i>   Work Location</h6>
+                                 <span><a id="worklocation"></a></span>
                               </div>
                            </div>
                         </div>
@@ -306,33 +306,41 @@ max-width: 1000px !important;
                   <br>
                   <!-- Individual column searching (text inputs) Starts-->
                   <div class="card-body">
-                     <form class="theme-form row">
+                     <form class="theme-form row" method="POST" action="javascript:void(0)" id="add_account_info" enctype="multipart/form-data">
                         <div class="form-group col-12">
-                           <input class="form-control" type="text" placeholder="AC Holder name">
+                           <input class="form-control" type="text" name="acc_name" id="acc_name" placeholder="AC Holder name">
+                             <span class="text-danger color-hider" id="acc_name_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-12">
-                           <input class="form-control" type="text" placeholder="Account number">
+                           <input class="form-control" type="text" maxlength="13" name="acc_number" id="acc_number" placeholder="Account number">
+                           <span class="text-danger color-hider" id="acc_number_error" style="display:none;color: red;"></span>
                         </div>
-                        <div class="form-group col-6 p-r-0">
-                           <select class="form-control" size="1">
+                        <div class="form-group col-6">
+                           <select class="form-control" id="bank_name"  name="bank_name">
                               <option>Select Bank</option>
                               <option>SBI</option>
                               <option>ICICI</option>
                               <option>KOTAK</option>
                               <option>BOB</option>
+                              <option>PUVATHA BANK</option>
                            </select>
+                           <span class="text-danger color-hider" id="bank_name_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
-                           <input class="form-control" type="text" placeholder="ICFC code">
+                           <input class="form-control" name="ifsc_code" id="ifsc_code" type="text" placeholder="ICFC code">
+                           <span class="text-danger color-hider" id="ifsc_code_error"  style="display:none;color: red;"></span>
                         </div>
-                        <div class="form-group col-12">
-                           <input class="form-control" type="text" placeholder="Enter mobile number">
+                        <div class="form-group col-6">
+                           <input class="form-control" maxlength="10" name="acc_mobile" id="acc_mobile" type="text" placeholder="Enter mobile number">
+                           <span class="text-danger color-hider" id="acc_mobile_error"  style="display:none;color: red;"></span>
                         </div>
-                        <div class="form-group col-12">
-                           <input class="form-control" type="text" placeholder="Other Details">
+                        <div class="form-group col-6">
+                           <input class="form-control" name="branch_name" id="branch_name" type="text" placeholder="Other Details">
+                           <span class="text-danger color-hider" id="branch_name_error"  style="display:none;color: red;"></span>
                         </div>
-                        <div class="col-6">
-                           <button class="btn btn-info-gradien btn-block btn-pill" type="button" data-original-title="btn btn-info-gradien" title="">Submit</button>
+                        <div class="col-4">
+                           <!-- <input type="hidden" name="type_id" id="type_id"> -->
+                           <button class="btn btn-info-gradien btn-block btn-pill" data-original-title="btn btn-info-gradien" type="submit" >Save</button>
                         </div>
                      </form>
                   </div>
@@ -341,6 +349,7 @@ max-width: 1000px !important;
                <div class="tab-pane fade" id="v-pills-Education" role="tabpanel" aria-labelledby="v-pills-Education-tab">
                   <nav class="navbar navbar-light bg-primary rounded">
                     <span class="navbar-brand mb-0 h1">Education Information</span>
+                    <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#documentModal">+ Add Education</button>
                   </nav>
                     <div class="card-body">
                         <div class="employee-office-table">
@@ -352,7 +361,7 @@ max-width: 1000px !important;
                                         <th>University</th>
                                         <th>Begin On</th>
                                         <th>Due By</th>
-                                        <th>File</th>
+                                        <!-- <th>File</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -361,15 +370,14 @@ max-width: 1000px !important;
                                         <td>St.Joseph's</td>
                                         <td>15 Dec 20__</td>
                                         <td>17 Dec 20__</td>
-                                        <td><a href="employment.html" class="avatar"><img class="img-fluid img-circle rounded" alt="avatar image" src="../assets/images/avtar/16.jpg" style="width: 50px;"></a></td>
+                                        <!-- <td><a href="employment.html" class="avatar"><img class="img-fluid img-circle rounded" alt="avatar image" src="../assets/images/avtar/16.jpg" style="width: 50px;"></a></td> -->
                                     </tr>
                                     <tr>
                                         <td><a> HSC </a></td>
                                         <td>St.Joseph's</td>
                                         <td>15 Dec 2009</td>
                                         <td>17 Dec 2011</td>
-                                        <td>
-                                            <a href="employment.html" class="avatar"><img class="img-fluid img-circle rounded" alt="avatar image" src="../assets/images/avtar/16.jpg" style="width: 50px;"></a>
+                                        <!-- <td><a href="employment.html" class="avatar"><img class="img-fluid img-circle rounded" alt="avatar image" src="../assets/images/avtar/16.jpg" style="width: 50px;"></a> -->
                                         </td>
                                     </tr>
                                     <tr>
@@ -377,8 +385,7 @@ max-width: 1000px !important;
                                         <td>St.Joseph's University</td>
                                         <td>15 Dec 2011</td>
                                         <td>17 Dec 2014</td>
-                                        <td>
-                                            <a href="employment.html" class="avatar"><img class="img-fluid img-circle rounded" alt="avatar image" src="../assets/images/avtar/16.jpg" style="width: 50px;"></a>
+                                        <!-- <td><a href="employment.html" class="avatar"><img class="img-fluid img-circle rounded" alt="avatar image" src="../assets/images/avtar/16.jpg" style="width: 50px;"></a> -->
                                         </td>
                                     </tr>
                                     <tr>
@@ -386,8 +393,7 @@ max-width: 1000px !important;
                                         <td> SRM University</td>
                                         <td>15 Dec 2014</td>
                                         <td>17 Dec 2016</td>
-                                        <td>
-                                            <a href="employment.html" class="avatar"><img class="img-fluid img-circle rounded" alt="avatar image" src="../assets/images/avtar/16.jpg" style="width: 50px;"></a>
+                                        <!-- <td><a href="employment.html" class="avatar"><img class="img-fluid img-circle rounded" alt="avatar image" src="../assets/images/avtar/16.jpg" style="width: 50px;"></a> -->
                                         </td>
                                     </tr>
                                 </tbody>
@@ -395,8 +401,51 @@ max-width: 1000px !important;
                         </div>
                         </div>
                     </div>
+                    <!-- Pop-up div starts-->
+                  <div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Education</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
+                              <form method="POST" action="javascript:void(0)" id="add_education_unit" class="ajax-form" enctype="multipart/form-data">
+                                  {{ csrf_field() }}
+                                <div class="modal-body">
+                                    <div class="form-row">
+                                       <div class="col-md-12 mb-3">
+                                            <label for="Qualification">Qualification</label>
+                                            <input class="form-control" name="qualification" id="qualification" type="text" placeholder="Qualification" required="">
+                                            <div class="text-warning" id="qualification_error"></div>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="University">University</label>
+                                            <input class="form-control" name="university" id="university" type="text" placeholder="University" required="">
+                                            <div class="text-warning" id="university_error"></div>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="Begin_On">Begin On</label>
+                                            <input class="form-control" name="begin_on" id="begin_on" type="date" placeholder="" required="">
+                                            <div class="text-warning" id="begin_on_error"></div>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="Due By">Due By</label>
+                                            <input class="form-control" name="due_by" id="due_by" type="date" placeholder="" required="">
+                                            <div class="text-warning" id="due_by_error"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-secondary" type="button" id="btnSubmit">Save</button>
+                                </div>
+                              </form>
+                        </div>
+                      </div>
+                    </div>
+                  <!-- Pop-up div Ends-->
                </div>
-                  <!-- Experience -->
+               <!-- Experience -->
                <div class="tab-pane fade" id="v-pills-Experience" role="tabpanel" aria-labelledby="v-pills-Experience-tab">
                   <nav class="navbar navbar-light bg-primary rounded">
                     <span class="navbar-brand mb-0 h1">Experience</span>
@@ -516,100 +565,44 @@ max-width: 1000px !important;
                      <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">+ Add Document</button>
                   </nav>
                   <br>
-                  <div class="ctm-border-radius shadow-sm card">
-                     <div class="card-body">
-                         <div class="row people-grid-row">
-                             <div class="col-md-3 col-lg-3 col-xl-4">
-                                 <div class="card widget-profile">
-                                     <div class="card-body rounded" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
-                                         <div class="pro-widget-content text-center">
-                                             <div class="profile-info-widget">
-                                                 <a class="fa fa-suitcase" style="font-size:25px;color:black">
-                                                     <!-- <img alt="User Image"> -->
-                                                 </a>
-                                                 <div class="profile-det-info">
-                                                     <h5><a href="employment.html" class="text-info">Maria Cotton</a></h5>
-                                                     <div>
-                                                         <p class="mb-0"><b>PHP Team Lead</b></p>
-                                                         <p class="mb-0 ctm-text-sm">3Years</p>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="col-md-3 col-lg-3 col-xl-4">
-                                 <div class="card widget-profile">
-                                     <div class="card-body rounded" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
-                                         <div class="pro-widget-content text-center">
-                                             <div class="profile-info-widget">
-                                                 <a class="fa fa-suitcase" style="font-size:25px;color:black">
-                                                     <!-- <img src="../public/img/profiles/img-5.jpg" alt="User Image"> -->
-                                                 </a>
-                                                 <div class="profile-det-info">
-                                                     <h5><a href="employment.html" class="text-info">Danny Ward</a></h5>
-                                                     <div>
-                                                         <p class="mb-0"><b>Designing Team Lead</b></p>
-                                                         <p class="mb-0 ctm-text-sm">2 Years</p>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="col-md-3 col-lg-3 col-xl-4">
-                                 <div class="card widget-profile">
-                                     <div class="card-body rounded" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
-                                         <div class="pro-widget-content text-center">
-                                             <div class="profile-info-widget">
-                                                 <a class="fa fa-suitcase" style="font-size:25px;color:black">
-                                                     <!-- <img src="../public/img/profiles/img-4.jpg" alt="User Image"> -->
-                                                 </a>
-                                                 <div class="profile-det-info">
-                                                     <h5><a href="employment.html" class="text-info">Linda Craver</a></h5>
-                                                     <div>
-                                                         <p class="mb-0"><b>IOS Team Lead</b></p>
-                                                         <p class="mb-0 ctm-text-sm">1 Year</p>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
+                     <div id="testing">                  
                      </div>
-                  </div>
-                   <!-- Pop-up div starts-->
-                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                         <div class="modal-dialog" role="document">
-                           <div class="modal-content">
-                               <div class="modal-header">
-                                   <h5 class="modal-title" id="exampleModalLabel">Add Documents</h5>
-                                   <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                               </div>
-                                 <form method="POST" action="javascript:void(0)" id="add_documents_unit" class="ajax-form">
-                                     {{ csrf_field() }}
-                                   <div class="modal-body">
-                                       <div class="form-row">
-                                           <div class="col-md-12 mb-3">
-                                               <label for="documents_name">Documents Name</label>
-                                               <input class="form-control" name="documents_name" id="documents_name" type="file" placeholder="documents Name" required="">
-                                               <div class="text-warning" id="documents_name_error"></div>
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <div class="modal-footer">
-                                       <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
-                                       <button class="btn btn-secondary" type="button" id="btnSubmit">Save</button>
-                                   </div>
-                                 </form>
-                           </div>
-                         </div>
-                       </div>
-                     <!-- Pop-up div Ends-->
+
+                <!-- Pop-up div starts-->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Documents</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
+                              <form method="POST" action="javascript:void(0)" id="add_documents_unit" class="ajax-form" enctype="multipart/form-data">
+                                  {{ csrf_field() }}
+                                <div class="modal-body">
+                                    <div class="form-row">
+                                       <div class="col-md-12 mb-3">
+                                            <label for="documents_name">Documents Name</label>
+                                            <input class="form-control" name="documents_name" id="documents_name" type="text" placeholder="documents Name" required="">
+                                            <div class="text-warning" id="documents_name_error"></div>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="upload_file">File</label>
+                                            <input class="form-control" name="file" id="file" type="file" placeholder="documents Name"  aria-describedby="fileHelp" required="">
+                                             <small id="fileHelp" class="form-text text-muted">Please upload a valid image file. Size of image should not be more than 2MB.</small>
+
+                                            <div class="text-warning" id="upload_file_error"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-secondary" type="button" id="btnSubmit">Save</button>
+                                </div>
+                              </form>
+                        </div>
+                      </div>
+                    </div>
+                  <!-- Pop-up div Ends-->
                </div>  
                <!-- Family -->                   
                <div class="tab-pane fade" id="v-pills-Family" role="tabpanel" aria-labelledby="v-pills-Family-tab">
@@ -702,6 +695,10 @@ max-width: 1000px !important;
     });
    var upload_images = "{{url('profile_upload_images')}}";
    var display_image = "{{url('profile_display_images')}}";
+   var add_documents_unit_process_link = "{{url('documents_insert')}}";
+   var documents_info_link = "{{url('documents_info_pro')}}";
+   var account_info_link = "{{url('profile_account_info_add')}}";
+   var account_info_get_link = "{{url('account_info_get')}}";
 
    
  </script>

@@ -60,11 +60,11 @@ $("#crop").click(function(){
           url: upload_images,
           data: {'_token': $('meta[name="_token"]').attr('content'), 'image': base64data},
           success: function(data){
-          // console.log(data);
+          console.log(data.success);
           /*$modal.modal('hide');
           alert("Crop image successfully uploaded");
           location.reload();*/
-          if(data =='insert'){
+          if(data.success =='insert'){
 
                Toastify({
                    text: "Image successfully uploaded..!",
@@ -79,7 +79,7 @@ $("#crop").click(function(){
                     location.reload();
                    }, 2000);
 
-           }else if(data =='update'){
+           }else if(data.success =='updated'){
 
             Toastify({
                    text: "Successfully uploaded..!",
@@ -124,13 +124,198 @@ function profile_info_process(id){
         data:{},
         dataType: "json",
         success: function(data) {
-          console.log(data[0].path)
-          {
-            $("#profile_img").html(data);
+            console.log(data)
+          if (data != ""){
+             $('#pro_name').html(data.username);
+             $('#email').html(data.email);
+             $('#dob').html(data.dob);
+             $('#contact_no').html(data.contact_no);
+             $('#worklocation').html(data.worklocation);
+             $('#designation').html(data.designation);
+            $("#profile_img").attr('src',"../uploads/"+data.path);
+          }else{
+            $("#profile_img").attr('src',"../assets/images/user/7.jpg");
           }
 
         }
     });
 }
 
+/*upload file in popup*/
+$(()=>{
+    $('#btnSubmit').on('click',(e)=>{
+   e.preventDefault();
+      var formData = new FormData(document.getElementById("add_documents_unit"));
+   $.ajax({
+       url:add_documents_unit_process_link,
+       method:"POST",  
+        data:formData,
+        processData:false,
+        cache:false,
+        contentType:false,
+        dataType:"json",
 
+       success:function(data) {
+           // console.log(data);
+           if(data.response =='insert'){
+               Toastify({
+                   text: "Added Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+           }
+           else{
+               Toastify({
+                   text: "Request Failed..! Try Again",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#f3616d",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                       location.reload();
+                   }, 2000);
+
+               }
+           }, 
+       });
+    })
+})
+
+$("#v-pills-Documents-tab").on('click', function() {
+    documents_info();
+});
+
+function documents_info(){
+    $.ajax({
+        url: documents_info_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+             html ="";
+            // console.log(data)
+                html +="<div class='card-body'>";
+                html +="<div class='row people-grid-row'>";
+          for (let index = 0; index < data.length; index++) {
+                html +="<div class='col-md-3 col-lg-3 col-xl-4'>";
+                html +="<div class='card widget-profile'>";
+                html +="<div class='card-body rounded' style='box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);'>";
+                html +="<div class='pro-widget-content text-center'>";
+                html +="<div class='profile-info-widget'>";
+                html +="<a class='fa fa-suitcase' style='font-size:25px;color:black'></a>";
+                html +="<div class='profile-det-info'>";
+                html +="<h5><a href='' class='text-info'>" + data[index].doc_name + "</a></h5>";
+                html +="</div>";
+                html +="</div>";
+                html +="</div>";
+                html +="</div>";
+                html +="</div>";
+                html +="</div>";
+                
+            }
+                html +="</div>";
+                html +="</div>";
+            $('#testing').append(html);
+        }
+    });
+}
+/*account information*/
+$("#v-pills-Account-information-tab").on('click', function() {
+    // alert("asdasdasd")
+    account_information();
+});
+
+function account_information(){
+    $.ajax({
+        url: account_info_get_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+                $('#acc_mobile').val(data['0'].acc_mobile);
+                $('#acc_name').val(data['0'].acc_name);
+                $('#acc_number').val(data['0'].acc_number);
+                $('#bank_name').val(data['0'].bank_name);
+                $('#branch_name').val(data['0'].branch_name);
+                $('#ifsc_code').val(data['0'].ifsc_code);
+                $("#type_id").val(2);
+
+            }
+        });
+    }
+
+/*account info add*/
+$('#add_account_info').submit(function(e) {    
+    e.preventDefault();
+      var formData = new FormData(this);
+    $.ajax({  
+        url:account_info_link, 
+        method:"POST",  
+        data:formData,
+        processData:false,
+        cache:false,
+        contentType:false,
+        dataType:"json",
+        success:function(data) {
+// console.log(data);
+        if(data.error)
+           {
+            $(".color-hider").hide();
+                var keys=Object.keys(data.error);
+                $.each( data.error, function( key, value ) {
+                $("#"+key+'_error').text(value)
+                $("#"+key+'_error').show();
+                });
+           }
+            if(data.response =='insert'){
+               Toastify({
+                   text: "Added Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+
+           }else if(data.response =='Update'){
+               Toastify({
+                   text: "Update Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+
+           }
+           else{
+               Toastify({
+                   text: "Request Failed..! Try Again",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#f3616d",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                   }, 2000);
+
+               }
+            
+        },
+    }); 
+});

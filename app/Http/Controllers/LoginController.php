@@ -26,12 +26,16 @@ class LoginController extends Controller
 
             $info = [
                 'empID' => auth()->user()->empID,
+                'cdID' => auth()->user()->cdID,
                 'username' => auth()->user()->username,
                 'role_type' => auth()->user()->role_type,
                 'active' => auth()->user()->active,
             ];
 
             Session::put("session_info",$info);
+
+
+            // echo json_encode($info);die();
 
 
             if (auth()->user()->role_type == 'Admin') {

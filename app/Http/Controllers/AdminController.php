@@ -2024,11 +2024,11 @@ class AdminController extends Controller
     {
         $session_val = Session::get('session_info');
         $emp_ID = $session_val['empID'];
-        $folderPath = public_path('uploads/profile_image');
+        $cdID = $session_val['cdID'];
+
+        $folderPath = public_path('uploads/');
         $image_parts = explode(";base64,", $request->image);
-        // echo "2<pre>";print_r($image_parts);
         $image_type_aux = explode("image/", $image_parts[0]);
-        // echo "3<pre>";print_r($image_type_aux);die;
         $image_type = $image_type_aux[1];
         $image_base64 = base64_decode($image_parts[1]);
 
@@ -2042,21 +2042,20 @@ class AdminController extends Controller
         $user = DB::table( 'images' )->where('emp_id', '=', $emp_ID)->first();
 
         if ($user === null) {
-         // echo "1<pre>";print_r($user);die;
             $data =array(
             'emp_id'=>$emp_ID,
-            'path'=>$imageFullPath,);
-        $insert = DB::table( 'images' )->insert( $data );    
+            'cdID'=>$cdID,
+            'path'=>$imageName);
+        $insert = DB::table( 'images' )->insert( $data );
+
         return response()->json(['success'=>'insert']);
         }else{
-         // echo "2<pre>";print_r($user);die;
             $data =array(
             'emp_id'=>$emp_ID,
-            'path'=>$imageFullPath,);
+            'cdID'=>$cdID,
+            'path'=>$imageName,);
             $update_role_unit_details_result = $this->admrpy->update_profile_details( $data );
-
-            $response = 'Updated';
-            return response()->json( ['success'=>'update'] );
+            return response()->json(['success'=>'updated']);
         }          
     }
 
@@ -2064,15 +2063,16 @@ class AdminController extends Controller
     public function PreviewImage(Request $request){
 
         $session_val = Session::get('session_info');
-        $emp_ID = $session_val['empID'];
+        $cdID = $session_val['cdID'];
         // echo "<pre>";print_r($emp_ID);die;
-         $input_details = array( "emp_ID" => $emp_ID, );
-          $get_profile_info_result = $this->admrpy->get_profile_info( $input_details );
+        $input_details = array( "cdID" => $cdID, );
+        $get_profile_info_result = $this->admrpy->get_profile_info( $input_details );
 
         return response()->json( $get_profile_info_result );
         
         // return response()->json(['success'=>'Crop Image Uploaded Successfully']);
     }
+    
 
      /* insert roles*/
     public function add_roles_process(Request $req)
@@ -2210,4 +2210,5 @@ class AdminController extends Controller
         // $this->load->view('admin/masters', $data);
     }
 
+    
 }

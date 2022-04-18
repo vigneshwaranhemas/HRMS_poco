@@ -66,9 +66,9 @@ class AdminRepository implements IAdminRepository
 
     public function update_profile_details( $input_details ){
 
-        $update_roletbl = DB::table('images')->where( 'emp_id', '=', $input_details['emp_id'] );
+        $update_roletbl = DB::table('images')->where( 'cdID', '=', $input_details['cdID'] );
         $update_roletbl->update( [
-            'emp_id' => $input_details['emp_id'],
+            'cdID' => $input_details['cdID'],
             'path' => $input_details['path'],
         ] );
 
@@ -890,11 +890,12 @@ class AdminRepository implements IAdminRepository
     }
     public function get_profile_info( $input_details ){
 
-        $bandtbl = DB::table('images')
+        $bandtbl = DB::table('images as img')
         ->select('*')
-        ->where('emp_id', '=', $input_details['emp_ID'])
-        ->get();
-
+        ->where('cus.cdID', '=', $input_details['cdID'])
+        ->join('customusers as cus', 'cus.cdID', '=', 'img.cdID')
+        ->first();
+        // echo "<pre>";print_r($bandtbl);die;
         return $bandtbl;
     }
 

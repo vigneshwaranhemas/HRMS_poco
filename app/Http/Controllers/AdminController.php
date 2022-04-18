@@ -1930,6 +1930,11 @@ class AdminController extends Controller
             'joining_as' => 'required',
             ]);
 
+        $session_val = Session::get('session_info');
+        $emp_ID = $session_val['empID'];
+        // echo '<pre>';print_r($emp_ID);
+        // die;
+
         $wa_id = 'WA'.((DB::table( 'welcome_aboards' )->max('id')) +1);
 
         $today_date = Carbon::now()->format('Y-m-d');
@@ -1985,7 +1990,7 @@ class AdminController extends Controller
             'my_motto' => $req->input('my_motto'),
             'books' => $req->input('books'),
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $emp_ID
 
         );
         // echo '<pre>';print_r($form_data);
@@ -2047,7 +2052,6 @@ class AdminController extends Controller
             'cdID'=>$cdID,
             'path'=>$imageName);
         $insert = DB::table( 'images' )->insert( $data );
-
         return response()->json(['success'=>'insert']);
         }else{
             $data =array(
@@ -2055,8 +2059,8 @@ class AdminController extends Controller
             'cdID'=>$cdID,
             'path'=>$imageName,);
             $update_role_unit_details_result = $this->admrpy->update_profile_details( $data );
-            return response()->json(['success'=>'updated']);
-        }          
+            return response()->json( ['success'=>'update'] );
+        }
     }
 
     /*PreviewImage */
@@ -2069,7 +2073,7 @@ class AdminController extends Controller
         $get_profile_info_result = $this->admrpy->get_profile_info( $input_details );
 
         return response()->json( $get_profile_info_result );
-        
+
         // return response()->json(['success'=>'Crop Image Uploaded Successfully']);
     }
     
@@ -2169,6 +2173,23 @@ class AdminController extends Controller
         return response()->json( $get_role_details_result );
     }
 
+    public function get_welcome_aboard_details(Request $req){
+
+
+        $get_welcome_aboard_details_result = $this->admrpy->get_welcome_aboard_details();
+
+        $get_welcome_aboard_details_result['get_education_my'] =  json_decode($get_welcome_aboard_details_result->education_my,TRUE);
+        $get_welcome_aboard_details_result['get_education_from'] = json_decode($get_welcome_aboard_details_result->education_from,TRUE);
+        $get_welcome_aboard_details_result['get_education_in'] = json_decode($get_welcome_aboard_details_result->education_in,TRUE);
+
+        $get_welcome_aboard_details_result['get_work_experience_at'] =  json_decode($get_welcome_aboard_details_result->work_experience_at,TRUE);
+        $get_welcome_aboard_details_result['get_work_experience_as'] = json_decode($get_welcome_aboard_details_result->work_experience_as,TRUE);
+        $get_welcome_aboard_details_result['get_work_experience_years'] = json_decode($get_welcome_aboard_details_result->work_experience_years,TRUE);
+
+    //   echo '<pre>';print_r($get_data);die();
+
+        return response()->json( $get_welcome_aboard_details_result );
+    }
     public function masters() {
 
         $session_val = Session::get('session_info');
@@ -2208,6 +2229,7 @@ class AdminController extends Controller
         return response()->json( $data );
 
         // $this->load->view('admin/masters', $data);
+
     }
 
     

@@ -143,6 +143,7 @@ max-width: 1000px !important;
                      <nav class="navbar navbar-light bg-primary rounded">
                        <span class="navbar-brand mb-0 h1">Profile</span>
                      </nav>
+                     <br>
                      <div class="container-fluid">
                         <div class="row">
                            <div class="col-sm-12 col-xl-12">
@@ -160,16 +161,16 @@ max-width: 1000px !important;
                                  <div class="card-body rounded">
                                     <div class="row">
                                        <div class="col-md-6">
-                                          <div> <strong>Name : </strong>  Kumar</div><hr>
-                                          <div> <strong>Gender : </strong> Male</div><hr>
+                                          <div> <strong>Name : </strong>  <a id="can_name"></a></div><hr>
+                                          <div> <strong>Gender : </strong><a id="gender"></a></div><hr>
                                           <div> <strong>Marital Status : </strong> Single</div><hr>
                                        </div>
                                        <div class="col-md-6">
                                           <div> <strong>Blood Group : </strong> A++
                                           </div><hr>
-                                          <div> <strong>Date of Birth :</strong> 11-05-1994
+                                          <div> <strong>Date of Birth :</strong> <a id="dob_tx"></a>
                                           </div><hr>
-                                          <div> <strong>Roll of Intake : </strong>  HEPL
+                                          <div> <strong>Roll of Intake : </strong> <a id="payroll_status"></a>
                                           </div><hr>
                                        </div>
                                     </div>
@@ -185,6 +186,7 @@ max-width: 1000px !important;
                     <nav class="navbar navbar-light bg-primary rounded">
                        <span class="navbar-brand mb-0 h1">Contant</span>
                      </nav>
+                     <br>
                   <div class="container-fluid">
                      <div class="row">
                         <div class="col-sm-12 col-xl-12">
@@ -242,16 +244,16 @@ max-width: 1000px !important;
                                  <div class="card-body rounded">
                                     <div class="row">
                                        <div class="col-md-6">
-                                          <div><strong>Date Of Joining : </strong>06 Jun 2022</div><hr>
-                                          <div><strong>Work Location : </strong>Onsite-Cuddalore</div><hr>
+                                          <div><strong>Date Of Joining : </strong><a id="doj"></a></div><hr>
+                                          <div><strong>Work Location : </strong><a id="worklocation_tx"></a></div><hr>
                                           <div><strong>CTC : </strong> 29,869</div><hr>
                                           <div><strong>RFH : </strong> HEPLRFH00436</div><hr>
                                        </div>
                                        <div class="col-md-6">
-                                          <div><strong>Business Unit : </strong>BPO</div><hr>
-                                          <div><strong>Position : </strong> Purchase Officer</div><hr>
+                                          <div><strong>Department : </strong><a id="department"></a></div><hr>
+                                          <div><strong>Position : </strong> <a id="designation_tx"></a></div><hr>
                                           <div><strong>Department : </strong>Business Process Outsourcing</div><hr>
-                                          <div><strong>Grade : </strong>7G</div><hr>
+                                          <div><strong>Grade : </strong><a id="grade"></a></div><hr>
                                        </div>
                                     </div>
                                  </div>
@@ -305,7 +307,19 @@ max-width: 1000px !important;
                   </nav>
                   <br>
                   <!-- Individual column searching (text inputs) Starts-->
-                  <div class="card-body">
+                   <div class="col-sm-12 col-xl-12">
+                           <div class="card" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
+                              <div class="card-header no-border d-flex">
+                                   <ul class="creative-dots">
+                                      <li class="bg-primary big-dot"></li>
+                                      <li class="bg-secondary semi-big-dot"></li>
+                                      <li class="bg-warning medium-dot"></li>
+                                      <li class="bg-info semi-medium-dot"></li>
+                                      <li class="bg-secondary semi-small-dot"></li>
+                                      <li class="bg-primary small-dot"></li>
+                                   </ul>
+                                </div>
+                  <div class="card-body rounded">
                      <form class="theme-form row" method="POST" action="javascript:void(0)" id="add_account_info" enctype="multipart/form-data">
                         <div class="form-group col-12">
                            <input class="form-control" type="text" name="acc_name" id="acc_name" placeholder="AC Holder name">
@@ -344,58 +358,30 @@ max-width: 1000px !important;
                         </div>
                      </form>
                   </div>
+                  </div>
+                  </div>
                </div>
-               <!-- Education -->
+               <!-- Education --> 
                <div class="tab-pane fade" id="v-pills-Education" role="tabpanel" aria-labelledby="v-pills-Education-tab">
                   <nav class="navbar navbar-light bg-primary rounded">
                     <span class="navbar-brand mb-0 h1">Education Information</span>
                     <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#documentModal">+ Add Education</button>
                   </nav>
+                  <br>
                     <div class="card-body">
                         <div class="employee-office-table">
                             <div class="table-responsive">
-                            <table class="table custom-table table-hover">
+                            <table class="table custom-table table-hover" id="education_td">
                                 <thead>
                                     <tr>
                                         <th>Qualification</th>
                                         <th>University</th>
                                         <th>Begin On</th>
                                         <th>Due By</th>
-                                        <!-- <th>File</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><a>SSLC</a></td>
-                                        <td>St.Joseph's</td>
-                                        <td>15 Dec 20__</td>
-                                        <td>17 Dec 20__</td>
-                                        <!-- <td><a href="employment.html" class="avatar"><img class="img-fluid img-circle rounded" alt="avatar image" src="../assets/images/avtar/16.jpg" style="width: 50px;"></a></td> -->
-                                    </tr>
-                                    <tr>
-                                        <td><a> HSC </a></td>
-                                        <td>St.Joseph's</td>
-                                        <td>15 Dec 2009</td>
-                                        <td>17 Dec 2011</td>
-                                        <!-- <td><a href="employment.html" class="avatar"><img class="img-fluid img-circle rounded" alt="avatar image" src="../assets/images/avtar/16.jpg" style="width: 50px;"></a> -->
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a>B.SC</a></td>
-                                        <td>St.Joseph's University</td>
-                                        <td>15 Dec 2011</td>
-                                        <td>17 Dec 2014</td>
-                                        <!-- <td><a href="employment.html" class="avatar"><img class="img-fluid img-circle rounded" alt="avatar image" src="../assets/images/avtar/16.jpg" style="width: 50px;"></a> -->
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a>MCA</a></td>
-                                        <td> SRM University</td>
-                                        <td>15 Dec 2014</td>
-                                        <td>17 Dec 2016</td>
-                                        <!-- <td><a href="employment.html" class="avatar"><img class="img-fluid img-circle rounded" alt="avatar image" src="../assets/images/avtar/16.jpg" style="width: 50px;"></a> -->
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -419,9 +405,9 @@ max-width: 1000px !important;
                                             <div class="text-warning" id="qualification_error"></div>
                                         </div>
                                         <div class="col-md-12 mb-3">
-                                            <label for="University">University</label>
-                                            <input class="form-control" name="university" id="university" type="text" placeholder="University" required="">
-                                            <div class="text-warning" id="university_error"></div>
+                                            <label for="University">Institute</label>
+                                            <input class="form-control" name="institute" id="institute" type="text" placeholder="University" required="">
+                                            <div class="text-warning" id="institute_error"></div>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="Begin_On">Begin On</label>
@@ -429,15 +415,15 @@ max-width: 1000px !important;
                                             <div class="text-warning" id="begin_on_error"></div>
                                         </div>
                                         <div class="col-md-12 mb-3">
-                                            <label for="Due By">Due By</label>
-                                            <input class="form-control" name="due_by" id="due_by" type="date" placeholder="" required="">
-                                            <div class="text-warning" id="due_by_error"></div>
+                                            <label for="Due By">End On</label>
+                                            <input class="form-control" name="end_on" id="end_on" type="date" placeholder="" required="">
+                                            <div class="text-warning" id="end_on_error"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
-                                    <button class="btn btn-secondary" type="button" id="btnSubmit">Save</button>
+                                    <button class="btn btn-secondary" type="btnSubmit">Save</button>
                                 </div>
                               </form>
                         </div>
@@ -450,110 +436,9 @@ max-width: 1000px !important;
                   <nav class="navbar navbar-light bg-primary rounded">
                     <span class="navbar-brand mb-0 h1">Experience</span>
                   </nav>
+                  <br>
                   <div class="ctm-border-radius shadow-sm card">
-                     <div class="card-body">
-                         <div class="row people-grid-row">
-                             <div class="col-md-3 col-lg-3 col-xl-4">
-                                 <div class="card widget-profile">
-                                     <div class="card-body rounded" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
-                                         <div class="pro-widget-content text-center">
-                                             <div class="profile-info-widget">
-                                                 <a class="fa fa-suitcase" style="font-size:25px;color:black">
-                                                     <!-- <img alt="User Image"> -->
-                                                 </a>
-                                                 <div class="profile-det-info">
-                                                     <h5><a href="employment.html" class="text-info">Maria Cotton</a></h5>
-                                                     <div>
-                                                         <p class="mb-0"><b>PHP Team Lead</b></p>
-                                                         <p class="mb-0 ctm-text-sm">3Years</p>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="col-md-3 col-lg-3 col-xl-4">
-                                 <div class="card widget-profile">
-                                     <div class="card-body rounded" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
-                                         <div class="pro-widget-content text-center">
-                                             <div class="profile-info-widget">
-                                                 <a class="fa fa-suitcase" style="font-size:25px;color:black">
-                                                     <!-- <img src="../public/img/profiles/img-5.jpg" alt="User Image"> -->
-                                                 </a>
-                                                 <div class="profile-det-info">
-                                                     <h5><a href="employment.html" class="text-info">Danny Ward</a></h5>
-                                                     <div>
-                                                         <p class="mb-0"><b>Designing Team Lead</b></p>
-                                                         <p class="mb-0 ctm-text-sm">2 Years</p>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="col-md-3 col-lg-3 col-xl-4">
-                                 <div class="card widget-profile">
-                                     <div class="card-body rounded" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
-                                         <div class="pro-widget-content text-center">
-                                             <div class="profile-info-widget">
-                                                 <a class="fa fa-suitcase" style="font-size:25px;color:black">
-                                                     <!-- <img src="../public/img/profiles/img-4.jpg" alt="User Image"> -->
-                                                 </a>
-                                                 <div class="profile-det-info">
-                                                     <h5><a href="employment.html" class="text-info">Linda Craver</a></h5>
-                                                     <div>
-                                                         <p class="mb-0"><b>IOS Team Lead</b></p>
-                                                         <p class="mb-0 ctm-text-sm">1 Year</p>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="col-md-3 col-lg-3 col-xl-4">
-                                 <div class="card widget-profile">
-                                     <div class="card-body rounded" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
-                                         <div class="pro-widget-content text-center">
-                                             <div class="profile-info-widget">
-                                                 <a class="fa fa-suitcase" style="font-size:25px;color:black">
-                                                     <!-- <img src="../public/img/profiles/img-3.jpg" alt="User Image"> -->
-                                                 </a>
-                                                 <div class="profile-det-info">
-                                                     <h5><a href="employment.html" class="text-info">Jenni Sims</a></h5>
-                                                     <div>
-                                                         <p class="mb-0"><b>Android Team Lead</b></p>
-                                                         <p class="mb-0 ctm-text-sm">2 Years</p>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="col-md-3 col-lg-3 col-xl-4">
-                                 <div class="card widget-profile">
-                                     <div class="card-body rounded" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);">
-                                         <div class="pro-widget-content text-center">
-                                             <div class="profile-info-widget">
-                                                 <a class="fa fa-suitcase" style="font-size:25px;color:black">
-                                                     <!-- <img src="../public/img/profiles/img-2.jpg" alt="User Image"> -->
-                                                 </a>
-                                                 <div class="profile-det-info">
-                                                     <h5><a href="employment.html" class="text-info">John Gibbs</a></h5>
-                                                     <div>
-                                                         <p class="mb-0"><b> Business Team Lead</b></p>
-                                                         <p class="mb-0 ctm-text-sm">2 Years</p>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
+                     <div id="Experience_tbl">                  
                      </div>
                   </div>
                </div>
@@ -699,6 +584,9 @@ max-width: 1000px !important;
    var documents_info_link = "{{url('documents_info_pro')}}";
    var account_info_link = "{{url('profile_account_info_add')}}";
    var account_info_get_link = "{{url('account_info_get')}}";
+   var education_information_link = "{{url('education_information_insert')}}";
+   var education_information_get_link = "{{url('education_information_view')}}";
+   var experience_info_link = "{{url('experience_info_view')}}";
 
    
  </script>

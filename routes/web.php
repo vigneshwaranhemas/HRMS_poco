@@ -281,9 +281,12 @@ Route::post('get_role_data', 'AdminController@get_role_data');
 Route::post( 'get_role_details_pop', 'AdminController@get_role_details_pop' );
 Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_details' );
 
-/*document*/
+/*profile document*/
 Route::post('documents_insert','DocumentsController@store')->name('Documents');
 Route::post('documents_info_pro', 'DocumentsController@doc_information');
 Route::post('profile_account_info_add', 'DocumentsController@profile_account_add');
 Route::post('account_info_get', 'DocumentsController@account_info_get_res');
+Route::post('education_information_insert', 'DocumentsController@education_information_add');
+Route::post('education_information_view', 'DocumentsController@education_info_view');
+Route::post('experience_info_view', 'DocumentsController@experience_info_result');
 

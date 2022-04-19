@@ -136,4 +136,67 @@ class DocumentsController extends Controller
         return response()->json( $get_account_info_result );
         
     }
+
+/*education_info_view*/
+     public function education_info_view(Request $request){
+
+        $session_val = Session::get('session_info');
+        $cdID = $session_val['cdID'];
+        $input_details = array( "cdID" => $cdID, );
+        $education_result = $this->profrpy->education_info( $input_details );
+        
+        return response()->json( $education_result );
+        
+    }
+    /*account info */
+    public function education_information_add(Request $request){
+
+      
+            $validator=Validator::make($request->all(),[
+                    'qualification' => 'required',
+                    'institute' => 'required',
+                    'begin_on' => 'required',
+                    'end_on' => 'required',
+                    ], [
+                    'qualification.required' => 'Account Name is required',
+                    'institute.required' => 'Institute is required',
+                    'begin_on.required' => 'Bank Name is required',
+                    'end_on.required' => 'IFSC Code is required',
+                    ]);
+                    if($validator->passes()){
+
+                     $session_val = Session::get('session_info');
+                    $emp_ID = $session_val['empID'];
+                    $cdID = $session_val['cdID'];
+
+                     // $user = DB::table( 'candidate_education_information' )->where('cdID', '=', $cdID)->first();
+
+                    $data =array(
+                        'emp_id'=>$emp_ID,
+                        'cdID'=>$cdID,
+                        'qualification'=>$request->input('qualification'),
+                        'institute'=>$request->input('institute'),
+                        'begin_on'=>$request->input('begin_on'),
+                        'end_on'=>$request->input('end_on'),
+                        );
+
+                    $insert_education_info_result = $this->profrpy->insert_education_info( $data );
+                    // echo "<pre>";print_r($insert_education_info_result);die;
+                    return response()->json(['response'=>'insert']);
+            }
+            else{
+                return response()->json(['error'=>$validator->errors()->toArray()]);
+                }
+        }
+        /*experience_info_result*/
+        public function experience_info_result(Request $request){
+
+        $session_val = Session::get('session_info');
+        $cdID = $session_val['cdID'];
+        $input_details = array( "cdID" => $cdID, );
+        $education_result = $this->profrpy->experience_info( $input_details );
+        
+        return response()->json( $education_result );
+        
+    }
 }

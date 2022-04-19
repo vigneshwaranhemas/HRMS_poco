@@ -2,7 +2,7 @@
 namespace App\Repositories;
 use App\band;
 use App\blood_group;
-use App\business_unit;
+use App\candidate_education_information;
 use App\client;
 use App\department;
 use App\designation;
@@ -44,7 +44,34 @@ class ProfileRepositories implements IProfileRepositories
             'acc_mobile' => $input_details['acc_mobile'],
             'branch_name' => $input_details['branch_name'],
         ] );
+    }
 
+    public function insert_education_info( $input_details ){
+
+        $response = candidate_education_information::insert($input_details);
+        // echo "<pre>";print_r($response);die;
+      return $response;
+    }
+
+    /*education_info*/
+    public function education_info( $input_details ){
+
+        $bandtbl = DB::table('candidate_education_information')
+        ->select('*')
+        ->where('cdID', '=', $input_details['cdID'])
+        ->get();
+
+        return $bandtbl;
+    }
+    /*experience_info*/
+    public function experience_info( $input_details ){
+
+        $bandtbl = DB::table('candidate_experience_details')
+        ->select('*')
+        ->where('cdID', '=', $input_details['cdID'])
+        ->get();
+
+        return $bandtbl;
     }
 
 }

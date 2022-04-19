@@ -75,61 +75,61 @@ function get_permision_role_list(){
             var currrow=$(this).closest('tr');
             var col0=currrow.find('td:eq(0)').text();
               if ($(this).hasClass('header')) {
-                  console.log('one')
+                  //console.log('one')
                }
                else{
 
-             if(currrow.find('td:eq(1)').text()==""){
-                     var col1="";
-                 var text_value=currrow.find('td:eq(1) input[type=hidden]').val();
+                 if(currrow.find('td:eq(1)').text()==""){
+                         var col1="";
+                     var text_value=currrow.find('td:eq(1) input[type=hidden]').val();
 
-             }
-             else{
-                 var text_value=currrow.find('td:eq(0) input[type=hidden]').val();
-                 var col1=currrow.find('td:eq(1)').text();             
-             }
-             var col2=currrow.find('td:eq(2) input[type=checkbox]').is(':checked');
-             if(col2){
-                col2=1
-             }
-             else{
-                col2=0
-             }
-             var col3=currrow.find('td:eq(3) input[type=checkbox]').is(':checked');
-             if(col3){
-                col3=2
-             }
-             else{
-                col3=0
-             }var col4=currrow.find('td:eq(4) input[type=checkbox]').is(':checked');
-             if(col4){
-                col4=3
-             }
-             else{
-                col4=0
-             }var col5=currrow.find('td:eq(5) input[type=checkbox]').is(':checked');
-             if(col5){
-                col5=4
-             }
-             else{
-                col5=0
-             }
-                selected.push({
-                    role:text,
-                    menu:text_value,
-                    sub_menu:col1,
-                    view:col2,
-                    update:col3,
-                    add:col4,
-                    delete:col5,
-                });    
+                 }
+                 else{
+                     var text_value=currrow.find('td:eq(0) input[type=hidden]').val();
+                     var col1=currrow.find('td:eq(1)').text();             
+                 }
+                 var col2=currrow.find('td:eq(2) input[type=checkbox]').is(':checked');
+                 if(col2){
+                    col2=1
+                 }
+                 else{
+                    col2=0
+                 }
+                 var col3=currrow.find('td:eq(3) input[type=checkbox]').is(':checked');
+                 if(col3){
+                    col3=2
+                 }
+                 else{
+                    col3=0
+                 }var col4=currrow.find('td:eq(4) input[type=checkbox]').is(':checked');
+                 if(col4){
+                    col4=3
+                 }
+                 else{
+                    col4=0
+                 }var col5=currrow.find('td:eq(5) input[type=checkbox]').is(':checked');
+                 if(col5){
+                    col5=4
+                 }
+                 else{
+                    col5=0
+                 }
+                    selected.push({
+                        role:text,
+                        menu:text_value,
+                        sub_menu:col1,
+                        view:col2,
+                        update:col3,
+                        add:col4,
+                        delete:col5,
+                    });    
             }
                         
    
           i++;
   
     });
-        console.log(selected)
+        // console.log(selected)
      $.ajax({
             url: get_sub_menu_save_link,
             method: "POST",

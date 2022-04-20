@@ -117,13 +117,13 @@
         <li class="onhover-dropdown"> <span class="media user-header"><img class="img-fluid" src="../assets/images/dashboard/user.png" alt=""></span>
           <ul class="onhover-show-div profile-dropdown">
             <li class="gradient-primary">
-              <h5 class="f-w-600 mb-0">Elana Saint</h5><span>Web Designer</span>
+              <h5 class="f-w-600 mb-0">{{ Auth::user()->username }}</h5><span>{{ Auth::user()->designation }}</span>
             </li>
-            <li><i data-feather="user"> <a href="{{url('logout')}}"></i>Profile</a></li>
+            <li><i data-feather="user"> <a href="{{ url('candidate_profile') }}"></i>Profile</a></li>
             <li><i data-feather="message-square"> </i>Inbox</li>
             <li><i data-feather="file-text"> </i>Taskboard</li>
             <li><i data-feather="settings"> </i>Settings</li>
-            <li><i data-feather="settings"> </i><a href="{{url('logout')}}">Logout</a></li>
+            <li><i data-feather="settings"> </i><a href="{{ url('logout') }}">Logout</a></li>
           </ul>
         </li>
       </ul>

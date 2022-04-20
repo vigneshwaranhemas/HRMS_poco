@@ -3,6 +3,7 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Event;
+use Auth;
 
 class EventRepositories implements IEventRepositories {
     
@@ -27,8 +28,23 @@ class EventRepositories implements IEventRepositories {
    }
    public function fetch_event_filter()
    {      
-      $response = DB::table("events")->select('*')
-                        ->get();
+      if(Auth::user()->role_type === 'Admin'){
+
+         $response = DB::table("events")->select('*')
+         ->get();
+
+      }else{
+
+         $logined_empID = Auth::user()->empID;
+         $response = DB::table('event_attendees')
+                  ->distinct()         
+                  ->select('events.*')         
+                  ->join('events', 'event_attendees.event_id', '=', 'events.event_unique_code')
+                  ->where('event_attendees.candidate_name', $logined_empID)
+                  ->get();
+
+      }
+      
       return $response;
    }
    public function fetch_event_edit($id)
@@ -37,11 +53,23 @@ class EventRepositories implements IEventRepositories {
                         ->get();
       return $response;
 
-   }
+   }   
    public function event_delete($id)
    {
       $response = Event::where('id', $id)
                         ->delete();
+      return $response;
+
+   }
+   public function event_attendees_get($id)
+   {
+      $response = DB::table("event_attendees")->where('event_id', $id)->get();
+      return $response;
+
+   }
+   public function event_attendees_delete($id)
+   {
+      $response = DB::table("event_attendees")->where('event_id', $id)->delete();
       return $response;
 
    }

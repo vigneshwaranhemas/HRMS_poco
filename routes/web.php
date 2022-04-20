@@ -22,8 +22,7 @@ Route::get('/', function () {
 Route::get('logout','AuthController@logout');
 Route::post('login_check_process', 'LoginController@login_check_process' );
 
-
-Route::get('dashboard','AdminController@permission');
+Route::get('dashboard','AdminController@permission')->middleware('is_admin');
 
 Route::prefix('perk-ui')->group(function () {
     Route::view('animate', 'perk-ui.animate')->name('animate');
@@ -57,8 +56,8 @@ Route::get('userdocuments','Hrcontroller@userdocuments');
 
 
 //Buddy Controller
-Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('candidate_dashboard');
-Route::get('buddy', 'BuddyController@buddy_info')->name('buddy_info');
+Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('candidate_dashboard')->middleware('is_admin');
+Route::get('buddy', 'BuddyController@buddy_info')->name('buddy_info')->middleware('is_admin');
 
 //Candidate Controller
 Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
@@ -66,14 +65,9 @@ Route::get('/preOnboarding','CandidateController@preOnboarding');
 Route::get('Buddy_feedback', 'CandidateController@buddy')->name('buddy_feedback');
 
 //Calendaer Event
-Route::post('event_category_insert', 'EventCategoryController@event_category_insert');
-Route::post('event_category_delete', 'EventCategoryController@event_category_delete');
-Route::get('fetch_event_category_all', 'EventCategoryController@fetch_event_category_all');
 
-Route::post('event_type_insert', 'EventTypeController@event_type_insert');
-Route::post('event_type_delete', 'EventTypeController@event_type_delete');
-Route::get('fetch_event_type_all', 'EventTypeController@fetch_event_type_all');
-
+Route::get('events','EventController@events')->name('events');
+// Route::get('events-category','AdminController@create');
 Route::post('add_new_event_insert', 'EventController@add_new_event_insert');
 Route::get('fetch_all_event', 'EventController@fetch_all_event');
 Route::get('fetch_event_edit', 'EventController@fetch_event_edit');
@@ -84,6 +78,14 @@ Route::get('fetch_event_attendees_show', 'EventController@fetch_event_attendees_
 Route::post('event_delete', 'EventController@event_delete');
 Route::post('event_update', 'EventController@event_update');
 
+Route::post('event_category_insert', 'EventCategoryController@event_category_insert');
+Route::post('event_category_delete', 'EventCategoryController@event_category_delete');
+Route::get('fetch_event_category_all', 'EventCategoryController@fetch_event_category_all');
+
+Route::post('event_type_insert', 'EventTypeController@event_type_insert');
+Route::post('event_type_delete', 'EventTypeController@event_type_delete');
+Route::get('fetch_event_type_all', 'EventTypeController@fetch_event_type_all');
+
 Route::get('/Hr_SeatingRequest','AdminController@Hr_SeatingRequest');
 
 //Goals Controller
@@ -91,19 +93,28 @@ Route::get('goals', 'GoalsController@goals')->name('goals');
 Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
 Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
 
+//Holidays Controller
+Route::get('holidays', 'HolidayController@holidays')->name('holidays');
+Route::get('fetch_holidays_list', 'HolidayController@fetch_holidays_list')->name('fetch_holidays_list');
+Route::get('fetch_holidays_list_id', 'HolidayController@fetch_holidays_list_id');
+Route::get('fetch_holidays_list_date', 'HolidayController@fetch_holidays_list_date');
+Route::post( 'add_new_holidays_insert', 'HolidayController@add_new_holidays_insert' );
+Route::post( 'holidays_update', 'HolidayController@holidays_update' );
+Route::post( 'holidays_delete', 'HolidayController@holidays_delete' );
+
 //ItINfra Controller
 
 Route::get('/ItInfra_Dashboard','ItInfraController@index');
 Route::get('/EmailCreation','ItInfraController@EmailIdCreation');
 
-Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('hr_dashboard');
+Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('hr_dashboard')->middleware('is_admin');
 
 //Buddy Controller
-Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('buddy_dashboard');
+Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('buddy_dashboard')->middleware('is_admin');
 
 //Candidate Controller
-Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
-Route::get('candidate_profile','CandidateController@profile');
+Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard')->middleware('is_admin');
+Route::get('candidate_profile','CandidateController@profile')->middleware('is_admin');
 
 // dashboard load admin
 //Route::get('/admin', 'AdminController@admin_dashboard')->name('admin');
@@ -112,8 +123,11 @@ Route::post( 'role_list', 'AdminController@role_list' );
 Route::post( 'menu_listing', 'AdminController@menu_listing' );
 Route::post( 'sub_menu_save_tab', 'AdminController@sub_menu_save_tab' );
 
+//Super Admin
+Route::get('site_admin_dashboard', 'SiteAdminController@site_admin_dashboard')->name('admin_dashboard');
+
 //Admin Controller
-Route::get('/admin_dashboard', 'AdminController@admin_dashboard')->name('candidate_dashboard');
+Route::get('admin_dashboard', 'AdminController@admin_dashboard')->name('admin_dashboard');
 Route::get('business', 'AdminController@business')->name('business');
 Route::get('division', 'AdminController@division')->name('division');
 Route::get('function', 'AdminController@function')->name('function');
@@ -130,13 +144,6 @@ Route::get('zone', 'AdminController@zone')->name('zone');
 Route::get('personnel', 'AdminController@personnel')->name('personnel');
 Route::get('user', 'AdminController@user')->name('user');
 Route::get('roles', 'AdminController@roles')->name('roles');
-Route::get('holidays', 'AdminController@holidays')->name('holidays');
-Route::get('/admin_dashboard', 'AdminController@admin_dashboard')->name('candidate_dashboard');
-Route::get('holidays', 'AdminController@holidays')->name('holidays');
-Route::get('fetch_holidays_list', 'AdminController@fetch_holidays_list');
-Route::post( 'add_new_holidays_insert', 'AdminController@add_new_holidays_insert' );
-Route::get('events','AdminController@events');
-Route::get('events-category','AdminController@create');
 
 // Business Unit
 Route::post('add_business_unit_process', 'AdminController@add_business_unit');
@@ -185,7 +192,6 @@ Route::post( 'get_blood_details', 'AdminController@get_blood_details' );
 Route::post( 'update_blood_details', 'AdminController@update_blood_details' );
 Route::post( 'process_blood_status', 'AdminController@process_blood_status' );
 Route::post( 'process_blood_delete', 'AdminController@process_blood_delete' );
-
 
 // Roll
 Route::post('add_roll_process', 'AdminController@add_roll_process');

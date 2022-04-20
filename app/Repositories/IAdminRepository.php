@@ -104,8 +104,8 @@ interface IAdminRepository {
     public function process_band_status( $input_details );
     public function process_band_delete( $input_details );
 
-     // Client
-     public function add_client_process( $form_data );
+    // Client
+    public function add_client_process( $form_data );
     public function get_client_database_data();
     public function get_client_details( $input_details );
     public function update_client_details( $input_details );
@@ -115,6 +115,10 @@ interface IAdminRepository {
     //Holidays
     public function add_holidays_insert( $data );
     public function fetch_holidays_list();
+    public function fetch_holidays_list_id($id);
+    public function holidays_update($data);
+    public function holidays_delete($id);
+    public function fetch_holidays_list_date($filter_date);
     
     // //roles
     // public function get_role_data();

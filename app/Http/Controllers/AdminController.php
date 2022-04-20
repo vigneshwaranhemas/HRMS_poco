@@ -12,66 +12,39 @@ class AdminController extends Controller
 {
     public function __construct(IAdminRepository $admrpy)
     {
+        $this->middleware('is_admin');
         $this->admrpy = $admrpy;
     }
 
     public function admin_dashboard()
     {
-        $current_date = date("m-d");
-        $todays_birthdays = DB::table('candidate_details')->select('*')->where('candidate_dob', 'LIKE', '%'.$current_date.'%')->get();                                                
-        return view('admin.dashboard', ['todays_birthdays'=> $todays_birthdays]);
-    }   
-    public function holidays()
-    {
-        return view('admin.holidays');
-    }
-    public function add_new_holidays_insert(Request $request)
-    {
-        $result = $request->validate([
-            'occassion' => 'required', 
-        ]);
+        //Birthday card
+        $current_date = date("d-m-Y");
+        $date = Carbon::createFromFormat('d-m-Y', $current_date);   
+        $result = $date->format('F');
+        $monthName = substr($result, 0, 3); 
+        $dt = $date->format('d');
+        $tdy = $dt."-".$monthName;
+        $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%'.$tdy.'%')->get();                                                
 
-        $data = array(
-            'occassion' => $request->occassion,
-            'date' => $request->occassion_date,
-            'created_by' => "900386"
-        );
+        //Work anniversary
+        $tdy_work_anniversary = DB::table('customusers')->select('*')->where('doj', 'LIKE', '%'.$tdy.'%')->get();                                                
+        
+        //Upcoming holidays
+        $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();                                                
+ 
+        //Upcoming events
+        $upcoming_events = DB::table('events')->select('*')->where('start_date_time', '>=', $date)->limit(2)->get();                                                
+        
+        $data = [
+            "todays_birthdays" => $todays_birthdays,
+            "tdy_work_anniversary" => $tdy_work_anniversary,
+            "upcoming_holidays" => $upcoming_holidays,
+            "upcoming_events" => $upcoming_events,
+        ];
 
-        $result = $this->admrpy->add_holidays_insert($data);
-
-        return response($result);
-
-    }
-    public function fetch_holidays_list(Request $request)
-    {
-        $holidaysFilter = $this->admrpy->fetch_holidays_list();  
-
-        $holidays_list = array();
-
-        foreach ($holidaysFilter as $key => $value) {
-            
-            $holidays_list[] = [
-
-                'id' => $value->id,
-                'title' => $value->occassion,
-                'start' => $value->date                  
-                                  
-            ];
-
-        }
-
-        // dd($holidays_list);
-
-        return $holidays_list;
-               
-    }
-    public function events()
-    {                
-        $candicate_details = DB::table('candidate_details')->get();
-        $event_categories_data = DB::table('event_categories')->get();
-        $event_types_data = DB::table('event_types')->get();
-        return view('event-calendar.index', ['candicate_details'=> $candicate_details, 'event_categories_data'=> $event_categories_data, 'event_types_data'=> $event_types_data]);    
-    }
+        return view('admin.dashboard')->with($data);
+    }    
     public function Hr_SeatingRequest()
     {
         return view('admin.SeatingRequest');
@@ -193,6 +166,7 @@ class AdminController extends Controller
         $bu_id = 'BU'.((DB::table( 'business_unit' )->max('id')) +1);
 
         $today_date = Carbon::now()->format('Y-m-d');
+        
         $form_data = array(
             'bu_id' => $bu_id,
             'business_name' => $req->input('business_name'),
@@ -201,8 +175,7 @@ class AdminController extends Controller
             'created_by' => '900315'
 
         );
-        // echo '<pre>';print_r($form_data);
-        // die;
+        
         $add_business_unit_process_result = $this->admrpy->add_business_unit_process( $form_data );
 
         $response = 'success';

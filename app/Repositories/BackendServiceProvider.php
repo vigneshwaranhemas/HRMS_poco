@@ -36,6 +36,10 @@ class BackendServiceProvider extends ServiceProvider
             'App\Repositories\IHrPreonboardingrepositories',
             'App\Repositories\HrPreonboardingrepositories'
         );
+        $this->app->bind(
+            'App\Repositories\IHolidayRepository',
+            'App\Repositories\HolidayRepository'
+        );
 
     }
 

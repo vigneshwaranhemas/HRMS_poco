@@ -2,7 +2,7 @@
     <div class="sidebar">
        <ul class="iconMenu-bar custom-scrollbar">
           <li>
-             <a class="bar-icons" href="#">
+             <a class="bar-icons" href="{{ route('hr_dashboard') }}">
                 <!--img(src='../assets/images/menu/home.png' alt='')--><i class="pe-7s-home"></i><span>Dashboard    </span>
              </a>
              {{-- <ul class="iconbar-mainmenu custom-scrollbar">
@@ -43,6 +43,12 @@
                <li><a href="{{ route('goal_setting') }}">Goal Setting</a></li>
              </ul>
           </li>
+         <li>
+            <a class="bar-icons" href="{{ route('holidays') }}"><i class="pe-7s-plane"></i><span>Holidays</span></a>
+         </li>
+         <li>
+            <a class="bar-icons" href="{{ route('events') }}"><i class="pe-7s-note"></i><span>Events</span></a>
+         </li>    
           {{--
            <!-- <li>
              <a class="bar-icons" href="#"><i class="pe-7s-id"></i><span>Tables</span></a>

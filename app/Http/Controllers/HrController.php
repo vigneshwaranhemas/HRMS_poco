@@ -50,8 +50,8 @@ class HrController extends Controller
 
         return view('HRSS.dashboard')->with($data);
 
-    }
-    
+    }    
+
     public function preOnboarding()
     {
         //  $sess_info=Session::get("session_info");

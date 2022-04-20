@@ -15,6 +15,7 @@ $(()=>{
     $('#btnSubmit').on('click',(e)=>{
     //    alert("abc");
 
+
    e.preventDefault();
 
    $.ajax({
@@ -28,6 +29,7 @@ $(()=>{
            console.log(data);
            $('#btnSubmit').prop("disabled",false);
                $('#btnSubmit').html('Submit');
+            //    $('#btnSubmit').unbind('click');
 
 
            if(data.response =='success'){
@@ -245,7 +247,7 @@ $(()=>{
 
 $("#editUpdate").on('click', function() {
     // alert("abc");
-
+    $('#editUpdate').unbind('click');
     $("#editUpdate").attr("disabled", true);
     $('#editUpdate').html('Processing..!');
 
@@ -305,7 +307,7 @@ $("#editUpdate").on('click', function() {
 function business_status_process(id, status_data){
     // $('#confirmbox').click();
     $('#status_pop_modal_div').modal('show');
-
+    $('#confirmSubmit').unbind('click');
     $("#confirmSubmit").on('click', function() {
         $('#close_status_pop').click();
 
@@ -362,7 +364,7 @@ function business_status_process(id, status_data){
 function business_delete_process(id){
     // $('#confirmbox').click();
     $('#delete_pop_modal_div').modal('show');
-
+    $('#deleteconfirmSubmit').unbind('click');
     $("#deleteconfirmSubmit").on('click', function() {
         $('#close_delete_pop').click();
 

@@ -23,7 +23,6 @@
                <li><a href="{{ route('client') }}">Client</a></li>
                <li><a href="{{ route('state') }}">State</a></li>
                <li><a href="{{ route('zone') }}">Zone</a></li>
-               <li><a href="{{ route('personnel') }}">Personnel</a></li>
             </ul>
          </li>
          <li>

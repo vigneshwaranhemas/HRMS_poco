@@ -112,22 +112,17 @@ interface IAdminRepository {
     public function process_client_status( $input_details );
     public function process_client_delete( $input_details );
 
-    //Holidays
-    public function add_holidays_insert( $data );
-    public function fetch_holidays_list();
-    public function fetch_holidays_list_id($id);
-    public function holidays_update($data);
-    public function holidays_delete($id);
-    public function fetch_holidays_list_date($filter_date);
-    
-    // //roles
-    // public function get_role_data();
-    // public function get_role_details_pop( $input_details );
-    // public function update_role_unit_details( $input_details );
+    //roles
+    public function get_role_data();
+    public function get_role_details_pop( $input_details );
+    public function update_role_unit_details( $input_details );
 
     // // permission
     // public function get_permission_count_base( );
     // /*menu list permission*/
     // public function get_permision_menu_base( );
+
+    public function add_welcome_aboard_process( $form_data );
+    public function get_welcome_aboard_details();
 
 }

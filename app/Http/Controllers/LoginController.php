@@ -25,16 +25,15 @@ class LoginController extends Controller
 
             $info = [
                 'empID' => auth()->user()->empID,
-                'username' => auth()->user()->username,
+                'cdID' => auth()->user()->cdID,
                 'username' => auth()->user()->username,
                 'role_type' => auth()->user()->role_type,
-                'pre_onboarding' => auth()->user()->pre_onboarding,
                 'active' => auth()->user()->active,
             ];
 
             Session::put("session_info",$info);
 
-            if (auth()->user()->role_type == 'Admin') {               
+            if (auth()->user()->role_type == 'Admin') {
                 return response()->json( ['url'=>url( 'admin_dashboard' ), 'logstatus' => 'success'] );
             }else if (auth()->user()->role_type == 'can') {
                 return response()->json( ['url'=>url( 'candidate_dashboard' ), 'logstatus' => 'success'] );

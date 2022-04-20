@@ -2,39 +2,35 @@
 @section('title', 'Mega Menu')
 
 @section('css')
+<link rel="stylesheet" type="text/css" href="../assets/css/permission.css">
 @endsection
 
 @section('style')
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Roles <span>& Permission</span></h2>
+   <h2>Roles <span>& Permission</span></h2>
+
 @endsection
 
 @section('breadcrumb-items')
-	<li class="breadcrumb-item">HRMS</li>
+   <li class="breadcrumb-item">HRMS</li>
    <li class="breadcrumb-item">Settings</li>
    <li class="breadcrumb-item active">Roles & Permission</li>
 @endsection
 
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
+    <a  href="{{url('roles_s')}}"><button id="addRole" class="btn btn-danger waves-effect waves-light" type="button" data-toggle="modal">Manage Role</button></a>
+    <br>
+    <br>
 <div class="container-fluid">
    <div class="row">
-      <!-- <div class="col-sm-12">
-         <div class="card alert alert-primary" role="alert">
-            <h4 class="alert-heading">Tip!</h4>
-            <p>
-               When you want to set the mega menu vertically, than use this Page Layout and you will easily be able to set the
-               mega menu.
-            </p>
-         </div>
-      </div> -->
       <div class="col-sm-12">
          <div class="card">
             <div class="white-box">
               <div class="row">
-                  <div class="col-md-12 b-all m-t-10 menu_list" id="test">
+                  <div class="col-md-12  menu_list" id="test">
                     <table  id='premission_tbody"+index+"'>
                     </table>
                   </div>

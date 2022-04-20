@@ -23,6 +23,7 @@
 
 @section('breadcrumb-items')
    <li class="breadcrumb-item">Candidate Seating And IdCard Request</li>
+
 	{{-- <li class="breadcrumb-item active">Default</li> --}}
 @endsection
 

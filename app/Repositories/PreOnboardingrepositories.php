@@ -31,12 +31,14 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
          foreach($data as $onboard)
          {
               $id=$field[$i]->id;
-              CandidatePreOnBoardingModel::where('id',$id)->update($onboard);
+
+            CandidatePreOnBoardingModel::where('id',$id)->update($onboard);
          $i++;
         }
          $response="success";
          return $response;
      }
+
 
    public function insert_buddy_feedback($data,$data1)
    {
@@ -66,11 +68,6 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
                                   ->first();
           return $result;
    }
-
-
-
-
-
 }
 
 

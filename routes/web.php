@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ Route::post('login_check_process', 'LoginController@login_check_process' );
 Route::get("UserEmailSend","LoginController@UserEmailSend");
 Route::get('dashboard','AdminController@permission');
 
+
+
 Route::prefix('perk-ui')->group(function () {
     Route::view('animate', 'perk-ui.animate')->name('animate');
     Route::view('scroll-reval', 'perk-ui.scroll-reval')->name('scroll-reval');
@@ -44,6 +47,7 @@ Route::prefix('perk-ui')->group(function () {
 
 //HR Controller
 Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('candidate_dashboard');
+
 Route::get('/hrsspreOnboarding','HrController@preOnboarding');
 Route::get("hrssdayzero","HrController@DayZero");
 Route::get("hrssOnBoarding","HrController@hrssOnBoarding");
@@ -58,9 +62,11 @@ Route::post('Candidate_Email_Status_update','HrController@Candidate_Email_Status
 
 
 //Buddy Controller
+
 Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('candidate_dashboard');
 Route::get('buddy', 'BuddyController@buddy_info')->name('buddy_info');
 Route::post('show_buddy_feedback','BuddyController@View_Buddy_feedback');
+
 
 //Candidate Controller
 Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
@@ -74,15 +80,45 @@ Route::get('Candidate_Assigned_Buddy','CandidateController@Candidate_Assigned_Bu
 
 
 
-//Admin Controller
-Route::get('/admin_dashboard', 'AdminController@admin_dashboard')->name('candidate_dashboard');
+//Calendaer Event
+
+Route::get('events','EventController@events')->name('events');
+// Route::get('events-category','AdminController@create');
+Route::post('add_new_event_insert', 'EventController@add_new_event_insert');
+Route::get('fetch_all_event', 'EventController@fetch_all_event');
+Route::get('fetch_event_edit', 'EventController@fetch_event_edit');
+Route::get('fetch_select_option_event_category', 'EventCategoryController@fetch_select_option_event_category');
+Route::get('fetch_selected_event_type', 'EventTypeController@fetch_selected_event_type');
+Route::get('fetch_event_attendees_list', 'EventController@fetch_event_attendees_list');
+Route::get('fetch_event_attendees_show', 'EventController@fetch_event_attendees_show');
+Route::post('event_delete', 'EventController@event_delete');
+Route::post('event_update', 'EventController@event_update');
+
+Route::post('event_category_insert', 'EventCategoryController@event_category_insert');
+Route::post('event_category_delete', 'EventCategoryController@event_category_delete');
+Route::get('fetch_event_category_all', 'EventCategoryController@fetch_event_category_all');
+
+Route::post('event_type_insert', 'EventTypeController@event_type_insert');
+Route::post('event_type_delete', 'EventTypeController@event_type_delete');
+Route::get('fetch_event_type_all', 'EventTypeController@fetch_event_type_all');
+
 Route::get('/Hr_SeatingRequest','AdminController@Hr_SeatingRequest');
 Route::post("/Admin_Seating_Request","AdminController@Admin_Seating_Allotment");
 Route::post('/Admin_Request_update',"AdminController@Seating_Status_update");
 
-//Login Controller
+//Goals Controller
+Route::get('goals', 'GoalsController@goals')->name('goals');
+Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
+Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
 
-
+//Holidays Controller
+Route::get('holidays', 'HolidayController@holidays')->name('holidays');
+Route::get('fetch_holidays_list', 'HolidayController@fetch_holidays_list')->name('fetch_holidays_list');
+Route::get('fetch_holidays_list_id', 'HolidayController@fetch_holidays_list_id');
+Route::get('fetch_holidays_list_date', 'HolidayController@fetch_holidays_list_date');
+Route::post( 'add_new_holidays_insert', 'HolidayController@add_new_holidays_insert' );
+Route::post( 'holidays_update', 'HolidayController@holidays_update' );
+Route::post( 'holidays_delete', 'HolidayController@holidays_delete' );
 
 //ItINfra Controller
 
@@ -91,13 +127,11 @@ Route::get('/EmailCreation','ItInfraController@EmailIdCreation');
 Route::post('ITInfra_Email_Creation','ItInfraController@ITInfra_Email_Creation');
 Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('hr_dashboard');
 
+
 //Buddy Controller
-Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('buddy_dashboard');
+Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('buddy_dashboard')->middleware('is_admin');
 
 //Candidate Controller
-
-
-
 
 
 // dashboard load admin
@@ -107,8 +141,11 @@ Route::post( 'role_list', 'AdminController@role_list' );
 Route::post( 'menu_listing', 'AdminController@menu_listing' );
 Route::post( 'sub_menu_save_tab', 'AdminController@sub_menu_save_tab' );
 
+//Super Admin
+Route::get('site_admin_dashboard', 'SiteAdminController@site_admin_dashboard')->name('admin_dashboard');
+
 //Admin Controller
-Route::get('/admin_dashboard', 'AdminController@admin_dashboard')->name('candidate_dashboard');
+Route::get('admin_dashboard', 'AdminController@admin_dashboard')->name('admin_dashboard');
 Route::get('business', 'AdminController@business')->name('business');
 Route::get('division', 'AdminController@division')->name('division');
 Route::get('function', 'AdminController@function')->name('function');
@@ -125,7 +162,6 @@ Route::get('zone', 'AdminController@zone')->name('zone');
 Route::get('personnel', 'AdminController@personnel')->name('personnel');
 Route::get('user', 'AdminController@user')->name('user');
 Route::get('roles', 'AdminController@roles')->name('roles');
-Route::get('holidays', 'AdminController@holidays')->name('holidays');
 
 // Business Unit
 Route::post('add_business_unit_process', 'AdminController@add_business_unit');
@@ -174,7 +210,6 @@ Route::post( 'get_blood_details', 'AdminController@get_blood_details' );
 Route::post( 'update_blood_details', 'AdminController@update_blood_details' );
 Route::post( 'process_blood_status', 'AdminController@process_blood_status' );
 Route::post( 'process_blood_delete', 'AdminController@process_blood_delete' );
-
 
 // Roll
 Route::post('add_roll_process', 'AdminController@add_roll_process');
@@ -231,3 +266,41 @@ Route::post( 'get_client_details', 'AdminController@get_client_details' );
 Route::post( 'update_client_details', 'AdminController@update_client_details' );
 Route::post( 'process_client_status', 'AdminController@process_client_status' );
 Route::post( 'process_client_delete', 'AdminController@process_client_delete' );
+
+// Welcome Aboard
+Route::get('welcome_aboard', 'AdminController@welcome_aboard')->name('welcome_aboard');
+Route::post('add_welcome_aboard_process', 'AdminController@add_welcome_aboard_process');
+
+// View Welcome Aboard
+Route::get('view_welcome_aboard', 'AdminController@view_welcome_aboard')->name('view_welcome_aboard');
+Route::post( 'get_welcome_aboard_details', 'AdminController@get_welcome_aboard_details' );
+// Route::get('welcome_aboard_pdf', 'AdminController@welcome_aboard_pdf')->name('welcome_aboard_pdf');
+Route::get('welcome_aboard_generate_pdf','AdminController@welcome_aboard_generate_pdf');
+// Route::get('generate-pdf','AdminController@generatePDF');
+
+/*image upload profile*/
+Route::post('profile_upload_images', 'AdminController@storeImage');
+Route::post('profile_display_images', 'AdminController@PreviewImage');
+Route::get('roles_s', 'AdminController@roles_s')->name('roles_s');
+
+/*roles*/
+Route::post('add_roles_process', 'AdminController@add_roles_process');
+Route::post('get_role_data', 'AdminController@get_role_data');
+Route::post( 'get_role_details_pop', 'AdminController@get_role_details_pop' );
+Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_details' );
+
+/*profile document*/
+Route::post('documents_insert','DocumentsController@store')->name('Documents');
+Route::post('documents_info_pro', 'DocumentsController@doc_information');
+Route::post('profile_account_info_add', 'DocumentsController@profile_account_add');
+Route::post('account_info_get', 'DocumentsController@account_info_get_res');
+Route::post('education_information_insert', 'DocumentsController@education_information_add');
+Route::post('education_information_view', 'DocumentsController@education_info_view');
+Route::post('experience_info_view', 'DocumentsController@experience_info_result');
+Route::post('add_contact_info', 'DocumentsController@add_contact_info');
+Route::post('Contact_info_view', 'DocumentsController@Contact_info_view');
+Route::post('add_family_add', 'DocumentsController@add_family_add');
+Route::post('family_information_view', 'DocumentsController@family_information_view');
+/*session sidebar*/
+Route::post('get_session_sidebar', 'SidebarController@get_session_sidebar');
+

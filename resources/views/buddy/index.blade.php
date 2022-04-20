@@ -50,12 +50,15 @@
     .word-warpped
     {
         word-break: break-word;
+        max-width: 160px;
+        min-width: 160px;
         /* max-width: 160px; */
         min-width: 356px;
     }
     .remark
     {
         min-width: 286px;
+
     }
 </style>
 @endsection
@@ -158,16 +161,20 @@
                         <tr>
                         <th scope="row">1</th>
                         <td><p class="word-warpped">My Buddy interacted with me pleasantly during the welcome session which helped me be comfortable and  bond well</p> </td>
+
                         <td>
                             <div class="text-center">
                                 <p style="color:green" class="fa fa-check"></p>
                             </div>
                         </td>
+
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
+
                         <td class="remark">none</td>
+
 
                         </tr>
                         {{-- <tr>
@@ -178,7 +185,9 @@
                         <td></td>
                         <td></td>
                         <td></td>
+
                         <td class="remark">none</td>
+
                         </tr>
                         <tr>
                         <th scope="row">3</th>
@@ -188,7 +197,9 @@
                             <td></td>
                             <td></td>
                             <td><p style="color:green" class="fa fa-check"></p></td>
+
                             <td class="remark">none</td>
+
                         </tr>
                         <tr>
                         <th scope="row">4</th>
@@ -198,7 +209,9 @@
                             <td><p style="color:green" class="fa fa-check"></p></td>
                             <td></td>
                             <td></td>
+
                             <td class="remark">none</td>
+
                         </tr>
                         <tr>
                         <th scope="row">5</th>
@@ -208,7 +221,9 @@
                             <td></td>
                             <td></td>
                             <td></td>
+
                             <td class="remark">none</td>
+
                         </tr>
                         <tr>
                         <th scope="row">6</th>
@@ -218,21 +233,29 @@
                             <td></td>
                             <td><p style="color:green" class="fa fa-check"></p></td>
                             <td></td>
+
                             <td class="remark">none</td>
                         </tr> --}}
                     </tbody>
                 </table>
+<<<<<<< HEAD
                 <div class="modal-body" id="textarea_div">
 
                 </div>
                 {{-- <div class="row" style="margin-top: 40px;">
+=======
+                <div class="row" style="margin-top: 40px;">
+
+>>>>>>> main
                     <div class="col-md-12">
                         <h6>7.  What went very well, during  my interactions with my Buddy</h6>
                     </div>
                     <div class="col-md-4 text-center">
                         <div class="card">
                             <div class="card-body grid-showcase">
+
                                 <p>No </p>
+
                             </div>
                         </div>
                     </div>
@@ -249,9 +272,11 @@
                                 <p>Auto-layout for flexbox grid columns also means you can set the width of one column and have the sibling columns automatically resize around it. You may use predefined grid classes (as shown below), grid mixins, or inline widths. Note that the other columns will resize no matter the width of the center column.</p>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="row" style="margin-top: 40px;">
+
                     <div class="col-md-12">
                         <h6>8.  What went very well, during  my interactions with my Buddy</h6>
                     </div>
@@ -275,8 +300,12 @@
                                 <p>Auto-layout for flexbox grid columns also means you can set the width of one column and have the sibling columns automatically resize around it. You may use predefined grid classes (as shown below), grid mixins, or inline widths. Note that the other columns will resize no matter the width of the center column.</p>
                             </div>
                         </div>
+
                     </div>
-                </div> --}}
+
+
+                </div>
+
             </div>
         </div>
     </div>

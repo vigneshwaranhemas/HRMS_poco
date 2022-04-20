@@ -12,9 +12,5 @@ interface IPreOnboardingrepositories{
        public function get_buddy_info($id);
        public function get_canidate_info($table,$id);
        public function fetch_buddy_info($data);
-
-
-
-
-
 }
+

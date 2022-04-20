@@ -335,7 +335,6 @@
 
     function refreshScheduleVisibility() {
         var calendarElements = Array.prototype.slice.call(document.querySelectorAll('#calendarList input'));
-
         CalendarList.forEach(function(calendar) {
             cal.toggleSchedules(calendar.id, !calendar.checked, false);
         });

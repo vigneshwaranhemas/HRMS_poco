@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\menu;
 use App\sub_menu;
 use App\role_permission;
+use App\Holidays; 
 use App\Role;
 use App\welcome_aboard;
 
@@ -62,6 +63,16 @@ class AdminRepository implements IAdminRepository
 
         $permission_menu_data = Role::get();
         return $permission_menu_data;
+    }
+
+    public function update_profile_details( $input_details ){
+
+        $update_roletbl = DB::table('images')->where( 'cdID', '=', $input_details['cdID'] );
+        $update_roletbl->update( [
+            'cdID' => $input_details['cdID'],
+            'path' => $input_details['path'],
+        ] );
+
     }
 
     public function get_menu_list_res($role_id){
@@ -878,6 +889,16 @@ class AdminRepository implements IAdminRepository
 
         return $bandtbl;
     }
+    public function get_profile_info( $input_details ){
+
+        $bandtbl = DB::table('images as img')
+        ->select('*')
+        ->where('cus.cdID', '=', $input_details['cdID'])
+        ->join('customusers as cus', 'cus.cdID', '=', 'img.cdID')
+        ->first();
+        // echo "<pre>";print_r($bandtbl);die;
+        return $bandtbl;
+    }
 
     public function update_client_details( $input_details ){
 
@@ -910,22 +931,62 @@ class AdminRepository implements IAdminRepository
 
         $update_clientstbl->delete();
     }
+
+    // Business Unit process start
+    public function add_holidays_insert( $data ){
+        $response = Holidays::insert($data);
+        return $response;
+    }
+    public function fetch_holidays_list()
+    {      
+       $response = DB::table("holidays")->select('*')
+                         ->get();
+       return $response;
+    }
+    public function fetch_holidays_list_id($id)
+    {      
+       $response = DB::table('holidays')
+                    ->select('*')
+                    ->where('id', $id)
+                    ->get();
+       return $response;
+    }
+    public function holidays_update($data)
+    {
+       $response = Holidays::where('id', $data['id'])
+                         ->update(array(
+                            'occassion' => $data['occassion'],
+                            'description' => $data['description'],                            
+                         ));
+       return $response;
+    }
+    public function holidays_delete($id)
+    {
+        $response = Holidays::where('id', $id)
+                            ->delete();
+        return $response;
+
+    }
+    public function fetch_holidays_list_date($filter_date)
+    {
+        $response = Holidays::where('date', 'LIKE', '%'.$filter_date.'%')
+                            ->get();
+        return $response;
+
+    }
     // Client process End
 
-    // /*insert data to db*/
-    // public function add_role_process( $form_data ){
 
-    //   $response=Role::insert($form_data);
-    //   return $response;
-    //   }
+    function get_table($table, $emp_ID) {
+        
 
-    //   /*table view for role*/
-    //   public function get_role_data(){
+         $bandtbl = DB::table($table)
+        ->select('*')
+        ->where('emp_id', '=', $emp_ID['emp_ID'])
+        ->get();
 
-    //     $role_data = Role::get();
-
-    //     return $role_data;
-    // }
+        return $bandtbl;
+    }
 
     // public function get_role_details_pop( $input_details ){
 
@@ -938,30 +999,7 @@ class AdminRepository implements IAdminRepository
     //     return $roletbl;
     // }
 
-    // public function update_role_unit_details( $input_details ){
-
-    //     $update_roletbl = DB::table('roles');
-    //     $update_roletbl = $update_roletbl->where( 'id', '=', $input_details['id'] );
-
-    //     // echo "<pre>";print_r($update_roletbl);die;
-
-    //     $update_roletbl->update( [
-    //         'name' => $input_details['name'],
-    //         'status' => $input_details['status'],
-    //     ] );
-
-    // }
-
-    // public function get_permission_count_base(){
-
-    //     $role_data = Role::get();
-    //     return $role_data;
-    // }
-    // public function get_permision_menu_base(){
-
-    //     $permission_menu_data = role_permission::get();
-    //     return $permission_menu_data;
-    // }
+    
 
     // Welcome aboard process start
     public function add_welcome_aboard_process( $form_data ){

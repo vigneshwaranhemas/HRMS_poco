@@ -2,7 +2,7 @@
 var basic_calendar = {
     init: function() {
         $('#cal-basic').fullCalendar({
-            defaultDate: '2016-06-12',
+            // defaultDate: '2016-06-12',
             editable: true,
             selectable: true,
             selectHelper: true,
@@ -21,59 +21,79 @@ var basic_calendar = {
                     true
                     );
                 }
-                $('#cal-basic').fullCalendar('unselect');
+                $('#cal-basic').fullCalendar('select');
             },
             events: [
-            {
-                title: 'All Day Event',
-                start: '2016-06-01'
-            },
-            {       
-                title: 'Long Event',
-                start: '2016-06-07',
-                end: '2016-06-10'
-            },
-            {
-                id: 999,
-                title: 'Repeating Event',
-                start: '2016-06-09T16:00:00'
-            },
-            {
-                id: 999,
-                title: 'Repeating Event',
-                start: '2016-06-16T16:00:00'
-            },
-            {
-                title: 'Conference',
-                start: '2016-06-11',
-                end: '2016-06-13'
-            },
-            {
-                title: 'Meeting',
-                start: '2016-06-12T10:30:00',
-                end: '2016-06-12T12:30:00'
-            },
-            {
-                title: 'Lunch',
-                start: '2016-06-12T12:00:00'
-            },
-            {
-                title: 'Meeting',
-                start: '2016-06-12T14:30:00'
-            },
-            {
-                title: 'Happy Hour',
-                start: '2016-06-12T17:30:00'
-            },
-            {
-                title: 'Dinner',
-                start: '2016-06-12T20:00:00'
-            },
-            {
-                title: 'Birthday Party',
-                start: '2016-06-13T07:00:00'
-            }
-            ]
+               
+                {
+                    title: 'test 2',
+                    start: '2022-04-02',
+                    end: '2022-04-02'
+                },
+          
+                {
+                    title: 'All Day Event 5',
+                    start: '2022-04-10',
+                    end: '2022-04-03'
+                },
+                {
+                   title: 'testing',
+                   start: '2022-04-15' 
+                },
+                {
+                    title: 'All Day Event',
+                    start: '2022-04-12'
+                },
+                {
+                    title: 'All Day Event',
+                    start: '2022-04-21'
+                },  
+                {
+                    title: 'All Day Event',
+                    start: '2022-04-04 00:00:00',
+                    end: '2022-04-04 00:00:00'
+                },
+                {
+                    title: 'All Day Event',
+                    start: '2022-04-04 00:00:00',
+                    end: '2022-04-04 00:00:00'
+                },
+                {
+                    title: 'All Day Event',
+                    start: '2022-04-05 00:00:00',
+                    end: '2022-04-05 00:00:00'
+                },
+                {
+                    title: 'All Day Event',
+                    start: '2022-04-06 00:00:00',
+                    end: '2022-04-06 00:00:00'
+                },
+                {
+                    title: 'All Day Event',
+                    start: '2022-04-07 00:00:00',
+                    end: '2022-04-07 00:00:00'
+                },
+                {
+                    title: 'All Day Event',
+                    start: '2022-04-08 00:00:00',
+                    end: '2022-04-08 00:00:00'
+                },
+                {
+                    title: 'All Day Event',
+                    start: '2022-04-09 00:00:00',
+                    end: '2022-04-09 00:00:00'
+                },
+                {
+                    title: 'All Day Event',
+                    start: '2022-04-11 00:00:00',
+                    end: '2022-04-11 00:00:00'
+                },
+                {
+                    title: 'All Day Event',
+                    start: '2022-04-23 00:00:00',
+                    end: '2022-04-23 00:00:00'
+                }
+                ]
         }), $('#cal-basic-view').fullCalendar({
             header: {
             right: 'prev,next today',
@@ -564,15 +584,14 @@ var basic_calendar = {
             },
             events: [
             {
-                title: 'All Day Event',
-                start: '2018-06-01',
+                title: 'All Day Event one',
+                start: '2022-04-06',
                 color: '#4466f2'
             },
             {
                 title: 'Long Event',
-                start: '2018-06-07',
-                end: '2018-06-10',
-                color: '#22af47'
+                start: '2018-06-10',
+                color: '#4466f2'
             },
             {
                 id: 999,

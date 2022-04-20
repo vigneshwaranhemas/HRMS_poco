@@ -2278,7 +2278,7 @@ class AdminController extends Controller
         // $pdf = PDF::loadView('admin.welcome_aboard_pdf', $data);
         $pdf = PDF::loadView('admin.welcome_aboard_pdf', compact('info'));
 
-        return $pdf->download('welcome_aboard.pdf');
+        return $pdf->stream('welcome_aboard.pdf');
     }
 
     public function masters() {

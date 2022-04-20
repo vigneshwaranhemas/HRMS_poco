@@ -47,7 +47,7 @@
     box-sizing: border-box;
     font-family: "Arvo";
     font-size: 18px;
-    width: 200px;
+    width: 150px;
     }
 
     input::-webkit-input-placeholder {
@@ -126,10 +126,10 @@
                         </tbody>
                     </table>
 
-                    <h5 style="margin-top: 37px;"><b>My Achievements in Education,which I’d like my peers to know : </b></h5>
+                    <h5 style="margin-top: -10px;"><b>My Achievements in Education,which I’d like my peers to know : </b></h5>
 
                         <div class="card-body editor">
-                            <div id="achievements_education" name="achievements_education" >
+                            <div id="achievements_education" name="achievements_education" style="margin-left: 50px;">
                                 <p>{{ $info['achievements_education'] }}</p>
                             </div>
                         </div>
@@ -158,12 +158,12 @@
                         </tbody>
                     </table>
 
-                    <p style="margin-top: 33px;">My Recent Work Experience before Joining HEMA’s was at <input class="input" type="text" name="joining_at" id="joining_at" value="{{$info['joining_at'] }}" readonly> As<input class="input" type="text" name="joining_as" id="joining_as" value="{{$info['joining_as'] }}" readonly>  </p>
+                    <p style="margin-top: -10px;">My Recent Work Experience before Joining HEMA’s was at <input class="input" type="text" name="joining_at" id="joining_at" value="{{$info['joining_at'] }}" readonly> As<input class="input" type="text" name="joining_as" id="joining_as" value="{{$info['joining_as'] }}" readonly>  </p>
 
                     <h5><b>My Achievements at Work , which I’d like my peers to know : </b></h5>
 
                         <div class="card-body editor">
-                            <div name="achievements_work" id="achievements_work">
+                            <div name="achievements_work" id="achievements_work" style="margin-left: 50px;">
                                 <p>{{ $info['achievements_work'] }}</p>
                             </div>
                         </div>

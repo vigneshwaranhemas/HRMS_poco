@@ -122,4 +122,27 @@ interface IAdminRepository {
     // /*menu list permission*/
     // public function get_permision_menu_base( );
 
+
+
+    //vignesh  admin work for request seating arrangement
+
+       public function get_seating_requested($status);
+       public function update_seating_status($id,$data);
+       public function update_candidate_seating_status($data,$update_data);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

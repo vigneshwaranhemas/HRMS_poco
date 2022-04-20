@@ -31,14 +31,12 @@
 
 @section('content')
 
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
                <div class="card-body">
-                 <button type="button" style="margin-left: 902px;margin-bottom:13px;" class="btn btn-pill btn-primary">Submit</button>
+                 <button type="button" style="margin-left: 902px;margin-bottom:13px;" class="btn btn-pill btn-primary"  id="EmailCreationBtn">Submit</button>
 
                   <div class="dt-ext table-responsive">
                     <table class="display" id="export-button">
@@ -51,76 +49,14 @@
                               <th>EMAIL</th>
                               <th>STATUS</th>
                               <th>HR SUGGEST EMAIL</th>
-                              <th>ADMIN VERIFICATION</th>
+                              <th>Asset Type</th>
                            </tr>
                         </thead>
-                        <tbody>
-                           <tr>
-                              <td>1</td>
-                              <td>
-                                <div class="media-body  text-center switch-sm icon-state">
-                                    <label class="switch">
-                                    <input type="checkbox" checked=""><span class="switch-state bg-warning"></span>
-                                    </label>
-                                 </div>
-                              </td>
-                              <td>CD1</td>
-                              <td>Kandan</td>
-                              <td>kandan@example.com</td>
-                              <td class="text-center"></td>
-                              <td><input type="text" class="form-control tdtextwidth"></td>
-                              <td><select class="form-control">
-                                   <option>Choose</option>
-                                   <option>Laptop</option>
-                                   <option>Desktop</option>
-                                  </select>
-                              </td>
-                           </tr>
-                           <tr>
-                                <td>2</td>
-                                <td>
-                                    <div class="media-body text-center switch-sm icon-state">
-                                        <label class="switch">
-                                        <input type="checkbox" checked=""><span class="switch-state bg-warning"></span>
-                                        </label>
-                                     </div>
-                                  </td>
-                                <td>CD3</td>
-                                <td>Shradha</td>
-                                <td>Shradha@example.com</td>
-                                <td class="text-center"><span class="badge badge-warning">In Progress</span></td>
-                                <td><input type="text" class="form-control tdtextwidth"></td>
-                                <td><select class="form-control">
-                                    <option>Choose</option>
-                                    <option>Laptop</option>
-                                    <option>Desktop</option>
-                                   </select>
-                               </td>
-
-                           </tr>
-                           <tr>
-                                <td>3</td>
-                                <td>
-                                    <div class="media-body  text-center switch-sm icon-state">
-                                        <label class="switch">
-                                        <input type="checkbox" checked=""><span class="switch-state bg-warning"></span>
-                                        </label>
-                                     </div>
-                                  </td>
-                                <td>CD2</td>
-                                <td>Bineta</td>
-                                <td>Bineta@example.com</td>
-                                <td class="text-center"><span class="badge badge-success">Active</span></td>
-                                <td><input type="text" class="form-control tdtextwidth"></td>
-                                <td><select class="form-control" name="test">
-                                    <option>Choose</option>
-                                    <option>Laptop</option>
-                                    <option>Desktop</option>
-                                   </select>
-                               </td>
-                           </tr>
+                        <tbody id="emailIdCreation">
                         </tbody>
                      </table>
+                     <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
+                     {{-- <button type="button" id="AdminUpdateBtn"><button> --}}
                   </div>
                </div>
             </div>
@@ -130,5 +66,11 @@
 </div>
 @endsection
 @section('script')
+<script>
+var email_url="Candidate_Email_Creation";
+var status_update_url="Candidate_Email_Status_update";
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{{url('pro_js/HRSS/CandidateEmailCreation.js')}}"></script>
 
 @endsection

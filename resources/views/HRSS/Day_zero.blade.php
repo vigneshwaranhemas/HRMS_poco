@@ -42,36 +42,40 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <tr>
-                              <td>1</td>
-                              <td>CD1</td>
-                              <td>Kandan</td>
-                              <td>kandan@example.com</td>
-                              <td>9898989898</td>
-                              <td><p style="color:green" class="fa fa-check"></p></td>
-                              <td><p style="color:red" class="fa fa-times"></p></td>
+                                  @if (count($candidate_info) > 0)
+                                  <?php $i=1;?>
+                                @foreach ($candidate_info as  $info)
+                                <tr>
+                                    <td>{{$i}}</td>
+                                    <td>{{$info["cdID"]}}</td>
+                                    <td>{{$info["candidate_name"]}}</td>
+                                    <td>{{$info["candidate_email"]}}</td>
+                                    <td>{{$info["candidate_mobile"]}}</td>
+                                    @if ($info["Induction_mail"]==1)
+                                    <?php $color="green";?>
+                                    <?php $class="fa-check";?>
+                                   @else
+                                     <?php $class="fa-times";?>
+                                     <?php $color="red"; ?>
+                                   @endif
 
-                           </tr>
-                           <tr>
-                                <td>2</td>
-                                <td>CD3</td>
-                                <td>Shradha</td>
-                                <td>Shradha@example.com</td>
-                                <td>9898989898</td>
-                                <td><p style="color:green" class="fa fa-check"></p></td>
-                                <td><p style="color:red" class="fa fa-times"></p></td>
+                                   @if ($info["Buddy_mail"]==1)
+                                   <?php $color1="green";?>
+                                   <?php $class1="fa-check";?>
+                                  @else
+                                    <?php $class1="fa-times";?>
+                                    <?php $color1="red";?>
+                                  @endif
+                                  <td><p style="color:{{$color}}" class="fa {{$class}}"></p></td>
+                                  <td><p style="color:{{$color1}}" class="fa {{$class1}}"></p></td>
+                                </tr>
+                                <?php $i++;?>
+                                @endforeach
 
-                           </tr>
-                           <tr>
-                                <td>1</td>
-                                <td>CD2</td>
-                                <td>Bineta</td>
-                                <td>Bineta@example.com</td>
-                                <td>9898989898</td>
-                                <td><p style="color:green" class="fa fa-check"></p></td>
-                                <td><p style="color:red" class="fa fa-times"></p></td>
+                                  @else
 
-                           </tr>
+                                  @endif
+
                         </tbody>
                      </table>
                   </div>

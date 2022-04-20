@@ -7,8 +7,6 @@ use App\Models\BuddyFeedbackModel;
 use App\Models\CustomUser;
 use App\Models\UsersInfoModel;
 
-
-
 class PreOnboardingrepositories implements IPreOnboardingrepositories {
      public function Check_onBoard($table,$test)
      {
@@ -18,6 +16,7 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
      public function getonBoardingFields($table)
      {
         $response=DB::table($table)->get();
+        //   echo '<pre>';print_r($response);
         return $response;
      }
      public function insert_onboard($data)
@@ -30,8 +29,9 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
          $i=0;
          foreach($data as $onboard)
          {
-              $id=$field[$i]->id;
-              CandidatePreOnBoardingModel::where('id',$id)->update($onboard);
+            $id=$field[$i]->id;
+            CandidatePreOnBoardingModel::where('id',$id)->update($onboard);
+
          $i++;
         }
          $response="success";
@@ -66,10 +66,6 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
                                   ->first();
           return $result;
    }
-
-
-
-
 
 }
 

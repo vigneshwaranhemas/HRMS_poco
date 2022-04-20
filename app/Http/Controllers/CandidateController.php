@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Repositories\IPreOnboardingrepositories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Auth;
 use Session;
 
 class CandidateController extends Controller
@@ -11,11 +14,51 @@ class CandidateController extends Controller
     public function __construct(IPreOnboardingrepositories $preon)
     {
             $this->preon = $preon;
+            $this->middleware('is_admin');
+
     }
     public function candidate_dashboard()
     {
-        return view('candidate.dashboard');
+        //Birthday card
+        $current_date = date("d-m-Y");
+        $date = Carbon::createFromFormat('d-m-Y', $current_date);
+        $result = $date->format('F');
+        $monthName = substr($result, 0, 3);
+        $dt = $date->format('d');
+        $tdy = $dt."-".$monthName;
+        $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%'.$tdy.'%')->get();
+
+        //Work anniversary
+        $tdy_work_anniversary = DB::table('customusers')->select('*')->where('doj', 'LIKE', '%'.$tdy.'%')->get();
+
+        //Upcoming holidays
+        $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();
+
+        //Upcoming events
+        $logined_empid = Auth::user()->empID;
+        $upcoming_events = DB::table('event_attendees')
+                     ->distinct()
+                     ->select('events.*')
+                     ->join('events', 'event_attendees.event_id', '=', 'events.event_unique_code')
+                     ->where('events.start_date_time', '>=', $date)
+                     ->where('event_attendees.candidate_name', $logined_empid)
+                     ->limit(2)
+                     ->get();
+
+        // dd($upcoming_events);
+
+        // $upcoming_events = DB::table('events')->select('*')->where('start_date_time', '>=', $date)->limit(2)->get();
+
+        $data = [
+            "todays_birthdays" => $todays_birthdays,
+            "tdy_work_anniversary" => $tdy_work_anniversary,
+            "upcoming_holidays" => $upcoming_holidays,
+            "upcoming_events" => $upcoming_events,
+        ];
+
+        return view('candidate.dashboard')->with($data);
     }
+
     public function CandidateInduction()
     {
         return view('candidate.Candidate_Inducation');
@@ -28,7 +71,6 @@ class CandidateController extends Controller
         // echo json_encode($buddy_info->);
         return view('candidate.Buddy_info')->with('info',$buddy_info);
     }
-
 
     public function preOnboarding()
     {
@@ -67,14 +109,9 @@ class CandidateController extends Controller
         return view('candidate.buddy_feedback')->with('buddy_fields',$data);
     }
 
-
-
-
     public function profile(){
         return view('candidate.profile');
         }
-
-
 
 // pre onBoarding Insert
 public function insertPreOnboarding(Request $request)
@@ -194,13 +231,6 @@ public function InsertBuddyFeedback(Request $request)
 
 
 }
-
-
-
-
-
-
-
 
 
 }

@@ -17,75 +17,171 @@ use Illuminate\Support\Facades\DB;
 use App\menu;
 use App\sub_menu;
 use App\role_permission;
+use App\Holidays;
 use App\Role;
 use App\Models\Candidate_seating_and_email_request;
-
+use App\welcome_aboard;
 
 class AdminRepository implements IAdminRepository
 {
+
+     /*insert data to db*/
+    public function add_role_process( $form_data ){
+
+      $response=Role::insert($form_data);
+      return $response;
+      }
+
+      /*table view for role*/
+    public function get_role_data(){
+
+        $role_data = Role::get();
+        return $role_data;
+    }
+     public function update_role_unit_details( $input_details ){
+
+        $update_roletbl = DB::table('roles');
+        $update_roletbl = $update_roletbl->where( 'id', '=', $input_details['id'] );
+        $update_roletbl->update( [
+            'name' => $input_details['name'],
+            'status' => $input_details['status'],
+        ] );
+
+    }
+    public function get_role_details_pop( $input_details ){
+
+        $roletbl = DB::table('roles')
+        ->select('*')
+        ->where('id', '=', $input_details['id'])
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return $roletbl;
+    }
 
 	/*menu list*/
     public function get_role_list_base(){
 
         $permission_menu_data = Role::get();
-                // echo "<pre>";print_r($permission_menu_data);die;
         return $permission_menu_data;
+    }
+
+    public function update_profile_details( $input_details ){
+
+        $update_roletbl = DB::table('images')->where( 'cdID', '=', $input_details['cdID'] );
+        $update_roletbl->update( [
+            'cdID' => $input_details['cdID'],
+            'path' => $input_details['path'],
+        ] );
+
     }
 
     public function get_menu_list_res($role_id){
         $role_id = $role_id['role_id'];
-
         DB::enableQueryLog();
         $menu=DB::table('menus')->get();
         $menu_items=array();
         foreach($menu as $value){
             $submenu=DB::table('sub_menus')->where('menu_id',$value->menu_id)->get();
             $sub_menu_items=array();
-            foreach($submenu as $val){
-                $role_data=DB::table('role_permissions')->where('menu',$val->menu_id)->where('role',$role_id)->where('sub_menu',$val->sub_menu_name)->get();
-                // dd(DB::getQueryLog());
-                // echo"<pre>";print_r($role_data);die;
-                if($role_data !=""){
-                    if($role_data['0']->view==0){
-                        $view='';
-                    }else{
+            if(isset($submenu['0'])){
+                foreach($submenu as $val){
+                $role_data=role_permission::where('role',$role_id)->where('menu',$val->menu_id)->where('sub_menu',$val->sub_menu_name)->get();
+                $data=array();
+                       // echo '<pre>';print_r($role_data);die();
+                if(isset($role_data['0'])){
+
+
+                    foreach($role_data as $roles){
+                        if($roles->view==1){
                         $view='checked';
+                        }else{
+                            $view='';
+                        }
+                        if($roles->update==2){
+                            $update='checked';
+                        }else{
+                            $update='';
+                        }
+                        if($roles->add==3){
+                            $add='checked';
+                        }else{
+                            $add='';
+                        }
+                        if($roles->delete==4){
+                            $delete='checked';
+                        }else{
+                            $delete='';
+                        }
                     }
-                    if($role_data['0']->update==0){
-                        $update='';
-                    }else{
-                        $update='checked';
-                    }
-                    if($role_data['0']->add==0){
-                        $add='';
-                    }else{
-                        $add='checked';
-                    }
-                    if($role_data['0']->delete==0){
-                        $delete='';
-                    }else{
-                        $delete='checked';
-                    }
-                }else{
+
+                }
+                else{
                     $view=" ";
                     $update=" ";
                     $add=" ";
                     $delete=" ";
+
+                   }
+                    $sub = "<tr><td><input type='hidden' value=".$value->menu_id."></td><td> ".$val->sub_menu_name."</td>
+                    <td><div class='media-body  '><label class='switch modify_switch '><input name='checking' ".$view." type='checkbox'><span class='switch-state '></span></label></div></td>
+                    <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$update." type='checkbox'><span class='switch-state '></span></label></div></td>
+                    <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$add." type='checkbox'><span class='switch-state '></span></label></div></td>
+                    <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$delete." type='checkbox'><span class='switch-state '></span></label></div></td>
+                    </tr>";
+                    array_push($sub_menu_items,$sub);
                 }
-                $sub = "<tr><td><input type='hidden' value=".$value->menu_id."></td><td> ".$val->sub_menu_name."</td>
-                <td><input type='checkbox' class='js-switch packeges' name='checking' ".$view." style='margin-left: 10%;'></td>
-                <td><input type='checkbox' class='js-switch packeges' name='checking' ".$update." style='margin-left: 10%;'></td>
-                <td><input type='checkbox' class='js-switch packeges' name='checking' ".$add." style='margin-left: 10%;'></td>
-                <td><input type='checkbox' class='js-switch packeges' name='checking' ".$delete." style='margin-left: 10%;'></td>
-                </tr>";
-                array_push($sub_menu_items,$sub);
-                 // echo"<pre>";print_r($sub);
-            }
-                 // die;
+
             $subitems=implode(' ', $sub_menu_items);
-            $menu="<tr class='test_data2'><td><b>".$value->menu_name."</td>".$subitems."</tr>";
+            $menu="<tr class='test_data2 header'><td><b>".$value->menu_name."</td>".$subitems."</tr>";
+        }else{
+            $role_data=role_permission::where('role',$role_id)->where('menu',$value->menu_id)->where('sub_menu',NULL)->get();
+                $data=array();
+                       // echo '<pre>';print_r($role_data);die();
+                if(isset($role_data['0'])){
+
+
+                    foreach($role_data as $roles){
+                        if($roles->view==1){
+                        $view='checked';
+                        }else{
+                            $view='';
+                        }
+                        if($roles->update==2){
+                            $update='checked';
+                        }else{
+                            $update='';
+                        }
+                        if($roles->add==3){
+                            $add='checked';
+                        }else{
+                            $add='';
+                        }
+                        if($roles->delete==4){
+                            $delete='checked';
+                        }else{
+                            $delete='';
+                        }
+                    }
+
+                }
+                else{
+                    $view=" ";
+                    $update=" ";
+                    $add=" ";
+                    $delete=" ";
+                   }
+                $menu="<tr class='test_data2'><td><b>".$value->menu_name."</td>
+                        <td><input type='hidden' value=".$value->menu_id."></td>
+                    <td><div class='media-body  '><label class='switch modify_switch '><input name='checking' ".$view." type='checkbox'><span class='switch-state '></span></label></div></td>
+                    <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$update." type='checkbox'><span class='switch-state '></span></label></div></td>
+                    <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$add." type='checkbox'><span class='switch-state '></span></label></div></td>
+                    <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$delete." type='checkbox'><span class='switch-state '></span></label></div></td></tr>";
+        }
+            // $menu="<tr class='test_data2'><td><b>".$value->menu_name."</td>".$subitems."</tr>";
             array_push($menu_items,$menu);
         }
+        // die;
         return implode(' ',$menu_items);
     }
 
@@ -795,6 +891,16 @@ class AdminRepository implements IAdminRepository
 
         return $bandtbl;
     }
+    public function get_profile_info( $input_details ){
+
+        $bandtbl = DB::table('images as img')
+        ->select('*')
+        ->where('cus.cdID', '=', $input_details['cdID'])
+        ->join('customusers as cus', 'cus.cdID', '=', 'img.cdID')
+        ->first();
+        // echo "<pre>";print_r($bandtbl);die;
+        return $bandtbl;
+    }
 
     public function update_client_details( $input_details ){
 
@@ -827,22 +933,62 @@ class AdminRepository implements IAdminRepository
 
         $update_clientstbl->delete();
     }
+
+    // Business Unit process start
+    public function add_holidays_insert( $data ){
+        $response = Holidays::insert($data);
+        return $response;
+    }
+    public function fetch_holidays_list()
+    {
+       $response = DB::table("holidays")->select('*')
+                         ->get();
+       return $response;
+    }
+    public function fetch_holidays_list_id($id)
+    {
+       $response = DB::table('holidays')
+                    ->select('*')
+                    ->where('id', $id)
+                    ->get();
+       return $response;
+    }
+    public function holidays_update($data)
+    {
+       $response = Holidays::where('id', $data['id'])
+                         ->update(array(
+                            'occassion' => $data['occassion'],
+                            'description' => $data['description'],
+                         ));
+       return $response;
+    }
+    public function holidays_delete($id)
+    {
+        $response = Holidays::where('id', $id)
+                            ->delete();
+        return $response;
+
+    }
+    public function fetch_holidays_list_date($filter_date)
+    {
+        $response = Holidays::where('date', 'LIKE', '%'.$filter_date.'%')
+                            ->get();
+        return $response;
+
+    }
     // Client process End
 
-    // /*insert data to db*/
-    // public function add_role_process( $form_data ){
 
-    //   $response=Role::insert($form_data);
-    //   return $response;
-    //   }
+    function get_table($table, $emp_ID) {
 
-    //   /*table view for role*/
-    //   public function get_role_data(){
 
-    //     $role_data = Role::get();
+         $bandtbl = DB::table($table)
+        ->select('*')
+        ->where('emp_id', '=', $emp_ID['emp_ID'])
+        ->get();
 
-    //     return $role_data;
-    // }
+        return $bandtbl;
+    }
 
     // public function get_role_details_pop( $input_details ){
 
@@ -855,30 +1001,22 @@ class AdminRepository implements IAdminRepository
     //     return $roletbl;
     // }
 
-    // public function update_role_unit_details( $input_details ){
 
-    //     $update_roletbl = DB::table('roles');
-    //     $update_roletbl = $update_roletbl->where( 'id', '=', $input_details['id'] );
 
-    //     // echo "<pre>";print_r($update_roletbl);die;
+    // Welcome aboard process start
+    public function add_welcome_aboard_process( $form_data ){
 
-    //     $update_roletbl->update( [
-    //         'name' => $input_details['name'],
-    //         'status' => $input_details['status'],
-    //     ] );
+        $response = welcome_aboard::insert($form_data);
+        return $response;
+      }
 
-    // }
+    public function get_welcome_aboard_details(){
 
-    // public function get_permission_count_base(){
+        $welcome_aboard_data = welcome_aboard::first();
 
-    //     $role_data = Role::get();
-    //     return $role_data;
-    // }
-    // public function get_permision_menu_base(){
+        return $welcome_aboard_data;
+    }
 
-    //     $permission_menu_data = role_permission::get();
-    //     return $permission_menu_data;
-    // }
 
 
 
@@ -915,14 +1053,6 @@ class AdminRepository implements IAdminRepository
 
         return $result;
     }
-
-
-
-
-
-
-
-
 
 
 }

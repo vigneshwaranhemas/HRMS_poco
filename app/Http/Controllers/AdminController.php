@@ -96,20 +96,43 @@ class AdminController extends Controller
     public function sub_menu_save_tab(Request $req){
 
       $data=$req->selected;
-        // echo "<pre>";print_r($data);die();
-      foreach ($data as $key => $value) {
-         $res_array[]=array("role"=>$value['role'],
-                            "menu"=>$value['menu'],
-                           "sub_menu"=>$value['sub_menu'],
-                           "view"=>$value['view'],
-                           "update"=>$value['update'],
-                           "add"=>$value['add'],
-                           "delete"=>$value['delete']
-                       );
-      }
-              // echo "<pre>";print_r($res_array);die();
+        
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+        $cdID = $session_val['cdID'];
 
-        $get_menu_result = $this->admrpy->get_submenu_save_res( $res_array);
+        $user = DB::table( 'role_permissions' )->where('role', '=', $data[0]['role'])->first();
+
+         if ($user === null) {
+          foreach ($data as $key => $value) {
+             $res_array[]=array("empID"=>$empID,
+                                "cdID"=>$cdID,
+                                "role"=>$value['role'],
+                                "menu"=>$value['menu'],
+                               "sub_menu"=>$value['sub_menu'],
+                               "view"=>$value['view'],
+                               "update"=>$value['update'],
+                               "add"=>$value['add'],
+                               "delete"=>$value['delete'],);
+                        }
+                  // echo "<pre>";print_r($res_array);die();
+            $get_menu_result = $this->admrpy->get_submenu_save_res( $res_array);
+        }else{
+            foreach ($data as $key => $value) {
+                // echo "<pre>";print_r($data);die();
+                $res_array[]=array("empID"=>$empID,
+                                "cdID"=>$cdID,
+                                "colid"=>$value['colid'],
+                                "role"=>$value['role'],
+                                "menu"=>$value['menu'],
+                               "sub_menu"=>$value['sub_menu'],
+                               "view"=>$value['view'],
+                               "update"=>$value['update'],
+                               "add"=>$value['add'],
+                               "delete"=>$value['delete'],);
+                        }
+            $get_menu_result = $this->admrpy->get_submenu_update_res( $res_array);
+        }
 
         return response()->json( $data );
     }

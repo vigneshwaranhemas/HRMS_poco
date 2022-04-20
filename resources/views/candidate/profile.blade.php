@@ -30,6 +30,10 @@ border: 1px solid red;
 .modal-lg{
 max-width: 1000px !important;
 }
+.card .card-body
+{
+   padding: 10px !important;
+}
 
 </style>
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -185,6 +189,7 @@ max-width: 1000px !important;
                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                     <nav class="navbar navbar-light bg-primary rounded">
                        <span class="navbar-brand mb-0 h1">Contant</span>
+                       <button class="btn btn-success" type="button" onclick="Contact_information()" data-toggle="modal" data-original-title="test" data-target="#ContactModal">+ Add Contact</button>
                      </nav>
                      <br>
                   <div class="container-fluid">
@@ -204,14 +209,14 @@ max-width: 1000px !important;
                               <div class="card-body rounded">
                                  <div class="row">
                                     <div class="col-md-6">
-                                       <div><strong>Phone Number :</strong> 987654321</div><hr>
-                                       <div><strong>Secondary Number :</strong>987654321</div><hr>
-                                       <div><strong>Personal Email :</strong> mariacotton@example.com</div><hr>
-                                       <div><strong>State :</strong> Tamil Nadu</div><hr>
+                                       <div><strong>Phone Number :</strong> <p id="p_num_view"></p></div><hr>
+                                       <div><strong>Secondary Number :</strong> <p id="s_num_view"></p></div><hr>
+                                       <div><strong>Personal Email :</strong> <p id="p_email_view"></p></div><hr>
                                     </div>
                                     <div class="col-md-6">
-                                       <div><strong>Permanent Address :</strong>465 - KALIYAMMAN KOIL STREET, SANDRORPALAYAM, CUDDALORE PORT, CUDDALORE , TN - 607003</div><hr>
-                                       <div><strong>Current Address :</strong>465 - KALIYAMMAN KOIL STREET, SANDRORPALAYAM, CUDDALORE PORT, CUDDALORE , TN - 607003</div><hr>
+                                       <div><strong>Permanent Address :</strong><p id="p_adderss_view"></p></div><hr>
+                                       <div><strong>Current Address :</strong><p id="c_address_view"></p></div><hr>
+                                       <div><strong>State :</strong> <a id="State_view"></a></div><hr>
                                        </div><hr>
                                     </div>
                                  </div>
@@ -220,6 +225,60 @@ max-width: 1000px !important;
                            </div>
                         </div>
                      </div>
+                       <!-- Pop-up div starts-->
+                  <div class="modal fade" id="ContactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Education</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
+                              <form method="POST" action="javascript:void(0)" id="add_contact_info" class="ajax-form" enctype="multipart/form-data">
+                                  {{ csrf_field() }}
+                                <div class="modal-body">
+                                    <div class="form-row">
+                                       <div class="col-md-12 mb-3">
+                                            <label for="phone_number">Phone Number</label>
+                                            <input class="form-control" maxlength="10" name="phone_number" id="phone_number" type="text" placeholder="Phone Number" required="">
+                                            <div class="text-warning" id="phone_number_error"></div>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="s_number">Secondary Number</label>
+                                            <input class="form-control" maxlength="10" name="s_number" id="s_number" type="text" placeholder="Secondary Number" required="">
+                                            <div class="text-warning" id="s_number_error"></div>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="p_email">Personal Email</label>
+                                            <input class="form-control" name="p_email" id="p_email" type="email" placeholder="Email" required="">
+                                            <div class="text-warning" id="p_email_error"></div>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="Begin_On">Permanent Address</label>
+                                            <textarea class="form-control" name="p_adderss" id="p_adderss" type="text" placeholder="Permanent Address" required=""></textarea> 
+                                            <div class="text-warning" id="p_adderss_error"></div>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="c_address">Current Address</label>
+                                            <textarea class="form-control" name="c_address" id="c_address" type="text" placeholder="Current Address" required=""></textarea> 
+                                            <div class="text-warning" id="c_address_error"></div>
+                                        </div>
+                                        
+                                        <div class="col-md-12 mb-3">
+                                            <label for="State">State</label>
+                                            <input class="form-control" name="State" id="State" type="text" placeholder="" required="">
+                                            <div class="text-warning" id="State_error"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-secondary" type="btnSubmit">Save</button>
+                                </div>
+                              </form>
+                        </div>
+                      </div>
+                    </div>
+                  <!-- Pop-up div Ends-->
                </div>
                <!-- Working-Information -->
                <div class="tab-pane fade" id="v-pills-Working-Information" role="tabpanel" aria-labelledby="v-pills-Working-Information">
@@ -285,12 +344,12 @@ max-width: 1000px !important;
                               <div class="card-body rounded">
                                  <div class="row">
                                     <div class="col-md-6">
-                                        <div><strong>HR Recruiter :  </strong>Soumiya</div> <hr>
-                                        <div><strong>HR Onboarder : </strong>Anjum Fathima</div><hr>
+                                        <div><strong>HR Recruiter : </strong> Soumiya</div> <hr>
+                                        <div><strong>HR Onboarder : </strong> Anjum Fathima</div><hr>
                                     </div>
                                     <div class="col-md-6">
-                                       <div><strong>Supervisor ": </strong> Padmapriya B - padmapriyab@hemas.in</div> <hr>
-                                       <div><strong>Reviewer : </strong>Pradeesh N - pradeeshn@cavinkare.com</div>
+                                       <div><strong>Supervisor : </strong> Padmapriya B - padmapriyab@hemas.in</div> <hr>
+                                       <div><strong>Reviewer : </strong> Pradeesh N - pradeeshn@cavinkare.com</div>
                                        </div><hr>
                                     </div>
                                  </div>
@@ -371,16 +430,17 @@ max-width: 1000px !important;
                     <div class="card-body">
                         <div class="employee-office-table">
                             <div class="table-responsive">
-                            <table class="table custom-table table-hover" id="education_td">
+                            <table class="table custom-table table-hover" >
                                 <thead>
                                     <tr>
                                         <th>Qualification</th>
                                         <th>University</th>
                                         <th>Begin On</th>
-                                        <th>Due By</th>
+                                        <th>End On</th>
+                                        <th>Certificate</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="education_td">
                                     
                                 </tbody>
                             </table>
@@ -411,13 +471,18 @@ max-width: 1000px !important;
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="Begin_On">Begin On</label>
-                                            <input class="form-control" name="begin_on" id="begin_on" type="date" placeholder="" required="">
+                                            <input class="form-control" name="begin_on" id="begin_on" type="month" placeholder="" required="">
                                             <div class="text-warning" id="begin_on_error"></div>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="Due By">End On</label>
-                                            <input class="form-control" name="end_on" id="end_on" type="date" placeholder="" required="">
+                                            <input class="form-control" name="end_on" id="end_on" type="month" placeholder="" required="">
                                             <div class="text-warning" id="end_on_error"></div>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="edu_certificate">Education Certificate</label>
+                                            <input class="form-control" name="edu_certificate" id="edu_certificate" type="file" placeholder="" required="">
+                                            <div class="text-warning" id="edu_certificate_error"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -452,8 +517,7 @@ max-width: 1000px !important;
                   <br>
                      <div id="testing">                  
                      </div>
-
-                <!-- Pop-up div starts-->
+                     <!-- Pop-up div starts-->
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -486,16 +550,91 @@ max-width: 1000px !important;
                               </form>
                         </div>
                       </div>
-                    </div>
+                  </div>
                   <!-- Pop-up div Ends-->
                </div>  
                <!-- Family -->                   
                <div class="tab-pane fade" id="v-pills-Family" role="tabpanel" aria-labelledby="v-pills-Family-tab">
                   <nav class="navbar navbar-light bg-primary rounded">
                     <span class="navbar-brand mb-0 h1">Family</span>
+                    <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#FamilyModal">+ Add Family Info</button>
                   </nav>
                   <br>
-                  <p>Family</p>
+                  <div class="card-body">
+                        <div class="employee-office-table">
+                            <div class="table-responsive">
+                            <table class="table custom-table table-hover" >
+                                <thead>
+                                    <tr>
+                                        <th>Names</th>
+                                        <th>Gender</th>
+                                        <th>Relationship</th>
+                                        <th>Marital Status</th>
+                                        <th>Blood Group</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="family_td">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                     <!-- Pop-up div starts-->
+                  <div class="modal fade" id="FamilyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Add Family Information</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
+                              <form method="POST" action="javascript:void(0)" id="add_family_unit" class="ajax-form" enctype="multipart/form-data">
+                                  {{ csrf_field() }}
+                                <div class="modal-body">
+                                    <div class="form-row">
+                                       <div class="col-md-12 mb-3">
+                                            <label for="fm_name">Name</label>
+                                            <input class="form-control" name="fm_name" id="fm_name" type="text" placeholder="Name">
+                                            <span class="text-danger color-hider" id="fm_name_error"  style="display:none;color: red;"></span>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="fm_gender">Gender</label>
+                                            <select class="form-control" name="fm_gender" id="fm_gender">
+                                                <option value="none" selected>Gender</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Other">Other</option>
+                                             </select>
+                                            <span class="text-danger color-hider" id="fm_gender_error"  style="display:none;color: red;"></span>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="fn_relationship">Relationship</label>
+                                            <input class="form-control" name="fn_relationship" id="fn_relationship" type="text" placeholder="Relationship">
+                                             <span class="text-danger color-hider" id="fn_relationship_error"  style="display:none;color: red;"></span>
+
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="fn_marital">Marital Status</label>
+                                            <input class="form-control" name="fn_marital" id="fn_marital" type="text" placeholder="Marital Status">
+                                            <span class="text-danger color-hider" id="fn_marital_error"  style="display:none;color: red;"></span>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="fn_blood_gr">Blood Group</label>
+                                            <input class="form-control" name="fn_blood_gr" id="fn_blood_gr" type="text" placeholder="Blood Group">
+                                            <span class="text-danger color-hider" id="fn_blood_gr_error"  style="display:none;color: red;"></span>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-secondary" type="submit" >Save</button>
+                                </div>
+                              </form>
+                        </div>
+                      </div>
+                  </div>
+                  <!-- Pop-up div Ends-->
                </div>
 
                <!-- Pop-up div image upload-->
@@ -587,6 +726,10 @@ max-width: 1000px !important;
    var education_information_link = "{{url('education_information_insert')}}";
    var education_information_get_link = "{{url('education_information_view')}}";
    var experience_info_link = "{{url('experience_info_view')}}";
+   var add_contact_info_link = "{{url('add_contact_info')}}";
+   var Contact_info_get_link = "{{url('Contact_info_view')}}";
+   var add_family_info_link = "{{url('add_family_add')}}";
+   var family_information_get_link = "{{url('family_information_view')}}";
 
    
  </script>

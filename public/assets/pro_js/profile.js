@@ -79,7 +79,7 @@ $("#crop").click(function(){
                     location.reload();
                    }, 2000);
 
-           }else if(data.success =='updated'){
+           }else if(data.success =='update'){
 
             Toastify({
                    text: "Successfully uploaded..!",
@@ -211,30 +211,33 @@ function documents_info(){
         data:{},
         dataType: "json",
         success: function(data) {
-             html ="";
-            // console.log(data)
-                html +="<div class='card-body'>";
-                html +="<div class='row people-grid-row'>";
-          for (let index = 0; index < data.length; index++) {
-                html +="<div class='col-md-3 col-lg-3 col-xl-4'>";
-                html +="<div class='card widget-profile' style='width: 100%;height: 90%;'>";
-                html +="<div class='card-body rounded' style='box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);'>";
-                html +="<div class='pro-widget-content text-center'>";
-                html +="<div class='profile-info-widget'>";
-                html +="<a class='fa fa-suitcase' style='font-size:25px;color:black'></a>";
-                html +="<div class='profile-det-info'>";
-                html +="<h5><a href='' class='text-info'>" + data[index].doc_name + "</a></h5>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                
+                if (data !="") {
+                $('#testing').empty();
+                 html ="";
+                // console.log(data)
+                    html +="<div class='card-body'>";
+                    html +="<div class='row people-grid-row'>";
+              for (let index = 0; index < data.length; index++) {
+                    html +="<div class='col-md-3 col-lg-3 col-xl-4'>";
+                    html +="<div class='card widget-profile' style='width: 100%;height: 90%;'>";
+                    html +="<div class='card-body rounded' style='box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);'>";
+                    html +="<div class='pro-widget-content text-center'>";
+                    html +="<div class='profile-info-widget' style='margin-bottom: -37px;'>";
+                    html +="<a class='fa fa-suitcase' style='font-size:25px;color:black'></a>";
+                    html +="<div class='profile-det-info'>";
+                    html +="<h5><a href='' class='text-info'>" + data[index].doc_name + "</a></h5>";
+                    html +="</div>";
+                    html +="</div>";
+                    html +="</div>";
+                    html +="</div>";
+                    html +="</div>";
+                    html +="</div>";
+                    
+                }
+                    html +="</div>";
+                    html +="</div>";
+                $('#testing').append(html);
             }
-                html +="</div>";
-                html +="</div>";
-            $('#testing').append(html);
         }
     });
 }
@@ -250,12 +253,14 @@ function account_information(){
         data:{},
         dataType: "json",
         success: function(data) {
-                $('#acc_mobile').val(data['0'].acc_mobile);
-                $('#acc_name').val(data['0'].acc_name);
-                $('#acc_number').val(data['0'].acc_number);
-                $('#bank_name').val(data['0'].bank_name);
-                $('#branch_name').val(data['0'].branch_name);
-                $('#ifsc_code').val(data['0'].ifsc_code);
+            if (data !="") {
+                    $('#acc_mobile').val(data['0'].acc_mobile);
+                    $('#acc_name').val(data['0'].acc_name);
+                    $('#acc_number').val(data['0'].acc_number);
+                    $('#bank_name').val(data['0'].bank_name);
+                    $('#branch_name').val(data['0'].branch_name);
+                    $('#ifsc_code').val(data['0'].ifsc_code);
+                }
             }
         });
     }
@@ -338,16 +343,21 @@ function education_information(){
         data:{},
         dataType: "json",
         success: function(data) {
-                    html ='';
-                $.each(data, function (key, val) {
-                    html +='<tr>';
-                    html +='<td data-label="allcount">'+val.qualification+'</td>';
-                    html +='<td data-label="allcount">'+val.institute+'</td>';
-                    html +='<td data-label="allcount">'+val.begin_on+'</td>';
-                    html +='<td data-label="allcount">'+val.end_on+'</td>';
-                    html +='</tr>';
-                });
-                $('#education_td').html(html);
+            // console.log(data)
+            if (data !="") {
+                $('#education_td').empty();
+                        html ='';
+                    $.each(data, function (key, val) {
+                        html +='<tr>';
+                        html +='<td data-label="allcount">'+val.degree+'</td>';
+                        html +='<td data-label="allcount">'+val.university+'</td>';
+                        html +='<td data-label="allcount">'+val.edu_start_month+"-"+val.edu_start_year+'</td>';
+                        html +='<td data-label="allcount">'+val.edu_end_month+"-"+val.edu_end_year+'</td>';
+                        html +='<td data-label="allcount"><a href="../uploads/'+ val.edu_certificate +'" target =_blank><img class="rounded-circle" src="../assets/images/user/1.jpg"  alt=""></a></td>';
+
+                    });
+                    $('#education_td').html(html);
+                }
             }
         });
     }
@@ -408,32 +418,229 @@ function experience_info(){
         data:{},
         dataType: "json",
         success: function(data) {
-             html ="";
-            console.log(data)
-                html +="<div class='card-body'>";
-                html +="<div class='row people-grid-row'>";
-          for (let index = 0; index < data.length; index++) {
-                html +="<div class='col-md-3 col-lg-3 col-xl-4'>";
-                html +="<div class='card widget-profile'>";
-                html +="<div class='card-body rounded' style='box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);'>";
-                html +="<div class='pro-widget-content text-center'>";
-                html +="<div class='profile-info-widget'>";
-                html +="<a class='fa fa-suitcase' style='font-size:25px;color:black'></a>";
-                html +="<div class='profile-det-info'>";
-                html +="<h5><a href='' class='text-info'>" + data[index].job_title + "</a></h5>";
-                html +="<p>" + data[index].company_name + "</p>";
-                // html +="<p href='' class='text-info'>" + data[index].doc_name + "</p>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                
+
+            $('#Experience_tbl').empty();
+            if (data !="") {
+                     html ="";
+                    // console.log(data)
+                        html +="<div class='card-body'>";
+                        html +="<div class='row people-grid-row'>";
+                  for (let index = 0; index < data.length; index++) {
+                        html +="<div class='col-md-3 col-lg-3 col-xl-4'>";
+                        html +="<div class='card widget-profile'>";
+                        html +="<div class='card-body rounded' style='box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);'>";
+                        html +="<div class='pro-widget-content text-center'>";
+                        html +="<div class='profile-info-widget'>";
+                        html +="<a class='fa fa-suitcase' style='font-size:25px;color:black'></a>";
+                        html +="<div class='profile-det-info'>";
+                        html +="<a class='text-info' >" + data[index].job_title + "</a>";
+                        html +="<p>" + data[index].company_name + "</p>";
+                        html +="</div>";
+                        html +="</div>";
+                        html +="</div>";
+                        html +="</div>";
+                        html +="</div>";
+                        html +="</div>";
+                        
+                    }
+                        html +="</div>";
+                        html +="</div>";
+                    $('#Experience_tbl').append(html);
+                }
             }
-                html +="</div>";
-                html +="</div>";
-            $('#Experience_tbl').append(html);
-        }
     });
 }
+
+$("#v-pills-messages-tab").on('click', function() {
+    Contact_info_page();
+});
+function Contact_info_page(){
+    $.ajax({
+        url: Contact_info_get_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            console.log(data)
+                if (data !="") {
+                    $('#p_num_view').html(data['0'].phone_number);
+                    $('#s_num_view').html(data['0'].s_number);
+                    $('#p_email_view').html(data['0'].p_email);
+                    $('#p_adderss_view').html(data['0'].p_adderss);
+                    $('#c_address_view').html(data['0'].c_address);
+                    $('#State_view').html(data['0'].State);
+                }
+            }
+        });
+    }
+
+/*contact info in pop-up*/
+function Contact_information(){
+    $.ajax({
+        url: Contact_info_get_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data['0'].phone_number)
+            if (data !="") {
+                $('#phone_number').val(data['0'].phone_number);
+                $('#s_number').val(data['0'].s_number);
+                $('#p_email').val(data['0'].p_email);
+                $('#p_adderss').val(data['0'].p_adderss);
+                $('#c_address').val(data['0'].c_address);
+                $('#State').val(data['0'].State);
+            }
+
+            }
+        });
+    }
+
+
+$('#add_contact_info').submit(function(e) {    
+    e.preventDefault();
+      var formData = new FormData(this);
+    $.ajax({  
+        url:add_contact_info_link, 
+        method:"POST",  
+        data:formData,
+        processData:false,
+        cache:false,
+        contentType:false,
+        dataType:"json",
+        success:function(data) {
+        if(data.error)
+           {
+            $(".color-hider").hide();
+                var keys=Object.keys(data.error);
+                $.each( data.error, function( key, value ) {
+                $("#"+key+'_error').text(value)
+                $("#"+key+'_error').show();
+                });
+           }
+            if(data.response =='insert'){
+               Toastify({
+                   text: "Added Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+
+           }else if(data.response =='Update'){
+               Toastify({
+                   text: "Update Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+           }
+           else{
+               Toastify({
+                   text: "Request Failed..! Try Again",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#f3616d",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                   }, 2000);
+
+               }
+            
+        },
+    }); 
+});
+
+/*famil information */
+$("#v-pills-Family-tab").on('click', function() {
+    family_information();
+});
+
+function family_information(){
+    $.ajax({
+        url: family_information_get_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            console.log(data)
+            $('#education_td').empty();
+            if (data !="") {
+                    html ='';
+                $.each(data, function (key, val) {
+                    html +='<tr>';
+                    html +='<td data-label="allcount">'+val.fm_name+'</td>';
+                    html +='<td data-label="allcount">'+val.fm_gender+'</td>';
+                    html +='<td data-label="allcount">'+val.fn_relationship+'</td>';
+                    html +='<td data-label="allcount">'+val.fn_marital+'</td>';
+                    html +='<td data-label="allcount">'+val.fn_blood_gr+'</td>';
+
+                });
+                $('#family_td').html(html);
+                }
+            }
+        });
+    }
+
+$('#add_family_unit').submit(function(e) {    
+    e.preventDefault();
+      var formData = new FormData(this);
+    $.ajax({  
+        url:add_family_info_link, 
+        method:"POST",  
+        data:formData,
+        processData:false,
+        cache:false,
+        contentType:false,
+        dataType:"json",
+        success:function(data) {
+        if(data.error)
+           {
+            $(".color-hider").hide();
+                var keys=Object.keys(data.error);
+                $.each( data.error, function( key, value ) {
+                $("#"+key+'_error').text(value)
+                $("#"+key+'_error').show();
+                });
+           }
+            if(data.response =='insert'){
+               Toastify({
+                   text: "Added Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+
+           }else{
+               Toastify({
+                   text: "Request Failed..! Try Again",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#f3616d",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                   }, 2000);
+
+               }
+            
+        },
+    }); 
+});

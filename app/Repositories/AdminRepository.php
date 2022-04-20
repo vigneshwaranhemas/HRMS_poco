@@ -87,10 +87,13 @@ class AdminRepository implements IAdminRepository
                 $role_data=role_permission::where('role',$role_id)->where('menu',$val->menu_id)->where('sub_menu',$val->sub_menu_name)->get();
                 $data=array();
                        // echo '<pre>';print_r($role_data);die();
+                    $roles_id="";
+                
                 if(isset($role_data['0'])){
-
-
+ 
                     foreach($role_data as $roles){
+                        $roles_id=$roles->id;
+
                         if($roles->view==1){
                         $view='checked';
                         }else{
@@ -121,8 +124,8 @@ class AdminRepository implements IAdminRepository
                     $delete=" ";
 
                    }
-                    $sub = "<tr><td><input type='hidden' value=".$value->menu_id."></td><td> ".$val->sub_menu_name."</td>
-                    <td><div class='media-body  '><label class='switch modify_switch '><input name='checking' ".$view." type='checkbox'><span class='switch-state '></span></label></div></td>
+                    $sub = "<tr><td><input type='hidden' value=".$value->menu_id."></td><td>".$val->sub_menu_name."</td>
+                    <td><input type='hidden' value=".$roles_id."><div class='media-body  '><label class='switch modify_switch '><input name='checking' ".$view." type='checkbox'><span class='switch-state '></span></label></div></td>
                     <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$update." type='checkbox'><span class='switch-state '></span></label></div></td>
                     <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$add." type='checkbox'><span class='switch-state '></span></label></div></td>
                     <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$delete." type='checkbox'><span class='switch-state '></span></label></div></td>
@@ -135,10 +138,13 @@ class AdminRepository implements IAdminRepository
             $role_data=role_permission::where('role',$role_id)->where('menu',$value->menu_id)->where('sub_menu',NULL)->get();
                 $data=array();
                        // echo '<pre>';print_r($role_data);die();
+                   $roles_id="";
                 if(isset($role_data['0'])){
-
+                 
+                     
 
                     foreach($role_data as $roles){
+                        $roles_id=$roles->id;
                         if($roles->view==1){
                         $view='checked';
                         }else{
@@ -170,7 +176,7 @@ class AdminRepository implements IAdminRepository
                    }
                 $menu="<tr class='test_data2'><td><b>".$value->menu_name."</td>
                         <td><input type='hidden' value=".$value->menu_id."></td>
-                    <td><div class='media-body  '><label class='switch modify_switch '><input name='checking' ".$view." type='checkbox'><span class='switch-state '></span></label></div></td>
+                    <td><input type='hidden' value=".$roles_id."><div class='media-body'><label class='switch modify_switch '><input name='checking' ".$view." type='checkbox'><span class='switch-state '></span></label></div></td>
                     <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$update." type='checkbox'><span class='switch-state '></span></label></div></td>
                     <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$add." type='checkbox'><span class='switch-state '></span></label></div></td>
                     <td><div class='media-body  '><label class='switch modify_switch'><input name='checking' ".$delete." type='checkbox'><span class='switch-state '></span></label></div></td></tr>";
@@ -187,6 +193,27 @@ class AdminRepository implements IAdminRepository
         $response = role_permission::insert($form_data);
       return $response;
     }
+
+     /*role permission update list in table */
+    public function get_submenu_update_res($data){
+
+        // echo "<pre>";print_r($data);die;
+        foreach ($data as $key => $form_data) {
+        // echo "<pre>";print_r($form_data);die();
+        $result=role_permission::where('id', '=' ,$form_data['colid'])->update([
+                            "empID"=>$form_data['empID'],
+                            "cdID"=>$form_data['cdID'],
+                            "role"=>$form_data['role'],
+                            "menu"=>$form_data['menu'],
+                           "sub_menu"=>$form_data['sub_menu'],
+                           "view"=>$form_data['view'],
+                           "update"=>$form_data['update'],
+                           "add"=>$form_data['add'],
+                           "delete"=>$form_data['delete'] 
+                       ]);
+                    }
+                }
+    
 
     // Business Unit process start
     public function add_business_unit_process( $form_data ){

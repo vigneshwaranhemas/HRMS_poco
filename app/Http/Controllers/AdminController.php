@@ -69,20 +69,43 @@ class AdminController extends Controller
     public function sub_menu_save_tab(Request $req){
 
       $data=$req->selected;
-        // echo "<pre>";print_r($data);die();
-      foreach ($data as $key => $value) {
-         $res_array[]=array("role"=>$value['role'],
-                            "menu"=>$value['menu'],
-                           "sub_menu"=>$value['sub_menu'],
-                           "view"=>$value['view'],
-                           "update"=>$value['update'],
-                           "add"=>$value['add'],
-                           "delete"=>$value['delete']
-                       );
-      }
-              // echo "<pre>";print_r($res_array);die();
+        
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+        $cdID = $session_val['cdID'];
 
-        $get_menu_result = $this->admrpy->get_submenu_save_res( $res_array);
+        $user = DB::table( 'role_permissions' )->where('role', '=', $data[0]['role'])->first();
+
+         if ($user === null) {
+          foreach ($data as $key => $value) {
+             $res_array[]=array("empID"=>$empID,
+                                "cdID"=>$cdID,
+                                "role"=>$value['role'],
+                                "menu"=>$value['menu'],
+                               "sub_menu"=>$value['sub_menu'],
+                               "view"=>$value['view'],
+                               "update"=>$value['update'],
+                               "add"=>$value['add'],
+                               "delete"=>$value['delete'],);
+                        }
+                  // echo "<pre>";print_r($res_array);die();
+            $get_menu_result = $this->admrpy->get_submenu_save_res( $res_array);
+        }else{
+            foreach ($data as $key => $value) {
+                // echo "<pre>";print_r($data);die();
+                $res_array[]=array("empID"=>$empID,
+                                "cdID"=>$cdID,
+                                "colid"=>$value['colid'],
+                                "role"=>$value['role'],
+                                "menu"=>$value['menu'],
+                               "sub_menu"=>$value['sub_menu'],
+                               "view"=>$value['view'],
+                               "update"=>$value['update'],
+                               "add"=>$value['add'],
+                               "delete"=>$value['delete'],);
+                        }
+            $get_menu_result = $this->admrpy->get_submenu_update_res( $res_array);
+        }
 
         return response()->json( $data );
     }
@@ -2190,47 +2213,6 @@ class AdminController extends Controller
 
         return response()->json( $get_welcome_aboard_details_result );
     }
-    public function masters() {
-
-        $session_val = Session::get('session_info');
-        $emp_ID = $session_val['empID'];
-        // echo "<pre>";print_r($emp_ID);die;
-         $emp_ID = array( "emp_ID" => $emp_ID, );
-
-
-        //business
-        $business = $this->admrpy->get_table('tbl_business', $emp_ID);
-        $data['business'] = $business;
-        //band
-        $band = $this->admrpy->get_table('tbl_band', $emp_ID);
-        $data['band'] = $band;
-        //work_location
-        $work_location = $this->admrpy->get_table('tbl_work_location', $emp_ID);
-        $data['work_location'] = $work_location;
-        //blood_group
-        $blood_group = $this->admrpy->get_table('tbl_blood_group', $emp_ID);
-        $data['blood_group'] = $blood_group;
-        //roll_intake
-        $roll_intake = $this->admrpy->get_table('tbl_roll_intake', $emp_ID);
-        $data['roll_intake'] = $roll_intake;
-        //Manager
-        $manager = $this->admrpy->get_table('tbl_personnel', $emp_ID);
-        $data['manager'] = $manager;
-        //Department
-        $department = $this->admrpy->get_table('tbl_department', $emp_ID);
-        $data['department'] = $department;
-        //State
-        $state = $this->admrpy->get_table('tbl_state', $emp_ID);
-        $data['state'] = $state;
-        //spoc s&d
-        $users = $this->admrpy->get_table('users', $emp_ID);
-        $data['users'] = $users;
-
-        return response()->json( $data );
-
-        // $this->load->view('admin/masters', $data);
-
-    }
-
+    
     
 }

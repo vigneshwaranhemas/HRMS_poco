@@ -289,4 +289,8 @@ Route::post('account_info_get', 'DocumentsController@account_info_get_res');
 Route::post('education_information_insert', 'DocumentsController@education_information_add');
 Route::post('education_information_view', 'DocumentsController@education_info_view');
 Route::post('experience_info_view', 'DocumentsController@experience_info_result');
+Route::post('add_contact_info', 'DocumentsController@add_contact_info');
+Route::post('Contact_info_view', 'DocumentsController@Contact_info_view');
+Route::post('add_family_add', 'DocumentsController@add_family_add');
+Route::post('family_information_view', 'DocumentsController@family_information_view');
 

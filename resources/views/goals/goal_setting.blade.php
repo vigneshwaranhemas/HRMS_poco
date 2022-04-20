@@ -1,5 +1,5 @@
 {{-- vigneshwaran --}}
-@extends('layouts.simple.buddy_master')
+@extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'can'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'Itinfra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
 @section('title', 'Premium Admin Template')
 
 @section('css')
@@ -18,8 +18,8 @@
 @endsection
 
 @section('breadcrumb-items')
-   <li class="breadcrumb-item">Dashboard</li>
-	<li class="breadcrumb-item active">Default</li>
+   {{--<li class="breadcrumb-item">Dashboard</li>
+	<li class="breadcrumb-item active">Default</li>--}}
 @endsection
 
 @section('content')

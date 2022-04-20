@@ -2,7 +2,7 @@
     <div class="sidebar">
        <ul class="iconMenu-bar custom-scrollbar">
           <li>
-             <a class="bar-icons" href="#">
+             <a class="bar-icons" href="{{ route('hr_dashboard') }}">
                 <!--img(src='../assets/images/menu/home.png' alt='')--><i class="pe-7s-home"></i><span>Dashboard    </span>
              </a>
              {{-- <ul class="iconbar-mainmenu custom-scrollbar">
@@ -36,13 +36,19 @@
           </li>
 
           <li>
-             <a class="bar-icons" href="#"><i class="pe-7s-portfolio"></i><span>Goals </span></a>
+             <a class="bar-icons" href="#"><i class="pe-7s-target"></i><span>Goals </span></a>
              <ul class="iconbar-mainmenu custom-scrollbar">
                 <li class="iconbar-header">Goals</li>
-               <li><a href="{{ route('hr_goals') }}">Goals</a></li>
-               <li><a href="{{ route('hr_goal_setting') }}">Goal Setting</a></li>
+                <li><a href="{{ route('goals') }}">Goals</a></li>
+               <li><a href="{{ route('goal_setting') }}">Goal Setting</a></li>
              </ul>
           </li>
+         <li>
+            <a class="bar-icons" href="{{ route('holidays') }}"><i class="pe-7s-plane"></i><span>Holidays</span></a>
+         </li>
+         <li>
+            <a class="bar-icons" href="{{ route('events') }}"><i class="pe-7s-note"></i><span>Events</span></a>
+         </li>    
           {{--
            <!-- <li>
              <a class="bar-icons" href="#"><i class="pe-7s-id"></i><span>Tables</span></a>

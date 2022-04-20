@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Auth;
 
-class ItInfraController extends Controller
+class SiteAdminController extends Controller
 {
     public function __construct()
     {
         $this->middleware('is_admin');
     }
-    public function index()
+
+    public function site_admin_dashboard()
     {
         //Birthday card
         $current_date = date("d-m-Y");
@@ -29,7 +30,7 @@ class ItInfraController extends Controller
         
         //Upcoming holidays
         $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();                                                
-                
+        
         //Upcoming events
         $logined_empid = Auth::user()->empID;
         $upcoming_events = DB::table('event_attendees')
@@ -41,20 +42,18 @@ class ItInfraController extends Controller
                      ->limit(2)
                      ->get();
 
+        // dd($upcoming_events);
+                     
+        // $upcoming_events = DB::table('events')->select('*')->where('start_date_time', '>=', $date)->limit(2)->get();                                                
+        
         $data = [
             "todays_birthdays" => $todays_birthdays,
             "tdy_work_anniversary" => $tdy_work_anniversary,
-            "upcoming_holidays" => $upcoming_holidays, 
+            "upcoming_holidays" => $upcoming_holidays,
             "upcoming_events" => $upcoming_events,
         ];
 
-        return view('ItInfra.dashboard')->with($data);
-      }
-
-    public function EmailIdCreation()
-    {
-        return view('ItInfra.EmailIdCreation');
+        return view('site-admin.dashboard')->with($data);
     }
-
 
 }

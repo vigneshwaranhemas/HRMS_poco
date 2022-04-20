@@ -10,13 +10,12 @@ use Illuminate\Support\Facades\DB;
 class EventCategoryController extends Controller
 {
 
-    public $event_category;
+    public $event_category;  
 
     public function __construct(IEventCategoryrepositories $event_category)
     {
+        $this->middleware('is_admin');
         $this->event_category = $event_category;
-
-        // $this->middleware('backend_coordinator');
     }
     public function event_category_insert(Request $request)
     {

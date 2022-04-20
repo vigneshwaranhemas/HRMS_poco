@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use PDF;
 
 use Session;
 
@@ -14,12 +15,38 @@ class AdminController extends Controller
 {
     public function __construct(IAdminRepository $admrpy)
     {
+        $this->middleware('is_admin');
         $this->admrpy = $admrpy;
     }
 
     public function admin_dashboard()
     {
-        return view('admin.dashboard');
+        //Birthday card
+        $current_date = date("d-m-Y");
+        $date = Carbon::createFromFormat('d-m-Y', $current_date);
+        $result = $date->format('F');
+        $monthName = substr($result, 0, 3);
+        $dt = $date->format('d');
+        $tdy = $dt."-".$monthName;
+        $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%'.$tdy.'%')->get();
+
+        //Work anniversary
+        $tdy_work_anniversary = DB::table('customusers')->select('*')->where('doj', 'LIKE', '%'.$tdy.'%')->get();
+
+        //Upcoming holidays
+        $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();
+
+        //Upcoming events
+        $upcoming_events = DB::table('events')->select('*')->where('start_date_time', '>=', $date)->limit(2)->get();
+
+        $data = [
+            "todays_birthdays" => $todays_birthdays,
+            "tdy_work_anniversary" => $tdy_work_anniversary,
+            "upcoming_holidays" => $upcoming_holidays,
+            "upcoming_events" => $upcoming_events,
+        ];
+
+        return view('admin.dashboard')->with($data);
     }
     public function admin_goals()
     {
@@ -188,6 +215,10 @@ class AdminController extends Controller
     {
         return view('admin.roll_s');
     }
+    // public function welcome_aboard_pdf()
+    // {
+    //     return view('admin.welcome_aboard_pdf');
+    // }
 
     // Business Process Start
     public function add_business_unit(Request $req)
@@ -200,6 +231,7 @@ class AdminController extends Controller
         $bu_id = 'BU'.((DB::table( 'business_unit' )->max('id')) +1);
 
         $today_date = Carbon::now()->format('Y-m-d');
+
         $form_data = array(
             'bu_id' => $bu_id,
             'business_name' => $req->input('business_name'),
@@ -208,8 +240,7 @@ class AdminController extends Controller
             'created_by' => '900315'
 
         );
-        // echo '<pre>';print_r($form_data);
-        // die;
+
         $add_business_unit_process_result = $this->admrpy->add_business_unit_process( $form_data );
 
         $response = 'success';
@@ -2099,7 +2130,7 @@ class AdminController extends Controller
 
         // return response()->json(['success'=>'Crop Image Uploaded Successfully']);
     }
-    
+
 
      /* insert roles*/
     public function add_roles_process(Request $req)
@@ -2198,7 +2229,6 @@ class AdminController extends Controller
 
     public function get_welcome_aboard_details(Request $req){
 
-
         $get_welcome_aboard_details_result = $this->admrpy->get_welcome_aboard_details();
 
         $get_welcome_aboard_details_result['get_education_my'] =  json_decode($get_welcome_aboard_details_result->education_my,TRUE);
@@ -2213,6 +2243,107 @@ class AdminController extends Controller
 
         return response()->json( $get_welcome_aboard_details_result );
     }
-    
-    
+
+    public function welcome_aboard_generate_pdf()
+    {
+
+        $get_welcome_aboard_details_result = $this->admrpy->get_welcome_aboard_details();
+
+        // echo '<pre>';print_r($get_welcome_aboard_details_result->name);die();
+
+        $get_welcome_aboard_details_result['get_education_my'] =  json_decode($get_welcome_aboard_details_result->education_my,TRUE);
+        $get_welcome_aboard_details_result['get_education_from'] = json_decode($get_welcome_aboard_details_result->education_from,TRUE);
+        $get_welcome_aboard_details_result['get_education_in'] = json_decode($get_welcome_aboard_details_result->education_in,TRUE);
+
+        $get_welcome_aboard_details_result['get_work_experience_at'] =  json_decode($get_welcome_aboard_details_result->work_experience_at,TRUE);
+        $get_welcome_aboard_details_result['get_work_experience_as'] = json_decode($get_welcome_aboard_details_result->work_experience_as,TRUE);
+        $get_welcome_aboard_details_result['get_work_experience_years'] = json_decode($get_welcome_aboard_details_result->work_experience_years,TRUE);
+
+        // $info = "";
+
+        $info = [
+            'name' => $get_welcome_aboard_details_result->name,
+            'designation' => $get_welcome_aboard_details_result->designation,
+            'department' => $get_welcome_aboard_details_result->department,
+            'today_date' => $get_welcome_aboard_details_result->today_date,
+            'get_education_my' => $get_welcome_aboard_details_result['get_education_my'],
+            'get_education_from' => $get_welcome_aboard_details_result['get_education_from'],
+            'get_education_in' => $get_welcome_aboard_details_result['get_education_in'],
+            'achievements_education' => $get_welcome_aboard_details_result->achievements_education,
+            'work_in' => $get_welcome_aboard_details_result['work_in'],
+            'work_designation' => $get_welcome_aboard_details_result['work_designation'],
+            'work_years' => $get_welcome_aboard_details_result['work_years'],
+            'work_experience_at' => $get_welcome_aboard_details_result['get_work_experience_at'],
+            'work_experience_as' => $get_welcome_aboard_details_result['get_work_experience_as'],
+            'work_experience_years' => $get_welcome_aboard_details_result['get_work_experience_years'],
+            'joining_at' => $get_welcome_aboard_details_result['joining_at'],
+            'joining_as' => $get_welcome_aboard_details_result['joining_as'],
+            'achievements_work' => $get_welcome_aboard_details_result['achievements_work'],
+            'my_favorite_pastime' => $get_welcome_aboard_details_result['my_favorite_pastime'],
+            'my_favorite_hobbies' => $get_welcome_aboard_details_result['my_favorite_hobbies'],
+            'my_favorite_places' => $get_welcome_aboard_details_result['my_favorite_places'],
+            'my_favorite_foods' => $get_welcome_aboard_details_result['my_favorite_foods'],
+            'my_favorite_sports' => $get_welcome_aboard_details_result['my_favorite_sports'],
+            'my_favorite_movies' => $get_welcome_aboard_details_result['my_favorite_movies'],
+            'my_favorite' => $get_welcome_aboard_details_result['my_favorite'],
+            'my_extracurricular_specialities' => $get_welcome_aboard_details_result['my_extracurricular_specialities'],
+            'my_career_aspirations' => $get_welcome_aboard_details_result['my_career_aspirations'],
+            'languages' => $get_welcome_aboard_details_result['languages'],
+            'interesting_facts' => $get_welcome_aboard_details_result['interesting_facts'],
+            'my_motto' => $get_welcome_aboard_details_result['my_motto'],
+            'books' => $get_welcome_aboard_details_result['books'],
+
+        ];
+
+        // echo '<pre>';print_r($data['get_education_my']["0"]);die();
+
+        // return view('admin.welcome_aboard_pdf')->with('info',$data);
+        // $pdf = PDF::loadView('admin.welcome_aboard_pdf', $data);
+        $pdf = PDF::loadView('admin.welcome_aboard_pdf', compact('info'));
+
+        return $pdf->download('welcome_aboard.pdf');
+    }
+
+    public function masters() {
+        $session_val = Session::get('session_info');
+        $emp_ID = $session_val['empID'];
+        // echo "<pre>";print_r($emp_ID);die;
+         $emp_ID = array( "emp_ID" => $emp_ID, );
+
+
+        //business
+        $business = $this->admrpy->get_table('tbl_business', $emp_ID);
+        $data['business'] = $business;
+        //band
+        $band = $this->admrpy->get_table('tbl_band', $emp_ID);
+        $data['band'] = $band;
+        //work_location
+        $work_location = $this->admrpy->get_table('tbl_work_location', $emp_ID);
+        $data['work_location'] = $work_location;
+        //blood_group
+        $blood_group = $this->admrpy->get_table('tbl_blood_group', $emp_ID);
+        $data['blood_group'] = $blood_group;
+        //roll_intake
+        $roll_intake = $this->admrpy->get_table('tbl_roll_intake', $emp_ID);
+        $data['roll_intake'] = $roll_intake;
+        //Manager
+        $manager = $this->admrpy->get_table('tbl_personnel', $emp_ID);
+        $data['manager'] = $manager;
+        //Department
+        $department = $this->admrpy->get_table('tbl_department', $emp_ID);
+        $data['department'] = $department;
+        //State
+        $state = $this->admrpy->get_table('tbl_state', $emp_ID);
+        $data['state'] = $state;
+        //spoc s&d
+        $users = $this->admrpy->get_table('users', $emp_ID);
+        $data['users'] = $users;
+
+        return response()->json( $data );
+
+        // $this->load->view('admin/masters', $data);
+
+    }
+
+
 }

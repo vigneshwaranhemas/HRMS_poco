@@ -8,6 +8,7 @@ use App\Event;
 use App\EventAttendee;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Auth;
 
 class EventController extends Controller
 {
@@ -17,17 +18,25 @@ class EventController extends Controller
     public function __construct(IEventRepositories $event)
     {
         $this->event = $event;
-
-        // $this->middleware('backend_coordinator');
+        $this->middleware('is_admin');
     }
-   
+
+    public function events()
+    {                     
+        $customuser_details = DB::table('customusers')->get();
+        $event_categories_data = DB::table('event_categories')->get();
+        $event_types_data = DB::table('event_types')->get();
+        return view('event-calendar.index', ['customuser_details'=> $customuser_details, 'event_categories_data'=> $event_categories_data, 'event_types_data'=> $event_types_data]);    
+    }
     public function add_new_event_insert(Request $request)
     {
         $result = $request->validate([
             'event_name' => 'required', 
             'where' => 'required', 
+            'category_name' => 'required', 
+            'event_type' => 'required', 
             'description' => 'required', 
-            // 'candicate_list_options[]' => 'required', 
+            // 'candicate_list_options' => 'required', 
             'start_date' => 'required', 
             'start_time' => 'required', 
             'end_date' => 'required', 
@@ -96,9 +105,9 @@ class EventController extends Controller
         // ];
 
         if ($request->candicate_list) {
-            $attendees = DB::table("candidate_details")->select('*')->get(); // get all the user list
+            $attendees = DB::table("customusers")->select('*')->get(); // get all the user list
             foreach ($attendees as $attendee) {
-                EventAttendee::firstOrCreate(['candidate_name' => $attendee->candidate_name, 'event_id' => $last_inserted_id]);
+                EventAttendee::firstOrCreate(['candidate_name' => $attendee->empID, 'event_id' => $event_unique_code]);
             }
 
             // Notification::send($attendees, new OffersNotification($offerData));
@@ -108,7 +117,7 @@ class EventController extends Controller
         if ($request->candicate_list_options) {
             foreach ($request->candicate_list_options as $candicateName) {
                 // dd($candicateName);
-                EventAttendee::firstOrCreate(['candidate_name' => $candicateName, 'event_id' => $last_inserted_id]);
+                EventAttendee::firstOrCreate(['candidate_name' => $candicateName, 'event_id' => $event_unique_code]);
             }            
             // $attendees = DB::table("candidate_details")->whereIn('id', $request->candicate_list_options)->get(); // get all the user list
             // Notification::send($attendees, new EventInvite($event));
@@ -119,14 +128,12 @@ class EventController extends Controller
         //     $event->save();
         // }
 
-
         return response($result);
         
     }
 
     public function fetch_all_event(Request $request)
     {
-
 
         // $eventFilter = DB::whereDate('event_start', '>=', $request->start)
         //     ->whereDate('event_end',   '<=', $request->end)
@@ -178,62 +185,95 @@ class EventController extends Controller
     public function event_delete(Request $request)
     {
         $id = $request['id'];
+        
+        $code = DB::table('events')
+        ->where('id', $id)
+        ->value('event_unique_code');
+
+        $fetch = $this->event->event_attendees_get($code); 
+
+        if($fetch) {
+            $this->event->event_attendees_delete($code);  
+        }
+
         $event_deleted = $this->event->event_delete($id);  
         return response($event_deleted);
         
-    }
-    
+    }    
 
     public function fetch_event_attendees_list(Request $request)
     {
         $id = $request['id'];   
-        $fetched = DB::table("candidate_details")->select('*')->get(); // get all the user list
 
+        $code = DB::table('events')
+        ->where('id', $id)
+        ->value('event_unique_code');
+
+        $fetched = DB::table("customusers")->select('*')->get(); // get all the user list
+        
         $output = '<option value="">Choose Member</option>';                       
 
         foreach ($fetched as $record) {  
+
            $fetch_selected = DB::table('event_attendees')
-            ->where('candidate_name', $record->candidate_name)
-            ->where('event_id', $id)
+            ->where('candidate_name', $record->empID)
+            ->where('event_id', $code)
             ->get();
 
             if(count($fetch_selected) != 0){
-                $output .= '<option value="'.$record->candidate_name.'" selected>'.$record->candidate_name.'</option>';                                                                                                      
 
+                // $name = DB::table('customusers')
+                // ->where('empID', $record->candidate_name)
+                // ->value('username');
+
+                $output .= '<option value="'.$record->empID.'" selected>'.$record->username.'</option>';                                                                                                      
+                
             }
             else{
-                $output .= '<option value="'.$record->candidate_name.'">'.$record->candidate_name.'</option>';                                                                                                      
+                $output .= '<option value="'.$record->empID.'">'.$record->username.'</option>';                                                                                                      
             }	       
                         
         }    
-               
 		echo json_encode($output);
     }
 
     public function fetch_event_attendees_show(Request $request)
     {
         $id = $request['id'];   
-                
+        
+        $code = DB::table('events')
+        ->where('id', $id)
+        ->value('event_unique_code');
+
         $fetched = DB::table('event_attendees')
-        ->where('event_id', $id)
+        ->where('event_id', $code)
         ->get();
 
-        $output = '';                       
+        $output = '<p><div class="avatar">';                       
 
-        foreach ($fetched as $record) {  
-                     
-            $output .= '<img src="{{ asset("/img/default-profile-3.png") }}" data-toggle="tooltip"
-            data-original-title="'.$record->candidate_name.'" data-placement="right"
-            class="img-circle" width="25" height="25" alt="user">';                                                                                                      
-         
+        foreach ($fetched as $record) { 
+
+            $name = DB::table('customusers')
+                ->where('empID', $record->candidate_name)
+                ->value('username');
+                
+            $output .= '<img class="img-30 rounded-circle" src="../assets/images/user/1.jpg" data-toggle="tooltip"
+             data-original-title="'.$name.'" data-placement="right  alt="user"><span>'.$name.'</span>';
+
         }    
-               
+
+        $output .= '</div></p>';
+
 		echo json_encode($output);
     }
 
     public function event_update(Request $request)
     {      
-        $event_update_id = $request->event_update_id;
+        $id = $request->event_update_id;
+
+        $code = DB::table('events')
+        ->where('id', $id)
+        ->value('event_unique_code');
 
         if ($request->repeat) {
             $repeat = $request->repeat;
@@ -245,28 +285,36 @@ class EventController extends Controller
 
         if($request->candicate_list){ //all candicates
             
-            $attendees = DB::table("candidate_details")->select('*')->get(); // get all the user list
+            $attendees = DB::table("customusers")->select('*')->get(); // get all the user list
+
+            $response = EventAttendee::where('event_id', $code)->delete();
+
             foreach ($attendees as $attendee) {
-                $response = EventAttendee::where('event_id', $request->event_update_id)->delete();
-                $response = EventAttendee::firstOrCreate(['candidate_name' => $attendee->candidate_name, 'event_id' => $request->event_update_id]);
+
+                $response = EventAttendee::firstOrCreate(['candidate_name' => $attendee->empID, 'event_id' => $code]);
+            
             }
 
             $all_candicate_list = "yes";
 
-        }elseif($request->candicate_list_options){
+        }elseif($request->candicate_list_options_edit){
             
-            // dd($$request->candicate_list_options);
-            foreach ($request->candicate_list_options as $candicateName) {
+            // dd($request->candicate_list_options_edit);
+            $response = EventAttendee::where('event_id', $code)->delete();
+
+            foreach($request->candicate_list_options_edit as $candicateName) {
                 // dd($candicateName);
-                $response = EventAttendee::where('event_id', $request->event_update_id)->delete();
-                $response = EventAttendee::firstOrCreate(['candidate_name' => $candicateName, 'event_id' => $request->event_update_id]);
+                $response = EventAttendee::firstOrCreate(['candidate_name' => $candicateName, 'event_id' => $code]);
             }    
 
             // dd($response);
             // $json = json_encode($request->candicate_list_options);            
             $all_candicate_list = "no";
+
         }else{
+
             $all_candicate_list = "no";
+
         }
 
         $start_date_time = $request->start_date. ' ' .$request->start_time;
@@ -274,7 +322,7 @@ class EventController extends Controller
         // $end_date_time = Carbon::createFromFormat("d-m-Y", $request->end_date)->format('Y-m-d') . ' ' . Carbon::createFromFormat("h:i A", $request->end_time)->format('H:i:s');
 
         $data = array(
-            'event_update_id' => $event_update_id,
+            'event_update_id' => $id,
             'event_name' => $request->event_name,
             'label_color' => $request->label_color,
             'where' => $request->where,

@@ -1,4 +1,4 @@
-@extends('layouts.simple.candidate_master')
+@extends('layouts.simple.site_admin_master')
 @section('title', 'Premium Admin Template')
 
 @section('css')
@@ -307,50 +307,7 @@ View More&lt;/button&gt;
                   </table>
                </div>
                <div class="code-box-copy">
-                  <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head3" title="Copy"><i class="icofont icofont-copy-alt"></i></button>
-                  <pre><code class="language-html" id="example-head3">&lt;!-- Cod Box Copy begin --&gt;
-&nbsp;&lt;div class="card-body pt-0"&gt;| &lt;div class="activity-table table-responsive"&gt;
-&lt;table class="table table-bordernone"&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;
-&lt;div class="activity-image"&gt;&lt;img class="img-fluid" src="../assets/images/dashboard/clipboard.png" alt=""&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;td&gt;
-&lt;div class="activity-details"&gt;
-&lt;h4 class="default-text"&gt;15 &lt;span class="f-14"&gt;November&lt;/span&gt;&lt;/h4&gt;
-&lt;h6&gt;New Task Added&lt;/h6&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;td&gt;
-&lt;div class="activity-time"&gt;&lt;span class="font-primary f-w-700"&gt;1 Day Ago&lt;/span&gt;&lt;span class="d-block light-text"&gt;Your Work Deadline 18&lt;sup&gt;th&lt;/sup&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;/td&gt;
-&lt;td&gt;
-&lt;button class="btn btn-shadow-primary"&gt;View&lt;/button&gt;| &lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;
-&lt;div class="activity-image activity-secondary"&gt;&lt;img class="img-fluid" src="../assets/images/dashboard/greeting.png" alt=""&gt;&lt;/div&gt;
-&lt;/td&gt;
-&lt;td&gt;
-&lt;div class="activity-details"&gt;
-&lt;h4 class="default-text"&gt;01 &lt;span class="f-14"&gt;January&lt;/span&gt;&lt;/h4&gt;
-&lt;h6&gt;New Task Added&lt;/h6&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;td&gt;
-&lt;div class="activity-time"&gt;&lt;span class="font-secondary f-w-700"&gt;10 Minute Ago&lt;/span&gt;&lt;span class="d-block light-text"&gt;Update Your Work Today&lt;/span&gt;&lt;/div&gt;
-&lt;/td&gt;
-&lt;td&gt;
-&lt;button class="btn btn-shadow-secondary"&gt;View &lt;/button&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;!-- Cod Box Copy end --&gt;    </code></pre>
+                  <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head3" title="Copy"><i class="icofont icofont-copy-alt"></i></button>                 
                </div>
             </div>
          </div>
@@ -443,7 +400,7 @@ View More&lt;/button&gt;
                   <li class="bg-primary small-dot"></li>
                </ul>
                <div class="card-header-right">
-               <i class="icofont icofont-flora-flower font-primary"  style="font-size: 18px;"></i>
+                  <i class="icofont icofont-flora-flower font-primary"  style="font-size: 18px;"></i>
                </div>
             </div>
             <div class="card-body pt-0">
@@ -504,7 +461,7 @@ View More&lt;/button&gt;
             </div>
          </div>
       </div>
-      
+
    </div>
 </div>
 
@@ -549,73 +506,73 @@ View More&lt;/button&gt;
          </div>            
          <div class="modal-body">
             <div class="form-body">
-               <div class="row">
-                  <div class="col-md-12 ">
-                     <div class="form-group">
-                           <h6 class="f-w-700">Event Details</h6>
-                           <p id="event_name_show"></p>
-                           <p class="font-normal"> &mdash; <i>at</i> <span  id="where_show"></span></p>
+                  <div class="row">
+                     <div class="col-md-12 ">
+                        <div class="form-group">
+                              <h6 class="f-w-700">Event Details</h6>
+                              <p id="event_name_show"></p>
+                              <p class="font-normal"> &mdash; <i>at</i> <span  id="where_show"></span></p>
+                        </div>
                      </div>
                   </div>
-               </div>
-               <div class="row">
-                  <div class="col-md-12">
-                     <div class="form-group">
-                           <h6 class="f-w-700">Description</h6>
-                           <p id="description_show"></p>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="form-group">
+                              <h6 class="f-w-700">Description</h6>
+                              <p id="description_show"></p>
+                        </div>
                      </div>
                   </div>
-               </div>
-               <div class="row">
-                  <div class="col-md-12">
-                     <div class="form-group">
-                           <h6 class="f-w-700">Attendees</h6>
-                           <p id="candicate_list_show"></p>
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="form-group">
+                              <h6 class="f-w-700">Attendees</h6>
+                              <p id="candicate_list_show"></p>
+                        </div>
                      </div>
                   </div>
-               </div>
-               <div class="row">
-                  <div class="col-md-4">
-                     <div class="form-group">
-                           <h6 class="f-w-700">Category</h6>
-                           <p id="category_name_show"></p>
+                  <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group">
+                              <h6 class="f-w-700">Category</h6>
+                              <p id="category_name_show"></p>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                              <h6 class="f-w-700">Event type</h6>
+                              <p id="event_type_show"></p>
+                        </div>
                      </div>
                   </div>
-                  <div class="col-md-4">
-                     <div class="form-group">
-                           <h6 class="f-w-700">Event type</h6>
-                           <p id="event_type_show"></p>
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-md-4">
-                     <div class="form-group">
-                           <h6 class="f-w-700">Starts On</h6>
-                           <div class="row">
-                              <div class="col-lg-5">
-                                 <p id="start_date_show"></p>
+                  <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group">
+                              <h6 class="f-w-700">Starts On</h6>
+                              <div class="row">
+                                 <div class="col-lg-5">
+                                    <p id="start_date_show"></p>
+                                 </div>
+                                 <div class="col-lg-7">
+                                    <p id="start_time_show"></p>
+                                 </div>
                               </div>
-                              <div class="col-lg-7">
-                                 <p id="start_time_show"></p>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                              <h6 class="f-w-700">Ends On</h6>
+                              <div class="row">
+                                 <div class="col-lg-5">
+                                    <p id="end_date_show"></p>
+                                 </div>
+                                 <div class="col-lg-7">
+                                    <p id="end_time_show"></p>
+                                 </div>
                               </div>
-                           </div>
+                        </div>
                      </div>
                   </div>
-                  <div class="col-md-4">
-                     <div class="form-group">
-                           <h6 class="f-w-700">Ends On</h6>
-                           <div class="row">
-                              <div class="col-lg-5">
-                                 <p id="end_date_show"></p>
-                              </div>
-                              <div class="col-lg-7">
-                                 <p id="end_time_show"></p>
-                              </div>
-                           </div>
-                     </div>
-                  </div>
-               </div>
             </div>
          </div>
          <div class="modal-footer">

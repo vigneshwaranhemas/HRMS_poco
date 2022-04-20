@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use Session;
 
 class LoginController extends Controller
@@ -12,14 +12,13 @@ class LoginController extends Controller
 
     public function login_check_process(Request $req){
 
-
         $credentials = [
             'empID' => $req['employee_id'],
             'password' => $req['login_password'],
             'active'=>'1',
         ];
 
-// echo "<pre>";print_r($credentials);die;
+        // echo "<pre>";print_r($credentials);die;
 
         if(auth()->attempt($credentials, true))
         {
@@ -34,12 +33,7 @@ class LoginController extends Controller
 
             Session::put("session_info",$info);
 
-
-            // echo json_encode($info);die();
-
-
             if (auth()->user()->role_type == 'Admin') {
-
                 return response()->json( ['url'=>url( 'admin_dashboard' ), 'logstatus' => 'success'] );
             }else if (auth()->user()->role_type == 'can') {
                 return response()->json( ['url'=>url( 'candidate_dashboard' ), 'logstatus' => 'success'] );
@@ -47,7 +41,12 @@ class LoginController extends Controller
                 return response()->json( ['url'=>url( 'hr_dashboard' ), 'logstatus' => 'success'] );
             }else if (auth()->user()->role_type == 'Buddy') {
                 return response()->json( ['url'=>url( 'buddy_dashboard' ), 'logstatus' => 'success'] );
+            }else if (auth()->user()->role_type == 'Itinfra') {
+                return response()->json( ['url'=>url('ItInfra_Dashboard' ), 'logstatus' => 'success'] );
+            }else if (auth()->user()->role_type == 'Site Admin') {
+                return response()->json( ['url'=>url('site_admin_dashboard' ), 'logstatus' => 'success'] );
             }
+
         }else{
             return response()->json( ['url'=>url( '../' ), 'logstatus' => 'failed'] );
         }

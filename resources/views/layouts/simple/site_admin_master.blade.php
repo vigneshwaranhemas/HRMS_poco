@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <title>HRMS - @yield('title')</title>
+    <title>Poco - @yield('title')</title>
     @include('layouts.simple.css')
     @yield('style')
 
@@ -31,7 +31,7 @@
       <!-- Page Body Start-->
       <div class="page-body-wrapper">
         <!-- Page Sidebar Start-->
-        @include('layouts.simple.admin_sidebar')
+        @include('layouts.simple.site_admin_sidebar')
         <!-- Page Sidebar Ends-->
         <!-- Right sidebar Start-->
         @include('layouts.simple.chat_sidebar')

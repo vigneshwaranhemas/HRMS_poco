@@ -1,5 +1,5 @@
 {{-- vigneshwaran --}}
-@extends('layouts.simple.candidate_master')
+@extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'can'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'Itinfra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
 @section('title', 'Premium Admin Template')
 
 @section('css')
@@ -17,7 +17,7 @@
 @endsection
 
 @section('breadcrumb-items')
-  {{-- <li class="breadcrumb-item">Dashboard</li>
+   {{--<li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li>--}}
 @endsection
 
@@ -31,7 +31,7 @@
                     <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 107px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> Goals</span></div>
                     <div class="row">
                         <div class="col-md-4">
-                        
+
                         <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Name</h6>
                         <p>Ganagavathy KGV</p>
                         </div>
@@ -43,7 +43,7 @@
                         <h6 class="mb-0 f-w-700"><i class="fa fa-ticket"> </i> Emp ID</h6>
                         <p>900102</p>
                         </div>
-                    
+
                     </div>
                 </div>
                 </div>
@@ -187,19 +187,7 @@
                                 html +='<option value="Projects">Projects</option>';
                             html +='</select>';
                         html +='</td>';
-                            
-                        html +='<td>';
-                            html +='<input type="text" name="" id="" class="form-control">';
-                        html +='</td>';
-                            
-                        html +='<td>';
-                            html +='<input type="text" name="" id="" class="form-control">';
-                        html +='</td>';
-                            
-                        html +='<td>';
-                            html +='<input type="text" name="" id="" class="form-control">';
-                        html +='</td>';
-                            
+
                         html +='<td>';
                             html +='<input type="text" name="" id="" class="form-control">';
                         html +='</td>';
@@ -207,7 +195,19 @@
                         html +='<td>';
                             html +='<input type="text" name="" id="" class="form-control">';
                         html +='</td>';
-                            
+
+                        html +='<td>';
+                            html +='<input type="text" name="" id="" class="form-control">';
+                        html +='</td>';
+
+                        html +='<td>';
+                            html +='<input type="text" name="" id="" class="form-control">';
+                        html +='</td>';
+
+                        html +='<td>';
+                            html +='<input type="text" name="" id="" class="form-control">';
+                        html +='</td>';
+
                         html +='<td>';
                             html +='<div class="dropup">';
                                 html +='<button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>';
@@ -217,21 +217,21 @@
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button" data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
                                 html +='</div>';
                             html +='</div>';
-                            
+
                             // html +=' <button class="btn btn-primary btn-xs" type="button" data-original-title="Add KRA" title="Add KRA"><i class="fa fa-plus" onclick="additionalKRA(this,0);"></i></button>';
                             // html +=' <button class="btn btn-info btn-xs" type="button" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button>';
                             // html +=' <button class="btn btn-danger btn-xs" type="button" data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button>';
                         html +='</td>';
                     html +='</tr>';
                 $('#goal-tb tr:last').after(html);
-        
-            }, 
+
+            },
         2000 );
     });
 
     $(".use-address").click(function() {
         var html = '<input type="text" name="" id="" class="form-control m-t-5">';
-        
+
         var id = $(this).closest("tr").find("td:eq(2)").html(html);
         // $("#resultas").append(id);
     });
@@ -245,7 +245,7 @@
         $(x).closest("tr").find("td:eq(4)").append(html);
         $(x).closest("tr").find("td:eq(6)").append(html);
 
-        
+
 
     }
     function additionalKBD(){
@@ -262,19 +262,7 @@
                         html +='<option value="Projects">Projects</option>';
                     html +='</select>';
                 html +='</td>';
-                    
-                html +='<td>';
-                    html +='<input type="text" name="" id="" class="form-control">';
-                html +='</td>';
-                    
-                html +='<td>';
-                    html +='<input type="text" name="" id="" class="form-control">';
-                html +='</td>';
-                    
-                html +='<td>';
-                    html +='<input type="text" name="" id="" class="form-control">';
-                html +='</td>';
-                    
+
                 html +='<td>';
                     html +='<input type="text" name="" id="" class="form-control">';
                 html +='</td>';
@@ -282,7 +270,19 @@
                 html +='<td>';
                     html +='<input type="text" name="" id="" class="form-control">';
                 html +='</td>';
-                
+
+                html +='<td>';
+                    html +='<input type="text" name="" id="" class="form-control">';
+                html +='</td>';
+
+                html +='<td>';
+                    html +='<input type="text" name="" id="" class="form-control">';
+                html +='</td>';
+
+                html +='<td>';
+                    html +='<input type="text" name="" id="" class="form-control">';
+                html +='</td>';
+
                 html +='<td>';
                     html +='<div class="dropup">';
                         html +='<button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>';
@@ -292,9 +292,9 @@
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button" data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
                         html +='</div>';
                     html +='</div>';
-                            
+
                 html +='</td>';
-                
+
             html +='</tr>';
         $('#goal-tb tr:last').after(html);
         updatesno();
@@ -306,7 +306,7 @@
         $.each($("#goal-tb tr:not(:first)"), function (i, el) {
             var sn = i + 1;
             var sno = "<p>"+sn+"</p>";
-            $(this).find("td:first").html(sno);   
+            $(this).find("td:first").html(sno);
         })
 
     }

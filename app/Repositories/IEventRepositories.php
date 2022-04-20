@@ -9,6 +9,8 @@ interface IEventRepositories{
        public function fetch_event_filter();      
        public function fetch_event_edit($id);      
        public function event_delete($id);      
+       public function event_attendees_delete($id);      
+       public function event_attendees_get($id);      
        public function event_update($data);      
        
 }

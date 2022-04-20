@@ -7,25 +7,6 @@
             </a>
          </li>
          <li>
-            <a class="bar-icons" href="#"><i class="pe-7s-portfolio"></i><span>Masters</span></a>
-            <ul class="iconbar-mainmenu custom-scrollbar">
-               <li class="iconbar-header">Masters</li>
-               <li><a href="{{ route('business') }}">Business Unit</a></li>
-               <li><a href="{{ route('division') }}">Division</a></li>
-               <li><a href="{{ route('function') }}">Function </a></li>
-               <li><a href="{{ route('grade') }}">Grade</a></li>
-               <li><a href="{{ route('band') }}">Band</a></li>
-               <li><a href="{{ route('location') }}">Work Location</a></li>
-               <li><a href="{{ route('blood') }}">Blood Group</a></li>
-               <li><a href="{{ route('roll') }}">Roll of Intake</a></li>
-               <li><a href="{{ route('department') }}">Department</a></li>
-               <li><a href="{{ route('designation_or_position') }}">Designation or Position</a></li>
-               <li><a href="{{ route('client') }}">Client</a></li>
-               <li><a href="{{ route('state') }}">State</a></li>
-               <li><a href="{{ route('zone') }}">Zone</a></li>
-            </ul>
-         </li>
-         <li>
             <a class="bar-icons" href="#"><i class="pe-7s-target"></i><span>Goals</span></a>
             <ul class="iconbar-mainmenu custom-scrollbar">
                <li class="iconbar-header">Goals</li>
@@ -47,6 +28,9 @@
                <li><a href="{{url('/permission')}}">Roles & Permissions</a></li>
                <li><a>Function</a>Module Settings</li>
             </ul>
+         </li>         
+         <li>
+            <a class="bar-icons" href="{{url('Hr_SeatingRequest')}}"><i class="pe-7s-paperclip"></i></i><span>Seating Request</span></a>
          </li>
       </ul>
    </div>

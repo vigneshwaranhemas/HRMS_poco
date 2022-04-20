@@ -1,5 +1,5 @@
 @extends('layouts.simple.hr_master')
-@section('title', 'Candidate Seating')
+@section('title', 'Candidate Seating And IdCard ')
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{url("assets/css/datatables.css")}}">
@@ -10,11 +10,11 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2><span>Candidate Seating</span></h2>
+	<h2><span>Candidate Seating And IdCard  </span></h2>
 @endsection
 
 @section('breadcrumb-items')
-   <li class="breadcrumb-item">Candidate Seatinge</li>
+   <li class="breadcrumb-item">Candidate Seating And IdCard </li>
 	{{-- <li class="breadcrumb-item active">Default</li> --}}
 @endsection
 
@@ -22,57 +22,125 @@
 
 
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-               <div class="card-body">
-                  <div class="dt-ext table-responsive">
-                    <table class="display" id="export-button">
-                        <thead>
-                           <tr>
-                              <th>#</th>
-                              <th>EMPLOYEE ID</th>
-                              <th>NAME</th>
-                              <th>EMAIL</th>
-                              <th>MOBILE NUMBER</th>
-                              <th>ADMIN VERIFICATION</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>1</td>
-                              <td>CD1</td>
-                              <td>Kandan</td>
-                              <td>kandan@example.com</td>
-                              <td>9898989898</td>
-                              <td class="text-center"><p style="color:green" class="fa fa-check"></p></td>
-                           </tr>
-                           <tr>
-                                <td>2</td>
-                                <td>CD3</td>
-                                <td>Shradha</td>
-                                <td>Shradha@example.com</td>
-                                <td>9898989898</td>
-                                <td class="text-center"><p style="color:red" class="fa fa-times"></p></td>
+<div class="col-sm-12 col-xl-12 xl-100">
+    <div class="card">
 
-                           </tr>
-                           <tr>
-                                <td>1</td>
-                                <td>CD2</td>
-                                <td>Bineta</td>
-                                <td>Bineta@example.com</td>
-                                <td>9898989898</td>
-                                <td class="text-center"><p style="color:green" class="fa fa-check"></p></td>
-                           </tr>
-                        </tbody>
-                     </table>
+        <div class="card-body">
+           <ul class="nav nav-tabs nav-material" id="top-tab" role="tablist">
+              <li class="nav-item">
+                 <a class="nav-link active" id="top-home-tab" data-toggle="tab" href="#top-home" role="tab" aria-controls="top-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>Pending</a>
+                 <div class="material-border"></div>
+              </li>
+              <li class="nav-item">
+                 <a class="nav-link" id="profile-top-tab" data-toggle="tab" href="#top-profile" role="tab" aria-controls="top-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Completed</a>
+                 <div class="material-border"></div>
+              </li>
+
+           </ul>
+           <div class="tab-content" id="top-tabContent">
+              <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+                 <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                           <div class="dt-ext table-responsive">
+                             <table class="display" id="export-button">
+                                 <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>EMPLOYEE ID</th>
+                                        <th>NAME</th>
+                                        <th>EMAIL</th>
+                                        <th>MOBILE NUMBER</th>
+                                        <th>SEATING STATUS</th>
+                                        <th>IDCARD STATUS</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    @if (count($seating_info['pending'])>0)
+                                         <?php $i=1;?>
+                                         @foreach ($seating_info['pending'] as $data )
+                                         <tr>
+                                            <td>{{$i}}</td>
+                                            <td>{{$data['empId']}}</td>
+                                            <td>{{$data['candidate_name']}}</td>
+                                            <td>{{$data['candidate_email']}}</td>
+                                            <td>{{$data['candidate_mobile']}}</td>
+                                             @if ($data['Seating_Request']==1)
+                                               <td><span class="badge badge-success">Alloted</span></td>
+                                             @else
+                                               <td><span class="badge badge-warning">Pending</span></td>
+                                             @endif
+                                             @if ($data['IdCard_status']==1)
+                                             <td><span class="badge badge-success">Created</span></td>
+                                             @else
+                                                <td><span class="badge badge-warning">Pending</span></td>
+                                             @endif
+
+                                         </tr>
+                                         <?php $i++;?>
+                                         @endforeach
+                                    @endif
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
                   </div>
-               </div>
-            </div>
-         </div>
+              </div>
+              <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
+                 <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                           <div class="dt-ext table-responsive">
+                             <table class="display" id="export-button1">
+                                 <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>EMPLOYEE ID</th>
+                                        <th>NAME</th>
+                                        <th>EMAIL</th>
+                                        <th>MOBILE NUMBER</th>
+                                        <th>SEATING STATUS</th>
+                                        <th>IDCARD STATUS</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
 
-    </div>
+                                    @if (count($seating_info['completed'])>0)
+                                         <?php $i=1;?>
+                                         @foreach ($seating_info['completed'] as $data )
+                                         <tr>
+                                            <td>{{$i}}</td>
+                                            <td>{{$data['empId']}}</td>
+                                            <td>{{$data['candidate_name']}}</td>
+                                            <td>{{$data['candidate_email']}}</td>
+                                            <td>{{$data['candidate_mobile']}}</td>
+                                             @if ($data['Seating_Request']==1)
+                                               <td><span class="badge badge-success">Alloted</span></td>
+                                             @else
+                                               <td><span class="badge badge-warning">Pending</span></td>
+                                             @endif
+                                             @if ($data['IdCard_status']==1)
+                                             <td><span class="badge badge-success">Created</span></td>
+                                             @else
+                                                <td><span class="badge badge-warning">Pending</span></td>
+                                             @endif
+
+                                         </tr>
+                                         <?php $i++;?>
+                                         @endforeach
+                                    @endif
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+           </div>
+          </div>
+        </div>
+  </div>
 </div>
 @endsection
 @section('script')

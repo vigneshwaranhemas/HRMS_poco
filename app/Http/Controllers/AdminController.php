@@ -21,7 +21,9 @@ class AdminController extends Controller
     }
     public function Hr_SeatingRequest()
     {
-        return view('admin.SeatingRequest');
+         $status=0;
+         $seating_info=$this->admrpy->get_seating_requested($status);
+         return view('admin.SeatingRequest')->with('seating_info',$seating_info);
     }
     public function permission()
     {
@@ -1991,6 +1993,64 @@ class AdminController extends Controller
 
     }
     // Client Process End
+
+
+
+
+    //vignesh code starts here
+    //admin Seating Request
+
+    public function Admin_Seating_Allotment(Request $request)
+    {
+        $id=$request->id;
+        $status=$request->status;
+        if($status==1){
+             $update_data=array('Seating_Request'=>1);
+        }
+        else{
+             $update_data=array('IdCard_status'=>1);
+        }
+        $response=$this->admrpy->update_seating_status($id,$update_data);
+        if($response){
+            $result=array('success'=>1,'Message'=>"Seating Alloted Successfully");
+        }
+        else{
+            $result=array('success'=>1,'Message'=>"Problem in Allot Seating For this Candidate");
+        }
+        echo json_encode($result);
+    }
+
+
+
+      //admin seating status update
+
+
+       public function Seating_Status_update(Request $request)
+       {
+            $data=$request->empID;
+            $update_data=array('status'=>1);
+            $result=$this->admrpy->update_candidate_seating_status($data,$update_data);
+            if($result)
+            {
+               $response=array('success'=>1,'message'=>"Status Updated Successfully");
+            }
+            else{
+               $response=array('success'=>2,'message'=>"Problem in Updating Status");
+            }
+            echo json_encode($response);
+         }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

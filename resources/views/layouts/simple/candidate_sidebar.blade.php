@@ -20,8 +20,8 @@
              <ul class="iconbar-mainmenu custom-scrollbar">
                 <li class="iconbar-header">Pre OnBoarding</li>
                 <li><a href="{{url('preOnboarding')}}">Pre OnBoarding</a></li>
-                <li><a >Induction Schedule</a></li>
-                <li><a>Buddy Info </a></li>
+                <li><a href="{{url('Candidate_Induction')}}">Induction Schedule</a></li>
+                <li><a href="{{url('Candidate_Assigned_Buddy')}}">Buddy Info </a></li>
                 <li><a href="{{url('Buddy_feedback')}}">Buddy Feedback</a></li>
              </ul>
           </li>
@@ -44,7 +44,7 @@
                 <li><a>Basic Card</a></li>
                 <li><a>Theme Card</a></li>
                 <li><a>Tabbed Card</a></li> -->
-             </ul> 
+             </ul>
           </li>
           {{-- <li>
              <a class="bar-icons" href="#"><i class="pe-7s-note2"></i><span>Forms</span></a>

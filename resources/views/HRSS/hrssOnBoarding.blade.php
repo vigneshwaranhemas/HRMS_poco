@@ -42,53 +42,46 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <tr>
-                              <td>1</td>
-                              <td>CD1</td>
-                              <td>Kandan</td>
-                              <td>kandan@example.com</td>
-                              <td>9898989898</td>
-                              <td><p style="color:green" class="fa fa-check"></p></td>
-                              <td><p style="color:red" class="fa fa-times"></p></td>
-                              <td>
-                                {{-- <button  aria-expanded="false"  class="btn btn-default waves-effect waves-light" type="button"> --}}
-                                    <a onclick="model_trigger()" href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    <a href="{{url("userdocuments")}}"><i class="fa fa-file-image-o"></i><a>
-                                {{-- </button> --}}
-                            </td>
-                           </tr>
-                           <tr>
-                                <td>2</td>
-                                <td>CD3</td>
-                                <td>Shradha</td>
-                                <td>Shradha@example.com</td>
-                                <td>9898989898</td>
-                                <td><p style="color:green" class="fa fa-check"></p></td>
-                                <td><p style="color:red" class="fa fa-times"></p></td>
-                              <td>
-                                {{-- <button  aria-expanded="false"  class="btn btn-default waves-effect waves-light" type="button"> --}}
-                                    <a onclick="model_trigger()" href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                   <a href="{{url("userdocuments")}}"><i class="fa fa-file-image-o"></i><a>
-                                {{-- </button> --}}
-                            </td>
-                           </tr>
-                           <tr>
-                                <td>1</td>
-                                <td>CD2</td>
-                                <td>Bineta</td>
-                                <td>Bineta@example.com</td>
-                                <td>9898989898</td>
-                                <td><p style="color:green" class="fa fa-check"></p></td>
-                                <td><p style="color:red" class="fa fa-times"></p></td>
-                              <td>
-                               {{-- <button  aria-expanded="false"  class="btn btn-default waves-effect waves-light" type="button"> --}}
-                                <a onclick="model_trigger()" href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                <a href="{{url("userdocuments")}}"><i class="fa fa-file-image-o"></i><a>
-                            {{-- </button> --}}
-                            </td>
-                           </tr>
+                            @if (count($candidate_info) > 0)
+                                                    <?php $i=1;?>
+                                                      @foreach ($candidate_info as  $info)
+                                                           <tr>
+                                                               <td>{{$i}}</td>
+                                                               <td>{{$info["cdID"]}}</td>
+                                                               <td>{{$info["candidate_name"]}}</td>
+                                                               <td>{{$info["candidate_email"]}}</td>
+                                                               <td>{{$info["candidate_mobile"]}}</td>
+                                                                 @if ($info["Induction_mail"]==1)
+                                                                  <?php $color="green";?>
+                                                                  <?php $class="fa-check";?>
+                                                                 @else
+                                                                   <?php $class="fa-times";?>
+                                                                   <?php $color="red;" ?>
+                                                                 @endif
+
+                                                                 @if ($info["Buddy_mail"]==1)
+                                                                 <?php $color1="green";?>
+                                                                 <?php $class1="fa-check";?>
+                                                                @else
+                                                                  <?php $class1="fa-times";?>
+                                                                  <?php $color1="red;" ?>
+                                                                @endif
+                                                               <td><p style="color:{{$color}}" class="fa {{$class}}"></p></td>
+                                                               <td><p style="color:{{$color1}}" class="fa {{$class1}}"></p></td>
+                                                               <td>
+                                                                <a onclick=model_trigger("{{$info["cdID"]}}") href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                                <a href="{{url("userdocuments")}}"><i class="fa fa-file-image-o"></i><a>
+                                                            </td>
+                                                           </tr>
+                                                         <?php $i++;?>
+                                                      @endforeach
+                                                  @else
+
+                                                  @endif
+
                         </tbody>
                      </table>
+                     <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
                   </div>
                </div>
             </div>
@@ -105,21 +98,21 @@
           </div>
           <div class="modal-body">
               <label>Enter Employee Id</label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" id="NewEmpId">
           </div>
           <div class="modal-footer">
-             <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
-             <button class="btn btn-secondary" type="button" data-dismiss="modal">Save changes</button>
+             <button class="btn btn-primary" type="button"  data-dismiss="modal">Close</button>
+             <button class="btn btn-secondary" type="button" id="EmpIdCreationBtn" data-dismiss="modal">Save changes</button>
+             <input type="hidden" id="emp_hidden_id">
           </div>
        </div>
     </div>
  </div>
 @endsection
 @section('script')
-
-<script>
-    function model_trigger(){
-       $('#exampleModal').modal('show');
-    }
-  </script>
 @endsection
+<script>
+    var email_and_seat_request_url="{{url('Email_and_Seat_request')}}";
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../pro_js/Hrss/OnBoarding.js"></script>

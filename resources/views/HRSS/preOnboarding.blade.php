@@ -40,16 +40,51 @@
                            </tr>
                         </thead>
                         <tbody>
+                            @if (count($info['user_info']) > 0)
+                            <?php $i=0;
+
+                            ?>
+                             @foreach ($info['user_info'] as $item)
+
+
+                                   @if ($item->candidate_email==="")
+                                     <?php
+                                        $email="--";
+                                       ?>
+
+                                   @else
+                                   <?php
+                                        $email=$item->candidate_email;
+                                      ?>
+
+                                   @endif
+
+                                  @if ($item->candidate_mobile=="")
+                                      <?php
+                                      $mobile="--";
+                                      ?>
+                                  @else
+                                       <?php
+                                       $mobile=$item->candidate_mobile;
+                                       ?>
+                                  @endif
+
                            <tr>
-                              <td>1</td>
-                              <td>CD1</td>
-                              <td>Kandan</td>
-                              <td>kandan@example.com</td>
-                              <td>9898989898</td>
+                              <td>{{$i+1}}</td>
+                              <td>{{$item->cdID}}</td>
+                              <td>{{$item->candidate_name}}</td>
+                              <td>{{$email}}</td>
+                              <td>{{$mobile}}</td>
                               <td>
-                                <button  aria-expanded="false" data-toggle="dropdown" class="btn btn-default dropdown-toggle waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                <button onclick=viewBuddyModel("{{$item->cdID}}")  aria-expanded="false"  class="btn btn-default waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
                             </td>
                            </tr>
+                           <?php $i++;?>
+                           @endforeach
+                     @else
+
+                     @endif
+                           {{-- </tr>
                            <tr>
                                 <td>2</td>
                                 <td>CD3</td>
@@ -57,7 +92,7 @@
                                 <td>Shradha@example.com</td>
                                 <td>9898989898</td>
                               <td>
-                                <button  aria-expanded="false" data-toggle="dropdown" class="btn btn-default dropdown-toggle waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                <button  aria-expanded="false" class="btn btn-default waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
                             </td>
                            </tr>
                            <tr>
@@ -67,11 +102,13 @@
                                 <td>Bineta@example.com</td>
                                 <td>9898989898</td>
                               <td>
-                                <button  aria-expanded="false" data-toggle="dropdown" class="btn btn-default dropdown-toggle waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                <button  aria-expanded="false" class="btn btn-default  waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
                             </td>
-                           </tr>
+                           </tr> --}}
                         </tbody>
                      </table>
+                     <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
+
                   </div>
                </div>
             </div>
@@ -79,6 +116,32 @@
 
     </div>
 </div>
+
+
+
+<div class="modal fade" id="projectTimerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+
+          <div class="modal-body">
+            <table class="table admin-table table-hover">
+                <thead>
+                    <tr>
+                        <th  colspan="3">Pre OnBoarding</th>
+                    </tr>
+                </thead>
+                <tbody id="candidate_onboardinfo">
+                </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+             <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
+          </div>
+       </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../pro_js/Hrss/hrpreonboarding.js"></script>
 @endsection
 @section('script')
 

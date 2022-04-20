@@ -73,11 +73,12 @@
  <!-- Container-fluid starts-->
  <div class="container-fluid">
     <div class="row">
+        <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
                 <div class="dt-ext table-responsive">
-                    <table class="display" id="export-button">
+                    <table class="display" id="Buddy_info_table">
                     <thead>
                         <tr>
                         <th>EmployeeId</th>
@@ -88,16 +89,22 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if (count($candidate_info)>0)
+                        @foreach ($candidate_info as $item)
                         <tr>
-                            <td>Emp101</td>
-                            <td>Danny Ward</td>
-                            <td>Dannyward@example.com</td>
-                            <td>8373898787</td>
+                            <td>{{$item->cdID }}</td>
+                            <td>{{$item->candidate_name }}</td>
+                            <td>{{$item->candidate_email }}</td>
+                            <td>{{$item->candidate_mobile }}</td>
                             <td>
-                                <a onclick="showAdd()" class="badge badge-danger" type="button" data-original-title="btn btn-danger btn-xs" title=""><i class="icofont icofont-eye" style="color: #fff;"></i></a>
+                                <button onclick=showAdd("{{$item->cdID}}") aria-expanded="false" data-toggle="dropdown" class="btn btn-default dropdown-toggle waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
                             </td>
                         </tr>
-                        <tr>
+                     @endforeach
+            @else
+                   <tr><td>No Data Available</td></tr>;
+            @endif
+                        {{-- <tr>
                             <td>Emp102</td>
                             <td>Linda Craver</td>
                             <td>Lindacraver@example.com</td>
@@ -114,10 +121,11 @@
                             <td>
                                 <a onclick="showAdd()" class="badge badge-danger" type="button" data-original-title="btn btn-danger btn-xs" title=""><i class="icofont icofont-eye" style="color: #fff;"></i></a>
                             </td>
-                        </tr>
+                        </tr> --}}
                     </tbody>
                     </table>
                 </div>
+
                 </div>
             </div>
         </div>
@@ -128,9 +136,6 @@
 <div class="modal fade" id="edit-column-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 261%;">
-            <!-- <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            </div> -->
             <div class="modal-body">
                 <table class="table table-custom dtable-striped table-bordered" style="width: -webkit-fill-available;">
                     <thead>
@@ -149,7 +154,7 @@
                         </tr>
                         </thead>
 
-                    <tbody>
+                    <tbody id="buddy_feedback_tableId">
                         <tr>
                         <th scope="row">1</th>
                         <td><p class="word-warpped">My Buddy interacted with me pleasantly during the welcome session which helped me be comfortable and  bond well</p> </td>
@@ -165,7 +170,7 @@
                         <td class="remark">none</td>
 
                         </tr>
-                        <tr>
+                        {{-- <tr>
                         <th scope="row">2</th>
                         <td><p class="word-warpped">My Buddy gave me valuable and timely information about the Company and Work culture which helped me settle in well  without any confusion/ambiguity</p></td>
                         <td></td>
@@ -214,10 +219,13 @@
                             <td><p style="color:green" class="fa fa-check"></p></td>
                             <td></td>
                             <td class="remark">none</td>
-                        </tr>
+                        </tr> --}}
                     </tbody>
                 </table>
-                <div class="row" style="margin-top: 40px;">
+                <div class="modal-body" id="textarea_div">
+
+                </div>
+                {{-- <div class="row" style="margin-top: 40px;">
                     <div class="col-md-12">
                         <h6>7.  What went very well, during  my interactions with my Buddy</h6>
                     </div>
@@ -268,7 +276,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -276,14 +284,15 @@
 
 <!-- Container-fluid Ends-->
 @endsection
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../pro_js/buddy/buddy.js"></script>
 @section('script')
     <!-- latest jquery-->
 
     <script>
-        function showAdd() {
-            $('#edit-column-form').modal('show');
-        }
+        // function showAdd() {
+        //     $('#edit-column-form').modal('show');
+        // }
     </script>
 @endsection
 

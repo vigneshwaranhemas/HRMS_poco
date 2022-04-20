@@ -18,6 +18,7 @@ use App\menu;
 use App\sub_menu;
 use App\role_permission;
 use App\Role;
+use App\Models\Candidate_seating_and_email_request;
 
 
 class AdminRepository implements IAdminRepository
@@ -79,7 +80,7 @@ class AdminRepository implements IAdminRepository
                 </tr>";
                 array_push($sub_menu_items,$sub);
                  // echo"<pre>";print_r($sub);
-            } 
+            }
                  // die;
             $subitems=implode(' ', $sub_menu_items);
             $menu="<tr class='test_data2'><td><b>".$value->menu_name."</td>".$subitems."</tr>";
@@ -878,6 +879,50 @@ class AdminRepository implements IAdminRepository
     //     $permission_menu_data = role_permission::get();
     //     return $permission_menu_data;
     // }
+
+
+
+
+   //vignesh admin work starts here
+
+     public function get_seating_requested($status)
+     {
+         $result=Candidate_seating_and_email_request::join('candidate_details','candidate_seating_and_email_requests.cdID','=','candidate_details.cdID')
+                 ->where('candidate_seating_and_email_requests.status',$status)
+                 ->select("candidate_seating_and_email_requests.empId",
+                          "candidate_details.candidate_name",
+                          "candidate_details.candidate_email",
+                          "candidate_details.candidate_mobile",
+                          "candidate_seating_and_email_requests.Seating_Request",
+                          "candidate_seating_and_email_requests.IdCard_status")->get();
+         return $result;
+     }
+
+
+    public function update_seating_status($id,$data)
+    {
+        $result=Candidate_seating_and_email_request::where('empId',$id)->update($data);
+        return $result;
+
+    }
+    public function update_candidate_seating_status($data,$update_data)
+    {
+        foreach($data as $data1)
+        {
+          $result=Candidate_seating_and_email_request::where('empId',$data1['Off_empId'])->update($update_data);
+        }
+
+
+        return $result;
+    }
+
+
+
+
+
+
+
+
 
 
 }

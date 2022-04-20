@@ -44,71 +44,49 @@
              <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
                 <div class="col-sm-12">
                     <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                             <div class="col-md-6 text-left">
+                             <h5>EmailID Creation Request</h5>
+                             </div>
+
+                             <div class="col-md-6 text-right">
+                             <button type="button" class="btn btn-primary" id="EmailStatusUpdateBtn">Save changes</button>
+                             </div>
+                            </div>
+                        </div>
                        <div class="card-body">
                           <div class="dt-ext table-responsive">
                             <table class="display" id="export-button">
                                 <thead>
                                    <tr>
                                       <th>#</th>
+                                      <th>VERIFIED</th>
                                       <th>EMPLOYEE ID</th>
                                       <th>NAME</th>
                                       <th>EMAIL</th>
                                       <th>MOBILE NUMBER</th>
                                       <th>HR SUGGESTED MAIL</th>
                                       <th>Asset</th>
-                                      <th>EmailId Creation</th>
                                    </tr>
                                 </thead>
                                 <tbody>
-                                   <tr>
-                                      <td>1</td>
-                                      <td>900311</td>
-                                      <td>Kandan</td>
-                                      <td>kandan@hemas.com</td>
-                                      <td>9898989898</td>
-                                      <td>kandan@hemas.in</td>
-                                      <td>Laptop</td>
-                                      <td>
-                                        <div class="media-body text-center icon-state">
-                                            <label class="switch">
-                                            <input type="checkbox"  onchange="model_trigger()"><span class="switch-state bg-info"></span>
-                                            </label>
-                                         </div>
-                                        </td>
-                                   </tr>
-                                   <tr>
-                                        <td>2</td>
-                                        <td>900313</td>
-                                        <td>Shradha</td>
-                                        <td>Shradha@example.com</td>
-                                        <td>9898989898</td>
-                                        <td>Bineta@hemas.in</td>
-                                        <td>Desktop</td>
-                                        <td>
-                                            <div class="media-body text-center icon-state">
-                                                <label class="switch">
-                                                <input type="checkbox"  onchange="model_trigger()"><span class="switch-state bg-info"></span>
-                                                </label>
-                                             </div>
-                                            </td>
-
-                                   </tr>
-                                   <tr>
-                                        <td>1</td>
-                                        <td>900312</td>
-                                        <td>Bineta</td>
-                                        <td>Bineta@example.com</td>
-                                        <td>9898989898</td>
-                                        <td>Shradha@hemas.in</td>
-                                        <td>Laptop</td>
-                                        <td>
-                                            <div class="media-body text-center icon-state">
-                                                <label class="switch">
-                                                <input type="checkbox"  onchange="model_trigger()"><span class="switch-state bg-info"></span>
-                                                </label>
-                                             </div>
-                                            </td>
-                                   </tr>
+                                    @if (count($email_info['pending'])>0)
+                                        <?php $i=1;?>
+                                         @foreach ($email_info['pending'] as $info )
+                                              <tr>
+                                                 <td>{{$i}}</td>
+                                                 <td><input type='checkbox'></td>
+                                                 <td>{{$info->cdID}}</td>
+                                                 <td>{{$info->username}}</td>
+                                                 <td>{{$info->email}}</td>
+                                                 <td>{{$info->contact_no}}</td>
+                                                 <td>{{$info->hr_suggested_mail}}</td>
+                                                 <td>{{$info->asset_type}}</td>
+                                              </tr>
+                                          <?php $i++; ?>
+                                         @endforeach
+                                    @endif
                                 </tbody>
                              </table>
                           </div>
@@ -124,64 +102,42 @@
                             <table class="display" id="export-button1">
                                 <thead>
                                    <tr>
-                                      <th>#</th>
-                                      <th>EMPLOYEE ID</th>
-                                      <th>NAME</th>
-                                      <th>EMAIL</th>
-                                      <th>MOBILE NUMBER</th>
-                                      <th>OFFICIAL EMAILID</th>
-                                      <th>Asset</th>
-                                      {{-- <th>EmailId Creation</th> --}}
+                                    <th>#</th>
+                                    <th>EMPLOYEE ID</th>
+                                    <th>NAME</th>
+                                    <th>EMAIL</th>
+                                    <th>MOBILE NUMBER</th>
+                                    <th>HR SUGGESTED MAIL</th>
+                                    <th>Asset</th>
                                    </tr>
                                 </thead>
                                 <tbody>
-                                   <tr>
-                                      <td>1</td>
-                                      <td>900311</td>
-                                      <td>Kandan</td>
-                                      <td>kandan@hemas.com</td>
-                                      <td>9898989898</td>
-                                      <td>kandan@hemas.in</td>
-                                      <td>Laptop</td>
-                                      {{-- <td><label class="switch">
-                                        <input type="checkbox" checked onchange="model_trigger()" ><span class="switch-state"></span>
-                                        </label></td> --}}
-                                   </tr>
-                                   <tr>
-                                        <td>2</td>
-                                        <td>900312</td>
-                                        <td>Shradha</td>
-                                        <td>Shradha@example.com</td>
-                                        <td>9898989898</td>
-                                        <td>Bineta@hemas.in</td>
-                                        <td>Desktop</td>
-                                        {{-- <td><label class="switch">
-                                            <input type="checkbox" checked onchange="model_trigger()" ><span class="switch-state"></span>
-                                            </label></td> --}}
-
-                                   </tr>
-                                   <tr>
-                                        <td>1</td>
-                                        <td>900313</td>
-                                        <td>Bineta</td>
-                                        <td>Bineta@example.com</td>
-                                        <td>9898989898</td>
-                                        <td>Shradha@hemas.in</td>
-                                        <td>Laptop</td>
-                                        {{-- <td><label class="switch">
-                                            <input type="checkbox" checked  onchange="model_trigger()"><span class="switch-state"></span>
-                                            </label></td> --}}
-                                   </tr>
+                                    @if (count($email_info['completed'])>0)
+                                        <?php $i=1;?>
+                                         @foreach ($email_info['completed'] as $info )
+                                              <tr>
+                                                 <td>{{$i}}</td>
+                                                 <td>{{$info->cdID}}</td>
+                                                 <td>{{$info->username}}</td>
+                                                 <td>{{$info->email}}</td>
+                                                 <td>{{$info->contact_no}}</td>
+                                                 <td>{{$info->hr_suggested_mail}}</td>
+                                                 <td>{{$info->asset_type}}</td>
+                                              </tr>
+                                          <?php $i++; ?>
+                                         @endforeach
+                                    @endif
                                 </tbody>
                              </table>
+                             <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
                           </div>
                        </div>
                     </div>
                  </div>
 
           </div>
+         </div>
        </div>
-    </div>
  </div>
  {{-- div popup model --}}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -204,10 +160,10 @@
 @section('script')
 
 
-<script>
 
-    function model_trigger(){
-       $('#exampleModal').modal('show');
-    }
-  </script>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{{url('pro_js/ITInfra/EmailCreationRequest.js')}}"></script>
+<script>
+    var url="ITInfra_Email_Creation";
+</script>

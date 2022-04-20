@@ -1,3 +1,8 @@
+
+<?php
+$sess_info=Session::get("session_info");
+
+?>
 @extends('layouts.simple.candidate_master')
 @section('title', 'Buddy Feedback')
 
@@ -23,6 +28,9 @@
 .buddy_list
 {
     padding-bottom: 50px;
+}
+textarea{
+    width: 90%;
 }
 </style>
 @endsection
@@ -53,7 +61,7 @@
                         <p>Buddy Assigned </p>
                     </div>
                     <div class="col-md-3" style="margin-left: -53px;">
-                        {{-- @foreach ($buddy_fields["user_info"] as $item)
+                        @foreach ($buddy_fields["user_info"] as $item)
                             <p>: {{$item->cdID}} </p>
                             <p>: {{$item->candidate_name}}</p>
                             <p>: {{$item->or_department}} </p>
@@ -62,16 +70,7 @@
                             <p>: Cuddalore</p>
                             <p>: SHANTHI</p>
 
-                        @endforeach --}}
-                        {{-- <p>: {{}}</p> --}}
-                        <p>: Ram</p>
-                        <p>: IT</p>
-                        <p>: PHP Developer</p>
-                        <p>: 19-03-2022</p>
-                        <p>: WFH</p>
-                        <p>: Cudddalore</p>
-                        <p>: SHANTHI</p>
-
+                        @endforeach
                     </div>
 
                   </div>
@@ -93,78 +92,44 @@
                           </tr>
                         </thead>
                         <tbody>
+
+                            <?php $i=0;?>
+                            @foreach ($buddy_fields["fields"] as $fields)
+                            @if ($i<=5)
                             <tr class="countable_rows">
-                            <td>1</td>
-                            <td>My Buddy interacted with me pleasantly during the welcome session which helped me be comfortable and bond well </td>
-                            <td class="text-center"><input type="checkbox"  value="1"   class="buddycheckboxchecker" name="buddy"></td>
-                            <td class="text-center"><input type="checkbox"  value="2"   class="buddy checkboxchecker" name="buddy"></td>
-                            <td class="text-center"><input type="checkbox"  value="3"    class="buddy checkboxchecker" name="buddy"></td>
-                            <td class="text-center"><input type="checkbox"  value="4"    class="buddy checkboxchecker" name="buddy"></td>
-                            <td class="text-center"><input type="checkbox"  value="5"   class="buddycheckboxchecker" name="buddy"></td>
-                            <td>
-                                <textarea  class="form-control" style="width: 178px; height:52px;"></textarea>
+                            <td>{{$i+1}}</td>
+                            <td>{{$fields->Buddy_feedback_fields}}
+                                <input type="hidden" id="field{{$fields->id}}" value="{{$fields->id}}">
                             </td>
-                            </tr>
-                            <tr class="countable_rows">
-                                <td>2</td>
-                                <td>My Buddy gave me valuable and timely information about the Company and Work culture which helped me settle in well without any confusion/ambiguity</td>
-                                <td class="text-center"><input type="checkbox"  value="1"   class="buddycheckboxchecker" name="buddy"></td>
-                                <td class="text-center"><input type="checkbox"  value="2"   class="buddy checkboxchecker" name="buddy"></td>
-                                <td class="text-center"><input type="checkbox"  value="3"    class="buddy checkboxchecker" name="buddy"></td>
-                                <td class="text-center"><input type="checkbox"  value="4"    class="buddy checkboxchecker" name="buddy"></td>
-                                <td class="text-center"><input type="checkbox"  value="5"   class="buddycheckboxchecker" name="buddy"></td>
+
+                             @if (count($buddy_fields["feedback_info"]) > 0)
+                                <td class="text-center"><input type="checkbox" {{$buddy_fields['feedback_info'][$i]->response == 1 ? 'checked' : ''}} value="1"   onclick=checkbox_validator(this,"buddy{{$i}}") class="buddy{{$i}}  checkboxchecker" name="buddy{{$i}}"></td>
+                                <td class="text-center"><input type="checkbox" {{$buddy_fields['feedback_info'][$i]->response == 2 ? 'checked' : ''}} value="2"   onclick=checkbox_validator(this,"buddy{{$i}}")  class="buddy{{$i}} checkboxchecker" name="buddy{{$i}}"></td>
+                                <td class="text-center"><input type="checkbox" {{$buddy_fields['feedback_info'][$i]->response == 3 ? 'checked' : ''}} value="3"   onclick=checkbox_validator(this,"buddy{{$i}}") class="buddy{{$i}} checkboxchecker" name="buddy{{$i}}"></td>
+                                <td class="text-center"><input type="checkbox" {{$buddy_fields['feedback_info'][$i]->response == 4 ? 'checked' : ''}} value="4"   onclick=checkbox_validator(this,"buddy{{$i}}") class="buddy{{$i}} checkboxchecker" name="buddy{{$i}}"></td>
+                                <td class="text-center"><input type="checkbox" {{$buddy_fields['feedback_info'][$i]->response == 5 ? 'checked' : ''}} value="5"   onclick=checkbox_validator(this,"buddy{{$i}}") class="buddy{{$i}} checkboxchecker" name="buddy{{$i}}"></td>
                                 <td>
-                                    <textarea class="form-control"></textarea>
+                                    <textarea style="width: 178px; height:52px;">{{$buddy_fields['feedback_info'][$i]->remarks}}</textarea>
                                 </td>
                                 </tr>
-                                <tr class="countable_rows">
-                                    <td>3</td>
-                                    <td>My Buddy is well informed about the Company's Whos Who, Businesses, Processes, Policies etc and was able to answer all queries to my satisfaction</td>
-                                    <td class="text-center"><input type="checkbox"  value="1"   class="buddycheckboxchecker" name="buddy"></td>
-                                    <td class="text-center"><input type="checkbox"  value="2"   class="buddy checkboxchecker" name="buddy"></td>
-                                    <td class="text-center"><input type="checkbox"  value="3"    class="buddy checkboxchecker" name="buddy"></td>
-                                    <td class="text-center"><input type="checkbox"  value="4"    class="buddy checkboxchecker" name="buddy"></td>
-                                    <td class="text-center"><input type="checkbox"  value="5"   class="buddycheckboxchecker" name="buddy"></td>
-                                    <td>
-                                        <textarea class="form-control"></textarea>
-                                    </td>
-                                    </tr>
-                                    <tr class="countable_rows">
-                                        <td>4</td>
-                                        <td>My Buddy is well informed about the Company's Whos Who, Businesses, Processes, Policies etc and was able to answer all queries to my satisfaction</td>
-                                        <td class="text-center"><input type="checkbox"  value="1"   class="buddycheckboxchecker" name="buddy"></td>
-                                        <td class="text-center"><input type="checkbox"  value="2"   class="buddy checkboxchecker" name="buddy"></td>
-                                        <td class="text-center"><input type="checkbox"  value="3"    class="buddy checkboxchecker" name="buddy"></td>
-                                        <td class="text-center"><input type="checkbox"  value="4"    class="buddy checkboxchecker" name="buddy"></td>
-                                        <td class="text-center"><input type="checkbox"  value="5"   class="buddycheckboxchecker" name="buddy"></td>
-                                        <td>
-                                            <textarea class="form-control"></textarea>
-                                        </td>
-                                        </tr>
-                                        <tr class="countable_rows">
-                                            <td>5</td>
-                                            <td>My Buddy was able to attend to all my concerns and helped me well to overcome my initial hesitations/sckepticism if any</td>
-                                            <td class="text-center"><input type="checkbox"  value="1"   class="buddycheckboxchecker" name="buddy"></td>
-                                            <td class="text-center"><input type="checkbox"  value="2"   class="buddy checkboxchecker" name="buddy"></td>
-                                            <td class="text-center"><input type="checkbox"  value="3"    class="buddy checkboxchecker" name="buddy"></td>
-                                            <td class="text-center"><input type="checkbox"  value="4"    class="buddy checkboxchecker" name="buddy"></td>
-                                            <td class="text-center"><input type="checkbox"  value="5"   class="buddycheckboxchecker" name="buddy"></td>
-                                            <td>
-                                                <textarea class="form-control"></textarea>
-                                            </td>
-                                            </tr>
-                                            <tr class="countable_rows">
-                                                <td>6</td>
-                                                <td>My Buddy was able to attend to all my concerns and helped me well to overcome my initial hesitations/sckepticism if any</td>
-                                                <td class="text-center"><input type="checkbox"  value="1"   class="buddycheckboxchecker" name="buddy"></td>
-                                                <td class="text-center"><input type="checkbox"  value="2"   class="buddy checkboxchecker" name="buddy"></td>
-                                                <td class="text-center"><input type="checkbox"  value="3"    class="buddy checkboxchecker" name="buddy"></td>
-                                                <td class="text-center"><input type="checkbox"  value="4"    class="buddy checkboxchecker" name="buddy"></td>
-                                                <td class="text-center"><input type="checkbox"  value="5"   class="buddycheckboxchecker" name="buddy"></td>
-                                                <td>
-                                                    <textarea class="form-control"></textarea>
-                                                </td>
-                                                </tr>
+                             @else
+                                <td class="text-center"><input type="checkbox"  value="1"   onclick=checkbox_validator(this,"buddy{{$i}}") class="buddy{{$i}}  checkboxchecker" name="buddy{{$i}}"></td>
+                                <td class="text-center"><input type="checkbox"  value="2"  onclick=checkbox_validator(this,"buddy{{$i}}")  class="buddy{{$i}} checkboxchecker" name="buddy{{$i}}"></td>
+                                <td class="text-center"><input type="checkbox"  value="3"  onclick=checkbox_validator(this,"buddy{{$i}}")  class="buddy{{$i}} checkboxchecker" name="buddy{{$i}}"></td>
+                                <td class="text-center"><input type="checkbox"  value="4"   onclick=checkbox_validator(this,"buddy{{$i}}") class="buddy{{$i}} checkboxchecker" name="buddy{{$i}}"></td>
+                                <td class="text-center"><input type="checkbox"  value="5"   onclick=checkbox_validator(this,"buddy{{$i}}") class="buddy{{$i}} checkboxchecker" name="buddy{{$i}}"></td>
+                                <td><textarea style="width: 178px; height:52px;"></textarea></td>
+
+                               </tr>
+                             @endif
+
+                            @endif
+
+                             <?php  $i++;?>
+
+                            @endforeach
+
+
                         </tbody>
                       </table>
 
@@ -172,68 +137,59 @@
 
                 </div>
                 <div class="modal-body">
+
+                    <?php $i=0;?>
+                    @foreach ($buddy_fields["fields"] as $fields)
+                    @if ($i>5)
                     <div class="row">
-                            <div class="col-sm-12" id="target">
-                                <p>7.What went very well, during my interactions with my Buddy</p>
-                                <div class="form-group row">
-
-                                    <div class="col-sm-4">
-                                        <textarea class="form-control"></textarea>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <textarea class="form-control"></textarea>
-                                     </div>
-                                     <div class="col-sm-4">
-                                        <textarea class="form-control"></textarea>
-                                     </div>
-                                 </div>
-                                 <p>8.What went very well, during my interactions with my Buddy </p>
-                                 <div class="form-group row">
-
-                                     <div class="col-sm-4">
-                                         <textarea class="form-control"></textarea>
-                                     </div>
-                                     <div class="col-sm-4">
-                                         <textarea class="form-control"></textarea>
-                                      </div>
-                                      <div class="col-sm-4">
-                                         <textarea class="form-control"></textarea>
-                                      </div>
-                                  </div>
-                                  <p>9.My suggestions for the Buddy Program to provide better experience to Future New Joiners </p>
-                                  <div class="form-group row">
-
-                                      <div class="col-sm-4">
-                                          <textarea class="form-control"></textarea>
-                                      </div>
-                                      <div class="col-sm-4">
-                                          <textarea class="form-control"></textarea>
-                                       </div>
-                                       <div class="col-sm-4">
-                                          <textarea class="form-control"></textarea>
-                                       </div>
-                                   </div>
-
-
-
-
-
-                                {{-- <p>Question 7 </p>
-                                <input type="hidden" id="field"  value=""></td>
+                        @if (count($buddy_fields["feedback_info"]) > 0)
+                            <div class="col-sm-12" id="target{{$fields->id}}">
+                                <p> {{$i+1}}).  {{$fields->Buddy_feedback_fields}}</p>
+                                <input type="hidden" id="field{{$fields->id}}"  value="{{$fields->id}}"></td>
+                             <div class="form-group row">
                                 <div class="col-sm-4">
-                                    <textarea></textarea>
+                                    <textarea>{{$buddy_fields['feedback_info'][$i]->comments0}}</textarea>
                                 </div>
                                 <div class="col-sm-4">
-                                    <textarea></textarea>
+                                    <textarea>{{$buddy_fields['feedback_info'][$i]->comments1}}</textarea>
                                 </div>
                                 <div class="col-sm-4">
-                                    <textarea></textarea>
-                                </div> --}}
+                                    <textarea>{{$buddy_fields['feedback_info'][$i]->comments2}}</textarea>
+                                </div>
+                             </div>
                             </div>
-                    </div>
+                           @else
+                            <div class="col-sm-12" id="target{{$fields->id}}">
+                                <p> {{$i+1}}).  {{$fields->Buddy_feedback_fields}}</p>
+                                <div class="form-group row">
+                                <input type="hidden" id="field{{$fields->id}}"  value="{{$fields->id}}"></td>
+                                <div class="col-sm-4">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-sm-4">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-sm-4">
+                                    <textarea></textarea>
+                                </div>
+                                </div>
+                            </div>
+                    @endif
                 </div>
 
+                    @endif
+                     <?php
+                     $i++;?>
 
+                    @endforeach
+
+                </div>
+
+                <div class="text-center moves">
+                    <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
+                    <input type="hidden" value={{$sess_info["empID"]}}  id="sess_emp_id">
+                        <button type="button" id="BuddyFeedbackBtn" style="display:none;" class="btn btn-info">Submit</button>
+                </div>
 
 
 
@@ -247,3 +203,28 @@
 </div>
 
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../pro_js/preonboarding/preonboarding.js"></script>
+<script>
+
+var fields_info=@json($buddy_fields["fields"]);
+
+
+$(()=>{
+      var data=@json($buddy_fields["feedback_info"]);
+      if(data.length>0)
+      {
+           $("#BuddyFeedbackBtn").hide();
+      }
+      else{
+          $('#BuddyFeedbackBtn').show();
+      }
+})
+
+function checkbox_validator(one,two){
+    $('.'+two).not(one).prop('checked', false);
+}
+
+
+</script>
+

@@ -22,7 +22,7 @@
                 <li><a href="{{url('hrsspreOnboarding')}}">Pre OnBoarding</a></li>
                 <li><a href="{{url('hrssdayzero')}}">Day Zero</a></li>
                 <li><a href="{{url('hrssOnBoarding')}}">On Boarding </a></li>
-                <li><a href="{{url('seating_readiness')}}">Seating Request </a></li>
+                <li><a href="{{url('seating_readiness')}}">Seating  & IdCard Request </a></li>
                 <li><a href="{{url('EmailIdCreation')}}">Email IdCreation </a></li>
              </ul>
           </li>

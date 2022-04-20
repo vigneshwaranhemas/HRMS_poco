@@ -20,8 +20,7 @@ Route::get('/', function () {
 /*login*/
 Route::get('logout','AuthController@logout');
 Route::post('login_check_process', 'LoginController@login_check_process' );
-
-
+Route::get("UserEmailSend","LoginController@UserEmailSend");
 Route::get('dashboard','AdminController@permission');
 
 Route::prefix('perk-ui')->group(function () {
@@ -51,21 +50,35 @@ Route::get("hrssOnBoarding","HrController@hrssOnBoarding");
 Route::get('seating_readiness',"HrController@SeatingArrangement");
 Route::get('EmailIdCreation','HrController@EmailIdCreation');
 Route::get('hrssCandidate','HrController@Candidate');
-Route::get('userdocuments','Hrcontroller@userdocuments');
+Route::get('userdocuments','HrController@userdocuments');
+Route::post('view_preonboarding','HrController@Show_preOnBoarding');
+Route::post('Email_and_Seat_request','HrController@EmailAndSeatingRequest');
+Route::get('Candidate_Email_Creation','HrController@Candidate_Email_Creation');
+Route::post('Candidate_Email_Status_update','HrController@Candidate_Email_Status_update');
 
 
 //Buddy Controller
 Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('candidate_dashboard');
 Route::get('buddy', 'BuddyController@buddy_info')->name('buddy_info');
+Route::post('show_buddy_feedback','BuddyController@View_Buddy_feedback');
 
 //Candidate Controller
 Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
 Route::get('/preOnboarding','CandidateController@preOnboarding');
 Route::get('Buddy_feedback', 'CandidateController@buddy')->name('buddy_feedback');
+Route::post('/PreOnBoarding_save','CandidateController@insertPreOnboarding');
+Route::get('candidate_profile','CandidateController@profile');
+Route::post("SaveBuddyFeedback",'candidateController@InsertBuddyFeedback');
+Route::get('Candidate_Induction','CandidateController@CandidateInduction');
+Route::get('Candidate_Assigned_Buddy','CandidateController@Candidate_Assigned_Buddy');
+
+
 
 //Admin Controller
 Route::get('/admin_dashboard', 'AdminController@admin_dashboard')->name('candidate_dashboard');
 Route::get('/Hr_SeatingRequest','AdminController@Hr_SeatingRequest');
+Route::post("/Admin_Seating_Request","AdminController@Admin_Seating_Allotment");
+Route::post('/Admin_Request_update',"AdminController@Seating_Status_update");
 
 //Login Controller
 
@@ -75,15 +88,15 @@ Route::get('/Hr_SeatingRequest','AdminController@Hr_SeatingRequest');
 
 Route::get('/ItInfra_Dashboard','ItInfraController@index');
 Route::get('/EmailCreation','ItInfraController@EmailIdCreation');
-
+Route::post('ITInfra_Email_Creation','ItInfraController@ITInfra_Email_Creation');
 Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('hr_dashboard');
 
 //Buddy Controller
 Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('buddy_dashboard');
 
 //Candidate Controller
-Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
-Route::get('candidate_profile','CandidateController@profile');
+
+
 
 
 

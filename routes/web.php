@@ -283,4 +283,6 @@ Route::post('add_contact_info', 'DocumentsController@add_contact_info');
 Route::post('Contact_info_view', 'DocumentsController@Contact_info_view');
 Route::post('add_family_add', 'DocumentsController@add_family_add');
 Route::post('family_information_view', 'DocumentsController@family_information_view');
+/*session sidebar*/
+Route::post('get_session_sidebar', 'SidebarController@get_session_sidebar');
 

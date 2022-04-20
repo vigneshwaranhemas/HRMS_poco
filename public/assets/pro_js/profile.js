@@ -79,7 +79,7 @@ $("#crop").click(function(){
                     location.reload();
                    }, 2000);
 
-           }else if(data.success =='updated'){
+           }else if(data.success =='update'){
 
             Toastify({
                    text: "Successfully uploaded..!",
@@ -211,31 +211,33 @@ function documents_info(){
         data:{},
         dataType: "json",
         success: function(data) {
-            $('#testing').empty();
-             html ="";
-            // console.log(data)
-                html +="<div class='card-body'>";
-                html +="<div class='row people-grid-row'>";
-          for (let index = 0; index < data.length; index++) {
-                html +="<div class='col-md-3 col-lg-3 col-xl-4'>";
-                html +="<div class='card widget-profile' style='width: 100%;height: 90%;'>";
-                html +="<div class='card-body rounded' style='box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);'>";
-                html +="<div class='pro-widget-content text-center'>";
-                html +="<div class='profile-info-widget'>";
-                html +="<a class='fa fa-suitcase' style='font-size:25px;color:black'></a>";
-                html +="<div class='profile-det-info'>";
-                html +="<h5><a href='' class='text-info'>" + data[index].doc_name + "</a></h5>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                
+                if (data !="") {
+                $('#testing').empty();
+                 html ="";
+                // console.log(data)
+                    html +="<div class='card-body'>";
+                    html +="<div class='row people-grid-row'>";
+              for (let index = 0; index < data.length; index++) {
+                    html +="<div class='col-md-3 col-lg-3 col-xl-4'>";
+                    html +="<div class='card widget-profile' style='width: 100%;height: 90%;'>";
+                    html +="<div class='card-body rounded' style='box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);'>";
+                    html +="<div class='pro-widget-content text-center'>";
+                    html +="<div class='profile-info-widget' style='margin-bottom: -37px;'>";
+                    html +="<a class='fa fa-suitcase' style='font-size:25px;color:black'></a>";
+                    html +="<div class='profile-det-info'>";
+                    html +="<h5><a href='' class='text-info'>" + data[index].doc_name + "</a></h5>";
+                    html +="</div>";
+                    html +="</div>";
+                    html +="</div>";
+                    html +="</div>";
+                    html +="</div>";
+                    html +="</div>";
+                    
+                }
+                    html +="</div>";
+                    html +="</div>";
+                $('#testing').append(html);
             }
-                html +="</div>";
-                html +="</div>";
-            $('#testing').append(html);
         }
     });
 }
@@ -251,12 +253,14 @@ function account_information(){
         data:{},
         dataType: "json",
         success: function(data) {
-                $('#acc_mobile').val(data['0'].acc_mobile);
-                $('#acc_name').val(data['0'].acc_name);
-                $('#acc_number').val(data['0'].acc_number);
-                $('#bank_name').val(data['0'].bank_name);
-                $('#branch_name').val(data['0'].branch_name);
-                $('#ifsc_code').val(data['0'].ifsc_code);
+            if (data !="") {
+                    $('#acc_mobile').val(data['0'].acc_mobile);
+                    $('#acc_name').val(data['0'].acc_name);
+                    $('#acc_number').val(data['0'].acc_number);
+                    $('#bank_name').val(data['0'].bank_name);
+                    $('#branch_name').val(data['0'].branch_name);
+                    $('#ifsc_code').val(data['0'].ifsc_code);
+                }
             }
         });
     }
@@ -340,18 +344,20 @@ function education_information(){
         dataType: "json",
         success: function(data) {
             // console.log(data)
-            $('#education_td').empty();
-                    html ='';
-                $.each(data, function (key, val) {
-                    html +='<tr>';
-                    html +='<td data-label="allcount">'+val.degree+'</td>';
-                    html +='<td data-label="allcount">'+val.university+'</td>';
-                    html +='<td data-label="allcount">'+val.edu_start_month+"-"+val.edu_start_year+'</td>';
-                    html +='<td data-label="allcount">'+val.edu_end_month+"-"+val.edu_end_year+'</td>';
-                    html +='<td data-label="allcount"><a href="../uploads/'+ val.edu_certificate +'" target =_blank><img class="rounded-circle" src="../assets/images/user/1.jpg"  alt=""></a></td>';
+            if (data !="") {
+                $('#education_td').empty();
+                        html ='';
+                    $.each(data, function (key, val) {
+                        html +='<tr>';
+                        html +='<td data-label="allcount">'+val.degree+'</td>';
+                        html +='<td data-label="allcount">'+val.university+'</td>';
+                        html +='<td data-label="allcount">'+val.edu_start_month+"-"+val.edu_start_year+'</td>';
+                        html +='<td data-label="allcount">'+val.edu_end_month+"-"+val.edu_end_year+'</td>';
+                        html +='<td data-label="allcount"><a href="../uploads/'+ val.edu_certificate +'" target =_blank><img class="rounded-circle" src="../assets/images/user/1.jpg"  alt=""></a></td>';
 
-                });
-                $('#education_td').html(html);
+                    });
+                    $('#education_td').html(html);
+                }
             }
         });
     }
@@ -412,33 +418,36 @@ function experience_info(){
         data:{},
         dataType: "json",
         success: function(data) {
+
             $('#Experience_tbl').empty();
-             html ="";
-            // console.log(data)
-                html +="<div class='card-body'>";
-                html +="<div class='row people-grid-row'>";
-          for (let index = 0; index < data.length; index++) {
-                html +="<div class='col-md-3 col-lg-3 col-xl-4'>";
-                html +="<div class='card widget-profile'>";
-                html +="<div class='card-body rounded' style='box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);'>";
-                html +="<div class='pro-widget-content text-center'>";
-                html +="<div class='profile-info-widget'>";
-                html +="<a class='fa fa-suitcase' style='font-size:25px;color:black'></a>";
-                html +="<div class='profile-det-info'>";
-                html +="<a class='text-info' >" + data[index].job_title + "</a>";
-                html +="<p>" + data[index].company_name + "</p>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                html +="</div>";
-                
+            if (data !="") {
+                     html ="";
+                    // console.log(data)
+                        html +="<div class='card-body'>";
+                        html +="<div class='row people-grid-row'>";
+                  for (let index = 0; index < data.length; index++) {
+                        html +="<div class='col-md-3 col-lg-3 col-xl-4'>";
+                        html +="<div class='card widget-profile'>";
+                        html +="<div class='card-body rounded' style='box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);'>";
+                        html +="<div class='pro-widget-content text-center'>";
+                        html +="<div class='profile-info-widget'>";
+                        html +="<a class='fa fa-suitcase' style='font-size:25px;color:black'></a>";
+                        html +="<div class='profile-det-info'>";
+                        html +="<a class='text-info' >" + data[index].job_title + "</a>";
+                        html +="<p>" + data[index].company_name + "</p>";
+                        html +="</div>";
+                        html +="</div>";
+                        html +="</div>";
+                        html +="</div>";
+                        html +="</div>";
+                        html +="</div>";
+                        
+                    }
+                        html +="</div>";
+                        html +="</div>";
+                    $('#Experience_tbl').append(html);
+                }
             }
-                html +="</div>";
-                html +="</div>";
-            $('#Experience_tbl').append(html);
-        }
     });
 }
 
@@ -452,14 +461,15 @@ function Contact_info_page(){
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data['0'].phone_number)
-                $('#p_num_view').html(data['0'].phone_number);
-                $('#s_num_view').html(data['0'].s_number);
-                $('#p_email_view').html(data['0'].p_email);
-                $('#p_adderss_view').html(data['0'].p_adderss);
-                $('#c_address_view').html(data['0'].c_address);
-                $('#State_view').html(data['0'].State);
-
+            console.log(data)
+                if (data !="") {
+                    $('#p_num_view').html(data['0'].phone_number);
+                    $('#s_num_view').html(data['0'].s_number);
+                    $('#p_email_view').html(data['0'].p_email);
+                    $('#p_adderss_view').html(data['0'].p_adderss);
+                    $('#c_address_view').html(data['0'].c_address);
+                    $('#State_view').html(data['0'].State);
+                }
             }
         });
     }
@@ -473,12 +483,14 @@ function Contact_information(){
         dataType: "json",
         success: function(data) {
             // console.log(data['0'].phone_number)
+            if (data !="") {
                 $('#phone_number').val(data['0'].phone_number);
                 $('#s_number').val(data['0'].s_number);
                 $('#p_email').val(data['0'].p_email);
                 $('#p_adderss').val(data['0'].p_adderss);
                 $('#c_address').val(data['0'].c_address);
                 $('#State').val(data['0'].State);
+            }
 
             }
         });
@@ -564,6 +576,7 @@ function family_information(){
         success: function(data) {
             console.log(data)
             $('#education_td').empty();
+            if (data !="") {
                     html ='';
                 $.each(data, function (key, val) {
                     html +='<tr>';
@@ -575,6 +588,7 @@ function family_information(){
 
                 });
                 $('#family_td').html(html);
+                }
             }
         });
     }

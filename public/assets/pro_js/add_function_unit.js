@@ -36,6 +36,7 @@ $(()=>{
 
             $('#btnSubmit').prop("disabled",true);
             $('#btnSubmit').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Processing');
+            $('#exampleModal').click();
 
                Toastify({
                    text: "Added Sucessfully..!",
@@ -47,7 +48,8 @@ $(()=>{
                setTimeout(
                    function() {
                     //    window.location.href = "view_recruiter";
-                    location.reload();
+                    // location.reload();
+                    get_function_list();
                    }, 2000);
 
            }
@@ -262,6 +264,7 @@ $("#editUpdate").on('click', function() {
             $('#close_edit_pop').click();
             $("#editUpdate").attr("disabled", false);
             $('#editUpdate').html('Update');
+            $('#function_edit_pop_modal_div').click();
 
             if(data.response =='Updated'){
                 Toastify({
@@ -273,7 +276,8 @@ $("#editUpdate").on('click', function() {
 
                 setTimeout(
                     function() {
-                        location.reload();
+                        // location.reload();
+                        get_function_list();
                     }, 2000);
             }
             else {
@@ -312,6 +316,7 @@ function function_status_process(id, status_data){
             success: function(data) {
 
                 if(data.response =='success'){
+                    $('#status_pop_modal_div').click();
                     Toastify({
                         text: "Status Changed Successfully",
                         duration: 3000,
@@ -321,7 +326,8 @@ function function_status_process(id, status_data){
 
                     setTimeout(
                         function() {
-                            location.reload();
+                            // location.reload();
+                            get_function_list();
                         }, 2000);
                 }
                 else{
@@ -367,6 +373,7 @@ function function_delete_process(id){
             success: function(data) {
 
                 if(data.response =='success'){
+                    $('#delete_pop_modal_div').click();
                     Toastify({
                         text: "Delete Successfully",
                         duration: 3000,
@@ -376,7 +383,8 @@ function function_delete_process(id){
 
                     setTimeout(
                         function() {
-                            location.reload();
+                            // location.reload();
+                            get_function_list();
                         }, 2000);
                 }
                 else{

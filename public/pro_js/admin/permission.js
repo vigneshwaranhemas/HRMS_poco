@@ -28,7 +28,7 @@ function get_permision_role_list(){
                 html += "<table class='table col-md-12 b-all  sub_menu_list ' style='display:none' id='dyntable" + index + "'>";
                 html += "<thead><tr class='bg-white'><th>Name</th><th>Sub Menus</th><th>View</th><th>Update</th><th>Add</th><th>Delete</th></tr></thead>";
                 html += "<tbody id='premission_tbody" + index + "' style='background-color:none;'></tbody></table>";
-                html += "<button style='display:none;' class='btn btn-success save_button' onclick=sub_menu_save("+index+",'"+data[index].role_id+"') id='hidbutton"+index+"'> save</button>";
+                html += "<div class='text-center'><button style='display:none;' class='btn btn-success save_button' onclick=sub_menu_save("+index+",'"+data[index].role_id+"') id='hidbutton"+index+"'>Save</button></div>";
                 html += "</div><br>";                
             }
             $('.menu_list').html(html);
@@ -74,8 +74,9 @@ function get_permision_role_list(){
         $('#dyntable'+e+' tbody>tr').each(function () {
             var currrow=$(this).closest('tr');
             var col0=currrow.find('td:eq(0)').text();
+            var colid=currrow.find('td:eq(2) input[type=hidden]').val();
               if ($(this).hasClass('header')) {
-                  //console.log('one')
+                 
                }
                else{
 
@@ -116,6 +117,7 @@ function get_permision_role_list(){
                  }
                     selected.push({
                         role:text,
+                        colid:colid,
                         menu:text_value,
                         sub_menu:col1,
                         view:col2,
@@ -129,7 +131,7 @@ function get_permision_role_list(){
           i++;
   
     });
-        // console.log(selected)
+        console.log(selected)
      $.ajax({
             url: get_sub_menu_save_link,
             method: "POST",

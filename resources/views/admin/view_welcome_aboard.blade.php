@@ -168,7 +168,7 @@
                     <p>Books that I Read / Love to Recommend <input class="input" type="text" name="books" id="books" readonly>  </p>
 
                     <div class="text-center">
-                        <a href="{{url('welcome_aboard_generate_pdf')}}"><button class="btn btn-primary" type="button" id="pdf_button">PDF</button></a>
+                        <a href="{{url('welcome_aboard_generate_pdf')}}" target="_blank"><button class="btn btn-primary" type="button" id="pdf_button">PDF</button></a>
                     </div>
 
                 </div>

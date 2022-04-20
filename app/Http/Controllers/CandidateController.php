@@ -91,6 +91,8 @@ class CandidateController extends Controller
             }
            $data['fields']=$fields;
          return view('candidate.preOnboarding')->with('userdata',$data);
+        //  return view('candidate.preOnboarding');
+
     }
 
     public function buddy()

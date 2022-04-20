@@ -33,6 +33,7 @@ class LoginController extends Controller
             $info = [
                 'empID' => auth()->user()->empID,
                 'cdID'=>auth()->user()->cdID,
+                'pre_onboarding' => auth()->user()->pre_onboarding,
                 'username' => auth()->user()->username,
                 'username' => auth()->user()->username,
                 'role_type' => auth()->user()->role_type,

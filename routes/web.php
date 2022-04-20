@@ -269,6 +269,9 @@ Route::post('add_welcome_aboard_process', 'AdminController@add_welcome_aboard_pr
 // View Welcome Aboard
 Route::get('view_welcome_aboard', 'AdminController@view_welcome_aboard')->name('view_welcome_aboard');
 Route::post( 'get_welcome_aboard_details', 'AdminController@get_welcome_aboard_details' );
+// Route::get('welcome_aboard_pdf', 'AdminController@welcome_aboard_pdf')->name('welcome_aboard_pdf');
+Route::get('welcome_aboard_generate_pdf','AdminController@welcome_aboard_generate_pdf');
+// Route::get('generate-pdf','AdminController@generatePDF');
 
 /*image upload profile*/
 Route::post('profile_upload_images', 'AdminController@storeImage');

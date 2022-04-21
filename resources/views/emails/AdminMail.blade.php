@@ -8,7 +8,11 @@
 </head>
 <body>
 
+<<<<<<< HEAD
       {{-- @if ($worklocation=="Onsite")
+=======
+      @if ($worklocation=="Onsite")
+>>>>>>> 5c4ecb1df1eef190944cf6309cbb7f7ee88b8901
                 <p><b>Dear Team,</b></p>
 
                 <p>Please note that {{$candidate_name}}is joining with HEPL in {{$candidate_department}}" team.</p>
@@ -18,6 +22,7 @@
 
                 <p><b>Thank you,</b></p>
                 <p>HR OP.S Team - HEPL";</p>
+<<<<<<< HEAD
       @else --}}
                 <p><b>Dear Team,</b></p>
 
@@ -30,11 +35,23 @@
                 <p>Please note that {{$candidate_name}}is joining with HEPL in {{$candidate_department}}" team.</p>
                 <p>Please take advise of Supervisor - "{{$supervisor_name}}." </p>
                 <p> to allot seat for them before his/her Date of Joining that is "{{$candidate_doj}}".</p>
+=======
+      @else
+                <p><b>Dear Team,</b></p>
+
+                <p>Please note that {{$candidate_name}}is joining with HEPL in {{$candidate_department}}" team and is Working From Home.</p>
+                <p>Please take advise of Supervisor - "{{$supervisor_name}}." to hand hold them for setting up MS OUTLOOK </p>
+                <p>account and TEAMS account on their date of joining that is "{{$candidate_doj}}".</p>
+>>>>>>> 5c4ecb1df1eef190944cf6309cbb7f7ee88b8901
                 <p>Kindly let me know once completed.</p>
 
                 <p><b>Thank you,</b></p>
                 <p>HR OP.S Team - HEPL";</p>
+<<<<<<< HEAD
       {{-- @endif --}}
+=======
+      @endif
+>>>>>>> 5c4ecb1df1eef190944cf6309cbb7f7ee88b8901
 
 
 </body>

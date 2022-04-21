@@ -14,3 +14,5 @@ interface IPreOnboardingrepositories{
        public function fetch_buddy_info($data);
 }
 
+?>
+

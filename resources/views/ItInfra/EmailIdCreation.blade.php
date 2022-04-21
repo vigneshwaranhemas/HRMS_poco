@@ -62,6 +62,7 @@
                                    <tr>
                                       <th>S.No</th>
                                       <th>#</th>
+                                      <th>VERIFIED</th>
                                       <th>EMPLOYEE ID</th>
                                       <th>NAME</th>
                                       <th>EMAIL</th>

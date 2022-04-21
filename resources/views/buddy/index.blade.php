@@ -238,15 +238,18 @@
                         </tr> --}}
                     </tbody>
                 </table>
-<<<<<<< HEAD
                 <div class="modal-body" id="textarea_div">
 
                 </div>
                 {{-- <div class="row" style="margin-top: 40px;">
-=======
                 <div class="row" style="margin-top: 40px;">
 
->>>>>>> main
+
+                <div class="modal-body" id="textarea_div">
+
+                </div>
+                {{-- <div class="row" style="margin-top: 40px;">
+                <div class="row" style="margin-top: 40px;">
                     <div class="col-md-12">
                         <h6>7.  What went very well, during  my interactions with my Buddy</h6>
                     </div>
@@ -302,7 +305,6 @@
                         </div>
 
                     </div>
-
 
                 </div>
 

@@ -50,7 +50,6 @@ $(()=>{
                    check_count++;
             }
         });
-        // console.log(selected)
         if(check_count>0){
                    $.ajax({
                     url:status_update_url,

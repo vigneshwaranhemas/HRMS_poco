@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 use App\Repositories\IBuddyrepositories;
 use App\Repositories\IPreOnboardingrepositories;
 use Illuminate\Http\Request;
-use Session;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Auth;
+use Session;
 
 class BuddyController extends Controller
 {
@@ -64,10 +64,12 @@ class BuddyController extends Controller
         $sess_info=Session::get("session_info");
         $id=$sess_info["empID"];
         $candidate_info=$this->brep->get_candidate_info($id);
+
+    //    echo json_encode($candidate_info);
+
         return view('buddy.index')->with('candidate_info',$candidate_info);
+    //    return view('buddy.index');
     }
-
-
 
     public function View_Buddy_feedback(Request $request)
   {

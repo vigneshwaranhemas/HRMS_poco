@@ -135,6 +135,7 @@ class AdminRepository implements IAdminRepository
                     </tr>";
                     array_push($sub_menu_items,$sub);
                 }
+
             $subitems=implode(' ', $sub_menu_items);
             $menu="<tr class='test_data2 header'><td><b>".$value->menu_name."</td>".$subitems."</tr>";
         }else{
@@ -1080,13 +1081,6 @@ class AdminRepository implements IAdminRepository
 
         return $result;
     }
-
-
-
-
-
-
-
 
 
 

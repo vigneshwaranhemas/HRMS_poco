@@ -8,11 +8,9 @@ use Session;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Auth;
-
 class BuddyController extends Controller
 {
     private $brep;
-
     public function __construct(IBuddyrepositories $brep,IPreOnboardingrepositories $preon){
          $this->brep=$brep;
          $this->preon = $preon;
@@ -66,7 +64,6 @@ class BuddyController extends Controller
         $candidate_info=$this->brep->get_candidate_info($id);
         return view('buddy.index')->with('candidate_info',$candidate_info);
     }
-
 
 
     public function View_Buddy_feedback(Request $request)

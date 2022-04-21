@@ -32,8 +32,9 @@ class LoginController extends Controller
 
             $info = [
                 'empID' => auth()->user()->empID,
-                'cdID' => auth()->user()->cdID,
-                'pre_onboarding'=>auth()->user()->pre_onboarding,
+                'cdID'=>auth()->user()->cdID,
+                'pre_onboarding' => auth()->user()->pre_onboarding,
+                'username' => auth()->user()->username,
                 'username' => auth()->user()->username,
                 'role_type' => auth()->user()->role_type,
                 'active' => auth()->user()->active,
@@ -55,10 +56,6 @@ class LoginController extends Controller
             }else if (auth()->user()->role_type == 'Site_Admin') {
                 return response()->json( ['url'=>url('site_admin_dashboard' ), 'logstatus' => 'success'] );
             }
-            else if (auth()->user()->role_type == 'Itinfra') {
-                return response()->json( ['url'=>url( 'ItInfra_Dashboard' ), 'logstatus' => 'success'] );
-            }
-
         }else{
             return response()->json( ['url'=>url( '../' ), 'logstatus' => 'failed'] );
         }
@@ -89,6 +86,7 @@ class LoginController extends Controller
           else{
             echo '<script>toastr.success("Something Went Wrong Please Try Again Later!....")</script>';
           }
+
 
 
 

@@ -20,7 +20,6 @@ interface IHrPreonboardingrepositories{
 
 
 
-
 }
 
 

@@ -29,7 +29,6 @@ $sess_info=Session::get("session_info");
 {
     padding-bottom: 50px;
 }
-
 </style>
 @endsection
 

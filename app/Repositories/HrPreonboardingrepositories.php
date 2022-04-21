@@ -180,6 +180,7 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
          }
         echo  $email_table;
 
+
     }
 
 
@@ -209,6 +210,8 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
 
         return $email_info;
     }
+
+
 
 
 

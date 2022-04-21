@@ -24,8 +24,6 @@ $(()=>{
             },
             success:(response)=>{
                 var res=JSON.parse(response);
-
-                console.log(response)
                 if(res.success==1){
                     Toastify({
                         text: res.message,
@@ -50,6 +48,7 @@ $(()=>{
                                 location.reload();;
                             }, 2000);
                 }
+
             }
         })
     })

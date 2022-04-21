@@ -85,6 +85,7 @@
                                                 </label>
                                              </div>
                                             </td>
+                                        </tr>
 
                                     <?php $i++; ?>
                                  @endforeach
@@ -92,7 +93,7 @@
                         </tbody>
                      </table>
                      <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
-                     <button type="button" id="AdminUpdateBtn"><button>
+                     {{-- <button type="button" id="AdminUpdateBtn"><button> --}}
                   </div>
                </div>
             </div>

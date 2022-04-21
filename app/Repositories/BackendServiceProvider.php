@@ -44,6 +44,10 @@ class BackendServiceProvider extends ServiceProvider
             'App\Repositories\IProfileRepositories',
             'App\Repositories\ProfileRepositories'
         );
+        $this->app->bind(
+            'App\Repositories\IITInfraRepository',
+            'App\Repositories\ITInfraRepository'
+        );
 
     }
 

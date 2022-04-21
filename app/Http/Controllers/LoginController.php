@@ -33,6 +33,7 @@ class LoginController extends Controller
             $info = [
                 'empID' => auth()->user()->empID,
                 'cdID' => auth()->user()->cdID,
+                'pre_onboarding'=>auth()->user()->pre_onboarding,
                 'username' => auth()->user()->username,
                 'role_type' => auth()->user()->role_type,
                 'active' => auth()->user()->active,
@@ -46,12 +47,12 @@ class LoginController extends Controller
             }else if (auth()->user()->role_type == 'can') {
                 return response()->json( ['url'=>url( 'candidate_dashboard' ), 'logstatus' => 'success'] );
             }else if (auth()->user()->role_type == 'HR') {
-                return response()->json( ['url'=>url( 'hr_dashboard' ), 'logstatus' => 'success'] );
+                return response()->json( ['url'=>url('hr_dashboard' ), 'logstatus' => 'success'] );
             }else if (auth()->user()->role_type == 'Buddy') {
                 return response()->json( ['url'=>url( 'buddy_dashboard' ), 'logstatus' => 'success'] );
             }else if (auth()->user()->role_type == 'Itinfra') {
                 return response()->json( ['url'=>url('ItInfra_Dashboard' ), 'logstatus' => 'success'] );
-            }else if (auth()->user()->role_type == 'Site Admin') {
+            }else if (auth()->user()->role_type == 'Site_Admin') {
                 return response()->json( ['url'=>url('site_admin_dashboard' ), 'logstatus' => 'success'] );
             }
             else if (auth()->user()->role_type == 'Itinfra') {
@@ -68,11 +69,6 @@ class LoginController extends Controller
     {
          $candidate_info=$this->hpreon->get_onboarding_candidate_info();
          $i=0;
-
-        //   echo json_encode($candidate_info);
-
-
-
          foreach($candidate_info as $candidate)
          {
                 $data['candidate_name']=$candidate->candidate_name;
@@ -83,19 +79,16 @@ class LoginController extends Controller
 
                     $message->to($data['candidate_mail'])->subject($subject);
                     });
-                    // die();
                 $update_data[]=array("empID"=>$candidate->cdID,"Induction_mail"=>1);
                 $i++;
             }
-        //   $response=$this->hpreon->Update_mail_status($update_data);
-        //   echo $response;
-        //   if($response){
-            //    echo '<script>toastr.success("Email Send Successfully")</script>';
-        //   }
-        //   else{
-            // echo '<script>toastr.success("Something Went Wrong Please Try Again Later!....")</script>';
-
-        //   }
+          $response=$this->hpreon->Update_mail_status($update_data);
+          if($response){
+               echo '<script>toastr.success("Email Send Successfully")</script>';
+          }
+          else{
+            echo '<script>toastr.success("Something Went Wrong Please Try Again Later!....")</script>';
+          }
 
 
 

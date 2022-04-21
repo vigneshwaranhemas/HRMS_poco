@@ -60,8 +60,8 @@
                             <table class="display" id="export-button">
                                 <thead>
                                    <tr>
+                                      <th>S.No</th>
                                       <th>#</th>
-                                      <th>VERIFIED</th>
                                       <th>EMPLOYEE ID</th>
                                       <th>NAME</th>
                                       <th>EMAIL</th>
@@ -81,7 +81,7 @@
                                                  <td>{{$info->username}}</td>
                                                  <td>{{$info->email}}</td>
                                                  <td>{{$info->contact_no}}</td>
-                                                 <td>{{$info->hr_suggested_mail}}</td>
+                                                 <td><input type="text" class="form-control" value="{{$info->hr_suggested_mail}}"></td>
                                                  <td>{{$info->asset_type}}</td>
                                               </tr>
                                           <?php $i++; ?>

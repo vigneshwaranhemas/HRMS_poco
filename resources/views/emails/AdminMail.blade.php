@@ -8,7 +8,7 @@
 </head>
 <body>
 
-      @if ($worklocation=="Onsite")
+      {{-- @if ($worklocation=="Onsite")
                 <p><b>Dear Team,</b></p>
 
                 <p>Please note that {{$candidate_name}}is joining with HEPL in {{$candidate_department}}" team.</p>
@@ -18,17 +18,23 @@
 
                 <p><b>Thank you,</b></p>
                 <p>HR OP.S Team - HEPL";</p>
-      @else
+      @else --}}
                 <p><b>Dear Team,</b></p>
 
-                <p>Please note that {{$candidate_name}}is joining with HEPL in {{$candidate_department}}" team and is Working From Home.</p>
+                {{-- <p>Please note that {{$candidate_name}}is joining with HEPL in {{$candidate_department}}" team and is Working From Home.</p>
                 <p>Please take advise of Supervisor - "{{$supervisor_name}}." to hand hold them for setting up MS OUTLOOK </p>
                 <p>account and TEAMS account on their date of joining that is "{{$candidate_doj}}".</p>
+                <p>Kindly let me know once completed.</p> --}}
+
+
+                <p>Please note that {{$candidate_name}}is joining with HEPL in {{$candidate_department}}" team.</p>
+                <p>Please take advise of Supervisor - "{{$supervisor_name}}." </p>
+                <p> to allot seat for them before his/her Date of Joining that is "{{$candidate_doj}}".</p>
                 <p>Kindly let me know once completed.</p>
 
                 <p><b>Thank you,</b></p>
                 <p>HR OP.S Team - HEPL";</p>
-      @endif
+      {{-- @endif --}}
 
 
 </body>

@@ -42,8 +42,8 @@
                     <table class="display" id="export-button">
                         <thead>
                            <tr>
+                              <th>S.No</th>
                               <th>#</th>
-                              <th>Checked</th>
                               <th>EMPLOYEE ID</th>
                               <th>NAME</th>
                               <th>EMAIL</th>

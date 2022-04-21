@@ -7,7 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-
                 <p><b>Dear Team,</b></p>
 
                 <p>Dear IT team, Please create Email ID for "{{$candidate_name}}" who is joining with HEPL today" team.</p>
@@ -16,8 +15,6 @@
 
                 <p><b>Thank you,</b></p>
                 <p>HR OP.S Team - HEPL";</p>
-
-
 
 </body>
 </html>

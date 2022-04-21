@@ -122,7 +122,4 @@ interface IAdminRepository {
     // /*menu list permission*/
     // public function get_permision_menu_base( );
 
-    public function add_welcome_aboard_process( $form_data );
-    public function get_welcome_aboard_details();
-
 }

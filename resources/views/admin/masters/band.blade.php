@@ -141,13 +141,13 @@
               <h5 class="modal-title" id="exampleModalLabel">Add Band</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
-            <form method="POST" action="javascript:void(0)" id="add_vand_unit" class="ajax-form">
+            <form method="POST" action="javascript:void(0)" id="add_band_unit" class="ajax-form">
                 {{ csrf_field() }}
               <div class="modal-body">
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
                           <label for="band_name">Band Name</label>
-                          <input class="form-control" name="band_name" id="band_name" type="text" placeholder="Band Name" required="">
+                          <input class="form-control" name="band_name" id="band_name_input" type="text" placeholder="Band Name" required="">
                           <div class="text-warning" id="band_name_error"></div>
                       </div>
                   </div>

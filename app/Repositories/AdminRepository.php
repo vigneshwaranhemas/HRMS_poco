@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\menu;
 use App\sub_menu;
 use App\role_permission;
-use App\Holidays; 
+use App\Holidays;
 use App\Role;
 use App\welcome_aboard;
 
@@ -89,9 +89,9 @@ class AdminRepository implements IAdminRepository
                 $data=array();
                        // echo '<pre>';print_r($role_data);die();
                     $roles_id="";
-                
+
                 if(isset($role_data['0'])){
- 
+
                     foreach($role_data as $roles){
                         $roles_id=$roles->id;
 
@@ -141,8 +141,8 @@ class AdminRepository implements IAdminRepository
                        // echo '<pre>';print_r($role_data);die();
                    $roles_id="";
                 if(isset($role_data['0'])){
-                 
-                     
+
+
 
                     foreach($role_data as $roles){
                         $roles_id=$roles->id;
@@ -210,11 +210,11 @@ class AdminRepository implements IAdminRepository
                            "view"=>$form_data['view'],
                            "update"=>$form_data['update'],
                            "add"=>$form_data['add'],
-                           "delete"=>$form_data['delete'] 
+                           "delete"=>$form_data['delete']
                        ]);
                     }
                 }
-    
+
 
     // Business Unit process start
     public function add_business_unit_process( $form_data ){
@@ -965,13 +965,13 @@ class AdminRepository implements IAdminRepository
         return $response;
     }
     public function fetch_holidays_list()
-    {      
+    {
        $response = DB::table("holidays")->select('*')
                          ->get();
        return $response;
     }
     public function fetch_holidays_list_id($id)
-    {      
+    {
        $response = DB::table('holidays')
                     ->select('*')
                     ->where('id', $id)
@@ -983,7 +983,7 @@ class AdminRepository implements IAdminRepository
        $response = Holidays::where('id', $data['id'])
                          ->update(array(
                             'occassion' => $data['occassion'],
-                            'description' => $data['description'],                            
+                            'description' => $data['description'],
                          ));
        return $response;
     }
@@ -1005,7 +1005,7 @@ class AdminRepository implements IAdminRepository
 
 
     function get_table($table, $emp_ID) {
-        
+
 
          $bandtbl = DB::table($table)
         ->select('*')
@@ -1025,23 +1025,6 @@ class AdminRepository implements IAdminRepository
 
     //     return $roletbl;
     // }
-
-    
-
-    // Welcome aboard process start
-    public function add_welcome_aboard_process( $form_data ){
-
-        $response = welcome_aboard::insert($form_data);
-        return $response;
-      }
-
-    public function get_welcome_aboard_details(){
-
-        $welcome_aboard_data = welcome_aboard::first();
-
-        return $welcome_aboard_data;
-    }
-
 
 
 }

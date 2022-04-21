@@ -14,7 +14,7 @@
                 <li><a >Induction Schedule</a></li>
                 <li><a>Buddy Info </a></li>
                 <li><a href="{{url('Buddy_feedback')}}">Buddy Feedback</a></li>
-                <li><a href="{{ url('welcome_aboard') }}">Welcome Aboard</a></li>
+                <li><a href="{{ url('view_welcome_aboard') }}">Welcome Aboard</a></li>
              </ul>
           </li>
           <li>
@@ -30,7 +30,7 @@
          </li>
          <li>
             <a class="bar-icons" href="{{ route('events') }}"><i class="pe-7s-note"></i><span>Events</span></a>
-         </li>          
+         </li>
        </ul>
     </div>
  </div>

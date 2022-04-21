@@ -62,7 +62,7 @@
   <!-- Container-fluid Ends-->
 
 <!-- Status pop-up model start-->
-<div class="modal fade" id="zone_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="status_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
@@ -147,7 +147,7 @@
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
                           <label for="zone_name">Zone Name</label>
-                          <input class="form-control" name="zone_name" id="zone_name" type="text" placeholder="Zone Name" required="">
+                          <input class="form-control" name="zone_name" id="zone_name_input" type="text" placeholder="Zone Name" required="">
                           <div class="text-warning" id="zone_name_error"></div>
                       </div>
                   </div>

@@ -29,12 +29,10 @@ $(()=>{
            console.log(data);
            $('#btnSubmit').prop("disabled",false);
                $('#btnSubmit').html('Submit');
-
+               $('#state_name_input').val('');
 
            if(data.response =='success'){
-            $('#btnSubmit').prop("disabled",true);
-            $('#btnSubmit').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Processing');
-
+            $('#exampleModal').click();
                Toastify({
                    text: "Added Sucessfully..!",
                    duration: 3000,
@@ -45,7 +43,8 @@ $(()=>{
                setTimeout(
                    function() {
                     //    window.location.href = "view_recruiter";
-                    location.reload();
+                    // location.reload();
+                    get_state_list();
                    }, 2000);
 
            }
@@ -176,7 +175,7 @@ table_cot = $('#state_data').DataTable({
         },
 
     ],
-    lengthMenu: [[15, 50, 100, 250, 500, -1], [15, 50, 100, 250, 500, "All"]],
+    lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
     processing: true,
     serverSide: true,
     serverMethod: 'post',
@@ -260,6 +259,7 @@ $("#editUpdate").on('click', function() {
             $('#close_edit_pop').click();
             $("#editUpdate").attr("disabled", false);
             $('#editUpdate').html('Update');
+            $('#state_edit_pop_modal_div').click();
 
             if(data.response =='Updated'){
                 Toastify({
@@ -271,7 +271,8 @@ $("#editUpdate").on('click', function() {
 
                 setTimeout(
                     function() {
-                        location.reload();
+                        // location.reload();
+                        get_state_list();
                     }, 2000);
             }
             else {
@@ -297,8 +298,8 @@ $("#editUpdate").on('click', function() {
 
 function state_status_process(id, status_data){
     // $('#confirmbox').click();
-    $('#state_pop_modal_div').modal('show');
-
+    $('#status_pop_modal_div').modal('show');
+    $('#confirmSubmit').unbind('click');
     $("#confirmSubmit").on('click', function() {
         $('#close_status_pop').click();
 
@@ -310,6 +311,7 @@ function state_status_process(id, status_data){
             success: function(data) {
 
                 if(data.response =='success'){
+                    $('#status_pop_modal_div').click();
                     Toastify({
                         text: "Status Changed Successfully",
                         duration: 3000,
@@ -319,7 +321,8 @@ function state_status_process(id, status_data){
 
                     setTimeout(
                         function() {
-                            location.reload();
+                            // location.reload();
+                            get_state_list();
                         }, 2000);
                 }
                 else{
@@ -353,7 +356,7 @@ function state_status_process(id, status_data){
 function state_delete_process(id){
     // $('#confirmbox').click();
     $('#delete_pop_modal_div').modal('show');
-
+    $('#deleteconfirmSubmit').unbind('click');
     $("#deleteconfirmSubmit").on('click', function() {
         $('#close_delete_pop').click();
 
@@ -365,6 +368,7 @@ function state_delete_process(id){
             success: function(data) {
 
                 if(data.response =='success'){
+                    $('#delete_pop_modal_div').click();
                     Toastify({
                         text: "Delete Successfully",
                         duration: 3000,
@@ -374,7 +378,8 @@ function state_delete_process(id){
 
                     setTimeout(
                         function() {
-                            location.reload();
+                            // location.reload();
+                            get_state_list();
                         }, 2000);
                 }
                 else{

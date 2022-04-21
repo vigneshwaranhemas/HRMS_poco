@@ -26,10 +26,10 @@
 {
     margin-right: 100%;
 }
-.dataTables_scrollBody
+/* .dataTables_scrollBody
 {
     overflow: hidden !important;
-}
+} */
 .dataTables_wrapper.no-footer .dataTables_scrollBody
 {
     border-bottom: none !important;

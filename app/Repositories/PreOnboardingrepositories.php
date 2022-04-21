@@ -3,8 +3,7 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\CandidatePreOnBoardingModel;
-
-
+use App\welcome_aboard;
 
 class PreOnboardingrepositories implements IPreOnboardingrepositories {
      public function Check_onBoard($table,$test)
@@ -36,6 +35,22 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
          $response="success";
          return $response;
      }
+
+     // Welcome aboard process start
+    public function add_welcome_aboard_process( $form_data ){
+
+        $response = welcome_aboard::insert($form_data);
+        return $response;
+      }
+
+    public function get_welcome_aboard_details(){
+
+        $welcome_aboard_data = welcome_aboard::first();
+
+        return $welcome_aboard_data;
+    }
+    // Welcome aboard process End
+
 }
 
 

@@ -15,7 +15,6 @@ $(document).ready(function(){
 $(()=>{
     $('#btnSubmit').on('click',(e)=>{
     //    alert("abc");
-
    e.preventDefault();
 
    $.ajax({
@@ -29,13 +28,9 @@ $(()=>{
            console.log(data);
            $('#btnSubmit').prop("disabled",false);
                $('#btnSubmit').html('Submit');
-
+               $('#division_name_input').val('');
 
            if(data.response =='success'){
-
-               $('#btnSubmit').prop("disabled",true);
-
-                $('#btnSubmit').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Processing');
                 $('#exampleModal').click();
 
                Toastify({
@@ -47,11 +42,8 @@ $(()=>{
 
                setTimeout(
                    function() {
-                    //    window.location.href = "view_recruiter";
-                    // location.reload();
                     get_division_list();
                    }, 2000);
-
            }
            else{
                Toastify({
@@ -65,7 +57,6 @@ $(()=>{
                    function() {
                        location.reload();
                    }, 2000);
-
            }
 
        },
@@ -181,7 +172,7 @@ table_cot = $('#division_data').DataTable({
         },
 
     ],
-    lengthMenu: [[15, 50, 100, 250, 500, -1], [15, 50, 100, 250, 500, "All"]],
+    lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
     processing: true,
     serverSide: true,
     serverMethod: 'post',
@@ -305,7 +296,7 @@ $(()=>{
 function division_status_process(id, status_data){
     // $('#confirmbox').click();
     $('#status_pop_modal_div').modal('show');
-
+    $('#confirmSubmit').unbind('click');
     $("#confirmSubmit").on('click', function() {
         $('#close_status_pop').click();
 
@@ -362,7 +353,7 @@ function division_status_process(id, status_data){
 function division_delete_process(id){
     // $('#confirmbox').click();
     $('#delete_pop_modal_div').modal('show');
-
+    $('#deleteconfirmSubmit').unbind('click');
     $("#deleteconfirmSubmit").on('click', function() {
         $('#close_delete_pop').click();
 

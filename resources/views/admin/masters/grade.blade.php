@@ -147,7 +147,7 @@
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
                           <label for="grade_name">Grade Name</label>
-                          <input class="form-control" name="grade_name" id="grade_name" type="text" placeholder="Grade Name" required="">
+                          <input class="form-control" name="grade_name" id="grade_name_input" type="text" placeholder="Grade Name" required="">
                           <div class="text-warning" id="grade_name_error"></div>
                       </div>
                   </div>

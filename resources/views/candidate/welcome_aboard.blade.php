@@ -1,4 +1,4 @@
-@extends('layouts.simple.admin_master')
+@extends('layouts.simple.candidate_master')
 @section('title', 'Welcome Aboard')
 
 @section('css')
@@ -96,9 +96,9 @@
             <div class="card">
                 <div class="card-body">
 
-                    <p>Dear Newbie at HEMA’s!  We are delighted that you are onboard our inspiring HEMA’s bandwagon and we would like to share the joy with all our team mates!  Please help us with interesting information about you, which you would like our HEMA’s Fraternity Fellas to know. </p>
+                    <p style="text-align: justify;">Dear Newbie at HEMA’s!  We are delighted that you are onboard our inspiring HEMA’s bandwagon and we would like to share the joy with all our team mates!  Please help us with interesting information about you, which you would like our HEMA’s Fraternity Fellas to know. </p>
 
-                    <p>Here’s a template which could be of help to you, to introduce yourself. Disclosing of Facts in this Sheet is entirely Voluntary.You may choose to answer/omit any queries listed in the DID YOU KNOW Section.</p>
+                    <p style="text-align: justify;">Here’s a template which could be of help to you, to introduce yourself. Disclosing of Facts in this Sheet is entirely Voluntary.You may choose to answer/omit any queries listed in the DID YOU KNOW Section.</p>
 
                     <p>I <input class="input" type="text" name="name" id="name" placeholder="Enter Your Name" required>(Your Name) have joined as <input type="text" class="input" name="designation" id="designation" placeholder="Enter Your Designation">(Your designation) at <input class="input" type="text" name="department" id="department" placeholder="Enter Your Department">(Your Department/Function)            today      /     on <input class="input" type="date" name="today_date" id="today_date" placeholder="Choose The Date">    (strike off which is irrelevant)</p>
                     <div class="text-warning" id="name_error"></div>

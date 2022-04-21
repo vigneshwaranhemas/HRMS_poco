@@ -64,7 +64,7 @@
   <!-- Container-fluid Ends-->
 
 <!-- Status pop-up model start-->
-<div class="modal fade" id="client_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="status_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
@@ -157,17 +157,17 @@
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
                           <label for="client_name">Client Name</label>
-                          <input class="form-control" name="client_name" id="client_name" type="text" placeholder="Client Name" required="">
+                          <input class="form-control" name="client_name" id="client_name_input" type="text" placeholder="Client Name" required="">
                           <div class="text-warning" id="client_name_error"></div>
                       </div>
                       <div class="col-md-12 mb-3">
                         <label for="mobile_number">Mobile Number</label>
-                        <input class="form-control" name="mobile_number" id="mobile_number" type="text" placeholder="Mobile Number" required="">
+                        <input class="form-control" name="mobile_number" id="mobile_number_input" type="text" placeholder="Mobile Number" required="">
                         <div class="text-warning" id="mobile_number_error"></div>
                     </div>
                     <div class="col-md-12 mb-3">
                         <label for="email">Email</label>
-                        <input class="form-control" name="email" id="email_name" type="text" placeholder="Email" required="">
+                        <input class="form-control" name="email" id="email_name_input" type="text" placeholder="Email" required="">
                         <div class="text-warning" id="email_error"></div>
                     </div>
                   </div>

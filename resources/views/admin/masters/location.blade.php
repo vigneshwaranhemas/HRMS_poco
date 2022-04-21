@@ -141,13 +141,13 @@
               <h5 class="modal-title" id="exampleModalLabel">Add Location</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
-            <form method="POST" action="javascript:void(0)" id="add_vand_unit" class="ajax-form">
+            <form method="POST" action="javascript:void(0)" id="form_add_location" class="ajax-form">
                 {{ csrf_field() }}
               <div class="modal-body">
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
                           <label for="location_name">Location Name</label>
-                          <input class="form-control" name="location_name" id="location_name" type="text" placeholder="Location Name" required="">
+                          <input class="form-control" name="location_name" id="location_name_input" type="text" placeholder="Location Name" required="">
                           <div class="text-warning" id="location_name_error"></div>
                       </div>
                   </div>

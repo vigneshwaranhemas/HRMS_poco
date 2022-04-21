@@ -62,7 +62,7 @@
   <!-- Container-fluid Ends-->
 
 <!-- Status pop-up model start-->
-<div class="modal fade" id="designation_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="status_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
@@ -147,7 +147,7 @@
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
                           <label for="designation_name">Designation Name</label>
-                          <input class="form-control" name="designation_name" id="designation_name" type="text" placeholder="Designation Name" required="">
+                          <input class="form-control" name="designation_name" id="designation_name_input" type="text" placeholder="Designation Name" required="">
                           <div class="text-warning" id="designation_name"></div>
                       </div>
                   </div>

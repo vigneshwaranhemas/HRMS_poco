@@ -43,7 +43,7 @@ class LoginController extends Controller
                 return response()->json( ['url'=>url( 'buddy_dashboard' ), 'logstatus' => 'success'] );
             }else if (auth()->user()->role_type == 'Itinfra') {
                 return response()->json( ['url'=>url('ItInfra_Dashboard' ), 'logstatus' => 'success'] );
-            }else if (auth()->user()->role_type == 'Site Admin') {
+            }else if (auth()->user()->role_type == 'Site_Admin') {
                 return response()->json( ['url'=>url('site_admin_dashboard' ), 'logstatus' => 'success'] );
             }
 

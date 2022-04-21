@@ -21,9 +21,12 @@ $(function() {
       $(this).closest("li").parent().parent().addClass("open");
     }
   });
+
+
 });
 
 $('.mobile-sidebar #sidebar-toggle').click(function() {
+  
   var $this = $(".iconsidebar-menu");
 
   if ($this.hasClass('iconbar-second-close')) {

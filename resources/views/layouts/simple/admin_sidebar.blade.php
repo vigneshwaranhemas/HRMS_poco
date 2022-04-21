@@ -10,6 +10,7 @@
             <a class="bar-icons" href="#"><i class="pe-7s-portfolio"></i><span>Masters</span></a>
             <ul class="iconbar-mainmenu custom-scrollbar">
                <li class="iconbar-header">Masters</li>
+               <li><a href="{{ route('employee_list') }}">Employee List</a></li>
                <li><a href="{{ route('business') }}">Business Unit</a></li>
                <li><a href="{{ route('division') }}">Division</a></li>
                <li><a href="{{ route('function') }}">Function </a></li>

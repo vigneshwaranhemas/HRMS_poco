@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class GoalsController extends Controller
 {
     public function __construct()
-    {
+    {        
         $this->middleware('is_admin');
     }
     public function goals()

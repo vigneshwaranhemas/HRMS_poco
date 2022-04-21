@@ -1015,6 +1015,12 @@ class AdminRepository implements IAdminRepository
         return $welcome_aboard_data;
     }
 
+    //Employee list
+    public function get_employee_list(){
 
+        $response = DB::table("customusers")->select('*')
+                        ->get();
+        return $response;
+    }
 
 }

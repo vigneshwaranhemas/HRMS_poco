@@ -125,4 +125,8 @@ interface IAdminRepository {
     public function add_welcome_aboard_process( $form_data );
     public function get_welcome_aboard_details();
 
+    //Employee list
+    public function get_employee_list();
+
+
 }

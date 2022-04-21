@@ -3,6 +3,7 @@
 @section('title', 'Premium Admin Template')
 
 @section('css')
+
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
 <!-- Plugins css start-->
 <link rel="stylesheet" type="text/css" href="../assets/css/calendar.css">
@@ -10,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/sweetalert2.css">
+
 @endsection
 
 @section('style')
@@ -53,7 +55,7 @@
     <div class="modal fade bd-example-modal-lg" id="add-event" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <form  id="getNewEventForm">
-            @csrf
+                @csrf
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myLargeModalLabel">Add Event</h4>

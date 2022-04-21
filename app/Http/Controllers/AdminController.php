@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
-
 use Session;
 
 class AdminController extends Controller
@@ -113,10 +112,13 @@ class AdminController extends Controller
         return response()->json( $data );
     }
 
-
     public function business()
     {
         return view('admin.masters.business');
+    }
+    public function employee_list()
+    {
+        return view('admin.masters.employee_list');
     }
 
     public function division()
@@ -278,6 +280,41 @@ class AdminController extends Controller
         ->make(true);
         }
         return view('business');
+    }
+
+    public function get_employee_list(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $get_employee_list_result = $this->admrpy->get_employee_list();
+
+
+            return DataTables::of($get_employee_list_result)
+            ->addIndexColumn()
+            // ->addColumn('status', function($row) {
+            //     $btn = '';
+            //     $result =  $row->status;
+            //     // print_r($result);
+            //     // die();
+            //     if($result == "active")
+            //     {
+            //         $btn = '<span class="badge badge-success">Active</span>';
+            //     }elseif($result == "Inactive"){
+            //         $btn = '<span class="badge badge-warning">Inactive</span>';
+            //     }
+
+            //     return $btn;
+            // })
+
+            ->addColumn('action', function($row) {
+                $candidate_profile = "candidate_profile";
+                $btn = '<a href="candidate_profile"><i class="fa fa-edit"></i><a>';                
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
+        
     }
 
     public function get_business_unit_details(Request $req){
@@ -2026,83 +2063,7 @@ class AdminController extends Controller
         $response = 'success';
         return response()->json( ['response' => $response] );
           echo json_encode($form_data);
-    }
-
-
-    //image upload
-    /*public function storeImage(Request $request)
-    {
-        $session_val = Session::get('session_info');
-        $emp_ID = $session_val['empID'];
-
-        $folderPath = public_path('uploads\profile_image');
-        // echo "<pre>";print_r($folderPath);
-        $this->validate($request, ['picture' => 'mimes:jpeg,png,jpg|max:2048']);
-        $picturename = date('mdYHis').uniqid().$request->file('image')->getClientOriginalName();
-
-         $destinationPath =public_path("/uploads");
-         $public_path_upload = $request->image->move($destinationPath,$picturename);
-
-        $data =array(
-            'name'=>$emp_ID,
-            'path'=>$picturename,);
-        $insert = DB::table( 'images' )->insert( $data );
-
-
-    }*/
-
-    public function storeImage(Request $request)
-    {
-        $session_val = Session::get('session_info');
-        $emp_ID = $session_val['empID'];
-        $cdID = $session_val['cdID'];
-
-        $folderPath = public_path('uploads/');
-        $image_parts = explode(";base64,", $request->image);
-        $image_type_aux = explode("image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
-        $image_base64 = base64_decode($image_parts[1]);
-
-        $imageName = uniqid() . '.png';
-
-
-        $imageFullPath = $folderPath.$imageName;
-
-
-        file_put_contents($imageFullPath, $image_base64);
-        $user = DB::table( 'images' )->where('emp_id', '=', $emp_ID)->first();
-
-        if ($user === null) {
-            $data =array(
-            'emp_id'=>$emp_ID,
-            'cdID'=>$cdID,
-            'path'=>$imageName);
-        $insert = DB::table( 'images' )->insert( $data );
-        return response()->json(['success'=>'insert']);
-        }else{
-            $data =array(
-            'emp_id'=>$emp_ID,
-            'cdID'=>$cdID,
-            'path'=>$imageName,);
-            $update_role_unit_details_result = $this->admrpy->update_profile_details( $data );
-            return response()->json( ['success'=>'update'] );
-        }
-    }
-
-    /*PreviewImage */
-    public function PreviewImage(Request $request){
-
-        $session_val = Session::get('session_info');
-        $cdID = $session_val['cdID'];
-        // echo "<pre>";print_r($emp_ID);die;
-        $input_details = array( "cdID" => $cdID, );
-        $get_profile_info_result = $this->admrpy->get_profile_info( $input_details );
-
-        return response()->json( $get_profile_info_result );
-
-        // return response()->json(['success'=>'Crop Image Uploaded Successfully']);
-    }
-    
+    }   
 
      /* insert roles*/
     public function add_roles_process(Request $req)
@@ -2257,6 +2218,79 @@ class AdminController extends Controller
         // $this->load->view('admin/masters', $data);
 
     }
+   //image upload
+    /*public function storeImage(Request $request)
+    {
+        $session_val = Session::get('session_info');
+        $emp_ID = $session_val['empID'];
+
+        $folderPath = public_path('uploads\profile_image');
+        // echo "<pre>";print_r($folderPath);
+        $this->validate($request, ['picture' => 'mimes:jpeg,png,jpg|max:2048']);
+        $picturename = date('mdYHis').uniqid().$request->file('image')->getClientOriginalName();
+
+         $destinationPath =public_path("/uploads");
+         $public_path_upload = $request->image->move($destinationPath,$picturename);
+
+        $data =array(
+            'name'=>$emp_ID,
+            'path'=>$picturename,);
+        $insert = DB::table( 'images' )->insert( $data );
+
+
+    }*/
+
+    public function storeImage(Request $request)
+    {
+        $session_val = Session::get('session_info');
+        $emp_ID = $session_val['empID'];
+        $cdID = $session_val['cdID'];
+
+        $folderPath = public_path('uploads/');
+        $image_parts = explode(";base64,", $request->image);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        $image_base64 = base64_decode($image_parts[1]);
+
+        $imageName = uniqid() . '.png';
+
+        $imageFullPath = $folderPath.$imageName;
+
+
+        file_put_contents($imageFullPath, $image_base64);
+        $user = DB::table( 'images' )->where('emp_id', '=', $emp_ID)->first();
+
+        if ($user === null) {
+            $data =array(
+            'emp_id'=>$emp_ID,
+            'cdID'=>$cdID,
+            'path'=>$imageName);
+        $insert = DB::table( 'images' )->insert( $data );
+        return response()->json(['success'=>'insert']);
+        }else{
+            $data =array(
+            'emp_id'=>$emp_ID,
+            'cdID'=>$cdID,
+            'path'=>$imageName,);
+            $update_role_unit_details_result = $this->admrpy->update_profile_details( $data );
+            return response()->json( ['success'=>'update'] );
+        }
+    }
+    
+    /*PreviewImage */
+    public function PreviewImage(Request $request){
+
+        $session_val = Session::get('session_info');
+        $cdID = $session_val['cdID'];
+        // echo "<pre>";print_r($emp_ID);die;
+        $input_details = array( "cdID" => $cdID, );
+        $get_profile_info_result = $this->admrpy->get_profile_info( $input_details );
+
+        return response()->json( $get_profile_info_result );
+
+        // return response()->json(['success'=>'Crop Image Uploaded Successfully']);
+    }
+    
 
     
 }

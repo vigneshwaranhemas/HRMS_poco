@@ -12,6 +12,7 @@ class HrController extends Controller
     public function __construct()
     {
         $this->middleware('is_admin');
+        // $this->middleware('is_hr');
     }
     public function hr_dashboard()
     {

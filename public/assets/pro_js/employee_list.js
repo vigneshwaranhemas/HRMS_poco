@@ -113,7 +113,9 @@ function employee_record(){
             {   data: 'grade', name: 'grade'    },
             {   data: 'email', name: 'email'    },
             {   data: 'contact_no', name: 'contact_no'    },
-            {   data: 'action', name: 'action'    },
+            {   data: 'sup_name', name: 'sup_name'    },
+            {   data: 'reviewer_name', name: 'reviewer_name'    },
+            // {   data: 'action', name: 'action'    },
     
         ],
     });

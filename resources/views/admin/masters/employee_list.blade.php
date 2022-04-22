@@ -55,7 +55,9 @@
                     <th>Grade</th>
                     <th>Email</th>
                     <th>Contact No</th>
-                    <th>Action</th>
+                    <th>Supervisor Name</th>
+                    <th>Reviewer Name</th>
+                    <!-- <th>Action</th> -->
                   </tr>
                 </thead>
                 <tbody>

@@ -1,4 +1,4 @@
-<div class="iconsidebar-menu">
+<div class="iconsidebar-menu iconbar-mainmenu-close">
    <div class="sidebar">
       <ul class="iconMenu-bar custom-scrollbar">
          <li>
@@ -7,7 +7,7 @@
             </a>
          </li>
          <li>
-            <a class="bar-icons" href="#"><i class="pe-7s-portfolio"></i><span>Masters</span></a>
+            <a class="bar-icons bar-icons-hover" href="#"><i class="pe-7s-portfolio"></i><span>Masters</span></a>
             <ul class="iconbar-mainmenu custom-scrollbar">
                <li class="iconbar-header">Masters</li>
                <li><a href="{{ route('employee_list') }}">Employee List</a></li>
@@ -27,7 +27,7 @@
             </ul>
          </li>
          <li>
-            <a class="bar-icons" href="#"><i class="pe-7s-target"></i><span>Goals</span></a>
+            <a class="bar-icons bar-icons-hover" href="#"><i class="pe-7s-target"></i><span>Goals</span></a>
             <ul class="iconbar-mainmenu custom-scrollbar">
                <li class="iconbar-header">Goals</li>
                 <li><a href="{{ route('goals') }}">Goals</a></li>
@@ -41,7 +41,7 @@
             <a class="bar-icons" href="{{ route('events') }}"><i class="pe-7s-note"></i><span>Events</span></a>
          </li>
          <li>
-            <a class="bar-icons" href="#"><i class="pe-7s-note2"></i><span>Settings</span></a>
+            <a class="bar-icons bar-icons-hover" href="#"><i class="pe-7s-note2"></i><span>Settings</span></a>
              <ul class="iconbar-mainmenu custom-scrollbar">
                <li class="iconbar-header">Settings</li>
                <li><a>Profile Settings</a></li>

@@ -1,4 +1,4 @@
-<div class="iconsidebar-menu">
+<div class="iconsidebar-menu  iconbar-mainmenu-close">
    <div class="sidebar">
       <ul class="iconMenu-bar custom-scrollbar">
          <li>
@@ -7,7 +7,7 @@
             </a>
          </li>
          <li>
-            <a class="bar-icons" href="#"><i class="pe-7s-note2"></i><span>Settings</span></a>
+            <a class="bar-icons bar-icons-hover" href="#"><i class="pe-7s-note2"></i><span>Settings</span></a>
          </li>          
          <li>
             <a class="bar-icons" href="#"><i class="pe-7s-target"></i><span>Goals </span></a>

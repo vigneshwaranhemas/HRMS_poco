@@ -306,12 +306,12 @@ class AdminController extends Controller
             //     return $btn;
             // })
 
-            ->addColumn('action', function($row) {
-                $candidate_profile = "candidate_profile";
-                $btn = '<a href="candidate_profile"><i class="fa fa-edit"></i><a>';                
-                return $btn;
-            })
-            ->rawColumns(['action'])
+            // ->addColumn('action', function($row) {
+            //     $candidate_profile = "candidate_profile";
+            //     $btn = '<a href="candidate_profile"><i class="fa fa-edit"></i><a>';                
+            //     return $btn;
+            // })
+            // ->rawColumns(['action'])
             ->make(true);
         }
         

@@ -39,6 +39,19 @@ $('.mobile-sidebar #sidebar-toggle').click(function() {
   }
 });
 
+$('.bar-icons-hover').click(function() {
+  
+  var $this = $(".iconsidebar-menu");
+
+  if ($this.hasClass('iconbar-mainmenu-close')) {
+      $this.removeClass('iconbar-mainmenu-close');
+  } else {
+
+    $this.addClass('iconbar-mainmenu-close');
+  }
+
+});
+
  if($( window ).width() <= 1199 ) {
   $(".iconsidebar-menu").addClass("iconbar-mainmenu-close");
   $('.iconMenu-bar').removeClass("active");

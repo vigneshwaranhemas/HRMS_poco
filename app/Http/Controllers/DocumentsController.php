@@ -158,11 +158,13 @@ class DocumentsController extends Controller
                     'institute' => 'required',
                     'begin_on' => 'required',
                     'end_on' => 'required',
+                    'edu_certificate' => 'required',
                     ], [
-                    'qualification.required' => 'Account Name is required',
+                    'qualification.required' => 'Qualification is required',
                     'institute.required' => 'Institute is required',
-                    'begin_on.required' => 'Bank Name is required',
-                    'end_on.required' => 'IFSC Code is required',
+                    'begin_on.required' => 'Begin On is required',
+                    'end_on.required' => 'End On is required',
+                    'edu_certificate.required' => 'file is required',
                     ]);
                     if($validator->passes()){
 
@@ -170,19 +172,34 @@ class DocumentsController extends Controller
                     $emp_ID = $session_val['empID'];
                     $cdID = $session_val['cdID'];
 
-                     // $user = DB::table( 'candidate_education_information' )->where('cdID', '=', $cdID)->first();
+                    $files = $request->file('edu_certificate');
+                    $destinationPath = public_path('uploads/'); 
+                   $profileImage ="edu_certificate". date('YmdHis') . "." . $files->getClientOriginalExtension();
+                   $files->move($destinationPath, $profileImage);
+                   $edu_certificate = "$profileImage";
 
+                    // echo "<pre>";print_r($path);die;
+                    $begin_on = explode('-', $request->input('begin_on'));
+                    $edu_start_month = $begin_on[1];
+                    $edu_start_year = $begin_on[0];
+                    $end_on = explode('-', $request->input('end_on'));
+                    $edu_end_month = $end_on[1];
+                    $edu_end_year = $end_on[0];
+                    $created_on = date("Y-m-d");
                     $data =array(
                         'emp_id'=>$emp_ID,
                         'cdID'=>$cdID,
-                        'qualification'=>$request->input('qualification'),
-                        'institute'=>$request->input('institute'),
-                        'begin_on'=>$request->input('begin_on'),
-                        'end_on'=>$request->input('end_on'),
+                        'degree'=>$request->input('qualification'),
+                        'university'=>$request->input('institute'),
+                        'edu_start_month'=>$edu_start_month,
+                        'edu_start_year'=>$edu_start_year,
+                        'edu_end_month'=>$edu_end_month,
+                        'edu_end_year'=>$edu_end_year,
+                        'edu_certificate'=>$edu_certificate,
+                        'created_on'=>$created_on,
                         );
 
                     $insert_education_info_result = $this->profrpy->insert_education_info( $data );
-                    // echo "<pre>";print_r($insert_education_info_result);die;
                     return response()->json(['response'=>'insert']);
             }
             else{
@@ -200,4 +217,131 @@ class DocumentsController extends Controller
         return response()->json( $education_result );
         
     }
+    public function Contact_info_view(Request $request){
+
+        $session_val = Session::get('session_info');
+        $cdID = $session_val['cdID'];
+        $input_details = array( "cdID" => $cdID, );
+        $education_result = $this->profrpy->Contact_info( $input_details );
+        
+        return response()->json( $education_result );
+        
+    }
+
+    /*contact info */
+    public function add_contact_info(Request $request){
+
+      
+            $validator=Validator::make($request->all(),[
+                    'phone_number' => 'required|numeric',
+                    
+                    ], [
+                    'phone_number.required' => 'Phone Number is required',
+                    
+                    ]);
+                    if($validator->passes()){
+
+                     $session_val = Session::get('session_info');
+                    $emp_ID = $session_val['empID'];
+                    $cdID = $session_val['cdID'];
+
+                     $user = DB::table( 'candidate_contact_information' )->where('cdID', '=', $cdID)->first();
+                     // echo "<pre>";print_r($user);die;
+
+            if ($user === null) {
+                    $data =array(
+                        'emp_id'=>$emp_ID,
+                        'cdID'=>$cdID,
+                        'phone_number'=>$request->input('phone_number'),
+                        's_number'=>$request->input('s_number'),
+                        'p_adderss'=>$request->input('p_adderss'),
+                        'c_address'=>$request->input('c_address'),
+                        'p_email'=>$request->input('p_email'),
+                        'State'=>$request->input('State'),
+                        );
+
+                    $insert = DB::table( 'candidate_contact_information' )->insert( $data );
+                    return response()->json(['response'=>'insert']);
+                }else{
+                    $data =array(
+                        'emp_id'=>$emp_ID,
+                        'cdID'=>$cdID,
+                        'phone_number'=>$request->input('phone_number'),
+                        's_number'=>$request->input('s_number'),
+                        'p_adderss'=>$request->input('p_adderss'),
+                        'c_address'=>$request->input('c_address'),
+                        'p_email'=>$request->input('p_email'),
+                        'State'=>$request->input('State'),
+                        );
+                $update_role_unit_details_result = $this->profrpy->update_contact( $data );
+                    return response()->json(['response'=>'Update']);
+                }
+            }
+            else{
+                return response()->json(['error'=>$validator->errors()->toArray()]);
+                }
+        }
+
+/*family info */
+     public function family_information_view(Request $request){
+
+        $session_val = Session::get('session_info');
+        $cdID = $session_val['cdID'];
+        $input_details = array( "cdID" => $cdID, );
+        $education_result = $this->profrpy->family_info( $input_details );
+        
+        return response()->json( $education_result );
+        
+    }
+
+    public function add_family_add(Request $request){      
+            $validator=Validator::make($request->all(),[
+                    'fm_name' => 'required',
+                    'fm_gender' => 'required',
+                    'fn_relationship' => 'required',
+                    'fn_marital' => 'required',
+                    'fn_blood_gr' => 'required',
+                    
+                    ], [
+                    'fm_name.required' => 'Name is required',
+                    'fm_gender.required' => 'Gender is required',
+                    'fn_relationship.required' => 'Relationship is required',
+                    'fn_marital.required' => 'Marital Status is required',
+                    'fn_blood_gr.required' => 'Blood Group is required',
+                    
+                    ]);
+                    if($validator->passes()){
+
+                     $session_val = Session::get('session_info');
+                    $emp_ID = $session_val['empID'];
+                    $cdID = $session_val['cdID'];
+
+                    $data =array(
+                        'emp_id'=>$emp_ID,
+                        'cdID'=>$cdID,
+                        'fm_name'=>$request->input('fm_name'),
+                        'fm_gender'=>$request->input('fm_gender'),
+                        'fn_relationship'=>$request->input('fn_relationship'),
+                        'fn_marital'=>$request->input('fn_marital'),
+                        'fn_blood_gr'=>$request->input('fn_blood_gr'),
+                        );
+                    $insert = DB::table( 'candidate_family_information' )->insert( $data );
+                    return response()->json(['response'=>'insert']);
+            }
+            else{
+                return response()->json(['error'=>$validator->errors()->toArray()]);
+                }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 }

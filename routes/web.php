@@ -260,6 +260,9 @@ Route::post('add_welcome_aboard_process', 'AdminController@add_welcome_aboard_pr
 // View Welcome Aboard
 Route::get('view_welcome_aboard', 'AdminController@view_welcome_aboard')->name('view_welcome_aboard');
 Route::post( 'get_welcome_aboard_details', 'AdminController@get_welcome_aboard_details' );
+// Route::get('welcome_aboard_pdf', 'AdminController@welcome_aboard_pdf')->name('welcome_aboard_pdf');
+Route::get('welcome_aboard_generate_pdf','AdminController@welcome_aboard_generate_pdf');
+// Route::get('generate-pdf','AdminController@generatePDF');
 
 /*image upload profile*/
 Route::post('profile_upload_images', 'AdminController@storeImage');
@@ -274,6 +277,12 @@ Route::post('account_info_get', 'DocumentsController@account_info_get_res');
 Route::post('education_information_insert', 'DocumentsController@education_information_add');
 Route::post('education_information_view', 'DocumentsController@education_info_view');
 Route::post('experience_info_view', 'DocumentsController@experience_info_result');
+Route::post('add_contact_info', 'DocumentsController@add_contact_info');
+Route::post('Contact_info_view', 'DocumentsController@Contact_info_view');
+Route::post('add_family_add', 'DocumentsController@add_family_add');
+Route::post('family_information_view', 'DocumentsController@family_information_view');
+/*session sidebar*/
+Route::post('get_session_sidebar', 'SidebarController@get_session_sidebar');
 
 /*roles*/
 Route::post('add_roles_process', 'AdminController@add_roles_process');

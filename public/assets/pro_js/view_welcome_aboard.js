@@ -18,9 +18,7 @@ $.ajax({
     method: "POST",
     dataType: "json",
     success: function(data) {
-        console.log(data.name)
-
-        // var data_1 = data[1]
+        // console.log(data.name)
         get_data = [];
 
         get_data['get_education_my'] = data['get_education_my'];
@@ -33,10 +31,7 @@ $.ajax({
 
         //  console.log(get_data['get_education_my'])
 
-
         if(data.length !=0){
-
-
             $('#name').val(data.name);
             $('#designation').val(data.designation);
             $('#department').val(data.department);
@@ -104,3 +99,8 @@ $.ajax({
     }
 });
 }
+
+
+
+
+

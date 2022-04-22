@@ -154,7 +154,7 @@
               </div>
               <div class="modal-footer">
                   <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
-                  <button class="btn btn-secondary" type="button" id="btnSubmit">Save</button>
+                  <button class="btn btn-secondary" type="submit" id="btnSubmit">Save</button>
               </div>
             </form>
       </div>

@@ -27,7 +27,7 @@
 
 @section('breadcrumb-items')
     <li class="breadcrumb-item">Settings</li>
-  <li class="breadcrumb-item active">Roles & Permission</li> 
+  <li class="breadcrumb-item active">Roles & Permission</li> <br>
   <li class="breadcrumb-item active">Manage Roles</li> 
     
 @endsection

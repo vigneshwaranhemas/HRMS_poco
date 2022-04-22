@@ -21,14 +21,11 @@
 
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
+    <a  href="{{url('roles_s')}}"><button id="addRole" class="btn btn-danger waves-effect waves-light" type="button" data-toggle="modal">Manage Role</button></a>
+    <br>
+    <br>
 <div class="container-fluid">
    <div class="row">
-    <!--  <div class="col-xs-12 text-right bg-title-right">
-          <a href="{{route('roles_s')}}" id="addRole"
-              class="btn btn-success btn-sm btn-outline  waves-effect waves-light"><i
-                  class="fa fa-gear"></i> Manage Role</a>
-      </div> -->
-    <a  href="{{url('roles_s')}}"><button id="addRole" class="btn btn-danger waves-effect waves-light" type="button" data-toggle="modal">Manage Role</button></a>
       <div class="col-sm-12">
          <div class="card">
             <div class="white-box">

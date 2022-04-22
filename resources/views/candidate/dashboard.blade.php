@@ -6,6 +6,7 @@
     <!-- Plugins css start-->
 <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
 @section('style')
@@ -649,7 +650,10 @@ View More&lt;/button&gt;
 <script src="../assets/js/datepicker/date-picker/datepicker.js"></script>
 <script src="../assets/js/datepicker/date-picker/datepicker.en.js"></script>
 <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
+<script src="../pro_js/side_bar.js"></script>
 <script>
+     var get_session_sidebar_link = "{{url('get_session_sidebar')}}";
+
    function view_holidays(id){
       //Get holidays details
       $.ajax({

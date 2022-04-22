@@ -7,9 +7,6 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
 
-<!-- summernote csss -->
-<link rel="stylesheet" type="text/css" href="../assets/css/summernote.css">
-
 @endsection
 
 @section('style')
@@ -170,6 +167,9 @@
                     <p>My Motto ! <input class="input" type="text" name="my_motto" id="my_motto" readonly>  </p>
                     <p>Books that I Read / Love to Recommend <input class="input" type="text" name="books" id="books" readonly>  </p>
 
+                    <div class="text-center">
+                        <a href="{{url('welcome_aboard_generate_pdf')}}" target="_blank"><button class="btn btn-primary" type="button" id="pdf_button">PDF</button></a>
+                    </div>
 
                 </div>
             </div>
@@ -179,21 +179,14 @@
   </div>
   <!-- Container-fluid Ends-->
 
-
 @endsection
 
 @section('script')
-
-<!-- summernote js -->
-<script src="../assets/js/editor/summernote/summernote.js"></script>
-<script src="../assets/js/editor/summernote/summernote.custom.js"></script>
-<!-- summernote js -->
 
 <script src="../assets/pro_js/view_welcome_aboard.js"></script>
 
 <script>
 var add_welcome_aboard_process_link = "{{url('add_welcome_aboard_process')}}";
 var get_welcome_aboard_details_link = "{{url('get_welcome_aboard_details')}}";
-
 </script>
 @endsection

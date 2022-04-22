@@ -34,6 +34,10 @@
 {
     border-bottom: none !important;
 }
+.page-wrapper .page-body-wrapper .iconsidebar-menu .iconMenu-bar
+{
+    width: 106px !important;
+}
 </style>
 
 <!-- DataTables Plugins CSS start-->

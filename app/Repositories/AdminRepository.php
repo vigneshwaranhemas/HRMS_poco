@@ -1026,5 +1026,12 @@ class AdminRepository implements IAdminRepository
     //     return $roletbl;
     // }
 
+    //Employee list
+    public function get_employee_list(){
+
+        $response = DB::table("customusers")->select('*')
+                        ->get();
+        return $response;
+    }
 
 }

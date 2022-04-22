@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::get('logout','AuthController@logout');
 Route::post('login_check_process', 'LoginController@login_check_process' );
 
-Route::get('dashboard','AdminController@permission')->middleware('is_admin');
+Route::get('dashboard','AdminController@permission');
 
 Route::prefix('perk-ui')->group(function () {
     Route::view('animate', 'perk-ui.animate')->name('animate');
@@ -56,13 +56,14 @@ Route::get('userdocuments','Hrcontroller@userdocuments');
 
 
 //Buddy Controller
-Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('candidate_dashboard')->middleware('is_admin');
-Route::get('buddy', 'BuddyController@buddy_info')->name('buddy_info')->middleware('is_admin');
+Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('candidate_dashboard');
+Route::get('buddy', 'BuddyController@buddy_info')->name('buddy_info');
 
 //Candidate Controller
 Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
 Route::get('/preOnboarding','CandidateController@preOnboarding');
 Route::get('Buddy_feedback', 'CandidateController@buddy')->name('buddy_feedback');
+Route::get('candidate_profile','CandidateController@profile');
 
 //Calendaer Event
 
@@ -107,14 +108,13 @@ Route::post( 'holidays_delete', 'HolidayController@holidays_delete' );
 Route::get('/ItInfra_Dashboard','ItInfraController@index');
 Route::get('/EmailCreation','ItInfraController@EmailIdCreation');
 
-Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('hr_dashboard')->middleware('is_admin');
+Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('hr_dashboard');
 
 //Buddy Controller
-Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('buddy_dashboard')->middleware('is_admin');
+Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('buddy_dashboard');
 
 //Candidate Controller
-Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard')->middleware('is_admin');
-Route::get('candidate_profile','CandidateController@profile')->middleware('is_admin');
+Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
 
 // dashboard load admin
 //Route::get('/admin', 'AdminController@admin_dashboard')->name('admin');
@@ -144,6 +144,10 @@ Route::get('zone', 'AdminController@zone')->name('zone');
 Route::get('personnel', 'AdminController@personnel')->name('personnel');
 Route::get('user', 'AdminController@user')->name('user');
 Route::get('roles', 'AdminController@roles')->name('roles');
+Route::get('employee_list', 'AdminController@employee_list')->name('employee_list');
+
+//Employee List
+Route::post('get_employee_list', 'AdminController@get_employee_list' );
 
 // Business Unit
 Route::post('add_business_unit_process', 'AdminController@add_business_unit');
@@ -263,12 +267,6 @@ Route::post('profile_upload_images', 'AdminController@storeImage');
 Route::post('profile_display_images', 'AdminController@PreviewImage');
 Route::get('roles_s', 'AdminController@roles_s')->name('roles_s');
 
-/*roles*/
-Route::post('add_roles_process', 'AdminController@add_roles_process');
-Route::post('get_role_data', 'AdminController@get_role_data');
-Route::post( 'get_role_details_pop', 'AdminController@get_role_details_pop' );
-Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_details' );
-
 /*profile document*/
 Route::post('documents_insert','DocumentsController@store')->name('Documents');
 Route::post('documents_info_pro', 'DocumentsController@doc_information');
@@ -283,4 +281,11 @@ Route::post('add_family_add', 'DocumentsController@add_family_add');
 Route::post('family_information_view', 'DocumentsController@family_information_view');
 /*session sidebar*/
 Route::post('get_session_sidebar', 'SidebarController@get_session_sidebar');
+
+/*roles*/
+Route::post('add_roles_process', 'AdminController@add_roles_process');
+Route::post('get_role_data', 'AdminController@get_role_data');
+Route::post( 'get_role_details_pop', 'AdminController@get_role_details_pop' );
+Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_details' );
+
 

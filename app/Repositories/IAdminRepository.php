@@ -122,4 +122,7 @@ interface IAdminRepository {
     // /*menu list permission*/
     // public function get_permision_menu_base( );
 
+    //Employee list
+    public function get_employee_list();
+
 }

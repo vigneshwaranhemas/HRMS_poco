@@ -18,6 +18,10 @@ class CandidateController extends Controller
         $this->middleware('is_admin');
     }
 
+    public function profile(){
+        return view('candidate.profile');
+    }
+
     public function candidate_dashboard()
     {
         //Birthday card
@@ -103,9 +107,7 @@ class CandidateController extends Controller
         // return view('candidate.buddy_feedback')->with('buddy_fields',$data);
         return view('candidate.buddy_feedback');
     }
-    public function profile(){
-        return view('candidate.profile');
-        }
+
 
     public function welcome_aboard()
     {

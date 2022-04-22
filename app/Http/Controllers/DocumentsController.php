@@ -18,6 +18,7 @@ class DocumentsController extends Controller
 
      public function __construct(IAdminRepository $admrpy,IProfileRepositories $profrpy)
     {
+        $this->middleware('is_admin');
         $this->admrpy = $admrpy;
         $this->profrpy = $profrpy;
     }

@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use PDF;
-
 use Session;
 
 class AdminController extends Controller
@@ -137,10 +136,13 @@ class AdminController extends Controller
         return response()->json( $data );
     }
 
-
     public function business()
     {
         return view('admin.masters.business');
+    }
+    public function employee_list()
+    {
+        return view('admin.masters.employee_list');
     }
 
     public function division()
@@ -294,6 +296,41 @@ class AdminController extends Controller
         ->make(true);
         }
         return view('business');
+    }
+
+    public function get_employee_list(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $get_employee_list_result = $this->admrpy->get_employee_list();
+
+
+            return DataTables::of($get_employee_list_result)
+            ->addIndexColumn()
+            // ->addColumn('status', function($row) {
+            //     $btn = '';
+            //     $result =  $row->status;
+            //     // print_r($result);
+            //     // die();
+            //     if($result == "active")
+            //     {
+            //         $btn = '<span class="badge badge-success">Active</span>';
+            //     }elseif($result == "Inactive"){
+            //         $btn = '<span class="badge badge-warning">Inactive</span>';
+            //     }
+
+            //     return $btn;
+            // })
+
+            // ->addColumn('action', function($row) {
+            //     $candidate_profile = "candidate_profile";
+            //     $btn = '<a href="candidate_profile"><i class="fa fa-edit"></i><a>';
+            //     return $btn;
+            // })
+            // ->rawColumns(['action'])
+            ->make(true);
+        }
+
     }
 
     public function get_business_unit_details(Request $req){
@@ -2031,7 +2068,6 @@ class AdminController extends Controller
         // return response()->json(['success'=>'Crop Image Uploaded Successfully']);
     }
 
-
      /* insert roles*/
     public function add_roles_process(Request $req)
     {
@@ -2167,6 +2203,7 @@ class AdminController extends Controller
         // $this->load->view('admin/masters', $data);
 
     }
+
 
 
 }

@@ -1,4 +1,4 @@
-<div class="iconsidebar-menu">
+<div class="iconsidebar-menu  iconbar-mainmenu-close">
     <div class="sidebar">
        <ul class="iconMenu-bar custom-scrollbar">
           <li>
@@ -7,7 +7,7 @@
              </a>
           </li>
           <li>
-             <a class="bar-icons" href="#"><i class="pe-7s-portfolio"></i><span>Pre OnBoarding</span></a>
+             <a class="bar-icons bar-icons-hover" href="#"><i class="pe-7s-portfolio"></i><span>Pre OnBoarding</span></a>
              <ul class="iconbar-mainmenu custom-scrollbar">
                 <li class="iconbar-header">Pre OnBoarding</li>
                 <li><a href="{{url('preOnboarding')}}">Pre OnBoarding</a></li>
@@ -18,7 +18,7 @@
              </ul>
           </li>
           <li>
-             <a class="bar-icons" href="#"><i class="pe-7s-target"></i><span>Goals</span></a>
+             <a class="bar-icons bar-icons-hover" href="#"><i class="pe-7s-target"></i><span>Goals</span></a>
              <ul class="iconbar-mainmenu custom-scrollbar">
                 <li class="iconbar-header">Goals</li>
                 <li><a href="{{ route('goals') }}">Goals</a></li>

@@ -147,7 +147,7 @@
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
                           <label for="function_name">Function Name</label>
-                          <input class="form-control" name="function_name" id="function_name" type="text" placeholder="Function Name" required="">
+                          <input class="form-control" name="function_name" id="function_name_input" type="text" placeholder="Function Name" required="">
                           <div class="text-warning" id="function_name_error"></div>
                       </div>
                   </div>

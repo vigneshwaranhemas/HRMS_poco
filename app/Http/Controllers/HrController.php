@@ -22,7 +22,11 @@ class HrController extends Controller
         $this->preon = $preon;
         $this->admrpy = $admrpy;
         $this->middleware('is_admin');
+<<<<<<< HEAD
 
+=======
+        // $this->middleware('is_hr');
+>>>>>>> 0e984023d5c55602d2428a0928aec587f582a305
     }
 
 

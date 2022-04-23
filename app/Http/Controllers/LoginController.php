@@ -29,7 +29,6 @@ class LoginController extends Controller
             ];
             Session::put("session_info",$info);
              return response()->json( ['url'=>url('com_dashboard' ), 'logstatus' => 'success'] );
-
         }else{
             return response()->json( ['url'=>url( '../' ), 'logstatus' => 'failed'] );
         }

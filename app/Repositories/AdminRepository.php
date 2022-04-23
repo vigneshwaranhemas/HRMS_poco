@@ -1063,13 +1063,11 @@ class AdminRepository implements IAdminRepository
     }
 
     //Employee list
+    //Employee list
     public function get_employee_list(){
-
         $response = DB::table("customusers")->select('*')
                         ->get();
         return $response;
     }
-
-
 
 }

@@ -141,13 +141,13 @@
               <h5 class="modal-title" id="exampleModalLabel">Add Blood Group</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
-            <form method="POST" action="javascript:void(0)" id="add_vand_unit" class="ajax-form">
+            <form method="POST" action="javascript:void(0)" id="form_add_blood" class="ajax-form">
                 {{ csrf_field() }}
               <div class="modal-body">
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
                           <label for="blood_group_name">Blood Group Name</label>
-                          <input class="form-control" name="blood_group_name" id="blood_group_name" type="text" placeholder="Blood Group Name" required="">
+                          <input class="form-control" name="blood_group_name" id="blood_group_name_input" type="text" placeholder="Blood Group Name" required="">
                           <div class="text-warning" id="blood_group_name_error"></div>
                       </div>
                   </div>

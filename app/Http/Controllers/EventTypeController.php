@@ -14,8 +14,9 @@ class EventTypeController extends Controller
 
     public function __construct(IEventTypeRepositories $event_type)
     {
-        $this->event_type = $event_type;
+        $this->event_type = $event_type;        
         $this->middleware('is_admin');
+
     }
     public function event_type_insert(Request $request)
     {

@@ -123,7 +123,7 @@
             <li><i data-feather="message-square"> </i>Inbox</li>
             <li><i data-feather="file-text"> </i>Taskboard</li>
             <li><i data-feather="settings"> </i>Settings</li>
-            <li><i data-feather="settings"> </i><a href="{{ url('logout') }}">Logout</a></li>
+            <li><i data-feather="log-out"> </i><a href="{{ url('logout') }}">Logout</a></li>
           </ul>
         </li>
       </ul>

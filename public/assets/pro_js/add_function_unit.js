@@ -29,13 +29,11 @@ $(()=>{
         //    alert('sdf')
            console.log(data);
            $('#btnSubmit').prop("disabled",false);
-               $('#btnSubmit').html('Submit');
-
+            $('#btnSubmit').html('Submit');
+            $('#function_name_input').val('');
 
            if(data.response =='success'){
 
-            $('#btnSubmit').prop("disabled",true);
-            $('#btnSubmit').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Processing');
             $('#exampleModal').click();
 
                Toastify({
@@ -180,7 +178,7 @@ table_cot = $('#function_data').DataTable({
         },
 
     ],
-    lengthMenu: [[15, 50, 100, 250, 500, -1], [15, 50, 100, 250, 500, "All"]],
+    lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
     processing: true,
     serverSide: true,
     serverMethod: 'post',
@@ -304,7 +302,7 @@ $("#editUpdate").on('click', function() {
 function function_status_process(id, status_data){
     // $('#confirmbox').click();
     $('#status_pop_modal_div').modal('show');
-
+    $('#confirmSubmit').unbind('click');
     $("#confirmSubmit").on('click', function() {
         $('#close_status_pop').click();
 
@@ -361,7 +359,7 @@ function function_status_process(id, status_data){
 function function_delete_process(id){
     // $('#confirmbox').click();
     $('#delete_pop_modal_div').modal('show');
-
+    $('#deleteconfirmSubmit').unbind('click');
     $("#deleteconfirmSubmit").on('click', function() {
         $('#close_delete_pop').click();
 

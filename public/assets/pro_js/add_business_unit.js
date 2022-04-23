@@ -14,10 +14,7 @@ $(document).ready(function(){
 $(()=>{
     $('#btnSubmit').on('click',(e)=>{
     //    alert("abc");
-
-
    e.preventDefault();
-
    $.ajax({
        url:add_business_unit_process_link,
        method:"POST",
@@ -31,11 +28,11 @@ $(()=>{
                $('#btnSubmit').html('Submit');
             //    $('#btnSubmit').unbind('click');
 
-
+            $('#business_name_input').val('');
            if(data.response =='success'){
 
-            $('#btnSubmit').prop("disabled",true);
-            $('#btnSubmit').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Processing');
+            // $('#btnSubmit').prop("disabled",true);
+            // $('#btnSubmit').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Processing');
             $('#exampleModal').click();
 
                Toastify({
@@ -50,6 +47,7 @@ $(()=>{
                     //    window.location.href = "view_recruiter";
                     // location.reload();
                     get_business_list();
+
                    }, 2000);
 
            }
@@ -181,7 +179,7 @@ table_cot = $('#business_data').DataTable({
         },
 
     ],
-    lengthMenu: [[15, 50, 100, 250, 500, -1], [15, 50, 100, 250, 500, "All"]],
+    lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
     processing: true,
     serverSide: true,
     serverMethod: 'post',
@@ -247,7 +245,7 @@ $(()=>{
 
 $("#editUpdate").on('click', function() {
     // alert("abc");
-    $('#editUpdate').unbind('click');
+    // $('#editUpdate').unbind('click');
     $("#editUpdate").attr("disabled", true);
     $('#editUpdate').html('Processing..!');
 

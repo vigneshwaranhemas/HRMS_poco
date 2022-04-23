@@ -147,7 +147,7 @@
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
                           <label for="business_name">Business Name</label>
-                          <input class="form-control" name="business_name" id="business_name" type="text" placeholder="Business Name" required="">
+                          <input class="form-control" name="business_name" id="business_name_input" type="text" placeholder="Business Name" required="">
                           <div class="text-warning" id="business_name_error"></div>
                       </div>
                   </div>

@@ -29,10 +29,7 @@ $sess_info=Session::get("session_info");
 {
     padding-bottom: 50px;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 292c5c49789af34462702d275829e1ed90139f0b
 </style>
 @endsection
 

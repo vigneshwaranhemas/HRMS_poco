@@ -1,4 +1,4 @@
-@extends('layouts.simple.candidate_master')
+@extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'can'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'Itinfra'? 'layouts.simple.itinfra_master': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
 @section('title', 'User Profile')
 
 @section('css')
@@ -730,7 +730,7 @@ max-width: 1000px !important;
    var Contact_info_get_link = "{{url('Contact_info_view')}}";
    var add_family_info_link = "{{url('add_family_add')}}";
    var family_information_get_link = "{{url('family_information_view')}}";
-
    
  </script>
+ 
 @endsection

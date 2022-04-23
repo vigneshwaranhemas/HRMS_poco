@@ -147,7 +147,7 @@
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
                           <label for="division_name">Division Name</label>
-                          <input class="form-control" name="division_name" id="division_name" type="text" placeholder="Division Name" required="">
+                          <input class="form-control" name="division_name" id="division_name_input" type="text" placeholder="Division Name" required="">
                           <div class="text-warning" id="division_name_error"></div>
                       </div>
                   </div>

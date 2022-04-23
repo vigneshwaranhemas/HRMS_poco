@@ -16,7 +16,7 @@ class ItInfraController extends Controller
         $this->hpreon = $hpreon;
         $this->itrep=$itrep;
         $this->middleware('is_admin');
-
+        // $this->middleware('is_itinfra');
     }
 
     public function index()

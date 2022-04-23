@@ -17,8 +17,8 @@ class EventController extends Controller
 
     public function __construct(IEventRepositories $event)
     {
-        $this->event = $event;
         $this->middleware('is_admin');
+        $this->event = $event;        
     }
 
     public function events()

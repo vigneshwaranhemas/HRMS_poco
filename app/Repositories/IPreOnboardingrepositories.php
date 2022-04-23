@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 
 interface IPreOnboardingrepositories{
+
        public function Check_onBoard($table,$test);
        public function getonBoardingFields($table);
        public function insert_onboard($data);
@@ -17,6 +18,7 @@ interface IPreOnboardingrepositories{
     public function add_welcome_aboard_process( $form_data );
     public function get_welcome_aboard_details();
     // Welcome aboard process End
+
 }
 
 ?>

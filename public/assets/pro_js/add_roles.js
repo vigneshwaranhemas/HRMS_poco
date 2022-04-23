@@ -177,7 +177,7 @@ function get_roles_list(){
                 },
 
             ],
-            lengthMenu: [[15, 50, 100, 250, 500, -1], [15, 50, 100, 250, 500, "All"]],
+            lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
             processing: true,
             serverSide: true,
             serverMethod: 'post',

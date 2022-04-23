@@ -7,6 +7,7 @@ use App\Models\BuddyFeedbackModel;
 use App\Models\CustomUser;
 use App\Models\UsersInfoModel;
 use App\welcome_aboard;
+
 class PreOnboardingrepositories implements IPreOnboardingrepositories {
      public function Check_onBoard($table,$test)
      {
@@ -37,7 +38,6 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
          return $response;
      }
 
-
    public function insert_buddy_feedback($data,$data1)
    {
           $response=BuddyFeedbackModel::insert($data);
@@ -67,8 +67,6 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
           return $result;
    }
 
-
-
      // Welcome aboard process start
     public function add_welcome_aboard_process( $form_data ){
 
@@ -83,7 +81,6 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
         return $welcome_aboard_data;
     }
     // Welcome aboard process End
-
 
 }
 

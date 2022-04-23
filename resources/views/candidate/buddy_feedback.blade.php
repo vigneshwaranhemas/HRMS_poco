@@ -29,9 +29,7 @@ $sess_info=Session::get("session_info");
 {
     padding-bottom: 50px;
 }
-textarea{
-    width: 90%;
-}
+
 </style>
 @endsection
 

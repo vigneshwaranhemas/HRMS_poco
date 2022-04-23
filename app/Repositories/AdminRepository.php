@@ -1028,26 +1028,6 @@ class AdminRepository implements IAdminRepository
     //     return $roletbl;
     // }
 
-
-
-    // Welcome aboard process start
-    public function add_welcome_aboard_process( $form_data ){
-
-        $response = welcome_aboard::insert($form_data);
-        return $response;
-      }
-
-    public function get_welcome_aboard_details(){
-
-        $welcome_aboard_data = welcome_aboard::first();
-
-        return $welcome_aboard_data;
-    }
-
-
-
-
-
    //vignesh admin work starts here
 
      public function get_seating_requested($status)
@@ -1079,6 +1059,14 @@ class AdminRepository implements IAdminRepository
 
 
         return $result;
+    }
+
+    //Employee list
+    public function get_employee_list(){
+
+        $response = DB::table("customusers")->select('*')
+                        ->get();
+        return $response;
     }
 
 

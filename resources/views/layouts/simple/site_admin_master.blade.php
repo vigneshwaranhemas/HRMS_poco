@@ -31,7 +31,7 @@
       <!-- Page Body Start-->
       <div class="page-body-wrapper">
         <!-- Page Sidebar Start-->
-        @include('layouts.simple.site_admin_sidebar')
+        @include('layouts.simple.common_sidebar')
         <!-- Page Sidebar Ends-->
         <!-- Right sidebar Start-->
         @include('layouts.simple.chat_sidebar')

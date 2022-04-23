@@ -6,6 +6,7 @@ use App\Models\CandidatePreOnBoardingModel;
 use App\Models\BuddyFeedbackModel;
 use App\Models\CustomUser;
 use App\Models\UsersInfoModel;
+use App\welcome_aboard;
 
 
 
@@ -68,6 +69,23 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
                                   ->first();
           return $result;
    }
+
+
+     // Welcome aboard process start
+    public function add_welcome_aboard_process( $form_data ){
+
+        $response = welcome_aboard::insert($form_data);
+        return $response;
+      }
+
+    public function get_welcome_aboard_details(){
+
+        $welcome_aboard_data = welcome_aboard::first();
+
+        return $welcome_aboard_data;
+    }
+    // Welcome aboard process End
+
 }
 
 

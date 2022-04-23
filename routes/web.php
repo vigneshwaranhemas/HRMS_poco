@@ -23,6 +23,8 @@ Route::get('logout','AuthController@logout');
 Route::post('login_check_process', 'LoginController@login_check_process' );
 Route::get("UserEmailSend","LoginController@UserEmailSend");
 Route::get('dashboard','AdminController@permission');
+Route::get('com_dashboard','AdminController@com_dashboard');
+
 
 
 
@@ -162,6 +164,10 @@ Route::get('zone', 'AdminController@zone')->name('zone');
 Route::get('personnel', 'AdminController@personnel')->name('personnel');
 Route::get('user', 'AdminController@user')->name('user');
 Route::get('roles', 'AdminController@roles')->name('roles');
+Route::get('employee_list', 'AdminController@employee_list')->name('employee_list');
+
+//Employee List
+Route::post('get_employee_list', 'AdminController@get_employee_list' );
 
 // Business Unit
 Route::post('add_business_unit_process', 'AdminController@add_business_unit');
@@ -268,15 +274,13 @@ Route::post( 'process_client_status', 'AdminController@process_client_status' );
 Route::post( 'process_client_delete', 'AdminController@process_client_delete' );
 
 // Welcome Aboard
-Route::get('welcome_aboard', 'AdminController@welcome_aboard')->name('welcome_aboard');
-Route::post('add_welcome_aboard_process', 'AdminController@add_welcome_aboard_process');
+Route::get('welcome_aboard', 'CandidateController@welcome_aboard')->name('welcome_aboard');
+Route::post('add_welcome_aboard_process', 'CandidateController@add_welcome_aboard_process');
 
 // View Welcome Aboard
-Route::get('view_welcome_aboard', 'AdminController@view_welcome_aboard')->name('view_welcome_aboard');
-Route::post( 'get_welcome_aboard_details', 'AdminController@get_welcome_aboard_details' );
-// Route::get('welcome_aboard_pdf', 'AdminController@welcome_aboard_pdf')->name('welcome_aboard_pdf');
-Route::get('welcome_aboard_generate_pdf','AdminController@welcome_aboard_generate_pdf');
-// Route::get('generate-pdf','AdminController@generatePDF');
+Route::get('view_welcome_aboard', 'CandidateController@view_welcome_aboard')->name('view_welcome_aboard');
+Route::post( 'get_welcome_aboard_details', 'CandidateController@get_welcome_aboard_details' );
+Route::get('welcome_aboard_generate_pdf','CandidateController@welcome_aboard_generate_pdf');
 
 /*image upload profile*/
 Route::post('profile_upload_images', 'AdminController@storeImage');

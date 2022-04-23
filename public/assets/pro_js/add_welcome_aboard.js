@@ -54,8 +54,8 @@ $(()=>{
 
                setTimeout(
                    function() {
-                    //    window.location.href = "view_recruiter";
-                    location.reload();
+                       window.location.href = "view_welcome_aboard";
+                    // location.reload();
                    }, 2000);
 
            }

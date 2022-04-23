@@ -12,5 +12,10 @@ interface IPreOnboardingrepositories{
        public function get_buddy_info($id);
        public function get_canidate_info($table,$id);
        public function fetch_buddy_info($data);
+
+       // Welcome aboard process start
+    public function add_welcome_aboard_process( $form_data );
+    public function get_welcome_aboard_details();
+    // Welcome aboard process End
 }
 

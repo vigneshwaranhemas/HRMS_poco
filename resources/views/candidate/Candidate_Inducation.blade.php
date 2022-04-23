@@ -31,11 +31,11 @@ $sess_info=Session::get("session_info");
 </style>
 @endsection
 @section('breadcrumb-title')
-	<h2>Candidate<span>Induction</span></h2>
+	<h2>Induction<span>Schedule</span></h2>
 @endsection
 
 @section('breadcrumb-items')
-   <li class="breadcrumb-item">Candidate Induction</li>
+   <li class="breadcrumb-item">Induction Schedule</li>
 @endsection
 
 @section('content')

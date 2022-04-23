@@ -27,7 +27,7 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
 
     public function get_candidate_info($id)
     {
-        $result=CustomUser::join('candidate_details','customusers.empID','=','candidate_details.cdID')
+        $result=CustomUser::join('candidate_details','customusers.cdID','=','candidate_details.cdID')
         ->where('candidate_details.created_by',$id["created_by"])
         ->where('customusers.pre_onboarding',1)->get();
          return $result;
@@ -35,6 +35,7 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
     public function get_onboarding_candidate_info()
     {
         $result=CustomUser::join('candidate_details','customusers.cdID','=','candidate_details.cdID')
+        ->where('candidate_details.or_doj',date('Y-m-d'))
         ->where('customusers.pre_onboarding',1)->get();
          return $result;
     }
@@ -140,14 +141,17 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
                if(!is_null($email_check)){
                               if($email_check['status']==0){
                                   $status="";
+                                  $check="<input type='checkbox'>";
                               }
                               else if($email_check['status']==1){
                                   $status="<span class='badge badge-warning'>In Progress</span>";
+                                  $check="";
                               }
                               else{
                                 $status="<span class='badge badge-success'>Completed</span>";
+                                $check="";
                               }
-                                $email_table.="<tr><td>".$i."</td><td><input type='checkbox'></td>
+                                $email_table.="<tr><td>".$i."</td><td>".$check."</td>
                                 <td>".$email_info['cdID']."</td>
                                 <td>".$email_info['username']."</td>
                                 <td>".$email_info['email']."</td>
@@ -175,14 +179,6 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
         $i++;
          }
         echo  $email_table;
-
-
-        // return $email_check;
-        // echo json_encode($email_check);
-
-
-
-
 
     }
 
@@ -214,13 +210,7 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
         return $email_info;
     }
 
-   public function update_itInfra_EmailStatus($data)
-   {
-            foreach($data as $info){
-              $result=EmailCreationModel::where('cdID',$info['cdID'])->update(['status'=>2]);
-            }
-            return $result;
-   }
+
 
 
 

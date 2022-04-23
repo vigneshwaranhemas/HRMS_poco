@@ -1,13 +1,14 @@
 
-
     function model_trigger(one,two){
         $("#hidden_seat").val(one);
         $("#hidden_status").val(two);
         $('#exampleModal').modal('show');
      }
-
-
-
+      function model_trigger1(one,two){
+        $("#hidden_seat1").val(one);
+        $("#hidden_status1").val(two);
+        $('#exampleModal1').modal('show');
+     }
 $(()=>{
     $("#SeatingRequestBtn").on('click',()=>{
         var token=$("#token").val();
@@ -15,6 +16,42 @@ $(()=>{
             url:Seating_url,
             type:"POST",
             data:{id:$("#hidden_seat").val(),_token:token,status:$("#hidden_status").val()},
+            beforeSend:(e)=>{
+                console.log("Loading!....")
+            },
+            success:function(response){
+                  var res=JSON.parse(response);
+                  if(res.success==1)
+                  {
+                    Toastify({
+                        text: res.Message,
+                        duration: 3000,
+                        close:true,
+                        backgroundColor: "#4fbe87",
+                        }).showToast();
+
+                  }
+                  else{
+                    Toastify({
+                        text: res.Message,
+                        duration: 3000,
+                        close:true,
+                        backgroundColor: "#f3616d",
+                        }).showToast();
+
+                  }
+            }
+        })
+    })
+})
+$(()=>{
+    $("#SeatingRequestBtn1").on('click',()=>{
+     
+        var token=$("#token").val();
+        $.ajax({
+            url:Seating_url,
+            type:"POST",
+            data:{id:$("#hidden_seat1").val(),_token:token,status:$("#hidden_status1").val()},
             beforeSend:(e)=>{
                 console.log("Loading!....")
             },

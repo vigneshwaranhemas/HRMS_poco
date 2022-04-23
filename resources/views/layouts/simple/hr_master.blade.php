@@ -9,6 +9,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
+     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Poco - @yield('title')</title>
     @include('layouts.simple.css')
     @yield('style')
@@ -30,7 +31,7 @@
       <!-- Page Body Start-->
       <div class="page-body-wrapper">
         <!-- Page Sidebar Start-->
-        @include('layouts.simple.hr_sidebar')
+        @include('layouts.simple.common_sidebar')
         <!-- Page Sidebar Ends-->
         <!-- Right sidebar Start-->
         @include('layouts.simple.chat_sidebar')

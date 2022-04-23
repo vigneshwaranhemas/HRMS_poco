@@ -8,6 +8,20 @@ $(document).ready(function (){
     get_side_bar();
 });
 
+// $(()=>{
+//  $('.text_side,.active_side').on('click',function(){
+//     // alert("asdasdasd")
+//         // $('li').removeClass('open');
+//         $('li').addClass('open');
+//     });
+   
+// })
+
+function test(one){
+    // alert("one")
+    $(one).addClass('open');
+}
+ 
 function get_side_bar(){
 
  $.ajax({
@@ -16,7 +30,12 @@ function get_side_bar(){
         data:{},
         dataType: "json",
         success: function(data) {
+          // console.log(data.sidebar_list)
+          $('#sidebar_data').empty();
+
+          $('#sidebar_data').append(data.sidebar_list);
 
         }
     });
 }
+

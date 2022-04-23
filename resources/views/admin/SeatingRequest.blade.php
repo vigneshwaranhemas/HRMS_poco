@@ -81,10 +81,11 @@
                                         <td>
                                             <div class="media-body text-center icon-state">
                                                 <label class="switch">
-                                                <input type="checkbox" {{$data['IdCard_status'] == 0 ? '' : 'checked'}}  onchange=model_trigger("{{$data['empId']}}",2)><span class="switch-state bg-info"></span>
+                                                <input type="checkbox" {{$data['IdCard_status'] == 0 ? '' : 'checked'}}  onchange=model_trigger1("{{$data['empId']}}",2)><span class="switch-state bg-info"></span>
                                                 </label>
                                              </div>
                                             </td>
+                                        </tr>
 
                                     <?php $i++; ?>
                                  @endforeach
@@ -92,7 +93,7 @@
                         </tbody>
                      </table>
                      <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
-                     <button type="button" id="AdminUpdateBtn"><button>
+                     {{-- <button type="button" id="AdminUpdateBtn"><button> --}}
                   </div>
                </div>
             </div>
@@ -107,7 +108,7 @@
     <div class="modal-dialog" role="document">
        <div class="modal-content">
           <div class="modal-header">
-             <h5 class="modal-title" id="exampleModalLabel">Email Creation</h5>
+             <h5 class="modal-title" id="exampleModalLabel">Seating Request</h5>
              <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
           <div class="modal-body">Are you sure to confirm  that seating was alloted to this employee!...</div>
@@ -116,6 +117,23 @@
              <button class="btn btn-secondary" type="button" data-dismiss="modal" id="SeatingRequestBtn">Save changes</button>
              <input type="hidden" id="hidden_seat">
              <input type="hidden" id="hidden_status">
+          </div>
+       </div>
+    </div>
+ </div>
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">Seating Request</h5>
+             <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          </div>
+          <div class="modal-body">Are you sure to confirm  that IdCard was Created to this employee!...</div>
+          <div class="modal-footer">
+             <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
+             <button class="btn btn-secondary" type="button" data-dismiss="modal" id="SeatingRequestBtn1">Save changes</button>
+             <input type="hidden" id="hidden_seat1">
+             <input type="hidden" id="hidden_status1">
           </div>
        </div>
     </div>

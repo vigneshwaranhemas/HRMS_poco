@@ -1,4 +1,4 @@
-@extends('layouts.simple.admin_master')
+@extends('layouts.simple.candidate_master')
 @section('title', 'Welcome Aboard')
 
 @section('css')
@@ -79,6 +79,7 @@
 @endsection
 
 @section('breadcrumb-items')
+    <a href="{{ url('welcome_aboard') }}"><button class="btn btn-primary" type="button">Add Welcome Aboard</button></a>
    {{-- <li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li> --}}
 @endsection
@@ -93,11 +94,11 @@
             <div class="card">
                 <div class="card-body">
 
-                    <p>Dear Newbie at HEMA’s!  We are delighted that you are onboard our inspiring HEMA’s bandwagon and we would like to share the joy with all our team mates!  Please help us with interesting information about you, which you would like our HEMA’s Fraternity Fellas to know. </p>
+                    <p style="text-align: justify;">Dear Newbie at HEMA’s!  We are delighted that you are onboard our inspiring HEMA’s bandwagon and we would like to share the joy with all our team mates!  Please help us with interesting information about you, which you would like our HEMA’s Fraternity Fellas to know. </p>
 
-                    <p>Here’s a template which could be of help to you, to introduce yourself. Disclosing of Facts in this Sheet is entirely Voluntary.You may choose to answer/omit any queries listed in the DID YOU KNOW Section.</p>
+                    <p style="text-align: justify;">Here’s a template which could be of help to you, to introduce yourself. Disclosing of Facts in this Sheet is entirely Voluntary.You may choose to answer/omit any queries listed in the DID YOU KNOW Section.</p>
 
-                    <p>I <input class="input" type="text" name="name" id="name" placeholder="Enter Your Name" required readonly>(Your Name) have joined as <input type="text" class="input" name="designation" id="designation" placeholder="Enter Your Designation" readonly>(Your designation) at <input class="input" type="text" name="department" id="department" placeholder="Enter Your Department" readonly>(Your Department/Function)            today      /     on <input class="input" type="date" name="today_date" id="today_date" placeholder="Choose The Date" readonly>    (strike off which is irrelevant)</p>
+                    <p>I <input class="input" type="text" name="name" id="name" placeholder="Enter Your Name" required readonly> have joined as <input type="text" class="input" name="designation" id="designation" placeholder="Enter Your Designation" readonly>at <input class="input" type="text" name="department" id="department" placeholder="Enter Your Department" readonly>            today      /     on <input class="input" type="date" name="today_date" id="today_date" placeholder="Choose The Date" readonly>    </p>
 
 
                     <h5><b>EDUCATION (in chronological order, starting from the oldest to the latest)</b></h5>
@@ -168,7 +169,7 @@
                     <p>Books that I Read / Love to Recommend <input class="input" type="text" name="books" id="books" readonly>  </p>
 
                     <div class="text-center">
-                        <a href="{{url('welcome_aboard_generate_pdf')}}" target="_blank"><button class="btn btn-primary" type="button" id="pdf_button">PDF</button></a>
+                        <a href="{{url('welcome_aboard_generate_pdf')}}" target="_blank"><button class="btn btn-primary" type="button" id="pdf_button">Download</button></a>
                     </div>
 
                 </div>

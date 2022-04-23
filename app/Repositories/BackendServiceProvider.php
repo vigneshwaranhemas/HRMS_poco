@@ -13,8 +13,8 @@ class BackendServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            'App\Repositories\IBuddyRepository',
-            'App\Repositories\BuddyRepository'
+            'App\Repositories\IBuddyrepositories',
+            'App\Repositories\Buddyrepositories'
         );
         $this->app->bind(
             'App\Repositories\IEventCategoryrepositories',
@@ -43,6 +43,10 @@ class BackendServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Repositories\IProfileRepositories',
             'App\Repositories\ProfileRepositories'
+        );
+        $this->app->bind(
+            'App\Repositories\IITInfraRepository',
+            'App\Repositories\ITInfraRepository'
         );
 
     }

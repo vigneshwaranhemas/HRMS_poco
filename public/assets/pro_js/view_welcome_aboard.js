@@ -7,6 +7,7 @@ $( document ).ready(function() {
 });
 
 $(document).ready(function(){
+    // alert("Hao");
     view_welcome_aboard_process();
 });
 

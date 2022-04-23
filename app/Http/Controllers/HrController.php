@@ -68,13 +68,10 @@ class HrController extends Controller
     {
          $sess_info=Session::get("session_info");
          $id=array('pre_onboarding_status'=>$sess_info["pre_onboarding"],'created_by'=>$sess_info["empID"]);
+        //  echo json_encode($sess_info);
          $user_info=$this->hpreon->get_candidate_info($id);
          $data['user_info']=$user_info;
-
-        //  echo json_encode($data);
          return view('HRSS.preOnboarding')->with('info',$data);
-        // return view('HRSS.preOnboarding');
-
     }
     public function DayZero()
     {
@@ -82,10 +79,7 @@ class HrController extends Controller
         $date=date('Y-m-d', strtotime("+1 day"));
         $data=array("or_doj"=>$date,'created_by'=>$sess_info["empID"]);
         $candidate_info=$this->hpreon->DayWiseCandidateInfo($data);
-        // echo json_encode($candidate_info);
         return view('HRSS.Day_zero')->with('candidate_info',$candidate_info);
-        // return view('HRSS.Day_zero');
-
     }
     public function hrssOnBoarding()
     {
@@ -157,42 +151,55 @@ class HrController extends Controller
                 echo json_encode($final_response);
             }
             else{
-                                $store_result=$this->hpreon->Insert_Candidate_empId($data);
-                                $Mail['candidate_name']=$store_result["message"]["induction_info"]->candidate_name;
-                                $Mail['username']=$request->empID;
-                                $Mail['password']="Welcome@123";
-                                $Mail['candidate_department']=$store_result["message"]["induction_info"]->or_department;
-                                $Mail['candidate_doj']=$store_result["message"]["induction_info"]->or_doj;
-                                $Mail['cc']=$store_result["message"]["email_info"]->cc;
-                                $Mail['Admin_cc']=$store_result['message']['admin_email_info']->cc;
-                                $Mail['hr_subject']=$store_result['message']['email_info']->subject;
-                                $Mail['Admin_Subject']=$store_result['message']['admin_email_info']->subject;
-                                $Mail['hr_to_mail']=$store_result['message']['email_info']->to;
-                                $Mail['admin_to_mail']=$store_result['message']['admin_email_info']->to;
-                                $Mail['supervisor_name']=$store_result['message']['location']->sup_name;
-                                $Mail['worklocation']=$store_result['message']['location']->worklocation;
-                                $str_arr = preg_split ("/\,/", $Mail['cc']);
-                                $admin_str_arr=preg_split ("/\,/", $Mail['Admin_cc']);
-                                Mail::send('emails.InductionMail', $Mail, function ($message) use ($Mail,$str_arr) {
-                                $message->from(env('MAIL_FROM_ADDRESS'), 'HEPL - HR Team');
-                                foreach($str_arr as $string)
-                                {
-                                 $message->cc($string);
-                                }
-                                $message->to($Mail['hr_to_mail'])->subject($Mail['hr_subject']);
-                                });
-                                //  if($store_result['message']['location']->worklocation=='Onsite'){
-                                    Mail::send('emails.AdminMail', $Mail, function ($message) use ($Mail,$admin_str_arr) {
-                                    $message->from(env('MAIL_FROM_ADDRESS'), 'HEPL - HR Team');
-                                    foreach($admin_str_arr as $string)
-                                    {
-                                     $message->cc($string);
-                                    }
-                                    $message->to($Mail['admin_to_mail'])->subject($Mail['Admin_Subject']);
-                                    });
-                                //  }
-                                 $final_response=array('success'=>'1','message'=>'EmployeeId  Created Successfully');
-                                 echo json_encode($final_response);
+                    $store_result=$this->hpreon->Insert_Candidate_empId($data);
+                    
+                    $Mail['candidate_name']=$store_result["message"]["induction_info"]->candidate_name;
+                    $Mail['username']=$request->empID;
+                    $Mail['password']="Welcome@123";
+                    $Mail['candidate_department']=$store_result["message"]["induction_info"]->or_department;
+                    $Mail['candidate_doj']=$store_result["message"]["induction_info"]->or_doj;
+                    $Mail['cc']=$store_result["message"]["email_info"]->cc;
+                    $Mail['Admin_cc']=$store_result['message']['admin_email_info']->cc;
+                    $Mail['hr_subject']=$store_result['message']['email_info']->subject;
+                    $Mail['Admin_Subject']=$store_result['message']['admin_email_info']->subject;
+                    $Mail['hr_to_mail']=$store_result['message']['email_info']->to;
+                    $Mail['admin_to_mail']=$store_result['message']['admin_email_info']->to;
+                    $Mail['supervisor_name']=$store_result['message']['location']->sup_name;
+                    $Mail['worklocation']=$store_result['message']['location']->worklocation;
+                    $str_arr = preg_split ("/\,/", $Mail['cc']);
+                    $admin_str_arr=preg_split ("/\,/", $Mail['Admin_cc']);
+                        // echo json_encode($Mail);
+                    // dd(env('MAIL_USERNAME'));
+                    // Mail::send('emails.InductionMail', $Mail, function ($message) use ($Mail,$str_arr) {
+                    // $message->from(env('MAIL_FROM_ADDRESS'), 'HEPL - HR Team');
+                    // foreach($str_arr as $string)
+                    // {
+                    //     $message->cc($string);
+                    // }
+                    // $message->to($Mail['hr_to_mail'])->subject($Mail['hr_subject']);
+                    // });
+
+                     Mail::send('emails.InductionMail', $Mail, function ($message) use ($Mail,$str_arr) {
+                    $message->from("rfh@hemas.in", 'HEPL - HR Team');
+                    foreach($str_arr as $string)
+                    {
+                        $message->cc($string);
+                    }
+                    $message->to($Mail['hr_to_mail'])->subject($Mail['hr_subject']);
+                    });
+ 
+                    // //  if($store_result['message']['location']->worklocation=='Onsite'){
+                        Mail::send('emails.AdminMail', $Mail, function ($message) use ($Mail,$admin_str_arr) {
+                        $message->from("rfh@hemas.in", 'HEPL - HR Team');
+                        foreach($admin_str_arr as $string)
+                        {
+                            $message->cc($string);
+                        }
+                        $message->to($Mail['admin_to_mail'])->subject($Mail['Admin_Subject']);
+                        });
+                    //  }
+                        $final_response=array('success'=>'1','message'=>'EmployeeId  Created Successfully');
+                        echo json_encode($final_response);
             }
 
 
@@ -200,45 +207,7 @@ class HrController extends Controller
          }
 
 
-        //  $store_result=$this->hpreon->Insert_Candidate_empId($data);
-        //  if($store_result["success"]=='0')
-        //  {
-        //       echo json_encode($store_result["message"]);
-        //  }
-        //  else{
-        //         $Mail['candidate_name']=$store_result["message"]["induction_info"]->candidate_name;
-        //         $Mail['username']=$request->empID;
-        //         $Mail['password']="Welcome@123";
-        //         $Mail['candidate_department']=$store_result["message"]["induction_info"]->or_department;
-        //         $Mail['candidate_doj']=$store_result["message"]["induction_info"]->or_doj;
-        //         $Mail['cc']=$store_result["message"]["email_info"]->cc;
-        //         $Mail['Admin_cc']=$store_result['message']['admin_email_info']->cc;
-        //         $Mail['hr_subject']=$store_result['message']['email_info']->subject;
-        //         $Mail['Admin_Subject']=$store_result['message']['admin_email_info']->subject;
-        //         $Mail['hr_to_mail']=$store_result['message']['email_info']->to;
-        //         $Mail['admin_to_mail']=$store_result['message']['admin_email_info']->to;
-        //         $str_arr = preg_split ("/\,/", $Mail['cc']);
-        //         $admin_str_arr=preg_split ("/\,/", $Mail['Admin_cc']);
-        //         Mail::send('emails.InductionMail', $Mail, function ($message) use ($Mail,$str_arr) {
-        //         $message->from(env('MAIL_FROM_ADDRESS'), 'HEPL - HR Team');
-        //         foreach($str_arr as $string)
-        //         {
-        //          $message->cc($string);
-        //         }
-        //         $message->to($Mail['hr_to_mail'])->subject($Mail['hr_subject']);
-        //         });
-        //          if($store_result['message']['location']->worklocation=='Onsite'){
-        //             Mail::send('emails.AdminMail', $Mail, function ($message) use ($Mail,$admin_str_arr) {
-        //             $message->from(env('MAIL_FROM_ADDRESS'), 'HEPL - HR Team');
-        //             foreach($admin_str_arr as $string)
-        //             {
-        //              $message->cc($string);
-        //             }
-        //             $message->to($Mail['admin_to_mail'])->subject($Mail['Admin_Subject']);
-        //             });
-        //          }
 
-        //  }
 
 
 
@@ -254,10 +223,19 @@ class HrController extends Controller
 
             foreach($request->info as $data){
                  $candidate_info=$this->hpreon->candidate_info_for_EmailCreation($data);
+
+//
+// --------------------------------------------------------------------------------------------------
+             //vignesh comments for original cc and email creditionals
+//
                 //  $Mail['CC']=$ItInfra_email_info->cc;
                 //  $Mail['to']=$ItInfra_email_info->to;
                 //  $Mail['supervisor_mail']=$candidate_info['supervisor_info']->email;
                 //  $Mail['reviewer_mail']=$candidate_info['reviewer_info']->email;
+//
+// ---------------------------------------------------------------------------------------------------
+//
+         //vignesh comments for static cc and email creditionals for testing purpose
                 $Mail['CC']="vigneshsampletester@gmail.com";
                 $Mail['to']="vigneshb@hemas.in";
                 $Mail['supervisor_mail']="vigneshb@hemas.in";
@@ -267,6 +245,8 @@ class HrController extends Controller
                 $Mail['supervisor_name']=$candidate_info['supervisor_info']->name;
                 $Mail['doj']=$candidate_info['info']->doj;
                 $str_arr=preg_split ("/\,/", $Mail['CC']);
+
+// --------------------------------------------------------------------------------------------------------
                 Mail::send('emails.ItInfraMail', $Mail, function ($message) use ($Mail,$str_arr) {
                 $message->from(env('MAIL_FROM_ADDRESS'), 'HEPL - HR Team');
                 foreach($str_arr as $string)
@@ -279,8 +259,8 @@ class HrController extends Controller
                 });
 
             }
-
-            echo json_encode("success");
+            $final_response=array('success'=>1,'message'=>"Suggested Email Informations Send to The ItINfra Team Successfully");
+            echo json_encode($final_response);
 
 
 

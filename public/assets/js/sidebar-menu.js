@@ -42,3 +42,16 @@ $('.mobile-sidebar #sidebar-toggle').click(function() {
   $('.iconsidebar-menu').addClass("iconbar-second-close");
   $('.iconsidebar-menu').removeClass("iconbar-mainmenu-close");
 };
+
+$('.bar-icons-hover').click(function() {
+  
+  var $this = $(".iconsidebar-menu");
+
+  if ($this.hasClass('iconbar-mainmenu-close')) {
+      $this.removeClass('iconbar-mainmenu-close');
+  } else {
+
+    $this.addClass('iconbar-mainmenu-close');
+  }
+
+});

@@ -130,12 +130,6 @@ Route::post('ITInfra_Email_Creation','ItInfraController@ITInfra_Email_Creation')
 Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('hr_dashboard');
 
 
-//Buddy Controller
-Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('buddy_dashboard')->middleware('is_admin');
-
-//Candidate Controller
-
-
 // dashboard load admin
 //Route::get('/admin', 'AdminController@admin_dashboard')->name('admin');
 Route::get('/permission', 'AdminController@permission')->name('permission');

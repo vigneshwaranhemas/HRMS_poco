@@ -15,7 +15,10 @@ interface IHrPreonboardingrepositories{
    public function get_itinfra_email_info();
    public function candidate_info_for_EmailCreation($id);
    public function get_hrRequested_info($status);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 292c5c49789af34462702d275829e1ed90139f0b
 
 
 

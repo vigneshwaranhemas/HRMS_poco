@@ -18,7 +18,6 @@
              </ul>
           </li>
           <li>
-
              <span class="badge badge-pill badge-danger">Hot</span><a class="bar-icons" href="#"><i class="pe-7s-diamond"></i><span>Profile</span></a>
               <ul class="iconbar-mainmenu custom-scrollbar">
                 <li class="iconbar-header">Profile</li>

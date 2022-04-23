@@ -16,7 +16,9 @@ class ItInfraController extends Controller
         $this->hpreon = $hpreon;
         $this->itrep=$itrep;
         $this->middleware('is_admin');
+
     }
+
     public function index()
     {
         //Birthday card
@@ -66,6 +68,7 @@ class ItInfraController extends Controller
 
     public function ITInfra_Email_Creation(Request $request)
     {
+
            foreach($request->empID as $data){
                    $candidate_info=$this->itrep->get_candidate_email_info($data);
 

@@ -91,11 +91,11 @@ class CandidateController extends Controller
             }
            $data['fields']=$fields;
          return view('candidate.preOnboarding')->with('userdata',$data);
+
     }
 
     public function buddy()
     {
-
         $sess_info=Session::get("session_info");
         $table1="candidate_details";
         $cid=array("cdID"=>$sess_info["empID"]);
@@ -111,13 +111,9 @@ class CandidateController extends Controller
     }
 
 
-
-
     public function profile(){
         return view('candidate.profile');
         }
-
-
 
 
 // pre onBoarding Insert
@@ -323,14 +319,5 @@ public function welcome_aboard()
 
         return $pdf->stream('welcome_aboard.pdf');
     }
-
-
-
-
-
-
-
-
-
 
 }

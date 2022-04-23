@@ -92,9 +92,7 @@
        <option>Verified</option>
        <option>Partitally Verified</option>
     </select><br>
-
    <button type="button" class="btn btn-primary" >Submit</button>
-
  </div>
 @endsection
 @section("script")

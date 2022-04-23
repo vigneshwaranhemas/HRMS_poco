@@ -239,71 +239,10 @@
                     </tbody>
                 </table>
 
+
                 <div class="modal-body" id="textarea_div">
 
                 </div>
-                
-                <!-- <div class="row" style="margin-top: 40px;">
-
-                    <div class="col-md-12">
-                        <h6>7.  What went very well, during  my interactions with my Buddy</h6>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="card">
-                            <div class="card-body grid-showcase">
-
-                                <p>No </p>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="card">
-                            <div class="card-body grid-showcase">
-                                <p>Auto-layout for flexbox grid columns also means you can set the width of one column and have the sibling columns automatically resize around it. You may use predefined grid classes (as shown below), grid mixins, or inline widths. Note that the other columns will resize no matter the width of the center column.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="card">
-                            <div class="card-body grid-showcase">
-                                <p>Auto-layout for flexbox grid columns also means you can set the width of one column and have the sibling columns automatically resize around it. You may use predefined grid classes (as shown below), grid mixins, or inline widths. Note that the other columns will resize no matter the width of the center column.</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row" style="margin-top: 40px;">
-
-                    <div class="col-md-12">
-                        <h6>8.  What went very well, during  my interactions with my Buddy</h6>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="card">
-                            <div class="card-body grid-showcase">
-                                <p>Auto-layout for flexbox grid columns also means you can set the width of one column and have the sibling columns automatically resize around it. You may use predefined grid classes (as shown below), grid mixins, or inline widths. Note that the other columns will resize no matter the width of the center column.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="card">
-                            <div class="card-body grid-showcase">
-                                <p>Auto-layout for flexbox grid columns also means you can set the width of one column and have the sibling columns automatically resize around it. You may use predefined grid classes (as shown below), grid mixins, or inline widths. Note that the other columns will resize no matter the width of the center column.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="card">
-                            <div class="card-body grid-showcase">
-                                <p>Auto-layout for flexbox grid columns also means you can set the width of one column and have the sibling columns automatically resize around it. You may use predefined grid classes (as shown below), grid mixins, or inline widths. Note that the other columns will resize no matter the width of the center column.</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                </div> -->
-
             </div>
         </div>
     </div>

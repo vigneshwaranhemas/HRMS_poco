@@ -92,6 +92,26 @@
 
 <!-- Modal Fade -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">Employee Id Creation</h5>
+             <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          </div>
+          <div class="modal-body">
+              <label>Enter Employee Id</label>
+              <input type="text" class="form-control" id="NewEmpId">
+          </div>
+          <div class="modal-footer">
+             <button class="btn btn-primary" type="button"  data-dismiss="modal">Close</button>
+             <button class="btn btn-secondary" type="button" id="EmpIdCreationBtn" data-dismiss="modal">Save changes</button>
+             <input type="hidden" id="emp_hidden_id">
+          </div>
+       </div>
+    </div>
+ </div>
+@endsection
+@section('script')
    <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">

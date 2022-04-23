@@ -2293,45 +2293,6 @@ class AdminController extends Controller
             echo json_encode($response);
          }
 
-    public function employee_list()
-    {
-        return view('admin.masters.employee_list');
-    }
-
-    public function get_employee_list(Request $request)
-    {
-        if ($request->ajax()) {
-
-            $get_employee_list_result = $this->admrpy->get_employee_list();
-
-
-            return DataTables::of($get_employee_list_result)
-            ->addIndexColumn()
-            // ->addColumn('status', function($row) {
-            //     $btn = '';
-            //     $result =  $row->status;
-            //     // print_r($result);
-            //     // die();
-            //     if($result == "active")
-            //     {
-            //         $btn = '<span class="badge badge-success">Active</span>';
-            //     }elseif($result == "Inactive"){
-            //         $btn = '<span class="badge badge-warning">Inactive</span>';
-            //     }
-
-            //     return $btn;
-            // })
-
-            // ->addColumn('action', function($row) {
-            //     $candidate_profile = "candidate_profile";
-            //     $btn = '<a href="candidate_profile"><i class="fa fa-edit"></i><a>';
-            //     return $btn;
-            // })
-            // ->rawColumns(['action'])
-            ->make(true);
-        }
-
-    }
 
 
 }

@@ -9,7 +9,6 @@ use PDF;
 use Carbon\Carbon;
 use Auth;
 use Session;
-use PDF;
 class CandidateController extends Controller
 {
     public $preon;
@@ -119,9 +118,6 @@ class CandidateController extends Controller
     }
 
 
-    public function profile(){
-        return view('candidate.profile');
-        }
 
         // $sess_info=Session::get("session_info");
         // $table1="candidate_details";
@@ -138,8 +134,8 @@ class CandidateController extends Controller
 
 
         // return view('candidate.buddy_feedback')->with('buddy_fields',$data);
-        return view('candidate.buddy_feedback');
-    }
+        // return view('candidate.buddy_feedback');
+
 
 
     public function welcome_aboard()
@@ -314,10 +310,6 @@ class CandidateController extends Controller
 
         return $pdf->stream('welcome_aboard.pdf');
     }
-
->>>>>>> 0e984023d5c55602d2428a0928aec587f582a305
-
-
 // pre onBoarding Insert
 public function insertPreOnboarding(Request $request)
 {
@@ -436,90 +428,8 @@ public function InsertBuddyFeedback(Request $request)
 
 
 }
-public function welcome_aboard()
-    {
-        return view('candidate.welcome_aboard');
-    }
-    public function view_welcome_aboard()
-    {
-        return view('candidate.view_welcome_aboard');
-    }
 
- public function get_welcome_aboard_details(Request $req){
 
-        $get_welcome_aboard_details_result = $this->preon->get_welcome_aboard_details();
 
-        $get_welcome_aboard_details_result['get_education_my'] =  json_decode($get_welcome_aboard_details_result->education_my,TRUE);
-        $get_welcome_aboard_details_result['get_education_from'] = json_decode($get_welcome_aboard_details_result->education_from,TRUE);
-        $get_welcome_aboard_details_result['get_education_in'] = json_decode($get_welcome_aboard_details_result->education_in,TRUE);
-
-        $get_welcome_aboard_details_result['get_work_experience_at'] =  json_decode($get_welcome_aboard_details_result->work_experience_at,TRUE);
-        $get_welcome_aboard_details_result['get_work_experience_as'] = json_decode($get_welcome_aboard_details_result->work_experience_as,TRUE);
-        $get_welcome_aboard_details_result['get_work_experience_years'] = json_decode($get_welcome_aboard_details_result->work_experience_years,TRUE);
-
-    //   echo '<pre>';print_r($get_welcome_aboard_details_result);die();
-
-        return response()->json( $get_welcome_aboard_details_result );
-    }
-
-    public function welcome_aboard_generate_pdf()
-    {
-
-        $get_welcome_aboard_details_result = $this->preon->get_welcome_aboard_details();
-
-        // echo '<pre>';print_r($get_welcome_aboard_details_result->name);die();
-
-        $get_welcome_aboard_details_result['get_education_my'] =  json_decode($get_welcome_aboard_details_result->education_my,TRUE);
-        $get_welcome_aboard_details_result['get_education_from'] = json_decode($get_welcome_aboard_details_result->education_from,TRUE);
-        $get_welcome_aboard_details_result['get_education_in'] = json_decode($get_welcome_aboard_details_result->education_in,TRUE);
-
-        $get_welcome_aboard_details_result['get_work_experience_at'] =  json_decode($get_welcome_aboard_details_result->work_experience_at,TRUE);
-        $get_welcome_aboard_details_result['get_work_experience_as'] = json_decode($get_welcome_aboard_details_result->work_experience_as,TRUE);
-        $get_welcome_aboard_details_result['get_work_experience_years'] = json_decode($get_welcome_aboard_details_result->work_experience_years,TRUE);
-
-        // $info = "";
-
-        $info = [
-            'name' => $get_welcome_aboard_details_result->name,
-            'designation' => $get_welcome_aboard_details_result->designation,
-            'department' => $get_welcome_aboard_details_result->department,
-            'today_date' => $get_welcome_aboard_details_result->today_date,
-            'get_education_my' => $get_welcome_aboard_details_result['get_education_my'],
-            'get_education_from' => $get_welcome_aboard_details_result['get_education_from'],
-            'get_education_in' => $get_welcome_aboard_details_result['get_education_in'],
-            'achievements_education' => $get_welcome_aboard_details_result->achievements_education,
-            'work_in' => $get_welcome_aboard_details_result['work_in'],
-            'work_designation' => $get_welcome_aboard_details_result['work_designation'],
-            'work_years' => $get_welcome_aboard_details_result['work_years'],
-            'work_experience_at' => $get_welcome_aboard_details_result['get_work_experience_at'],
-            'work_experience_as' => $get_welcome_aboard_details_result['get_work_experience_as'],
-            'work_experience_years' => $get_welcome_aboard_details_result['get_work_experience_years'],
-            'joining_at' => $get_welcome_aboard_details_result['joining_at'],
-            'joining_as' => $get_welcome_aboard_details_result['joining_as'],
-            'achievements_work' => $get_welcome_aboard_details_result['achievements_work'],
-            'my_favorite_pastime' => $get_welcome_aboard_details_result['my_favorite_pastime'],
-            'my_favorite_hobbies' => $get_welcome_aboard_details_result['my_favorite_hobbies'],
-            'my_favorite_places' => $get_welcome_aboard_details_result['my_favorite_places'],
-            'my_favorite_foods' => $get_welcome_aboard_details_result['my_favorite_foods'],
-            'my_favorite_sports' => $get_welcome_aboard_details_result['my_favorite_sports'],
-            'my_favorite_movies' => $get_welcome_aboard_details_result['my_favorite_movies'],
-            'my_favorite' => $get_welcome_aboard_details_result['my_favorite'],
-            'my_extracurricular_specialities' => $get_welcome_aboard_details_result['my_extracurricular_specialities'],
-            'my_career_aspirations' => $get_welcome_aboard_details_result['my_career_aspirations'],
-            'languages' => $get_welcome_aboard_details_result['languages'],
-            'interesting_facts' => $get_welcome_aboard_details_result['interesting_facts'],
-            'my_motto' => $get_welcome_aboard_details_result['my_motto'],
-            'books' => $get_welcome_aboard_details_result['books'],
-
-        ];
-
-        // echo '<pre>';print_r($data['get_education_my']["0"]);die();
-
-        // return view('admin.welcome_aboard_pdf')->with('info',$data);
-        // $pdf = PDF::loadView('admin.welcome_aboard_pdf', $data);
-        $pdf = PDF::loadView('candidate.welcome_aboard_pdf', compact('info'));
-
-        return $pdf->stream('welcome_aboard.pdf');
-    }
 
 }

@@ -21,12 +21,6 @@ class HrController extends Controller
         $this->hpreon = $hpreon;
         $this->preon = $preon;
         $this->admrpy = $admrpy;
-        $this->middleware('is_admin');
-<<<<<<< HEAD
-
-=======
-        // $this->middleware('is_hr');
->>>>>>> 0e984023d5c55602d2428a0928aec587f582a305
     }
 
 
@@ -349,15 +343,15 @@ class HrController extends Controller
                     $message->to($Mail['hr_to_mail'])->subject($Mail['hr_subject']);
                     });
 
- 
+
                     // //  if($store_result['message']['location']->worklocation=='Onsite'){
                         Mail::send('emails.AdminMail', $Mail, function ($message) use ($Mail,$admin_str_arr) {
                         $message->from("rfh@hemas.in", 'HEPL - HR Team');
-// 
+//
 //                     //  if($store_result['message']['location']->worklocation=='Onsite'){
 //                         Mail::send('emails.AdminMail', $Mail, function ($message) use ($Mail,$admin_str_arr) {
 //                         $message->from(env('MAIL_FROM_ADDRESS'), 'HEPL - HR Team');
-// 
+//
                         foreach($admin_str_arr as $string)
                         {
                             $message->cc($string);

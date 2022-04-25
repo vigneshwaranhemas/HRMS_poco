@@ -32,6 +32,7 @@ $('.mobile-sidebar #sidebar-toggle').click(function() {
   if ($this.hasClass('iconbar-second-close')) {
     //$this.removeClass();
     $this.removeClass('iconbar-second-close').addClass('iconsidebar-menu');
+     $this.addClass('iconbar-mainmenu-close');
   } else if ($this.hasClass('iconbar-mainmenu-close')) {
     $this.removeClass('iconbar-mainmenu-close').addClass('iconbar-second-close');
   } else {

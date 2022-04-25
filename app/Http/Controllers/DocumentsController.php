@@ -18,7 +18,6 @@ class DocumentsController extends Controller
 
      public function __construct(IAdminRepository $admrpy,IProfileRepositories $profrpy)
     {
-        $this->middleware('is_admin');
         $this->admrpy = $admrpy;
         $this->profrpy = $profrpy;
     }
@@ -333,9 +332,30 @@ class DocumentsController extends Controller
                 }
         }
 
+/*state Get*/
+     public function state_get(Request $request){
 
-
-
+        $education_result = $this->profrpy->state_listing();
+        return response()->json( $education_result );
+        
+    }
+    /*district Get*/
+     public function get_district(Request $request){
+        $input_details['state_name']  =  $request->input('test');
+        // echo "<pre>";print_r($state_name);die;
+        $district_result = $this->profrpy->get_district_listing($input_details);
+        
+        return response()->json( $district_result );
+        
+    }
+    /*town Get*/
+     public function get_town_name(Request $request){
+        $input_details['district_name']  =  $request->input('district_name');
+        $district_result = $this->profrpy->get_town_name_listing($input_details);
+        
+        return response()->json( $district_result );
+        
+    }
 
 
 

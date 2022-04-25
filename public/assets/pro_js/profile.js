@@ -1,7 +1,117 @@
 
 $(document).ready(function() {
     profile_info_process();
+    get_state_list();
 });
+
+function get_state_list() {
+    $.ajax({
+        url: state_get_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data)
+            var html = '<option value="">Select</option>';
+            for (let index = 0; index < data.length; index++) {
+                html += "<option value=" + data[index].state_name + ">" + data[index].state_name + "</option>";
+            }
+            $('#p_State').html(html);
+            $('#c_State').html(html);
+        }
+    });
+}
+
+    $("#p_State").on('change', function () {
+        var test =document.getElementById('p_State').value;
+        get_district(test);
+    });
+    $("#c_State").on('change', function () {
+        var test =document.getElementById('c_State').value;
+        get_district_Current(test);
+    });
+
+    function get_district(test) {
+        $.ajax({
+            url: get_district_link,
+            method: "POST",
+            data:{"test" : test},
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+                    html += "<option value=" + data[index].district_name + ">" + data[index].district_name + "</option>";
+                }
+                $('#p_district').html(html);
+            }
+
+        });
+    }
+
+    function get_district_Current(test) {
+        $.ajax({
+            url: get_district_link,
+            method: "POST",
+            data:{"test" : test},
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+                    html += "<option value=" + data[index].district_name + ">" + data[index].district_name + "</option>";
+                }
+                $('#c_district').html(html);
+
+            }
+
+        });
+    }
+
+    $("#p_district").on('change', function () {
+        var dis_name =document.getElementById('p_district').value;
+        get_town_name(dis_name);
+    });$("#c_district").on('change', function () {
+        var dis_name =document.getElementById('c_district').value;
+        get_town_name_Current(dis_name);
+    });
+
+    function get_town_name(dis_name) {
+        $.ajax({
+            url: get_town_name_link,
+            method: "POST",
+            data:{"district_name" :dis_name},
+            dataType: "json",
+            success: function(data) {
+                // console.log(data)
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+                    html += "<option value=" + data[index].district_name + ">" + data[index].district_name + "</option>";
+                }
+                $('#p_town').html(html);
+
+            }
+
+        });
+    }
+    function get_town_name_Current(dis_name) {
+        $.ajax({
+            url: get_town_name_link,
+            method: "POST",
+            data:{"district_name" :dis_name},
+            dataType: "json",
+            success: function(data) {
+                // console.log(data)
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+                    html += "<option value=" + data[index].district_name + ">" + data[index].district_name + "</option>";
+                }
+                $('#c_town').html(html);
+
+            }
+
+        });
+    }
 
 
 var $modal = $('#modal');

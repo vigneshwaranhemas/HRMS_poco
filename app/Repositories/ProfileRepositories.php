@@ -22,7 +22,7 @@ use App\welcome_aboard;
 
 class ProfileRepositories implements IProfileRepositories
 {
-	public function get_account_info( $input_details ){
+    public function get_account_info( $input_details ){
 
         $bandtbl = DB::table('candidate_account_information')
         ->select('*')
@@ -106,17 +106,36 @@ class ProfileRepositories implements IProfileRepositories
 
         return $bandtbl;
     }
-    /*public function update_family_info( $input_details ){
+    public function state_listing( ){
+        // DB::enableQueryLog();
+        $bandtbl = DB::table('towns_details')
+        ->select('id','state_name')
+        ->groupBy('state_name')
+        ->get();
+        // dd(DB::getQueryLog());
+        // echo "23<pre>";print_r($bandtbl);die;
 
-        $update_roletbl = DB::table('candidate_family_information')->where( 'cdID', '=', $input_details['cdID'] );
-        $update_roletbl->update( [
-            'emp_id' => $input_details['emp_id'],
-            'cdID' => $input_details['cdID'],
-            'fm_name' => $input_details['fm_name'],
-            'fn_relationship' => $input_details['fn_relationship'],
-            'fn_marital' => $input_details['fn_marital'],
-            'fn_blood_gr' => $input_details['fn_blood_gr'], 
-        ] );
-    }*/
+        return $bandtbl;
+    }
+    public function get_district_listing($input_details ){
+        $bandtbl = DB::table('towns_details')
+        ->select('id','district_name','state_name')
+        ->where('state_name', '=' ,$input_details['state_name'])
+        ->groupBy('district_name')
+        ->get();
+
+        return $bandtbl;
+    }
+    public function get_town_name_listing($input_details ){
+        // DB::enableQueryLog();
+        $bandtbl = DB::table('towns_details')
+        ->select('id','district_name','town_name')
+        ->where('district_name', '=' ,$input_details['district_name'])
+        ->groupBy('district_name')
+        ->get();
+        // dd(DB::getQueryLog());
+
+        return $bandtbl;
+    }
 
 }

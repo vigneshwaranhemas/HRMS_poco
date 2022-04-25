@@ -1,22 +1,18 @@
 @extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'can'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'Itinfra'? 'layouts.simple.itinfra_master': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
 @section('title', 'User Profile')
-
 @section('css')
-<link rel="stylesheet" type="text/css" href="../assets/css/photoswipe.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/croppie.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="../assets/css/photoswipe.css"> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+ -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<link rel="stylesheet" href="../assets/css/cropper.css"/>
+<script src="../assets/js/cropper.js"></script>
 
 @endsection
 
 @section('style')
 <style type="text/css">
 img.test {
-
 display: block;
 max-width: 100%;
 }
@@ -228,46 +224,85 @@ max-width: 1000px !important;
                        <!-- Pop-up div starts-->
                   <div class="modal fade" id="ContactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-content" style="margin-left: -28%;width: 166%;">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add Education</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Add Contact</h5>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                             </div>
                               <form method="POST" action="javascript:void(0)" id="add_contact_info" class="ajax-form" enctype="multipart/form-data">
                                   {{ csrf_field() }}
                                 <div class="modal-body">
                                     <div class="form-row">
-                                       <div class="col-md-12 mb-3">
+                                       <div class="col-md-6 mb-3">
                                             <label for="phone_number">Phone Number</label>
                                             <input class="form-control" maxlength="10" name="phone_number" id="phone_number" type="text" placeholder="Phone Number" required="">
                                             <div class="text-warning" id="phone_number_error"></div>
                                         </div>
-                                        <div class="col-md-12 mb-3">
+                                        <div class="col-md-6 mb-3">
                                             <label for="s_number">Secondary Number</label>
                                             <input class="form-control" maxlength="10" name="s_number" id="s_number" type="text" placeholder="Secondary Number" required="">
                                             <div class="text-warning" id="s_number_error"></div>
                                         </div>
-                                        <div class="col-md-12 mb-3">
+                                        <div class="col-md-6 mb-3">
                                             <label for="p_email">Personal Email</label>
                                             <input class="form-control" name="p_email" id="p_email" type="email" placeholder="Email" required="">
                                             <div class="text-warning" id="p_email_error"></div>
                                         </div>
-                                        <div class="col-md-12 mb-3">
+                                                                         
+                                        <div class="col-md-6 mb-3">
                                             <label for="Begin_On">Permanent Address</label>
                                             <textarea class="form-control" name="p_adderss" id="p_adderss" type="text" placeholder="Permanent Address" required=""></textarea> 
                                             <div class="text-warning" id="p_adderss_error"></div>
                                         </div>
-                                        <div class="col-md-12 mb-3">
+                                         <div class="col-md-6 mb-3">
+                                            <label for="p_town">Town</label>
+                                            <select name="p_town" id="p_town" class="form-control">
+                                                     <option value="">--Select--</option>
+                                                </select>
+                                            <div class="text-warning" id="p_town_error"></div>
+                                        </div>        
+                                        <div class="col-md-6 mb-3">
+                                            <label for="p_State">State</label>
+                                            <select name="p_State" id="p_State" class="form-control">
+                                                  <option value="">--Select--</option>
+                                             </select>
+                                            <div class="text-warning" id="p_State_error"></div>
+                                        </div>
+                                         <div class="col-md-6 mb-3">
+                                            <label for="p_district">District</label>
+                                            <select name="p_district" id="p_district" class="form-control">
+                                                  <option value="">--Select--</option>
+                                             </select>
+                                            <div class="text-warning" id="p_District_error"></div>
+                                        </div> 
+                                        
+                                        <div class="col-md-6 mb-3">
                                             <label for="c_address">Current Address</label>
                                             <textarea class="form-control" name="c_address" id="c_address" type="text" placeholder="Current Address" required=""></textarea> 
                                             <div class="text-warning" id="c_address_error"></div>
                                         </div>
-                                        
-                                        <div class="col-md-12 mb-3">
-                                            <label for="State">State</label>
-                                            <input class="form-control" name="State" id="State" type="text" placeholder="" required="">
-                                            <div class="text-warning" id="State_error"></div>
+                                        <div class="col-md-6 mb-3">
+                                         <label for="c_town">Town</label>
+                                         <select name="c_town" id="c_town" class="form-control">
+                                                  <option value="">--Select--</option>
+                                             </select>
+                                         <div class="text-warning" id="c_town_error"></div>
+                                     </div> 
+                                        <div class="col-md-6 mb-3">
+                                            <label for="c_State">--State--</label>
+                                            <select name="c_State" id="c_State" class="form-control">
+                                                  <option value="">Select</option>
+                                             </select>
+                                            <div class="text-warning" id="p_State_error"></div>
                                         </div>
+                                         <div class="col-md-6 mb-3">
+                                            <label for="c_district">District</label>
+                                            <select name="c_district" id="c_district" class="form-control">
+                                                  <option value="">--Select--</option>
+                                             </select>
+                                            <div class="text-warning" id="c_District_error"></div>
+                                        </div> 
+                                        
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -600,7 +635,7 @@ max-width: 1000px !important;
                                         <div class="col-md-12 mb-3">
                                             <label for="fm_gender">Gender</label>
                                             <select class="form-control" name="fm_gender" id="fm_gender">
-                                                <option value="none" selected>Gender</option>
+                                                <option value="">Gender</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
                                                 <option value="Other">Other</option>
@@ -609,18 +644,52 @@ max-width: 1000px !important;
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="fn_relationship">Relationship</label>
-                                            <input class="form-control" name="fn_relationship" id="fn_relationship" type="text" placeholder="Relationship">
+                                            <!-- <input class="form-control" name="fn_relationship" id="fn_relationship" type="text" placeholder="Relationship"> -->
+                                             <select class="custom-select js-select2" name="fn_relationship" id="fn_relationship" placeholder="Relationship">
+                                               <option value="">Select</option>
+                                               <option value="Mother">Mother</option>
+                                               <option value="Father">Father</option>
+                                               <option value="Daughter">Daughter</option>
+                                               <option value="son">Son</option>
+                                               <option value="sister">Sister</option>
+                                               <option value="brother">Brother</option>
+                                               <option value="aunty">Aunty</option>
+                                               <option value="uncle">Uncle</option>
+                                               <option value="niece">Niece</option>
+                                               <option value="nephew">Nephew</option>
+                                               <option value="cousin_female">Cousin(Female)</option>
+                                               <option value="cousin_male">Cousin(Male)</option>
+                                               <option value="grandmother">Grandmother</option>
+                                               <option value="grandfather">Grandfather</option>
+                                               <option value="granddaughter">Granddaughter</option>
+                                               <option value="grandson">Grandson</option>
+                                             </select>
                                              <span class="text-danger color-hider" id="fn_relationship_error"  style="display:none;color: red;"></span>
 
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="fn_marital">Marital Status</label>
-                                            <input class="form-control" name="fn_marital" id="fn_marital" type="text" placeholder="Marital Status">
+                                            <!-- <input class="form-control" name="fn_marital" id="fn_marital" type="text" placeholder="Marital Status"> -->
+                                            <select class="form-control" name="fn_marital" id="fn_marital">
+                                                 <option value="">-Select Marital Status-</option>
+                                                 <option value="Single">Single</option>
+                                                 <option value="Married">Married</option>
+                                                 <option value="Widowed">Widowed</option>
+                                                 <option value="Separated">Separated</option>
+                                                 <option value="Divorced">Divorced</option>
+                                             </select>
                                             <span class="text-danger color-hider" id="fn_marital_error"  style="display:none;color: red;"></span>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="fn_blood_gr">Blood Group</label>
-                                            <input class="form-control" name="fn_blood_gr" id="fn_blood_gr" type="text" placeholder="Blood Group">
+                                            <!-- <input class="form-control" name="fn_blood_gr" id="fn_blood_gr" type="text" placeholder="Blood Group"> -->
+                                           <select class="form-control" id="fn_blood_gr" name="fn_blood_gr" >
+                                             <option value="">-Select Blood Group-</option>
+                                             <option value="A+">A+</option><option value="A-">A-</option>
+                                             <option value="B+">B+</option><option value="B-">B-</option>
+                                             <option value="O+">O+</option><option value="O-">O-</option>
+                                             <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                                             </select>
                                             <span class="text-danger color-hider" id="fn_blood_gr_error"  style="display:none;color: red;"></span>
                                         </div>
                                         
@@ -699,8 +768,6 @@ max-width: 1000px !important;
 @endsection
 
 @section('script')
-<script src="../assets/js/croppie.js"></script>
-
 <script src="../assets/js/counter/jquery.waypoints.min.js"></script>
  <script src="../assets/js/counter/jquery.counterup.min.js"></script>
  <script src="../assets/js/counter/counter-custom.js"></script>
@@ -717,6 +784,10 @@ max-width: 1000px !important;
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+   /*state list*/
+   var state_get_link = "{{url('state_get')}}";
+   var get_district_link = "{{url('get_district')}}";
+   var get_town_name_link = "{{url('get_town_name')}}";
    var upload_images = "{{url('profile_upload_images')}}";
    var display_image = "{{url('profile_display_images')}}";
    var add_documents_unit_process_link = "{{url('documents_insert')}}";
@@ -730,7 +801,7 @@ max-width: 1000px !important;
    var Contact_info_get_link = "{{url('Contact_info_view')}}";
    var add_family_info_link = "{{url('add_family_add')}}";
    var family_information_get_link = "{{url('family_information_view')}}";
+
    
  </script>
- 
 @endsection

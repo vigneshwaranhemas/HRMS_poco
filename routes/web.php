@@ -28,7 +28,6 @@ Route::get('com_dashboard','AdminController@com_dashboard');
 
 
 
-
 Route::prefix('perk-ui')->group(function () {
     Route::view('animate', 'perk-ui.animate')->name('animate');
     Route::view('scroll-reval', 'perk-ui.scroll-reval')->name('scroll-reval');
@@ -67,7 +66,6 @@ Route::post('Candidate_Status_Update','HrController@CandidateOnboardStatusUpdate
 
 //Buddy Controller
 
-
 Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('candidate_dashboard');
 Route::get('buddy', 'BuddyController@buddy_info')->name('buddy_info');
 Route::post('show_buddy_feedback','BuddyController@View_Buddy_feedback');
@@ -77,12 +75,12 @@ Route::post('show_buddy_feedback','BuddyController@View_Buddy_feedback');
 Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
 Route::get('/preOnboarding','CandidateController@preOnboarding');
 Route::get('Buddy_feedback', 'CandidateController@buddy')->name('buddy_feedback');
-
 Route::post('/PreOnBoarding_save','CandidateController@insertPreOnboarding');
 Route::get('candidate_profile','CandidateController@profile');
 Route::post("SaveBuddyFeedback",'candidateController@InsertBuddyFeedback');
 Route::get('Candidate_Induction','CandidateController@CandidateInduction');
 Route::get('Candidate_Assigned_Buddy','CandidateController@Candidate_Assigned_Buddy');
+
 
 
 //Calendaer Event
@@ -132,6 +130,11 @@ Route::get('/EmailCreation','ItInfraController@EmailIdCreation');
 Route::post('ITInfra_Email_Creation','ItInfraController@ITInfra_Email_Creation');
 Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('hr_dashboard');
 
+
+//Buddy Controller
+Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('buddy_dashboard')->middleware('is_admin');
+
+//Candidate Controller
 
 
 // dashboard load admin
@@ -285,6 +288,12 @@ Route::post('profile_upload_images', 'AdminController@storeImage');
 Route::post('profile_display_images', 'AdminController@PreviewImage');
 Route::get('roles_s', 'AdminController@roles_s')->name('roles_s');
 
+/*roles*/
+Route::post('add_roles_process', 'AdminController@add_roles_process');
+Route::post('get_role_data', 'AdminController@get_role_data');
+Route::post( 'get_role_details_pop', 'AdminController@get_role_details_pop' );
+Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_details' );
+
 /*profile document*/
 Route::post('documents_insert','DocumentsController@store')->name('Documents');
 Route::post('documents_info_pro', 'DocumentsController@doc_information');
@@ -299,6 +308,9 @@ Route::post('add_family_add', 'DocumentsController@add_family_add');
 Route::post('family_information_view', 'DocumentsController@family_information_view');
 /*session sidebar*/
 Route::post('get_session_sidebar', 'SidebarController@get_session_sidebar');
+Route::post('state_get', 'DocumentsController@state_get');
+Route::post('get_district', 'DocumentsController@get_district');
+Route::post('get_town_name', 'DocumentsController@get_town_name');
 
 /*roles*/
 Route::post('add_roles_process', 'AdminController@add_roles_process');
@@ -306,6 +318,12 @@ Route::post('get_role_data', 'AdminController@get_role_data');
 Route::post( 'get_role_details_pop', 'AdminController@get_role_details_pop' );
 Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_details' );
 
-// vigneshwaran Changes
+// View Welcome Aboard
+Route::get('view_welcome_aboard_hr', 'CandidateController@view_welcome_aboard_hr')->name('view_welcome_aboard_hr');
+
+/*employe list edit*/
+Route::post('get_role_type', 'AdminController@get_role_type');
+Route::post( 'get_employee_pop', 'AdminController@get_employee_pop' );
+Route::post('update_employee_list_pop', 'AdminController@update_employee_list_pop');
 
 

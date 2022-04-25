@@ -95,13 +95,19 @@
 </div>
 <div class="form-group test">
     <label for="exampleFormControlSelect7">Status</label>
-    <select class="form-control btn-pill digits" id="exampleFormControlSelect7">
-       <option>Verified</option>
-       <option>Partitally Verified</option>
+    <select class="form-control btn-pill digits" id="userDocStatus">
+       <option  {{$user_documents->doc_status == 0 ? 'selected' :'' }} value="0">Choose</option>
+       <option  {{$user_documents->doc_status == 2 ? 'selected' :'' }} value="2">Verified</option>
+       <option  {{$user_documents->doc_status == 1 ? 'selected' :'' }} value="1">Partitally Verified</option>
     </select><br>
-   <button type="button" class="btn btn-primary" >Submit</button>
+   <button type="button" class="btn btn-primary" id="DocStatusBtn">Submit</button>
  </div>
 @endsection
 @section("script")
 
 @endsection
+<script>
+    var DocumentStatusurl="{{url('DocumentStatusUpdate')}}";
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../pro_js/Hrss/OnBoarding.js"></script>

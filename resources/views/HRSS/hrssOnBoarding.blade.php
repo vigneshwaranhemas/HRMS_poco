@@ -125,7 +125,8 @@
           </div>
           <div class="modal-footer">
              <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
-             <button class="btn btn-secondary" type="button" data-dismiss="modal">Save changes</button>
+             <button class="btn btn-secondary" type="button" data-dismiss="modal" id="Candidate_Status_update">Save changes</button>
+             <input type="hidden" id="can_hidden_id">
 
           </div>
        </div>
@@ -153,19 +154,11 @@
 @endsection
 @section('script')
 
-<script>
-    // function model_trigger(){
-    //    $('#exampleModal').modal('show');
-    // }
-    function edit_modal(){
-      $('#ConformationModal').modal('show');
-
-    }
-  </script>
 
 @endsection
 <script>
     var email_and_seat_request_url="{{url('Email_and_Seat_request')}}";
+    var Candidate_status_update="{{url('Candidate_Status_Update')}}";
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="../pro_js/Hrss/OnBoarding.js"></script>

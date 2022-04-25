@@ -187,8 +187,6 @@ class HrController extends Controller
                     }
                     $message->to($Mail['hr_to_mail'])->subject($Mail['hr_subject']);
                     });
-
-
                     // //  if($store_result['message']['location']->worklocation=='Onsite'){
                         Mail::send('emails.AdminMail', $Mail, function ($message) use ($Mail,$admin_str_arr) {
                         $message->from("rfh@hemas.in", 'HEPL - HR Team');
@@ -267,10 +265,40 @@ class HrController extends Controller
             }
             $final_response=array('success'=>1,'message'=>"Suggested Email Informations Send to The ItINfra Team Successfully");
             echo json_encode($final_response);
-
-
-
      }
+
+  //vignesh code for user document status update
+     public function UpdateDocumentStatus(Request $request)
+     {
+          $id=$request->id;
+          $status=array('doc_status'=>$request->status);
+          $status_update=$this->hpreon->update_candidate_doc_status($id,$status);
+          if($status_update){
+               $response=array('success'=>1,'message'=>"Status Updated Successfully");
+          }
+          else{
+            $response=array('success'=>2,'message'=>"Problem In Updating Status");
+          }
+          echo json_encode($response);
+     }
+
+
+
+    //vignesh code for user status update
+
+    public function CandidateOnboardStatusUpdate(Request $request)
+    {
+        $id=$request->id;
+        $status=array('pre_onboarding'=>'0');
+        $status_update=$this->hpreon->update_candidate_doc_status($id,$status);
+        if($status_update){
+             $response=array('success'=>1,'message'=>"Status Updated Successfully");
+        }
+        else{
+          $response=array('success'=>2,'message'=>"Problem In Updating Status");
+        }
+        echo json_encode($response);
+    }
 
 
 

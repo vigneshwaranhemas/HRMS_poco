@@ -50,7 +50,6 @@ Route::prefix('perk-ui')->group(function () {
 
 //HR Controller
 Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('candidate_dashboard');
-
 Route::get('/hrsspreOnboarding','HrController@preOnboarding');
 Route::get("hrssdayzero","HrController@DayZero");
 Route::get("hrssOnBoarding","HrController@hrssOnBoarding");
@@ -62,6 +61,8 @@ Route::post('view_preonboarding','HrController@Show_preOnBoarding');
 Route::post('Email_and_Seat_request','HrController@EmailAndSeatingRequest');
 Route::get('Candidate_Email_Creation','HrController@Candidate_Email_Creation');
 Route::post('Candidate_Email_Status_update','HrController@Candidate_Email_Status_update');
+Route::post('DocumentStatusUpdate','HrController@UpdateDocumentStatus');
+Route::post('Candidate_Status_Update','HrController@CandidateOnboardStatusUpdate');
 
 
 //Buddy Controller

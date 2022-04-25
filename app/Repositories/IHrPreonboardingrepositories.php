@@ -16,6 +16,8 @@ interface IHrPreonboardingrepositories{
    public function candidate_info_for_EmailCreation($id);
    public function get_hrRequested_info($status);
    public function getUserDocuments($id);
+   public function update_candidate_doc_status($id,$status);
+
 }
 
 

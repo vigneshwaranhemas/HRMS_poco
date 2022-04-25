@@ -429,6 +429,11 @@ public function InsertBuddyFeedback(Request $request)
 
 }
 
+public function view_welcome_aboard_hr()
+    {
+        return view('HRSS.view_welcome_aboard_hr');
+    }
+
 
 
 

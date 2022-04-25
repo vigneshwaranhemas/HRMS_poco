@@ -71,7 +71,7 @@
                                                                 <a onclick=edit_modal("{{$info["cdID"]}}") href="#"><i class="fa fa-pencil"></i></i><a>
                                                                </td>
                                                                <td>
-                                                                <a href="{{url("userdocuments")}}"><i class="fa fa-file-image-o"></i><a>
+                                                                <a href="#" onclick=user_documents("{{$info["cdID"]}}")><i class="fa fa-file-image-o"></i><a>
                                                                </td>
                                                            </tr>
                                                          <?php $i++;?>
@@ -112,41 +112,7 @@
  </div>
 @endsection
 @section('script')
-   <div class="modal-dialog" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Employee Id Creation</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-         </div>
-         <div class="modal-body">
-            <label>Enter Employee Id</label>
-            <input type="text" class="form-control" id="NewEmpId">
-         </div>
-         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
-            <button class="btn btn-secondary" type="button" data-dismiss="modal" id="EmpIdCreationBtn">Save changes</button>
-            <input type="hidden" id="emp_hidden_id">
-         </div>
-      </div>
-   </div>
-</div>
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-         </div>
-         <div class="modal-body">
-            <p>Are you sure you want to onboard?</p>
-         </div>
-         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Save changes</button>
-         </div>
-      </div>
-   </div>
-</div>
+
 <div class="modal fade" id="ConformationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
        <div class="modal-content">

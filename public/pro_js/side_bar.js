@@ -8,18 +8,17 @@ $(document).ready(function (){
     get_side_bar();
 });
 
-// $(()=>{
-//  $('.text_side,.active_side').on('click',function(){
-//     // alert("asdasdasd")
-//         // $('li').removeClass('open');
-//         $('li').addClass('open');
-//     });
-   
-// })
+
+//second
 
 function test(one){
-    // alert("one")
-    $(one).addClass('open');
+
+    var $this = $(".iconsidebar-menu");
+    $('li').removeClass('open');
+
+        $this.removeClass('iconbar-mainmenu-close');
+
+        $(one).addClass('open');
 }
  
 function get_side_bar(){

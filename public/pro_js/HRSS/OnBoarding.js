@@ -3,7 +3,10 @@ function model_trigger(one){
     $('#exampleModal').modal('show');
 }
 
-
+function user_documents(id)
+{
+    window.location.href="userdocuments?id="+id;
+}
 $(()=>{
     //Employee Id creation For Candidate Created By Hr
      $('#EmpIdCreationBtn').on('click',(e)=>{

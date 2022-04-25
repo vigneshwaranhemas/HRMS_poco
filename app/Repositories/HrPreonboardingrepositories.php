@@ -10,10 +10,12 @@ use App\Models\Candidate_seating_and_email_request;
 use App\Models\Candidate_Details;
 use App\Models\EmailCreationModel;
 use App\Models\UsersInfoModel;
+use App\candidate_education_details;
+use App\documents;
+use App\Models\candidate_experience_details;
+use App\Models\candidate_benefits_details;
+
 use Illuminate\Support\Facades\Hash;
-
-
-
 
 
 class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
@@ -207,6 +209,17 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
 
 
         return $email_info;
+    }
+    public function getUserDocuments($id)
+    {
+       $user_documents=CustomUser::join('candidate_education_details','customusers.cdID','=','candidate_education_details.cdID')
+                                 ->join('candidate_experience_details','customusers.cdID','=','candidate_experience_details.cdID')
+                                 ->join('candidate_benefits_details','customusers.cdID','=','candidate_benefits_details.cdID')
+                                 ->join('documents','customusers.cdID','=','documents.cdID')
+                                 ->select('candidate_education_details.edu_certificate as education_details',
+                                          'candidate_experience_details.certificate as experience',
+                                          'candidate_benefits_details.doc_filename as benefites',
+                                          'documents.doc_name as documents')->get();
     }
 }
 

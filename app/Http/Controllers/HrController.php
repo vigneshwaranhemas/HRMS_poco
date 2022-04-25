@@ -118,11 +118,11 @@ class HrController extends Controller
     {
         return view('HRSS.candidate');
     }
-    public function userdocuments()
+    public function userdocuments(Request $request)
     {
         $id=$request->id;
         $user_documents=$this->hpreon->getUserDocuments($id);
-        return view('HRSS.userdocuments');
+        return view('HRSS.userdocuments')->with('user_documents',$user_documents);
     }
     public function Show_preOnBoarding(Request $request)
     {

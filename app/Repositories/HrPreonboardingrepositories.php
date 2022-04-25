@@ -206,8 +206,6 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
                                               "customusers.email","customusers.contact_no",
                                               "candidate_email_request.hr_suggested_mail",
                                               "candidate_email_request.asset_type")->get();
-
-
         return $email_info;
     }
     public function getUserDocuments($id)
@@ -219,7 +217,8 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
                                  ->select('candidate_education_details.edu_certificate as education_details',
                                           'candidate_experience_details.certificate as experience',
                                           'candidate_benefits_details.doc_filename as benefites',
-                                          'documents.doc_name as documents')->get();
+                                          'documents.doc_name as documents','documents.path as doc_path')->first();
+        return $user_documents;
     }
 }
 

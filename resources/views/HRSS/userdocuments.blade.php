@@ -95,11 +95,19 @@
 </div>
 <div class="form-group test">
     <label for="exampleFormControlSelect7">Status</label>
-    <select class="form-control btn-pill digits" id="userDocStatus">
+    @if (count((array)$user_documents)>0)
+        <select class="form-control btn-pill digits" id="userDocStatus">
        <option  {{$user_documents->doc_status == 0 ? 'selected' :'' }} value="0">Choose</option>
        <option  {{$user_documents->doc_status == 2 ? 'selected' :'' }} value="2">Verified</option>
        <option  {{$user_documents->doc_status == 1 ? 'selected' :'' }} value="1">Partitally Verified</option>
     </select><br>
+    @else
+    <select class="form-control btn-pill digits" id="userDocStatus">
+        <option value="0">Choose</option>
+        <option  value="2">Verified</option>
+        <option  value="1">Partitally Verified</option>
+     </select><br>
+     @endif
    <button type="button" class="btn btn-primary" id="DocStatusBtn">Submit</button>
  </div>
 @endsection

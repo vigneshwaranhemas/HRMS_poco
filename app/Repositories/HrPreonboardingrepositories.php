@@ -56,8 +56,8 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
                  ->where("candidate_details.or_doj",$data['or_doj'])
                  ->where("customusers.pre_onboarding",1)
                  ->where("candidate_details.created_by",$data["created_by"])
-                 ->select("candidate_details.cdID","candidate_details.candidate_name",
-                          "candidate_details.candidate_email","candidate_details.candidate_mobile",
+                 ->select("candidate_details.cdID","customusers.empID","customusers.username",
+                          "customusers.email","customusers.contact_no",
                           "customusers.Induction_mail","customusers.Buddy_mail")->get();
          return $result;
     }
@@ -97,7 +97,9 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
                   $data1["empID"]=$data["cdID"];
                   $data2=array('empID'=>$data['empId'],'passcode'=>$password = Hash::make("Welcome@123"));
                   $final_response=array('success'=>'1','message'=>'Candidate EmployeeID Created');
-                  $result=CustomUser::where("empID",$data1["empID"])->update($data2);
+                  $result=CustomUser::where("cdID",$data1["empID"])->update($data2);
+                //   echo '<pre>';print_r($data1["empID"]);die();
+
                   if($result)
                   {
                        $induction_info=Candidate_seating_and_email_request::join('candidate_details','candidate_details.cdID','=','Candidate_seating_and_email_requests.cdID')

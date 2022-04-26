@@ -47,12 +47,12 @@
                                  <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>EMPLOYEE ID</th>
-                                        <th>NAME</th>
-                                        <th>EMAIL</th>
-                                        <th>MOBILE NUMBER</th>
-                                        <th>SEATING STATUS</th>
-                                        <th>IDCARD STATUS</th>
+                                        <th>Enployee ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Mobile Number</th>
+                                        <th>Seating Status</th>
+                                        <th>Idcard Status</th>
                                     </tr>
                                  </thead>
                                  <tbody>

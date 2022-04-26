@@ -122,6 +122,8 @@ class HrController extends Controller
     {
         $id=$request->id;
         $user_documents=$this->hpreon->getUserDocuments($id);
+        // $total =;
+        // echo json_encode(count((array)$user_documents));
         return view('HRSS.userdocuments')->with('user_documents',$user_documents);
     }
     public function Show_preOnBoarding(Request $request)

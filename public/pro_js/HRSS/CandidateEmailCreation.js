@@ -61,7 +61,6 @@ $(()=>{
                     },
                     success:(response)=>{
                         var res=JSON.parse(response);
-                        console.log(res);
                         if(res.success==1){
                             Toastify({
                                 text: res.message,

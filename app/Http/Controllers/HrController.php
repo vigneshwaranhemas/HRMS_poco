@@ -11,6 +11,8 @@ use Mail;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Auth;
+use Image;
+use Response;
 
 class HrController extends Controller
 {
@@ -122,6 +124,8 @@ class HrController extends Controller
     {
         $id=$request->id;
         $user_documents=$this->hpreon->getUserDocuments($id);
+        // $total =;
+        // echo json_encode(count((array)$user_documents));
         return view('HRSS.userdocuments')->with('user_documents',$user_documents);
     }
     public function Show_preOnBoarding(Request $request)
@@ -267,6 +271,36 @@ class HrController extends Controller
             echo json_encode($final_response);
      }
 
+     public function view_welcome_aboard_hr()
+    {
+        return view('HRSS.view_welcome_aboard_hr');
+    }
+
+    public function welcome_aboard_generate_image(Request $req)
+    {
+        $data = $req->summernote_get;
+        // echo 'sd<pre>';print_r($data);die();
+
+        // $img = Image::make(public_path('assets/images/image_generator/birds.jpg'));
+        $img = Image::canvas(800, 600,'#ffffff');
+
+        // write text
+        // $img->text($data, 100, 80);
+       $img->text($data , 50, 80, function($font) {
+            $font->size(80);
+            $font->color('#000000');
+            $font->align('left');
+            $font->valign('top');
+            $font->angle(45);
+        });
+
+        $img->save(public_path('assets/images/image_generator/image.jpg'));
+
+        $response = 'success';
+        return response()->json( ['response' => $response] );
+        echo json_encode($data);
+    }
+
   //vignesh code for user document status update
      public function UpdateDocumentStatus(Request $request)
      {
@@ -281,8 +315,6 @@ class HrController extends Controller
           }
           echo json_encode($response);
      }
-
-
 
     //vignesh code for user status update
 

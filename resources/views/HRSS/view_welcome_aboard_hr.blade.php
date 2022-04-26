@@ -99,20 +99,23 @@
           <form method="POST" action="javascript:void(0);" id="add_welcome_aboard">
             <div class="card">
                 <div class="card-body">
-
-                    <div class="card-body editor">
-                        <div class="summernote" id="summernote" name="summernote">
+                    <form method="POST" action="javascript:void(0);" id="add_welcome_aboard_image" >
+                        <div class="card-body editor">
+                            <div class="summernote" id="summernote" name="summernote">
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="card-body editor">
-                        <div class="summernote" id="summernote" name="summernote">
+                        {{-- <input type="text" name="krish_na" id="krish_na"><br> --}}
+                        <div class="card-body editor">
+                            <div class="summernote" id="summernote_copy" name="summernote_copy">
+                            </div>
                         </div>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-primary-gradien mb-5" type="button">Export</button>
-                    </div>
-
+                        <div class="text-center">
+                            {{-- <a href="{{url('welcome_aboard_generate_image')}}"> --}}
+                                <button class="btn btn-primary-gradien mb-5" type="submit" id="btnSubmit">Export</button>
+                            {{-- </a> --}}
+                        </div>
+                        <img src="../assets/images/image_generator/image.jpg" alt="image_generator">
+                    </form>
                 </div>
             </div>
         </form>
@@ -186,6 +189,36 @@ var test_div="<p style='text-align: justify;'>Dear Newbie at HEMA’s!  We are d
                     <p>Books that I Read / Love to Recommend <label id='books'></label> </p>\
 ";
 $(".summernote").summernote('code',test_div);
-console.log(test_div)
+// console.log(test_div)
+
+$(()=>{
+    $('#btnSubmit').on('click',(e)=>{
+    //    alert("abc");
+   e.preventDefault();
+   var summernote_get = $('#summernote_copy').summernote('code').replace(/<\/?[^>]+(>|$)/g, " ");
+//    alert(summernote_get)
+
+
+    console.log(summernote_get)
+
+   $.ajax({
+       url:welcome_aboard_generate_image_link,
+       type:"POST",
+       data: $("#add_welcome_aboard_image").serialize() + "&summernote_get=" + summernote_get,
+       dataType:"json",
+       success:function(data) {
+        //    alert('sdf')
+           console.log(data);
+
+           if(data.response =='success'){
+                location.reload();
+           }
+       },
+
+   });
+    })
+})
+
+var welcome_aboard_generate_image_link = "{{url('welcome_aboard_generate_image') }}";
 </script>
 @endsection

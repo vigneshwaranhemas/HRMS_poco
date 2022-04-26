@@ -35,6 +35,7 @@
     font-family: "Arvo";
     font-size: 18px;
     width: 200px;
+    color: #008CBA;
     }
 
     input::-webkit-input-placeholder {

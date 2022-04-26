@@ -49,7 +49,6 @@ Route::prefix('perk-ui')->group(function () {
 
 //HR Controller
 Route::get('/hr_dashboard', 'HrController@hr_dashboard')->name('candidate_dashboard');
-
 Route::get('/hrsspreOnboarding','HrController@preOnboarding');
 Route::get("hrssdayzero","HrController@DayZero");
 Route::get("hrssOnBoarding","HrController@hrssOnBoarding");
@@ -61,6 +60,8 @@ Route::post('view_preonboarding','HrController@Show_preOnBoarding');
 Route::post('Email_and_Seat_request','HrController@EmailAndSeatingRequest');
 Route::get('Candidate_Email_Creation','HrController@Candidate_Email_Creation');
 Route::post('Candidate_Email_Status_update','HrController@Candidate_Email_Status_update');
+Route::post('DocumentStatusUpdate','HrController@UpdateDocumentStatus');
+Route::post('Candidate_Status_Update','HrController@CandidateOnboardStatusUpdate');
 
 
 //Buddy Controller
@@ -311,8 +312,18 @@ Route::post('state_get', 'DocumentsController@state_get');
 Route::post('get_district', 'DocumentsController@get_district');
 Route::post('get_town_name', 'DocumentsController@get_town_name');
 
+/*roles*/
+Route::post('add_roles_process', 'AdminController@add_roles_process');
+Route::post('get_role_data', 'AdminController@get_role_data');
+Route::post( 'get_role_details_pop', 'AdminController@get_role_details_pop' );
+Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_details' );
+
+// View Welcome Aboard
+Route::get('view_welcome_aboard_hr', 'CandidateController@view_welcome_aboard_hr')->name('view_welcome_aboard_hr');
+
 /*employe list edit*/
 Route::post('get_role_type', 'AdminController@get_role_type');
 Route::post( 'get_employee_pop', 'AdminController@get_employee_pop' );
 Route::post('update_employee_list_pop', 'AdminController@update_employee_list_pop');
+
 

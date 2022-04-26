@@ -201,25 +201,32 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
     public function get_hrRequested_info($status)
     {
          $email_info=EmailCreationModel::join('customusers','customusers.cdID','=','candidate_email_request.cdID')
-                                     ->where('candidate_email_request.status',$status)
-                                     ->select("customusers.cdID","customusers.username",
+                                       ->where('candidate_email_request.status',$status)
+                                       ->select("customusers.cdID","customusers.username",
                                               "customusers.email","customusers.contact_no",
                                               "candidate_email_request.hr_suggested_mail",
                                               "candidate_email_request.asset_type")->get();
-
-
         return $email_info;
     }
     public function getUserDocuments($id)
     {
-       $user_documents=CustomUser::join('candidate_education_details','customusers.cdID','=','candidate_education_details.cdID')
-                                 ->join('candidate_experience_details','customusers.cdID','=','candidate_experience_details.cdID')
-                                 ->join('candidate_benefits_details','customusers.cdID','=','candidate_benefits_details.cdID')
-                                 ->join('documents','customusers.cdID','=','documents.cdID')
-                                 ->select('candidate_education_details.edu_certificate as education_details',
+        $user_documents=CustomUser::join('candidate_education_details','customusers.cdID','=','candidate_education_details.cdID')
+                                   ->join('candidate_experience_details','customusers.cdID','=','candidate_experience_details.cdID')
+                                   ->join('candidate_benefits_details','customusers.cdID','=','candidate_benefits_details.cdID')
+                                   ->join('documents','customusers.cdID','=','documents.cdID')
+                                   ->where('customusers.cdId',$id)
+                                   ->select('candidate_education_details.edu_certificate as education_details',
                                           'candidate_experience_details.certificate as experience',
                                           'candidate_benefits_details.doc_filename as benefites',
-                                          'documents.doc_name as documents')->get();
+                                          'documents.doc_name as documents',
+                                          'documents.path as doc_path',
+                                          'customusers.doc_status')->first();
+        return $user_documents;
+    }
+    public function update_candidate_doc_status($id,$status)
+    {
+        $result=CustomUser::where("cdID",$id)->update($status);
+        return $result;
     }
 }
 

@@ -1,8 +1,43 @@
 
 $(document).ready(function() {
     profile_info_process();
+    get_town_name();
     get_state_list();
+    get_state_list_Current();
+    get_district();
+    get_district_Current();
 });
+
+
+
+    function get_town_name(dis_name) {
+        $.ajax({
+            url: get_town_name_link,
+            method: "POST",
+            data:{},
+            dataType: "json",
+            success: function(data) {
+                // console.log(data)
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+                    html += "<option value=" + data[index].town_name + ">" + data[index].town_name + "</option>";
+                }
+                $('#p_town').html(html);
+                $('#c_town').html(html);
+
+            }
+
+        });
+    }
+    /* $("#p_town").on('change', function () {
+        var town_name =document.getElementById('p_town').value;
+        // alert(town_name)
+        get_state_list(town_name);
+    });
+    $("#c_town").on('change', function () {
+        var town_name =document.getElementById('c_town').value;
+        get_state_list_Current(town_name);
+    });*/ 
 
 function get_state_list() {
     $.ajax({
@@ -17,28 +52,43 @@ function get_state_list() {
                 html += "<option value=" + data[index].state_name + ">" + data[index].state_name + "</option>";
             }
             $('#p_State').html(html);
+        }
+    });
+}
+function get_state_list_Current() {
+    $.ajax({
+        url: state_get_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data)
+            var html = '<option value="">Select</option>';
+            for (let index = 0; index < data.length; index++) {
+                html += "<option value=" + data[index].state_name + ">" + data[index].state_name + "</option>";
+            }
             $('#c_State').html(html);
         }
     });
 }
 
-    $("#p_State").on('change', function () {
+    /*$("#p_State").on('change', function () {
         var test =document.getElementById('p_State').value;
         get_district(test);
+        get_district_Current(test);
     });
     $("#c_State").on('change', function () {
         var test =document.getElementById('c_State').value;
-        get_district_Current(test);
     });
-
-    function get_district(test) {
+*/
+    function get_district() {
         $.ajax({
             url: get_district_link,
             method: "POST",
-            data:{"test" : test},
+            data:{},
             dataType: "json",
             success: function(data) {
-                console.log(data)
+                // console.log(data)
                 var html = '<option value="">Select</option>';
                 for (let index = 0; index < data.length; index++) {
                     html += "<option value=" + data[index].district_name + ">" + data[index].district_name + "</option>";
@@ -49,14 +99,14 @@ function get_state_list() {
         });
     }
 
-    function get_district_Current(test) {
+    function get_district_Current() {
         $.ajax({
             url: get_district_link,
             method: "POST",
-            data:{"test" : test},
+            data:{},
             dataType: "json",
             success: function(data) {
-                console.log(data)
+                // console.log(data)
                 var html = '<option value="">Select</option>';
                 for (let index = 0; index < data.length; index++) {
                     html += "<option value=" + data[index].district_name + ">" + data[index].district_name + "</option>";
@@ -68,50 +118,7 @@ function get_state_list() {
         });
     }
 
-    $("#p_district").on('change', function () {
-        var dis_name =document.getElementById('p_district').value;
-        get_town_name(dis_name);
-    });$("#c_district").on('change', function () {
-        var dis_name =document.getElementById('c_district').value;
-        get_town_name_Current(dis_name);
-    });
-
-    function get_town_name(dis_name) {
-        $.ajax({
-            url: get_town_name_link,
-            method: "POST",
-            data:{"district_name" :dis_name},
-            dataType: "json",
-            success: function(data) {
-                // console.log(data)
-                var html = '<option value="">Select</option>';
-                for (let index = 0; index < data.length; index++) {
-                    html += "<option value=" + data[index].district_name + ">" + data[index].district_name + "</option>";
-                }
-                $('#p_town').html(html);
-
-            }
-
-        });
-    }
-    function get_town_name_Current(dis_name) {
-        $.ajax({
-            url: get_town_name_link,
-            method: "POST",
-            data:{"district_name" :dis_name},
-            dataType: "json",
-            success: function(data) {
-                // console.log(data)
-                var html = '<option value="">Select</option>';
-                for (let index = 0; index < data.length; index++) {
-                    html += "<option value=" + data[index].district_name + ">" + data[index].district_name + "</option>";
-                }
-                $('#c_town').html(html);
-
-            }
-
-        });
-    }
+   
 
 
 var $modal = $('#modal');
@@ -170,7 +177,7 @@ $("#crop").click(function(){
           url: upload_images,
           data: {'_token': $('meta[name="_token"]').attr('content'), 'image': base64data},
           success: function(data){
-          console.log(data.success);
+          // console.log(data.success);
           /*$modal.modal('hide');
           alert("Crop image successfully uploaded");
           location.reload();*/
@@ -571,7 +578,7 @@ function Contact_info_page(){
         data:{},
         dataType: "json",
         success: function(data) {
-            console.log(data)
+            // console.log(data)
                 if (data !="") {
                     $('#p_num_view').html(data['0'].phone_number);
                     $('#s_num_view').html(data['0'].s_number);
@@ -592,13 +599,19 @@ function Contact_information(){
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data['0'].phone_number)
+            console.log(data['0'])
             if (data !="") {
                 $('#phone_number').val(data['0'].phone_number);
                 $('#s_number').val(data['0'].s_number);
                 $('#p_email').val(data['0'].p_email);
                 $('#p_adderss').val(data['0'].p_adderss);
+                $('#p_State').val(data['0'].p_State);
+                $('#p_district').val(data['0'].p_district);
+                $('#p_town').val(data['0'].p_town);
                 $('#c_address').val(data['0'].c_address);
+                $('#c_State').val(data['0'].c_State);
+                $('#c_district').val(data['0'].c_district);
+                $('#c_town').val(data['0'].c_town);                
                 $('#State').val(data['0'].State);
             }
 
@@ -684,7 +697,7 @@ function family_information(){
         data:{},
         dataType: "json",
         success: function(data) {
-            console.log(data)
+            // console.log(data)
             $('#education_td').empty();
             if (data !="") {
                     html ='';

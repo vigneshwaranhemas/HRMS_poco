@@ -1,4 +1,6 @@
-@extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'can'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'Itinfra'? 'layouts.simple.itinfra_master': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
+{{-- Divya --}}
+@extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
+@section('title', 'Premium Admin Template')
 @section('title', 'User Profile')
 @section('css')
 <!-- <link rel="stylesheet" type="text/css" href="../assets/css/photoswipe.css"> -->
@@ -7,6 +9,7 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <link rel="stylesheet" href="../assets/css/cropper.css"/>
 <script src="../assets/js/cropper.js"></script>
+ <link href="../assets/css/select2.css" rel="stylesheet">
 
 @endsection
 
@@ -256,21 +259,21 @@ max-width: 1000px !important;
                                         </div>
                                          <div class="col-md-6 mb-3">
                                             <label for="p_town">Town</label>
-                                            <select name="p_town" id="p_town" class="form-control">
+                                            <select name="p_town" id="p_town" class="custom-select">
                                                      <option value="">--Select--</option>
                                                 </select>
                                             <div class="text-warning" id="p_town_error"></div>
                                         </div>        
                                         <div class="col-md-6 mb-3">
                                             <label for="p_State">State</label>
-                                            <select name="p_State" id="p_State" class="form-control">
+                                            <select name="p_State" id="p_State" class="custom-select">
                                                   <option value="">--Select--</option>
                                              </select>
                                             <div class="text-warning" id="p_State_error"></div>
                                         </div>
                                          <div class="col-md-6 mb-3">
                                             <label for="p_district">District</label>
-                                            <select name="p_district" id="p_district" class="form-control">
+                                            <select name="p_district" id="p_district" class="custom-select">
                                                   <option value="">--Select--</option>
                                              </select>
                                             <div class="text-warning" id="p_District_error"></div>
@@ -283,21 +286,21 @@ max-width: 1000px !important;
                                         </div>
                                         <div class="col-md-6 mb-3">
                                          <label for="c_town">Town</label>
-                                         <select name="c_town" id="c_town" class="form-control">
+                                         <select name="c_town" id="c_town" class="custom-select  js-select2">
                                                   <option value="">--Select--</option>
                                              </select>
                                          <div class="text-warning" id="c_town_error"></div>
                                      </div> 
                                         <div class="col-md-6 mb-3">
-                                            <label for="c_State">--State--</label>
-                                            <select name="c_State" id="c_State" class="form-control">
-                                                  <option value="">Select</option>
+                                            <label for="c_State">State</label>
+                                            <select name="c_State" id="c_State" class="custom-select  js-select2">
+                                                  <option value="">--Select--</option>
                                              </select>
                                             <div class="text-warning" id="p_State_error"></div>
                                         </div>
                                          <div class="col-md-6 mb-3">
                                             <label for="c_district">District</label>
-                                            <select name="c_district" id="c_district" class="form-control">
+                                            <select name="c_district" id="c_district" class="custom-select  js-select2">
                                                   <option value="">--Select--</option>
                                              </select>
                                             <div class="text-warning" id="c_District_error"></div>
@@ -415,16 +418,12 @@ max-width: 1000px !important;
                                 </div>
                   <div class="card-body rounded">
                      <form class="theme-form row" method="POST" action="javascript:void(0)" id="add_account_info" enctype="multipart/form-data">
-                        <div class="form-group col-12">
+                        <div class="form-group col-6">
                            <input class="form-control" type="text" name="acc_name" id="acc_name" placeholder="AC Holder name">
                              <span class="text-danger color-hider" id="acc_name_error"  style="display:none;color: red;"></span>
                         </div>
-                        <div class="form-group col-12">
-                           <input class="form-control" type="text" maxlength="13" name="acc_number" id="acc_number" placeholder="Account number">
-                           <span class="text-danger color-hider" id="acc_number_error" style="display:none;color: red;"></span>
-                        </div>
-                        <div class="form-group col-6">
-                           <select class="form-control" id="bank_name"  name="bank_name">
+                       <div class="form-group col-6">
+                           <select class="custom-select  js-select2" id="bank_name"  name="bank_name">
                               <option>Select Bank</option>
                               <option>SBI</option>
                               <option>ICICI</option>
@@ -435,7 +434,15 @@ max-width: 1000px !important;
                            <span class="text-danger color-hider" id="bank_name_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
-                           <input class="form-control" name="ifsc_code" id="ifsc_code" type="text" placeholder="ICFC code">
+                           <input class="form-control" type="text" maxlength="13" name="acc_number" id="acc_number" placeholder="Account number">
+                           <span class="text-danger color-hider" id="acc_number_error" style="display:none;color: red;"></span>
+                        </div>
+                        <div class="form-group col-6">
+                           <input class="form-control" type="text" maxlength="13" name="acc_number" id="acc_number" placeholder="Account number">
+                           <span class="text-danger color-hider" id="acc_number_error" style="display:none;color: red;"></span>
+                        </div>
+                        <div class="form-group col-6">
+                           <input class="form-control" name="ifsc_code" id="ifsc_code" type="text" placeholder="IFSC code">
                            <span class="text-danger color-hider" id="ifsc_code_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
@@ -645,8 +652,8 @@ max-width: 1000px !important;
                                         <div class="col-md-12 mb-3">
                                             <label for="fn_relationship">Relationship</label>
                                             <!-- <input class="form-control" name="fn_relationship" id="fn_relationship" type="text" placeholder="Relationship"> -->
-                                             <select class="custom-select js-select2" name="fn_relationship" id="fn_relationship" placeholder="Relationship">
-                                               <option value="">Select</option>
+                                             <select class="form-control" name="fn_relationship" id="fn_relationship">
+                                                <option value="">Select</option>
                                                <option value="Mother">Mother</option>
                                                <option value="Father">Father</option>
                                                <option value="Daughter">Daughter</option>
@@ -655,8 +662,6 @@ max-width: 1000px !important;
                                                <option value="brother">Brother</option>
                                                <option value="aunty">Aunty</option>
                                                <option value="uncle">Uncle</option>
-                                               <option value="niece">Niece</option>
-                                               <option value="nephew">Nephew</option>
                                                <option value="cousin_female">Cousin(Female)</option>
                                                <option value="cousin_male">Cousin(Male)</option>
                                                <option value="grandmother">Grandmother</option>
@@ -776,14 +781,23 @@ max-width: 1000px !important;
  <script src="../assets/js/photoswipe/photoswipe.js"></script>
  <!-- custom js -->
  <script src="../assets/pro_js/profile.js"></script>
+ <script src='../assets/js/select2/select2-custom.js'></script>
+ <script src='../assets/js/select2/select2.full.min.js'></script>
 
  <script type="text/javascript">
-
+   
    $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+   $('form').submit(function(evt) {
+   if ($('#textbox1').val() === $('#textbox2').val()) {
+     alert('values match');
+     evt.preventDefault();
+   }
+}
    /*state list*/
    var state_get_link = "{{url('state_get')}}";
    var get_district_link = "{{url('get_district')}}";

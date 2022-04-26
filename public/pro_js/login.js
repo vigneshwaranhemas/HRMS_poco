@@ -79,7 +79,7 @@ $('#loginForm').submit(function(e) {
                     }).showToast();
                     setTimeout(
                         function() {
-                            window.location = data.url;
+                            // window.location = data.url;
                         }, 1000);
                     
 

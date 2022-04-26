@@ -254,9 +254,15 @@ class DocumentsController extends Controller
                         'phone_number'=>$request->input('phone_number'),
                         's_number'=>$request->input('s_number'),
                         'p_adderss'=>$request->input('p_adderss'),
+                        'p_town'=>$request->input('p_town'),
+                        'p_State'=>$request->input('p_State'),
+                        'p_district'=>$request->input('p_district'),
                         'c_address'=>$request->input('c_address'),
+                        'c_town'=>$request->input('c_town'),
+                        'c_State'=>$request->input('c_State'),
+                        'c_district'=>$request->input('c_district'),
                         'p_email'=>$request->input('p_email'),
-                        'State'=>$request->input('State'),
+                        // 'State'=>$request->input('State'),
                         );
 
                     $insert = DB::table( 'candidate_contact_information' )->insert( $data );
@@ -268,9 +274,15 @@ class DocumentsController extends Controller
                         'phone_number'=>$request->input('phone_number'),
                         's_number'=>$request->input('s_number'),
                         'p_adderss'=>$request->input('p_adderss'),
+                        'p_town'=>$request->input('p_town'),
+                        'p_State'=>$request->input('p_State'),
+                        'p_district'=>$request->input('p_district'),
                         'c_address'=>$request->input('c_address'),
+                        'c_town'=>$request->input('c_town'),
+                        'c_State'=>$request->input('c_State'),
+                        'c_district'=>$request->input('c_district'),
                         'p_email'=>$request->input('p_email'),
-                        'State'=>$request->input('State'),
+                        // 'State'=>$request->input('State'),
                         );
                 $update_role_unit_details_result = $this->profrpy->update_contact( $data );
                     return response()->json(['response'=>'Update']);
@@ -334,24 +346,23 @@ class DocumentsController extends Controller
 
 /*state Get*/
      public function state_get(Request $request){
-
+        // $input_details['town_name']  =  $request->input('town_name');
         $education_result = $this->profrpy->state_listing();
         return response()->json( $education_result );
         
     }
     /*district Get*/
      public function get_district(Request $request){
-        $input_details['state_name']  =  $request->input('test');
-        // echo "<pre>";print_r($state_name);die;
-        $district_result = $this->profrpy->get_district_listing($input_details);
+        // $input_details['state_name']  =  $request->input('test');
+        $district_result = $this->profrpy->get_district_listing();
         
         return response()->json( $district_result );
         
     }
     /*town Get*/
      public function get_town_name(Request $request){
-        $input_details['district_name']  =  $request->input('district_name');
-        $district_result = $this->profrpy->get_town_name_listing($input_details);
+        // $input_details['district_name']  =  $request->input('district_name');
+        $district_result = $this->profrpy->get_town_name_listing();
         
         return response()->json( $district_result );
         

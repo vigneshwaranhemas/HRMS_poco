@@ -209,13 +209,14 @@ max-width: 1000px !important;
                                  <div class="row">
                                     <div class="col-md-6">
                                        <div><strong>Phone Number :</strong> <p id="p_num_view"></p></div><hr>
-                                       <div><strong>Secondary Number :</strong> <p id="s_num_view"></p></div><hr>
+                                       <div><strong>Permanent Address :</strong><p id="p_addres_view"></p></div><hr>                                       
                                        <div><strong>Personal Email :</strong> <p id="p_email_view"></p></div><hr>
                                     </div>
                                     <div class="col-md-6">
-                                       <div><strong>Permanent Address :</strong><p id="p_adderss_view"></p></div><hr>
-                                       <div><strong>Current Address :</strong><p id="c_address_view"></p></div><hr>
-                                       <div><strong>State :</strong> <a id="State_view"></a></div><hr>
+                                      
+                                       <div><strong>Secondary Number :</strong><p id="s_num_view"></p></div><hr>
+                                       <div><strong>Current Address :</strong><p id="c_addres_view"></p></div><hr>
+                                       <!-- <div><strong>State :</strong> <a id="State_view"></a></div><hr> -->
                                        </div><hr>
                                     </div>
                                  </div>
@@ -251,19 +252,12 @@ max-width: 1000px !important;
                                             <input class="form-control" name="p_email" id="p_email" type="email" placeholder="Email" required="">
                                             <div class="text-warning" id="p_email_error"></div>
                                         </div>
-                                                                         
-                                        <div class="col-md-6 mb-3">
-                                            <label for="Begin_On">Permanent Address</label>
-                                            <textarea class="form-control" name="p_adderss" id="p_adderss" type="text" placeholder="Permanent Address" required=""></textarea> 
-                                            <div class="text-warning" id="p_adderss_error"></div>
+                                       <div class="col-md-6 mb-3">                    
+                                        <textarea class="custom-select"  type="text" id="p_addres" name="p_addres" maxlength="40" size="35" ></textarea>
+                                          <input id="sameadd" name="sameadd" type="checkbox" value="Sameadd" onchange="CopyAdd();"/>
+                                          <p id="text" style="display:none;color: green;">Address is Cloned...</p>
                                         </div>
-                                         <div class="col-md-6 mb-3">
-                                            <label for="p_town">Town</label>
-                                            <select name="p_town" id="p_town" class="custom-select">
-                                                     <option value="">--Select--</option>
-                                                </select>
-                                            <div class="text-warning" id="p_town_error"></div>
-                                        </div>        
+                                             
                                         <div class="col-md-6 mb-3">
                                             <label for="p_State">State</label>
                                             <select name="p_State" id="p_State" class="custom-select">
@@ -278,34 +272,37 @@ max-width: 1000px !important;
                                              </select>
                                             <div class="text-warning" id="p_District_error"></div>
                                         </div> 
-                                        
                                         <div class="col-md-6 mb-3">
-                                            <label for="c_address">Current Address</label>
-                                            <textarea class="form-control" name="c_address" id="c_address" type="text" placeholder="Current Address" required=""></textarea> 
-                                            <div class="text-warning" id="c_address_error"></div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                         <label for="c_town">Town</label>
-                                         <select name="c_town" id="c_town" class="custom-select  js-select2">
+                                         <label for="p_town">Town</label>
+                                         <select name="p_town" id="p_town" class="custom-select">
                                                   <option value="">--Select--</option>
                                              </select>
-                                         <div class="text-warning" id="c_town_error"></div>
-                                     </div> 
-                                        <div class="col-md-6 mb-3">
-                                            <label for="c_State">State</label>
-                                            <select name="c_State" id="c_State" class="custom-select  js-select2">
-                                                  <option value="">--Select--</option>
-                                             </select>
-                                            <div class="text-warning" id="p_State_error"></div>
-                                        </div>
+                                         <div class="text-warning" id="p_town_error"></div>
+                                       </div>  
+                                       <div class="col-md-6 mb-3"> 
+                                          <textarea class="custom-select"  type="text" id="c_addres" name="c_addres" maxlength="40" size="35" ></textarea>
+                                       </div>                                       
+                                       <div class="col-md-6 mb-3">
+                                         <label for="c_State">State</label>
+                                         <select name="c_State" id="c_State" class="custom-select">
+                                               <option value="">--Select--</option>
+                                          </select>
+                                       <div class="text-warning" id="p_State_error"></div>
+                                       </div>
                                          <div class="col-md-6 mb-3">
                                             <label for="c_district">District</label>
-                                            <select name="c_district" id="c_district" class="custom-select  js-select2">
+                                            <select name="c_district" id="c_district" class="custom-select">
                                                   <option value="">--Select--</option>
                                              </select>
                                             <div class="text-warning" id="c_District_error"></div>
                                         </div> 
-                                        
+                                        <div class="col-md-6 mb-3">
+                                          <label for="c_town">Town</label>
+                                          <select name="c_town" id="c_town" class="custom-select">
+                                          <option value="">--Select--</option>
+                                          </select>
+                                       <div class="text-warning" id="c_town_error"></div>
+                                       </div>                                         
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -438,8 +435,8 @@ max-width: 1000px !important;
                            <span class="text-danger color-hider" id="acc_number_error" style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
-                           <input class="form-control" type="text" maxlength="13" name="acc_number" id="acc_number" placeholder="Account number">
-                           <span class="text-danger color-hider" id="acc_number_error" style="display:none;color: red;"></span>
+                           <input class="form-control" type="text" maxlength="13" name="con_acc_number" id="con_acc_number" placeholder="Confirm Account number">
+                           <span class="text-danger color-hider" id="con_acc_number_error" style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
                            <input class="form-control" name="ifsc_code" id="ifsc_code" type="text" placeholder="IFSC code">
@@ -450,7 +447,7 @@ max-width: 1000px !important;
                            <span class="text-danger color-hider" id="acc_mobile_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
-                           <input class="form-control" name="branch_name" id="branch_name" type="text" placeholder="Other Details">
+                           <input class="form-control" name="branch_name" id="branch_name" type="text" placeholder="Branch Name">
                            <span class="text-danger color-hider" id="branch_name_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="col-4">
@@ -792,16 +789,13 @@ max-width: 1000px !important;
         }
     });
 
-   $('form').submit(function(evt) {
-   if ($('#textbox1').val() === $('#textbox2').val()) {
-     alert('values match');
-     evt.preventDefault();
-   }
-}
+
    /*state list*/
    var state_get_link = "{{url('state_get')}}";
    var get_district_link = "{{url('get_district')}}";
+   var get_district_cur_link = "{{url('get_district_cur')}}";
    var get_town_name_link = "{{url('get_town_name')}}";
+   var get_town_name_curr_link = "{{url('get_town_name_curr')}}";
    var upload_images = "{{url('profile_upload_images')}}";
    var display_image = "{{url('profile_display_images')}}";
    var add_documents_unit_process_link = "{{url('documents_insert')}}";

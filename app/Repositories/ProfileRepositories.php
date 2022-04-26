@@ -38,6 +38,7 @@ class ProfileRepositories implements IProfileRepositories
             'emp_id' => $input_details['emp_id'],
             'cdID' => $input_details['cdID'],
             'acc_name' => $input_details['acc_name'],
+            'con_acc_number' => $input_details['con_acc_number'],
             'acc_number' => $input_details['acc_number'],
             'bank_name' => $input_details['bank_name'],
             'ifsc_code' => $input_details['ifsc_code'],
@@ -91,11 +92,11 @@ class ProfileRepositories implements IProfileRepositories
             'cdID' => $input_details['cdID'],
             'phone_number'=>$input_details['phone_number'],
             's_number'=>$input_details['s_number'],
-            'p_adderss'=>$input_details['p_adderss'],
+            'p_addres'=>$input_details['p_addres'],
             'p_town'=>$input_details['p_town'],
             'p_State'=>$input_details['p_State'],
             'p_district'=>$input_details['p_district'],
-            'c_address'=>$input_details['c_address'],
+            'c_addres'=>$input_details['c_addres'],
             'c_town'=>$input_details['c_town'],
             'c_State'=>$input_details['c_State'],
             'c_district'=>$input_details['c_district'],
@@ -116,28 +117,27 @@ class ProfileRepositories implements IProfileRepositories
         // DB::enableQueryLog();
         $bandtbl = DB::table('towns_details')
         ->select('id','state_name')
-        // ->where('town_name', '=' ,$input_details['town_name'])
         ->groupBy('state_name')
         ->get();
         // dd(DB::getQueryLog());
 
         return $bandtbl;
     }
-    public function get_district_listing(){
+    public function get_district_listing($input_details){
         $bandtbl = DB::table('towns_details')
         ->select('id','district_name','state_name')
-        // ->where('state_name', '=' ,$input_details['state_name'])
+        ->where('state_name', '=' ,$input_details['state_name'])
         ->groupBy('district_name')
         ->get();
 
         return $bandtbl;
     }
-    public function get_town_name_listing(){
+    public function get_town_name_listing($input_details){
         // DB::enableQueryLog();
         $bandtbl = DB::table('towns_details')
-        ->select('id','district_name','town_name')
-        // ->where('district_name', '=' ,$input_details['district_name'])
-        ->groupBy('district_name')
+        ->select('id','district_name','town_name','state_name')
+        ->where('district_name', '=' ,$input_details['district_name'])
+        // ->groupBy('district_name')
         ->get();
         // dd(DB::getQueryLog());
 

@@ -68,6 +68,7 @@ class DocumentsController extends Controller
             $validator=Validator::make($request->all(),[
                     'acc_name' => 'required',
                     'acc_number' => 'required|numeric',
+                    'con_acc_number' => 'required|numeric|same:acc_number',
                     'bank_name' => 'required',
                     'ifsc_code' => 'required',
                     'acc_mobile' => 'required|numeric',
@@ -75,10 +76,11 @@ class DocumentsController extends Controller
                     ], [
                     'acc_name.required' => 'Account Name is required',
                     'acc_number.required' => 'Account Number is required',
+                    'con_acc_number.required' => 'Account Number is required not match',
                     'bank_name.required' => 'Bank Name is required',
                     'ifsc_code.required' => 'IFSC Code is required',
                     'acc_mobile.required' => 'Mobile Number is required',
-                    'branch_name.required' => 'Branch Number is required',
+                    'branch_name.required' => 'Branch Name is required',
                     ]);
                     if($validator->passes()){
 
@@ -96,6 +98,7 @@ class DocumentsController extends Controller
                         'cdID'=>$cdID,
                         'acc_name'=>$request->input('acc_name'),
                         'acc_number'=>$request->input('acc_number'),
+                        'con_acc_number'=>$request->input('con_acc_number'),
                         'bank_name'=>$request->input('bank_name'),
                         'ifsc_code'=>$request->input('ifsc_code'),
                         'acc_mobile'=>$request->input('acc_mobile'),
@@ -111,6 +114,7 @@ class DocumentsController extends Controller
                         'cdID'=>$cdID,
                         'acc_name'=>$request->input('acc_name'),
                         'acc_number'=>$request->input('acc_number'),
+                        'con_acc_number'=>$request->input('con_acc_number'),
                         'bank_name'=>$request->input('bank_name'),
                         'ifsc_code'=>$request->input('ifsc_code'),
                         'acc_mobile'=>$request->input('acc_mobile'),
@@ -221,9 +225,9 @@ class DocumentsController extends Controller
         $session_val = Session::get('session_info');
         $cdID = $session_val['cdID'];
         $input_details = array( "cdID" => $cdID, );
-        $education_result = $this->profrpy->Contact_info( $input_details );
-        
-        return response()->json( $education_result );
+        $Contact_info_result = $this->profrpy->Contact_info( $input_details );
+        // echo "<pre>";print_r($education_result);die;
+        return response()->json( $Contact_info_result );
         
     }
 
@@ -253,11 +257,11 @@ class DocumentsController extends Controller
                         'cdID'=>$cdID,
                         'phone_number'=>$request->input('phone_number'),
                         's_number'=>$request->input('s_number'),
-                        'p_adderss'=>$request->input('p_adderss'),
+                        'p_addres'=>$request->input('p_addres'),
                         'p_town'=>$request->input('p_town'),
                         'p_State'=>$request->input('p_State'),
                         'p_district'=>$request->input('p_district'),
-                        'c_address'=>$request->input('c_address'),
+                        'c_addres'=>$request->input('c_addres'),
                         'c_town'=>$request->input('c_town'),
                         'c_State'=>$request->input('c_State'),
                         'c_district'=>$request->input('c_district'),
@@ -273,11 +277,11 @@ class DocumentsController extends Controller
                         'cdID'=>$cdID,
                         'phone_number'=>$request->input('phone_number'),
                         's_number'=>$request->input('s_number'),
-                        'p_adderss'=>$request->input('p_adderss'),
+                        'p_addres'=>$request->input('p_addres'),
                         'p_town'=>$request->input('p_town'),
                         'p_State'=>$request->input('p_State'),
                         'p_district'=>$request->input('p_district'),
-                        'c_address'=>$request->input('c_address'),
+                        'c_addres'=>$request->input('c_addres'),
                         'c_town'=>$request->input('c_town'),
                         'c_State'=>$request->input('c_State'),
                         'c_district'=>$request->input('c_district'),
@@ -353,16 +357,33 @@ class DocumentsController extends Controller
     }
     /*district Get*/
      public function get_district(Request $request){
-        // $input_details['state_name']  =  $request->input('test');
-        $district_result = $this->profrpy->get_district_listing();
+        $input_details['state_name']  =  $request->input('p_State');
+        $district_result = $this->profrpy->get_district_listing($input_details);
+        
+        return response()->json( $district_result );
+        
+    }
+    /*district  curr Get*/
+     public function get_district_cur(Request $request){
+        $input_details['state_name']  =  $request->input('c_State');
+        $district_result = $this->profrpy->get_district_listing($input_details);
         
         return response()->json( $district_result );
         
     }
     /*town Get*/
      public function get_town_name(Request $request){
-        // $input_details['district_name']  =  $request->input('district_name');
-        $district_result = $this->profrpy->get_town_name_listing();
+        $input_details['district_name']  =  $request->input('p_district');
+        // echo "<pre>";print_r($input_details);die;
+        $district_result = $this->profrpy->get_town_name_listing( $input_details);
+        
+        return response()->json( $district_result );
+        
+    }
+    /*town curr Get*/
+     public function get_town_name_curr(Request $request){
+        $input_details['district_name']  =  $request->input('c_district');
+        $district_result = $this->profrpy->get_town_name_listing( $input_details);
         
         return response()->json( $district_result );
         

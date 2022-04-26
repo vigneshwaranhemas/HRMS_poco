@@ -310,7 +310,9 @@ Route::post('family_information_view', 'DocumentsController@family_information_v
 Route::post('get_session_sidebar', 'SidebarController@get_session_sidebar');
 Route::post('state_get', 'DocumentsController@state_get');
 Route::post('get_district', 'DocumentsController@get_district');
+Route::post('get_district_cur', 'DocumentsController@get_district_cur');
 Route::post('get_town_name', 'DocumentsController@get_town_name');
+Route::post('get_town_name_curr', 'DocumentsController@get_town_name_curr');
 
 /*roles*/
 Route::post('add_roles_process', 'AdminController@add_roles_process');

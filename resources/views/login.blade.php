@@ -7,122 +7,105 @@
 <link rel="stylesheet" href="../assets/toastify/toastify.css">
 
 @section('style')
+<style>
+  .authentication-main .auth-innerright .card-body .theme-form{
+    /* width: 500px !important; */
+    width: 336px !important;
+  }
+
+  @media only screen and (max-width: 991px){
+    .authentication-main .auth-innerright .card-body .theme-form{
+      width: 100% !important;
+      padding: 20px;
+      /* margin-left: -20px; */
+    }
+  }
+
+  @media only screen and (max-width: 425px){
+    .responsive_top{
+      margin-top: -130px;
+    }
+  }
+</style>
 @endsection
 
 @section('content')
 <!-- login page start-->
 <div class="container-fluid p-0">
   <div class="authentication-main">
-     <div class="row">
-        <div class="col-md-12">
-          <div class="auth-innerright">
-            <div class="authentication-box">
-              <div class="card-body p-0">
-                <div class="cont text-center">
-                  <div>
-                    <div class="col-xl-8 xl-100 box-col-12">
-                       <div class="card year-overview">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="auth-innerright">
+          <div class="authentication-box">
+            <div class="card-body p-0">
+              <div class="cont text-center">
+                <div>
+                  <div class="col-xl-8 xl-100 box-col-12">
+                    <div class="card year-overview">
+                      <div class="row">
+                        <div class="col-xl-1 col-lg-1 col-1">
                           <div class="card-header no-border d-flex">
-                             <ul class="creative-dots">
-                                <li class="bg-primary big-dot"></li>
-                                <li class="bg-secondary semi-big-dot"></li>
-                                <li class="bg-warning medium-dot"></li>
-                                <li class="bg-info semi-medium-dot"></li>
-                                <li class="bg-secondary semi-small-dot"></li>
-                                <li class="bg-primary small-dot"></li>
-                             </ul>
+                            <ul class="creative-dots">
+                              <li class="bg-primary big-dot"></li>
+                              <li class="bg-secondary semi-big-dot"></li>
+                              <li class="bg-warning medium-dot"></li>
+                              <li class="bg-info semi-medium-dot"></li>
+                              <li class="bg-secondary semi-small-dot"></li>
+                              <li class="bg-primary small-dot"></li>
+                            </ul>
                           </div>
-                    <form class="theme-form" id="loginForm" method="post" action="javascript:void(0)">
-                      <h4>LOGIN</h4><br>
-                      {{ csrf_field() }}
-                      <div class="form-group form-row mt-3 mb-0">
-                          <div class="col-sm-5">
-                           <label class="col-form-label pt-0">Employee ID</label>
+                        </div>
+                        <div class="col-xl-11 col-lg-11 col-11 responsive_top">
+                          <form class="theme-form mt-5 mb-5" id="loginForm" method="post" action="javascript:void(0)">
+                            <h4>LOGIN</h4><br>
+                            {{ csrf_field() }}
+                            <div class="form-group form-row mt-3 mb-0">
+                              <div class="col-sm-5">
+                              <label class="col-form-label pt-0">Employee ID</label>
+                              </div>
+                              <div class="col-sm-7">
+                                <input class="form-control" name="employee_id" id="employee_id" type="text" required="">
+                              </div>
+                            </div>
+                            <div class="form-group form-row mt-3 mb-0">
+                              <div class="col-sm-5"> <label class="col-form-label">Password</label></div>
+                              <div class="col-sm-7">
+                              <input class="form-control"  name="login_password" id="login_password"  type="password" required=""></div>
+                            </div>
+                            <div class="form-group form-row mt-3 mb-0">
+                              <div class="col-sm-4"></div>
+                              <div class="col-sm-4">
+                                <button class="btn btn-primary btn-block" id="btnLogin" type="submit">LOGIN</button>
+                              </div>
+                            </div>
+                          </form>
+                          <div class="sub-cont text-center" style="left: 465px;">
+                            <div class="img">
+                              <div class="img__text m--up">
+                                <h2 style="margin-left: -6px">Welcome To HEPL</h2>
+                                <!-- <p></p> -->
+                              </div>
+                              <div class="img__text m--in">
+                                <!-- <h2>One of us?</h2>
+                                <p>If you already has an account, just sign in. We've missed you!</p> -->
+                              </div>
+                              <!-- <div class="img__btn"><span class="m--up">Sign up</span><span class="m--in">Sign in</span></div> -->
+                            </div>
                           </div>
-                         <div class="col-sm-7">
-                            <input class="form-control" name="employee_id" id="employee_id" type="text" required="">
-                          </div>
+                        </div>
                       </div>
-                      <div class="form-group form-row mt-3 mb-0">
-                        <div class="col-sm-5"> <label class="col-form-label">Password</label></div>
-                         <div class="col-sm-7">
-                        <input class="form-control"  name="login_password" id="login_password"  type="password" required=""></div>
-                      </div>
-                      <div class="form-group form-row mt-3 mb-0">
-                        <div class="col-sm-4"></div>
-                          <div class="col-sm-4">
-                            <button class="btn btn-primary btn-block" id="btnLogin" type="submit">LOGIN</button>
-                          </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="sub-cont">
-                    <div class="img">
-                      <div class="img__text m--up">
-                        <h2>Welcome To HEPL</h2>
-                        <!-- <p></p> -->
-                      </div>
-                      <div class="img__text m--in">
-                        <!-- <h2>One of us?</h2>
-                        <p>If you already has an account, just sign in. We've missed you!</p> -->
-                      </div>
-                      <!-- <div class="img__btn"><span class="m--up">Sign up</span><span class="m--in">Sign in</span></div> -->
+
+
                     </div>
-                    <!-- <div>
-                      <form class="theme-form">
-                        <h4 class="text-center">NEW USER</h4>
-                        <h6 class="text-center">Enter your Username and Password For Signup</h6>
-                        <div class="form-row">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <input class="form-control" type="text" placeholder="First Name">
-                            </div>
-                          </div>
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <input class="form-control" type="text" placeholder="Last Name">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <input class="form-control" type="text" placeholder="User Name">
-                        </div>
-                        <div class="form-group">
-                          <input class="form-control" type="password" placeholder="Password">
-                        </div>
-                        <div class="form-row">
-                          <div class="col-sm-4">
-                            <button class="btn btn-primary" type="submit">Sign Up</button>
-                          </div>
-                          <div class="col-sm-8">
-                            {{-- <div class="text-left mt-2 m-l-20">Are you already user?  <a class="btn-link text-capitalize" href="{{ route('login') }}">Login</a></div> --}}
-                          </div>
-                        </div>
-                        <div class="form-divider"></div>
-                        <div class="social mt-3">
-                          <div class="form-row btn-showcase">
-                            <div class="col-sm-4">
-                              <button class="btn social-btn btn-fb">Facebook</button>
-                            </div>
-                            <div class="col-sm-4">
-                              <button class="btn social-btn btn-twitter">Twitter</button>
-                            </div>
-                            <div class="col-sm-4">
-                              <button class="btn social-btn btn-google">Google +</button>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
-                    </div> -->
+
                   </div>
-                </div>
               </div>
             </div>
           </div>
         </div>
-          </div>
-        </div>
-     </div>
+        <!-- </div> -->
+      </div>
+    </div>
   </div>
 </div>
 <!-- login page end-->

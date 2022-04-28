@@ -329,4 +329,7 @@ Route::post('get_role_type', 'AdminController@get_role_type');
 Route::post( 'get_employee_pop', 'AdminController@get_employee_pop' );
 Route::post('update_employee_list_pop', 'AdminController@update_employee_list_pop');
 
+/*banner image*/
+Route::post('banner_image_crop', 'DocumentsController@imageCropPost');
+Route::post('profile_banner', 'DocumentsController@profile_banner');
 

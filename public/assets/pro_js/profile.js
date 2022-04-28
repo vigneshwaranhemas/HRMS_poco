@@ -1,9 +1,108 @@
 
 $(document).ready(function() {
     profile_info_process();
+    profile_banner_image();
     get_state_list();
     Contact_info_page();
 });
+$.ajaxSetup({
+headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+
+/*banner image upload*/
+$uploadCrop = $('#upload-demo').croppie({
+    enableExif: true,
+    viewport: {
+        width: 200,
+        height: 200,
+        type: 'circle'
+    },
+    boundary: {
+        width: 300,
+        height: 300
+    }
+});
+
+
+$('#upload').on('change', function () { 
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        $uploadCrop.croppie('bind', {
+            url: e.target.result
+        }).then(function(){
+            console.log('jQuery bind complete');
+        });
+    }
+    reader.readAsDataURL(this.files[0]);
+});
+
+
+$('.upload-result').on('click', function (ev) {
+    $uploadCrop.croppie('result', {
+        type: 'canvas',
+        size: 'viewport'
+    }).then(function (resp) {
+        $.ajax({
+            // url: "/image-crop",
+            url: banner_image_crop_link,
+            type: "POST",
+            data: {"image":resp},
+            success: function (data) {
+                // console.log(data)
+            if(data.error){
+                $(".color-hider").hide();
+                    var keys=Object.keys(data.error);
+                    $.each( data.error, function( key, value ) {
+                    $("#"+key+'_error').text(value)
+                    $("#"+key+'_error').show();
+                    });
+               }
+                if(data.response =='insert'){
+               Toastify({
+                   text: "Added Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+
+           }else if(data.response =='Update'){
+               Toastify({
+                   text: "Update Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+           }
+           else{
+               Toastify({
+                   text: "Request Failed..! Try Again",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#f3616d",
+               }).showToast();
+               setTimeout(
+                   function() {
+                   }, 2000);
+
+               }
+                /*html = '<img src="' + resp + '" />';
+                $("#upload-demo-i").html(html);*/
+            }
+        });
+    });
+});
+/*banner image end upload*/
+
 
 /*clone textbox value*/
     function CopyAdd() {
@@ -21,9 +120,26 @@ $(document).ready(function() {
           }
       } 
     }
+    
+
+    function profile_banner_image(){
+    $.ajax({
+        url: profile_banner_image_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            console.log(data.banner_image)
+            if (data !="") {
+                 $("#banner_img").attr('src',"../uploads/"+data.banner_image);
+              }else{
+                // $("#banner_img").attr('src',"../assets/images/user/7.jpg");
+              }
+            }
+        });
+    }
 
 /*contact info in pop-up*/
-
 $("#v-pills-messages-tab").on('click', function() {
     Contact_info_page();
 });
@@ -142,7 +258,7 @@ $('#add_contact_info').submit(function(e) {
         },
     }); 
 });
-
+/*listing*/
     function get_state_list() {
     $.ajax({
         url: state_get_link,

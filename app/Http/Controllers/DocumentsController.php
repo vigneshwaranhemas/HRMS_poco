@@ -22,8 +22,7 @@ class DocumentsController extends Controller
         $this->profrpy = $profrpy;
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         
         $session_val = Session::get('session_info');
         $emp_ID = $session_val['empID'];
@@ -44,12 +43,25 @@ class DocumentsController extends Controller
             'cdID'=>$cdID,
             'doc_name'=>$request->input('documents_name'),
             'path'=>$path);
-// echo "string";print_r($data);die;
         $insert = DB::table( 'documents' )->insert( $data );
     }
         return response()->json(['response'=>'insert']);
 
     }
+    /*banner image */
+    public function profile_banner(Request $request){
+
+        $session_val = Session::get('session_info');
+        $cdID = $session_val['cdID'];
+        // echo "<pre>";print_r($emp_ID);die;
+        $input_details = array( "cdID" => $cdID, );
+        $get_profile_info_result = $this->profrpy->get_banner_view( $input_details );
+
+        return response()->json( $get_profile_info_result );
+
+        // return response()->json(['success'=>'Crop Image Uploaded Successfully']);
+    }
+
     /*PreviewImage */
     public function doc_information(Request $request){
 
@@ -58,9 +70,66 @@ class DocumentsController extends Controller
         $input_details = array( "emp_ID" => $emp_ID, );
         $get_documents_result = $this->admrpy->get_table('documents', $input_details );
         // echo "string";print_r($get_documents_result);die;
-        return response()->json( $get_documents_result );
-        
+        return response()->json( $get_documents_result );  
     }
+/*banner image*/
+   public function imageCropPost(Request $request){
+
+
+    /*$validator=Validator::make($request->all(),[
+        'banner_image' => 'required',
+        ], [
+        'banner_image.required' => 'Baneer Image is required',
+        ]);
+        if($validator->passes()){*/
+
+            $session_val = Session::get('session_info');
+            $emp_ID = $session_val['empID'];
+            $cdID = $session_val['cdID'];
+
+            $user = DB::table( 'candidate_banner_image' )->where('cdID', '=', $cdID)->first();
+
+             if ($user === null) {
+
+                    $data = $request->image;
+                    list($type, $data) = explode(';', $data);
+                    list(, $data)      = explode(',', $data);
+                    $data = base64_decode($data);
+                    $image_name= 'Ban_'.time().'.png';
+                    $path = public_path() . "/uploads/" . $image_name;
+                    file_put_contents($path, $data);
+
+                            $data =array(
+                                'emp_id'=>$emp_ID,
+                                'cdID'=>$cdID,
+                                'banner_image'=>$image_name
+                                );
+                            // echo "<pre>";print_r($data);die;
+                            $insert = DB::table( 'candidate_banner_image' )->insert( $data );
+                            return response()->json(['response'=>'insert']);
+                        }else{
+                            $data = $request->image;
+                    list($type, $data) = explode(';', $data);
+                    list(, $data)      = explode(',', $data);
+                    $data = base64_decode($data);
+                    $image_name= 'Ban_'.time().'.png';
+                    $path = public_path() . "/uploads/" . $image_name;
+                    file_put_contents($path, $data);
+
+                            $data =array(
+                                'emp_id'=>$emp_ID,
+                                'cdID'=>$cdID,
+                                'banner_image'=>$image_name
+                                );
+                    // echo "<pre>";print_r($data);die;
+                             $update_banner_image_result = $this->profrpy->update_banner_image( $data );
+                                return response()->json(['response'=>'Update']);
+                        }
+                /*}else{
+                    return response()->json(['error'=>$validator->errors()->toArray()]);
+                    }*/
+    }
+
     /*account info */
     public function profile_account_add(Request $request){
 

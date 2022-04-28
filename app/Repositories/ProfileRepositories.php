@@ -46,6 +46,26 @@ class ProfileRepositories implements IProfileRepositories
             'branch_name' => $input_details['branch_name'],
         ] );
     }
+    public function update_banner_image( $input_details ){
+
+        $update_roletbl = DB::table('candidate_banner_image')->where( 'cdID', '=', $input_details['cdID'] );
+        $update_roletbl->update( [
+            'emp_id' => $input_details['emp_id'],
+            'cdID' => $input_details['cdID'],
+            'banner_image' => $input_details['banner_image'],
+            
+        ] );
+    }
+    public function get_banner_view( $input_details ){
+
+        $bandtbl = DB::table('candidate_banner_image')
+        ->select('*')
+        ->where('cdID', '=', $input_details['cdID'])
+        // ->join('customusers as cus', 'cus.cdID', '=', 'img.cdID')
+        ->first();
+        // echo "<pre>";print_r($bandtbl);die;
+        return $bandtbl;
+    }
 
     public function insert_education_info( $input_details ){
 

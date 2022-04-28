@@ -182,7 +182,7 @@ return [
         App\Repositories\BackendServiceProvider::class,
         // App\Providers\BackendServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-        'Intervention\Image\ImageServiceProvider'
+        Intervention\Image\ImageServiceProvider::class
 
 
 

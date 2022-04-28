@@ -173,13 +173,6 @@ $(()=>{
                                                                         function() {
                                                                             location.reload();;
                                                                         }, 2000);
-
-
-
-
-
-
-
                                                                }
                                                                else{
                                                                 //    toastr.error(res.message);

@@ -31,7 +31,10 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
     {
         $result=CustomUser::join('candidate_details','customusers.cdID','=','candidate_details.cdID')
         ->where('candidate_details.created_by',$id["created_by"])
-        ->where('customusers.pre_onboarding',1)->get();
+        ->where('customusers.pre_onboarding',1)
+        ->select('customusers.empID','customusers.username',
+                 'customusers.email','customusers.contact_no')
+        ->get();
          return $result;
     }
     public function get_onboarding_candidate_info()
@@ -53,7 +56,7 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
     public function DayWiseCandidateInfo($data)
     {
          $result=CustomUser::join("candidate_details",'candidate_details.cdID','=','customusers.cdID')
-                 ->where("candidate_details.or_doj",$data['or_doj'])
+                 ->where("customusers.doj",$data['or_doj'])
                  ->where("customusers.pre_onboarding",1)
                  ->where("candidate_details.created_by",$data["created_by"])
                  ->select("candidate_details.cdID","customusers.empID","customusers.username",
@@ -79,11 +82,6 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
         return $result;
    }
 
-
-
-
-
-
     public function Insert_Candidate_empId($data)
     {
         //  $check_user=Candidate_seating_and_email_request::where('cdID',$data['cdID'])->first();
@@ -98,17 +96,16 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
                   $data2=array('empID'=>$data['empId'],'passcode'=>$password = Hash::make("Welcome@123"));
                   $final_response=array('success'=>'1','message'=>'Candidate EmployeeID Created');
                   $result=CustomUser::where("cdID",$data1["empID"])->update($data2);
-                //   echo '<pre>';print_r($data1["empID"]);die();
-
                   if($result)
                   {
                        $induction_info=Candidate_seating_and_email_request::join('candidate_details','candidate_details.cdID','=','Candidate_seating_and_email_requests.cdID')
+                                                                            ->join('customusers','customusers.cdID','=','Candidate_seating_and_email_requests.cdID')
                                                                             ->where("candidate_details.cdID",$data["cdID"])
-                                                                            ->select("candidate_details.candidate_name",
+                                                                            ->select("customusers.username",
                                                                                      "candidate_details.created_by",
-                                                                                     "candidate_details.candidate_email",
-                                                                                     "candidate_details.or_department",
-                                                                                     "candidate_details.or_doj")->first();
+                                                                                     "customusers.email",
+                                                                                     "customusers.department",
+                                                                                     "customusers.doj")->first();
                        $work_location=CustomUser::select('worklocation','sup_name')->where('cdID',$data['cdID'])->first();
                        $email_info=Email_InfoModel::where('header_id',4)->first();
                        $admin_mail_info=Email_InfoModel::where('header_id',1)->first();

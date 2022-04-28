@@ -132,7 +132,6 @@ class HrController extends Controller
        $status=1;
        $onboarding_info=$this->hpreon->getonboardinginfo($user_id,$status);
        echo json_encode($onboarding_info);
-
     }
     public function EmailAndSeatingRequest(Request $request)
     {
@@ -153,12 +152,11 @@ class HrController extends Controller
             }
             else{
                     $store_result=$this->hpreon->Insert_Candidate_empId($data);
-
-                    $Mail['candidate_name']=$store_result["message"]["induction_info"]->candidate_name;
+                    $Mail['candidate_name']=$store_result["message"]["induction_info"]->username;
                     $Mail['username']=$request->empID;
                     $Mail['password']="Welcome@123";
-                    $Mail['candidate_department']=$store_result["message"]["induction_info"]->or_department;
-                    $Mail['candidate_doj']=$store_result["message"]["induction_info"]->or_doj;
+                    $Mail['candidate_department']=$store_result["message"]["induction_info"]->department;
+                    $Mail['candidate_doj']=$store_result["message"]["induction_info"]->doj;
                     $Mail['cc']=$store_result["message"]["email_info"]->cc;
                     $Mail['Admin_cc']=$store_result['message']['admin_email_info']->cc;
                     $Mail['hr_subject']=$store_result['message']['email_info']->subject;

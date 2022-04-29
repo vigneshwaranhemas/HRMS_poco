@@ -88,13 +88,20 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
 
             public function get_candidate_and_buddy_info($data)
             {
-                $result=CustomUser::join('candidate_details','customusers.cdID','=','candidate_details.cdID')
-                                    ->join('users','users.empID','=','candidate_details.welcome_buddy')
+                // $result=CustomUser::join('candidate_details','customusers.cdID','=','candidate_details.cdID')
+                //                     ->join('users','users.empID','=','candidate_details.welcome_buddy')
+                //                     ->where('customusers.cdID',$data['cdID'])
+                //                     ->select('customusers.empID','customusers.username',
+                //                              'customusers.department','customusers.designation',
+                //                              'customusers.worklocation','customusers.doj','users.name')->first();
+                    $result=CustomUser::join('candidate_details','customusers.cdID','=','candidate_details.cdID')
+                                    ->join('customusers as cs','cs.empID','=','candidate_details.welcome_buddy')
                                     ->where('customusers.cdID',$data['cdID'])
-                                    ->select('customusers.empID','customusers.username',
-                                             'customusers.department','customusers.designation',
-                                             'customusers.worklocation','customusers.doj','users.name')->first();
-                return $result;
+                                    ->select('cs.username as buddy_name','customusers.empID',
+                                             'customusers.username','customusers.department',
+                                             'customusers.designation','customusers.worklocation',
+                                             'customusers.doj')->first();
+                    return $result;
             }
 
 

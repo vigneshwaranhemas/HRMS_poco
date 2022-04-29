@@ -65,7 +65,7 @@ $sess_info=Session::get("session_info");
                             <p>: {{$buddy_fields['user_info']->designation}}</p>
                             <p>: {{$buddy_fields['user_info']->doj}}</p>
                             <p>: {{$buddy_fields['user_info']->worklocation}}</p>
-                            <p>: {{$buddy_fields['user_info']->name}}</p>
+                            <p>: {{$buddy_fields['user_info']->buddy_name}}</p>
                     </div>
 
                   </div>

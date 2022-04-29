@@ -105,39 +105,15 @@ class CandidateController extends Controller
         $candiate_buddy_data=array("empId"=>$sess_info["empID"],
                                    "cdID"=>$sess_info["cdID"]);
         $id=array("empId"=>$sess_info["empID"]);
-        // $cid=array("cdID"=>$sess_info["cdID"]);
         $table="buddyfeedbackfields";
         $fields=$this->preon->getonBoardingFields($table);
         $feedback_info=$this->preon->get_buddy_info($id);
-        // $user_info=$this->preon->Check_onBoard($table1,$cid);
         $user_info=$this->preon->get_candidate_and_buddy_info($candiate_buddy_data);
         $data['fields']=$fields;
         $data['feedback_info']=$feedback_info;
         $data['user_info']=$user_info;
-        // echo json_encode($data['user_info']);
         return view('candidate.buddy_feedback')->with('buddy_fields',$data);
     }
-
-
-
-        // $sess_info=Session::get("session_info");
-        // $table1="candidate_details";
-        // $cid=array("cdID"=>$sess_info["empID"]);
-        // $id=array("empId"=>$sess_info["empID"]);
-        // $table="buddyfeedbackfields";
-        // $fields=$this->preon->getonBoardingFields($table);
-        // $feedback_info=$this->preon->get_buddy_info($id);
-        // $user_info=$this->preon->Check_onBoard($table1,$cid);
-        // $data['fields']=$fields;
-        // $data['feedback_info']=$feedback_info;
-        // $data['user_info']=$user_info;
-
-
-
-        // return view('candidate.buddy_feedback')->with('buddy_fields',$data);
-        // return view('candidate.buddy_feedback');
-
-
 
     public function welcome_aboard()
     {

@@ -6,6 +6,7 @@
     <!-- Plugins css start-->
 <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
+<link rel="stylesheet" type="text/css" href="../assets/scss/bootstrap/_modal.scss">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
@@ -624,6 +625,8 @@ View More&lt;/button&gt;
          </div>
       </div>
    </div>
+   @yield('content')
+   
 </div>
 
 @endsection

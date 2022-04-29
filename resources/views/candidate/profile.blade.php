@@ -73,7 +73,7 @@ max-width: 1000px !important;
                       <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5" data-toggle="modal" data-original-title="test" data-target="#exampleModal"></i></div>
                      <figure itemprop="associatedMedia" itemscope="">
                         <!-- <a href="../assets/images/other-images/profile-style-img3.png" itemprop="contentUrl" data-size="1600x950"><img class="img-fluid rounded" src="../assets/images/other-images/profile-style-img3.png" itemprop="thumbnail" alt="gallery"></a> -->
-                        <div class="avatar"><img width="1300" height="443" lass="img-fluid rounded" alt="" id="banner_img" src=""></div>
+                        <div class="avatar"><img width="1300" height="330" lass="img-fluid rounded" alt="" id="banner_img" src=""></div>
                      </figure>
                   </div>
                </div>

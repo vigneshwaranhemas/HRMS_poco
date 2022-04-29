@@ -31,6 +31,7 @@ class ProfileRepositories implements IProfileRepositories
 
         return $bandtbl;
     }
+
     public function update_account_info( $input_details ){
 
         $update_roletbl = DB::table('candidate_account_information')->where( 'cdID', '=', $input_details['cdID'] );
@@ -157,11 +158,43 @@ class ProfileRepositories implements IProfileRepositories
         $bandtbl = DB::table('towns_details')
         ->select('id','district_name','town_name','state_name')
         ->where('district_name', '=' ,$input_details['district_name'])
-        // ->groupBy('district_name')
         ->get();
         // dd(DB::getQueryLog());
 
         return $bandtbl;
+    }
+
+    public function get_idcard_info( $input_details ){
+
+        $bandtbl = DB::table('customusers')
+        ->select('*')
+        ->where('cdID', '=', $input_details['cdID'])
+        ->get();
+
+        return $bandtbl;
+    }
+
+    public function update_idcard_info( $input_details ){
+// echo "<pre>";print_r($input_details);die;
+        $update_roletbl = DB::table('customusers')->where( 'cdID', '=', $input_details['cdID'] );
+        $update_roletbl->update( [
+            // 'empID' => $input_details['emp_id'],
+            'cdID' => $input_details['cdID'],
+            'username'=>$input_details['f_name'],
+            'm_name'=>$input_details['m_name'],
+            'l_name'=>$input_details['l_name'],
+            'worklocation'=>$input_details['working_loc'],
+            'contact_no'=>$input_details['emp_num_1'],
+            'emp_num_2'=>$input_details['emp_num_2'],
+            'rel_emp'=>$input_details['rel_emp'],
+            'name_rel_ship'=>$input_details['name_rel_ship'],
+            'emrg_con_num'=>$input_details['emrg_con_num'],
+            'doj'=>$input_details['doj'],
+            'blood_grp'=>$input_details['blood_grp'],
+            'empID'=>$input_details['empID'],
+            'email'=>$input_details['official_email'],
+            'dob'=>$input_details['emp_dob'],
+        ] );
     }
 
 }

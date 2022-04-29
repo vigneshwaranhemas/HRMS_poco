@@ -32,51 +32,43 @@
                         <thead>
                            <tr>
                               <th>#</th>
-                              <th>EMPLOYEE ID</th>
-                              <th>NAME</th>
-                              <th>EMAIL</th>
-                              <th>MOBILE NUMBER</th>
-                              <th>ACTION</th>
+                              <th>Employee Id</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Mobile Number</th>
+                              <th>Action</th>
                            </tr>
                         </thead>
                         <tbody>
                             @if (count($info['user_info']) > 0)
-                            <?php $i=0;
-
-                            ?>
+                            <?php $i=0;?>
                              @foreach ($info['user_info'] as $item)
-
-
-                                   @if ($item->candidate_email==="")
+                                   @if ($item->email==="")
                                      <?php
                                         $email="--";
                                        ?>
-
                                    @else
                                    <?php
-                                        $email=$item->candidate_email;
+                                        $email=$item->email;
                                       ?>
-
                                    @endif
-
-                                  @if ($item->candidate_mobile=="")
+                                  @if ($item->contact_no=="")
                                       <?php
                                       $mobile="--";
                                       ?>
                                   @else
                                        <?php
-                                       $mobile=$item->candidate_mobile;
+                                       $mobile=$item->contact_no;
                                        ?>
                                   @endif
-
                            <tr>
                               <td>{{$i+1}}</td>
-                              <td>{{$item->cdID}}</td>
-                              <td>{{$item->candidate_name}}</td>
+                              <td>{{$item->empID}}</td>
+                              <td>{{$item->username}}</td>
                               <td>{{$email}}</td>
                               <td>{{$mobile}}</td>
                               <td>
-                                <button onclick=viewBuddyModel("{{$item->cdID}}")  aria-expanded="false"  class="btn btn-default waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                <button onclick=viewBuddyModel("{{$item->empID}}")  aria-expanded="false"  class="btn btn-default waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
                             </td>
                            </tr>
                            <?php $i++;?>

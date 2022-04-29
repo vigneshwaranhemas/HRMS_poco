@@ -32,12 +32,12 @@
                         <thead>
                            <tr>
                               <th>#</th>
-                              <th>EMPLOYEE ID</th>
-                              <th>NAME</th>
-                              <th>EMAIL</th>
-                              <th>MOBILE NUMBER</th>
-                              <th>INDUCTION MAIL</th>
-                              <th>BUDDY MAIL</th>
+                              <th>Employee Id</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Mobile Number</th>
+                              <th>Induction Mail</th>
+                              <th>Buddy Mail</th>
 
                            </tr>
                         </thead>
@@ -47,10 +47,10 @@
                                 @foreach ($candidate_info as  $info)
                                 <tr>
                                     <td>{{$i}}</td>
-                                    <td>{{$info["cdID"]}}</td>
-                                    <td>{{$info["candidate_name"]}}</td>
-                                    <td>{{$info["candidate_email"]}}</td>
-                                    <td>{{$info["candidate_mobile"]}}</td>
+                                    <td>{{$info["empID"]}}</td>
+                                    <td>{{$info["username"]}}</td>
+                                    <td>{{$info["email"]}}</td>
+                                    <td>{{$info["contact_no"]}}</td>
                                     @if ($info["Induction_mail"]==1)
                                     <?php $color="green";?>
                                     <?php $class="fa-check";?>

@@ -310,7 +310,9 @@ Route::post('family_information_view', 'DocumentsController@family_information_v
 Route::post('get_session_sidebar', 'SidebarController@get_session_sidebar');
 Route::post('state_get', 'DocumentsController@state_get');
 Route::post('get_district', 'DocumentsController@get_district');
+Route::post('get_district_cur', 'DocumentsController@get_district_cur');
 Route::post('get_town_name', 'DocumentsController@get_town_name');
+Route::post('get_town_name_curr', 'DocumentsController@get_town_name_curr');
 
 /*roles*/
 Route::post('add_roles_process', 'AdminController@add_roles_process');
@@ -326,6 +328,14 @@ Route::post('welcome_aboard_generate_image','HrController@welcome_aboard_generat
 Route::post('get_role_type', 'AdminController@get_role_type');
 Route::post( 'get_employee_pop', 'AdminController@get_employee_pop' );
 Route::post('update_employee_list_pop', 'AdminController@update_employee_list_pop');
+
+/*banner image*/
+Route::post('banner_image_crop', 'DocumentsController@imageCropPost');
+Route::post('profile_banner', 'DocumentsController@profile_banner');
+/*ID Card*/
+Route::get('id_card_varification', 'CommonController@id_card_varification');
+Route::post('idcard_info', 'CommonController@idcard_info');
+Route::post('idcard_info_save', 'CommonController@idcard_info_save');
 
 
 

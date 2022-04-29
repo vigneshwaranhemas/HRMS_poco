@@ -59,16 +59,13 @@ $sess_info=Session::get("session_info");
                         <p>Buddy Assigned </p>
                     </div>
                     <div class="col-md-3" style="margin-left: -53px;">
-                        @foreach ($buddy_fields["user_info"] as $item)
-                            <p>: {{$item->cdID}} </p>
-                            <p>: {{$item->candidate_name}}</p>
-                            <p>: {{$item->or_department}} </p>
-                            <p>: PHP Developer</p>
-                            <p>: {{$item->or_doj}}</p>
-                            <p>: Cuddalore</p>
-                            <p>: SHANTHI</p>
-
-                        @endforeach
+                            <p>: {{$buddy_fields['user_info']->empID}} </p>
+                            <p>: {{$buddy_fields['user_info']->username}}</p>
+                            <p>: {{$buddy_fields['user_info']->department}} </p>
+                            <p>: {{$buddy_fields['user_info']->designation}}</p>
+                            <p>: {{$buddy_fields['user_info']->doj}}</p>
+                            <p>: {{$buddy_fields['user_info']->worklocation}}</p>
+                            <p>: {{$buddy_fields['user_info']->name}}</p>
                     </div>
 
                   </div>

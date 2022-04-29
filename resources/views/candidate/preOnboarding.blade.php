@@ -29,7 +29,6 @@
                     <div class="col-md-6 text-left">
                     <h5>Pre OnBoarding</h5>
                     </div>
-
                     <div class="col-md-6 text-right">
                     <button type="button" class="btn btn-primary" id="SaveBtn">Save changes</button>
                     </div>
@@ -84,11 +83,6 @@
                                             ?>
                                         @endif
                                 @endif
-
-
-
-
-
                                  <td scope="row">{{$i+1}}</td>
                                  <td>{{$fields->preonboarding_process}}</td>
                                  <td>
@@ -99,29 +93,6 @@
                                     <input type="date" class="datepicker-here form-control digits1" name="date3" {{$disabled}}  value="{{$date}}" id="date{{"$i"}}" style="width:50%;" >
                                  </td>
                               </tr>
-                              {{-- <tr>
-                                 <th scope="row">2</th>
-                                 <td>Supervisor</td>
-                                 <td><label class="switch">
-                                    <input type="checkbox" checked=""><span class="switch-state"></span>
-                                    </label></td>
-                                 <td>
-                                    <input type="date" class="datepicker-here form-control digits" name="date3"  id="date" style="width:50%;">
-
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <th scope="row">3</th>
-                                 <td>Buddy</td>
-                                 <td><label class="switch">
-                                    <input type="checkbox" checked=""><span class="switch-state"></span>
-                                    </label></td>
-                                 <td>
-                                    <input type="date" class="form-control test1" name="date3" value="" id="date" style="width:50%;">
-
-                                 </td>
-                              </tr> --}}
-
                               <?php $i++;?>
                                 @endforeach
 

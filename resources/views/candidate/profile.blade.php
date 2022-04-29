@@ -8,6 +8,7 @@
  -->
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <link rel="stylesheet" href="../assets/css/cropper.css"/>
+<link rel="stylesheet" href="../assets/css/croppie.css"/>
 <script src="../assets/js/cropper.js"></script>
  <link href="../assets/css/select2.css" rel="stylesheet">
 
@@ -34,6 +35,18 @@ max-width: 1000px !important;
    padding: 10px !important;
 }
 
+.cr-boundary{
+   width: 1089px !important;
+}
+
+.cr-vp-circle
+{
+   border-radius: inherit !important;
+   width: 581px !important;
+}
+/*.banner_ji{
+   margin-top: 70px;
+}*/
 </style>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -57,8 +70,10 @@ max-width: 1000px !important;
             <div class="card hovercard text-center">
                <div class="img-container">
                   <div class="my-gallery" id="aniimated-thumbnials" itemscope="">
+                      <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5" data-toggle="modal" data-original-title="test" data-target="#exampleModal"></i></div>
                      <figure itemprop="associatedMedia" itemscope="">
-                        <a href="../assets/images/other-images/profile-style-img3.png" itemprop="contentUrl" data-size="1600x950"><img class="img-fluid rounded" src="../assets/images/other-images/profile-style-img3.png" itemprop="thumbnail" alt="gallery"></a>
+                        <!-- <a href="../assets/images/other-images/profile-style-img3.png" itemprop="contentUrl" data-size="1600x950"><img class="img-fluid rounded" src="../assets/images/other-images/profile-style-img3.png" itemprop="thumbnail" alt="gallery"></a> -->
+                        <div class="avatar"><img width="1300" height="330" lass="img-fluid rounded" alt="" id="banner_img" src=""></div>
                      </figure>
                   </div>
                </div>
@@ -66,6 +81,41 @@ max-width: 1000px !important;
                   <div class="avatar"><img alt="" id="profile_img" src=""></div>
                   <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5" data-toggle="modal" data-original-title="test" data-target="#profile_image"></i></div>
                </div>
+            <!-- Pop-up banner starts-->
+            <div class="modal fade banner_ji" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog modal-xl">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                      </div>
+                     <div class="card">
+                        <div class="container">
+                           <div class="panel panel-default">
+                             <div class="panel-heading"> Crop Banner Image</div>
+                             <div class="panel-body">
+                              <div class="row">
+                                 <div class="col-md-4 text-center">
+                                    <div id="upload-demo" style="width:250px"></div>
+                                 </div>
+                              </div>
+                              <div>
+                                 <strong>Select Image:</strong>
+                                    <input type="file" id="upload">
+                                    <button class="btn btn-success upload-result">Upload Image</button>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+                             </div>
+                           </div>
+                        </div>
+
+                     </div>
+
+                  </div>
+               </div>
+            </div>
+            <!-- Pop-up div Ends-->
                <div class="info">
                   <div class="row">
                      <div class="col-sm-6 col-lg-4 order-sm-1 order-xl-0">
@@ -117,7 +167,7 @@ max-width: 1000px !important;
                   <g>
                      <path fill="#7e37d8" d="M0.732,193.75c0,0,29.706,28.572,43.736-4.512c12.976-30.599,37.005-27.589,44.983-7.061                                          c8.09,20.815,22.83,41.034,48.324,27.781c21.875-11.372,46.499,4.066,49.155,5.591c6.242,3.586,28.729,7.626,38.246-14.243                                          s27.202-37.185,46.917-8.488c19.715,28.693,38.687,13.116,46.502,4.832c7.817-8.282,27.386-15.906,41.405,6.294V0H0.48                                          L0.732,193.75z"></path>
                   </g>
-                  <text transform="matrix(1 0 0 1 69.7256 116.2686)" fill="#fff" font-size="30">KUMAR</text>
+                  <text transform="matrix(1 0 0 1 69.7256 116.2686)" fill="#fff" font-size="30"></text>
                </svg>
                <div class="col-sm-3 tabs-responsive-side">
 
@@ -209,13 +259,14 @@ max-width: 1000px !important;
                                  <div class="row">
                                     <div class="col-md-6">
                                        <div><strong>Phone Number :</strong> <p id="p_num_view"></p></div><hr>
-                                       <div><strong>Secondary Number :</strong> <p id="s_num_view"></p></div><hr>
+                                       <div><strong>Permanent Address :</strong><p id="p_addres_view"></p></div><hr>                                       
                                        <div><strong>Personal Email :</strong> <p id="p_email_view"></p></div><hr>
                                     </div>
                                     <div class="col-md-6">
-                                       <div><strong>Permanent Address :</strong><p id="p_adderss_view"></p></div><hr>
-                                       <div><strong>Current Address :</strong><p id="c_address_view"></p></div><hr>
-                                       <div><strong>State :</strong> <a id="State_view"></a></div><hr>
+                                      
+                                       <div><strong>Secondary Number :</strong><p id="s_num_view"></p></div><hr>
+                                       <div><strong>Current Address :</strong><p id="c_addres_view"></p></div><hr>
+                                       <!-- <div><strong>State :</strong> <a id="State_view"></a></div><hr> -->
                                        </div><hr>
                                     </div>
                                  </div>
@@ -251,19 +302,12 @@ max-width: 1000px !important;
                                             <input class="form-control" name="p_email" id="p_email" type="email" placeholder="Email" required="">
                                             <div class="text-warning" id="p_email_error"></div>
                                         </div>
-                                                                         
-                                        <div class="col-md-6 mb-3">
-                                            <label for="Begin_On">Permanent Address</label>
-                                            <textarea class="form-control" name="p_adderss" id="p_adderss" type="text" placeholder="Permanent Address" required=""></textarea> 
-                                            <div class="text-warning" id="p_adderss_error"></div>
+                                       <div class="col-md-6 mb-3">                    
+                                        <textarea class="custom-select"  type="text" id="p_addres" name="p_addres" maxlength="40" size="35" ></textarea>
+                                          <input id="sameadd" name="sameadd" type="checkbox" value="Sameadd" onchange="CopyAdd();"/>
+                                          <p id="text" style="display:none;color: green;">Address is Cloned...</p>
                                         </div>
-                                         <div class="col-md-6 mb-3">
-                                            <label for="p_town">Town</label>
-                                            <select name="p_town" id="p_town" class="custom-select">
-                                                     <option value="">--Select--</option>
-                                                </select>
-                                            <div class="text-warning" id="p_town_error"></div>
-                                        </div>        
+                                             
                                         <div class="col-md-6 mb-3">
                                             <label for="p_State">State</label>
                                             <select name="p_State" id="p_State" class="custom-select">
@@ -278,34 +322,37 @@ max-width: 1000px !important;
                                              </select>
                                             <div class="text-warning" id="p_District_error"></div>
                                         </div> 
-                                        
                                         <div class="col-md-6 mb-3">
-                                            <label for="c_address">Current Address</label>
-                                            <textarea class="form-control" name="c_address" id="c_address" type="text" placeholder="Current Address" required=""></textarea> 
-                                            <div class="text-warning" id="c_address_error"></div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                         <label for="c_town">Town</label>
-                                         <select name="c_town" id="c_town" class="custom-select  js-select2">
+                                         <label for="p_town">Town</label>
+                                         <select name="p_town" id="p_town" class="custom-select">
                                                   <option value="">--Select--</option>
                                              </select>
-                                         <div class="text-warning" id="c_town_error"></div>
-                                     </div> 
-                                        <div class="col-md-6 mb-3">
-                                            <label for="c_State">State</label>
-                                            <select name="c_State" id="c_State" class="custom-select  js-select2">
-                                                  <option value="">--Select--</option>
-                                             </select>
-                                            <div class="text-warning" id="p_State_error"></div>
-                                        </div>
+                                         <div class="text-warning" id="p_town_error"></div>
+                                       </div>  
+                                       <div class="col-md-6 mb-3"> 
+                                          <textarea class="custom-select"  type="text" id="c_addres" name="c_addres" maxlength="40" size="35" ></textarea>
+                                       </div>                                       
+                                       <div class="col-md-6 mb-3">
+                                         <label for="c_State">State</label>
+                                         <select name="c_State" id="c_State" class="custom-select">
+                                               <option value="">--Select--</option>
+                                          </select>
+                                       <div class="text-warning" id="p_State_error"></div>
+                                       </div>
                                          <div class="col-md-6 mb-3">
                                             <label for="c_district">District</label>
-                                            <select name="c_district" id="c_district" class="custom-select  js-select2">
+                                            <select name="c_district" id="c_district" class="custom-select">
                                                   <option value="">--Select--</option>
                                              </select>
                                             <div class="text-warning" id="c_District_error"></div>
                                         </div> 
-                                        
+                                        <div class="col-md-6 mb-3">
+                                          <label for="c_town">Town</label>
+                                          <select name="c_town" id="c_town" class="custom-select">
+                                          <option value="">--Select--</option>
+                                          </select>
+                                       <div class="text-warning" id="c_town_error"></div>
+                                       </div>                                         
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -438,8 +485,8 @@ max-width: 1000px !important;
                            <span class="text-danger color-hider" id="acc_number_error" style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
-                           <input class="form-control" type="text" maxlength="13" name="acc_number" id="acc_number" placeholder="Account number">
-                           <span class="text-danger color-hider" id="acc_number_error" style="display:none;color: red;"></span>
+                           <input class="form-control" type="text" maxlength="13" name="con_acc_number" id="con_acc_number" placeholder="Confirm Account number">
+                           <span class="text-danger color-hider" id="con_acc_number_error" style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
                            <input class="form-control" name="ifsc_code" id="ifsc_code" type="text" placeholder="IFSC code">
@@ -450,7 +497,7 @@ max-width: 1000px !important;
                            <span class="text-danger color-hider" id="acc_mobile_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
-                           <input class="form-control" name="branch_name" id="branch_name" type="text" placeholder="Other Details">
+                           <input class="form-control" name="branch_name" id="branch_name" type="text" placeholder="Branch Name">
                            <span class="text-danger color-hider" id="branch_name_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="col-4">
@@ -779,6 +826,7 @@ max-width: 1000px !important;
  <script src="../assets/js/photoswipe/photoswipe.min.js"></script>
  <script src="../assets/js/photoswipe/photoswipe-ui-default.min.js"></script>
  <script src="../assets/js/photoswipe/photoswipe.js"></script>
+ <script src="../assets/js/croppie.js"></script>
  <!-- custom js -->
  <script src="../assets/pro_js/profile.js"></script>
  <script src='../assets/js/select2/select2-custom.js'></script>
@@ -792,16 +840,13 @@ max-width: 1000px !important;
         }
     });
 
-   $('form').submit(function(evt) {
-   if ($('#textbox1').val() === $('#textbox2').val()) {
-     alert('values match');
-     evt.preventDefault();
-   }
-}
+
    /*state list*/
    var state_get_link = "{{url('state_get')}}";
    var get_district_link = "{{url('get_district')}}";
+   var get_district_cur_link = "{{url('get_district_cur')}}";
    var get_town_name_link = "{{url('get_town_name')}}";
+   var get_town_name_curr_link = "{{url('get_town_name_curr')}}";
    var upload_images = "{{url('profile_upload_images')}}";
    var display_image = "{{url('profile_display_images')}}";
    var add_documents_unit_process_link = "{{url('documents_insert')}}";
@@ -815,6 +860,8 @@ max-width: 1000px !important;
    var Contact_info_get_link = "{{url('Contact_info_view')}}";
    var add_family_info_link = "{{url('add_family_add')}}";
    var family_information_get_link = "{{url('family_information_view')}}";
+   var banner_image_crop_link = "{{url('banner_image_crop')}}";
+   var profile_banner_image_link = "{{url('profile_banner')}}";
 
    
  </script>

@@ -27,6 +27,7 @@ class LoginController extends Controller
                 'role_id' => auth()->user()->role_id,
                 'active' => auth()->user()->active,
             ];
+            // echo "<pre>";print_r($info);die;
             Session::put("session_info",$info);
              return response()->json( ['url'=>url('com_dashboard' ), 'logstatus' => 'success'] );
         }else{

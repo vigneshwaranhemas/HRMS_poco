@@ -349,27 +349,22 @@ class AdminController extends Controller
 
             return DataTables::of($get_employee_list_result)
             ->addIndexColumn()
-            // ->addColumn('status', function($row) {
-            //     $btn = '';
-            //     $result =  $row->status;
-            //     // print_r($result);
-            //     // die();
-            //     if($result == "active")
-            //     {
-            //         $btn = '<span class="badge badge-success">Active</span>';
-            //     }elseif($result == "Inactive"){
-            //         $btn = '<span class="badge badge-warning">Inactive</span>';
-            //     }
-
-            //     return $btn;
-            // })
-
-            // ->addColumn('action', function($row) {
-            //     $candidate_profile = "candidate_profile";
-            //     $btn = '<a href="candidate_profile"><i class="fa fa-edit"></i><a>';
-            //     return $btn;
-            // })
-            // ->rawColumns(['action'])
+            ->addColumn('action', function($row) {
+                $candidate_profile = "candidate_profile";
+                  $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    </div>';
+                // $btn = '<a href="candidate_profile"><i class="fa fa-edit"></i><a>';
+                return $btn;
+            })
+            ->addColumn('Info', function($row) {                
+                $btn = '<a class="dropdown-item" href="javascript:;" href="candidate_profile_view" onclick="candidate_profile_view('."'".$row->id."'".');"><i class="fa fa-edit"></i></a>'; 
+                $btn .= '<a class="dropdown-item" href="javascript:;" href="candidate_profile_view" onclick="candidate_profile_view('."'".$row->id."'".');"><i class="fa fa-eye"></i></a>';
+                return $btn;
+            })
+            
+            ->rawColumns(['Info','action'])
             ->make(true);
         }
 
@@ -2292,6 +2287,36 @@ class AdminController extends Controller
             }
             echo json_encode($response);
          }
+
+    public function get_role_type(Request $request){
+
+        $role_type_res = $this->admrpy->role_type_list();
+        
+        return response()->json( $role_type_res );
+        
+    }
+
+    public function get_employee_pop(Request $req){
+        $input_details = array(
+            'id'=>$req->input('id'),
+        );
+
+        $employee_list_result = $this->admrpy->employee_list_result( $input_details );
+
+        return response()->json( $employee_list_result );
+    }
+    public function update_employee_list_pop(Request $req){
+
+        $input_details = array(
+            'id'=>$req->input('id'),
+            'employe_role'=>$req->input('employe_role'),
+        );
+        // echo "<pre>";print_r($input_details);die;
+        $update_role_unit_details_result = $this->admrpy->update_employee_type( $input_details );
+
+        $response = 'Updated';
+        return response()->json( ['response' => $response] );
+    }
 
 
 

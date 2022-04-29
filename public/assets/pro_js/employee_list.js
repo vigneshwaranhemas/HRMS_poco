@@ -8,6 +8,7 @@ $( document ).ready(function() {
 
 $(document).ready(function(){
     employee_record();
+    get_role_type();
 });
 
 function employee_record(){
@@ -115,7 +116,8 @@ function employee_record(){
             {   data: 'contact_no', name: 'contact_no'    },
             {   data: 'sup_name', name: 'sup_name'    },
             {   data: 'reviewer_name', name: 'reviewer_name'    },
-            // {   data: 'action', name: 'action'    },
+            {   data: 'action', name: 'action'  },
+            {   data: 'Info', name: 'Info'  },
     
         ],
     });
@@ -165,8 +167,6 @@ function newexportaction(e, dt, button, config) {
 }
 
 function get_employee_list(){
-    alert("hi")
-
 table_cot = $('#employee_data').DataTable({
 
     dom: 'lBfrtip',
@@ -264,3 +264,99 @@ table_cot = $('#employee_data').DataTable({
     ],
 });
 }
+function get_role_type() {
+    $.ajax({
+        url: get_role_type_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data)
+            var html = '<option value="">Select</option>';
+            for (let index = 0; index < data.length; index++) {
+            console.log(data[index].name)
+                html += "<option value=" + data[index].name + ">" + data[index].name + "</option>";
+            }
+            $('#employe_role').html(html);
+
+        }
+
+    });
+}
+//Edit pop-up model and data show
+function employee_edit_process(id){
+
+    $('#role_edit_div').modal('show');
+
+    $.ajax({
+        url: get_employee_link,
+        method: "POST",
+        data:{"id":id,},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data)
+            if(data.length !=0){
+                $('#employe_role').val(data[0].role_type);
+                $('#ed_id').val(id);
+            }
+        }
+    });
+}
+//Edit function
+$(()=>{
+
+$("#editUpdate").on('click', function() {
+
+    $("#editUpdate").attr("disabled", true);
+    $('#editUpdate').html('Processing..!');
+
+    var employe_role = $('#employe_role').val();
+    var ed_id = $('#ed_id').val();
+
+    $.ajax({
+        url: employee_list_pop_link,
+        method: "POST",
+        data:{
+            "id":ed_id,
+            "employe_role":employe_role,
+        },
+        dataType: "json",
+        success: function(data) {
+
+            $('#close_edit_pop').click();
+            $("#editUpdate").attr("disabled", false);
+            $('#editUpdate').html('Update');
+
+            if(data.response =='Updated'){
+                Toastify({
+                    text: "Updated Successfully",
+                    duration: 3000,
+                    close:true,
+                    backgroundColor: "#4fbe87",
+                }).showToast();
+
+                setTimeout(
+                    function() {
+                        location.reload();
+                    }, 2000);
+            }
+            else {
+                Toastify({
+                    text: "Request Failed..! Try Again",
+                    duration: 3000,
+                    close:true,
+                    backgroundColor: "#f3616d",
+                }).showToast();
+
+            }
+
+            setTimeout(
+                function() {
+                    get_business_list();
+                }, 2000);
+
+        }
+    });
+});
+
+})

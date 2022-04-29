@@ -46,7 +46,7 @@ $(()=>{
 })
 $(()=>{
     $("#SeatingRequestBtn1").on('click',()=>{
-     
+
         var token=$("#token").val();
         $.ajax({
             url:Seating_url,

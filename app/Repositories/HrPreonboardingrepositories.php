@@ -131,55 +131,65 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
     {
         $email_table="";
         $result=CustomUser::join("candidate_details",'candidate_details.cdID','=','customusers.cdID')
-        ->where("candidate_details.or_doj",$data['or_doj'])
+        ->where("customusers.doj",$data['doj'])
         ->where("customusers.pre_onboarding",1)
         ->where("candidate_details.created_by",$data["created_by"])
-        ->select("customusers.cdID","customusers.username",
+        ->select("customusers.cdID","customusers.empID","customusers.username",
                  "customusers.email","customusers.contact_no")->get();
-         $i=1;
-         foreach($result as $email_info){
-               $email_check=EmailCreationModel::where('cdID',$email_info['cdID'])->first();
-               if(!is_null($email_check)){
-                              if($email_check['status']==0){
-                                  $status="";
-                                  $check="<input type='checkbox'>";
-                              }
-                              else if($email_check['status']==1){
-                                  $status="<span class='badge badge-warning'>In Progress</span>";
-                                  $check="";
-                              }
-                              else{
-                                $status="<span class='badge badge-success'>Completed</span>";
-                                $check="";
-                              }
-                                $email_table.="<tr><td>".$i."</td><td>".$check."</td>
-                                <td>".$email_info['cdID']."</td>
-                                <td>".$email_info['username']."</td>
-                                <td>".$email_info['email']."</td>
-                                <td class='text-center'>".$status."</td>
-                                <td>".$email_check["hr_suggested_mail"]."</td>
-                                <td>".$email_check["asset_type"]."</td>
-                        </tr>";
+        if(count($result)>0){
+            $i=1;
+            foreach($result as $email_info){
+                  $email_check=EmailCreationModel::where('empID',$email_info['empID'])->first();
+                  if(!is_null($email_check)){
+                                 if($email_check['status']==0){
+                                     $status="";
+                                     $check="<input type='checkbox'>";
+                                 }
+                                 else if($email_check['status']==1){
+                                     $status="<span class='badge badge-warning'>In Progress</span>";
+                                     $check="";
+                                 }
+                                 else{
+                                   $status="<span class='badge badge-success'>Completed</span>";
+                                   $check="";
+                                 }
+                                   $email_table.="<tr><td>".$i."</td><td>".$check."</td>
+                                   <td>".$email_info['empID']."</td>
+                                   <td>".$email_info['username']."</td>
+                                   <td>".$email_info['email']."</td>
+                                   <td class='text-center'>".$status."</td>
+                                   <td>".$email_check["hr_suggested_mail"]."</td>
+                                   <td>".$email_check["asset_type"]."</td>
+                           </tr>";
 
-               }
-               else{
-                            $email_table .="<tr><td>".$i."</td><td><input type='checkbox'><input type='hidden' value=".$email_info['cdID']."></td>
-                                            <td>".$email_info['cdID']."</td>
-                                            <td>".$email_info['username']."</td>
-                                            <td>".$email_info['email']."</td>
-                                            <td class='text-center'><input type='hidden' value=0></td>
-                                            <td><input type='text' class='form-control tdtextwidth'></td>
-                                            <td><select class='form-control'>
-                                                    <option value=0>Choose</option>
-                                                    <option value='Laptop'>Laptop</option>
-                                                    <option value='Desktop'>Desktop</option>
-                                                </select>
-                                            </td>
-                                       </tr>";
-               }
-        $i++;
-         }
-        echo  $email_table;
+                  }
+                  else{
+                               $email_table .="<tr><td>".$i."</td><td><input type='checkbox'><input type='hidden' value=".$email_info['empID']."></td>
+                                               <td>".$email_info['empID']."</td>
+                                               <td>".$email_info['username']."</td>
+                                               <td>".$email_info['email']."</td>
+                                               <td class='text-center'><input type='hidden' value=0></td>
+                                               <td><input type='text' class='form-control tdtextwidth'></td>
+                                               <td><select class='form-control'>
+                                                       <option value=0>Choose</option>
+                                                       <option value='Laptop'>Laptop</option>
+                                                       <option value='Desktop'>Desktop</option>
+                                                   </select>
+                                               </td>
+                                          </tr>";
+                  }
+               $i++;
+            }
+           echo $email_table;
+        }
+        else{
+            echo "1";
+        }
+
+
+
+
+
     }
 
 
@@ -190,7 +200,7 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
     }
     public function candidate_info_for_EmailCreation($data)
     {
-         $candidate_info=CustomUser::where('cdID',$data['cdID'])->first();
+         $candidate_info=CustomUser::where('empID',$data['empID'])->first();
          $candidate_data['supervisor_info']=UsersInfoModel::where('empID',$candidate_info->sup_emp_code)->first();
          $candidate_data['reviewer_info']=UsersInfoModel::where('empID',$candidate_info->reviewer_emp_code)->first();
          $candidate_data['info']=$candidate_info;
@@ -199,9 +209,9 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
     }
     public function get_hrRequested_info($status)
     {
-         $email_info=EmailCreationModel::join('customusers','customusers.cdID','=','candidate_email_request.cdID')
+         $email_info=EmailCreationModel::join('customusers','customusers.empID','=','candidate_email_request.empID')
                                        ->where('candidate_email_request.status',$status)
-                                       ->select("customusers.cdID","customusers.username",
+                                       ->select("customusers.cdID","customusers.empID","customusers.username",
                                               "customusers.email","customusers.contact_no",
                                               "candidate_email_request.hr_suggested_mail",
                                               "candidate_email_request.asset_type")->get();
@@ -224,7 +234,7 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
     }
     public function update_candidate_doc_status($id,$status)
     {
-        $result=CustomUser::where("cdID",$id)->update($status);
+        $result=CustomUser::where("empID",$id)->update($status);
         return $result;
     }
 }

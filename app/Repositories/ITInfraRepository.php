@@ -9,8 +9,8 @@ class ITInfraRepository implements IITInfraRepository {
 
 public function get_candidate_email_info($data)
 {
-       $candidate_info=EmailCreationModel::join('customusers','customusers.cdID','=','candidate_email_request.cdID')
-                       ->where('candidate_email_request.cdID',$data['cdID'])
+       $candidate_info=EmailCreationModel::join('customusers','customusers.empID','=','candidate_email_request.empID')
+                       ->where('candidate_email_request.empID',$data['empID'])
                        ->select('customusers.username','customusers.email',
                                 'customusers.doj','customusers.sup_name',
                                 'customusers.sup_emp_code','customusers.contact_no',
@@ -26,7 +26,7 @@ public function get_candidate_email_info($data)
 
 public function update_itInfra_EmailStatus($data)
 {
-           $result=EmailCreationModel::where('cdID',$data['cdID'])->update(['status'=>2,'hr_suggested_mail'=>$data['Email']]);
+           $result=EmailCreationModel::where('empID',$data['empID'])->update(['status'=>2,'hr_suggested_mail'=>$data['Email']]);
            return $result;
 }
 }

@@ -60,9 +60,10 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
    }
    public function fetch_buddy_info($data)
    {
-          $result=UsersInfoModel::join('candidate_details','candidate_details.welcome_buddy','=','users.empID')
+          $result=CustomUser::join('candidate_details','candidate_details.welcome_buddy','=','customusers.empID')
                                   ->where('candidate_details.cdID',$data)
-                                  ->select('users.empID','users.name','users.designation','users.email','users.mobile_no')
+                                  ->select('customusers.empID','customusers.username','customusers.designation',
+                                  'customusers.email','customusers.contact_no')
                                   ->first();
           return $result;
    }

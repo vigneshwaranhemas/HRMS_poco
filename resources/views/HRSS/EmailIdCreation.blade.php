@@ -44,11 +44,11 @@
                            <tr>
                               <th>S.No</th>
                               <th>#</th>
-                              <th>EMPLOYEE ID</th>
-                              <th>NAME</th>
-                              <th>EMAIL</th>
-                              <th>STATUS</th>
-                              <th>HR SUGGEST EMAIL</th>
+                              <th>Employee ID</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Status</th>
+                              <th>HR Suggested Email</th>
                               <th>Asset Type</th>
                            </tr>
                         </thead>

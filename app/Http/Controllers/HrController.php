@@ -112,9 +112,8 @@ class HrController extends Controller
     {
         $sess_info=Session::get("session_info");
         $date=date('Y-m-d');
-        $data=array("or_doj"=>$date,'created_by'=>$sess_info["empID"]);
+        $data=array("doj"=>$date,'created_by'=>$sess_info["empID"]);
         $candidate_info=$this->hpreon->EmailIdCreation($data);
-        echo json_encode($candidate_info);
     }
     public function Candidate()
     {
@@ -124,8 +123,6 @@ class HrController extends Controller
     {
         $id=$request->id;
         $user_documents=$this->hpreon->getUserDocuments($id);
-        // $total =;
-        // echo json_encode(count((array)$user_documents));
         return view('HRSS.userdocuments')->with('user_documents',$user_documents);
     }
     public function Show_preOnBoarding(Request $request)

@@ -10,7 +10,7 @@ $(()=>{
                   var col2=currrow.find('td:eq(2)').text();
                   var col3=currrow.find('td:eq(6) input[type=text]').val();
                    selected.push({
-                     cdID:col2,
+                     empID:col2,
                      Email:col3,
                    });
             }

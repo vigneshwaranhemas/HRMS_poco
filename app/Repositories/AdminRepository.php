@@ -1033,12 +1033,12 @@ class AdminRepository implements IAdminRepository
 
      public function get_seating_requested($status)
      {
-         $result=Candidate_seating_and_email_request::join('candidate_details','candidate_seating_and_email_requests.cdID','=','candidate_details.cdID')
+         $result=Candidate_seating_and_email_request::join('customusers','candidate_seating_and_email_requests.empID','=','customusers.empID')
                  ->where('candidate_seating_and_email_requests.status',$status)
                  ->select("candidate_seating_and_email_requests.empId",
-                          "candidate_details.candidate_name",
-                          "candidate_details.candidate_email",
-                          "candidate_details.candidate_mobile",
+                          "customusers.username",
+                          "customusers.email",
+                          "customusers.contact_no",
                           "candidate_seating_and_email_requests.Seating_Request",
                           "candidate_seating_and_email_requests.IdCard_status")->get();
          return $result;

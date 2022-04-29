@@ -50,14 +50,14 @@
                     <table class="display" id="export-button">
                         <thead>
                            <tr>
+                              <th>S.No</th>
                               <th>#</th>
-                              <th>VERIFIED</th>
-                              <th>EMPLOYEE ID</th>
-                              <th>NAME</th>
-                              <th>EMAIL</th>
-                              <th>MOBILE NUMBER</th>
-                              <th>SEATING STATUS</th>
-                              <th>IDCARD  STATUS</th>
+                              <th>Employee Id</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Mobile Number</th>
+                              <th>Seating Status</th>
+                              <th>Idcard  Status</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -67,9 +67,9 @@
                                      <td>{{$i}}</td>
                                      <td><input type="checkbox"><input type="hidden" value="{{$data['empId']}}"></td>
                                      <td>{{$data['empId']}}</td>
-                                     <td>{{$data['candidate_name']}}</td>
-                                     <td>{{$data['candidate_email']}}</td>
-                                     <td>{{$data['candidate_mobile']}}</td>
+                                     <td>{{$data['username']}}</td>
+                                     <td>{{$data['email']}}</td>
+                                     <td>{{$data['contact_no']}}</td>
                                      <td>
                                         <div class="media-body text-center icon-state">
                                             <label class="switch">

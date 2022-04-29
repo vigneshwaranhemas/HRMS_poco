@@ -71,9 +71,8 @@ class CandidateController extends Controller
     public function Candidate_Assigned_Buddy()
     {
         $sess_info=Session::get("session_info");
-        $data=array('cdID'=>$sess_info['cdID']);
-        $buddy_info=$this->preon->fetch_buddy_info($data);
-        // echo json_encode($buddy_info->);
+        $cdID=$sess_info['cdID'];
+        $buddy_info=$this->preon->fetch_buddy_info($cdID);
         return view('candidate.Buddy_info')->with('info',$buddy_info);
     }
 
@@ -90,30 +89,32 @@ class CandidateController extends Controller
             if($user_info)
             {
                 $data['user_info']=$user_info;
-
             }
             else{
                 $data['user_info']="";
             }
            $data['fields']=$fields;
-         return view('candidate.preOnboarding')->with('userdata',$data);
+           return view('candidate.preOnboarding')->with('userdata',$data);
 
     }
 
     public function buddy()
     {
-
         $sess_info=Session::get("session_info");
         $table1="candidate_details";
-        $cid=array("cdID"=>$sess_info["empID"]);
+        $candiate_buddy_data=array("empId"=>$sess_info["empID"],
+                                   "cdID"=>$sess_info["cdID"]);
         $id=array("empId"=>$sess_info["empID"]);
+        // $cid=array("cdID"=>$sess_info["cdID"]);
         $table="buddyfeedbackfields";
         $fields=$this->preon->getonBoardingFields($table);
         $feedback_info=$this->preon->get_buddy_info($id);
-        $user_info=$this->preon->Check_onBoard($table1,$cid);
+        // $user_info=$this->preon->Check_onBoard($table1,$cid);
+        $user_info=$this->preon->get_candidate_and_buddy_info($candiate_buddy_data);
         $data['fields']=$fields;
         $data['feedback_info']=$feedback_info;
         $data['user_info']=$user_info;
+        // echo json_encode($data['user_info']);
         return view('candidate.buddy_feedback')->with('buddy_fields',$data);
     }
 
@@ -318,7 +319,7 @@ public function insertPreOnboarding(Request $request)
        $data=array('emp_id'=>$empId);
        $table="candidate_preonboarding";
        $table1='candidate_details';
-       $data1=array('cdID'=>$sess_info['empID']);
+       $data1=array('cdID'=>$sess_info['cdID']);
        $table1="candidate_details";
        $candidate_info=$this->preon->get_canidate_info($table1,$data1);
        $usercheck=$this->preon->Check_onBoard($table,$data);

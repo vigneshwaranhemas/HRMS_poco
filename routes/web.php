@@ -328,3 +328,4 @@ Route::post( 'get_employee_pop', 'AdminController@get_employee_pop' );
 Route::post('update_employee_list_pop', 'AdminController@update_employee_list_pop');
 
 
+

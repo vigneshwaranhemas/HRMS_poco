@@ -11,8 +11,9 @@ use Mail;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Auth;
-use Image;
 use Response;
+use Intervention\Image\ImageManager;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class HrController extends Controller
 {
@@ -23,6 +24,7 @@ class HrController extends Controller
         $this->hpreon = $hpreon;
         $this->preon = $preon;
         $this->admrpy = $admrpy;
+        $this->middleware('is_admin');
     }
 
 
@@ -278,27 +280,40 @@ class HrController extends Controller
 
     public function welcome_aboard_generate_image(Request $req)
     {
-        $data = $req->summernote_get;
-        // echo 'sd<pre>';print_r($data);die();
+        $width       = 1200;
+        $height      = 700;
+        $center_x    = 60;
+        $center_y    = 400;
+        $max_len     = 120;
+        $font_size   = 20;
+        $font_height = 20;
+        $postImagePath = null;
 
-        // $img = Image::make(public_path('assets/images/image_generator/birds.jpg'));
-        $img = Image::canvas(800, 600,'#ffffff');
+        $text = $req->summernote_get;
+        // print_r($text);die();
 
-        // write text
-        // $img->text($data, 100, 80);
-       $img->text($data , 50, 80, function($font) {
-            $font->size(80);
-            $font->color('#000000');
-            $font->align('left');
-            $font->valign('top');
-            $font->angle(45);
-        });
+        $lines = explode("\n", wordwrap($text, $max_len));
+        $y     = $center_y - ((count($lines) - 1) * $font_height);
+        $image   = Image::canvas($width, $height, '#ffffff');
 
-        $img->save(public_path('assets/images/image_generator/image.jpg'));
+        foreach ($lines as $line)
+        {
+            $image->text($line, $center_x, $y, function($font) use ($font_size){
+                $font->file(public_path('fonts/Roboto-Light.ttf'));
+                $font->size($font_size);
+                $font->color('#000000');
+                $font->align('left');
+                $font->valign('center');
+            });
 
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-        echo json_encode($data);
+            $y += $font_height * 2;
+        }
+
+            $image->save(public_path('assets/images/image_generator/image.jpg'));
+
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($text);
     }
 
   //vignesh code for user document status update
@@ -331,8 +346,6 @@ class HrController extends Controller
         }
         echo json_encode($response);
     }
-
-
 
 
 

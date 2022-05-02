@@ -28,6 +28,7 @@ var basic_calendar = {
 
     }
 };
+
      
 $('#event-form-insert').submit(function(e) {
     e.preventDefault();
@@ -848,18 +849,21 @@ $("#submit_event_type").on('click', function(){
     return false;        
 });
 
-//Update Event data    
-$('#event-form-update').submit(function(e) {
-    e.preventDefault();
-    let formData = new FormData(this); 
+//Update Event data
+$('#updateEventForm').on('submit',function(event){
+    event.preventDefault();
+    // Get Alll Text Box Id's
+    var event_name_edit = $('#event_name_edit').val();
+    // alert(event_name_edit);  
 
     $.ajax({
-        type:'POST',
-        url: `/event_update`,
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: (response) => {
+        url:"event_update",
+        type:"POST",
+        data:$("#updateEventForm").serialize(),
+        dataType : "JSON",
+        success:function(response)
+        {
+            
             $('#formEventEditModal').modal('hide');
 
             Toastify({
@@ -870,11 +874,15 @@ $('#event-form-update').submit(function(e) {
             }).showToast();
 
             window.location.reload();
+                                                                    
         },
-        error: function(response){
-            console.log(response);
-        }     
-    });
+        error: function(response) {
+
+            console.log(response.responseJSON.errors);                   
+
+        }
+        
+    }); 
 
 });
 

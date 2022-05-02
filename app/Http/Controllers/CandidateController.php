@@ -9,6 +9,7 @@ use PDF;
 use Carbon\Carbon;
 use Auth;
 use Session;
+
 class CandidateController extends Controller
 {
     public $preon;
@@ -49,8 +50,6 @@ class CandidateController extends Controller
                      ->where('event_attendees.candidate_name', $logined_empid)
                      ->limit(2)
                      ->get();
-
-        // dd($upcoming_events);
 
         // $upcoming_events = DB::table('events')->select('*')->where('start_date_time', '>=', $date)->limit(2)->get();
 
@@ -308,7 +307,7 @@ class CandidateController extends Controller
         // $pdf = PDF::loadView('admin.welcome_aboard_pdf', $data);
         $pdf = PDF::loadView('candidate.welcome_aboard_pdf', compact('info'));
 
-        return $pdf->stream('welcome_aboard.pdf');
+        return $pdf->download('welcome_aboard.jpeg');
     }
 // pre onBoarding Insert
 public function insertPreOnboarding(Request $request)

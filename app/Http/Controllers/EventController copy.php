@@ -158,7 +158,7 @@ class EventController extends Controller
             'attendees_filter' => $attendees_filter,
             'candicate_list' => $all_candicate_list,
             'event_file' => $file_name,
-            'all_filter_attendees' => $attendees_all_filter,
+            'all_filter_attendees' => $all_filter_attendees,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         );
@@ -404,32 +404,14 @@ class EventController extends Controller
 
     public function event_update(Request $request)
     {      
-        // dd($request->all());
-
+        dd($request->all());
+        
         $id = $request->event_update_id;
 
         $code = DB::table('events')
         ->where('id', $id)
         ->value('event_unique_code');
 
-        //Attendees
-        if($request->input('attendees_filter_op') == "Gender"){
-            $attendees_filter = $request->input('gender_filter_option');
-            $op = "gender";
-        }elseif($request->input('attendees_filter_op') == "Department"){
-            $attendees_filter = $request->input('dept_filter_option');
-            $op = "department";            
-        }elseif($request->input('attendees_filter_op') == "Designation"){
-            $attendees_filter = $request->input('designation_filter_option');
-            $op = "designation";            
-        }elseif($request->input('attendees_filter_op') == "Work Location"){
-            $attendees_filter = $request->input('wfh_filter_option');
-            $op = "worklocation";            
-        }else{
-            $attendees_filter = "";
-        }
-
-        //Repeat
         if ($request->repeat) {
             $repeat = $request->repeat;
             $repeat_cycles = $request->repeat_cycles;
@@ -438,8 +420,7 @@ class EventController extends Controller
             $repeat_cycles = "";
         }
 
-        //All candidate
-        if($request->candicate_list){ 
+        if($request->candicate_list){ //all candicates
             
             $attendees = DB::table("customusers")->select('*')->get(); // get all the user list
 
@@ -473,86 +454,30 @@ class EventController extends Controller
 
         }
 
-        //All Filter option
-        if ($request->attendees_all_filter) {
-            $attendees = DB::table("customusers")->select('*')->where($op, $attendees_filter)->get(); // get all the user list
-            $response = EventAttendee::where('event_id', $code)->delete();
-            foreach ($attendees as $attendee) {
-                EventAttendee::firstOrCreate(['candidate_name' => $attendee->empID, 'event_id' => $code]);
-            }
-            $attendees_all_filter = "yes";
-
-        }else{
-            $attendees_all_filter = "no";
-        }
-
-
         $start_date_time = $request->start_date. ' ' .$request->start_time;
         $end_date_time = $request->end_date. ' ' .$request->end_time;
         // $end_date_time = Carbon::createFromFormat("d-m-Y", $request->end_date)->format('Y-m-d') . ' ' . Carbon::createFromFormat("h:i A", $request->end_time)->format('H:i:s');
 
-        //File upload
-        $file = $request->file('file');
+        $data = array(
+            'event_update_id' => $id,
+            'event_name' => $request->event_name,
+            'label_color' => $request->label_color,
+            'where' => $request->where,
+            'description' => $request->description,
+            'start_date_time' => $start_date_time,
+            'end_date_time' => $end_date_time,
+            'repeat' => $repeat,
+            'repeat_every' => $request->repeat_count,
+            'repeat_cycles' => $request->repeat_cycles,
+            'repeat_type' => $request->repeat_type,
+            'category_name' => $request->category_name,
+            'event_type' => $request->event_type,
+            'candicate_list' => $all_candicate_list,
+        );
 
-        if($file){
-            //Got new file
-            $file_name = $request->file('file')->getClientOriginalName();
-            $public_path_upload = $request->file->move(public_path('event_file'), $file_name);                     
-            
-            $data = array(
-                'event_update_id' => $id,
-                'event_name' => $request->event_name,
-                'label_color' => $request->label_color,
-                'where' => $request->where,
-                'description' => $request->description,
-                'start_date_time' => $start_date_time,
-                'end_date_time' => $end_date_time,
-                'repeat' => $repeat,
-                'repeat_every' => $request->repeat_count,
-                'repeat_cycles' => $request->repeat_cycles,
-                'repeat_type' => $request->repeat_type,
-                'category_name' => $request->category_name,
-                'event_type' => $request->event_type,
-                'candicate_list' => $all_candicate_list,
-                'attendees_filter_op' => $request->attendees_filter_op,
-                'attendees_filter' => $attendees_filter,
-                'all_filter_attendees' => $attendees_all_filter,
-                'event_file' => $file_name,
+        // dd($data);
 
-            );
-
-            $result = $this->event->event_update_file($data);      
-
-
-        }else {
-
-            //No file update
-            
-            $data = array(
-                'event_update_id' => $id,
-                'event_name' => $request->event_name,
-                'label_color' => $request->label_color,
-                'where' => $request->where,
-                'description' => $request->description,
-                'start_date_time' => $start_date_time,
-                'end_date_time' => $end_date_time,
-                'repeat' => $repeat,
-                'repeat_every' => $request->repeat_count,
-                'repeat_cycles' => $request->repeat_cycles,
-                'repeat_type' => $request->repeat_type,
-                'category_name' => $request->category_name,
-                'event_type' => $request->event_type,
-                'candicate_list' => $all_candicate_list,
-                'attendees_filter_op' => $request->attendees_filter_op,
-                'attendees_filter' => $attendees_filter,
-                'all_filter_attendees' => $attendees_all_filter,
-
-            );
-
-            $result = $this->event->event_update($data);     
-
-
-        }           
+        $result = $this->event->event_update($data);
         
         //Store event attendees
         // $eventIds [] = $last_inserted_id;

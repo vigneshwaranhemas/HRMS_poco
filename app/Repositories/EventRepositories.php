@@ -12,12 +12,12 @@ class EventRepositories implements IEventRepositories {
       $response = Event::insertGetId($data);        
       return $response;
    }
-   public function fetch_category_details_all()
-   {      
-      $response = DB::table("candidate_details")->select('*')
-                        ->get();
-      return $response;
-   }
+   // public function fetch_category_details_all()
+   // {      
+   //    $response = DB::table("candidate_details")->select('*')
+   //                      ->get();
+   //    return $response;
+   // }
    public function insertEventCode($event_unique_code, $last_inserted_id)
    {
       $response = Event::where('id', $last_inserted_id)
@@ -89,10 +89,44 @@ class EventRepositories implements IEventRepositories {
                            'repeat_type' => $data['repeat_type'],
                            'category_name' => $data['category_name'],
                            'event_type' => $data['event_type'],
+                           'attendees_filter_op' => $data['attendees_filter_op'],
+                           'attendees_filter' => $data['attendees_filter'],
+                           'all_filter_attendees' => $data['all_filter_attendees'],
                            'candicate_list' => $data['candicate_list'],
                         ));
       return $response;
    }
+   public function event_update_file($data)
+   {
+      $response = Event::where('id', $data['event_update_id'])
+                        ->update(array(
+                           'event_name' => $data['event_name'],
+                           'label_color' => $data['label_color'],
+                           'where' => $data['where'],
+                           'description' => $data['description'],
+                           'start_date_time' => $data['start_date_time'],
+                           'end_date_time' => $data['end_date_time'],
+                           'repeat' => $data['repeat'],
+                           'repeat_every' => $data['repeat_every'],
+                           'repeat_cycles' => $data['repeat_cycles'],
+                           'repeat_type' => $data['repeat_type'],
+                           'category_name' => $data['category_name'],
+                           'event_type' => $data['event_type'],
+                           'attendees_filter_op' => $data['attendees_filter_op'],
+                           'attendees_filter' => $data['attendees_filter'],
+                           'all_filter_attendees' => $data['all_filter_attendees'],
+                           'candicate_list' => $data['candicate_list'],
+                           'event_file' => $data['event_file'],
+                        ));
+      return $response;
+   }
+   public function attendees_filter($data)
+   {
+      $response = DB::table("customusers")->select('*')
+                     ->where(''.$data['attendees_filter_op'].'', $data['attendees_filter'])
+                     ->get();
+      return $response;
+   }     
    
 }
 

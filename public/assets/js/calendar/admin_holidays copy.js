@@ -1,66 +1,6 @@
 "use strict";
-
-function getBirthdayFilter(){
-    // implementation omitted
-    return $("#holidays_state_filter").val();
-};
-
 var basic_calendar = {
     init: function() {
-        // $('#cal-basic').fullCalendar({
-        //     // defaultDate: '2016-06-12',
-        //     header: {
-        //         left: 'prev,next today',
-        //         center: 'title',
-        //         right: 'month,basicWeek,basicDay,list'
-        //     },
-        //     editable: true,
-        //     selectable: true,
-        //     selectHelper: true,
-        //     droppable: true,
-        //     eventLimit: true,            
-        //     events: function(start, end, callback, successCallback) {
-        //         var birthday_filter = getBirthdayFilter();
-        //         $.ajax({
-        //             url: 'fetch_holidays_list',
-        //             // dataType: 'xml',
-        //             data: {                        
-        //                 state: birthday_filter
-        //             },
-        //             success: function(response) {
-        //                 console.log(response)  
-                        
-        //                 var events = [];
-        //                 $.each(response, function (i, data)  
-        //                 {  
-        //                 // console.log(data.title);
-        //                     events.push(  
-        //                     {  
-        //                         title: data.title,  
-        //                         start: data.start,
-        //                         empID: data.empID,
-        //                         view: data.view,
-        //                         // end: data.end, 
-        //                     });                                  
-        //                 });  
-
-        //                 // console.log(events)  
-        //                 successCallback(events);
-        //             }
-        //         });
-        //     },      
-        //     select: function(arg) {
-        //         addHolidayModal(arg);
-        //         $('#cal-basic').fullCalendar('unselect');
-        //     },
-        //     eventClick: function(arg) { //edit option   
-        //         getEventDetail(arg.id, arg.start, arg.end); 
-        //     },
-        //     // viewRender: function(view, element) {
-        //     //     addFilter(view.title);
-        //     // }
-        // });
-
         $('#cal-basic').fullCalendar({
             // defaultDate: '2016-06-12',
             header: {
@@ -78,39 +18,9 @@ var basic_calendar = {
                 $('#cal-basic').fullCalendar('unselect');
             },
             eventClick: function(arg) { //edit option   
-                // console.log(arg)
-                getEventDetail(arg.view, arg.start, arg.end); 
+                getEventDetail(arg.id, arg.start, arg.end); 
             }, 
-            events: function(start, end, callback, successCallback) {
-                var birthday_filter = getBirthdayFilter();
-                $.ajax({
-                    url: 'fetch_holidays_list',
-                    // dataType: 'xml',
-                    data: {                        
-                        state: birthday_filter
-                    },
-                    success: function(response) {
-                        var events = [];                        
-                        $.each(response, function (i, data)  
-                        {  
-                        // console.log(data.title);
-                            events.push(  
-                            {  
-                                title: data.title,  
-                                start: data.start,
-                                empID: data.empID,
-                                view: data.view,
-                                // end: data.end, 
-                            });                                  
-                        });  
-
-                        // events.push(response);   
-                        // console.log(events)  
-                        successCallback(events);
-                    }
-                });
-            },       
-            // events: "fetch_holidays_list",
+            events: "fetch_holidays_list",
             // events: [
             //     {
             //         title: 'Event 1',
@@ -150,17 +60,6 @@ var basic_calendar = {
     }
 };
 
-
-$('#holidays_state_filter').change(function () {
-    // alert(this.value)
-    var state = this.value;
-    // alert(state)
-     var url = "fetch_holidays_list";
-    var fil = url+'?state=' + state;
-    // alert(fil)
-    $('#cal-basic').fullCalendar('refetchEvents', fil);    
-
-});
 
 //View all option
 function addFilter(date) {
@@ -398,6 +297,15 @@ $('#getNewHolidaysForm').on('submit',function(event){
 
 });
 
+
+$('#holidays_state_filter').change(function () {
+    // alert(this.value)
+    var state = this.value;
+     var url = "fetch_holidays_list";
+    var fil = url+'?state=' + state;
+    $('#cal-basic').fullCalendar('refetchEvents', fil);    
+   
+});
 
 //Update Holidays data
 $('#updateHolidaysForm').on('submit',function(event){

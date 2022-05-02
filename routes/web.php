@@ -337,5 +337,7 @@ Route::get('id_card_varification', 'CommonController@id_card_varification');
 Route::post('idcard_info', 'CommonController@idcard_info');
 Route::post('idcard_info_save', 'CommonController@idcard_info_save');
 
+// Document Centre
+Route::get('document_center', 'CandidateController@document_center')->name('document_center');
 
 

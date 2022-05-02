@@ -430,6 +430,11 @@ public function InsertBuddyFeedback(Request $request)
 
 }
 
+public function document_center()
+{
+    return view('candidate.document_center');
+}
+
 
 
 

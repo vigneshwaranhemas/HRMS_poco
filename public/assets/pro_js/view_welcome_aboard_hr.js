@@ -13,13 +13,14 @@ $(document).ready(function(){
 
 // Data show
 function view_welcome_aboard_process(){
-
+var test_div="";
 $.ajax({
     url: get_welcome_aboard_details_link,
     method: "POST",
     dataType: "json",
     success: function(data) {
         // console.log(data.name)
+        $('#data').text(data);
         get_data = [];
 
         get_data['get_education_my'] = data['get_education_my'];
@@ -33,68 +34,69 @@ $.ajax({
         //  console.log(get_data['get_education_my'])
 
         if(data.length !=0){
-            $('#name').text(data.name);
-            $('#designation').text(data.designation);
-            $('#department').text(data.department);
-            $('#designation').text(data.designation);
-            $('#today_date').text(data.today_date);
 
-            $('#did_my').empty();
+             test_div +="<p style='text-align: justify;'>Dear Newbie at HEMA’s!  We are delighted that you are onboard our inspiring HEMA’s bandwagon and we would like to share the joy with all our team mates!  Please help us with interesting information about you, which you would like our HEMA’s Fraternity Fellas to know. </p>\
+            <p style='text-align: justify;'>Here’s a template which could be of help to you, to introduce yourself. Disclosing of Facts in this Sheet is entirely Voluntary.You may choose to answer/omit any queries listed in the DID YOU KNOW Section.</p>\
+            <p>I "+data.name+"  have joined as "+data.designation+" at  "+data.department+"  today / on "+data.today_date+"</p>\
+            <h5><b>EDUCATION (in chronological order, starting from the oldest to the latest)</b></h5>\
+            ";
+
+
             html = "";
             html += "<table>";
             html += "<tbody>";
             for(let index = 0; index < get_data['get_education_my'].length; index++){
-                // console.log(get_data['get_education_my'])
-                html += "<tr>";
-                 html+= "<td class='madell' style='padding-bottom: 8px';>I did my <label>"+get_data['get_education_my'][index]+"</label> \
-                from <label>"+get_data['get_education_from'][index]+"</label>\
-                in <label>"+get_data['get_education_in'][index]+"</label> </td>";
-                html +="</tr>";
+
+                test_div += "<p> I did my "+get_data['get_education_my'][index]+"\
+                from "+get_data['get_education_from'][index]+"\
+                in "+get_data['get_education_in'][index]+"</p>\
+                ";
             }
 
             html +="</tbody>";
             html +="</table>";
-            $('#did_my').append(html)
 
-            $('#achievements_education').html(data.achievements_education);
-            $('#work_in').text(data.work_in);
-            $('#work_designation').text(data.work_designation);
-            $('#work_years').text(data.work_years);
+            test_div +="<h5 style='margin-top: 37px;'><b>My Achievements in Education,which I’d like my peers to know : </b></h5>\
+                <p>"+data.achievements_education+"\
+                </p>\
+            <h5><b>WORK EXPERIENCE  (in chronological order, starting from the oldest to the latest) </b></h5>\
+            <p>I Started my professional Career in "+data.work_in+" and as "+data.work_designation+" and worked there for about "+data.work_years+" Years and </p>\
+            ";
 
-            $('#work_experience').empty();
             html = "";
             html += "<table>";
             html += "<tbody>";
             for(let index = 0; index < get_data['get_work_experience_at'].length; index++){
-                // console.log(get_data['get_education_my'])
-                html += "<tr>";
-                 html+= "<td class='madell' style='padding-bottom: 8px';>I did my <label>"+get_data['get_work_experience_at'][index]+" </label>\
-                from <label>"+get_data['get_work_experience_as'][index]+"</label>\
-                in <label>"+get_data['get_work_experience_years'][index]+"</label> </td>";
-                html +="</tr>";
+
+                test_div += "<p> I did my "+get_data['get_work_experience_at'][index]+"\
+                from "+get_data['get_work_experience_as'][index]+"\
+                in "+get_data['get_work_experience_years'][index]+"</p>\
+                ";
             }
 
-            html +="</tbody>";
-            html +="</table>";
-            $('#work_experience').append(html)
+            test_div += "<p style='margin-top: 33px;'>My Recent Work Experience before Joining HEMA’s was at "+data.joining_at+" As "+data.joining_as+"</p>\
+            <h5><b>My Achievements at Work , which I’d like my peers to know : </b></h5>\
+                    <p>"+data.achievements_work+"\
+                    </p>\
+            <h5><b>DID YOU KNOW SECTION: </b></h5>\
+            <h5><b>Some Interesting facts about me, on the personal front, which I’d like to share with my peers : </b></h5>\
+            <p>My favorite pastime/ pursuits "+data.my_favorite_pastime+" </p>\
+            <p>My favorite hobbies "+data.my_favorite_hobbies+" </p>\
+            <p>Three places Id love to visit "+data.my_favorite_places+" </p>\
+            <p>Three Foods I relish "+data.my_favorite_foods+" </p>\
+            <p>My Favorite Sports "+data.my_favorite_sports+" </p>\
+            <p>My Favorite Movies "+data.my_favorite_movies+" </p>\
+            <p>My Favorite "+data.my_favorite+" </p>\
+            <p>My Extracurricular Specialities  "+data.my_extracurricular_specialities+" </p>\
+            <p>My Career Aspirations "+data.my_career_aspirations+" </p>\
+            <p>I can speak these Languages fluently "+data.languages+" </p>\
+            <p>Some Interesting Facts about me that my peers can know! "+data.interesting_facts+" </p>\
+            <p>My Motto ! "+data.my_motto+" </p>\
+            <p>Books that I Read / Love to Recommend "+data.books+" </p>\
+            ";
 
+            $(".summernote").summernote('code',test_div);
 
-            $('#joining_at').text(data.joining_at);
-            $('#joining_as').text(data.joining_as);
-            $('#achievements_work').html(data.achievements_work);
-            $('#my_favorite_pastime').html(data.my_favorite_pastime);
-            $('#my_favorite_hobbies').html(data.my_favorite_hobbies);
-            $('#my_favorite_places').html(data.my_favorite_places);
-            $('#my_favorite_foods').html(data.my_favorite_foods);
-            $('#my_favorite_sports').html(data.my_favorite_sports);
-            $('#my_favorite_movies').html(data.my_favorite_movies);
-            $('#my_favorite').html(data.my_favorite);
-            $('#my_extracurricular_specialities').html(data.my_extracurricular_specialities);
-            $('#my_career_aspirations').html(data.my_career_aspirations);
-            $('#languages').html(data.languages);
-            $('#interesting_facts').html(data.interesting_facts);
-            $('#my_motto').html(data.my_motto);
-            $('#books').html(data.books);
 
         }
     }

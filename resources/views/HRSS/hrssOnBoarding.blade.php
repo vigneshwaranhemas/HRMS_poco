@@ -28,14 +28,14 @@
                         <thead>
                            <tr>
                               <th>#</th>
-                              <th>EMPLOYEE ID</th>
-                              <th>NAME</th>
-                              <th>EMAIL</th>
-                              <th>MOBILE NUMBER</th>
-                              <th>INDUCTION MAIL</th>
-                              <th>BUDDY MAIL</th>
-                              <th>ACTION</th>
-                              <th>DOCUMENT</th>
+                              <th>Employee Id</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Mobile number</th>
+                              <th>Induction Mail</th>
+                              <th>Buddy Mail</th>
+                              <th>Action</th>
+                              <th>Document</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -45,10 +45,10 @@
                                                       @foreach ($candidate_info as  $info)
                                                            <tr>
                                                                <td>{{$i}}</td>
-                                                               <td>{{$info["cdID"]}}</td>
-                                                               <td>{{$info["candidate_name"]}}</td>
-                                                               <td>{{$info["candidate_email"]}}</td>
-                                                               <td>{{$info["candidate_mobile"]}}</td>
+                                                               <td>{{$info["empID"]}}</td>
+                                                               <td>{{$info["username"]}}</td>
+                                                               <td>{{$info["email"]}}</td>
+                                                               <td>{{$info["contact_no"]}}</td>
                                                                  @if ($info["Induction_mail"]==1)
                                                                   <?php $color="green";?>
                                                                   <?php $class="fa-check";?>
@@ -125,7 +125,8 @@
           </div>
           <div class="modal-footer">
              <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
-             <button class="btn btn-secondary" type="button" data-dismiss="modal">Save changes</button>
+             <button class="btn btn-secondary" type="button" data-dismiss="modal" id="Candidate_Status_update">Save changes</button>
+             <input type="hidden" id="can_hidden_id">
 
           </div>
        </div>
@@ -153,19 +154,11 @@
 @endsection
 @section('script')
 
-<script>
-    // function model_trigger(){
-    //    $('#exampleModal').modal('show');
-    // }
-    function edit_modal(){
-      $('#ConformationModal').modal('show');
-
-    }
-  </script>
 
 @endsection
 <script>
     var email_and_seat_request_url="{{url('Email_and_Seat_request')}}";
+    var Candidate_status_update="{{url('Candidate_Status_Update')}}";
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="../pro_js/Hrss/OnBoarding.js"></script>
+<script src="{{url('pro_js/Hrss/OnBoarding.js')}}"></script>

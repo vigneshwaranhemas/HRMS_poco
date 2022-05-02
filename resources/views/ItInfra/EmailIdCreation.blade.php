@@ -4,6 +4,7 @@
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{url("assets/css/datatables.css")}}">
 <link rel="stylesheet" type="text/css" href="{{url('assets/css/datatable-extension.css')}}">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
 @section('style')

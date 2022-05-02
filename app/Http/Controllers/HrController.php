@@ -11,6 +11,9 @@ use Mail;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Auth;
+use Response;
+use Intervention\Image\ImageManager;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class HrController extends Controller
 {
@@ -21,6 +24,7 @@ class HrController extends Controller
         $this->hpreon = $hpreon;
         $this->preon = $preon;
         $this->admrpy = $admrpy;
+        $this->middleware('is_admin');
     }
 
 
@@ -118,11 +122,13 @@ class HrController extends Controller
     {
         return view('HRSS.candidate');
     }
-    public function userdocuments()
+    public function userdocuments(Request $request)
     {
         $id=$request->id;
         $user_documents=$this->hpreon->getUserDocuments($id);
-        return view('HRSS.userdocuments');
+        // $total =;
+        // echo json_encode(count((array)$user_documents));
+        return view('HRSS.userdocuments')->with('user_documents',$user_documents);
     }
     public function Show_preOnBoarding(Request $request)
     {
@@ -130,7 +136,6 @@ class HrController extends Controller
        $status=1;
        $onboarding_info=$this->hpreon->getonboardinginfo($user_id,$status);
        echo json_encode($onboarding_info);
-
     }
     public function EmailAndSeatingRequest(Request $request)
     {
@@ -151,12 +156,11 @@ class HrController extends Controller
             }
             else{
                     $store_result=$this->hpreon->Insert_Candidate_empId($data);
-
-                    $Mail['candidate_name']=$store_result["message"]["induction_info"]->candidate_name;
+                    $Mail['candidate_name']=$store_result["message"]["induction_info"]->username;
                     $Mail['username']=$request->empID;
                     $Mail['password']="Welcome@123";
-                    $Mail['candidate_department']=$store_result["message"]["induction_info"]->or_department;
-                    $Mail['candidate_doj']=$store_result["message"]["induction_info"]->or_doj;
+                    $Mail['candidate_department']=$store_result["message"]["induction_info"]->department;
+                    $Mail['candidate_doj']=$store_result["message"]["induction_info"]->doj;
                     $Mail['cc']=$store_result["message"]["email_info"]->cc;
                     $Mail['Admin_cc']=$store_result['message']['admin_email_info']->cc;
                     $Mail['hr_subject']=$store_result['message']['email_info']->subject;
@@ -187,8 +191,6 @@ class HrController extends Controller
                     }
                     $message->to($Mail['hr_to_mail'])->subject($Mail['hr_subject']);
                     });
-
-
                     // //  if($store_result['message']['location']->worklocation=='Onsite'){
                         Mail::send('emails.AdminMail', $Mail, function ($message) use ($Mail,$admin_str_arr) {
                         $message->from("rfh@hemas.in", 'HEPL - HR Team');
@@ -267,12 +269,81 @@ class HrController extends Controller
             }
             $final_response=array('success'=>1,'message'=>"Suggested Email Informations Send to The ItINfra Team Successfully");
             echo json_encode($final_response);
-
-
-
      }
 
+     public function view_welcome_aboard_hr()
+    {
+        return view('HRSS.view_welcome_aboard_hr');
+    }
 
+    public function welcome_aboard_generate_image(Request $req)
+    {
+        $width       = 1200;
+        $height      = 700;
+        $center_x    = 60;
+        $center_y    = 340;
+        $max_len     = 120;
+        $font_size   = 20;
+        $font_height = 20;
+        $postImagePath = null;
+
+        $text = $req->summernote_get;
+        // print_r($text);die();
+
+        $lines = explode("\n", wordwrap($text, $max_len));
+        $y     = $center_y - ((count($lines) - 1) * $font_height);
+        $image   = Image::canvas($width, $height, '#ffffff');
+
+        foreach ($lines as $line)
+        {
+            $image->text($line, $center_x, $y, function($font) use ($font_size){
+                $font->file(public_path('fonts/Roboto-Light.ttf'));
+                $font->size($font_size);
+                $font->color('#000000');
+                $font->align('left');
+                $font->valign('center');
+            });
+
+            $y += $font_height * 2;
+        }
+
+            $image->save(public_path('assets/images/image_generator/image.jpg'));
+
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($text);
+    }
+
+  //vignesh code for user document status update
+     public function UpdateDocumentStatus(Request $request)
+     {
+          $id=$request->id;
+          $status=array('doc_status'=>$request->status);
+          $status_update=$this->hpreon->update_candidate_doc_status($id,$status);
+          if($status_update){
+               $response=array('success'=>1,'message'=>"Status Updated Successfully");
+          }
+          else{
+            $response=array('success'=>2,'message'=>"Problem In Updating Status");
+          }
+          echo json_encode($response);
+     }
+
+    //vignesh code for user status update
+
+    public function CandidateOnboardStatusUpdate(Request $request)
+    {
+        $id=$request->id;
+        $status=array('pre_onboarding'=>'0');
+        $status_update=$this->hpreon->update_candidate_doc_status($id,$status);
+        if($status_update){
+             $response=array('success'=>1,'message'=>"Status Updated Successfully");
+        }
+        else{
+          $response=array('success'=>2,'message'=>"Problem In Updating Status");
+        }
+        echo json_encode($response);
+    }
 
 
 

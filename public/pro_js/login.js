@@ -18,7 +18,7 @@
     }
 }*/
 
-/*function password_valid(){
+function password_valid(){
 				
     var textInput = document.getElementById("login_password").value;
     if(textInput ==''){
@@ -37,7 +37,7 @@
         
 
     }
-}*/
+}
 
 $('#loginForm').submit(function(e) {
     // alert("asdasdasdas")
@@ -57,30 +57,30 @@ $('#loginForm').submit(function(e) {
                     // console.log(data)
                 if(data.logstatus =='success'){
                      window.location = data.url;
-                    // Toastify({
-                    //     text: "Login Successfully",
-                    //     duration: 3000,
-                    //     close:true,
-                    //     backgroundColor: "#4fbe87",
-                    // }).showToast();
-                    // setTimeout(
-                    //     function() {
-                    //         window.location = data.url;
+                    Toastify({
+                        text: "Login Successfully",
+                        duration: 3000,
+                        close:true,
+                        backgroundColor: "#4fbe87",
+                    }).showToast();
+                    setTimeout(
+                        function() {
+                            window.location = data.url;
 
-                    //     }, 1000);
+                        }, 1000);
 
                 }
                 else{
-                    // Toastify({
-                    //     text: "Emp ID or Password are wrong",
-                    //     duration: 3000,
-                    //     close:true,
-                    //     backgroundColor: "#f3616d",
-                    // }).showToast();
-                    // setTimeout(
-                    //     function() {
-                    //         window.location = data.url;
-                    //     }, 1000);
+                    Toastify({
+                        text: "Emp ID or Password are wrong",
+                        duration: 3000,
+                        close:true,
+                        backgroundColor: "#f3616d",
+                    }).showToast();
+                    setTimeout(
+                        function() {
+                            // window.location = data.url;
+                        }, 1000);
                     
 
                 }

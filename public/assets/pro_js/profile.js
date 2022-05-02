@@ -1,7 +1,474 @@
 
 $(document).ready(function() {
     profile_info_process();
+    profile_banner_image();
+    get_state_list();
+    Contact_info_page();
 });
+$.ajaxSetup({
+headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+
+/*banner image upload*/
+$uploadCrop = $('#upload-demo').croppie({
+    enableExif: true,
+    viewport: {
+        width: 200,
+        height: 200,
+        type: 'circle'
+    },
+    boundary: {
+        width: 300,
+        height: 300
+    }
+});
+
+
+$('#upload').on('change', function () { 
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        $uploadCrop.croppie('bind', {
+            url: e.target.result
+        }).then(function(){
+            console.log('jQuery bind complete');
+        });
+    }
+    reader.readAsDataURL(this.files[0]);
+});
+
+
+$('.upload-result').on('click', function (ev) {
+    $uploadCrop.croppie('result', {
+        type: 'canvas',
+        size: 'viewport'
+    }).then(function (resp) {
+        $.ajax({
+            // url: "/image-crop",
+            url: banner_image_crop_link,
+            type: "POST",
+            data: {"image":resp},
+            success: function (data) {
+                // console.log(data)
+            if(data.error){
+                $(".color-hider").hide();
+                    var keys=Object.keys(data.error);
+                    $.each( data.error, function( key, value ) {
+                    $("#"+key+'_error').text(value)
+                    $("#"+key+'_error').show();
+                    });
+               }
+                if(data.response =='insert'){
+               Toastify({
+                   text: "Added Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+
+           }else if(data.response =='Update'){
+               Toastify({
+                   text: "Update Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+           }
+           else{
+               Toastify({
+                   text: "Request Failed..! Try Again",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#f3616d",
+               }).showToast();
+               setTimeout(
+                   function() {
+                   }, 2000);
+
+               }
+                /*html = '<img src="' + resp + '" />';
+                $("#upload-demo-i").html(html);*/
+            }
+        });
+    });
+});
+/*banner image end upload*/
+
+
+/*clone textbox value*/
+    function CopyAdd() {
+      var cb1 = document.getElementById('sameadd');
+      var p_addres = document.getElementById('p_addres');
+      var c_addres = document.getElementById('c_addres');
+      if (cb1.checked) {
+         var checkBox = document.getElementById("sameadd");
+          var text = document.getElementById("text");
+                c_addres.value = p_addres.value;
+          if (checkBox.checked == true){
+            text.style.display = "block";
+          } else {
+             text.style.display = "none";
+          }
+      } 
+    }
+    
+
+    function profile_banner_image(){
+    $.ajax({
+        url: profile_banner_image_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            console.log(data.banner_image)
+            if (data !="") {
+                 $("#banner_img").attr('src',"../uploads/"+data.banner_image);
+              }else{
+                // $("#banner_img").attr('src',"../assets/images/user/7.jpg");
+              }
+            }
+        });
+    }
+
+/*contact info in pop-up*/
+$("#v-pills-messages-tab").on('click', function() {
+    Contact_info_page();
+});
+function Contact_info_page(){
+    $.ajax({
+        url: Contact_info_get_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data)
+                if (data !="") {
+                    $('#p_num_view').html(data['0'].phone_number);
+                    $('#s_num_view').html(data['0'].s_number);
+                    $('#p_email_view').html(data['0'].p_email);
+                    $('#p_addres_view').html(data['0'].p_addres+','+data['0'].p_town+','+data['0']. p_State+data['0'].p_district);
+                    $('#c_addres_view').html(data['0'].c_addres+','+data['0'].c_town+data['0']. c_State+','+data['0'].c_district);
+                }
+            }
+        });
+    }
+
+function Contact_information(){
+    $.ajax({
+        url: Contact_info_get_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data['0'])
+            if (data !="") {
+                $('#phone_number').val(data['0'].phone_number);
+                $('#s_number').val(data['0'].s_number);
+                $('#p_email').val(data['0'].p_email);
+                $('#p_addres').val(data['0'].p_addres);
+                $('#p_State').val(data['0'].p_State);
+                get_district(data['0'].p_State,data['0'].p_district);
+                $('#p_district').val(data['0'].p_district);
+                get_town_name(data['0'].p_district,data['0'].p_town);
+                $('#p_town').val(data['0'].p_town);
+                $('#c_addres').val(data['0'].c_addres);
+                $('#c_State').val(data['0'].c_State);
+                get_district_Current(data['0'].c_State,data['0'].c_district);
+                $('#c_district').val(data['0'].c_district);
+                get_town_name_Current(data['0'].c_district,data['0'].c_town);
+                $('#c_town').val(data['0'].c_town);                
+                $('#State').val(data['0'].State);
+            }
+
+            }
+        });
+    }
+
+
+$('#add_contact_info').submit(function(e) {    
+    e.preventDefault();
+      var formData = new FormData(this);
+    $.ajax({  
+        url:add_contact_info_link, 
+        method:"POST",  
+        data:formData,
+        processData:false,
+        cache:false,
+        contentType:false,
+        dataType:"json",
+        success:function(data) {
+        if(data.error)
+           {
+            $(".color-hider").hide();
+                var keys=Object.keys(data.error);
+                $.each( data.error, function( key, value ) {
+                $("#"+key+'_error').text(value)
+                $("#"+key+'_error').show();
+                });
+           }
+            if(data.response =='insert'){
+               Toastify({
+                   text: "Added Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+
+           }else if(data.response =='Update'){
+               Toastify({
+                   text: "Update Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+           }
+           else{
+               Toastify({
+                   text: "Request Failed..! Try Again",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#f3616d",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                   }, 2000);
+
+               }
+            
+        },
+    }); 
+});
+/*listing*/
+    function get_state_list() {
+    $.ajax({
+        url: state_get_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data)
+            var html = '<option value="">Select</option>';
+            for (let index = 0; index < data.length; index++) {
+                html += "<option value=" + data[index].state_name + ">" + data[index].state_name + "</option>";
+            }
+            $('#p_State').html(html);
+            $('#c_State').html(html);
+        }
+    });
+}
+     $("#p_State").on('change', function () {
+            var p_State =document.getElementById('p_State').value;
+            get_district(p_State);
+        });
+        $("#c_State").on('change', function () {
+            var c_State =document.getElementById('c_State').value;
+            get_district_Current(c_State);
+        }); 
+
+    function get_district(p_State,p_district) {
+        if (p_district =="") {
+        $.ajax({
+            url: get_district_link,
+            method: "POST",
+            data:{"p_State":p_State},
+            dataType: "json",
+            success: function(data) {
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+                    html += "<option value=" + data[index].district_name + ">" + data[index].district_name + "</option>";
+                }
+                $('#p_district').html(html);
+            }
+
+        });
+    }else{
+        // alert("not_empty")
+        $.ajax({
+            url: get_district_link,
+            method: "POST",
+            data:{"p_State":p_State},
+            dataType: "json",
+            success: function(data) {
+                // console.log(data)
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+                    // console.log(data[index].district_name )
+                    if (p_district == data[index].district_name ) {
+
+                    html += "<option value=" + data[index].district_name + " selected>" + data[index].district_name + "</option>";
+                    }else{
+                         html += "<option value=" + data[index].district_name + ">" + data[index].district_name + "</option>";
+                    }
+                }
+                $('#p_district').html(html);
+            }
+
+        });
+    }
+    }
+
+    function get_district_Current(c_State,c_district) {
+       if (c_district =="") {
+        $.ajax({
+            url: get_district_cur_link,
+            method: "POST",
+            data:{"c_State":c_State},
+            dataType: "json",
+            success: function(data) {
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+                    html += "<option value=" + data[index].district_name + ">" + data[index].district_name + "</option>";
+                }
+                $('#c_district').html(html);
+            }
+
+        });
+    }else{
+        // alert("not_empty")
+        $.ajax({
+            url: get_district_cur_link,
+            method: "POST",
+            data:{"c_State":c_State},
+            dataType: "json",
+            success: function(data) {
+                // console.log(data)
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+                    // console.log(data[index].district_name )
+                    if (c_district == data[index].district_name ) {
+
+                    html += "<option value=" + data[index].district_name + " selected>" + data[index].district_name + "</option>";
+                    }else{
+                         html += "<option value=" + data[index].district_name + ">" + data[index].district_name + "</option>";
+                    }
+                }
+                $('#c_district').html(html);
+            }
+
+        });
+    }
+    }
+
+
+    $("#p_district").on('change', function () {
+        var p_district =document.getElementById('p_district').value;
+        // alert(p_district)
+        get_town_name(p_district);
+    });
+    $("#c_district").on('change', function () {
+        var c_district =document.getElementById('c_district').value;
+        // alert(c_district)
+        get_town_name_Current(c_district);
+    });
+
+
+
+
+    function get_town_name(p_district,p_town) {
+        if (p_town == "") {
+        $.ajax({
+            url: get_town_name_link,
+            method: "POST",
+            data:{ "p_district" : p_district},
+            dataType: "json",
+            success: function(data) {
+                // console.log(data)
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+                    html += "<option value=" + data[index].town_name + ">" + data[index].town_name + "</option>";
+                }
+                $('#p_town').html(html);
+            }
+
+        });
+    }else{
+         $.ajax({
+            url: get_town_name_link,
+            method: "POST",
+            data:{ "p_district" : p_district},
+            dataType: "json",
+            success: function(data) {
+                // console.log(data)
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+
+                    if (p_town == data[index].town_name ) {
+                    html += "<option value=" + data[index].town_name + " selected>" + data[index].town_name + "</option>";
+                    }else{
+                         html += "<option value=" + data[index].town_name + ">" + data[index].town_name + "</option>";
+                    }
+                }
+                $('#p_town').html(html);
+            }
+
+        });
+    }
+    }
+    function get_town_name_Current(c_district,c_town) {
+        if (c_town == "") {
+        $.ajax({
+            url: get_town_name_curr_link,
+            method: "POST",
+            data:{ "c_district" : c_district},
+            dataType: "json",
+            success: function(data) {
+                // console.log(data)
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+                    html += "<option value=" + data[index].town_name + ">" + data[index].town_name + "</option>";
+                }
+                $('#c_town').html(html);
+            }
+
+        });
+    }else{
+        // alert("asd")
+         $.ajax({
+            url: get_town_name_curr_link,
+            method: "POST",
+            data:{ "c_district" : c_district},
+            dataType: "json",
+            success: function(data) {
+                // console.log(data)
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+
+                    if (c_town == data[index].town_name ) {
+                        html += "<option value=" + data[index].town_name + " selected>" + data[index].town_name + "</option>";
+                    }else{
+                         html += "<option value=" + data[index].town_name + ">" + data[index].town_name + "</option>";
+                    }
+                }
+                // alert(html)
+                $('#c_town').html(html);
+            }
+
+        });
+    }
+    }
+    
+
+   
 
 
 var $modal = $('#modal');
@@ -60,7 +527,7 @@ $("#crop").click(function(){
           url: upload_images,
           data: {'_token': $('meta[name="_token"]').attr('content'), 'image': base64data},
           success: function(data){
-          console.log(data.success);
+          // console.log(data.success);
           /*$modal.modal('hide');
           alert("Crop image successfully uploaded");
           location.reload();*/
@@ -265,7 +732,9 @@ function account_information(){
         });
     }
 
-$('#add_account_info').submit(function(e) {    
+$('#add_account_info').submit(function(e) { 
+
+
     e.preventDefault();
       var formData = new FormData(this);
     $.ajax({  
@@ -440,8 +909,7 @@ function experience_info(){
                         html +="</div>";
                         html +="</div>";
                         html +="</div>";
-                        html +="</div>";
-                        
+                        html +="</div>";   
                     }
                         html +="</div>";
                         html +="</div>";
@@ -451,116 +919,7 @@ function experience_info(){
     });
 }
 
-$("#v-pills-messages-tab").on('click', function() {
-    Contact_info_page();
-});
-function Contact_info_page(){
-    $.ajax({
-        url: Contact_info_get_link,
-        method: "POST",
-        data:{},
-        dataType: "json",
-        success: function(data) {
-            console.log(data)
-                if (data !="") {
-                    $('#p_num_view').html(data['0'].phone_number);
-                    $('#s_num_view').html(data['0'].s_number);
-                    $('#p_email_view').html(data['0'].p_email);
-                    $('#p_adderss_view').html(data['0'].p_adderss);
-                    $('#c_address_view').html(data['0'].c_address);
-                    $('#State_view').html(data['0'].State);
-                }
-            }
-        });
-    }
 
-/*contact info in pop-up*/
-function Contact_information(){
-    $.ajax({
-        url: Contact_info_get_link,
-        method: "POST",
-        data:{},
-        dataType: "json",
-        success: function(data) {
-            // console.log(data['0'].phone_number)
-            if (data !="") {
-                $('#phone_number').val(data['0'].phone_number);
-                $('#s_number').val(data['0'].s_number);
-                $('#p_email').val(data['0'].p_email);
-                $('#p_adderss').val(data['0'].p_adderss);
-                $('#c_address').val(data['0'].c_address);
-                $('#State').val(data['0'].State);
-            }
-
-            }
-        });
-    }
-
-
-$('#add_contact_info').submit(function(e) {    
-    e.preventDefault();
-      var formData = new FormData(this);
-    $.ajax({  
-        url:add_contact_info_link, 
-        method:"POST",  
-        data:formData,
-        processData:false,
-        cache:false,
-        contentType:false,
-        dataType:"json",
-        success:function(data) {
-        if(data.error)
-           {
-            $(".color-hider").hide();
-                var keys=Object.keys(data.error);
-                $.each( data.error, function( key, value ) {
-                $("#"+key+'_error').text(value)
-                $("#"+key+'_error').show();
-                });
-           }
-            if(data.response =='insert'){
-               Toastify({
-                   text: "Added Sucessfully..!",
-                   duration: 3000,
-                   close:true,
-                   backgroundColor: "#4fbe87",
-               }).showToast();
-
-               setTimeout(
-                   function() {
-                    location.reload();
-                   }, 2000);
-
-           }else if(data.response =='Update'){
-               Toastify({
-                   text: "Update Sucessfully..!",
-                   duration: 3000,
-                   close:true,
-                   backgroundColor: "#4fbe87",
-               }).showToast();
-
-               setTimeout(
-                   function() {
-                    location.reload();
-                   }, 2000);
-           }
-           else{
-               Toastify({
-                   text: "Request Failed..! Try Again",
-                   duration: 3000,
-                   close:true,
-                   backgroundColor: "#f3616d",
-               }).showToast();
-
-               setTimeout(
-                   function() {
-                   }, 2000);
-
-               }
-            
-        },
-    }); 
-});
 
 /*famil information */
 $("#v-pills-Family-tab").on('click', function() {
@@ -574,7 +933,7 @@ function family_information(){
         data:{},
         dataType: "json",
         success: function(data) {
-            console.log(data)
+            // console.log(data)
             $('#education_td').empty();
             if (data !="") {
                     html ='';

@@ -2,7 +2,9 @@
  @section('title', 'Login')
 
 @section('css')
+<!-- tost css -->
 @endsection
+<link rel="stylesheet" href="../assets/toastify/toastify.css">
 
 @section('style')
 <style>
@@ -92,10 +94,7 @@
                           </div>
                         </div>
                       </div>
-                      
-                     
                     </div>
-                    
                   </div>
               </div>
             </div>
@@ -108,6 +107,9 @@
 </div>
 <!-- login page end-->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!-- toast js -->
+<script src="../assets/toastify/toastify.js"></script>
 
 <script src="../pro_js/jquery/jquery.min.js"></script>
 <script src="../pro_js/login.js"></script>
@@ -124,6 +126,7 @@
 
     var login_check_process_link = "{{url('login_check_process')}}";
 </script>
+
  @endsection
 
 @section('script')

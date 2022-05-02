@@ -106,7 +106,7 @@ class ItInfraController extends Controller
                    $email_updation=$this->itrep->update_itInfra_EmailStatus($data);
 
                    Mail::send('emails.ITInfraNewCandidateJoin', $Mail, function ($message) use ($Mail,$str_arr) {
-                    $message->from(env('MAIL_FROM_ADDRESS'), 'HEPL - HR Team');
+                    $message->from("rfh@hemas.in", 'HEPL - HR Team');
                     foreach($str_arr as $string)
                     {
                         $message->cc($string);

@@ -36,4 +36,13 @@ class CommonRepositories implements ICommonRepositories
             'hr_action'=>'1',
         ] );
     }
+
+    public function update_hr_idcard_remark( $input_details ){
+        // echo "11<pre>";print_r($input_details);die;
+        $update_roletbl = DB::table('customusers')->where( 'id', '=', $input_details['can_id_hr'] );
+        $update_roletbl->update( [
+            'hr_id_remark'=>$input_details['id_remark'],
+            'hr_action'=>'0',
+        ] );
+    }
 }

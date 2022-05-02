@@ -167,29 +167,30 @@ background:#2d2d2d;}
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                             </div>
                               <form method="POST" action="javascript:void(0)" id="hr_remarks_form" class="ajax-form">
+                                 <input type="hidden" name="can_id_hr" id="can_id_hr" value="{{ $_GET['id']}}">
                                 <div class="modal-body">
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
-                                            <label for="business_name">Add Remarks</label>
-                                            <input class="form-control" name="business_name" id="business_name_input" type="text" placeholder="Remarks" required="">
-                                            <div class="text-warning" id="business_name_error"></div>
+                                            <label for="id_remark">Add Remarks</label>
+                                            <input class="form-control" name="id_remark" id="id_remark" type="text" placeholder="Remarks" required="">
+                                            <div class="text-warning" id="id_remark_error"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
-                                    <button class="btn btn-secondary" type="button" id="btnSubmit">Save</button>
+                                    <button class="btn btn-secondary" type="submit" id="btnSubmit">Save</button>
                                 </div>
                               </form>
                         </div>
                       </div>
                     </div>
                   <!-- Pop-up div Ends-->
+               </div>
             </div>
          </div>
       </div>
    </div>
-</div>
 @endsection
 
 @section('script')
@@ -205,6 +206,7 @@ background:#2d2d2d;}
 
     var hr_id_card_varification_link = "{{url('hr_get_id_card_vari')}}";
     var hr_idcard_verfi_link = "{{url('hr_idcard_verfi')}}";
+    var hr_id_remark_link = "{{url('hr_id_remark')}}";
 
 </script>
 <script type="text/javascript">

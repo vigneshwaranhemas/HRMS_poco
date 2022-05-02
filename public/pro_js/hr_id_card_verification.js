@@ -86,3 +86,56 @@ $('#hr_idcard_info').submit(function(e) {
             },
         }); 
     });
+
+$('#hr_remarks_form').submit(function(e) {
+// alert("asdasds")    
+        e.preventDefault();
+          var formData = new FormData(this);
+        $.ajax({  
+            url:hr_id_remark_link, 
+            method:"POST",  
+            data:formData,
+            processData:false,
+            cache:false,
+            contentType:false,
+            dataType:"json",
+            success:function(data) {
+            if(data.error)
+               {
+                $(".color-hider").hide();
+                    var keys=Object.keys(data.error);
+                    $.each( data.error, function( key, value ) {
+                    $("#"+key+'_error').text(value)
+                    $("#"+key+'_error').show();
+                    });
+               }
+                if(data.response =='Update'){
+                   Toastify({
+                       text: "Update Sucessfully..!",
+                       duration: 3000,
+                       close:true,
+                       backgroundColor: "#4fbe87",
+                   }).showToast();
+
+                   setTimeout(
+                       function() {
+                        location.reload();
+                       }, 2000);
+               }
+               else{
+                   Toastify({
+                       text: "Request Failed..! Try Again",
+                       duration: 3000,
+                       close:true,
+                       backgroundColor: "#f3616d",
+                   }).showToast();
+
+                   setTimeout(
+                       function() {
+                       }, 2000);
+
+                   }
+                
+            },
+        }); 
+    });

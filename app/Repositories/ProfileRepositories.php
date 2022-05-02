@@ -166,10 +166,17 @@ class ProfileRepositories implements IProfileRepositories
 
     public function get_idcard_info( $input_details ){
 
-        $bandtbl = DB::table('customusers')
-        ->select('*')
-        ->where('cdID', '=', $input_details['cdID'])
+        // echo "<pre>";print_r($input_details);die;
+        // DB::enableQueryLog();
+        $bandtbl = DB::table('customusers');
+        if ($input_details['cdID'] != "") {
+        $where = $bandtbl->where('cdID', '=', $input_details['cdID']);
+        }else if($input_details['empID'] != ""){
+         $where = $bandtbl->where('empID', '=', $input_details['empID']);
+        }
+        return  $where
         ->get();
+        // dd(DB::getQueryLog());
 
         return $bandtbl;
     }
@@ -194,6 +201,8 @@ class ProfileRepositories implements IProfileRepositories
             'empID'=>$input_details['empID'],
             'email'=>$input_details['official_email'],
             'dob'=>$input_details['emp_dob'],
+            'hr_action'=>$input_details['hr_action'],
+            'hr_id_remark'=>$input_details['hr_id_remark'],
         ] );
     }
 

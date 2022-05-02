@@ -105,8 +105,12 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
                                                                                      "candidate_details.created_by",
                                                                                      "customusers.email",
                                                                                      "customusers.department",
-                                                                                     "customusers.doj")->first();
+                                                                                     "customusers.doj",'customusers.empID',
+                                                                                     'customusers.sup_emp_code',
+                                                                                     'customusers.reviewer_emp_code')->first();
                        $work_location=CustomUser::select('worklocation','sup_name')->where('cdID',$data['cdID'])->first();
+                       $induct_info['supervisor_info']=CustomUser::where('empID',$induction_info['sup_emp_code'])->select('email')->first();
+                       $induct_info['reviewer_info']=CustomUser::where('empID',$induction_info['reviewer_emp_code'])->select('email')->first();
                        $email_info=Email_InfoModel::where('header_id',4)->first();
                        $admin_mail_info=Email_InfoModel::where('header_id',1)->first();
                        $induct_info['induction_info']=$induction_info;
@@ -185,11 +189,6 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
         else{
             echo "1";
         }
-
-
-
-
-
     }
 
 
@@ -201,8 +200,8 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
     public function candidate_info_for_EmailCreation($data)
     {
          $candidate_info=CustomUser::where('empID',$data['empID'])->first();
-         $candidate_data['supervisor_info']=UsersInfoModel::where('empID',$candidate_info->sup_emp_code)->first();
-         $candidate_data['reviewer_info']=UsersInfoModel::where('empID',$candidate_info->reviewer_emp_code)->first();
+         $candidate_data['supervisor_info']=CustomUser::where('empID',$candidate_info->sup_emp_code)->first();
+         $candidate_data['reviewer_info']=CustomUser::where('empID',$candidate_info->reviewer_emp_code)->first();
          $candidate_data['info']=$candidate_info;
          $Insert_email_info=EmailCreationModel::insert($data);
          return $candidate_data;
@@ -215,7 +214,7 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
                                               "customusers.email","customusers.contact_no",
                                               "candidate_email_request.hr_suggested_mail",
                                               "candidate_email_request.asset_type")->get();
-        return $email_info;
+         return $email_info;
     }
     public function getUserDocuments($id)
     {

@@ -74,7 +74,9 @@ class AdminController extends Controller
     public function Hr_SeatingRequest()
     {
          $status=0;
-         $seating_info=$this->admrpy->get_seating_requested($status);
+         $seating_info['pending']=$this->admrpy->get_seating_requested($status);
+         $status=1;
+         $seating_info['completed']=$this->admrpy->get_seating_requested($status);
          return view('admin.SeatingRequest')->with('seating_info',$seating_info);
     }
     public function permission()

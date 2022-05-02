@@ -27,43 +27,55 @@
 @endsection
 
 @section('content')
+<div class="col-sm-12 col-xl-12 xl-100">
+    <div class="card">
 
+       <div class="card-body">
+          <ul class="nav nav-tabs nav-material" id="top-tab" role="tablist">
+             <li class="nav-item">
+                <a class="nav-link active" id="top-home-tab" data-toggle="tab" href="#top-home" role="tab" aria-controls="top-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>Pending</a>
+                <div class="material-border"></div>
+             </li>
+             <li class="nav-item">
+                <a class="nav-link" id="profile-top-tab" data-toggle="tab" href="#top-profile" role="tab" aria-controls="top-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Completed</a>
+                <div class="material-border"></div>
+             </li>
 
+          </ul>
+          <div class="tab-content" id="top-tabContent">
+             <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                             <div class="col-md-6 text-left">
+                             <h5>Candidate Seating And IdCard Request</h5>
+                             </div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                     <div class="col-md-6 text-left">
-                     <h5>Candidate Seating And IdCard Request</h5>
-                     </div>
-
-                     <div class="col-md-6 text-right">
-                     <button type="button" class="btn btn-primary" id="StatusUpdateBtn">Save changes</button>
-                     </div>
-                    </div>
-                </div>
-               <div class="card-body">
-                  <div class="dt-ext table-responsive">
-                    <table class="display" id="export-button">
-                        <thead>
-                           <tr>
-                              <th>S.No</th>
-                              <th>#</th>
-                              <th>Employee Id</th>
-                              <th>Name</th>
-                              <th>Email</th>
-                              <th>Mobile Number</th>
-                              <th>Seating Status</th>
-                              <th>Idcard  Status</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           @if (count($seating_info)>0)
+                             <div class="col-md-6 text-right">
+                             <button type="button" class="btn btn-primary" id="StatusUpdateBtn">Save changes</button>
+                             </div>
+                            </div>
+                        </div>
+                       <div class="card-body">
+                          <div class="dt-ext table-responsive">
+                            <table class="display" id="export-button">
+                                <thead>
+                                   <tr>
+                                    <th>S.No</th>
+                                    <th>#</th>
+                                    <th>Employee Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile Number</th>
+                                    <th>Seating Status</th>
+                                    <th>Idcard  Status</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                    @if (count($seating_info['pending'])>0)
                                  <?php $i=1;?>
-                                 @foreach ($seating_info as $data)
+                                 @foreach ($seating_info['pending'] as $data)
                                      <td>{{$i}}</td>
                                      <td><input type="checkbox"><input type="hidden" value="{{$data['empId']}}"></td>
                                      <td>{{$data['empId']}}</td>
@@ -88,18 +100,71 @@
                                     <?php $i++; ?>
                                  @endforeach
                            @endif
-                        </tbody>
-                     </table>
-                     <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
-                     {{-- <button type="button" id="AdminUpdateBtn"><button> --}}
-                  </div>
-               </div>
-            </div>
+                                </tbody>
+                             </table>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+             </div>
+             <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
+                <div class="col-sm-12">
+                    <div class="card">
+                       <div class="card-body">
+                          <div class="dt-ext table-responsive">
+                            <table class="display" id="export-button1">
+                                <thead>
+                                   <tr>
+                                    <th>S.No</th>
+                                    {{-- <th>#</th> --}}
+                                    <th>Employee Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile Number</th>
+                                    <th>Seating Status</th>
+                                    <th>Idcard  Status</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                    @if (count($seating_info['completed'])>0)
+                                 <?php $i=1;?>
+                                  @foreach ($seating_info['completed'] as $data)
+                                     <td>{{$i}}</td>
+                                     {{-- <td><input type="checkbox"><input type="hidden" value="{{$data['empId']}}"></td> --}}
+                                     <td>{{$data['empId']}}</td>
+                                     <td>{{$data['username']}}</td>
+                                     <td>{{$data['email']}}</td>
+                                     <td>{{$data['contact_no']}}</td>
+                                     <td>
+                                        <div class="media-body text-center icon-state">
+                                            <label class="switch">
+                                            <input type="checkbox" {{$data['Seating_Request'] == 0 ? '' : 'checked'}}  onchange=model_trigger("{{$data['empId']}}",1)><span class="switch-state bg-info"></span>
+                                            </label>
+                                         </div>
+                                        </td>
+                                        <td>
+                                            <div class="media-body text-center icon-state">
+                                                <label class="switch">
+                                                <input type="checkbox" {{$data['IdCard_status'] == 0 ? '' : 'checked'}}  onchange=model_trigger1("{{$data['empId']}}",2)><span class="switch-state bg-info"></span>
+                                                </label>
+                                             </div>
+                                            </td>
+                                        </tr>
+                                    <?php $i++; ?>
+                                 @endforeach
+                           @endif
+                                </tbody>
+                             </table>
+                             <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token">
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+
+          </div>
          </div>
-
-    </div>
-</div>
-
+       </div>
+ </div>
 {{-- div popup model --}}
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -136,6 +201,10 @@
        </div>
     </div>
  </div>
+ @endsection
+
+@section('script')
+
 
 
 @endsection
@@ -146,6 +215,3 @@
 var Seating_url="Admin_Seating_Request";
 var Status_update="Admin_Request_update";
 </script>
-@section('script')
-
-@endsection

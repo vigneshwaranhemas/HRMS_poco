@@ -164,6 +164,8 @@ class HrController extends Controller
                     $Mail['admin_to_mail']=$store_result['message']['admin_email_info']->to;
                     $Mail['supervisor_name']=$store_result['message']['location']->sup_name;
                     $Mail['worklocation']=$store_result['message']['location']->worklocation;
+                    // $Mail['supervisor_email']=$store_result['message']['supervisor_info']->email;
+                    $Mail['supervisor_email']="vigneshwaran@hemas.in";
                     $str_arr = preg_split ("/\,/", $Mail['cc']);
                     $admin_str_arr=preg_split ("/\,/", $Mail['Admin_cc']);
 
@@ -198,6 +200,7 @@ class HrController extends Controller
                         {
                             $message->cc($string);
                         }
+                        $message->cc($Mail['supervisor_email']);
                         $message->to($Mail['admin_to_mail'])->subject($Mail['Admin_Subject']);
                         });
                     //  }
@@ -245,7 +248,7 @@ class HrController extends Controller
                 $Mail['reviewer_mail']="vigneshb@hemas.in";
                 $Mail['subject']=$ItInfra_email_info->subject;
                 $Mail['candidate_name']=$candidate_info['info']->username;
-                $Mail['supervisor_name']=$candidate_info['supervisor_info']->name;
+                $Mail['supervisor_name']=$candidate_info['supervisor_info']->username;
                 $Mail['doj']=$candidate_info['info']->doj;
                 $str_arr=preg_split ("/\,/", $Mail['CC']);
 

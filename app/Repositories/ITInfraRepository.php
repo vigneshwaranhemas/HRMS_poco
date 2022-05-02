@@ -17,8 +17,8 @@ public function get_candidate_email_info($data)
                                 'customusers.reviewer_emp_code','candidate_email_request.hr_suggested_mail',
                                 'customusers.designation')
                        ->first();
-       $info['supervisor_info']=UsersInfoModel::where('empID',$candidate_info['sup_emp_code'])->select('users.email')->first();
-       $info['reviewer_info']=UsersInfoModel::where('empID',$candidate_info['reviewer_emp_code'])->select('users.email')->first();
+       $info['supervisor_info']=CustomUser::where('empID',$candidate_info['sup_emp_code'])->select('email')->first();
+       $info['reviewer_info']=CustomUser::where('empID',$candidate_info['reviewer_emp_code'])->select('email')->first();
        $info['email_info']=Email_InfoModel::where('header_id',5)->first();
        $info['candidate_info']=$candidate_info;
        return $info;
@@ -26,7 +26,11 @@ public function get_candidate_email_info($data)
 
 public function update_itInfra_EmailStatus($data)
 {
-           $result=EmailCreationModel::where('empID',$data['empID'])->update(['status'=>2,'hr_suggested_mail'=>$data['Email']]);
+        //    $result=EmailCreationModel::where('empID',$data['empID'])->update(['status'=>2,'hr_suggested_mail'=>$data['Email']]);
+           $result=EmailCreationModel::where('empID',$data['empID'])->update(['status'=>2]);
+           if($result){
+               CustomUser::where('empID',$data['empID'])->update(['email'=>$data['Email']]);
+           }
            return $result;
 }
 }

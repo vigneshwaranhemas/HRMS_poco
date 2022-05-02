@@ -86,7 +86,7 @@ class ItInfraController extends Controller
 
 //--------------------------------------------------------------------------------------------------
 //
-//         vignesh testing emal info
+//         vignesh testing email info
 //--------------------------------------------------------------------------------------------------
 
 
@@ -95,7 +95,17 @@ class ItInfraController extends Controller
                    $Mail['supervisor_mail']="vigneshb@hemas.in";
                    $Mail['reviewer_mail']="vigneshb@hemas.in";
                    $Mail['subject']=$candidate_info['email_info']->subject;
-                   $Mail['hr_suggest_email']=$candidate_info['candidate_info']->hr_suggested_mail;
+                   //hr suggested email
+                //    $Mail['hr_suggest_email']=$candidate_info['candidate_info']->hr_suggested_mail;
+                   //end
+
+                   //it infra suggested email
+
+                   $Mail['hr_suggest_email']=$data['Email'];
+
+
+                   //end
+
                    $Mail['candidate_email']=$candidate_info['candidate_info']->email;
                    $Mail['candidate_name']=$candidate_info['candidate_info']->username;
                    $Mail['supervisor_name']=$candidate_info['candidate_info']->sup_name;

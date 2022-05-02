@@ -36,7 +36,7 @@
         <div class="col-sm-12">
             <div class="card">
                <div class="card-body">
-                 <button type="button" style="margin-left: 902px;margin-bottom:13px;" class="btn btn-pill btn-primary"  id="EmailCreationBtn">Submit</button>
+                 <button type="button" style="margin-left: 1092px;margin-bottom:13px;" class="btn btn-pill btn-primary"  id="EmailCreationBtn">Submit</button>
 
                   <div class="dt-ext table-responsive">
                     <table class="display" id="export-button">
@@ -61,7 +61,6 @@
                </div>
             </div>
          </div>
-
     </div>
 </div>
 @endsection

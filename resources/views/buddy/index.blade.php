@@ -100,7 +100,7 @@
                             <td>{{$item->email }}</td>
                             <td>{{$item->contact_no }}</td>
                             <td>
-                                <button onclick=showAdd("{{$item->cdID}}") aria-expanded="false" data-toggle="dropdown" class="btn btn-default dropdown-toggle waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                <button onclick=showAdd("{{$item->empID}}") aria-expanded="false" data-toggle="dropdown" class="btn btn-default dropdown-toggle waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                      @endforeach

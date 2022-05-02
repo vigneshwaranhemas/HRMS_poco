@@ -336,5 +336,9 @@ Route::post('profile_banner', 'DocumentsController@profile_banner');
 Route::get('id_card_varification', 'CommonController@id_card_varification');
 Route::post('idcard_info', 'CommonController@idcard_info');
 Route::post('idcard_info_save', 'CommonController@idcard_info_save');
+Route::get('id_card_varification', 'CommonController@id_card_varification');
 
+Route::get('hr_id_card_verification', 'CommonController@hr_id_card_verification');
+Route::post('hr_get_id_card_vari', 'CommonController@hr_get_id_card_vari');
+Route::post('hr_idcard_verfi', 'CommonController@hr_idcard_verfi');
 

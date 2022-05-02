@@ -123,6 +123,7 @@
     var get_role_type_link = "{{url('get_role_type')}}";
     var get_employee_link = "{{url('get_employee_pop')}}";
     var employee_list_pop_link = "{{url('update_employee_list_pop')}}";
+    var hr_id_card_varification_link = "{{url('hr_id_card_ver')}}";
 </script>
 @endsection
 

@@ -359,8 +359,8 @@ class AdminController extends Controller
                 return $btn;
             })
             ->addColumn('Info', function($row) {                
-                $btn = '<a class="dropdown-item" href="javascript:;" href="candidate_profile_view" onclick="candidate_profile_view('."'".$row->id."'".');"><i class="fa fa-edit"></i></a>'; 
-                $btn .= '<a class="dropdown-item" href="javascript:;" href="candidate_profile_view" onclick="candidate_profile_view('."'".$row->id."'".');"><i class="fa fa-eye"></i></a>';
+                $btn = '<a class="dropdown-item" href="candidate_profile_view" onclick="candidate_profile_view('."'".$row->id."'".'); style="width: 15%;height: 35px;""><i class="fa fa-edit"></i></a>'; 
+                $btn .= '<a class="dropdown-item" href="hr_id_card_verification?id='."".$row->id."".'"  onclick="hr_id_card_ver('."'".$row->id."'".'); style="width: 15%;height: 35px;""><i class="fa fa-eye"></i></a>';
                 return $btn;
             })
             
@@ -2199,49 +2199,6 @@ class AdminController extends Controller
 
         return response()->json( $get_role_details_result );
     }
-
-    public function masters() {
-        $session_val = Session::get('session_info');
-        $emp_ID = $session_val['empID'];
-        // echo "<pre>";print_r($emp_ID);die;
-         $emp_ID = array( "emp_ID" => $emp_ID, );
-
-
-        //business
-        $business = $this->admrpy->get_table('tbl_business', $emp_ID);
-        $data['business'] = $business;
-        //band
-        $band = $this->admrpy->get_table('tbl_band', $emp_ID);
-        $data['band'] = $band;
-        //work_location
-        $work_location = $this->admrpy->get_table('tbl_work_location', $emp_ID);
-        $data['work_location'] = $work_location;
-        //blood_group
-        $blood_group = $this->admrpy->get_table('tbl_blood_group', $emp_ID);
-        $data['blood_group'] = $blood_group;
-        //roll_intake
-        $roll_intake = $this->admrpy->get_table('tbl_roll_intake', $emp_ID);
-        $data['roll_intake'] = $roll_intake;
-        //Manager
-        $manager = $this->admrpy->get_table('tbl_personnel', $emp_ID);
-        $data['manager'] = $manager;
-        //Department
-        $department = $this->admrpy->get_table('tbl_department', $emp_ID);
-        $data['department'] = $department;
-        //State
-        $state = $this->admrpy->get_table('tbl_state', $emp_ID);
-        $data['state'] = $state;
-        //spoc s&d
-        $users = $this->admrpy->get_table('users', $emp_ID);
-        $data['users'] = $users;
-
-        return response()->json( $data );
-
-        // $this->load->view('admin/masters', $data);
-
-    }
-
-
 
 
 

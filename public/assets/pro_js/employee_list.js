@@ -350,13 +350,15 @@ $("#editUpdate").on('click', function() {
 
             }
 
-            setTimeout(
+           /* setTimeout(
                 function() {
                     get_business_list();
-                }, 2000);
-
+                }, 2000);*/
         }
     });
 });
 
 })
+
+
+

@@ -127,7 +127,7 @@
                 </div>
                 <div class="card-body">
                     <div class="col-md-12 text-center">
-                        <a href="{{ url('welcome_aboard') }}"><button class="btn btn-primary" type="button">View All</button></a>
+                        <a href="{{ url('payslip') }}"><button class="btn btn-primary" type="button">View All</button></a>
                     </div>
                 </div>
             </div>

@@ -340,6 +340,7 @@ Route::post('idcard_info_save', 'CommonController@idcard_info_save');
 
 // Document Centre
 Route::get('document_center', 'CandidateController@document_center')->name('document_center');
+Route::get('payslip', 'CandidateController@payslip')->name('payslip');
 
 Route::get('id_card_varification', 'CommonController@id_card_varification');
 

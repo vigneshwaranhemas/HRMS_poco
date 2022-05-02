@@ -435,6 +435,11 @@ public function document_center()
     return view('candidate.document_center');
 }
 
+public function payslip()
+{
+    return view('candidate.payslip');
+}
+
 
 
 

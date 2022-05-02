@@ -281,7 +281,7 @@ class HrController extends Controller
         $width       = 1200;
         $height      = 700;
         $center_x    = 60;
-        $center_y    = 400;
+        $center_y    = 340;
         $max_len     = 120;
         $font_size   = 20;
         $font_height = 20;

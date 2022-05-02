@@ -104,20 +104,19 @@
                             <div class="summernote" id="summernote" name="summernote">
                             </div>
                         </div>
-                        {{-- <input type="text" name="krish_na" id="krish_na"><br> --}}
                         <div class="card-body editor">
                             <div class="summernote" id="summernote_copy" name="summernote_copy">
                             </div>
                         </div>
                         <div class="text-center">
-                            {{-- <a href="{{url('welcome_aboard_generate_image')}}"> --}}
                                 <button class="btn btn-primary-gradien mb-5" type="submit" id="btnSubmit">Export</button>
-                            {{-- </a> --}}
                         </div>
-                        <img src="../assets/images/image_generator/image.jpg" alt="image_generator">
-                        {{-- <a href="{{url('welcome_aboard_generate_image')}}">
-                            <button class="btn btn-primary-gradien mb-5" type="submit" id="btnSubmit">Export</button>
-                        </a> --}}
+                        <a href="{{url('../assets/images/image_generator/image.jpg')}}" target="_blank"><img src="../assets/images/image_generator/image.jpg" alt="image_generator"></a>
+                        <div class="text-center">
+                            <a href="{{url('../assets/images/image_generator/image.jpg')}}" download>
+                                <button class="btn btn-primary-gradien" type="button">Download</button>
+                            </a>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -147,7 +146,6 @@ $(()=>{
     //    alert("abc");
    e.preventDefault();
    var summernote_get = $('#summernote_copy').summernote('code').replace(/<\/?[^>]+(>|$)/g, " ");
-//    var summernote_get = $("#summernote_copy").summernote().replace(/<\/?[^>]+(>|$)/g, "");
 //    alert(summernote_get)
 
 

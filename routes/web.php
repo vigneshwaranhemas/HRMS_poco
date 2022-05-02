@@ -332,6 +332,7 @@ Route::post('update_employee_list_pop', 'AdminController@update_employee_list_po
 /*banner image*/
 Route::post('banner_image_crop', 'DocumentsController@imageCropPost');
 Route::post('profile_banner', 'DocumentsController@profile_banner');
+
 /*ID Card*/
 Route::get('id_card_varification', 'CommonController@id_card_varification');
 Route::post('idcard_info', 'CommonController@idcard_info');
@@ -339,5 +340,12 @@ Route::post('idcard_info_save', 'CommonController@idcard_info_save');
 
 // Document Centre
 Route::get('document_center', 'CandidateController@document_center')->name('document_center');
+
+Route::get('id_card_varification', 'CommonController@id_card_varification');
+
+Route::get('hr_id_card_verification', 'CommonController@hr_id_card_verification');
+Route::post('hr_get_id_card_vari', 'CommonController@hr_get_id_card_vari');
+Route::post('hr_idcard_verfi', 'CommonController@hr_idcard_verfi');
+
 
 

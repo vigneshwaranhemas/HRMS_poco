@@ -1070,4 +1070,35 @@ class AdminRepository implements IAdminRepository
         return $response;
     }
 
+    public function role_type_list( ){
+        $bandtbl = DB::table('roles')
+        ->select('*')
+        ->get();
+        // dd(DB::getQueryLog());
+        // echo "23<pre>";print_r($bandtbl);die;
+
+        return $bandtbl;
+    }
+
+    public function employee_list_result( $input_details ){
+
+        $roletbl = DB::table('customusers')
+        ->select('*')
+        ->where('id', '=', $input_details['id'])
+        ->orderBy('created_at', 'desc')
+        ->get();
+        // echo "<pre>";print_r($roletbl);die;
+        return $roletbl;
+    }
+
+    public function update_employee_type( $input_details ){
+
+        $update_roletbl = DB::table('customusers');
+        $update_roletbl = $update_roletbl->where( 'id', '=', $input_details['id'] );
+        $update_roletbl->update( [
+            'role_type' => $input_details['employe_role'],
+        ] );
+
+    }
+
 }

@@ -23,5 +23,9 @@ class Event extends Model
         'event_type', 
         'code', 
         'candicate_list',
+        'attendees_filter_op',
+        'attendees_filter',
+        'event_file',
+        'all_filter_attendees',
     ];
 }

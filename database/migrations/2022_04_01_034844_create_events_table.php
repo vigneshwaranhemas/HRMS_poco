@@ -18,6 +18,7 @@ class CreateEventsTable extends Migration
             $table->string('event_name');
             $table->string('label_color');
             $table->string('where');
+            $table->string('event_file');
             $table->mediumText('description');
             $table->dateTime('start_date_time');
             $table->dateTime('end_date_time');
@@ -29,6 +30,9 @@ class CreateEventsTable extends Migration
             $table->string('event_type');
             $table->string('code');
             $table->text('candicate_list');
+            $table->string('attendees_filter_op');
+            $table->string('attendees_filter');
+            $table->string('all_filter_attendees');
             $table->timestamps();
         });
     }

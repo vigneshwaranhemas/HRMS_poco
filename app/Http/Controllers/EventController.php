@@ -28,28 +28,94 @@ class EventController extends Controller
         $event_types_data = DB::table('event_types')->get();
         return view('event-calendar.index', ['customuser_details'=> $customuser_details, 'event_categories_data'=> $event_categories_data, 'event_types_data'=> $event_types_data]);    
     }
-    public function add_new_event_insert(Request $request)
+    public function test(Request $request)
     {
-        $result = $request->validate([
-            'event_name' => 'required', 
-            'where' => 'required', 
-            'category_name' => 'required', 
-            'event_type' => 'required', 
-            'description' => 'required', 
-            // 'candicate_list_options' => 'required', 
-            'start_date' => 'required', 
-            'start_time' => 'required', 
-            'end_date' => 'required', 
-            'end_time' => 'required|different:start_time', 
-        ]);
+        // dd($request->file('file'));
 
+        // $request->validate([
+        //   'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
+
+        // $image = new Image;
+
+        // if ($request->file('file')) {
+        //     $imagePath = $request->file('file');
+        //     $imageName = $imagePath->getClientOriginalName();
+
+        //     $path = $request->file('file')->storeAs('uploads', $imageName, 'public');
+        // }
+
+        // $image->name = $imageName;
+        // $image->path = '/storage/'.$path;
+        // $image->save();
+
+        // return response()->json('Image uploaded successfully');
+    }
+
+    public function add_new_event_insert(Request $request)
+    {        
+        if($request->attendees_all_filter || $request->candicate_list){
+            $result = $request->validate([
+                'event_name' => 'required', 
+                'where' => 'required', 
+                'category_name' => 'required', 
+                'event_type' => 'required', 
+                'description' => 'required', 
+                // 'attendees_filter_op' => 'required', 
+                // 'candicate_list_options' => 'required', 
+                'start_date' => 'required|after_or_equal:today', 
+                'start_time' => 'required', 
+                'end_date' => 'required|after_or_equal:today', 
+                'end_time' => 'required|different:start_time', 
+                'file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
+            ]);
+        }else{
+            $result = $request->validate([
+                'event_name' => 'required', 
+                'where' => 'required', 
+                'category_name' => 'required', 
+                'event_type' => 'required', 
+                'description' => 'required', 
+                // 'attendees_filter_op' => 'required', 
+                'candicate_list_options' => 'required', 
+                'start_date' => 'required|after_or_equal:today', 
+                'start_time' => 'required', 
+                'end_date' => 'required|after_or_equal:today', 
+                'end_time' => 'required|different:start_time',
+                'file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
+            ]);
+        }       
+        
+        //File upload
+        $file = $request->file('file');
+        if($file){
+            $file_name = $request->file('file')->getClientOriginalName();
+            $public_path_upload = $request->file->move(public_path('event_file'), $file_name);                     
+        }else {
+            $file_name = "";
+        }
+
+        //Attendees
+        if($request->input('attendees_filter_op') == "Gender"){
+            $attendees_filter = $request->input('gender_filter_option');
+        }elseif($request->input('attendees_filter_op') == "Department"){
+            $attendees_filter = $request->input('dept_filter_option');
+        }elseif($request->input('attendees_filter_op') == "Designation"){
+            $attendees_filter = $request->input('designation_filter_option');
+        }elseif($request->input('attendees_filter_op') == "Work Location"){
+            $attendees_filter = $request->input('wfh_filter_option');
+        }else{
+            $attendees_filter = "";
+        }
+        
         if ($request->repeat) {
             $repeat = $request->repeat;
         } else {
             $repeat = 'no';
         }
 
-        if($request->candicate_list){ //all candicates         
+        //all candicates      
+        if($request->candicate_list){    
 
             $all_candicate_list = "yes";
 
@@ -59,6 +125,15 @@ class EventController extends Controller
 
         }else{
             $all_candicate_list = "no";
+        }
+
+        //all filter option candicates  
+        if($request->attendees_all_filter){        
+
+            $attendees_all_filter = "yes";
+
+        }else{
+            $attendees_all_filter = "no";
         }
 
         $start_date_time = $request->start_date. ' ' .$request->start_time.':00';
@@ -79,7 +154,11 @@ class EventController extends Controller
             'category_name' => $request->category_name,
             'event_type' => $request->event_type,
             'event_unique_code' => "",
+            'attendees_filter_op' => $request->attendees_filter_op,
+            'attendees_filter' => $attendees_filter,
             'candicate_list' => $all_candicate_list,
+            'event_file' => $file_name,
+            'all_filter_attendees' => $attendees_all_filter,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         );
@@ -106,6 +185,25 @@ class EventController extends Controller
 
         if ($request->candicate_list) {
             $attendees = DB::table("customusers")->select('*')->get(); // get all the user list
+            foreach ($attendees as $attendee) {
+                EventAttendee::firstOrCreate(['candidate_name' => $attendee->empID, 'event_id' => $event_unique_code]);
+            }
+
+            // Notification::send($attendees, new OffersNotification($offerData));
+        }
+
+        if($request->attendees_filter_op == "Gender"){
+            $op = "gender";
+        }elseif($request->attendees_filter_op == "Department"){
+            $op = "department";
+        }elseif($request->attendees_filter_op == "Designation"){
+            $op = "designation";
+        }elseif($request->attendees_filter_op == "Work Location"){
+            $op = "worklocation";
+        }
+
+        if ($request->attendees_all_filter) {
+            $attendees = DB::table("customusers")->select('*')->where($op, $attendees_filter)->get(); // get all the user list
             foreach ($attendees as $attendee) {
                 EventAttendee::firstOrCreate(['candidate_name' => $attendee->empID, 'event_id' => $event_unique_code]);
             }
@@ -209,9 +307,27 @@ class EventController extends Controller
         ->where('id', $id)
         ->value('event_unique_code');
 
-        $fetched = DB::table("customusers")->select('*')->get(); // get all the user list
+        $attendees_filter_op = DB::table('events')
+        ->where('id', $id)
+        ->value('attendees_filter_op');
+
+        $attendees_filter = DB::table('events')
+        ->where('id', $id)
+        ->value('attendees_filter');
+
+        if($attendees_filter_op == "Gender"){
+            $op = "gender";
+        }elseif($attendees_filter_op == "Department"){
+            $op = "department";            
+        }elseif($attendees_filter_op == "Designation"){
+            $op = "designation";            
+        }elseif($attendees_filter_op == "Work Location"){
+            $op = "worklocation";            
+        }
+
+        $fetched = DB::table("customusers")->select('*')->where($op, $attendees_filter)->get(); // get all the user list
         
-        $output = '<option value="">Choose Member</option>';                       
+        $output = '<option value="">Select '.$attendees_filter.' List</option>';                       
 
         foreach ($fetched as $record) {  
 
@@ -267,14 +383,53 @@ class EventController extends Controller
 		echo json_encode($output);
     }
 
+    public function attendees_filter(Request $request)
+    {   
+        $data = array(
+            'attendees_filter' => $request->attendees_filter,
+            'attendees_filter_op' => $request->attendees_filter_op,
+        );   
+        $fetched = $this->event->attendees_filter($data);
+        $output = '<option value=""  disabled="disabled">Select '.$request->attendees_filter.' List</option>';                       
+        // dd($output);
+
+        foreach ($fetched as $record) { 
+            
+           $output .= "<option value=".$record->empID.">".$record->username."</option>";
+
+        }    
+
+		echo json_encode($output);
+    }
+
     public function event_update(Request $request)
     {      
+        // dd($request->all());
+
         $id = $request->event_update_id;
 
         $code = DB::table('events')
         ->where('id', $id)
         ->value('event_unique_code');
 
+        //Attendees
+        if($request->input('attendees_filter_op') == "Gender"){
+            $attendees_filter = $request->input('gender_filter_option');
+            $op = "gender";
+        }elseif($request->input('attendees_filter_op') == "Department"){
+            $attendees_filter = $request->input('dept_filter_option');
+            $op = "department";            
+        }elseif($request->input('attendees_filter_op') == "Designation"){
+            $attendees_filter = $request->input('designation_filter_option');
+            $op = "designation";            
+        }elseif($request->input('attendees_filter_op') == "Work Location"){
+            $attendees_filter = $request->input('wfh_filter_option');
+            $op = "worklocation";            
+        }else{
+            $attendees_filter = "";
+        }
+
+        //Repeat
         if ($request->repeat) {
             $repeat = $request->repeat;
             $repeat_cycles = $request->repeat_cycles;
@@ -283,7 +438,8 @@ class EventController extends Controller
             $repeat_cycles = "";
         }
 
-        if($request->candicate_list){ //all candicates
+        //All candidate
+        if($request->candicate_list){ 
             
             $attendees = DB::table("customusers")->select('*')->get(); // get all the user list
 
@@ -317,30 +473,86 @@ class EventController extends Controller
 
         }
 
+        //All Filter option
+        if ($request->attendees_all_filter) {
+            $attendees = DB::table("customusers")->select('*')->where($op, $attendees_filter)->get(); // get all the user list
+            $response = EventAttendee::where('event_id', $code)->delete();
+            foreach ($attendees as $attendee) {
+                EventAttendee::firstOrCreate(['candidate_name' => $attendee->empID, 'event_id' => $code]);
+            }
+            $attendees_all_filter = "yes";
+
+        }else{
+            $attendees_all_filter = "no";
+        }
+
+
         $start_date_time = $request->start_date. ' ' .$request->start_time;
         $end_date_time = $request->end_date. ' ' .$request->end_time;
         // $end_date_time = Carbon::createFromFormat("d-m-Y", $request->end_date)->format('Y-m-d') . ' ' . Carbon::createFromFormat("h:i A", $request->end_time)->format('H:i:s');
 
-        $data = array(
-            'event_update_id' => $id,
-            'event_name' => $request->event_name,
-            'label_color' => $request->label_color,
-            'where' => $request->where,
-            'description' => $request->description,
-            'start_date_time' => $start_date_time,
-            'end_date_time' => $end_date_time,
-            'repeat' => $repeat,
-            'repeat_every' => $request->repeat_count,
-            'repeat_cycles' => $request->repeat_cycles,
-            'repeat_type' => $request->repeat_type,
-            'category_name' => $request->category_name,
-            'event_type' => $request->event_type,
-            'candicate_list' => $all_candicate_list,
-        );
+        //File upload
+        $file = $request->file('file');
 
-        // dd($data);
+        if($file){
+            //Got new file
+            $file_name = $request->file('file')->getClientOriginalName();
+            $public_path_upload = $request->file->move(public_path('event_file'), $file_name);                     
+            
+            $data = array(
+                'event_update_id' => $id,
+                'event_name' => $request->event_name,
+                'label_color' => $request->label_color,
+                'where' => $request->where,
+                'description' => $request->description,
+                'start_date_time' => $start_date_time,
+                'end_date_time' => $end_date_time,
+                'repeat' => $repeat,
+                'repeat_every' => $request->repeat_count,
+                'repeat_cycles' => $request->repeat_cycles,
+                'repeat_type' => $request->repeat_type,
+                'category_name' => $request->category_name,
+                'event_type' => $request->event_type,
+                'candicate_list' => $all_candicate_list,
+                'attendees_filter_op' => $request->attendees_filter_op,
+                'attendees_filter' => $attendees_filter,
+                'all_filter_attendees' => $attendees_all_filter,
+                'event_file' => $file_name,
 
-        $result = $this->event->event_update($data);
+            );
+
+            $result = $this->event->event_update_file($data);      
+
+
+        }else {
+
+            //No file update
+            
+            $data = array(
+                'event_update_id' => $id,
+                'event_name' => $request->event_name,
+                'label_color' => $request->label_color,
+                'where' => $request->where,
+                'description' => $request->description,
+                'start_date_time' => $start_date_time,
+                'end_date_time' => $end_date_time,
+                'repeat' => $repeat,
+                'repeat_every' => $request->repeat_count,
+                'repeat_cycles' => $request->repeat_cycles,
+                'repeat_type' => $request->repeat_type,
+                'category_name' => $request->category_name,
+                'event_type' => $request->event_type,
+                'candicate_list' => $all_candicate_list,
+                'attendees_filter_op' => $request->attendees_filter_op,
+                'attendees_filter' => $attendees_filter,
+                'all_filter_attendees' => $attendees_all_filter,
+
+            );
+
+            $result = $this->event->event_update($data);     
+
+
+        }           
         
         //Store event attendees
         // $eventIds [] = $last_inserted_id;

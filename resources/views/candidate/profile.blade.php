@@ -601,17 +601,17 @@ max-width: 1000px !important;
                   <nav class="navbar navbar-light bg-primary rounded">
                     <span class="navbar-brand mb-0 h1">Other Documents</span>
                     <!-- <h4><i data-target="#add_document" >+ Add Document</i></h4> -->
-                     <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">+ Add Document</button>
+                     <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#docModal">+ Add Document</button>
                   </nav>
                   <br>
                      <div id="testing">                  
                      </div>
                      <!-- Pop-up div starts-->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="docModal" tabindex="-1" role="dialog" aria-labelledby="docModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add Documents</h5>
+                                <h5 class="modal-title" id="docModalLabel">Add Documents</h5>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                             </div>
                               <form method="POST" action="javascript:void(0)" id="add_documents_unit" class="ajax-form" enctype="multipart/form-data">
@@ -626,7 +626,7 @@ max-width: 1000px !important;
                                         <div class="col-md-12 mb-3">
                                             <label for="upload_file">File</label>
                                             <input class="form-control" name="file" id="file" type="file" placeholder="documents Name"  aria-describedby="fileHelp" required="">
-                                             <small id="fileHelp" class="form-text text-muted">Please upload a valid image file. Size of image should not be more than 2MB.</small>
+                                             <!-- <small id="fileHelp" class="form-text text-muted">Please upload a valid file.</small> -->
 
                                             <div class="text-warning" id="upload_file_error"></div>
                                         </div>

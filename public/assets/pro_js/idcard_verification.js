@@ -32,9 +32,14 @@ function idcard_info_tvalue(){
                     $('#emp_code').val(data[0].empID);
                     $('#official_email').val(data[0].email);
                     $('#emp_dob').val(data[0].dob);
-                }
-                if (data[0].hr_id_remark !="") {
+                }if (data[0].hr_id_remark !="") {
                      $('#hr_id_remark').html(data[0].hr_id_remark);
+                }if (data[0].hr_action != 1 ) {
+                    $("#btndis").show();
+                    $("#req_hr_change").hide();
+                }else{
+                    $("#btndis").hide();
+                    $("#req_hr_change").show();
                 }
             }
         });
@@ -53,6 +58,7 @@ function idcard_info_tvalue(){
             contentType:false,
             dataType:"json",
             success:function(data) {
+                // console.log(data)
             if(data.error)
                {
                 $(".color-hider").hide();

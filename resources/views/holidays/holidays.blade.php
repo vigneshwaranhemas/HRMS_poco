@@ -1,6 +1,6 @@
 {{-- Divya --}}
 @extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
-@section('title', 'Premium Admin Template')
+@section('title', 'Holidays')
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
@@ -31,6 +31,12 @@
 @section('breadcrumb-items')
    {{--<li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li>--}}
+   <select class="select2 form-control" id="holidays_state_filter" name="holidays_state_filter">
+      <option value="">Select State...</option>
+      @foreach($stateList as $state)
+         <option value="{{ $state->state_name }}">{{ $state->state_name }}</option>
+      @endforeach
+   </select>
 @endsection
 
 @section('content')
@@ -73,6 +79,7 @@
    <!-- Modal Fade Start -->
    <div class="modal fade" id="add-holidays" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
+         <!-- <form method="POST" id="getNewHolidaysForm" enctype="multipart/form-data"> -->
          <form  id="getNewHolidaysForm">
          @csrf
             <div class="modal-content">
@@ -84,12 +91,27 @@
                   <div class="form-group">
                      <label class="col-form-label" for="occassion">Occassion:</label>
                      <input type="text" name="occassion" id="occassion" class="form-control">
-                     <div class="text-warning" id="occassion_error"></div>
+                     <div class="text-danger" id="occassion_error"></div>
                   </div>
                   <div class="form-group">
                      <label class="col-form-label" for="description">Description:</label>
                      <textarea class="form-control" name="description" id="description"></textarea>
                   </div>
+                  <div class="form-group">
+                     <label class="col-form-label" for="description_edit">State:</label>
+                     <select class="select2 form-control" id="state" name="state">
+                        <option value="">Select State...</option>
+                        @foreach($stateList as $state)
+                           <option value="{{ $state->state_name }}">{{ $state->state_name }}</option>
+                        @endforeach
+                     </select>   
+                     <div class="text-danger" id="state_error"></div>
+                  </div> 
+                  <div class="form-group">
+                     <label class="col-form-label" for="occassion_file">File:</label>
+                     <input type="file" name="occassion_file" id="occassion_file" class="form-control">
+                     <div class="text-danger" id="occassion_file_error"></div>
+                  </div>   
                </div>
                <div class="modal-footer">
                   <input type="hidden" id="occassion_date" class="form-control" name="occassion_date">
@@ -115,11 +137,22 @@
                   <div class="form-group">
                      <label class="col-form-label" for="occassion_edit">Occassion:</label>
                      <input type="text" name="occassion" id="occassion_edit" class="form-control">
-                     <div class="text-warning" id="occassion_error"></div>
+                     <div class="text-danger" id="occassion_error"></div>
                   </div>
                   <div class="form-group">
                      <label class="col-form-label" for="description_edit">Description:</label>
                      <textarea class="form-control" name="description" id="description_edit"></textarea>
+                  </div>          
+                  <div class="form-group">
+                     <label class="col-form-label" for="description_edit">State:</label>
+                     <select class="select2 form-control" id="state_edit" name="state_edit">
+                     </select>     
+                     <div class="text-danger" id="state_edit_error"></div>                  
+                  </div>            
+                  <div class="form-group">
+                     <label class="col-form-label" for="occassion_file_edit">File:</label>
+                     <input type="file" name="occassion_file" id="occassion_file_edit" class="form-control">
+                     <p class="mt-2" id="occassion_file_edit_show"></p>
                   </div>
                </div>
                <div class="modal-footer">
@@ -176,7 +209,14 @@
                         <div class="form-group">
                               <h6 class="f-w-700">Description:</h6>
                               <p id="description_show"></p>
-                        </div>                        
+                        </div>  
+                        <div class="form-group">
+                              <h6 class="f-w-700">State:</h6>
+                              <p id="state_show"></p>
+                        </div>  
+                        <div class="form-group">                              
+                              <p id="occassion_file_show"></p>
+                        </div>                      
                      </div>
                   </div>
                </div>
@@ -205,12 +245,19 @@
                   <div class="row">
                      <div class="col-md-12 ">
                         <div class="form-group">
-                              <h6 class="f-w-700">Occassion:</h6>
-                              <p id="occassion_show_list"></p>
+                           <h6 class="f-w-700">Occassion:</h6>
+                           <p id="occassion_show_list"></p>
                         </div>
                         <div class="form-group">
-                              <h6 class="f-w-700">Description:</h6>
-                              <p id="description_show_list"></p>
+                           <h6 class="f-w-700">Description:</h6>
+                           <p id="description_show_list"></p>
+                        </div>    
+                        <div class="form-group">
+                           <h6 class="f-w-700">State:</h6>
+                           <p id="state_show_list"></p>
+                        </div>  
+                        <div class="form-group">                              
+                           <p id="occassion_file_show_list"></p>
                         </div>                        
                      </div>
                   </div>

@@ -5,6 +5,23 @@
 @endsection
 
 @section('style')
+<style type="text/css">
+   .img-70
+{
+   width: 170px !important;
+   height: 169px !important;
+}
+.blinking{
+    animation:blinkingText 1.2s infinite;
+}
+@keyframes blinkingText{
+    0%{     color: red;    }
+    49%{    color: red; }
+    60%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color: #000;    }
+}
+</style>
 @endsection
 
 @section('breadcrumb-title')
@@ -21,8 +38,18 @@
 <div class="container-fluid">
    <div class="row">
       <div class="col-sm-12">
+       <div class="text-center">
+         <h5>
+            <a style="text-transform:uppercase" class="blinking" id="hr_id_remark"></a>
+         </h5>
+      </div>
           <div class="card">
             <div class="card-body">
+               <div class="text-center">
+                   <div class="avatar">
+                     <div class="col-auto"><img class="img-70 rounded-circle" alt="" id="pro_img"></div>
+                  </div>
+               </div>
                <form class="" enctype="multipart/form-data" id= "idcard_info" novalidate="">
                   <div class="form-row">
                      <div class="col-md-4 mb-3">

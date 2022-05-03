@@ -9,6 +9,7 @@ use PDF;
 use Carbon\Carbon;
 use Auth;
 use Session;
+
 class CandidateController extends Controller
 {
     public $preon;
@@ -49,8 +50,6 @@ class CandidateController extends Controller
                      ->where('event_attendees.candidate_name', $logined_empid)
                      ->limit(2)
                      ->get();
-
-        // dd($upcoming_events);
 
         // $upcoming_events = DB::table('events')->select('*')->where('start_date_time', '>=', $date)->limit(2)->get();
 
@@ -105,39 +104,15 @@ class CandidateController extends Controller
         $candiate_buddy_data=array("empId"=>$sess_info["empID"],
                                    "cdID"=>$sess_info["cdID"]);
         $id=array("empId"=>$sess_info["empID"]);
-        // $cid=array("cdID"=>$sess_info["cdID"]);
         $table="buddyfeedbackfields";
         $fields=$this->preon->getonBoardingFields($table);
         $feedback_info=$this->preon->get_buddy_info($id);
-        // $user_info=$this->preon->Check_onBoard($table1,$cid);
         $user_info=$this->preon->get_candidate_and_buddy_info($candiate_buddy_data);
         $data['fields']=$fields;
         $data['feedback_info']=$feedback_info;
         $data['user_info']=$user_info;
-        // echo json_encode($data['user_info']);
         return view('candidate.buddy_feedback')->with('buddy_fields',$data);
     }
-
-
-
-        // $sess_info=Session::get("session_info");
-        // $table1="candidate_details";
-        // $cid=array("cdID"=>$sess_info["empID"]);
-        // $id=array("empId"=>$sess_info["empID"]);
-        // $table="buddyfeedbackfields";
-        // $fields=$this->preon->getonBoardingFields($table);
-        // $feedback_info=$this->preon->get_buddy_info($id);
-        // $user_info=$this->preon->Check_onBoard($table1,$cid);
-        // $data['fields']=$fields;
-        // $data['feedback_info']=$feedback_info;
-        // $data['user_info']=$user_info;
-
-
-
-        // return view('candidate.buddy_feedback')->with('buddy_fields',$data);
-        // return view('candidate.buddy_feedback');
-
-
 
     public function welcome_aboard()
     {
@@ -309,7 +284,7 @@ class CandidateController extends Controller
         // $pdf = PDF::loadView('admin.welcome_aboard_pdf', $data);
         $pdf = PDF::loadView('candidate.welcome_aboard_pdf', compact('info'));
 
-        return $pdf->stream('welcome_aboard.pdf');
+        return $pdf->download('welcome_aboard.jpeg');
     }
 // pre onBoarding Insert
 public function insertPreOnboarding(Request $request)

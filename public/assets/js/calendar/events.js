@@ -61,6 +61,8 @@ var getEventDetail = function (id, start, end) {
                 $("#description_show").html(value.description);
                 $("#category_name_show").html(value.category_name);
                 $("#event_type_show").html(value.event_type);
+                $("#attendees_filter_op_show").html(value.attendees_filter_op);
+                $("#attendees_filter_show").html(value.attendees_filter);
                 
                 // var candicate_list = JSON.parse(value.candicate_list);
                 // console.log(candicate_list.length);

@@ -7,16 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-      {{-- <p>
-        "Dear "{{$candidate_name}}",
-        \r\n\r\nCongratulations!
-        Welcome to the team! \r\n\r\n We are excited to have you at HEPL - Group Company of CavinKare. \r\n\r\n
-        We believe that you will grow to be a valuable asset to our company and we are looking forward to the positive impact you're about to create.
-        On behalf of all the members and the management, we would like to extend our warmest welcome and good wishes!
-         \r\n\r\n Please login to http://hub1.cavinkare.in/CK_Academy/login/index.php to access CK Academy LMS portal and login using credentials mentioned below. \r\n\r\n User Name -  "{{$username}}"\n Password -  "{{$password}}"
-         \r\n\r\n Kindly complete the HR induction & CK Swagatham and share status once completed. \r\n\r\n
-         Thank you,\n HR OP.S Team - HEPL";
-      </p> --}}
 
       <p><b>"Dear {{$candidate_name}}", Congratulations!</b></p>
 

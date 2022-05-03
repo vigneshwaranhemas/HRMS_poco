@@ -29,10 +29,12 @@ $(()=>{
                 type:"POST",
                 data:{empID: $("#NewEmpId").val(),old_empID:$('#emp_hidden_id').val(),_token:token},
                 beforeSend:(e)=>{
+                     $("#pre_loader").show();
                     console.log("Loading!.....");
                 },
                 success:(response)=>{
                     var res=JSON.parse(response);
+                    $("#pre_loader").hide();
                     if(res.success==0)
                     {
                         Toastify({

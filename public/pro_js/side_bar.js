@@ -12,13 +12,10 @@ $(document).ready(function (){
 //second
 
 function test(one){
-
     var $this = $(".iconsidebar-menu");
     $('li').removeClass('open');
-
-        $this.removeClass('iconbar-mainmenu-close');
-
-        $(one).addClass('open');
+    $this.removeClass('iconbar-mainmenu-close');
+    $(one).addClass('open');
 }
  
 function get_side_bar(){

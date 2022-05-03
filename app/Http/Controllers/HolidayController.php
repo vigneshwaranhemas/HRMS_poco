@@ -17,30 +17,55 @@ class HolidayController extends Controller
     } 
     public function holidays()
     {
-        return view('holidays.holidays');
+        $stateList = $this->holiday->fetch_state_list();  
+
+        $data = [
+            "stateList" => $stateList,
+        ];
+
+        return view('holidays.holidays')->with($data);
     }
     public function add_new_holidays_insert(Request $request)
-    {
+    {        
         $result = $request->validate([
             'occassion' => 'required', 
+            'occassion_file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
+            'state' => 'required', 
         ]);
 
+        //File upload
+        $file = $request->file('occassion_file');
+        if($file){
+            $name = $request->file('occassion_file')->getClientOriginalName();
+            $public_path_upload = $request->occassion_file->move(public_path('holidays_file'), $name);                     
+        }else {
+            $name = "";
+        }
+           
+        //Data upload to server
         $data = array(
             'occassion' => $request->occassion,
             'date' => $request->occassion_date,
             'description' => $request->description,
+            'state' => $request->state,
+            'occassion_file' => $name,
             'created_by' => "900386"
         );
 
-        $result = $this->holiday->add_holidays_insert($data);
+        $result = $this->holiday->add_holidays_insert($data);        
 
         return response($result);
 
     }
     public function fetch_holidays_list(Request $request)
     {
-        $holidaysFilter = $this->holiday->fetch_holidays_list();  
-
+        if(!empty($request->input('state'))){
+            $state = $request->input('state');
+            $holidaysFilter = $this->holiday->fetch_holidays_state_filter($state);  
+        }else{
+            $holidaysFilter = $this->holiday->fetch_holidays_list();  
+        }
+        
         $holidays_list = array();
 
         foreach ($holidaysFilter as $key => $value) {
@@ -63,9 +88,16 @@ class HolidayController extends Controller
     }
     public function fetch_holidays_list_id(Request $request)
     {
+
         $id = $request['id'];
         $holidays_list = $this->holiday->fetch_holidays_list_id($id);          
         return response($holidays_list);               
+    }
+    public function fetch_holidays_state_id(Request $request)
+    {
+        $id = $request['id'];
+        $holidays_state_list = $this->holiday->fetch_holidays_state_id($id);     
+        return json_encode($holidays_state_list);               
     }
     public function fetch_holidays_list_date(Request $request)
     {
@@ -105,13 +137,40 @@ class HolidayController extends Controller
     }
     public function holidays_update(Request $request)
     {      
-        $data = array(
-            'occassion' => $request->occassion,
-            'description' => $request->description,
-            'id' => $request->id,
-        );
+        //File upload
+        $file = $request->file('occassion_file');
 
-        $result = $this->holiday->holidays_update($data);        
+        if($file){
+            //Got new file
+            $name = $request->file('occassion_file')->getClientOriginalName();
+            $public_path_upload = $request->occassion_file->move(public_path('holidays_file'), $name);                     
+
+            $data = array(
+                'occassion' => $request->occassion,
+                'description' => $request->description,
+                'state' => $request->state,
+                'occassion_file' => $name,
+                'id' => $request->id,
+            );
+            
+            $result = $this->holiday->holidays_update_file($data);        
+
+
+        }else {
+
+            //No file update
+            $data = array(
+                'occassion' => $request->occassion,
+                'description' => $request->description,
+                'state' => $request->state,
+                'id' => $request->id,
+            );
+
+            $result = $this->holiday->holidays_update($data);        
+
+
+        }                
+
         
         return response($result);
         

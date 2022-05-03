@@ -28,23 +28,31 @@ var basic_calendar = {
 
     }
 };
-
-//Save data
-$('#getNewEventForm').on('submit',function(event){
-    event.preventDefault();
-    // Get Alll Text Box Id's
-    var category_name = $('#category_id').val();
-    // alert(category_name);  
+     
+$('#event-form-insert').submit(function(e) {
+    e.preventDefault();
+    let formData = new FormData(this);
+ 
+    $('#event_name_error').text("");
+    $('#where_error').text("");
+    $('#description_error').text("");
+    $('#candicate_list_options_error').text("");
+    $('#end_time_error').text("");
+    $('#start_date_error').text("");
+    $('#start_time_error').text("");
+    $('#end_date_error').text("");
+    $('#category_name_sel_error').text("");
+    $('#event_type_sel_error').text("");
+    $('#file_error').text("");
 
     $.ajax({
-        url:"add_new_event_insert",
-        type:"POST",
-        data:$("#getNewEventForm").serialize(),
-        dataType : "JSON",
-        success:function(response)
-        {
-            
-            $('#add-event').modal('hide');
+        type:'POST',
+        url: `/add_new_event_insert`,
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: (response) => {
+           $('#add-event').modal('hide');
 
             Toastify({
                 text: "Added Sucessfully..!",
@@ -54,10 +62,10 @@ $('#getNewEventForm').on('submit',function(event){
             }).showToast();
 
             window.location.reload();
-                                                                    
         },
-        error: function(response) {
-            console.log(response.responseJSON.errors);
+        error: function(response){
+            // console.log(response);
+            // console.log(response.responseJSON.errors);
             $('#event_name_error').text(response.responseJSON.errors.event_name);
             $('#where_error').text(response.responseJSON.errors.where);
             $('#description_error').text(response.responseJSON.errors.description);
@@ -68,12 +76,60 @@ $('#getNewEventForm').on('submit',function(event){
             $('#end_date_error').text(response.responseJSON.errors.end_date);
             $('#category_name_sel_error').text(response.responseJSON.errors.category_name);
             $('#event_type_sel_error').text(response.responseJSON.errors.event_type);
-
-        }
-        
-    }); 
+            $('#file_error').text(response.responseJSON.errors.file);   
+        }     
+    });
 
 });
+
+//Save data
+// $('#event-form-insert').on('submit',function(event){
+//     event.preventDefault();
+//     // Get Alll Text Box Id's
+//     var category_name = $('#category_id').val();
+//     // alert(category_name); 
+
+//     // console.log(FormData)
+//     $.ajax({
+//         url:"add_new_event_insert",
+//         type:"POST",
+//         data:{formData: formData},
+//         // data:$("#event-form-insert").serialize(),
+//         dataType : "JSON",
+//         success:function(response)
+//         {
+            
+//             $('#add-event').modal('hide');
+
+//             Toastify({
+//                 text: "Added Sucessfully..!",
+//                 duration: 3000,
+//                 close:true,
+//                 backgroundColor: "#4fbe87",
+//             }).showToast();
+
+//             window.location.reload();
+                                                                    
+//         },
+//         error: function(response) {
+//             console.log(response.responseJSON.errors);
+//             $('#event_name_error').text(response.responseJSON.errors.event_name);
+//             $('#where_error').text(response.responseJSON.errors.where);
+//             $('#description_error').text(response.responseJSON.errors.description);
+//             $('#candicate_list_options_error').text(response.responseJSON.errors.candicate_list_options);
+//             $('#end_time_error').text(response.responseJSON.errors.end_time);
+//             $('#start_date_error').text(response.responseJSON.errors.start_date);
+//             $('#start_time_error').text(response.responseJSON.errors.start_time);
+//             $('#end_date_error').text(response.responseJSON.errors.end_date);
+//             $('#category_name_sel_error').text(response.responseJSON.errors.category_name);
+//             $('#event_type_sel_error').text(response.responseJSON.errors.event_type);
+//             $('#file_error').text(response.responseJSON.errors.file);
+
+//         }
+        
+//     }); 
+
+// });
 
 function addEventModal(arg){  
     
@@ -180,6 +236,9 @@ function addEventModal(arg){
 }
 
 var getEventDetail = function (id, start, end) {
+
+    $("#event_file_show").html(" ");  
+
     // alert(start) "2022-03-30T15:30:00Z"
     // alert(id)
     $("#event_edit_id").val(id);
@@ -217,6 +276,8 @@ var getEventDetail = function (id, start, end) {
                 $("#description_show").html(value.description);
                 $("#category_name_show").html(value.category_name);
                 $("#event_type_show").html(value.event_type);
+                $("#attendees_filter_op_show").html(value.attendees_filter_op);
+                $("#attendees_filter_show").html(value.attendees_filter);
                 
                 // var candicate_list = JSON.parse(value.candicate_list);
                 // console.log(candicate_list.length);
@@ -249,6 +310,29 @@ var getEventDetail = function (id, start, end) {
                 $("#end_date_show").html(split[0]);
                 $("#end_time_show").html(timeString12hr_end);
 
+                var file = response[0].event_file;
+                var ext = file.split('.')[1];    
+                // alert(ext);
+
+                if(ext=="jpg" || ext=="PNG" || ext=="png" || ext=="jpeg" || ext=="gif") {
+                    // alert("one");
+                    // var link = object[i].Value;
+
+                    var image = '<img class="img-sm image-layer-item image-size"  src="../../event_file/'+file+'" style="cursor:pointer;width: 700px;height: 300px;">';
+                    // row.append($('<td>').html(image));
+                    $("#event_file_show").append(image);  
+                
+                }else if (ext=="pdf"|| ext=="doc" || ext=="docx" || ext=="xlsx" || ext=="csv"){
+                
+                    var file = '<a href="/event_file/'+file+'"  style="color:white;"  download><div class="badge bg-danger">'+file+'</div></a>';
+                    $("#event_file_show").append(file);  
+
+                }else{
+
+                    $("#event_file_show").append(" ");  
+
+                }
+
             });
                                 
         }
@@ -258,9 +342,154 @@ var getEventDetail = function (id, start, end) {
 
     $('#eventDetailModal').modal('show');
 
-
 }
 
+$('#attendees_filter_op').change(function(){
+    
+    var attendees_filter_op = $("#attendees_filter_op").val(); 
+
+    // $("#gender_filter_option").val("");
+    // $("#dept_filter_option").();
+    // $("#designation_filter_option").hide();
+    // $("#wfh_filter_option").hide();
+
+    if(attendees_filter_op !=''){
+        // alert(attendees_filter_op)
+        if(attendees_filter_op == "Gender"){
+            $("#gender_filter_option").show();
+            $("#dept_filter_option").hide();
+            $("#designation_filter_option").hide();
+            $("#wfh_filter_option").hide();
+        }else if(attendees_filter_op == "Department"){
+            $("#gender_filter_option").hide();
+            $("#dept_filter_option").show();
+            $("#designation_filter_option").hide();
+            $("#wfh_filter_option").hide();            
+        }else if(attendees_filter_op == "Designation"){
+            $("#gender_filter_option").hide();
+            $("#dept_filter_option").hide();
+            $("#designation_filter_option").show();
+            $("#wfh_filter_option").hide();            
+        }else if(attendees_filter_op == "Work Location"){
+            $("#gender_filter_option").hide();
+            $("#dept_filter_option").hide();
+            $("#designation_filter_option").hide();
+            $("#wfh_filter_option").show();
+        }
+    }else{
+        $("#gender_filter_option").hide();
+        $("#dept_filter_option").hide();
+        $("#designation_filter_option").hide();
+        $("#wfh_filter_option").hide();
+
+    }
+});
+
+
+$('#attendees_filter_op_edit').change(function(){
+    
+    var attendees_filter_op = $("#attendees_filter_op_edit").val(); 
+
+    // $("#gender_filter_option").val("");
+    // $("#dept_filter_option").();
+    // $("#designation_filter_option").hide();
+    // $("#wfh_filter_option").hide();
+
+    if(attendees_filter_op !=''){
+        // alert(attendees_filter_op)
+        if(attendees_filter_op == "Gender"){
+            $("#gender_filter_option_edit").show();
+            $("#dept_filter_option_edit").hide();
+            $("#designation_filter_option_edit").hide();
+            $("#wfh_filter_option_edit").hide();
+        }else if(attendees_filter_op == "Department"){
+            $("#gender_filter_option_edit").hide();
+            $("#dept_filter_option_edit").show();
+            $("#designation_filter_option_edit").hide();
+            $("#wfh_filter_option_edit").hide();            
+        }else if(attendees_filter_op == "Designation"){
+            $("#gender_filter_option_edit").hide();
+            $("#dept_filter_option_edit").hide();
+            $("#designation_filter_option_edit").show();
+            $("#wfh_filter_option_edit").hide();            
+        }else if(attendees_filter_op == "Work Location"){
+            $("#gender_filter_option_edit").hide();
+            $("#dept_filter_option_edit").hide();
+            $("#designation_filter_option_edit").hide();
+            $("#wfh_filter_option_edit").show();
+        }
+    }else{
+        $("#gender_filter_option_edit").hide();
+        $("#dept_filter_option_edit").hide();
+        $("#designation_filter_option_edit").hide();
+        $("#wfh_filter_option_edit").hide();
+
+    }
+});
+
+function sample_popup_viewer(sample)
+{
+    // alert("sus");
+    $("#sample_view").attr("src", "../../event_file/"+sample);
+    $(".sample-preview").modal('show');
+}  
+
+$('.attendees_filter').change(function(e){
+    var attendees_filter = this.value;
+    var attendees_filter_op = $("#attendees_filter_op").val(); 
+    var op = "All "+attendees_filter;
+    $("#attendees_all_filter_label").val(" ");
+    $("#attendees_all_filter_label").html(op);
+
+    $.ajax({
+        url: "attendees_filter",
+        type: "POST",
+        data: {
+            attendees_filter : attendees_filter,
+            attendees_filter_op : attendees_filter_op,
+        },
+        dataType: "JSON",
+        success: function(response)
+        {
+            // console.log(response)
+            $("#candicate_list_options").val(" ");
+            $("#candicate_list_options").html(response);
+            $("#candicate_list_options").show();
+            $("#all_filter").show();
+
+        }
+    });
+
+});
+
+
+$('.attendees_filter_edit').change(function(e){
+    var attendees_filter = this.value;
+    var attendees_filter_op = $("#attendees_filter_op_edit").val(); 
+    var op = "All "+attendees_filter;
+    $("#attendees_all_filter_label_edit").val(" ");
+    $("#attendees_all_filter_label_edit").html(op);
+
+    $.ajax({
+        url: "attendees_filter",
+        type: "POST",
+        data: {
+            attendees_filter : attendees_filter,
+            attendees_filter_op : attendees_filter_op,
+        },
+        dataType: "JSON",
+        success: function(response)
+        {
+            // console.log(response)
+            $("#candicate_select_op_list_edit").val(" ");
+            $("#candicate_select_op_list_edit").html(response);
+            $("#candicate_select_op_list_edit").show();
+            $("#all_filter_edit").show();
+
+        }
+    });
+
+});
 
 $('.delete-event').click(function(){
     var id = $("#event_edit_id").val(); 
@@ -462,8 +691,7 @@ $('.add_category').click(function () {
 
             $('.category-table tbody' ).html(listData);                      
                                 
-        }
-       
+        }       
         
     }); 
 
@@ -620,21 +848,18 @@ $("#submit_event_type").on('click', function(){
     return false;        
 });
 
-//Update Event data
-$('#updateEventForm').on('submit',function(event){
-    event.preventDefault();
-    // Get Alll Text Box Id's
-    var event_name_edit = $('#event_name_edit').val();
-    // alert(event_name_edit);  
+//Update Event data    
+$('#event-form-update').submit(function(e) {
+    e.preventDefault();
+    let formData = new FormData(this); 
 
     $.ajax({
-        url:"event_update",
-        type:"POST",
-        data:$("#updateEventForm").serialize(),
-        dataType : "JSON",
-        success:function(response)
-        {
-            
+        type:'POST',
+        url: `/event_update`,
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: (response) => {
             $('#formEventEditModal').modal('hide');
 
             Toastify({
@@ -645,15 +870,11 @@ $('#updateEventForm').on('submit',function(event){
             }).showToast();
 
             window.location.reload();
-                                                                    
         },
-        error: function(response) {
-
-            console.log(response.responseJSON.errors);                   
-
-        }
-        
-    }); 
+        error: function(response){
+            console.log(response);
+        }     
+    });
 
 });
 
@@ -776,11 +997,16 @@ $('body').on('click','.edit-event',function(){
     // $("#description_edit").val(" ");
     // $("#category_name_edit").val(" ");
     // $("#event_type_edit").html("");
-    
+    $("#chosen_file_show").html(" ");  
+    $("#gender_filter_option_edit").hide();
+    $("#dept_filter_option_edit").hide();
+    $("#designation_filter_option_edit").hide();
+    $("#wfh_filter_option_edit").hide();
+
     $('#eventDetailModal').modal('hide');
 
     var id = $("#event_edit_id").val(); 
-    console.log(id);
+    // console.log(id);
     
     $("#event_update_id").val(id);
 
@@ -792,7 +1018,7 @@ $('body').on('click','.edit-event',function(){
         dataType : "JSON",
         success:function(response)
         {
-            console.log(response);                                                                                                                      
+            // console.log(response);                                                                                                                      
             // $("#category_id_edit").val(response);
             $('#category_id_edit').html(response);
 
@@ -835,6 +1061,7 @@ $('body').on('click','.edit-event',function(){
                 $("#description_edit").val(value.description);
                 $("#category_name_edit").val(value.category_name);
                 $("#event_type_edit").html(value.event_type);
+                $("#event_type_edit").html(value.event_file);
                 $("#candicate_list_edit").prop("checked", false);        
                 
                 if(value.candicate_list == "yes"){                    
@@ -843,22 +1070,68 @@ $('body').on('click','.edit-event',function(){
                     $("#candicate_list_edit").prop("checked", false);        
                 }
                 
-                if(value.repeat == "yes"){
-                    
+                if(value.all_filter_attendees == "yes"){                    
+                    $("#attendees_all_filter_edit").prop("checked", true);        
+                }else{                   
+                    $("#attendees_all_filter_edit").prop("checked", false);        
+                }
+                
+                var op = "All "+value.attendees_filter;
+                $("#attendees_all_filter_label_edit").val(" ");
+                $("#attendees_all_filter_label_edit").html(op);
+                $("#all_filter_edit").show();
+
+                $("#attendees_filter_op_edit").val(value.attendees_filter_op);
+
+                if(value.attendees_filter_op == "Gender"){
+                    $("#gender_filter_option_edit").val(value.attendees_filter);
+                    $("#gender_filter_option_edit").show();
+                }else if(value.attendees_filter_op == "Department"){
+                    $("#dept_filter_option_edit").val(value.attendees_filter);
+                    $("#dept_filter_option_edit").show();
+                }else if(value.attendees_filter_op == "Designation"){
+                    $("#designation_filter_option_edit").val(value.attendees_filter);
+                    $("#designation_filter_option_edit").show();
+                }else if(value.attendees_filter_op == "Work Location"){
+                    $("#wfh_filter_option_edit").val(value.attendees_filter);
+                    $("#wfh_filter_option_edit").show();
+                }
+                
+                if(value.repeat == "yes"){                    
                     $("#repeat-event-edit").prop("checked", true);    
                     $("#repeat_count_edit").val(value.repeat_every);
                     $("#repeat_cycles_edit").val(value.repeat_cycles);
                     $("#repeat_type_edit").val(value.repeat_type);
-                    $('#repeat-fields-edit').show();
-                    
+                    $('#repeat-fields-edit').show();                    
                 }else{
                    
                     $("#repeat-event-edit").prop("checked", false);        
                     $('#repeat-fields-edit').hide();
                     
                 }
-                
+                //File show
+                var file = value.event_file;
+                var ext = file.split('.')[1];    
+                // alert(ext);
+                if(ext=="jpg" || ext=="PNG" || ext=="png" || ext=="jpeg" || ext=="gif") {
+                    // alert("one");
+                    // var link = object[i].Value;
 
+                    var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm image-layer-item image-size rounded-circle mt-2"   src="../../event_file/'+file+'" style="cursor:pointer;width: 32px;height: 32px;">';
+                    // row.append($('<td>').html(image));
+                    $("#chosen_file_show").append(image);  
+                
+                }else if (ext=="pdf"|| ext=="doc" || ext=="docx" || ext=="xlsx" || ext=="csv"){
+                
+                    var file = '<a href="/event_file/'+file+'"  style="color:white;"  download><div class="badge bg-danger">'+file+'</div></a>';
+                    $("#chosen_file_show").append(file);  
+
+                }else{
+
+                    $("#chosen_file_show").append(" ");  
+
+                }
+                
                 var start_date_time = value.start_date_time;
                 var split = start_date_time.split(" ");
 

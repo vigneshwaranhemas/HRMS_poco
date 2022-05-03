@@ -96,6 +96,7 @@ Route::get('fetch_event_attendees_list', 'EventController@fetch_event_attendees_
 Route::get('fetch_event_attendees_show', 'EventController@fetch_event_attendees_show');
 Route::post('event_delete', 'EventController@event_delete');
 Route::post('event_update', 'EventController@event_update');
+Route::post('attendees_filter', 'EventController@attendees_filter');
 
 Route::post('event_category_insert', 'EventCategoryController@event_category_insert');
 Route::post('event_category_delete', 'EventCategoryController@event_category_delete');
@@ -114,10 +115,18 @@ Route::get('goals', 'GoalsController@goals')->name('goals');
 Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
 Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
 
+//Birthday controller
+Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');
+Route::get('fetch_birthdays_list', 'BirthdayController@fetch_birthdays_list')->name('fetch_birthdays_list');
+Route::get('fetch_birthdays_list_date', 'BirthdayController@fetch_birthdays_list_date')->name('fetch_birthdays_list_date');
+Route::get('fetch_birthdays_filter_user', 'BirthdayController@fetch_birthdays_filter_user')->name('fetch_birthdays_filter_user');
+Route::get('fetch_birthdays_list_empID', 'BirthdayController@fetch_birthdays_list_empID');
+
 //Holidays Controller
 Route::get('holidays', 'HolidayController@holidays')->name('holidays');
 Route::get('fetch_holidays_list', 'HolidayController@fetch_holidays_list')->name('fetch_holidays_list');
 Route::get('fetch_holidays_list_id', 'HolidayController@fetch_holidays_list_id');
+Route::get('fetch_holidays_state_id', 'HolidayController@fetch_holidays_state_id');
 Route::get('fetch_holidays_list_date', 'HolidayController@fetch_holidays_list_date');
 Route::post( 'add_new_holidays_insert', 'HolidayController@add_new_holidays_insert' );
 Route::post( 'holidays_update', 'HolidayController@holidays_update' );
@@ -321,15 +330,14 @@ Route::post( 'get_role_details_pop', 'AdminController@get_role_details_pop' );
 Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_details' );
 
 // View Welcome Aboard
-Route::get('view_welcome_aboard_hr', 'HrController@view_welcome_aboard_hr')->name('view_welcome_aboard_hr');
-Route::post('welcome_aboard_generate_image','HrController@welcome_aboard_generate_image');
+Route::get('view_welcome_aboard_hr', 'CandidateController@view_welcome_aboard_hr')->name('view_welcome_aboard_hr');
 
 /*employe list edit*/
 Route::post('get_role_type', 'AdminController@get_role_type');
 Route::post( 'get_employee_pop', 'AdminController@get_employee_pop' );
 Route::post('update_employee_list_pop', 'AdminController@update_employee_list_pop');
 
-/*banner image*/
+// banner image
 Route::post('banner_image_crop', 'DocumentsController@imageCropPost');
 Route::post('profile_banner', 'DocumentsController@profile_banner');
 
@@ -348,6 +356,4 @@ Route::get('hr_id_card_verification', 'CommonController@hr_id_card_verification'
 Route::post('hr_get_id_card_vari', 'CommonController@hr_get_id_card_vari');
 Route::post('hr_idcard_verfi', 'CommonController@hr_idcard_verfi');
 Route::post('hr_id_remark', 'CommonController@hr_id_remark');
-
-
 

@@ -7,12 +7,18 @@
 
 @section('style')
 <style type="text/css">
-   img{
+   /*img{
   max-width:180px;
+}*/
+.img-70
+{
+   width: 170px !important;
+   height: 169px !important;
 }
-input[type=file]{
-padding:10px;
-background:#2d2d2d;}
+/*input[type=file]
+{
+   padding:10px;
+}*/
 </style>
 @endsection
 
@@ -33,16 +39,30 @@ background:#2d2d2d;}
             <div class="card-body">
                <form class="" enctype="multipart/form-data" id= "hr_idcard_info" novalidate="">
                   <input type="hidden" name="can_id" id="can_id" value="{{ $_GET['id']}}">
-                  <div class="form-row">
-                     <div class="col-md-6">
-                         <div class="avatar"><img width="300" height="330" lass="img-fluid rounded" alt="" id="pro_img"></div>
+                  <div class="text-center">
+                  
+                         <div class="avatar">
+                           <!-- <img width="300" height="330" lass="img-fluid rounded" alt="" id="pro_img"> -->
+                            <!-- <img id="previewImg" src="/examples/images/transparent.png" alt="Placeholder"> -->
+                           <div class="col-auto"><img class="img-70 rounded-circle" alt="" id="pro_img"></div>
+                        </div>
                      </div>
-                     <div class="col-md-6">
-                       <div class="form-group">
-                          <input type="file" name="file" class="form-control" id="pro_img_up">
+                     <div class="text-center">
+                        <div class="col-sm-4 form-group">
+                          <input type="file" name="file" class="form-control" onchange="previewFile(this);" id="pro_img_up">
                           <span class="text-danger color-hider" id="pro_img_up_error"  style="display:none;color: red;"></span>
+                           <input type="hidden" name="img_path_hide" id="img_path_hide">
                        </div>
-                     </div>
+                        
+                     
+                  </div>
+
+
+                  <div class="form-row">
+
+                     <!-- <div class="col-md-6">
+                       
+                     </div> -->
                      <div class="col-md-4 mb-3">
                         <label for="f_name">First name</label>
                         <input class="form-control alpha" style="text-transform:uppercase" id="f_name" type="text" name="f_name" placeholder="First name" required="">
@@ -232,6 +252,20 @@ background:#2d2d2d;}
               }
           });
       });
+
+      function previewFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+ 
+        if(file){
+            var reader = new FileReader();
+ 
+            reader.onload = function(){
+                $("#pro_img").attr("src", reader.result);
+            }
+ 
+            reader.readAsDataURL(file);
+        }
+    }
 
 </script>
 @endsection

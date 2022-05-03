@@ -10,7 +10,7 @@
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
      <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Poco - @yield('title')</title>
+    <title>HRMS - @yield('title')</title>
     @include('layouts.simple.css')
     @yield('style')
 

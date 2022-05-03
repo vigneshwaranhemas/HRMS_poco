@@ -9,7 +9,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <title>Poco - @yield('title')</title>
+    <title>HRMS - @yield('title')</title>
     @include('layouts.simple.css')
     @yield('style')
 

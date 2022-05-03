@@ -22,13 +22,13 @@ class AdminController extends Controller
     public function admin_dashboard()
     {
         //Birthday card
-        $current_date = date("d-m-Y");
-        $date = Carbon::createFromFormat('d-m-Y', $current_date);
-        $result = $date->format('F');
-        $monthName = substr($result, 0, 3);
-        $dt = $date->format('d');
-        $tdy = $dt."-".$monthName;
-        $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%'.$tdy.'%')->get();
+        $current_date = date("d");
+        $current_month = date("m");
+        $current_year = date("Y");
+        // $tdy = $dt."-".$monthName;
+        $tdy = $current_month."-".$current_date;
+        // dd($tdy)
+        $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%%-'.$tdy.'%')->get();
 
         //Work anniversary
         $tdy_work_anniversary = DB::table('customusers')->select('*')->where('doj', 'LIKE', '%'.$tdy.'%')->get();
@@ -74,7 +74,9 @@ class AdminController extends Controller
     public function Hr_SeatingRequest()
     {
          $status=0;
-         $seating_info=$this->admrpy->get_seating_requested($status);
+         $seating_info['pending']=$this->admrpy->get_seating_requested($status);
+         $status=1;
+         $seating_info['completed']=$this->admrpy->get_seating_requested($status);
          return view('admin.SeatingRequest')->with('seating_info',$seating_info);
     }
     public function permission()
@@ -83,16 +85,19 @@ class AdminController extends Controller
     }
     public function com_dashboard()
     {
+        $current_date = date("d");
+        $current_month = date("m");
+        $current_year = date("Y");
+        // $tdy = $dt."-".$monthName;
+        $tdy = $current_month."-".$current_date;
+        $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%%-'.$tdy.'%')->get();
+        // dd($todays_birthdays);
+
         $current_date = date("d-m-Y");
         $date = Carbon::createFromFormat('d-m-Y', $current_date);
-        $result = $date->format('F');
-        $monthName = substr($result, 0, 3);
-        $dt = $date->format('d');
-        $tdy = $dt."-".$monthName;
-        $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%'.$tdy.'%')->get();
 
         //Work anniversary
-        $tdy_work_anniversary = DB::table('customusers')->select('*')->where('doj', 'LIKE', '%'.$tdy.'%')->get();
+        $tdy_work_anniversary = DB::table('customusers')->select('*')->where('doj', 'LIKE', '%%-'.$tdy.'%')->get();
 
         //Upcoming holidays
         $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();

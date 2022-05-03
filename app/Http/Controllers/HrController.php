@@ -114,9 +114,8 @@ class HrController extends Controller
     {
         $sess_info=Session::get("session_info");
         $date=date('Y-m-d');
-        $data=array("or_doj"=>$date,'created_by'=>$sess_info["empID"]);
+        $data=array("doj"=>$date,'created_by'=>$sess_info["empID"]);
         $candidate_info=$this->hpreon->EmailIdCreation($data);
-        echo json_encode($candidate_info);
     }
     public function Candidate()
     {
@@ -126,8 +125,6 @@ class HrController extends Controller
     {
         $id=$request->id;
         $user_documents=$this->hpreon->getUserDocuments($id);
-        // $total =;
-        // echo json_encode(count((array)$user_documents));
         return view('HRSS.userdocuments')->with('user_documents',$user_documents);
     }
     public function Show_preOnBoarding(Request $request)
@@ -169,6 +166,8 @@ class HrController extends Controller
                     $Mail['admin_to_mail']=$store_result['message']['admin_email_info']->to;
                     $Mail['supervisor_name']=$store_result['message']['location']->sup_name;
                     $Mail['worklocation']=$store_result['message']['location']->worklocation;
+                    // $Mail['supervisor_email']=$store_result['message']['supervisor_info']->email;
+                    $Mail['supervisor_email']="vigneshwaran@hemas.in";
                     $str_arr = preg_split ("/\,/", $Mail['cc']);
                     $admin_str_arr=preg_split ("/\,/", $Mail['Admin_cc']);
 
@@ -203,6 +202,7 @@ class HrController extends Controller
                         {
                             $message->cc($string);
                         }
+                        $message->cc($Mail['supervisor_email']);
                         $message->to($Mail['admin_to_mail'])->subject($Mail['Admin_Subject']);
                         });
                     //  }
@@ -250,7 +250,7 @@ class HrController extends Controller
                 $Mail['reviewer_mail']="vigneshb@hemas.in";
                 $Mail['subject']=$ItInfra_email_info->subject;
                 $Mail['candidate_name']=$candidate_info['info']->username;
-                $Mail['supervisor_name']=$candidate_info['supervisor_info']->name;
+                $Mail['supervisor_name']=$candidate_info['supervisor_info']->username;
                 $Mail['doj']=$candidate_info['info']->doj;
                 $str_arr=preg_split ("/\,/", $Mail['CC']);
 

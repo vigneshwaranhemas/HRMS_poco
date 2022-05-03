@@ -29,14 +29,22 @@ $('.mobile-sidebar #sidebar-toggle').click(function() {
   
   var $this = $(".iconsidebar-menu");
 
+  // var $this = $(".iconsidebar-menu");
+  // $('li').removeClass('open');
+  // $this.removeClass('iconbar-mainmenu-close');
+  // $(one).addClass('open');
+
   if ($this.hasClass('iconbar-second-close')) {
     //$this.removeClass();
     $this.removeClass('iconbar-second-close').addClass('iconsidebar-menu');
+
     if ($('li').hasClass('open')){
-     
+      
     }else{
       $this.addClass('iconbar-mainmenu-close');
+
     }
+
   } else if ($this.hasClass('iconbar-mainmenu-close')) {
     $this.removeClass('iconbar-mainmenu-close').addClass('iconbar-second-close');
   } else {

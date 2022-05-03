@@ -82,7 +82,7 @@
                           <div class="sub-cont text-center" style="left: 465px;">
                             <div class="img">
                               <div class="img__text m--up">
-                                <h2 style="margin-left: -6px">Welcome To HEPL</h2>
+                                <h2 style="margin-left: -25px">Welcome To HEPL</h2>
                                 <!-- <p></p> -->
                               </div>
                               <div class="img__text m--in">
@@ -94,10 +94,7 @@
                           </div>
                         </div>
                       </div>
-
-
                     </div>
-
                   </div>
               </div>
             </div>

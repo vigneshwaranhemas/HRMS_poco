@@ -64,7 +64,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>HR Buddy</h2>
+	<h2>Buddy</h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -95,36 +95,19 @@
                         @if (count($candidate_info)>0)
                         @foreach ($candidate_info as $item)
                         <tr>
-                            <td>{{$item->cdID }}</td>
-                            <td>{{$item->candidate_name }}</td>
-                            <td>{{$item->candidate_email }}</td>
-                            <td>{{$item->candidate_mobile }}</td>
+                            <td>{{$item->empID }}</td>
+                            <td>{{$item->username }}</td>
+                            <td>{{$item->email }}</td>
+                            <td>{{$item->contact_no }}</td>
                             <td>
-                                <button onclick=showAdd("{{$item->cdID}}") aria-expanded="false" data-toggle="dropdown" class="btn btn-default dropdown-toggle waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                <button onclick=showAdd("{{$item->empID}}") aria-expanded="false" data-toggle="dropdown" class="btn btn-default dropdown-toggle waves-effect waves-light" type="button"><i class="fa fa-eye" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                      @endforeach
             @else
                    <tr><td>No Data Available</td></tr>;
             @endif
-                        {{-- <tr>
-                            <td>Emp102</td>
-                            <td>Linda Craver</td>
-                            <td>Lindacraver@example.com</td>
-                            <td>8747638735</td>
-                            <td>
-                                <a onclick="showAdd()" class="badge badge-danger" type="button" data-original-title="btn btn-danger btn-xs" title=""><i class="icofont icofont-eye" style="color: #fff;"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Emp103</td>
-                            <td>Jenni Sims</td>
-                            <td>Jennisims@example.com</td>
-                            <td>9876535487</td>
-                            <td>
-                                <a onclick="showAdd()" class="badge badge-danger" type="button" data-original-title="btn btn-danger btn-xs" title=""><i class="icofont icofont-eye" style="color: #fff;"></i></a>
-                            </td>
-                        </tr> --}}
+
                     </tbody>
                     </table>
                 </div>
@@ -177,65 +160,7 @@
 
 
                         </tr>
-                        {{-- <tr>
-                        <th scope="row">2</th>
-                        <td><p class="word-warpped">My Buddy gave me valuable and timely information about the Company and Work culture which helped me settle in well  without any confusion/ambiguity</p></td>
-                        <td></td>
-                        <td><p style="color:green" class="fa fa-check"></p></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
 
-                        <td class="remark">none</td>
-
-                        </tr>
-                        <tr>
-                        <th scope="row">3</th>
-                        <td><p class="word-warpped">My Buddy is well informed about the Company's Whos Who, Businesses, Processes, Policies etc and was able to answer all queries to my satisfaction</p></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><p style="color:green" class="fa fa-check"></p></td>
-
-                            <td class="remark">none</td>
-
-                        </tr>
-                        <tr>
-                        <th scope="row">4</th>
-                        <td><p class="word-warpped">My Buddy made me feel at ease while facilitating interactions with Functional/Dept Heads, Team Leads, My Peers and Colleagues</p></td>
-                            <td></td>
-                            <td></td>
-                            <td><p style="color:green" class="fa fa-check"></p></td>
-                            <td></td>
-                            <td></td>
-
-                            <td class="remark">none</td>
-
-                        </tr>
-                        <tr>
-                        <th scope="row">5</th>
-                        <td><p class="word-warpped">My Buddy was able to attend to all my concerns and helped me well to overcome my initial hesitations/sckepticism if any</p></td>
-                            <td><p style="color:green" class="fa fa-check"></p></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-
-                            <td class="remark">none</td>
-
-                        </tr>
-                        <tr>
-                        <th scope="row">6</th>
-                        <td><p class="word-warpped">My Buddy was able to attend to all my concerns and helped me well to overcome my initial hesitations/sckepticism if any</p></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><p style="color:green" class="fa fa-check"></p></td>
-                            <td></td>
-
-                            <td class="remark">none</td>
-                        </tr> --}}
                     </tbody>
                 </table>
 
@@ -254,11 +179,5 @@
 <script src="../pro_js/buddy/buddy.js"></script>
 @section('script')
     <!-- latest jquery-->
-
-    <script>
-        // function showAdd() {
-        //     $('#edit-column-form').modal('show');
-        // }
-    </script>
 @endsection
 

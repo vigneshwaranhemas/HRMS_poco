@@ -2,11 +2,18 @@
 @section('title', 'On Boarding')
 
 @section('css')
+<style type="text/css">
+    .submiteddata{
+      display: none;
+    }
+ </style>
 <link rel="stylesheet" type="text/css" href="{{url("assets/css/datatables.css")}}">
 <link rel="stylesheet" type="text/css" href="{{url('assets/css/datatable-extension.css')}}">
 @endsection
 
 @section('style')
+
+
 @endsection
 
 @section('breadcrumb-title')
@@ -18,8 +25,12 @@
 	{{-- <li class="breadcrumb-item active">Default</li> --}}
 @endsection
 @section('content')
+ <div class="loader-box" id="pre_loader" style="display: none;">
+    <div class="loader-29" style="z-index: 100;position: fixed;"></div>
+ </div>
+
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" class="submiteddata">
         <div class="col-sm-12">
             <div class="card">
                <div class="card-body">
@@ -67,11 +78,11 @@
                                                                <td><p style="color:{{$color}}" class="fa {{$class}}"></p></td>
                                                                <td><p style="color:{{$color1}}" class="fa {{$class1}}"></p></td>
                                                                <td>
-                                                                <a onclick=model_trigger("{{$info["cdID"]}}") href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                                <a onclick=edit_modal("{{$info["cdID"]}}") href="#"><i class="fa fa-pencil"></i></i><a>
+                                                                <a onclick=model_trigger("{{$info["cdID"]}}") href="javascript:void(0)"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                                <a onclick=edit_modal("{{$info["empID"]}}") href="javascript:void(0)"><i class="fa fa-pencil"></i></i><a>
                                                                </td>
                                                                <td>
-                                                                <a href="#" onclick=user_documents("{{$info["cdID"]}}")><i class="fa fa-file-image-o"></i><a>
+                                                                <a href="javascript:void(0)" onclick=user_documents("{{$info["cdID"]}}")><i class="fa fa-file-image-o"></i><a>
                                                                </td>
                                                            </tr>
                                                          <?php $i++;?>
@@ -87,7 +98,13 @@
             </div>
          </div>
 
-    </div>
+
+
+
+
+        </div>
+
+
 </div>
 
 <!-- Modal Fade -->

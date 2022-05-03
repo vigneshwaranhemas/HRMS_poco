@@ -62,9 +62,9 @@
                                          <tr>
                                             <td>{{$i}}</td>
                                             <td>{{$data['empId']}}</td>
-                                            <td>{{$data['candidate_name']}}</td>
-                                            <td>{{$data['candidate_email']}}</td>
-                                            <td>{{$data['candidate_mobile']}}</td>
+                                            <td>{{$data['username']}}</td>
+                                            <td>{{$data['email']}}</td>
+                                            <td>{{$data['contact_no']}}</td>
                                              @if ($data['Seating_Request']==1)
                                                <td><span class="badge badge-success">Alloted</span></td>
                                              @else
@@ -96,12 +96,12 @@
                                  <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>EMPLOYEE ID</th>
-                                        <th>NAME</th>
-                                        <th>EMAIL</th>
-                                        <th>MOBILE NUMBER</th>
-                                        <th>SEATING STATUS</th>
-                                        <th>IDCARD STATUS</th>
+                                        <th>Employee ID</th>
+                                        <th>Name</th>
+                                        <th>EMmail</th>
+                                        <th>Mobile Number</th>
+                                        <th>Seating Status</th>
+                                        <th>Idcard Status</th>
                                     </tr>
                                  </thead>
                                  <tbody>
@@ -112,9 +112,9 @@
                                          <tr>
                                             <td>{{$i}}</td>
                                             <td>{{$data['empId']}}</td>
-                                            <td>{{$data['candidate_name']}}</td>
-                                            <td>{{$data['candidate_email']}}</td>
-                                            <td>{{$data['candidate_mobile']}}</td>
+                                            <td>{{$data['username']}}</td>
+                                            <td>{{$data['email']}}</td>
+                                            <td>{{$data['contact_no']}}</td>
                                              @if ($data['Seating_Request']==1)
                                                <td><span class="badge badge-success">Alloted</span></td>
                                              @else

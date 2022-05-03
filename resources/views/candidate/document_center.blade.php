@@ -1,5 +1,5 @@
 @extends('layouts.simple.candidate_master')
-@section('title', 'Welcome Aboard')
+@section('title', 'Document Center')
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">

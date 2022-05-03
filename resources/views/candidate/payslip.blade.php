@@ -1,5 +1,5 @@
 @extends('layouts.simple.candidate_master')
-@section('title', 'Welcome Aboard')
+@section('title', 'Payslip')
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
@@ -11,19 +11,17 @@
 
 @section('style')
 <style>
-    .card-body p{
-        margin-bottom: 3% !important;
+    /* .card-body p{
+        margin-bottom: -22% !important;
         font-size: 15px !important;
-    }
+    } */
     .card-body td{
         margin-bottom: 3% !important;
         font-size: 15px !important;
         padding-bottom: 43px;
         padding-left: 0px;
     }
-    .card-body h5{
-        margin-bottom: 3% !important;
-    }
+
 
     /* input field css start*/
     .input {
@@ -83,6 +81,20 @@
     {
         padding: 28px !important;
     }
+    .list-group-items
+    {
+        border: 1px solid rgba(0,0,0,0.125);
+        cursor: pointer;
+    }
+    .top-left
+    {
+        margin-left: 12px;
+        margin-top: 9px;
+    }
+    .last-update
+    {
+        margin-left: 12px;
+    }
 
 
 </style>
@@ -100,37 +112,74 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-
-        <div class="col-sm-12 col-xl-6 xl-100">
+        <div class="col-sm-12 col-xl-12">
             <div class="card">
                <div class="card-header">
-                  <h5>Tabs Vertical</h5>
+                  <h5>Document Center / Payslip</h5>
                </div>
                <div class="card-body">
                   <div class="row">
-                     <div class="col-sm-3 col-xs-12">
-                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical"><a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a><a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a><a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a><a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a></div>
+                     <div class="col-sm-4">
+                        <div class="list-group" id="list-tab" role="tablist">
+                            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="list-home">2021</a>
+
+                            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">2020</a>
+
+                            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">2019</a>
+
+                            <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">2018</a></div>
                      </div>
-                     <div class="col-sm-9 col-xs-12">
-                        <div class="tab-content" id="v-pills-tabContent">
-                           <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                     <div class="col-sm-8">
+                        <div class="tab-content" id="nav-tabContent">
+                           <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_first" aria-expanded="false" aria-controls="collapse11">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        <h5 class="top-left"> March 2022</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                        <p> Last updated on 03 Mar, 2022</p>
+                                        </div>
+                                    </div>
+                                    <p class="last-update">Payroll for the month of Mar 2022</p>
+                                </div>
+                                <div class="collapse" id="collapseicon_first" aria-labelledby="collapseicon_first" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                                   <div class="card-body">
+                                    <button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_second" aria-expanded="true" aria-controls="collapse11">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        <h5 class="top-left"> Feb 2022</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                        <p> Last updated on 03 Mar, 2022</p>
+                                        </div>
+                                    </div>
+                                    <p class="last-update">Payroll for the month of Mar 2022</p>
+                                </div>
+                                <div class="collapse" id="collapseicon_second" aria-labelledby="collapseicon_second" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                                   <div class="card-body">
+                                    <button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button>
+                                    </div>
+                                </div>
+
                            </div>
-                           <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-                           </div>
-                           <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-                           </div>
-                           <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
-                           </div>
+
+
+                           <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+                           <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+                           <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
          </div>
+
 
     </div>
 </div>

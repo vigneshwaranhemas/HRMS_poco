@@ -340,29 +340,38 @@ class AdminController extends Controller
         return view('business');
     }
 
-    public function get_employee_list(Request $request)
-    {
+    public function get_employee_list(Request $request){
+
+
+    $input_details = array(
+            'status'=>$request->input('status'),
+        );
+    // echo "<pre>";print_r($input_details);die;
+
+
         if ($request->ajax()) {
 
-            $get_employee_list_result = $this->admrpy->get_employee_list();
+            $get_employee_list_result = $this->admrpy->get_employee_list( $input_details);
 
-
+            // echo "<pre>";print_r($get_employee_list_result[0]->hr_action);die;
             return DataTables::of($get_employee_list_result)
             ->addIndexColumn()
             ->addColumn('action', function($row) {
-                $candidate_profile = "candidate_profile";
                   $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
                     <div class="dropdown-menu">
                     <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
-                    </div>';
-                // $btn = '<a href="candidate_profile"><i class="fa fa-edit"></i><a>';
+                    </div>';     
+                    if ($row->hr_action != 1) {
+                                                                                              
+                    $btn .= '<button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" style="width: 15%;height: 35px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button>';
+                        } 
                 return $btn;
             })
-            ->addColumn('Info', function($row) {                
+            /*->addColumn('Info', function($row) {                
                 $btn = '<a class="dropdown-item" href="candidate_profile_view" onclick="candidate_profile_view('."'".$row->id."'".'); style="width: 15%;height: 35px;""><i class="fa fa-edit"></i></a>'; 
                 $btn .= '<a class="dropdown-item" href="hr_id_card_verification?id='."".$row->id."".'"  onclick="hr_id_card_ver('."'".$row->id."'".'); style="width: 15%;height: 35px;""><i class="fa fa-eye"></i></a>';
                 return $btn;
-            })
+            })*/
             
             ->rawColumns(['Info','action'])
             ->make(true);

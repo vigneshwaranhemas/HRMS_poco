@@ -1064,9 +1064,16 @@ class AdminRepository implements IAdminRepository
 
     //Employee list
     //Employee list
-    public function get_employee_list(){
+    public function get_employee_list( $input_details){
+        // echo "<pre>";print_r($input_details);die;
+        // DB::enableQueryLog();
+        if ($input_details['status'] == "") {
+            $input_details['status'] = 0;
+        }
         $response = DB::table("customusers")->select('*')
+                        ->where('hr_action', '=', $input_details['status'])
                         ->get();
+                        // dd(DB::getQueryLog());
         return $response;
     }
 

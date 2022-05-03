@@ -183,7 +183,7 @@ class ProfileRepositories implements IProfileRepositories
 
     public function update_idcard_info( $input_details ){
 // echo "<pre>";print_r($input_details);die;
-        $update_roletbl = DB::table('customusers')->where( 'cdID', '=', $input_details['cdID'] );
+        $update_roletbl = DB::table('customusers')->where( 'empID', '=', $input_details['empID'] );
         $update_roletbl->update( [
             // 'empID' => $input_details['emp_id'],
             'cdID' => $input_details['cdID'],

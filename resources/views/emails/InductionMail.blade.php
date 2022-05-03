@@ -23,7 +23,7 @@
       <p>Kindly complete the HR induction & CK Swagatham and share status once completed.</p>
 
       <p><b>Thank you,</b></p>
-      <p>HR OP.S Team - HEPL";</p>
+      <p>HR OP.S Team - HEPL</p>
 
 
 

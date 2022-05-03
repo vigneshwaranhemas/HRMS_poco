@@ -33,7 +33,7 @@
                 <p>Kindly let me know once completed.</p>
 
                 <p><b>Thank you,</b></p>
-                <p>HR OP.S Team - HEPL";</p>
+                <p>HR OP.S Team - HEPL</p>
       {{-- @endif --}}
 
 

@@ -160,7 +160,9 @@
                      </div>
                   </div> -->
                   <!-- <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button> -->
-                  <center><button class="btn btn-secondary" type="btnSubmit">Save</button>
+                  <center>
+                     <button class="btn btn-success" id="btndis" type="btnSubmit">Submit</button>
+                     <button class="btn btn-secondary" id="req_hr_change" >Request to Hr Permission</button>
                   </center>
                </form>
             </div>

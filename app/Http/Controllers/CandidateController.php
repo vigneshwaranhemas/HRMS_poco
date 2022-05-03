@@ -138,8 +138,8 @@ class CandidateController extends Controller
             'joining_as' => 'required',
             ]);
 
-        // $session_val = Session::get('session_info');
-        // $emp_ID = $session_val['empID'];
+        $session_val = Session::get('session_info');
+        $emp_ID = $session_val['empID'];
         // echo '<pre>';print_r($emp_ID);
         // die;
 
@@ -198,7 +198,7 @@ class CandidateController extends Controller
             'my_motto' => $req->input('my_motto'),
             'books' => $req->input('books'),
             'created_on' => $today_date,
-            'created_by' => "900002"
+            'created_by' => $emp_ID
 
         );
         // echo '<pre>';print_r($form_data);
@@ -212,7 +212,10 @@ class CandidateController extends Controller
 
     public function get_welcome_aboard_details(Request $req){
 
-        $get_welcome_aboard_details_result = $this->preon->get_welcome_aboard_details();
+        $sess_info = Session::get("session_info");
+        $empID = $sess_info['empID'];
+
+        $get_welcome_aboard_details_result = $this->preon->get_welcome_aboard_details($empID);
 
         $get_welcome_aboard_details_result['get_education_my'] =  json_decode($get_welcome_aboard_details_result->education_my,TRUE);
         $get_welcome_aboard_details_result['get_education_from'] = json_decode($get_welcome_aboard_details_result->education_from,TRUE);
@@ -284,7 +287,7 @@ class CandidateController extends Controller
         // $pdf = PDF::loadView('admin.welcome_aboard_pdf', $data);
         $pdf = PDF::loadView('candidate.welcome_aboard_pdf', compact('info'));
 
-        return $pdf->download('welcome_aboard.jpeg');
+        return $pdf->stream('welcome_aboard.pdf');
     }
 // pre onBoarding Insert
 public function insertPreOnboarding(Request $request)

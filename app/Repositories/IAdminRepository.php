@@ -128,7 +128,7 @@ interface IAdminRepository {
        public function update_candidate_seating_status($data,$update_data); 
 
    //Employee list
-    public function get_employee_list();      
+    public function get_employee_list( $input_details);      
 
 
 }

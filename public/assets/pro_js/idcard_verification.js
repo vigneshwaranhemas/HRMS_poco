@@ -15,8 +15,9 @@ function idcard_info_tvalue(){
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data)
+            console.log(data)
                 if (data !="") {
+                    $("#pro_img").attr('src',"../ID_card_photo/"+data[0].img_path+".jpg");
                     $('#f_name').val(data[0].username);
                     $('#m_name').val(data[0].m_name);/**/
                     $('#l_name').val(data[0].l_name);/**/
@@ -28,9 +29,12 @@ function idcard_info_tvalue(){
                     $('#emrg_con_num').val(data[0].emrg_con_num);/**/
                     $('#doj').val(data[0].doj);
                     $('#blood_grp').val(data[0].blood_grp);/**/
-                    $('#emp_code').val(data[0].sup_emp_code);
+                    $('#emp_code').val(data[0].empID);
                     $('#official_email').val(data[0].email);
                     $('#emp_dob').val(data[0].dob);
+                }
+                if (data[0].hr_id_remark !="") {
+                     $('#hr_id_remark').html(data[0].hr_id_remark);
                 }
             }
         });

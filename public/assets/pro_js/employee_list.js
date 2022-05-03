@@ -10,6 +10,9 @@ $(document).ready(function(){
     employee_record();
     get_role_type();
 });
+$("#status").on('change', function() {
+    employee_record();
+});
 
 function employee_record(){
 
@@ -90,6 +93,7 @@ function employee_record(){
             type: 'POST',
             dataType: "json",
             data: function (d) {
+                d.status = $('#status').val();
                 // d.af_from_date = $('#af_from_date').val();
                 // d.af_to_date = $('#af_to_date').val();
                 // d.af_position_title = $('#af_position_title').val();
@@ -117,7 +121,7 @@ function employee_record(){
             {   data: 'sup_name', name: 'sup_name'    },
             {   data: 'reviewer_name', name: 'reviewer_name'    },
             {   data: 'action', name: 'action'  },
-            {   data: 'Info', name: 'Info'  },
+            // {   data: 'Info', name: 'Info'  },
     
         ],
     });
@@ -274,7 +278,7 @@ function get_role_type() {
             // console.log(data)
             var html = '<option value="">Select</option>';
             for (let index = 0; index < data.length; index++) {
-            console.log(data[index].name)
+            // console.log(data[index].name)
                 html += "<option value=" + data[index].name + ">" + data[index].name + "</option>";
             }
             $('#employe_role').html(html);

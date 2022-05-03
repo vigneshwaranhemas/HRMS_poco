@@ -125,8 +125,8 @@ class CommonController extends Controller
          /*HR ID_Card info Update */
     public function hr_idcard_verfi(Request $request){       
 
-        $validator=Validator::make($request->all(),[
-                // 'pro_img_up' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        /*$validator=Validator::make($request->all(),[
+                // 'pro_img_up' => 'required|mimes:jpg',
                 'f_name' => 'required',
                 'l_name' => 'required',
                 'emp_num_1' => 'required|numeric',
@@ -135,7 +135,7 @@ class CommonController extends Controller
                 'emrg_con_num' => 'required',
                 'emp_dob' => 'required',
                 ], [
-                // 'pro_img_up.required' => 'Profile image is required',
+                // 'pro_img_up.required' => 'Profile image Allow Only JPG Formate',
                 'f_name.required' => 'First Name is required',
                 'l_name.required' => 'Last Name  is required',
                 'emp_num_1.required' => 'Employee Mobile Number required',
@@ -144,7 +144,7 @@ class CommonController extends Controller
                 'emp_dob.required' => 'Date of birth is required',
                 ]);
          
-        if($validator->passes()){
+        if($validator->passes()){*/
 
               $file = $request->file('file');
         if($file!=""){
@@ -154,7 +154,7 @@ class CommonController extends Controller
            $img_id=$request->input('emp_code');
            $file->move($destinationPath, $profileImage);
            $path = $img_id;
-           // $data ="";
+           $empty =" ";
 
                 $data =array(
                     'img_path'=>$path,
@@ -176,7 +176,11 @@ class CommonController extends Controller
                     'emp_dob'=>$request->input('emp_dob'),
                     );
             }else{
+                $img_id=$request->input('img_path_hide');
+                $path = $img_id;
+                $empty =" ";
                 $data =array(
+                    'img_path'=>$path,
                     // 'cdID'=>$cdID,
                     'can_id'=>$request->input('can_id'),
                     'f_name'=>$request->input('f_name'),
@@ -195,11 +199,12 @@ class CommonController extends Controller
                     'emp_dob'=>$request->input('emp_dob'),
                     );
             }
+             // echo "<pre>";print_r($data);die;
             $update_role_unit_details_result = $this->cmmrpy->update_hr_idcard_info( $data );
                 return response()->json(['response'=>'Update']);
-        }else{
+        /*}else{
             return response()->json(['error'=>$validator->errors()->toArray()]);
-            }
+            }*/
         }
 
     public function hr_get_id_card_vari(Request $request){

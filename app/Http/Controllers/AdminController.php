@@ -352,9 +352,7 @@ class AdminController extends Controller
                     'status'=>$request->input('status'),
                 );
         }
-    // echo "<pre>";print_r($input_details);die;
-
-
+        // echo "<pre>";print_r($input_details);die;
         if ($request->ajax()) {
 
             $get_employee_list_result = $this->admrpy->get_employee_list( $input_details);
@@ -363,14 +361,13 @@ class AdminController extends Controller
             return DataTables::of($get_employee_list_result)
             ->addIndexColumn()
             ->addColumn('action', function($row) {
-                  $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                  $btn = '<div class="row"><button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
                     <div class="dropdown-menu">
-                    <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
-                    </div>';     
-                    // if ($row->hr_action != 2) {
-                                                                                              
-                    $btn .= '<button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" style="width: 15%;height: 35px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button>';
-                        // } 
+                        <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    </div> &nbsp;' ;
+                    if ($row->hr_action != 2) {                                                 
+                    $btn .= '<button class="btn btn-info" type="button" data-toggle="modal" data-original-title="test" style="width: 15%;height: 35px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
+                        } 
                 return $btn;
             })
             /*->addColumn('Info', function($row) {                

@@ -106,6 +106,7 @@ function employee_record(){
         },
         columns: [
             {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
+            {   data: 'action', name: 'action'  },
             {   data: 'empID', name: 'empID'    },
             {   data: 'username', name: 'username'    },
             {   data: 'role_type', name: 'role_type'    },
@@ -120,7 +121,7 @@ function employee_record(){
             {   data: 'contact_no', name: 'contact_no'    },
             {   data: 'sup_name', name: 'sup_name'    },
             {   data: 'reviewer_name', name: 'reviewer_name'    },
-            {   data: 'action', name: 'action'  },
+            
             // {   data: 'Info', name: 'Info'  },
     
         ],

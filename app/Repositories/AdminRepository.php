@@ -1070,7 +1070,6 @@ class AdminRepository implements IAdminRepository
         if ($input_details['status'] == "") {
             $response = DB::table("customusers")->select('*')
                         ->get();
-            
         }else{
              $response = DB::table("customusers")->select('*')
                         ->where('hr_action', '=', $input_details['status'])
@@ -1085,10 +1084,7 @@ class AdminRepository implements IAdminRepository
     public function role_type_list( ){
         $bandtbl = DB::table('roles')
         ->select('*')
-        ->get();
-        // dd(DB::getQueryLog());
-        // echo "23<pre>";print_r($bandtbl);die;
-
+        ->get();    
         return $bandtbl;
     }
 

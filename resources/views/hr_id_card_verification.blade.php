@@ -87,40 +87,53 @@
                   </div>
                   <div class="form-row">
                      <div class="col-md-4 mb-3">
-                        <label for="working_loc">Working Location</label>
-                        <input class="form-control" id="working_loc" name="working_loc" type="text" placeholder="Working Location" readonly>
+                        <label for="working_loc">Work Location</label>
+                        <input class="form-control" id="working_loc" name="working_loc" type="text" placeholder="Working Location">
                         <div class="invalid-feedback">Please provide a valid Location.</div>
                      </div>
-                     <div class="col-md-4 mb-3">
-                        <label for="emp_num_1">Employee Mobile Number 1</label>
-                        <input class="form-control" maxlength="10" onkeypress="return isNumber(event)" id="emp_num_1" name="emp_num_1" type="text" placeholder="Employee Mobile Number 1" required="">
+                      <div class="col-md-4 mb-3">
+                        <label for="emp_num_1">Mobile Number 1 *</label>
+                        <input class="form-control" maxlength="10" onkeypress="return isNumber(event)" id="emp_num_1" name="emp_num_1" type="text" placeholder="Mobile Number 1" required="">
                         <span class="text-danger color-hider" id="emp_num_1_loc_error"  style="display:none;color: red;"></span>
                         <!-- <div class="invalid-feedback">Please provide a valid state.</div> -->
                      </div>
                      <div class="col-md-4 mb-3">
-                        <label for="emp_num_2">Employee Mobile Number 2</label>
-                        <input class="form-control" maxlength="10" id="emp_num_2" onkeypress="return isNumber(event)" name="emp_num_2" type="text" placeholder="Employee Mobile Number 2" required="">
+                        <label for="emp_num_2">Mobile Number 2</label>
+                        <input class="form-control" maxlength="10" id="emp_num_2" onkeypress="return isNumber(event)" name="emp_num_2" type="text" placeholder="Mobile Number 2" required="">
                         <!-- <div class="invalid-feedback">Please provide a valid zip.</div> -->
                      </div>
                   </div>
 
                   <div class="form-row">
                      <div class="col-md-4 mb-3">
-                        <label for="rel_emp">Relationship of Employee</label>
-                        <input class="form-control" id="rel_emp" name="rel_emp" type="text" placeholder="Relationship of Employee" required="">
-                        <!-- <div class="invalid-feedback">Please provide a valid Location.</div> -->
+                        <label for="rel_emp">Emergency Contact of Relationship *</label>
+                        <!-- <input class="form-control" id="rel_emp" name="rel_emp" type="text" placeholder="Relationship of Employee" required=""> -->
+                           <select class="form-control" name="rel_emp" id="rel_emp">
+                              <option value="">Select</option>
+                             <option value="Mother">Mother</option>
+                             <option value="Father">Father</option>
+                             <option value="Daughter">Daughter</option>
+                             <option value="son">Son</option>
+                             <option value="sister">Sister</option>
+                             <option value="brother">Brother</option>
+                             <option value="aunty">Aunty</option>
+                             <option value="uncle">Uncle</option>
+                             <option value="cousin_female">Cousin(Female)</option>
+                             <option value="cousin_male">Cousin(Male)</option>
+                             <option value="grandmother">Grandmother</option>
+                             <option value="grandfather">Grandfather</option>
+                             <option value="granddaughter">Granddaughter</option>
+                             <option value="grandson">Grandson</option>
+                           </select>
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="name_rel_ship">Name of Relationship</label>
                         <input class="form-control alpha" id="name_rel_ship" name="name_rel_ship" type="text" placeholder="Name of Relationship" required="">
-                        <!-- <div class="invalid-feedback">Please provide a valid state.</div> -->
                      </div>
                      <div class="col-md-4 mb-3">
-                        <label for="emrg_con_num">Emergency contact number</label>
+                        <label for="emrg_con_num">Emergency contact number *</label>
                         <input class="form-control" maxlength="10" onkeypress="return isNumber(event)" id="emrg_con_num" name="emrg_con_num" type="text" placeholder="Emergency contact number" required="">
                         <span class="text-danger color-hider" id="emrg_con_num_error"  style="display:none;color: red;"></span>
-
-                        <!-- <div class="invalid-feedback">Please provide a valid zip.</div> -->
                      </div>
                   </div>
                   <div class="form-row">

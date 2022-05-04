@@ -52,6 +52,7 @@ function idcard_info_tvalue(){
     $('#idcard_info').submit(function(e) { 
     // getElementById("btndis").disabled=true; 
     $(this).attr('disabled','disabled'); 
+    $("#btndis").text('Processing...'); 
 
         e.preventDefault();
           var formData = new FormData(this);

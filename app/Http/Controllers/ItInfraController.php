@@ -77,12 +77,12 @@ class ItInfraController extends Controller
                    //candidate original email info
 //-------------------------------------------------------------------------------------------------
 
-                //  $Mail['CC']=$candidate_info['email_info']->cc;
-                //  $Mail['to']=$candidate_info['email_info']->to;
-                //  $Mail['supervisor_mail']=$candidate_info['supervisor_info']->email;
-                //  $Mail['reviewer_mail']=$candidate_info['reviewer_info']->email;
-                //  $Mail['hr_suggest_email']=$candidate_info['candidate_info']->hr_suggested_mail;
-                //  $Mail['candidate_email']=$candidate_info['candidate_info']->email;
+                 $Mail['CC']=$candidate_info['email_info']->cc;
+                 $Mail['to']=$candidate_info['email_info']->to;
+                 $Mail['supervisor_mail']=$candidate_info['supervisor_info']->email;
+                 $Mail['reviewer_mail']=$candidate_info['reviewer_info']->email;
+                 $Mail['hr_suggest_email']=$candidate_info['candidate_info']->hr_suggested_mail;
+                 $Mail['candidate_email']=$candidate_info['candidate_info']->email;
 
 //--------------------------------------------------------------------------------------------------
 //
@@ -90,10 +90,10 @@ class ItInfraController extends Controller
 //--------------------------------------------------------------------------------------------------
 
 
-                   $Mail['CC']="vigneshsampletester@gmail.com";
-                   $Mail['to']="vigneshb@hemas.in";
-                   $Mail['supervisor_mail']="vigneshb@hemas.in";
-                   $Mail['reviewer_mail']="vigneshb@hemas.in";
+                //    $Mail['CC']="vigneshsampletester@gmail.com";
+                //    $Mail['to']="vigneshb@hemas.in";
+                //    $Mail['supervisor_mail']="vigneshb@hemas.in";
+                //    $Mail['reviewer_mail']="vigneshb@hemas.in";
                    $Mail['subject']=$candidate_info['email_info']->subject;
                    //hr suggested email
                 //    $Mail['hr_suggest_email']=$candidate_info['candidate_info']->hr_suggested_mail;
@@ -115,8 +115,10 @@ class ItInfraController extends Controller
                    $str_arr=preg_split ("/\,/", $Mail['CC']);
                    $email_updation=$this->itrep->update_itInfra_EmailStatus($data);
 
+                //    dd($Mail);
+
                    Mail::send('emails.ITInfraNewCandidateJoin', $Mail, function ($message) use ($Mail,$str_arr) {
-                    $message->from("rfh@hemas.in", 'HEPL - HR Team');
+                    $message->from("hr@hemas.in", 'HEPL - HR Team');
                     foreach($str_arr as $string)
                     {
                         $message->cc($string);

@@ -74,6 +74,13 @@ class ProfileRepositories implements IProfileRepositories
         // echo "<pre>";print_r($response);die;
       return $response;
     }
+    public function insert_experience_info( $input_details ){
+
+        $response = DB::table('candidate_experience_details')
+                    ->insert($input_details);
+        // echo "<pre>";print_r($response);die;
+      return $response;
+    }
 
     /*education_info*/
     public function education_info( $input_details ){

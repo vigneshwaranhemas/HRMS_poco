@@ -589,12 +589,62 @@ max-width: 1000px !important;
                <div class="tab-pane fade" id="v-pills-Experience" role="tabpanel" aria-labelledby="v-pills-Experience-tab">
                   <nav class="navbar navbar-light bg-primary rounded">
                     <span class="navbar-brand mb-0 h1">Experience</span>
+                     <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#expModal">+ Add Experience</button>
                   </nav>
                   <br>
                   <div class="ctm-border-radius shadow-sm card">
                      <div id="Experience_tbl">                  
                      </div>
                   </div>
+                   <!-- Pop-up div starts-->
+                  <div class="modal fade" id="expModal" tabindex="-1" role="dialog" aria-labelledby="expModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="Experience">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="expModalLabel">Add Experience</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
+                              <form method="POST" action="javascript:void(0)" id="add_experience_unit" class="ajax-form" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div class="form-row">
+                                       <div class="col-md-12 mb-3">
+                                            <label for="job_title">Job Title</label>
+                                            <input class="form-control" name="job_title" id="job_title" type="text" placeholder="Job Tiltle" required="">
+                                            <div class="text-warning" id="job_title_error"></div>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="cmp_name">Company Name</label>
+                                            <input class="form-control" name="cmp_name" id="cmp_name" type="text" placeholder="Company Name" required="">
+                                            <div class="text-warning" id="cmp_name_error"></div>
+                                        </div>
+                                         <div class="col-md-12 mb-3">
+                                            <label for="exp_begin_On">Begin On</label>
+                                            <input class="form-control" name="exp_begin_on" id="exp_begin_on" type="month" placeholder="" required="">
+                                            <div class="text-warning" id="exp_begin_on_error"></div>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="Due By">End On</label>
+                                            <input class="form-control" name="exp_end_on" id="exp_end_on" type="month" placeholder="" required="">
+                                            <div class="text-warning" id="exp_end_on_error"></div>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="exp_upload_file">Experience Certificate</label>
+                                            <input class="form-control" name="exp_file" id="exp_file" type="file" aria-describedby="fileHelp">
+                                             <!-- <small id="fileHelp" class="form-text text-muted">Please upload a valid file.</small> -->
+
+                                            <div class="text-warning" id="exp_upload_file_error"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
+                                    <button class="btn btn-secondary" type="submit">Save</button>
+                                </div>
+                              </form>
+                        </div>
+                      </div>
+                  </div>
+                  <!-- Pop-up div Ends-->
                </div>
                <!-- Other Documents -->
                <div class="tab-pane fade" id="v-pills-Documents" role="tabpanel" aria-labelledby="v-pills-Documents-tab">
@@ -620,12 +670,12 @@ max-width: 1000px !important;
                                     <div class="form-row">
                                        <div class="col-md-12 mb-3">
                                             <label for="documents_name">Documents Name</label>
-                                            <input class="form-control" name="documents_name" id="documents_name" type="text" placeholder="documents Name" required="">
+                                            <input class="form-control" name="documents_name" id="documents_name" type="text" placeholder="Documents Name" required="">
                                             <div class="text-warning" id="documents_name_error"></div>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="upload_file">File</label>
-                                            <input class="form-control" name="file" id="file" type="file" placeholder="documents Name"  aria-describedby="fileHelp" required="">
+                                            <input class="form-control" name="file" id="file" type="file" placeholder=""  aria-describedby="fileHelp" required="">
                                              <!-- <small id="fileHelp" class="form-text text-muted">Please upload a valid file.</small> -->
 
                                             <div class="text-warning" id="upload_file_error"></div>
@@ -862,6 +912,7 @@ max-width: 1000px !important;
    var family_information_get_link = "{{url('family_information_view')}}";
    var banner_image_crop_link = "{{url('banner_image_crop')}}";
    var profile_banner_image_link = "{{url('profile_banner')}}";
+   var experience_information_link = "{{url('experience_information')}}";
 
    
  </script>

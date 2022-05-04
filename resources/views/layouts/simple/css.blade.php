@@ -41,6 +41,10 @@
 {
     width: 106px !important;
 }
+.dataTables_scrollBody
+{
+    position: unset !important;
+}
 </style>
 
 <!-- DataTables Plugins CSS start-->

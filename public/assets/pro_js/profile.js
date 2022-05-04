@@ -593,17 +593,21 @@ function profile_info_process(id){
         success: function(data) {
             // console.log(data)
           if (data != ""){
+              var dob = moment(data.dob).format('DD-MM-YYYY');
+              var doj = moment(data.doj).format('DD-MM-YYYY');
+              // var 
+
              $('#pro_name').html(data.username);
              $('#can_name').html(data.username);
              $('#email').html(data.email);
-             $('#dob').html(data.dob);
+             $('#dob').html(dob);
              $('#contact_no').html(data.contact_no);
              $('#worklocation').html(data.worklocation);
              $('#designation').html(data.designation);
              $('#gender').html(data.gender);
-             $('#dob_tx').html(data.dob);
+             $('#dob_tx').html(dob);
              $('#payroll_status').html(data.payroll_status);
-             $('#doj').html(data.doj);
+             $('#doj').html(doj);
              $('#worklocation_tx').html(data.worklocation);
              $('#department').html(data.department);
              $('#grade').html(data.grade);
@@ -878,6 +882,50 @@ $('#add_education_unit').submit(function(e) {
 /*Experience information*/
 $("#v-pills-Experience-tab").on('click', function() {
     experience_info();
+});
+
+$('#add_experience_unit').submit(function(e) { 
+    e.preventDefault();
+      var formData = new FormData(this);
+    $.ajax({  
+        url:experience_information_link, 
+        method:"POST",  
+        data:formData,
+        processData:false,
+        cache:false,
+        contentType:false,
+        dataType:"json",
+        success:function(data) {
+            if(data.response =='insert'){
+               Toastify({
+                   text: "Added Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+
+           }
+           else{
+               Toastify({
+                   text: "Request Failed..! Try Again",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#f3616d",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                   }, 2000);
+
+               }
+            
+        },
+    }); 
 });
 
 function experience_info(){

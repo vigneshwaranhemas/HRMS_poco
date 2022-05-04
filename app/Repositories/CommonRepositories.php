@@ -36,7 +36,7 @@ class CommonRepositories implements ICommonRepositories
             'empID'=>$input_details['empID'],
             'email'=>$input_details['official_email'],
             'dob'=>$input_details['emp_dob'],
-            'hr_action'=>'1',
+            'hr_action'=>'2',
             'hr_id_remark'=>'',
         ] );
         }else{
@@ -55,7 +55,7 @@ class CommonRepositories implements ICommonRepositories
             'empID'=>$input_details['empID'],
             'email'=>$input_details['official_email'],
             'dob'=>$input_details['emp_dob'],
-            'hr_action'=>'1',
+            'hr_action'=>'2',
             'hr_id_remark'=>'',
         ] );
         }
@@ -67,7 +67,7 @@ class CommonRepositories implements ICommonRepositories
         $update_roletbl = DB::table('customusers')->where( 'id', '=', $input_details['can_id_hr'] );
         $update_roletbl->update( [
             'hr_id_remark'=>$input_details['id_remark'],
-            'hr_action'=>'2',
+            'hr_action'=>'3',
         ] );
     }
 }

@@ -11,63 +11,7 @@
 
 @section('style')
 <style>
-    /* .card-body p{
-        margin-bottom: -22% !important;
-        font-size: 15px !important;
-    } */
-    .card-body td{
-        margin-bottom: 3% !important;
-        font-size: 15px !important;
-        padding-bottom: 43px;
-        padding-left: 0px;
-    }
 
-
-    /* input field css start*/
-    .input {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    color: #555;
-    box-sizing: border-box;
-    font-family: "Arvo";
-    font-size: 18px;
-    width: 200px;
-    color: #008CBA;
-    }
-
-    input::-webkit-input-placeholder {
-    color: #aaa;
-    }
-
-    input:focus::-webkit-input-placeholder {
-    color: dodgerblue;
-    }
-
-    .input:focus + .underline {
-    transform: scale(1);
-    }
-    /* input field css end*/
-
-    .table td
-    {
-        border-top: none !important;
-    }
-
-    .editor
-    {
-        margin-left: -49px;
-        margin-top: -58px;
-    }
-
-    .interesting_facts
-    {
-        width: 70%;
-    }
-    .text-warning
-    {
-        color: #ff0000!important;
-    }
     .card-header
     {
         background-color: rgba(0,0,0,0.03) !important;
@@ -88,14 +32,53 @@
     }
     .top-left
     {
-        margin-left: 12px;
+        margin-left: 45px;
         margin-top: 9px;
     }
     .last-update
     {
-        margin-left: 12px;
+        margin-left: 45px;
+    }
+    .last-right
+    {
+        margin-top: 9px;
     }
 
+    /* arrow css */
+    .arrow {
+        position: absolute;
+        top: 28px;
+        left: 26px;
+    }
+
+    .arrow::before,
+    .arrow::after {
+    position: relative;
+    content: '';
+    display: block;
+    width: 10px;
+    height: 1px;
+    background: black;
+    transition: 0.3s ease-in-out;
+    }
+
+    .arrow::before {
+    transform: rotate(45deg);
+    }
+
+    .arrow::after {
+    left: 6px;
+    top: -1px;
+    transform: rotate(-45deg);
+    }
+
+    .list-group-items.active .arrow::before {
+    transform: rotate(-45deg);
+    }
+
+    .list-group-items.active .arrow::after {
+    transform: rotate(45deg);
+    }
 
 </style>
 @endsection
@@ -133,53 +116,265 @@
                         <div class="tab-content" id="nav-tabContent">
                            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
 
+                            <div class="card-table">
                                 <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_first" aria-expanded="false" aria-controls="collapse11">
                                     <div class="row">
                                         <div class="col-md-8">
-                                        <h5 class="top-left"> March 2022</h5>
+                                        <span class="arrow"></span>
+                                            <h5 class="top-left"> March 2022</h5>
                                         </div>
                                         <div class="col-md-4">
-                                        <p> Last updated on 03 Mar, 2022</p>
+                                            <p class="last-right"> Last updated on 03 Mar, 2022</p>
                                         </div>
                                     </div>
                                     <p class="last-update">Payroll for the month of Mar 2022</p>
                                 </div>
                                 <div class="collapse" id="collapseicon_first" aria-labelledby="collapseicon_first" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button>
+                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_second" aria-expanded="true" aria-controls="collapse11">
+                            <div class="card-table">
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_second" aria-expanded="false" aria-controls="collapse11">
                                     <div class="row">
                                         <div class="col-md-8">
-                                        <h5 class="top-left"> Feb 2022</h5>
+                                        <span class="arrow"></span>
+                                            <h5 class="top-left"> Feb 2022</h5>
                                         </div>
                                         <div class="col-md-4">
-                                        <p> Last updated on 03 Mar, 2022</p>
+                                            <p class="last-right"> Last updated on 03 Mar, 2022</p>
                                         </div>
                                     </div>
                                     <p class="last-update">Payroll for the month of Mar 2022</p>
                                 </div>
                                 <div class="collapse" id="collapseicon_second" aria-labelledby="collapseicon_second" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button>
+                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="card-table">
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_third" aria-expanded="false" aria-controls="collapse11">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        <span class="arrow"></span>
+                                            <h5 class="top-left"> Jan 2022</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="last-right"> Last updated on 03 Mar, 2022</p>
+                                        </div>
+                                    </div>
+                                    <p class="last-update">Payroll for the month of Mar 2022</p>
+                                </div>
+                                <div class="collapse" id="collapseicon_third" aria-labelledby="collapseicon_third" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                                   <div class="card-body">
+                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+
+
 
                            </div>
 
 
-                           <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
-                           <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
-                           <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+                           <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                            <div class="card-table">
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_first" aria-expanded="false" aria-controls="collapse11">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        <span class="arrow"></span>
+                                            <h5 class="top-left"> March 2022</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="last-right"> Last updated on 03 Mar, 2022</p>
+                                        </div>
+                                    </div>
+                                    <p class="last-update">Payroll for the month of Mar 2022</p>
+                                </div>
+                                <div class="collapse" id="collapseicon_first" aria-labelledby="collapseicon_first" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                                   <div class="card-body">
+                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-table">
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_second" aria-expanded="false" aria-controls="collapse11">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        <span class="arrow"></span>
+                                            <h5 class="top-left"> Feb 2022</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="last-right"> Last updated on 03 Mar, 2022</p>
+                                        </div>
+                                    </div>
+                                    <p class="last-update">Payroll for the month of Mar 2022</p>
+                                </div>
+                                <div class="collapse" id="collapseicon_second" aria-labelledby="collapseicon_second" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                                   <div class="card-body">
+                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-table">
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_third" aria-expanded="false" aria-controls="collapse11">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        <span class="arrow"></span>
+                                            <h5 class="top-left"> Jan 2022</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="last-right"> Last updated on 03 Mar, 2022</p>
+                                        </div>
+                                    </div>
+                                    <p class="last-update">Payroll for the month of Mar 2022</p>
+                                </div>
+                                <div class="collapse" id="collapseicon_third" aria-labelledby="collapseicon_third" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                                   <div class="card-body">
+                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            </div>
+
+                           <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                            <div class="card-table">
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_first" aria-expanded="false" aria-controls="collapse11">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        <span class="arrow"></span>
+                                            <h5 class="top-left"> March 2022</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="last-right"> Last updated on 03 Mar, 2022</p>
+                                        </div>
+                                    </div>
+                                    <p class="last-update">Payroll for the month of Mar 2022</p>
+                                </div>
+                                <div class="collapse" id="collapseicon_first" aria-labelledby="collapseicon_first" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                                   <div class="card-body">
+                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-table">
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_second" aria-expanded="false" aria-controls="collapse11">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        <span class="arrow"></span>
+                                            <h5 class="top-left"> Feb 2022</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="last-right"> Last updated on 03 Mar, 2022</p>
+                                        </div>
+                                    </div>
+                                    <p class="last-update">Payroll for the month of Mar 2022</p>
+                                </div>
+                                <div class="collapse" id="collapseicon_second" aria-labelledby="collapseicon_second" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                                   <div class="card-body">
+                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-table">
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_third" aria-expanded="false" aria-controls="collapse11">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        <span class="arrow"></span>
+                                            <h5 class="top-left"> Jan 2022</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="last-right"> Last updated on 03 Mar, 2022</p>
+                                        </div>
+                                    </div>
+                                    <p class="last-update">Payroll for the month of Mar 2022</p>
+                                </div>
+                                <div class="collapse" id="collapseicon_third" aria-labelledby="collapseicon_third" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                                   <div class="card-body">
+                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                           </div>
+
+                           <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                            <div class="card-table">
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_first" aria-expanded="false" aria-controls="collapse11">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        <span class="arrow"></span>
+                                            <h5 class="top-left"> March 2022</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="last-right"> Last updated on 03 Mar, 2022</p>
+                                        </div>
+                                    </div>
+                                    <p class="last-update">Payroll for the month of Mar 2022</p>
+                                </div>
+                                <div class="collapse" id="collapseicon_first" aria-labelledby="collapseicon_first" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                                   <div class="card-body">
+                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-table">
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_second" aria-expanded="false" aria-controls="collapse11">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        <span class="arrow"></span>
+                                            <h5 class="top-left"> Feb 2022</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="last-right"> Last updated on 03 Mar, 2022</p>
+                                        </div>
+                                    </div>
+                                    <p class="last-update">Payroll for the month of Mar 2022</p>
+                                </div>
+                                <div class="collapse" id="collapseicon_second" aria-labelledby="collapseicon_second" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                                   <div class="card-body">
+                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-table">
+                                <div class="list-group-items collapsed" data-toggle="collapse" data-target="#collapseicon_third" aria-expanded="false" aria-controls="collapse11">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        <span class="arrow"></span>
+                                            <h5 class="top-left"> Jan 2022</h5>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="last-right"> Last updated on 03 Mar, 2022</p>
+                                        </div>
+                                    </div>
+                                    <p class="last-update">Payroll for the month of Mar 2022</p>
+                                </div>
+                                <div class="collapse" id="collapseicon_third" aria-labelledby="collapseicon_third" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                                   <div class="card-body">
+                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                           </div>
+
                         </div>
                      </div>
                   </div>
                </div>
             </div>
          </div>
-
 
     </div>
 </div>
@@ -189,10 +384,11 @@
 
 @section('script')
 
-<script src="../assets/pro_js/view_welcome_aboard.js"></script>
-
 <script>
-var add_welcome_aboard_process_link = "{{url('add_welcome_aboard_process')}}";
-var get_welcome_aboard_details_link = "{{url('get_welcome_aboard_details')}}";
+
+$('.list-group-items').on('click', function() {
+  $(this).toggleClass('active')
+});
+
 </script>
 @endsection

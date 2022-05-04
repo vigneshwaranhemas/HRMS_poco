@@ -75,9 +75,12 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
         return $response;
       }
 
-    public function get_welcome_aboard_details(){
+    public function get_welcome_aboard_details($data){
+        // echo '<pre>';print_r($data);die();
 
-        $welcome_aboard_data = welcome_aboard::first();
+        // $welcome_aboard_data = welcome_aboard::first();
+        $welcome_aboard_data = welcome_aboard::where('created_by',$data)
+                                                ->first();
 
         return $welcome_aboard_data;
     }

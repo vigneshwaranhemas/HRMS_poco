@@ -12,6 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Image;
 use Session;
 use Validator;
+use Mail;
 class CommonController extends Controller
 {
      public function id_card_varification(){
@@ -51,6 +52,9 @@ class CommonController extends Controller
                 'l_name' => 'required',
                 'emp_num_1' => 'required|numeric',
                 'emrg_con_num' => 'required|numeric',
+                'rel_emp' => 'required',
+                'doj' => 'required',
+                'official_email' => 'required',
                 'blood_grp' => 'required',
                 'emrg_con_num' => 'required',
                 'emp_dob' => 'required',
@@ -58,8 +62,12 @@ class CommonController extends Controller
                 'f_name.required' => 'First Name is required',
                 'l_name.required' => 'Last Name  is required',
                 'emp_num_1.required' => 'Employee Mobile Number required',
-                'emrg_con_num.required' => 'Emergency contact number is required',
+                'emrg_con_num.required' => 'Emergency Contact Number required',
+                'rel_emp.required' => 'Emergency Contact of Relationship required',
+                'doj.required' => 'Date of joing required',
+                'official_email.required' => 'Official Email required',
                 'blood_grp.required' => 'Blood Group is required',
+                'emrg_con_num.required' => 'Emergency contact number is required',
                 'emp_dob.required' => 'Date of birth is required',
                 ]);
         if($validator->passes()){
@@ -87,12 +95,26 @@ class CommonController extends Controller
                     'blood_grp'=>$request->input('blood_grp'),
                     'emp_code'=>$request->input('emp_code'),
                     'official_email'=>$request->input('official_email'),
+                    'p_email'=>$request->input('p_email'),
                     'emp_dob'=>$request->input('emp_dob'),
                     // 'action'=>"0",
                     );
 
                 $insert = DB::table( 'customusers' )->insert( $data );
+
+                    // $Mail['candidate_name']=$store_result["message"]["induction_info"]->username;
+                    // $Mail['username']=$request->empID;
+                    // $Mail['password']="Welcome@123";
+                // $store_result=$this->cmmrpy->Candidate_info_mail($data);
+                    $Mail['email']=$session_val['email'];
+                    $Mail['subject']="Waiting For Approval";
+
+                Mail::send('emails.id_card_submit_can', $Mail, function ($message) use ($Mail) {
+                    $message->from("hr@hemas.in", 'HEPL - HR Team');
+                    $message->to($Mail['email'])->subject($Mail['subject']);
+                    });
                 return response()->json(['response'=>'insert']);
+
             }else{
                 $data =array(
                     // 'emp_id'=>$emp_ID,
@@ -110,11 +132,33 @@ class CommonController extends Controller
                     'blood_grp'=>$request->input('blood_grp'),
                     'empID'=>$emp_ID,
                     'official_email'=>$request->input('official_email'),
+                    'p_email'=>$request->input('p_email'),
                     'emp_dob'=>$request->input('emp_dob'),
-                    'hr_action'=>"0",
+                    'hr_action'=>"1",
                     'hr_id_remark'=>"",
                     );
             $update_role_unit_details_result = $this->profrpy->update_idcard_info( $data );
+
+
+            $emp_ID = $session_val['empID'];
+            $cdID = $session_val['cdID'];
+            if ($cdID !="") {
+            $user = DB::table( 'customusers' )->where('cdID', '=', $cdID)->first();
+            }else if($emp_ID !=""){
+            $user = DB::table( 'customusers' )->where('empID', '=', $emp_ID)->first();
+            }
+
+            // echo "<pre>";print_r($user->username);die();
+            $Mail['candidate_name']=$user->username;
+            /*email start*/
+                $Mail['email']='hr@hemas.in';
+                $Mail['subject']="Waiting For Approval";
+
+                Mail::send('emails.id_card_submit_can', $Mail, function ($message) use ($Mail) {
+                    $message->from("hr@hemas.in", 'HEPL - HR Team');
+                    $message->to($Mail['email'])->subject($Mail['subject']);
+                    });
+                /*email end*/
                 return response()->json(['response'=>'Update']);
             }
         }else{
@@ -201,6 +245,22 @@ class CommonController extends Controller
             }
              // echo "<pre>";print_r($data);die;
             $update_role_unit_details_result = $this->cmmrpy->update_hr_idcard_info( $data );
+            $can_id = $request->input('can_id');
+            if ($can_id !="") {
+            $user = DB::table( 'customusers' )->where('id', '=', $can_id)->first();
+            }
+                // echo "<pre>";print_r($user->username);die;
+
+            $Mail['candidate_name']=$user->username;
+            /*email start*/
+                $Mail['email']= $user->email;
+                $Mail['subject']="ID Card Verification is Approved";
+                Mail::send('emails.hr_idcard_approvel', $Mail, function ($message) use ($Mail) {
+                    $message->from("hr@hemas.in", 'HEPL - HR Team');
+                    $message->to($Mail['email'])->subject($Mail['subject']);
+                    });
+                /*email end*/
+
                 return response()->json(['response'=>'Update']);
         /*}else{
             return response()->json(['error'=>$validator->errors()->toArray()]);

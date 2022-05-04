@@ -1068,22 +1068,23 @@ class AdminRepository implements IAdminRepository
         // echo "<pre>";print_r($input_details);die;
         // DB::enableQueryLog();
         if ($input_details['status'] == "") {
-            $input_details['status'] = 0;
-        }
-        $response = DB::table("customusers")->select('*')
+            $response = DB::table("customusers")->select('*')
+                        ->get();
+        }else{
+             $response = DB::table("customusers")->select('*')
                         ->where('hr_action', '=', $input_details['status'])
                         ->get();
-                        // dd(DB::getQueryLog());
+
+        }
+       
+        // dd(DB::getQueryLog());
         return $response;
     }
 
     public function role_type_list( ){
         $bandtbl = DB::table('roles')
         ->select('*')
-        ->get();
-        // dd(DB::getQueryLog());
-        // echo "23<pre>";print_r($bandtbl);die;
-
+        ->get();    
         return $bandtbl;
     }
 

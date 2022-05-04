@@ -176,9 +176,6 @@ Route::get('user', 'AdminController@user')->name('user');
 Route::get('roles', 'AdminController@roles')->name('roles');
 Route::get('employee_list', 'AdminController@employee_list')->name('employee_list');
 
-//Employee List
-Route::post('get_employee_list', 'AdminController@get_employee_list' );
-
 // Business Unit
 Route::post('add_business_unit_process', 'AdminController@add_business_unit');
 Route::post( 'get_business_unit_database', 'AdminController@get_business_unit_database' );
@@ -315,6 +312,7 @@ Route::post('add_contact_info', 'DocumentsController@add_contact_info');
 Route::post('Contact_info_view', 'DocumentsController@Contact_info_view');
 Route::post('add_family_add', 'DocumentsController@add_family_add');
 Route::post('family_information_view', 'DocumentsController@family_information_view');
+Route::post('experience_information', 'DocumentsController@experience_information');
 /*session sidebar*/
 Route::post('get_session_sidebar', 'SidebarController@get_session_sidebar');
 Route::post('state_get', 'DocumentsController@state_get');
@@ -330,7 +328,8 @@ Route::post( 'get_role_details_pop', 'AdminController@get_role_details_pop' );
 Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_details' );
 
 // View Welcome Aboard
-Route::get('view_welcome_aboard_hr', 'CandidateController@view_welcome_aboard_hr')->name('view_welcome_aboard_hr');
+Route::get('view_welcome_aboard_hr', 'HrController@view_welcome_aboard_hr')->name('view_welcome_aboard_hr');
+Route::post('welcome_aboard_generate_image','HrController@welcome_aboard_generate_image');
 
 /*employe list edit*/
 Route::post('get_role_type', 'AdminController@get_role_type');
@@ -346,12 +345,13 @@ Route::get('id_card_varification', 'CommonController@id_card_varification');
 Route::post('idcard_info', 'CommonController@idcard_info');
 Route::post('idcard_info_save', 'CommonController@idcard_info_save');
 
+//Employee List
+Route::post('get_employee_list', 'AdminController@get_employee_list' );
 // Document Centre
 Route::get('document_center', 'CandidateController@document_center')->name('document_center');
 Route::get('payslip', 'CandidateController@payslip')->name('payslip');
-
 Route::get('id_card_varification', 'CommonController@id_card_varification');
-
+/*hr id card process*/
 Route::get('hr_id_card_verification', 'CommonController@hr_id_card_verification');
 Route::post('hr_get_id_card_vari', 'CommonController@hr_get_id_card_vari');
 Route::post('hr_idcard_verfi', 'CommonController@hr_idcard_verfi');

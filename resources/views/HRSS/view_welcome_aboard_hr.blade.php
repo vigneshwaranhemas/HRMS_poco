@@ -161,7 +161,17 @@ $(()=>{
            console.log(data);
 
            if(data.response =='success'){
-                location.reload();
+            Toastify({
+                   text: "Export Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
            }
        },
 

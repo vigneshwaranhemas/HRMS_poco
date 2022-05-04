@@ -43,6 +43,10 @@ $(()=>{
                             close:true,
                             backgroundColor: "#f3616d",
                             }).showToast();
+                            setTimeout(
+                                function() {
+                                    location.reload();;
+                                }, 2000);
                     }
                     else{
                         Toastify({
@@ -51,6 +55,10 @@ $(()=>{
                             close:true,
                             backgroundColor: "#4fbe87",
                             }).showToast();
+                            setTimeout(
+                                function() {
+                                    location.reload();;
+                                }, 2000);
                     }
                 }
         })

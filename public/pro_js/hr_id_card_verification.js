@@ -32,6 +32,7 @@ function hr_id_card_ver(id){
                     $('#emp_code').val(data[0].empID);
                     $('#official_email').val(data[0].email);
                     $('#emp_dob').val(data[0].dob);
+                    $('#p_email').val(data[0].p_email);
                 }
                 $("#idModal").modal('show')
         }

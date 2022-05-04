@@ -96,9 +96,19 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
                   $data1["empID"]=$data["cdID"];
                   $data2=array('empID'=>$data['empId'],'passcode'=>$password = Hash::make("Welcome@123"));
                   $final_response=array('success'=>'1','message'=>'Candidate EmployeeID Created');
-                  $result=CustomUser::where("cdID",$data1["empID"])->update($data2);
-                  if($result)
-                  {
+
+                   $update_preonboarding=CustomUser::join('candidate_preonboarding','customusers.empID','=','candidate_preonboarding.emp_id')
+                                                    ->where('customusers.cdID',$data['cdID'])
+                                                    ->select('candidate_preonboarding.id','candidate_preonboarding.emp_id')->get();
+                    if(count($update_preonboarding)>0)
+                    {
+                        foreach($update_preonboarding as $onboard_info){
+                            $onboard_result=CandidatePreOnBoardingModel::where("id",$onboard_info["id"])->update(['emp_id'=>$data['empId']]);
+                        }
+                    }
+                    $result=CustomUser::where("cdID",$data1["empID"])->update($data2);
+                    if($result)
+                    {
                        $induction_info=Candidate_seating_and_email_request::join('candidate_details','candidate_details.cdID','=','Candidate_seating_and_email_requests.cdID')
                                                                             ->join('customusers','customusers.cdID','=','Candidate_seating_and_email_requests.cdID')
                                                                             ->where("candidate_details.cdID",$data["cdID"])
@@ -123,8 +133,8 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
                   else{
                     $final_response=array('success'=>'2','message'=>'Problem in Creating EmployeeID');
                   }
-            }
-    //      }
+            // }
+         }
 
 
 

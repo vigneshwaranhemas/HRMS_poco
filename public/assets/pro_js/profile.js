@@ -129,7 +129,7 @@ $('.upload-result').on('click', function (ev) {
         data:{},
         dataType: "json",
         success: function(data) {
-            console.log(data.banner_image)
+            // console.log(data.banner_image)
             if (data !="") {
                  $("#banner_img").attr('src',"../uploads/"+data.banner_image);
               }else{
@@ -591,25 +591,29 @@ function profile_info_process(id){
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data)
-          if (data != ""){
-             $('#pro_name').html(data.username);
-             $('#can_name').html(data.username);
-             $('#email').html(data.email);
-             $('#dob').html(data.dob);
-             $('#contact_no').html(data.contact_no);
-             $('#worklocation').html(data.worklocation);
-             $('#designation').html(data.designation);
-             $('#gender').html(data.gender);
-             $('#dob_tx').html(data.dob);
-             $('#payroll_status').html(data.payroll_status);
-             $('#doj').html(data.doj);
-             $('#worklocation_tx').html(data.worklocation);
-             $('#department').html(data.department);
-             $('#grade').html(data.grade);
-             $('#designation_tx').html(data.designation);
-            $("#profile_img").attr('src',"../uploads/"+data.path);
-          }else{
+            // console.log(data['profile'])
+          if (data['profile'] != ""){
+              var dob = moment(data['profile'].dob).format('DD-MM-YYYY');
+              var doj = moment(data['profile'].doj).format('DD-MM-YYYY');
+              // var 
+
+             $('#pro_name').html(data['profile'].username);
+             $('#can_name').html(data['profile'].username);
+             $('#email').html(data['profile'].email);
+             $('#dob').html(dob);
+             $('#contact_no').html(data['profile'].contact_no);
+             $('#worklocation').html(data['profile'].worklocation);
+             $('#designation').html(data['profile'].designation);
+             $('#gender').html(data['profile'].gender);
+             $('#dob_tx').html(dob);
+             $('#payroll_status').html(data['profile'].payroll_status);
+             $('#doj').html(doj);
+             $('#worklocation_tx').html(data['profile'].worklocation);
+             $('#department').html(data['profile'].department);
+             $('#grade').html(data['profile'].grade);
+             $('#designation_tx').html(data['profile'].designation);
+            $("#profile_img").attr('src',"../uploads/"+data['image'].path);
+          }else if(data['image'] == ""){
             $("#profile_img").attr('src',"../assets/images/user/7.jpg");
           }
 

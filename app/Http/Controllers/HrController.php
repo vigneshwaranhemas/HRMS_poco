@@ -345,6 +345,26 @@ class HrController extends Controller
         echo json_encode($response);
     }
 
+    public function get_welcome_aboard_details_hr(Request $req){
+
+         $id = $req->id;
+        //  echo $id;
+
+        $get_welcome_aboard_details_result = $this->hpreon->get_welcome_aboard_details_hr($id);
+
+        $get_welcome_aboard_details_result['get_education_my'] =  json_decode($get_welcome_aboard_details_result->education_my,TRUE);
+        $get_welcome_aboard_details_result['get_education_from'] = json_decode($get_welcome_aboard_details_result->education_from,TRUE);
+        $get_welcome_aboard_details_result['get_education_in'] = json_decode($get_welcome_aboard_details_result->education_in,TRUE);
+
+        $get_welcome_aboard_details_result['get_work_experience_at'] =  json_decode($get_welcome_aboard_details_result->work_experience_at,TRUE);
+        $get_welcome_aboard_details_result['get_work_experience_as'] = json_decode($get_welcome_aboard_details_result->work_experience_as,TRUE);
+        $get_welcome_aboard_details_result['get_work_experience_years'] = json_decode($get_welcome_aboard_details_result->work_experience_years,TRUE);
+
+    //   echo '<pre>';print_r($id);die();
+
+        return response()->json( $get_welcome_aboard_details_result );
+    }
+
 
 
 }

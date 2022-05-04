@@ -14,6 +14,7 @@ use App\candidate_education_details;
 use App\documents;
 use App\Models\candidate_experience_details;
 use App\Models\candidate_benefits_details;
+use App\welcome_aboard;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -236,6 +237,15 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
         $result=CustomUser::where("empID",$id)->update($status);
         return $result;
     }
+
+    public function get_welcome_aboard_details_hr($id){
+
+        $welcome_aboard_data = welcome_aboard::where('created_by',$id)
+                                                ->first();
+
+        return $welcome_aboard_data;
+    }
+
 }
 
 

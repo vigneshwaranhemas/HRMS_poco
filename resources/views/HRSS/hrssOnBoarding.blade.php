@@ -12,7 +12,13 @@
 @endsection
 
 @section('style')
-
+<style>
+.action-button
+{
+    padding: 6px 7px 6px 24px;
+    margin-top: 12px;
+}
+</style>
 
 @endsection
 
@@ -78,11 +84,12 @@
                                                                <td><p style="color:{{$color}}" class="fa {{$class}}"></p></td>
                                                                <td><p style="color:{{$color1}}" class="fa {{$class1}}"></p></td>
                                                                <td>
-                                                                <a onclick=model_trigger("{{$info["cdID"]}}") href="javascript:void(0)"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                                <a onclick=edit_modal("{{$info["empID"]}}") href="javascript:void(0)"><i class="fa fa-pencil"></i></i><a>
+                                                                <a class="btn btn-primary action-button" onclick=model_trigger("{{$info["cdID"]}}") href="javascript:void(0)"><i class="fa fa-pencil" style="margin-left: -17px;"></i></a>
+                                                                <a class="btn btn-success action-button" onclick=edit_modal("{{$info["empID"]}}") href="javascript:void(0)"><i class="icon-save" style="margin-left: -17px;"></i><a>
+                                                                <a class="btn btn-secondary action-button" href="view_welcome_aboard_hr?id={{$info["empID"]}}"><i class="fa fa-eye" aria-hidden="true" style="margin-left: -17px;"></i><a>
                                                                </td>
                                                                <td>
-                                                                <a href="javascript:void(0)" onclick=user_documents("{{$info["cdID"]}}")><i class="fa fa-file-image-o"></i><a>
+                                                                <a class="btn btn-warning action-button" href="javascript:void(0)" onclick=user_documents("{{$info["cdID"]}}")><i class="icon-save" style="margin-left: -17px;"></i><a>
                                                                </td>
                                                            </tr>
                                                          <?php $i++;?>

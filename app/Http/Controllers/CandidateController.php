@@ -232,8 +232,10 @@ class CandidateController extends Controller
 
     public function welcome_aboard_generate_pdf()
     {
+        $sess_info = Session::get("session_info");
+        $empID = $sess_info['empID'];
 
-        $get_welcome_aboard_details_result = $this->preon->get_welcome_aboard_details();
+        $get_welcome_aboard_details_result = $this->preon->get_welcome_aboard_details($empID);
 
         // echo '<pre>';print_r($get_welcome_aboard_details_result->name);die();
 

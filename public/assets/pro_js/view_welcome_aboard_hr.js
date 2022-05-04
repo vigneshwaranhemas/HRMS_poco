@@ -14,9 +14,12 @@ $(document).ready(function(){
 // Data show
 function view_welcome_aboard_process(){
 var test_div="";
+var params = new window.URLSearchParams(window.location.search);
+var id=params.get('id')
 $.ajax({
-    url: get_welcome_aboard_details_link,
+    url: get_welcome_aboard_details_hr_link,
     method: "POST",
+    data: {id:id},
     dataType: "json",
     success: function(data) {
         // console.log(data.name)

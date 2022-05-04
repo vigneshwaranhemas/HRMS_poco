@@ -120,13 +120,13 @@ max-width: 1000px !important;
                   <div class="row">
                      <div class="col-sm-6 col-lg-4 order-sm-1 order-xl-0">
                         <div class="row">
-                           <div class="col-md-7">
+                           <div class="col-md-6">
                               <div class="ttl-info text-left">
                                  <h6><i class="fa fa-envelope"></i>   Email</h6>
                                  <div id="email"></div>
                               </div>
                            </div>
-                           <div class="col-md-5">
+                           <div class="col-md-6">
                               <div class="ttl-info text-left">
                                  <h6><i class="fa fa-calendar"></i>   BOD</h6>
                                  <div id="dob"></div>
@@ -870,6 +870,7 @@ max-width: 1000px !important;
 @endsection
 
 @section('script')
+
 <script src="../assets/js/counter/jquery.waypoints.min.js"></script>
  <script src="../assets/js/counter/jquery.counterup.min.js"></script>
  <script src="../assets/js/counter/counter-custom.js"></script>

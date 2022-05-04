@@ -593,17 +593,21 @@ function profile_info_process(id){
         success: function(data) {
             // console.log(data)
           if (data != ""){
+              var dob = moment(data.dob).format('DD-MM-YYYY');
+              var doj = moment(data.doj).format('DD-MM-YYYY');
+              // var 
+
              $('#pro_name').html(data.username);
              $('#can_name').html(data.username);
              $('#email').html(data.email);
-             $('#dob').html(data.dob);
+             $('#dob').html(dob);
              $('#contact_no').html(data.contact_no);
              $('#worklocation').html(data.worklocation);
              $('#designation').html(data.designation);
              $('#gender').html(data.gender);
-             $('#dob_tx').html(data.dob);
+             $('#dob_tx').html(dob);
              $('#payroll_status').html(data.payroll_status);
-             $('#doj').html(data.doj);
+             $('#doj').html(doj);
              $('#worklocation_tx').html(data.worklocation);
              $('#department').html(data.department);
              $('#grade').html(data.grade);

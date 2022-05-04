@@ -140,7 +140,7 @@
           <div class="modal-body">
              <label>Are you sure to confirm the candidate is onboarded</label>
           </div>
-          <div class="modal-footer">
+          <div cla ss="modal-footer">
              <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
              <button class="btn btn-secondary" type="button" data-dismiss="modal" id="Candidate_Status_update">Save changes</button>
              <input type="hidden" id="can_hidden_id">

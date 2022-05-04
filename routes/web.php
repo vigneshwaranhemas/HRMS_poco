@@ -176,9 +176,6 @@ Route::get('user', 'AdminController@user')->name('user');
 Route::get('roles', 'AdminController@roles')->name('roles');
 Route::get('employee_list', 'AdminController@employee_list')->name('employee_list');
 
-//Employee List
-Route::post('get_employee_list', 'AdminController@get_employee_list' );
-
 // Business Unit
 Route::post('add_business_unit_process', 'AdminController@add_business_unit');
 Route::post( 'get_business_unit_database', 'AdminController@get_business_unit_database' );
@@ -347,12 +344,13 @@ Route::get('id_card_varification', 'CommonController@id_card_varification');
 Route::post('idcard_info', 'CommonController@idcard_info');
 Route::post('idcard_info_save', 'CommonController@idcard_info_save');
 
+//Employee List
+Route::post('get_employee_list', 'AdminController@get_employee_list' );
 // Document Centre
 Route::get('document_center', 'CandidateController@document_center')->name('document_center');
 Route::get('payslip', 'CandidateController@payslip')->name('payslip');
-
 Route::get('id_card_varification', 'CommonController@id_card_varification');
-
+/*hr id card process*/
 Route::get('hr_id_card_verification', 'CommonController@hr_id_card_verification');
 Route::post('hr_get_id_card_vari', 'CommonController@hr_get_id_card_vari');
 Route::post('hr_idcard_verfi', 'CommonController@hr_idcard_verfi');

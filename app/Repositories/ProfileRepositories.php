@@ -202,6 +202,7 @@ class ProfileRepositories implements IProfileRepositories
             'email'=>$input_details['official_email'],
             'dob'=>$input_details['emp_dob'],
             'hr_action'=>$input_details['hr_action'],
+            'p_email'=>$input_details['p_email'],
             'hr_id_remark'=>$input_details['hr_id_remark'],
         ] );
     }

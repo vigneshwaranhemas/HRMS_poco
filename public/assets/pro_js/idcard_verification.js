@@ -15,7 +15,7 @@ function idcard_info_tvalue(){
         data:{},
         dataType: "json",
         success: function(data) {
-            console.log(data)
+            console.log(data[0].img_path)            
                 if (data !="") {
                     $("#pro_img").attr('src',"../ID_card_photo/"+data[0].img_path+".jpg");
                     $('#f_name').val(data[0].username);
@@ -32,15 +32,18 @@ function idcard_info_tvalue(){
                     $('#emp_code').val(data[0].empID);
                     $('#official_email').val(data[0].email);
                     $('#emp_dob').val(data[0].dob);
+                    $('#p_email').val(data[0].p_email);
                 }if (data[0].hr_id_remark !="") {
                      $('#hr_id_remark').html(data[0].hr_id_remark);
-                }if (data[0].hr_action != 1 ) {
-                    $("#btndis").show();
-                    $("#req_hr_change").hide();
-                }else{
+                }if (data[0].hr_action == 1 ) {
                     $("#btndis").hide();
-                    $("#req_hr_change").show();
-                }
+                    $("#req_hr_change").html("<p style='color:green;'>Waiting For HR Approval</p>")
+                }else if(data[0].hr_action == 0 || data[0].hr_action == 3){
+                    $("#btndis").show();
+                }else if(data[0].hr_action == 2 ){
+                    $("#btndis").hide();
+                    $("#req_hr_change").html("<p style='color:blue;'>Your ID Card is Approved</p>")
+                 }
             }
         });
     }

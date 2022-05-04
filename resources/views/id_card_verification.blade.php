@@ -40,7 +40,7 @@
       <div class="col-sm-12">
        <div class="text-center">
          <h5>
-            <a style="text-transform:uppercase" class="blinking" id="hr_id_remark"></a>
+           <a style="text-transform:uppercase" class="blinking" id="hr_id_remark"></a>
          </h5>
       </div>
           <div class="card">
@@ -53,7 +53,7 @@
                <form class="" enctype="multipart/form-data" id= "idcard_info" novalidate="">
                   <div class="form-row">
                      <div class="col-md-4 mb-3">
-                        <label for="f_name">First name</label>
+                        <label for="f_name">First Name *</label>
                         <input class="form-control alpha" style="text-transform:uppercase" id="f_name" type="text" name="f_name" placeholder="First name" required="">
                         <span class="text-danger color-hider" id="f_name_error"  style="display:none;color: red;"></span>
                         <div class="valid-feedback">Looks good!</div>
@@ -64,64 +64,74 @@
                         <div class="valid-feedback">Looks good!</div>
                      </div>
                      <div class="col-md-4 mb-3">
-                        <label for="validationCustomUsername">Last Name</label>
-                        <!-- <div class="input-group">
-                           <div class="input-group-prepend"><span class="input-group-text" id="inputGroupPrepend">@</span></div>
-                           <input class="form-control" id="validationCustomUsername" type="text" placeholder="Username" aria-describedby="inputGroupPrepend" required="">
-                           <div class="invalid-feedback">Please choose a username.</div>
-                        </div> -->
-                         <input class="form-control alpha" style="text-transform:uppercase" id="l_name" name="l_name" type="text" placeholder="Middle name" >
+                        <label for="validationCustomUsername">Last Name *</label>
+                         <input class="form-control alpha" style="text-transform:uppercase" id="l_name" name="l_name" type="text" placeholder="Last name" >
                          <span class="text-danger color-hider" id="l_name_error"  style="display:none;color: red;"></span>
                      </div>
                   </div>
                   <div class="form-row">
                      <div class="col-md-4 mb-3">
-                        <label for="working_loc">Working Location</label>
-                        <input class="form-control" id="working_loc" name="working_loc" type="text" placeholder="Working Location" readonly>
+                        <label for="working_loc">Work Location</label>
+                        <!-- <input class="form-control" id="working_loc" name="working_loc" type="text" placeholder="Working Location" > -->
+                         <select class="form-control" name="working_loc" id="working_loc">
+                              <option value="">Select</option>
+                             <option value="Onsite">Onsite</option>
+                             <option value="WFH">Work From Home</option>
+                          </select>
                         <div class="invalid-feedback">Please provide a valid Location.</div>
                      </div>
                      <div class="col-md-4 mb-3">
-                        <label for="emp_num_1">Employee Mobile Number 1</label>
-                        <input class="form-control" maxlength="10" onkeypress="return isNumber(event)" id="emp_num_1" name="emp_num_1" type="text" placeholder="Employee Mobile Number 1" required="">
+                        <label for="emp_num_1">Mobile Number 1 *</label>
+                        <input class="form-control" maxlength="10" onkeypress="return isNumber(event)" id="emp_num_1" name="emp_num_1" type="text" placeholder="Mobile Number 1" required="">
                         <span class="text-danger color-hider" id="emp_num_1_loc_error"  style="display:none;color: red;"></span>
                         <!-- <div class="invalid-feedback">Please provide a valid state.</div> -->
                      </div>
                      <div class="col-md-4 mb-3">
-                        <label for="emp_num_2">Employee Mobile Number 2</label>
-                        <input class="form-control" maxlength="10" id="emp_num_2" onkeypress="return isNumber(event)" name="emp_num_2" type="text" placeholder="Employee Mobile Number 2" required="">
+                        <label for="emp_num_2">Mobile Number 2</label>
+                        <input class="form-control" maxlength="10" id="emp_num_2" onkeypress="return isNumber(event)" name="emp_num_2" type="text" placeholder="Mobile Number 2" required="">
                         <!-- <div class="invalid-feedback">Please provide a valid zip.</div> -->
                      </div>
                   </div>
 
                   <div class="form-row">
                      <div class="col-md-4 mb-3">
-                        <label for="rel_emp">Relationship of Employee</label>
-                        <input class="form-control" id="rel_emp" name="rel_emp" type="text" placeholder="Relationship of Employee" required="">
-                        <!-- <div class="invalid-feedback">Please provide a valid Location.</div> -->
+                        <label for="rel_emp">Emergency Contact of Relationship *</label>
+                        <!-- <input class="form-control" id="rel_emp" name="rel_emp" type="text" placeholder="Relationship of Employee" required=""> -->
+                           <select class="form-control" name="rel_emp" id="rel_emp">
+                              <option value="">Select</option>
+                             <option value="Mother">Mother</option>
+                             <option value="Father">Father</option>
+                             <option value="Daughter">Daughter</option>
+                             <option value="son">Son</option>
+                             <option value="sister">Sister</option>
+                             <option value="brother">Brother</option>
+                             <option value="aunty">Aunty</option>
+                             <option value="uncle">Uncle</option>
+                             <option value="cousin_female">Cousin(Female)</option>
+                             <option value="cousin_male">Cousin(Male)</option>
+                             <option value="grandmother">Grandmother</option>
+                             <option value="grandfather">Grandfather</option>
+                             <option value="granddaughter">Granddaughter</option>
+                             <option value="grandson">Grandson</option>
+                           </select>
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="name_rel_ship">Name of Relationship</label>
                         <input class="form-control alpha" id="name_rel_ship" name="name_rel_ship" type="text" placeholder="Name of Relationship" required="">
-                        <!-- <div class="invalid-feedback">Please provide a valid state.</div> -->
                      </div>
                      <div class="col-md-4 mb-3">
-                        <label for="emrg_con_num">Emergency contact number</label>
+                        <label for="emrg_con_num">Emergency contact number *</label>
                         <input class="form-control" maxlength="10" onkeypress="return isNumber(event)" id="emrg_con_num" name="emrg_con_num" type="text" placeholder="Emergency contact number" required="">
                         <span class="text-danger color-hider" id="emrg_con_num_error"  style="display:none;color: red;"></span>
-
-                        <!-- <div class="invalid-feedback">Please provide a valid zip.</div> -->
                      </div>
                   </div>
                   <div class="form-row">
                      <div class="col-md-4 mb-3">
-                        <label for="rel_emp">DOJ</label>
-                        <input class="form-control" id="doj" name="doj" type="date" readonly placeholder="Date Of Join" >
-
-                        <!-- <div class="invalid-feedback">Please provide a valid Location.</div> -->
+                        <label for="rel_emp">Date Of Joining *</label>
+                        <input class="form-control" id="doj" name="doj" type="date" placeholder="Date Of Join" >
                      </div>
                      <div class="col-md-4 mb-3">
-                        <label for="blood_grp">Blood Group</label>
-                        <!-- <input class="form-control" id="blood_grp" name="blood_grp" type="text" placeholder="Blood Group" required=""> -->
+                        <label for="blood_grp">Blood Group *</label>
                         <select class="form-control" placeholder="Blood Group" id="blood_grp" name="blood_grp" required=""> <option value="">Select Blood Group</option>
                            <option value="A+">A+</option><option value="A-">A-</option>
                            <option value="B+">B+</option><option value="B-">B-</option>
@@ -138,31 +148,27 @@
                      </div>
                   </div>
                   <div class="form-row">
-                     <div class="col-md-6 mb-3">
-                        <label for="official_email">Official Email ID</label>
-                        <input class="form-control" id="official_email" name="official_email" type="email" placeholder="Official Email Id" readonly >
+                     <div class="col-md-4 mb-3">
+                        <label for="official_email">Official Email ID *</label>
+                        <input class="form-control" id="official_email" name="official_email" type="email" placeholder="Official Email Id"  >
                         <!-- <div class="invalid-feedback">Please provide a valid Location.</div> -->
                      </div>
-                     <div class="col-md-6 mb-3">
-                        <label for="emp_dob">DOB</label>
+                     <div class="col-md-4 mb-3">
+                        <label for="p_email">Personal Email ID</label>
+                        <input class="form-control" id="p_email" name="p_email" type="email" placeholder=" Email Id" >
+                        <!-- <div class="invalid-feedback">Please provide a valid Location.</div> -->
+                     </div>
+                     <div class="col-md-4 mb-3">
+                        <label for="emp_dob">Date Of Birth *</label>
                         <input class="form-control" id="emp_dob" name="emp_dob" type="date" placeholder="Blood Group" required="">
                         <span class="text-danger color-hider" id="emp_dob_error"  style="display:none;color: red;"></span>
                         <!-- <div class="invalid-feedback">Please provide a valid state.</div> -->
                      </div>
                   </div>
-                  <!-- <div class="form-group">
-                     <div class="form-check">
-                        <div class="checkbox p-0">
-                           <input class="form-check-input" id="invalidCheck" type="checkbox" required="">
-                           <label class="form-check-label" for="invalidCheck">Agree to terms and conditions</label>
-                        </div>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                     </div>
-                  </div> -->
-                  <!-- <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button> -->
                   <center>
-                     <button class="btn btn-success" id="btndis" type="btnSubmit">Submit</button>
-                     <button class="btn btn-secondary" id="req_hr_change" >Request to Hr Permission</button>
+                     <button class="btn btn-success" id="btndis" type="btnSubmit">Submit For Approval</button>
+                     <!-- <button class="btn btn-secondary" id="req_hr_change" >Request to Hr Permission</button> -->
+                     <h2 style="text-transform:uppercase" class="blinking" id="req_hr_change"></h2>
                   </center>
                </form>
             </div>

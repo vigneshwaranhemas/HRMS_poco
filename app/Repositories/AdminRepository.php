@@ -1068,12 +1068,17 @@ class AdminRepository implements IAdminRepository
         // echo "<pre>";print_r($input_details);die;
         // DB::enableQueryLog();
         if ($input_details['status'] == "") {
-            $input_details['status'] = 0;
-        }
-        $response = DB::table("customusers")->select('*')
+            $response = DB::table("customusers")->select('*')
+                        ->get();
+            
+        }else{
+             $response = DB::table("customusers")->select('*')
                         ->where('hr_action', '=', $input_details['status'])
                         ->get();
-                        // dd(DB::getQueryLog());
+
+        }
+       
+        // dd(DB::getQueryLog());
         return $response;
     }
 

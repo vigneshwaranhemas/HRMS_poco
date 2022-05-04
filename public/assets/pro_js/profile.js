@@ -880,6 +880,50 @@ $("#v-pills-Experience-tab").on('click', function() {
     experience_info();
 });
 
+$('#add_experience_unit').submit(function(e) { 
+    e.preventDefault();
+      var formData = new FormData(this);
+    $.ajax({  
+        url:experience_information_link, 
+        method:"POST",  
+        data:formData,
+        processData:false,
+        cache:false,
+        contentType:false,
+        dataType:"json",
+        success:function(data) {
+            if(data.response =='insert'){
+               Toastify({
+                   text: "Added Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+
+           }
+           else{
+               Toastify({
+                   text: "Request Failed..! Try Again",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#f3616d",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                   }, 2000);
+
+               }
+            
+        },
+    }); 
+});
+
 function experience_info(){
     $.ajax({
         url: experience_info_link,

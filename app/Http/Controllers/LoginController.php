@@ -26,6 +26,7 @@ class LoginController extends Controller
                 'role_type' => auth()->user()->role_type,
                 'role_id' => auth()->user()->role_id,
                 'active' => auth()->user()->active,
+                'email' => auth()->user()->email,
             ];
             // echo "<pre>";print_r($info);die;
             Session::put("session_info",$info);

@@ -329,6 +329,7 @@ Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_detai
 
 // View Welcome Aboard
 Route::get('view_welcome_aboard_hr', 'HrController@view_welcome_aboard_hr')->name('view_welcome_aboard_hr');
+Route::post( 'get_welcome_aboard_details_hr', 'HrController@get_welcome_aboard_details_hr' );
 Route::post('welcome_aboard_generate_image','HrController@welcome_aboard_generate_image');
 
 /*employe list edit*/

@@ -724,6 +724,7 @@ function account_information(){
         data:{},
         dataType: "json",
         success: function(data) {
+            console.log(data)
             if (data !="") {
                     $('#acc_mobile').val(data['0'].acc_mobile);
                     $('#acc_name').val(data['0'].acc_name);
@@ -731,6 +732,7 @@ function account_information(){
                     $('#bank_name').val(data['0'].bank_name);
                     $('#branch_name').val(data['0'].branch_name);
                     $('#ifsc_code').val(data['0'].ifsc_code);
+                    $('#con_acc_number').val(data['0'].con_acc_number);
                 }
             }
         });

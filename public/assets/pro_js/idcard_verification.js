@@ -49,7 +49,10 @@ function idcard_info_tvalue(){
     }
 
 
-    $('#idcard_info').submit(function(e) {    
+    $('#idcard_info').submit(function(e) { 
+    // getElementById("btndis").disabled=true; 
+    $(this).attr('disabled','disabled'); 
+
         e.preventDefault();
           var formData = new FormData(this);
         $.ajax({  

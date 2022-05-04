@@ -43,7 +43,7 @@
             <select  name="status" id="status" class="form-control">
                 <option value="">--Select--</option>
                 <option value="2">Accept</option>
-                <option value="3">Ignore</option>
+                <option value="3">Revert</option>
             </select>
         </div>
       <div class="col-sm-12">
@@ -258,7 +258,7 @@
                   <center>
                      <button class="btn btn-success" type="btnSubmit">Accept</button>
                      <!-- <button class="btn btn-danger">  </button> -->
-                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ignoreModal" data-whatever="@mdo">Ignore</button>
+                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ignoreModal" data-whatever="@mdo">Revert</button>
 
                   </center>
                </form>
@@ -267,7 +267,7 @@
                   </div>
                 <!-- Pop-up div Ends-->
 
-                <!-- Pop-up ignore starts-->
+                <!-- Pop-up revert starts-->
                   <div class="modal fade" id="ignoreModal" tabindex="-1" role="dialog" aria-labelledby="ignoreModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">

@@ -291,8 +291,26 @@ class CommonController extends Controller
                     'id_remark'=>$request->input('id_remark'),
                     'can_id_hr'=>$request->input('can_id_hr'),
                     );
-            
             $update_role_unit_details_result = $this->cmmrpy->update_hr_idcard_remark( $data );
+                
+                /*ignore email*/
+            $can_id = $request->input('can_id_hr');
+            if ($can_id !="") {
+            $user = DB::table( 'customusers' )->where('id', '=', $can_id)->first();
+            }
+                // echo "<pre>";print_r($user->username);die;
+
+            $Mail['candidate_name']=$user->username;
+            /*email start*/
+                $Mail['email']= $user->email;
+                $Mail['subject']="ID Card Verification is Failed";
+                Mail::send('emails.hr_idcard_revert', $Mail, function ($message) use ($Mail) {
+                    $message->from("hr@hemas.in", 'HEPL - HR Team');
+                    $message->to($Mail['email'])->subject($Mail['subject']);
+                    });
+                /*email end*/
+            
+            
                 return response()->json(['response'=>'Update']);
         }else{
             return response()->json(['error'=>$validator->errors()->toArray()]);

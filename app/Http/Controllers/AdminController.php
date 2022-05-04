@@ -2107,10 +2107,10 @@ class AdminController extends Controller
     public function PreviewImage(Request $request){
 
         $session_val = Session::get('session_info');
-        $cdID = $session_val['cdID'];
-        // echo "<pre>";print_r($emp_ID);die;
-        $input_details = array( "cdID" => $cdID, );
+        $input_details['cdID'] = $session_val['cdID'];
+        $input_details['emp_ID'] = $session_val['empID'];
         $get_profile_info_result = $this->admrpy->get_profile_info( $input_details );
+        // echo "<pre>";print_r($get_profile_info_result);die;
 
         return response()->json( $get_profile_info_result );
 

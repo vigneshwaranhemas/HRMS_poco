@@ -921,12 +921,34 @@ class AdminRepository implements IAdminRepository
     }
     public function get_profile_info( $input_details ){
 
-        $bandtbl = DB::table('images as img')
-        ->select('*')
-        ->where('cus.cdID', '=', $input_details['cdID'])
-        ->join('customusers as cus', 'cus.cdID', '=', 'img.cdID')
-        ->first();
-        // echo "<pre>";print_r($bandtbl);die;
+        // echo "11<pre>";print_r($input_details);die;
+        if ($input_details['cdID'] != "") {
+
+            $bandtbl['profile'] = DB::table('customusers')
+                        ->select('*')
+                        ->where('empID', '=', $input_details['emp_ID'])
+                        ->first();
+
+           $bandtbl['image'] = DB::table('images as img')
+                        ->select('*')
+                        ->where('cus.cdID', '=', $input_details['cdID'])
+                        ->join('customusers as cus', 'cus.cdID', '=', 'img.cdID')
+                        ->first();
+
+        }else if($input_details['emp_ID'] != ""){
+
+            $bandtbl['profile'] = DB::table('customusers')
+                        ->select('*')
+                        ->where('empID', '=', $input_details['emp_ID'])
+                        ->first();
+
+            $bandtbl['image'] = DB::table('images as img')
+                        ->select('*')
+                        ->where('cus.empID', '=', $input_details['emp_ID'])
+                        ->join('customusers as cus', 'cus.empID', '=', 'img.emp_id')
+                        ->first();
+        }
+        
         return $bandtbl;
     }
 

@@ -124,7 +124,7 @@
                       </div>
                       <div class="col-md-12 mb-3">
                         <label for="mobile_number">Mobile Number </label>
-                        <input type="text" id="mobile_number" class="form-control" placeholder="Mobile Number" name="mobile_number" />
+                        <input type="text" id="mobile_number" class="form-control" onkeypress="return isNumber(event)" maxlength="10" placeholder="Mobile Number" name="mobile_number" />
                       </div>
                       <div class="col-md-12 mb-3">
                         <label for="email">Email </label>
@@ -162,7 +162,7 @@
                       </div>
                       <div class="col-md-12 mb-3">
                         <label for="mobile_number">Mobile Number</label>
-                        <input class="form-control" name="mobile_number" id="mobile_number_input" type="text" placeholder="Mobile Number" required="">
+                        <input class="form-control" name="mobile_number" id="mobile_number_input" type="text" placeholder="Mobile Number" onkeypress="return isNumber(event)" maxlength="10" required="">
                         <div class="text-warning" id="mobile_number_error"></div>
                     </div>
                     <div class="col-md-12 mb-3">
@@ -197,6 +197,16 @@ var get_client_details_link = "{{url('get_client_details')}}";
 var update_client_details_link = "{{url('update_client_details')}}";
 var process_client_status_link = "{{url('process_client_status')}}";
 var process_client_delete_link = "{{url('process_client_delete')}}";
+
+function isNumber(evt) {
+              evt = (evt) ? evt : window.event;
+              var charCode = (evt.which) ? evt.which : evt.keyCode;
+              if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                  return false;
+              }
+              return true;
+        }
+
 </script>
 @endsection
 

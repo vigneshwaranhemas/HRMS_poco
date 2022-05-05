@@ -921,12 +921,35 @@ class AdminRepository implements IAdminRepository
     }
     public function get_profile_info( $input_details ){
 
-        $bandtbl = DB::table('images as img')
-        ->select('*')
-        ->where('cus.cdID', '=', $input_details['cdID'])
-        ->join('customusers as cus', 'cus.cdID', '=', 'img.cdID')
-        ->first();
-        // echo "<pre>";print_r($bandtbl);die;
+        // echo "11<pre>";print_r($input_details);die;
+        if ($input_details['cdID'] != "") {
+
+            $bandtbl['profile'] = DB::table('customusers')
+                        ->select('*')
+                        ->where('cdID', '=', $input_details['cdID'])
+                        ->first();
+
+           $bandtbl['image'] = DB::table('images as img')
+                        ->select('*')
+                        ->where('cus.cdID', '=', $input_details['cdID'])
+                        ->join('customusers as cus', 'cus.cdID', '=', 'img.cdID')
+                        ->first();
+
+        }else if($input_details['emp_ID'] != ""){
+             // DB::enableQueryLog();
+            $bandtbl['profile'] = DB::table('customusers')
+                        ->select('*')
+                        ->where('empID', '=', $input_details['emp_ID'])
+                        ->first();
+
+            $bandtbl['image'] = DB::table('images as img')
+                        ->select('*')
+                        ->where('cus.empID', '=', $input_details['emp_ID'])
+                        ->join('customusers as cus', 'cus.empID', '=', 'img.emp_id')
+                        ->first();
+           // dd(DB::getQueryLog());
+        }
+        
         return $bandtbl;
     }
 
@@ -1033,12 +1056,12 @@ class AdminRepository implements IAdminRepository
 
      public function get_seating_requested($status)
      {
-         $result=Candidate_seating_and_email_request::join('candidate_details','candidate_seating_and_email_requests.cdID','=','candidate_details.cdID')
+         $result=Candidate_seating_and_email_request::join('customusers','candidate_seating_and_email_requests.empID','=','customusers.empID')
                  ->where('candidate_seating_and_email_requests.status',$status)
                  ->select("candidate_seating_and_email_requests.empId",
-                          "candidate_details.candidate_name",
-                          "candidate_details.candidate_email",
-                          "candidate_details.candidate_mobile",
+                          "customusers.username",
+                          "customusers.email",
+                          "customusers.contact_no",
                           "candidate_seating_and_email_requests.Seating_Request",
                           "candidate_seating_and_email_requests.IdCard_status")->get();
          return $result;
@@ -1064,19 +1087,27 @@ class AdminRepository implements IAdminRepository
 
     //Employee list
     //Employee list
-    public function get_employee_list(){
-        $response = DB::table("customusers")->select('*')
+    public function get_employee_list( $input_details){
+        // echo "<pre>";print_r($input_details);die;
+        // DB::enableQueryLog();
+        if ($input_details['status'] == "") {
+            $response = DB::table("customusers")->select('*')
                         ->get();
+        }else{
+             $response = DB::table("customusers")->select('*')
+                        ->where('hr_action', '=', $input_details['status'])
+                        ->get();
+
+        }
+       
+        // dd(DB::getQueryLog());
         return $response;
     }
 
     public function role_type_list( ){
         $bandtbl = DB::table('roles')
         ->select('*')
-        ->get();
-        // dd(DB::getQueryLog());
-        // echo "23<pre>";print_r($bandtbl);die;
-
+        ->get();    
         return $bandtbl;
     }
 

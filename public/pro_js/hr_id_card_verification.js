@@ -1,20 +1,22 @@
 
 $(document).ready(function(){
-    hr_id_card_ver();
+    // hr_id_card_ver();
 });
 function hr_id_card_ver(id){
-    var params = new window.URLSearchParams(window.location.search);
-    var id=params.get('id')
+    // var params = new window.URLSearchParams(window.location.search);
+    // var id=params.get('id')
     // alert(id)
     $.ajax({
-        url:hr_id_card_varification_link,
+        url:hr_card_varification_link,
         method: "POST",
         data:{"id":id,},
         dataType: "json",
         success: function(data) {
-             console.log(data[0].doj);
+             // console.log(data);
            if (data !="") {
-                    // $('#pro_img').val(data[0].img_path);
+                    $('#can_id').val(data[0].id);
+                    $('#can_id_hr').val(data[0].id);
+                    $('#img_path_hide').val(data[0].img_path);
                     $("#pro_img").attr('src',"../ID_card_photo/"+data[0].img_path+".jpg");
                     $('#f_name').val(data[0].username);
                     $('#m_name').val(data[0].m_name);/**/
@@ -27,10 +29,12 @@ function hr_id_card_ver(id){
                     $('#emrg_con_num').val(data[0].emrg_con_num);/**/
                     $('#doj').val(data[0].doj);
                     $('#blood_grp').val(data[0].blood_grp);/**/
-                    $('#emp_code').val(data[0].sup_emp_code);
+                    $('#emp_code').val(data[0].empID);
                     $('#official_email').val(data[0].email);
                     $('#emp_dob').val(data[0].dob);
+                    $('#p_email').val(data[0].p_email);
                 }
+                $("#idModal").modal('show')
         }
     });
 }

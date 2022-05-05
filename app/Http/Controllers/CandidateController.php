@@ -104,39 +104,15 @@ class CandidateController extends Controller
         $candiate_buddy_data=array("empId"=>$sess_info["empID"],
                                    "cdID"=>$sess_info["cdID"]);
         $id=array("empId"=>$sess_info["empID"]);
-        // $cid=array("cdID"=>$sess_info["cdID"]);
         $table="buddyfeedbackfields";
         $fields=$this->preon->getonBoardingFields($table);
         $feedback_info=$this->preon->get_buddy_info($id);
-        // $user_info=$this->preon->Check_onBoard($table1,$cid);
         $user_info=$this->preon->get_candidate_and_buddy_info($candiate_buddy_data);
         $data['fields']=$fields;
         $data['feedback_info']=$feedback_info;
         $data['user_info']=$user_info;
-        // echo json_encode($data['user_info']);
         return view('candidate.buddy_feedback')->with('buddy_fields',$data);
     }
-
-
-
-        // $sess_info=Session::get("session_info");
-        // $table1="candidate_details";
-        // $cid=array("cdID"=>$sess_info["empID"]);
-        // $id=array("empId"=>$sess_info["empID"]);
-        // $table="buddyfeedbackfields";
-        // $fields=$this->preon->getonBoardingFields($table);
-        // $feedback_info=$this->preon->get_buddy_info($id);
-        // $user_info=$this->preon->Check_onBoard($table1,$cid);
-        // $data['fields']=$fields;
-        // $data['feedback_info']=$feedback_info;
-        // $data['user_info']=$user_info;
-
-
-
-        // return view('candidate.buddy_feedback')->with('buddy_fields',$data);
-        // return view('candidate.buddy_feedback');
-
-
 
     public function welcome_aboard()
     {
@@ -162,8 +138,8 @@ class CandidateController extends Controller
             'joining_as' => 'required',
             ]);
 
-        // $session_val = Session::get('session_info');
-        // $emp_ID = $session_val['empID'];
+        $session_val = Session::get('session_info');
+        $emp_ID = $session_val['empID'];
         // echo '<pre>';print_r($emp_ID);
         // die;
 
@@ -222,7 +198,7 @@ class CandidateController extends Controller
             'my_motto' => $req->input('my_motto'),
             'books' => $req->input('books'),
             'created_on' => $today_date,
-            'created_by' => "900002"
+            'created_by' => $emp_ID
 
         );
         // echo '<pre>';print_r($form_data);
@@ -236,7 +212,10 @@ class CandidateController extends Controller
 
     public function get_welcome_aboard_details(Request $req){
 
-        $get_welcome_aboard_details_result = $this->preon->get_welcome_aboard_details();
+        $sess_info = Session::get("session_info");
+        $empID = $sess_info['empID'];
+
+        $get_welcome_aboard_details_result = $this->preon->get_welcome_aboard_details($empID);
 
         $get_welcome_aboard_details_result['get_education_my'] =  json_decode($get_welcome_aboard_details_result->education_my,TRUE);
         $get_welcome_aboard_details_result['get_education_from'] = json_decode($get_welcome_aboard_details_result->education_from,TRUE);
@@ -253,8 +232,10 @@ class CandidateController extends Controller
 
     public function welcome_aboard_generate_pdf()
     {
+        $sess_info = Session::get("session_info");
+        $empID = $sess_info['empID'];
 
-        $get_welcome_aboard_details_result = $this->preon->get_welcome_aboard_details();
+        $get_welcome_aboard_details_result = $this->preon->get_welcome_aboard_details($empID);
 
         // echo '<pre>';print_r($get_welcome_aboard_details_result->name);die();
 
@@ -308,7 +289,7 @@ class CandidateController extends Controller
         // $pdf = PDF::loadView('admin.welcome_aboard_pdf', $data);
         $pdf = PDF::loadView('candidate.welcome_aboard_pdf', compact('info'));
 
-        return $pdf->download('welcome_aboard.jpeg');
+        return $pdf->stream('welcome_aboard.pdf');
     }
 // pre onBoarding Insert
 public function insertPreOnboarding(Request $request)
@@ -432,6 +413,11 @@ public function InsertBuddyFeedback(Request $request)
 public function document_center()
 {
     return view('candidate.document_center');
+}
+
+public function payslip()
+{
+    return view('candidate.payslip');
 }
 
 

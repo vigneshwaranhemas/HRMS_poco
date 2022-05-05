@@ -1,6 +1,5 @@
 {{-- vigneshwaran --}}
 @extends('layouts.simple.itinfra_master')
-@section('title', 'Premium Admin Template')
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">

@@ -2,11 +2,24 @@
 @section('title', 'On Boarding')
 
 @section('css')
+<style type="text/css">
+    .submiteddata{
+      display: none;
+    }
+ </style>
 <link rel="stylesheet" type="text/css" href="{{url("assets/css/datatables.css")}}">
 <link rel="stylesheet" type="text/css" href="{{url('assets/css/datatable-extension.css')}}">
 @endsection
 
 @section('style')
+<style>
+.action-button
+{
+    padding: 6px 7px 6px 24px;
+    margin-top: 12px;
+}
+</style>
+
 @endsection
 
 @section('breadcrumb-title')
@@ -18,8 +31,12 @@
 	{{-- <li class="breadcrumb-item active">Default</li> --}}
 @endsection
 @section('content')
+ <div class="loader-box" id="pre_loader" style="display: none;">
+    <div class="loader-29" style="z-index: 100;position: fixed;"></div>
+ </div>
+
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" class="submiteddata">
         <div class="col-sm-12">
             <div class="card">
                <div class="card-body">
@@ -67,11 +84,12 @@
                                                                <td><p style="color:{{$color}}" class="fa {{$class}}"></p></td>
                                                                <td><p style="color:{{$color1}}" class="fa {{$class1}}"></p></td>
                                                                <td>
-                                                                <a onclick=model_trigger("{{$info["cdID"]}}") href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                                <a onclick=edit_modal("{{$info["cdID"]}}") href="#"><i class="fa fa-pencil"></i></i><a>
+                                                                <a class="btn btn-primary action-button" onclick=model_trigger("{{$info["cdID"]}}") href="javascript:void(0)"><i class="fa fa-pencil" style="margin-left: -17px;"></i></a>
+                                                                <a class="btn btn-success action-button" onclick=edit_modal("{{$info["empID"]}}") href="javascript:void(0)"><i class="icon-save" style="margin-left: -17px;"></i><a>
+                                                                <a class="btn btn-secondary action-button" href="view_welcome_aboard_hr?id={{$info["empID"]}}"><i class="fa fa-eye" aria-hidden="true" style="margin-left: -17px;"></i><a>
                                                                </td>
                                                                <td>
-                                                                <a href="#" onclick=user_documents("{{$info["cdID"]}}")><i class="fa fa-file-image-o"></i><a>
+                                                                <a class="btn btn-warning action-button" href="javascript:void(0)" onclick=user_documents("{{$info["cdID"]}}")><i class="icon-save" style="margin-left: -17px;"></i><a>
                                                                </td>
                                                            </tr>
                                                          <?php $i++;?>
@@ -87,7 +105,13 @@
             </div>
          </div>
 
-    </div>
+
+
+
+
+        </div>
+
+
 </div>
 
 <!-- Modal Fade -->
@@ -123,7 +147,7 @@
           <div class="modal-body">
              <label>Are you sure to confirm the candidate is onboarded</label>
           </div>
-          <div class="modal-footer">
+          <div cla ss="modal-footer">
              <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
              <button class="btn btn-secondary" type="button" data-dismiss="modal" id="Candidate_Status_update">Save changes</button>
              <input type="hidden" id="can_hidden_id">

@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
+use App\Models\CustomUser;
 
 class CommonRepositories implements ICommonRepositories
 {
@@ -15,9 +16,12 @@ class CommonRepositories implements ICommonRepositories
     }
 
     public function update_hr_idcard_info( $input_details ){
-// echo "11<pre>";print_r($input_details);die;
+        // echo "11<pre>";print_r($input_details);die;
         $update_roletbl = DB::table('customusers')->where( 'id', '=', $input_details['can_id'] );
-        $update_roletbl->update( [
+
+        if ($input_details['img_path'] != "") {
+
+           $update_roletbl->update( [
             'img_path'=>$input_details['img_path'],
             'username'=>$input_details['f_name'],
             'm_name'=>$input_details['m_name'],
@@ -33,8 +37,30 @@ class CommonRepositories implements ICommonRepositories
             'empID'=>$input_details['empID'],
             'email'=>$input_details['official_email'],
             'dob'=>$input_details['emp_dob'],
-            'hr_action'=>'1',
+            'hr_action'=>'2',
+            'hr_id_remark'=>'',
         ] );
+        }else{
+            $update_roletbl->update( [
+            'username'=>$input_details['f_name'],
+            'm_name'=>$input_details['m_name'],
+            'l_name'=>$input_details['l_name'],
+            'worklocation'=>$input_details['working_loc'],
+            'contact_no'=>$input_details['emp_num_1'],
+            'emp_num_2'=>$input_details['emp_num_2'],
+            'rel_emp'=>$input_details['rel_emp'],
+            'name_rel_ship'=>$input_details['name_rel_ship'],
+            'emrg_con_num'=>$input_details['emrg_con_num'],
+            'doj'=>$input_details['doj'],
+            'blood_grp'=>$input_details['blood_grp'],
+            'empID'=>$input_details['empID'],
+            'email'=>$input_details['official_email'],
+            'dob'=>$input_details['emp_dob'],
+            'hr_action'=>'2',
+            'hr_id_remark'=>'',
+        ] );
+        }
+
     }
 
     public function update_hr_idcard_remark( $input_details ){
@@ -42,7 +68,16 @@ class CommonRepositories implements ICommonRepositories
         $update_roletbl = DB::table('customusers')->where( 'id', '=', $input_details['can_id_hr'] );
         $update_roletbl->update( [
             'hr_id_remark'=>$input_details['id_remark'],
-            'hr_action'=>'0',
+            'hr_action'=>'3',
         ] );
+    }
+
+
+
+
+    public function check_user_status($id)
+    {
+             $result=CustomUser::select('hr_action')->where('empID',$id)->first();
+             return $result;
     }
 }

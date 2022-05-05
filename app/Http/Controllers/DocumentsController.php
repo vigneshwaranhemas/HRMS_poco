@@ -53,13 +53,13 @@ class DocumentsController extends Controller
 
         $session_val = Session::get('session_info');
         $cdID = $session_val['cdID'];
-        // echo "<pre>";print_r($emp_ID);die;
-        $input_details = array( "cdID" => $cdID, );
+        $emp_id = $session_val['empID'];
+        $input_details = array( "cdID" => $cdID,
+                                "emp_id"=> $emp_id );
         $get_profile_info_result = $this->profrpy->get_banner_view( $input_details );
+        // echo "123<pre>";print_r($get_profile_info_result);die;
 
         return response()->json( $get_profile_info_result );
-
-        // return response()->json(['success'=>'Crop Image Uploaded Successfully']);
     }
 
     /*PreviewImage */
@@ -157,7 +157,7 @@ class DocumentsController extends Controller
                     $emp_ID = $session_val['empID'];
                     $cdID = $session_val['cdID'];
 
-                     $user = DB::table( 'candidate_account_information' )->where('cdID', '=', $cdID)->first();
+                     $user = DB::table( 'candidate_account_information' )->where('emp_id', '=', $emp_ID)->first();
                      // echo "<pre>";print_r($user);die;
 
 
@@ -203,7 +203,9 @@ class DocumentsController extends Controller
 
         $session_val = Session::get('session_info');
         $cdID = $session_val['cdID'];
-        $input_details = array( "cdID" => $cdID, );
+        $emp_ID = $session_val['empID'];
+        $input_details = array( "cdID" => $cdID,
+                                "emp_ID" => $emp_ID );
         $get_account_info_result = $this->profrpy->get_account_info( $input_details );
         
         return response()->json( $get_account_info_result );
@@ -278,8 +280,65 @@ class DocumentsController extends Controller
                 return response()->json(['error'=>$validator->errors()->toArray()]);
                 }
         }
+
+        /*experience info save */
+    public function experience_information(Request $request){
+        // echo "string";print_r("sadasda");die;
+
+      
+            $validator=Validator::make($request->all(),[
+                    'job_title' => 'required',
+                    'cmp_name' => 'required',
+                    'exp_begin_on' => 'required',
+                    'exp_end_on' => 'required',
+                    ], [
+                    'job_title.required' => 'Job Title is required',
+                    'cmp_name.required' => 'Company Name is required',
+                    'exp_begin_on.required' => 'Begin On is required',
+                    'exp_end_on.required' => 'End On is required',
+                    ]);
+                    if($validator->passes()){
+
+                     $session_val = Session::get('session_info');
+                    $emp_ID = $session_val['empID'];
+                    $cdID = $session_val['cdID'];
+
+                    $files = $request->file('exp_file');
+                    $destinationPath = public_path('uploads/'); 
+                   $profileexp ="exp_file". date('YmdHis') . "." . $files->getClientOriginalExtension();
+                   $files->move($destinationPath, $profileexp);
+                   $exp_file = "$profileexp";
+
+                    // echo "<pre>";print_r($exp_file);die;
+                    $begin_on = explode('-', $request->input('exp_begin_on'));
+                    $edu_start_month = $begin_on[1];
+                    $edu_start_year = $begin_on[0];
+                    $end_on = explode('-', $request->input('exp_end_on'));
+                    $edu_end_month = $end_on[1];
+                    $edu_end_year = $end_on[0];
+                    // $created_on = date("Y-m-d");
+                    $data =array(
+                        'empID'=>$emp_ID,
+                        'cdID'=>$cdID,
+                        'job_title'=>$request->input('job_title'),
+                        'company_name'=>$request->input('cmp_name'),
+                        'exp_start_month'=>$edu_start_month,
+                        'exp_start_year'=>$edu_start_year,
+                        'exp_end_month'=>$edu_end_month,
+                        'exp_end_year'=>$edu_end_year,
+                        'certificate'=>$exp_file,
+                        // 'created_on'=>$created_on,
+                        );
+                // echo "<pre>";print_r($data);die;
+                    $insert_education_info_result = $this->profrpy->insert_experience_info( $data );
+                    return response()->json(['response'=>'insert']);
+            }
+            else{
+                return response()->json(['error'=>$validator->errors()->toArray()]);
+                }
+        }
         /*experience_info_result*/
-        public function experience_info_result(Request $request){
+    public function experience_info_result(Request $request){
 
         $session_val = Session::get('session_info');
         $cdID = $session_val['cdID'];

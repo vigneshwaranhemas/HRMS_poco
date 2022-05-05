@@ -14,6 +14,8 @@
       </footer>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
  <script src="../pro_js/side_bar.js"></script>
+ <!-- date formate  -->
+ <script src='../assets/js/moment.js'></script>
       <script>
         /*$(document).ready(function (){
 

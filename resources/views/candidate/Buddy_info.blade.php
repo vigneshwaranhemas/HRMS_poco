@@ -57,11 +57,11 @@ $sess_info=Session::get("session_info");
                          <div class="row">
                             <div class="col-md-6">
                                <div> <strong>EmployeeID : </strong> {{$info->empID}}</div><hr>
-                               <div> <strong>Name : </strong>{{$info->name}}</div><hr>
+                               <div> <strong>Name : </strong>{{$info->username}}</div><hr>
                             </div>
                             <div class="col-md-6">
                                <div> <strong>Email : </strong>{{$info->email}}</div><hr>
-                               <div> <strong>Mobile Number : </strong> {{$info->mobile_no}}
+                               <div> <strong>Mobile Number : </strong> {{$info->contact_no}}
                                </div><hr>
                                {{-- <div> <strong>Date of Birth :</strong> 11-05-1994
                                </div><hr>

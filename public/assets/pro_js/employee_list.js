@@ -10,6 +10,9 @@ $(document).ready(function(){
     employee_record();
     get_role_type();
 });
+$("#status").on('change', function() {
+    employee_record();
+});
 
 function employee_record(){
 
@@ -68,7 +71,7 @@ function employee_record(){
                 "titleAttr": 'Colvis',
                 // "action": newexportaction
             },
-    
+
         ],
         lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
         processing: true,
@@ -79,8 +82,8 @@ function employee_record(){
         scrollY: 800,
         scrollCollapse: true,
         drawCallback: function() {
-    
-    
+
+
         },
         // aoColumnDefs: [
         //     { 'visible': false, 'targets': [3] }
@@ -90,6 +93,7 @@ function employee_record(){
             type: 'POST',
             dataType: "json",
             data: function (d) {
+                d.status = $('#status').val();
                 // d.af_from_date = $('#af_from_date').val();
                 // d.af_to_date = $('#af_to_date').val();
                 // d.af_position_title = $('#af_position_title').val();
@@ -102,6 +106,7 @@ function employee_record(){
         },
         columns: [
             {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
+            {   data: 'action', name: 'action'  },
             {   data: 'empID', name: 'empID'    },
             {   data: 'username', name: 'username'    },
             {   data: 'role_type', name: 'role_type'    },
@@ -116,9 +121,9 @@ function employee_record(){
             {   data: 'contact_no', name: 'contact_no'    },
             {   data: 'sup_name', name: 'sup_name'    },
             {   data: 'reviewer_name', name: 'reviewer_name'    },
-            {   data: 'action', name: 'action'  },
-            {   data: 'Info', name: 'Info'  },
-    
+
+            // {   data: 'Info', name: 'Info'  },
+
         ],
     });
 }
@@ -274,7 +279,7 @@ function get_role_type() {
             // console.log(data)
             var html = '<option value="">Select</option>';
             for (let index = 0; index < data.length; index++) {
-            console.log(data[index].name)
+            // console.log(data[index].name)
                 html += "<option value=" + data[index].name + ">" + data[index].name + "</option>";
             }
             $('#employe_role').html(html);

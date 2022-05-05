@@ -63,11 +63,11 @@
                                    <tr>
                                       <th>S.No</th>
                                       <th>#</th>
-                                      <th>EMPLOYEE ID</th>
-                                      <th>NAME</th>
-                                      <th>EMAIL</th>
-                                      <th>MOBILE NUMBER</th>
-                                      <th>HR SUGGESTED MAIL</th>
+                                      <th>Employee Id</th>
+                                      <th>Name</th>
+                                      <th>Email</th>
+                                      <th>Mobile Number</th>
+                                      <th>HR Suggested Email</th>
                                       <th>Asset</th>
                                    </tr>
                                 </thead>
@@ -78,7 +78,7 @@
                                               <tr>
                                                  <td>{{$i}}</td>
                                                  <td><input type='checkbox'></td>
-                                                 <td>{{$info->cdID}}</td>
+                                                 <td>{{$info->empID}}</td>
                                                  <td>{{$info->username}}</td>
                                                  <td>{{$info->email}}</td>
                                                  <td>{{$info->contact_no}}</td>
@@ -104,11 +104,11 @@
                                 <thead>
                                    <tr>
                                     <th>#</th>
-                                    <th>EMPLOYEE ID</th>
-                                    <th>NAME</th>
-                                    <th>EMAIL</th>
-                                    <th>MOBILE NUMBER</th>
-                                    <th>HR SUGGESTED MAIL</th>
+                                    <th>Employee Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile Number</th>
+                                    <th>Hr Suggested Email</th>
                                     <th>Asset</th>
                                    </tr>
                                 </thead>
@@ -118,7 +118,7 @@
                                          @foreach ($email_info['completed'] as $info )
                                               <tr>
                                                  <td>{{$i}}</td>
-                                                 <td>{{$info->cdID}}</td>
+                                                 <td>{{$info->empID}}</td>
                                                  <td>{{$info->username}}</td>
                                                  <td>{{$info->email}}</td>
                                                  <td>{{$info->contact_no}}</td>

@@ -60,9 +60,10 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
    }
    public function fetch_buddy_info($data)
    {
-          $result=UsersInfoModel::join('candidate_details','candidate_details.welcome_buddy','=','users.empID')
+          $result=CustomUser::join('candidate_details','candidate_details.welcome_buddy','=','customusers.empID')
                                   ->where('candidate_details.cdID',$data)
-                                  ->select('users.empID','users.name','users.designation','users.email','users.mobile_no')
+                                  ->select('customusers.empID','customusers.username','customusers.designation',
+                                  'customusers.email','customusers.contact_no')
                                   ->first();
           return $result;
    }
@@ -74,9 +75,12 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
         return $response;
       }
 
-    public function get_welcome_aboard_details(){
+    public function get_welcome_aboard_details($data){
+        // echo '<pre>';print_r($data);die();
 
-        $welcome_aboard_data = welcome_aboard::first();
+        // $welcome_aboard_data = welcome_aboard::first();
+        $welcome_aboard_data = welcome_aboard::where('created_by',$data)
+                                                ->first();
 
         return $welcome_aboard_data;
     }
@@ -87,13 +91,20 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
 
             public function get_candidate_and_buddy_info($data)
             {
-                $result=CustomUser::join('candidate_details','customusers.cdID','=','candidate_details.cdID')
-                                    ->join('users','users.empID','=','candidate_details.welcome_buddy')
+                // $result=CustomUser::join('candidate_details','customusers.cdID','=','candidate_details.cdID')
+                //                     ->join('users','users.empID','=','candidate_details.welcome_buddy')
+                //                     ->where('customusers.cdID',$data['cdID'])
+                //                     ->select('customusers.empID','customusers.username',
+                //                              'customusers.department','customusers.designation',
+                //                              'customusers.worklocation','customusers.doj','users.name')->first();
+                    $result=CustomUser::join('candidate_details','customusers.cdID','=','candidate_details.cdID')
+                                    ->join('customusers as cs','cs.empID','=','candidate_details.welcome_buddy')
                                     ->where('customusers.cdID',$data['cdID'])
-                                    ->select('customusers.empID','customusers.username',
-                                             'customusers.department','customusers.designation',
-                                             'customusers.worklocation','customusers.doj','users.name')->first();
-                return $result;
+                                    ->select('cs.username as buddy_name','customusers.empID',
+                                             'customusers.username','customusers.department',
+                                             'customusers.designation','customusers.worklocation',
+                                             'customusers.doj')->first();
+                    return $result;
             }
 
 

@@ -7,12 +7,18 @@
 
 @section('style')
 <style type="text/css">
-   img{
+   /*img{
   max-width:180px;
+}*/
+.img-70
+{
+   width: 170px !important;
+   height: 169px !important;
 }
-input[type=file]{
-padding:10px;
-background:#2d2d2d;}
+/*input[type=file]
+{
+   padding:10px;
+}*/
 </style>
 @endsection
 
@@ -33,16 +39,30 @@ background:#2d2d2d;}
             <div class="card-body">
                <form class="" enctype="multipart/form-data" id= "hr_idcard_info" novalidate="">
                   <input type="hidden" name="can_id" id="can_id" value="{{ $_GET['id']}}">
-                  <div class="form-row">
-                     <div class="col-md-6">
-                         <div class="avatar"><img width="300" height="330" lass="img-fluid rounded" alt="" id="pro_img"></div>
+                  <div class="text-center">
+                  
+                         <div class="avatar">
+                           <!-- <img width="300" height="330" lass="img-fluid rounded" alt="" id="pro_img"> -->
+                            <!-- <img id="previewImg" src="/examples/images/transparent.png" alt="Placeholder"> -->
+                           <div class="col-auto"><img class="img-70 rounded-circle" alt="" id="pro_img"></div>
+                        </div>
                      </div>
-                     <div class="col-md-6">
-                       <div class="form-group">
-                          <input type="file" name="file" class="form-control" id="pro_img_up">
+                     <div class="text-center">
+                        <div class="col-sm-4 form-group">
+                          <input type="file" name="file" class="form-control" onchange="previewFile(this);" id="pro_img_up">
                           <span class="text-danger color-hider" id="pro_img_up_error"  style="display:none;color: red;"></span>
+                           <input type="hidden" name="img_path_hide" id="img_path_hide">
                        </div>
-                     </div>
+                        
+                     
+                  </div>
+
+
+                  <div class="form-row">
+
+                     <!-- <div class="col-md-6">
+                       
+                     </div> -->
                      <div class="col-md-4 mb-3">
                         <label for="f_name">First name</label>
                         <input class="form-control alpha" style="text-transform:uppercase" id="f_name" type="text" name="f_name" placeholder="First name" required="">
@@ -67,40 +87,53 @@ background:#2d2d2d;}
                   </div>
                   <div class="form-row">
                      <div class="col-md-4 mb-3">
-                        <label for="working_loc">Working Location</label>
-                        <input class="form-control" id="working_loc" name="working_loc" type="text" placeholder="Working Location" readonly>
+                        <label for="working_loc">Work Location</label>
+                        <input class="form-control" id="working_loc" name="working_loc" type="text" placeholder="Working Location">
                         <div class="invalid-feedback">Please provide a valid Location.</div>
                      </div>
-                     <div class="col-md-4 mb-3">
-                        <label for="emp_num_1">Employee Mobile Number 1</label>
-                        <input class="form-control" maxlength="10" onkeypress="return isNumber(event)" id="emp_num_1" name="emp_num_1" type="text" placeholder="Employee Mobile Number 1" required="">
+                      <div class="col-md-4 mb-3">
+                        <label for="emp_num_1">Mobile Number 1 *</label>
+                        <input class="form-control" maxlength="10" onkeypress="return isNumber(event)" id="emp_num_1" name="emp_num_1" type="text" placeholder="Mobile Number 1" required="">
                         <span class="text-danger color-hider" id="emp_num_1_loc_error"  style="display:none;color: red;"></span>
                         <!-- <div class="invalid-feedback">Please provide a valid state.</div> -->
                      </div>
                      <div class="col-md-4 mb-3">
-                        <label for="emp_num_2">Employee Mobile Number 2</label>
-                        <input class="form-control" maxlength="10" id="emp_num_2" onkeypress="return isNumber(event)" name="emp_num_2" type="text" placeholder="Employee Mobile Number 2" required="">
+                        <label for="emp_num_2">Mobile Number 2</label>
+                        <input class="form-control" maxlength="10" id="emp_num_2" onkeypress="return isNumber(event)" name="emp_num_2" type="text" placeholder="Mobile Number 2" required="">
                         <!-- <div class="invalid-feedback">Please provide a valid zip.</div> -->
                      </div>
                   </div>
 
                   <div class="form-row">
                      <div class="col-md-4 mb-3">
-                        <label for="rel_emp">Relationship of Employee</label>
-                        <input class="form-control" id="rel_emp" name="rel_emp" type="text" placeholder="Relationship of Employee" required="">
-                        <!-- <div class="invalid-feedback">Please provide a valid Location.</div> -->
+                        <label for="rel_emp">Emergency Contact of Relationship *</label>
+                        <!-- <input class="form-control" id="rel_emp" name="rel_emp" type="text" placeholder="Relationship of Employee" required=""> -->
+                           <select class="form-control" name="rel_emp" id="rel_emp">
+                              <option value="">Select</option>
+                             <option value="Mother">Mother</option>
+                             <option value="Father">Father</option>
+                             <option value="Daughter">Daughter</option>
+                             <option value="son">Son</option>
+                             <option value="sister">Sister</option>
+                             <option value="brother">Brother</option>
+                             <option value="aunty">Aunty</option>
+                             <option value="uncle">Uncle</option>
+                             <option value="cousin_female">Cousin(Female)</option>
+                             <option value="cousin_male">Cousin(Male)</option>
+                             <option value="grandmother">Grandmother</option>
+                             <option value="grandfather">Grandfather</option>
+                             <option value="granddaughter">Granddaughter</option>
+                             <option value="grandson">Grandson</option>
+                           </select>
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="name_rel_ship">Name of Relationship</label>
                         <input class="form-control alpha" id="name_rel_ship" name="name_rel_ship" type="text" placeholder="Name of Relationship" required="">
-                        <!-- <div class="invalid-feedback">Please provide a valid state.</div> -->
                      </div>
                      <div class="col-md-4 mb-3">
-                        <label for="emrg_con_num">Emergency contact number</label>
+                        <label for="emrg_con_num">Emergency contact number *</label>
                         <input class="form-control" maxlength="10" onkeypress="return isNumber(event)" id="emrg_con_num" name="emrg_con_num" type="text" placeholder="Emergency contact number" required="">
                         <span class="text-danger color-hider" id="emrg_con_num_error"  style="display:none;color: red;"></span>
-
-                        <!-- <div class="invalid-feedback">Please provide a valid zip.</div> -->
                      </div>
                   </div>
                   <div class="form-row">
@@ -232,6 +265,20 @@ background:#2d2d2d;}
               }
           });
       });
+
+      function previewFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+ 
+        if(file){
+            var reader = new FileReader();
+ 
+            reader.onload = function(){
+                $("#pro_img").attr("src", reader.result);
+            }
+ 
+            reader.readAsDataURL(file);
+        }
+    }
 
 </script>
 @endsection

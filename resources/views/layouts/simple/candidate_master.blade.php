@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <title>Poco - @yield('title')</title>
+    <title>HRMS  @yield('title')</title>
     @include('layouts.simple.css')
     @yield('style')
 
@@ -54,7 +54,7 @@
               </div>
             </div>
             @yield('content')
-            <div class="welcome-popup modal fade" id="loadModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="welcome-popup modal fade" id="loadModal1" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                  <div class="modal-content">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -63,7 +63,7 @@
                        <div class="contain p-30">
                           <div class="text-center">
                              <h3>Welcome to HRMS</h3>
-                             <p>Start your ID Card Verification  </p>
+                             <p>Enter Your ID Card Verification  </p>
                              <a class="btn btn-primary btn-lg txt-white"  href="{{ url('id_card_varification') }}" aria-label="Close">Get Started</a>
                           </div>
                        </div>

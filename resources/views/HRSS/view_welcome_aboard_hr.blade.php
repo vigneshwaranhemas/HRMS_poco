@@ -138,8 +138,7 @@
 <script src="../assets/js/editor/summernote/summernote.custom.js"></script>
 
 <script>
-var add_welcome_aboard_process_link = "{{url('add_welcome_aboard_process')}}";
-var get_welcome_aboard_details_link = "{{url('get_welcome_aboard_details')}}";
+var get_welcome_aboard_details_hr_link = "{{url('get_welcome_aboard_details_hr')}}";
 
 $(()=>{
     $('#btnSubmit').on('click',(e)=>{
@@ -147,8 +146,6 @@ $(()=>{
    e.preventDefault();
    var summernote_get = $('#summernote_copy').summernote('code').replace(/<\/?[^>]+(>|$)/g, " ");
 //    alert(summernote_get)
-
-
     console.log(summernote_get)
 
    $.ajax({
@@ -161,7 +158,17 @@ $(()=>{
            console.log(data);
 
            if(data.response =='success'){
-                location.reload();
+            Toastify({
+                   text: "Export Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
            }
        },
 

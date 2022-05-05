@@ -23,11 +23,18 @@ use App\welcome_aboard;
 class ProfileRepositories implements IProfileRepositories
 {
     public function get_account_info( $input_details ){
-
+        if ($input_details['cdID'] != "") {
         $bandtbl = DB::table('candidate_account_information')
-        ->select('*')
-        ->where('cdID', '=', $input_details['cdID'])
-        ->get();
+                    ->select('*')
+                    ->where('cdID', '=', $input_details['cdID'])
+                    ->get();
+            }else if ($input_details['emp_ID'] != "") {
+
+                $bandtbl = DB::table('candidate_account_information')
+                    ->select('*')
+                    ->where('emp_id', '=', $input_details['emp_ID'])
+                    ->get();
+            }
 
         return $bandtbl;
     }
@@ -59,18 +66,35 @@ class ProfileRepositories implements IProfileRepositories
     }
     public function get_banner_view( $input_details ){
 
-        $bandtbl = DB::table('candidate_banner_image')
-        ->select('*')
-        ->where('cdID', '=', $input_details['cdID'])
-        // ->join('customusers as cus', 'cus.cdID', '=', 'img.cdID')
-        ->first();
-        // echo "<pre>";print_r($bandtbl);die;
+        // echo "<pre>";print_r($input_details['cdID']);die;
+
+        if ($input_details['cdID'] != "") {
+             $bandtbl = DB::table('candidate_banner_image')
+                        ->select('*')
+                        ->where('cdID', '=', $input_details['cdID'])
+                        ->first();
+        }else if ($input_details['emp_id'] != "") {
+
+            $bandtbl = DB::table('candidate_banner_image')
+                        ->select('*')
+                        ->where('emp_id', '=', $input_details['emp_id'])
+                        ->first();
+        }
+
+       
         return $bandtbl;
     }
 
     public function insert_education_info( $input_details ){
 
         $response = candidate_education_details::insert($input_details);
+        // echo "<pre>";print_r($response);die;
+      return $response;
+    }
+    public function insert_experience_info( $input_details ){
+
+        $response = DB::table('candidate_experience_details')
+                    ->insert($input_details);
         // echo "<pre>";print_r($response);die;
       return $response;
     }
@@ -183,7 +207,7 @@ class ProfileRepositories implements IProfileRepositories
 
     public function update_idcard_info( $input_details ){
 // echo "<pre>";print_r($input_details);die;
-        $update_roletbl = DB::table('customusers')->where( 'cdID', '=', $input_details['cdID'] );
+        $update_roletbl = DB::table('customusers')->where( 'empID', '=', $input_details['empID'] );
         $update_roletbl->update( [
             // 'empID' => $input_details['emp_id'],
             'cdID' => $input_details['cdID'],
@@ -202,6 +226,7 @@ class ProfileRepositories implements IProfileRepositories
             'email'=>$input_details['official_email'],
             'dob'=>$input_details['emp_dob'],
             'hr_action'=>$input_details['hr_action'],
+            'p_email'=>$input_details['p_email'],
             'hr_id_remark'=>$input_details['hr_id_remark'],
         ] );
     }

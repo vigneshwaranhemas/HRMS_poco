@@ -12,9 +12,12 @@ class Buddyrepositories implements IBuddyrepositories{
 
   public function get_candidate_info($id)
   {
-            $result=CustomUser::join("candidate_details","candidate_details.cdId",'=','customusers.empID')
+            $result=CustomUser::join("candidate_details","candidate_details.cdId",'=','customusers.cdID')
             ->where('candidate_details.welcome_buddy',$id)
-            ->where('customusers.pre_onboarding',1)->get();
+            ->where('customusers.pre_onboarding',1)
+            ->select('customusers.empID','customusers.username',
+                     'customusers.email','customusers.contact_no','customusers.cdID')
+             ->get();
 
             return $result;
         }

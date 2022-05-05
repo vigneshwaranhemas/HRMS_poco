@@ -15,7 +15,7 @@
                 <p>Contact Number is {{$candidate_mobile}} ."Onboarding, Induction & Joining Formalities have been completed and handing over to you.</p>
 
                 <p><b>Thank you,</b></p>
-                <p>HR OP.S Team - HEPL";</p>
+                <p>HR OP.S Team - HEPL</p>
 
 
 

@@ -15,8 +15,9 @@ function idcard_info_tvalue(){
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data)
+            console.log(data[0].img_path)            
                 if (data !="") {
+                    $("#pro_img").attr('src',"../ID_card_photo/"+data[0].img_path+".jpg");
                     $('#f_name').val(data[0].username);
                     $('#m_name').val(data[0].m_name);/**/
                     $('#l_name').val(data[0].l_name);/**/
@@ -28,16 +29,31 @@ function idcard_info_tvalue(){
                     $('#emrg_con_num').val(data[0].emrg_con_num);/**/
                     $('#doj').val(data[0].doj);
                     $('#blood_grp').val(data[0].blood_grp);/**/
-                    $('#emp_code').val(data[0].sup_emp_code);
+                    $('#emp_code').val(data[0].empID);
                     $('#official_email').val(data[0].email);
                     $('#emp_dob').val(data[0].dob);
-                }
+                    $('#p_email').val(data[0].p_email);
+                }if (data[0].hr_id_remark !="") {
+                     $('#hr_id_remark').html(data[0].hr_id_remark);
+                }if (data[0].hr_action == 1 ) {
+                    $("#btndis").hide();
+                    $("#req_hr_change").html("<h2 style='color:green;'>Waiting For HR Approval</h2>")
+                }else if(data[0].hr_action == 0 || data[0].hr_action == 3){
+                    $("#btndis").show();
+                }else if(data[0].hr_action == 2 ){
+                    $("#btndis").hide();
+                    $("#req_hr_change").html("<h2 style='color:blue;'>Your ID Card is Approved</h2>")
+                 }
             }
         });
     }
 
 
-    $('#idcard_info').submit(function(e) {    
+    $('#idcard_info').submit(function(e) { 
+    // getElementById("btndis").disabled=true; 
+    $(this).attr('disabled','disabled'); 
+    $("#btndis").text('Processing...'); 
+
         e.preventDefault();
           var formData = new FormData(this);
         $.ajax({  
@@ -49,6 +65,7 @@ function idcard_info_tvalue(){
             contentType:false,
             dataType:"json",
             success:function(data) {
+                // console.log(data)
             if(data.error)
                {
                 $(".color-hider").hide();

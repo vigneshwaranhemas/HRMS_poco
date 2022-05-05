@@ -114,9 +114,8 @@ class HrController extends Controller
     {
         $sess_info=Session::get("session_info");
         $date=date('Y-m-d');
-        $data=array("or_doj"=>$date,'created_by'=>$sess_info["empID"]);
+        $data=array("doj"=>$date,'created_by'=>$sess_info["empID"]);
         $candidate_info=$this->hpreon->EmailIdCreation($data);
-        echo json_encode($candidate_info);
     }
     public function Candidate()
     {
@@ -126,8 +125,6 @@ class HrController extends Controller
     {
         $id=$request->id;
         $user_documents=$this->hpreon->getUserDocuments($id);
-        // $total =;
-        // echo json_encode(count((array)$user_documents));
         return view('HRSS.userdocuments')->with('user_documents',$user_documents);
     }
     public function Show_preOnBoarding(Request $request)
@@ -169,31 +166,33 @@ class HrController extends Controller
                     $Mail['admin_to_mail']=$store_result['message']['admin_email_info']->to;
                     $Mail['supervisor_name']=$store_result['message']['location']->sup_name;
                     $Mail['worklocation']=$store_result['message']['location']->worklocation;
+                    $Mail['supervisor_email']=$store_result['message']['supervisor_info']->email;
+                    // $Mail['supervisor_email']="vbjr317@gmail.com";
                     $str_arr = preg_split ("/\,/", $Mail['cc']);
                     $admin_str_arr=preg_split ("/\,/", $Mail['Admin_cc']);
 
                         // echo json_encode($Mail);
                     // dd(env('MAIL_USERNAME'));
-                    // Mail::send('emails.InductionMail', $Mail, function ($message) use ($Mail,$str_arr) {
-                    // $message->from(env('MAIL_FROM_ADDRESS'), 'HEPL - HR Team');
-                    // foreach($str_arr as $string)
-                    // {
-                    //     $message->cc($string);
-                    // }
-                    // $message->to($Mail['hr_to_mail'])->subject($Mail['hr_subject']);
-                    // });
-
-                     Mail::send('emails.InductionMail', $Mail, function ($message) use ($Mail,$str_arr) {
-                    $message->from("rfh@hemas.in", 'HEPL - HR Team');
+                    Mail::send('emails.InductionMail', $Mail, function ($message) use ($Mail,$str_arr) {
+                    $message->from("hr@hemas.in", 'HEPL - HR Team');
                     foreach($str_arr as $string)
                     {
                         $message->cc($string);
                     }
                     $message->to($Mail['hr_to_mail'])->subject($Mail['hr_subject']);
                     });
+
+                    //  Mail::send('emails.InductionMail', $Mail, function ($message) use ($Mail,$str_arr) {
+                    // $message->from("rfh@hemas.in", 'HEPL - HR Team');
+                    // foreach($str_arr as $string)
+                    // {
+                    //     $message->cc($string);
+                    // }
+                    // $message->to($Mail['hr_to_mail'])->subject($Mail['hr_subject']);
+                    // });
                     // //  if($store_result['message']['location']->worklocation=='Onsite'){
                         Mail::send('emails.AdminMail', $Mail, function ($message) use ($Mail,$admin_str_arr) {
-                        $message->from("rfh@hemas.in", 'HEPL - HR Team');
+                        $message->from("hr@hemas.in", 'HEPL - HR Team');
 //
 //                     //  if($store_result['message']['location']->worklocation=='Onsite'){
 //                         Mail::send('emails.AdminMail', $Mail, function ($message) use ($Mail,$admin_str_arr) {
@@ -203,6 +202,7 @@ class HrController extends Controller
                         {
                             $message->cc($string);
                         }
+                        $message->cc($Mail['supervisor_email']);
                         $message->to($Mail['admin_to_mail'])->subject($Mail['Admin_Subject']);
                         });
                     //  }
@@ -235,28 +235,28 @@ class HrController extends Controller
 //
 // --------------------------------------------------------------------------------------------------
              //vignesh comments for original cc and email creditionals
-//
-                //  $Mail['CC']=$ItInfra_email_info->cc;
-                //  $Mail['to']=$ItInfra_email_info->to;
-                //  $Mail['supervisor_mail']=$candidate_info['supervisor_info']->email;
-                //  $Mail['reviewer_mail']=$candidate_info['reviewer_info']->email;
+
+                 $Mail['CC']=$ItInfra_email_info->cc;
+                 $Mail['to']=$ItInfra_email_info->to;
+                 $Mail['supervisor_mail']=$candidate_info['supervisor_info']->email;
+                 $Mail['reviewer_mail']=$candidate_info['reviewer_info']->email;
 //
 // ---------------------------------------------------------------------------------------------------
 //
          //vignesh comments for static cc and email creditionals for testing purpose
-                $Mail['CC']="vigneshsampletester@gmail.com";
-                $Mail['to']="vigneshb@hemas.in";
-                $Mail['supervisor_mail']="vigneshb@hemas.in";
-                $Mail['reviewer_mail']="vigneshb@hemas.in";
+                // $Mail['CC']="vigneshsampletester@gmail.com";
+                // $Mail['to']="vigneshb@hemas.in";
+                // $Mail['supervisor_mail']="vigneshb@hemas.in";
+                // $Mail['reviewer_mail']="vigneshb@hemas.in";
                 $Mail['subject']=$ItInfra_email_info->subject;
                 $Mail['candidate_name']=$candidate_info['info']->username;
-                $Mail['supervisor_name']=$candidate_info['supervisor_info']->name;
+                $Mail['supervisor_name']=$candidate_info['supervisor_info']->username;
                 $Mail['doj']=$candidate_info['info']->doj;
                 $str_arr=preg_split ("/\,/", $Mail['CC']);
-
+                // dd($Mail);
 // --------------------------------------------------------------------------------------------------------
                 Mail::send('emails.ItInfraMail', $Mail, function ($message) use ($Mail,$str_arr) {
-                $message->from(env('MAIL_FROM_ADDRESS'), 'HEPL - HR Team');
+                $message->from("hr@hemas.in", 'HEPL - HR Team');
                 foreach($str_arr as $string)
                 {
                     $message->cc($string);
@@ -343,6 +343,26 @@ class HrController extends Controller
           $response=array('success'=>2,'message'=>"Problem In Updating Status");
         }
         echo json_encode($response);
+    }
+
+    public function get_welcome_aboard_details_hr(Request $req){
+
+         $id = $req->id;
+        //  echo $id;
+
+        $get_welcome_aboard_details_result = $this->hpreon->get_welcome_aboard_details_hr($id);
+
+        $get_welcome_aboard_details_result['get_education_my'] =  json_decode($get_welcome_aboard_details_result->education_my,TRUE);
+        $get_welcome_aboard_details_result['get_education_from'] = json_decode($get_welcome_aboard_details_result->education_from,TRUE);
+        $get_welcome_aboard_details_result['get_education_in'] = json_decode($get_welcome_aboard_details_result->education_in,TRUE);
+
+        $get_welcome_aboard_details_result['get_work_experience_at'] =  json_decode($get_welcome_aboard_details_result->work_experience_at,TRUE);
+        $get_welcome_aboard_details_result['get_work_experience_as'] = json_decode($get_welcome_aboard_details_result->work_experience_as,TRUE);
+        $get_welcome_aboard_details_result['get_work_experience_years'] = json_decode($get_welcome_aboard_details_result->work_experience_years,TRUE);
+
+    //   echo '<pre>';print_r($id);die();
+
+        return response()->json( $get_welcome_aboard_details_result );
     }
 
 

@@ -9,7 +9,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <title>Poco - @yield('title')</title>
+    <title>HRMS  @yield('title')</title>
     @include('layouts.simple.css')
     @yield('style')
 
@@ -62,7 +62,7 @@
                        <div class="contain p-30">
                           <div class="text-center">
                              <h3>Welcome to HRMS</h3>
-                             <p>Start your ID Card Verification  </p>
+                             <p>Enter Your ID Card Verification  </p>
                              <a class="btn btn-primary btn-lg txt-white"  href="{{ url('id_card_varification') }}" aria-label="Close">Get Started</a>
                           </div>
                        </div>

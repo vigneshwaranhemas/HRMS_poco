@@ -114,7 +114,7 @@
           </ul>
         </li>
         <li><a class="right_side_toggle" href="#"><img class="img-fluid img-shadow-success" src="../assets/images/dashboard/chat.png" alt=""></a></li>
-        <li class="onhover-dropdown"> <span class="media user-header"><img class="img-fluid" src="../assets/images/dashboard/user.png" alt=""></span>
+        <li class="onhover-dropdown"> <span class="media user-header" id="login_profile_image"></span>
           <ul class="onhover-show-div profile-dropdown">
             <li class="gradient-primary">
               <h5 class="f-w-600 mb-0">{{ Auth::user()->username }}</h5><span>{{ Auth::user()->designation }}</span>

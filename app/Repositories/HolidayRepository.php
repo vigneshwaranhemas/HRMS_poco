@@ -7,13 +7,46 @@ class HolidayRepository implements IHolidayRepository
 {
 
     public function add_holidays_insert( $data ){
-        $response = Holidays::insert($data);
+        $response = Holidays::insertGetId($data);
         return $response;
+    }
+    public function insertHolidayCode($holiday_unique_code, $last_inserted_id)
+    {
+       $response = Holidays::where('id', $last_inserted_id)
+                             ->update([
+                                 'holiday_unique_code' => $holiday_unique_code
+                             ]);
+       return $response;
     }
     public function fetch_holidays_list()
     {      
-       $response = DB::table("holidays")->select('*')
-                         ->get();
+      // if(Auth::user()->role_type === 'Admin'){
+
+      //    $response = DB::table("holidays")->select('*')
+      //    ->get();
+
+      // }else{
+
+      //    // SELECT h.*
+      //    // FROM candidate_contact_information cci
+      //    // INNER JOIN holidays h
+      //    // ON h.state = cci.p_State
+      //    // WHERE cci.emp_id="900386";
+        
+         
+      //    $logined_empID = Auth::user()->empID;
+      //    // $response = DB::table('candidate_contact_information as cci')
+      //    //          ->distinct()         
+      //    //          ->select('h.*')         
+      //    //          ->join('holidays as h', 'event_attendees.event_id', '=', 'events.event_unique_code')
+      //    //          ->where('cci.state', $logined_empID)
+      //    //          ->get();
+
+      // }
+
+      $response = DB::table("holidays")->select('*')
+      ->get();
+      
        return $response;
     }
     public function fetch_holidays_state_filter($state)

@@ -88,14 +88,10 @@ class AdminController extends Controller
         $current_year = date("Y");
         // $tdy = $dt."-".$monthName;
         $tdy = $current_month."-".$current_date;
-        $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%%-'.$tdy.'%')->get();
-        // dd($todays_birthdays);
-
+        $current = $current_year."-".$current_month."-".$current_date;
+        
         $current_date = date("d-m-Y");
         $date = Carbon::createFromFormat('d-m-Y', $current_date);
-
-        //Work anniversary
-        $tdy_work_anniversary = DB::table('customusers')->select('*')->where('doj', 'LIKE', '%%-'.$tdy.'%')->get();
 
         //Upcoming holidays
         $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();
@@ -111,17 +107,124 @@ class AdminController extends Controller
                      ->limit(2)
                      ->get();
 
-        // dd($upcoming_events);
-
         // $upcoming_events = DB::table('events')->select('*')->where('start_date_time', '>=', $date)->limit(2)->get();
 
         $data = [
-            "todays_birthdays" => $todays_birthdays,
-            "tdy_work_anniversary" => $tdy_work_anniversary,
             "upcoming_holidays" => $upcoming_holidays,
             "upcoming_events" => $upcoming_events,
         ];
         return view('com_dashboard')->with($data);
+    }
+    public function fetch_login_profile_image(){
+        
+            // dd($todays_birthday->empID); 900036 900002
+            
+            $login_id = Auth::user()->empID;
+            $profile_images = DB::table('images')->where('emp_id', $login_id)->value('path');
+
+            if(!empty($profile_images)){
+                // dd($profile_images); 
+                $login_profile_image = '<img class="img-fluid rounded-circle db_profile_img" src="../uploads/'.$profile_images.'" alt="user">';
+
+            }else{
+               
+                $login_profile_image = '<img class="img-fluid" src="../assets/images/dashboard/user.png" alt="user">';
+
+            }
+
+        return json_encode($login_profile_image);
+    }
+    public function fetch_tdys_brd_list(){
+        $current_date = date("d");
+        $current_month = date("m");
+        $current_year = date("Y");
+        // $tdy = $dt."-".$monthName;
+        $tdy = $current_month."-".$current_date;
+        $current = $current_year."-".$current_month."-".$current_date;
+        $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%%-'.$tdy.'%')->get();
+        $html_todays_birthdays = '';
+
+        foreach($todays_birthdays as $todays_birthday){
+            // dd($todays_birthday->empID); 900036 900002
+            
+            $profile_images = DB::table('images')->where('emp_id', $todays_birthday->empID)->value('path');
+
+            if(!empty($profile_images)){
+                // dd($profile_images); 
+                $html_todays_birthdays .= '<li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../uploads/'.$profile_images.'" alt="#"></div>';
+
+            }else{
+               
+                if($todays_birthday->gender == "Male"){
+                    $html_todays_birthdays .= '<li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>';
+                }else{
+                    $html_todays_birthdays .= '<li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/4.jpg" alt="#"></div>';
+                }
+
+            }
+
+            $html_todays_birthdays .= '<div class="align-self-center media-body" style="margin-left: 16px;">';
+            $html_todays_birthdays .= '<h5 class="mt-0">'.$todays_birthday->username.'</h5>';
+            $html_todays_birthdays .= '<p>Happy Birthday "'.$todays_birthday->username.'", Have a great year ahead! <img style="width:34px" src="../assets/images/cupcake.svg" alt="Cupcake" class="img-fluid"></p>';
+            $html_todays_birthdays .= '</div>';
+            $html_todays_birthdays .= '</li>';
+        }
+        // dd($html_todays_birthdays);
+
+        return json_encode($html_todays_birthdays);
+    }
+    public function fetch_tdys_work_annu_list(){
+        
+        $current_date = date("d");
+        $current_month = date("m");
+        $current_year = date("Y");
+        // $tdy = $dt."-".$monthName;
+        $tdy = $current_month."-".$current_date;
+        $current = $current_year."-".$current_month."-".$current_date;
+
+        //Work anniversary
+        // $tdy_work_anniversary = DB::table('customusers')->select('*')->where('doj', 'LIKE', '%%-'.$tdy.'%')->get();        
+
+        $tdy_work_anniversary = DB::table('customusers')
+                                ->select('*')
+                                ->where('doj', 'LIKE', '%%-'.$tdy.'%')
+                                ->whereNotIn('doj', [$current])
+                                ->get();
+
+        $html_tdy_work_annu = '';
+
+        foreach($tdy_work_anniversary as $tdy_work_annu){
+            // dd($todays_birthday->empID); 900036 900002
+            
+            $doj_year = date("Y", strtotime($tdy_work_annu->doj));
+            $total = $current_year - $doj_year;
+            if($total != 0){
+                $profile_images = DB::table('images')->where('emp_id', $tdy_work_annu->empID)->value('path');
+
+                if(!empty($profile_images)){
+                    // dd($profile_images); 
+                    $html_tdy_work_annu .= '<li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../uploads/'.$profile_images.'" alt="#"></div>';
+
+                }else{
+               
+                    if($tdy_work_annu->gender == "Male"){
+                        $html_tdy_work_annu .= '<li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>';
+                    }else{
+                        $html_tdy_work_annu .= '<li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/4.jpg" alt="#"></div>';
+                    }
+
+                }
+
+                $html_tdy_work_annu .= '<div class="align-self-center media-body" style="margin-left: 16px;">';
+                $html_tdy_work_annu .= '<h5 class="mt-0">'.$tdy_work_annu->username.'</h5>';
+                $html_tdy_work_annu .= '<p>Our congratualations to '.$tdy_work_annu->username.' on completing '.$total.' successful year(s) <img style="width:34px" src="../assets/images/flowers.svg" alt="flowers" class="img-fluid"></p>';
+                $html_tdy_work_annu .= '</div>';
+                $html_tdy_work_annu .= '</li>';
+            }
+            
+        }
+
+        return json_encode($html_tdy_work_annu);
     }
     /* role List */
     public function role_list(){
@@ -413,7 +516,6 @@ class AdminController extends Controller
         $input_details = array(
             'id'=>$req->input('id'),
         );
-
         $process_business_unit_delete_result = $this->admrpy->process_business_unit_delete( $input_details );
 
         $response = 'success';

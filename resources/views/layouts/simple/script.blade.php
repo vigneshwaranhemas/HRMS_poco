@@ -16,6 +16,31 @@
 <script src="../assets/js/script.js"></script>
 <script src="../assets/js/theme-customizer/customizer.js"></script>
 
+
+<!-- Profile Image -->
+
+<script>
+    fetch_login_profile_image();
+
+    //Login Profile Image
+    function fetch_login_profile_image(){
+         //Get holidays details
+         $.ajax({
+            url:"fetch_login_profile_image",
+            type:"GET",
+            dataType : "JSON",
+            success:function(response)
+            {
+                  // console.log(response);
+                  $("#login_profile_image").append('');
+                  $("#login_profile_image").append(response);
+
+            }
+
+         });
+      }
+</script>
+
 <!-- toast js -->
 <script src="../assets/toastify/toastify.js"></script>
 

@@ -1,5 +1,5 @@
 @extends('layouts.simple.candidate_master')
-@section('title', 'Premium Admin Template')
+@section('title', 'Dashboard')
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
@@ -374,15 +374,7 @@ View More&lt;/button&gt;
                </div>
             </div>
             <div class="card-body pt-0">
-               <ul class="crm-activity">
-                  @foreach($todays_birthdays as $todays_birthday)
-                  <li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>
-                     <div class="align-self-center media-body" style="margin-left: 16px;">
-                        <h5 class="mt-0">{{$todays_birthday->username }}</h5>
-                        <p>Happy Birthday {{$todays_birthday->username }}, Have a great year ahead! <img style="width:34px" src="{{ asset('assets/images/cupcake.svg') }}" alt="Cupcake" class="img-fluid"></p>
-                     </div>
-                  </li>
-                  @endforeach
+               <ul class="crm-activity" id="tdy_birthday_card_list">
                </ul>
             </div>
          </div>
@@ -449,15 +441,8 @@ View More&lt;/button&gt;
                </div>
             </div>
             <div class="card-body pt-0">
-               <ul class="crm-activity">
-                  @foreach($tdy_work_anniversary as $tdy_work_avry)
-                  <li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>
-                     <div class="align-self-center media-body" style="margin-left: 16px;">
-                        <h5 class="mt-0">{{$tdy_work_avry->username }}</h5>
-                        <p>Happy Work Anniversary {{$tdy_work_avry->username }}, Have a great year ahead! <img style="width:34px" src="{{ asset('assets/images/flowers.svg') }}" alt="Cupcake" class="img-fluid"></p>
-                     </div>
-                  </li>
-                  @endforeach
+               <ul class="crm-activity" id="tdys_work_annu_list">
+                  
                </ul>
             </div>
          </div>
@@ -655,107 +640,148 @@ View More&lt;/button&gt;
 <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
 <script src="../pro_js/side_bar.js"></script>
 <script>
-     var get_session_sidebar_link = "{{url('get_session_sidebar')}}";
+      var get_session_sidebar_link = "{{url('get_session_sidebar')}}";
 
-   function view_holidays(id){
-      //Get holidays details
-      $.ajax({
-         url:"fetch_holidays_list_id",
-         type:"GET",
-         data : {id: id},
-         dataType : "JSON",
-         success:function(response)
-         {
-               // console.log(response);
-               $("#occassion_show").text('');
-               $("#description_show").text('');
-               $("#occassion_show").append(response[0].occassion);
-               $("#description_show").append(response[0].description);
+      fetch_tdys_brd_list();
+      fetch_tdys_work_annu_list();
+      fetch_login_profile_image();      
 
-         }
+      //Today's birthday card
+      function fetch_tdys_brd_list(){
+         //Get holidays details
+         $.ajax({
+            url:"fetch_tdys_brd_list",
+            type:"GET",
+            dataType : "JSON",
+            success:function(response)
+            {
+                  // console.log(response);
+                  $("#tdy_birthday_card_list").append('');
+                  $("#tdy_birthday_card_list").append(response);
 
-      });
+            }
 
-      $('#holidaysDetailModal').modal('show');
-   }
+         });
+      }
 
-   function view_events(id){
+      //Today's work anniversary
+      function fetch_tdys_work_annu_list(){
+         //Get holidays details
+         $.ajax({
+            url:"fetch_tdys_work_annu_list",
+            type:"GET",
+            dataType : "JSON",
+            success:function(response)
+            {
+                  // console.log(response);
+                  $("#tdys_work_annu_list").append('');
+                  $("#tdys_work_annu_list").append(response);
 
-      //Get Attendees list
-      $.ajax({
-         url:"fetch_event_attendees_show",
-         type:"GET",
-         data : {id: id},
-         dataType : "JSON",
-         success:function(response)
-         {
-               // console.log(response);
-               $("#candicate_list_show").html(response);
+            }
 
-         }
+         });
+      }
 
-      });
+      function view_holidays(id){
+         //Get holidays details
+         $.ajax({
+            url:"fetch_holidays_list_id",
+            type:"GET",
+            data : {id: id},
+            dataType : "JSON",
+            success:function(response)
+            {
+                  // console.log(response);
+                  $("#occassion_show").text('');
+                  $("#description_show").text('');
+                  $("#occassion_show").append(response[0].occassion);
+                  $("#description_show").append(response[0].description);
 
-      //Get category list
-      $.ajax({
-         url:"fetch_event_edit",
-         type:"GET",
-         data : {id: id},
-         dataType : "JSON",
-         success:function(response)
-         {
-               // console.log(response);
-               var rData = [];
-               rData = response;
-               $.each(rData, function (index, value) {
+            }
 
-                  $("#event_name_show").html(value.event_name);
-                  $("#where_show").html(value.where);
-                  $("#description_show").html(value.description);
-                  $("#category_name_show").html(value.category_name);
-                  $("#event_type_show").html(value.event_type);
+         });
 
-                  // var candicate_list = JSON.parse(value.candicate_list);
-                  // console.log(candicate_list.length);
+         $('#holidaysDetailModal').modal('show');
+      }
 
-                  var start_date_time = value.start_date_time;
-                  var split = start_date_time.split(" ");
+      function view_events(id){
 
-                  const timeString = split[1];
-                  // Prepend any date. Use your birthday.
-                  const timeString12hr = new Date('1970-01-01T' + timeString + 'Z')
-                  .toLocaleTimeString('en-US',
-                     {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
-                  );
+         //Get Attendees list
+         $.ajax({
+            url:"fetch_event_attendees_show",
+            type:"GET",
+            data : {id: id},
+            dataType : "JSON",
+            success:function(response)
+            {
+                  // console.log(response);
+                  $("#candicate_list_show").html(response);
 
-                  // console.log();
-                  $("#start_date_show").html(split[0]);
-                  $("#start_time_show").html(timeString12hr);
+            }
 
-                  var end_date_time = value.end_date_time;
-                  var split = end_date_time.split(" ");
+         });
 
-                  const timeString_end = split[1];
-                  // Prepend any date. Use your birthday.
-                  const timeString12hr_end = new Date('1970-01-01T' + timeString_end + 'Z')
-                  .toLocaleTimeString('en-US',
-                     {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
-                  );
+         //Get category list
+         $.ajax({
+            url:"fetch_event_edit",
+            type:"GET",
+            data : {id: id},
+            dataType : "JSON",
+            success:function(response)
+            {
+                  // console.log(response);
+                  var rData = [];
+                  rData = response;
+                  $.each(rData, function (index, value) {
 
-                  // console.log();
-                  $("#end_date_show").html(split[0]);
-                  $("#end_time_show").html(timeString12hr_end);
+                     $("#event_name_show").html(value.event_name);
+                     $("#where_show").html(value.where);
+                     $("#description_show").html(value.description);
+                     $("#category_name_show").html(value.category_name);
+                     $("#event_type_show").html(value.event_type);
 
-               });
+                     // var candicate_list = JSON.parse(value.candicate_list);
+                     // console.log(candicate_list.length);
 
-         }
+                     var start_date_time = value.start_date_time;
+                     var split = start_date_time.split(" ");
+
+                     const timeString = split[1];
+                     // Prepend any date. Use your birthday.
+                     const timeString12hr = new Date('1970-01-01T' + timeString + 'Z')
+                     .toLocaleTimeString('en-US',
+                        {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
+                     );
+
+                     // console.log();
+                     $("#start_date_show").html(split[0]);
+                     $("#start_time_show").html(timeString12hr);
+
+                     var end_date_time = value.end_date_time;
+                     var split = end_date_time.split(" ");
+
+                     const timeString_end = split[1];
+                     // Prepend any date. Use your birthday.
+                     const timeString12hr_end = new Date('1970-01-01T' + timeString_end + 'Z')
+                     .toLocaleTimeString('en-US',
+                        {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
+                     );
+
+                     // console.log();
+                     $("#end_date_show").html(split[0]);
+                     $("#end_time_show").html(timeString12hr_end);
+
+                  });
+
+            }
 
 
-      });
+         });
 
-      $('#eventDetailModal').modal('show');
+         $('#eventDetailModal').modal('show');
 
-   }
+      }
+
 </script>
 @endsection
 

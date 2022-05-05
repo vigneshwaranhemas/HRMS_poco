@@ -80,8 +80,8 @@
    <!-- Modal Fade Start -->
    <div class="modal fade" id="add-holidays" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-         <form method="post" id="holidays-form-insert" enctype="multipart/form-data">
-         <!-- <form  id="getNewHolidaysForm"> -->
+         <!-- <form method="POST" id="getNewHolidaysForm" enctype="multipart/form-data"> -->
+         <form  id="getNewHolidaysForm">
          @csrf
             <div class="modal-content">
                <div class="modal-header">
@@ -89,54 +89,44 @@
                   <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                </div>
                <div class="modal-body">
-                  <div class="form-row mb-3">
-                     <div class="col-md-12">
-                        <label for="occassion">Occassion:</label>
-                        <input type="text" name="occassion" id="occassion" class="form-control">
-                        <div class="text-danger" id="occassion_error"></div>
-                     </div>
+                  <div class="form-group">
+                     <label class="col-form-label" for="occassion">Occassion:</label>
+                     <input type="text" name="occassion" id="occassion" class="form-control">
+                     <div class="text-danger" id="occassion_error"></div>
                   </div>
-                  <div class="form-row mb-3">
-                     <div class="col-md-12">
-                        <label for="description">Description:</label>
-                        <textarea type="text" name="description" id="description" class="form-control"></textarea>
-                        <div class="text-danger" id="description_error"></div>
-                     </div>
+                  <div class="form-group">
+                     <label class="col-form-label" for="description">Description:</label>
+                     <textarea class="form-control" name="description" id="description"></textarea>
                   </div>
-                  <div class="form-row mb-3">
-                     <div class="col-md-3">
-                        <label for="repeat-event">State:</label>
+                  <div class="form-group">
+                     <div class="col-md-2">
+                        <label class="col-form-label" for="description_edit">State:</label>
                      </div>
-                     <div class="col-md-9">
+                     <div class="col-md-10">
                         <input id="candicate_list_edit" name="candicate_list" value="true" type="checkbox">                                
-                        <label for="">All State</label>
+                        <label for="">All State</label>                              
                      </div>
-
-                     <div class="col-md-12">
-                        <!-- <select class="js-example-basic-multiple col-sm-12 form-control" style="width:500px" multiple="multiple">
-                           <option value="AL">Alabama</option>
-                           <option value="WY">Wyoming</option>
-                           <option value="WY">Coming</option>
-                           <option value="WY">Hanry Die</option>
-                           <option value="WY">John Doe</option>
-                        </select> -->
-                        <select class="select2 form-control" id="state" name="state[]"  multiple="multiple">
-                           <option value="" disabled>Select State...</option>
-                           @foreach($stateList as $state)
-                              <option value="{{ $state->state_name }}">{{ $state->state_name }}</option>
-                           @endforeach
-                        </select>   
-                        <div class="text-danger" id="state_error"></div>
-                     </div>
-                     
-                  </div>    
-                  <div class="form-row mb-3">
-                     <div class="col-md-12">
-                        <label for="occassion_file">File:</label>
-                        <input type="file" name="occassion_file" id="occassion_file" class="form-control">
-                        <div class="text-danger" id="occassion_file_error"></div>
-                     </div>
-                  </div>     
+                     <!-- <br> -->
+                     <!-- <select class="js-example-basic-multiple col-sm-12 form-control" style="width:500px" multiple="multiple">
+                          <option value="AL">Alabama</option>
+                          <option value="WY">Wyoming</option>
+                          <option value="WY">Coming</option>
+                          <option value="WY">Hanry Die</option>
+                          <option value="WY">John Doe</option>
+                     </select> -->
+                     <select class="select2 form-control mt-5" id="state" name="state[]"  multiple="multiple">
+                        <option value="">Select State...</option>
+                        @foreach($stateList as $state)
+                           <option value="{{ $state->state_name }}">{{ $state->state_name }}</option>
+                        @endforeach
+                     </select>   
+                     <div class="text-danger" id="state_error"></div>
+                  </div> 
+                  <div class="form-group">
+                     <label class="col-form-label" for="occassion_file">File:</label>
+                     <input type="file" name="occassion_file" id="occassion_file" class="form-control">
+                     <div class="text-danger" id="occassion_file_error"></div>
+                  </div>   
                </div>
                <div class="modal-footer">
                   <input type="hidden" id="occassion_date" class="form-control" name="occassion_date">

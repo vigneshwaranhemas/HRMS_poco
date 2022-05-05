@@ -26,7 +26,7 @@ $uploadCrop = $('#upload-demo').croppie({
 });
 
 
-$('#upload').on('change', function () { 
+$('#upload').on('change', function () {
     var reader = new FileReader();
     reader.onload = function (e) {
         $uploadCrop.croppie('bind', {
@@ -118,9 +118,9 @@ $('.upload-result').on('click', function (ev) {
           } else {
              text.style.display = "none";
           }
-      } 
+      }
     }
-    
+
 
     function profile_banner_image(){
     $.ajax({
@@ -129,13 +129,19 @@ $('.upload-result').on('click', function (ev) {
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data)
-            if (data !="") {
-                 $("#banner_img").attr('src',"../uploads/"+data.banner_image);
-              }else{
-                // alert("asd")
-                $("#banner_img").attr('src',"../assets/images/user/7.JPG");
-              }
+            if (Object.keys(data).length === 0) {
+                $("#banner_img").attr('src',"../assets/images/other-images/profile-style-img3.png");
+            }
+            else{
+                $("#banner_img").attr('src',"../uploads/"+data.banner_image);
+            }
+
+
+            // if (data !="") {
+            //      $("#banner_img").attr('src',"../uploads/"+data.banner_image);
+            //   }else{
+            //     $("#banner_img").attr('src',"../assets/images/user/7.JPG");
+            //   }
             }
         });
     }
@@ -186,7 +192,7 @@ function Contact_information(){
                 get_district_Current(data['0'].c_State,data['0'].c_district);
                 $('#c_district').val(data['0'].c_district);
                 get_town_name_Current(data['0'].c_district,data['0'].c_town);
-                $('#c_town').val(data['0'].c_town);                
+                $('#c_town').val(data['0'].c_town);
                 $('#State').val(data['0'].State);
             }
 
@@ -195,12 +201,12 @@ function Contact_information(){
     }
 
 
-$('#add_contact_info').submit(function(e) {    
+$('#add_contact_info').submit(function(e) {
     e.preventDefault();
       var formData = new FormData(this);
-    $.ajax({  
-        url:add_contact_info_link, 
-        method:"POST",  
+    $.ajax({
+        url:add_contact_info_link,
+        method:"POST",
         data:formData,
         processData:false,
         cache:false,
@@ -255,9 +261,9 @@ $('#add_contact_info').submit(function(e) {
                    }, 2000);
 
                }
-            
+
         },
-    }); 
+    });
 });
 /*listing*/
     function get_state_list() {
@@ -284,7 +290,7 @@ $('#add_contact_info').submit(function(e) {
         $("#c_State").on('change', function () {
             var c_State =document.getElementById('c_State').value;
             get_district_Current(c_State);
-        }); 
+        });
 
     function get_district(p_State,p_district) {
         if (p_district =="") {
@@ -467,9 +473,9 @@ $('#add_contact_info').submit(function(e) {
         });
     }
     }
-    
 
-   
+
+
 
 
 var $modal = $('#modal');
@@ -519,9 +525,9 @@ $("#crop").click(function(){
       canvas.toBlob(function(blob) {
       url = URL.createObjectURL(blob);
       var reader = new FileReader();
-      reader.readAsDataURL(blob); 
+      reader.readAsDataURL(blob);
       reader.onloadend = function() {
-      var base64data = reader.result; 
+      var base64data = reader.result;
           $.ajax({
           type: "POST",
           dataType: "json",
@@ -592,13 +598,14 @@ function profile_info_process(id){
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data['image'].path)
-            // if (data['image'].path == ""){ alert("asdasd") }
-            
+            if((data['image']==null)){
+                  $("#profile_img").attr('src',"../uploads/dummy.png");
+                // default_profile
+            }
           if (data['profile'] != ""){
               var dob = moment(data['profile'].dob).format('DD-MM-YYYY');
               var doj = moment(data['profile'].doj).format('DD-MM-YYYY');
-              // var 
+              // var
 
              $('#pro_name').html(data['profile'].username);
              $('#can_name').html(data['profile'].username);
@@ -615,11 +622,9 @@ function profile_info_process(id){
              $('#department').html(data['profile'].department);
              $('#grade').html(data['profile'].grade);
              $('#designation_tx').html(data['profile'].designation);
-          } 
+          }
           if(data['profile'] != ""){
             $("#profile_img").attr('src',"../uploads/"+data['image'].path);
-          }else{
-            $("#profile_img").attr('src',"../assets/images/user/7.JPG");
           }
         }
     });
@@ -633,7 +638,7 @@ $(()=>{
       var formData = new FormData(document.getElementById("add_documents_unit"));
    $.ajax({
        url:add_documents_unit_process_link,
-       method:"POST",  
+       method:"POST",
         data:formData,
         processData:false,
         cache:false,
@@ -669,7 +674,7 @@ $(()=>{
                    }, 2000);
 
                }
-           }, 
+           },
        });
     })
 })
@@ -707,7 +712,7 @@ function documents_info(){
                     html +="</div>";
                     html +="</div>";
                     html +="</div>";
-                    
+
                 }
                     html +="</div>";
                     html +="</div>";
@@ -742,14 +747,14 @@ function account_information(){
         });
     }
 
-$('#add_account_info').submit(function(e) { 
+$('#add_account_info').submit(function(e) {
 
 
     e.preventDefault();
       var formData = new FormData(this);
-    $.ajax({  
-        url:account_info_link, 
-        method:"POST",  
+    $.ajax({
+        url:account_info_link,
+        method:"POST",
         data:formData,
         processData:false,
         cache:false,
@@ -805,9 +810,9 @@ $('#add_account_info').submit(function(e) {
                    }, 2000);
 
                }
-            
+
         },
-    }); 
+    });
 });
 
 /*education information*/
@@ -841,12 +846,12 @@ function education_information(){
         });
     }
 
-$('#add_education_unit').submit(function(e) { 
+$('#add_education_unit').submit(function(e) {
     e.preventDefault();
       var formData = new FormData(this);
-    $.ajax({  
-        url:education_information_link, 
-        method:"POST",  
+    $.ajax({
+        url:education_information_link,
+        method:"POST",
         data:formData,
         processData:false,
         cache:false,
@@ -880,9 +885,9 @@ $('#add_education_unit').submit(function(e) {
                    }, 2000);
 
                }
-            
+
         },
-    }); 
+    });
 });
 
 /*Experience information*/
@@ -890,12 +895,12 @@ $("#v-pills-Experience-tab").on('click', function() {
     experience_info();
 });
 
-$('#add_experience_unit').submit(function(e) { 
+$('#add_experience_unit').submit(function(e) {
     e.preventDefault();
       var formData = new FormData(this);
-    $.ajax({  
-        url:experience_information_link, 
-        method:"POST",  
+    $.ajax({
+        url:experience_information_link,
+        method:"POST",
         data:formData,
         processData:false,
         cache:false,
@@ -929,9 +934,9 @@ $('#add_experience_unit').submit(function(e) {
                    }, 2000);
 
                }
-            
+
         },
-    }); 
+    });
 });
 
 function experience_info(){
@@ -963,7 +968,7 @@ function experience_info(){
                         html +="</div>";
                         html +="</div>";
                         html +="</div>";
-                        html +="</div>";   
+                        html +="</div>";
                     }
                         html +="</div>";
                         html +="</div>";
@@ -1006,12 +1011,12 @@ function family_information(){
         });
     }
 
-$('#add_family_unit').submit(function(e) {    
+$('#add_family_unit').submit(function(e) {
     e.preventDefault();
       var formData = new FormData(this);
-    $.ajax({  
-        url:add_family_info_link, 
-        method:"POST",  
+    $.ajax({
+        url:add_family_info_link,
+        method:"POST",
         data:formData,
         processData:false,
         cache:false,
@@ -1053,7 +1058,7 @@ $('#add_family_unit').submit(function(e) {
                    }, 2000);
 
                }
-            
+
         },
-    }); 
+    });
 });

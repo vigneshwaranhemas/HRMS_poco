@@ -1,3 +1,7 @@
+<?php
+$session_val = Session::get('session_info');
+$empID = $session_val['empID'];
+?>
 @extends('layouts.simple.candidate_master')
 @section('title', 'Premium Admin Template')
 
@@ -36,6 +40,7 @@
                       <div class="text-white i" data-feather="message-circle"></div>
                     </div>
                     <div class="media-body"><a class="m-0 text-white" href="{{ url('id_card_varification') }}" >ID Card Info</a>
+                        {{-- <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token"> --}}
                      <i class="icon-bg" data-feather="message-circle"></i>
                      <!--  <h4 class="mb-0 counter text-white">893</h4> -->
                     </div>
@@ -624,7 +629,7 @@ View More&lt;/button&gt;
       </div>
    </div>
    @yield('content')
-   
+
 </div>
 
 @endsection
@@ -756,4 +761,31 @@ View More&lt;/button&gt;
    }
 </script>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$( document ).ready(function() {
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+});
+$(()=>{
+    var sess_data=@json(Session::get('session_info'));
+    $.ajax({
+        url:"{{url('check_user_status')}}",
+        type:"POST",
+        data:{empID:sess_data['empID']},
+        success:function(data){
+            var res =JSON.parse(data);
+            if(res.hr_action==0 || res.hr_action==3){
+                     $("#loadModal1").modal('show');
+            }
+            else{
+                $("#loadModal1").modal('hide');
 
+            }
+        }
+    })
+})
+</script>

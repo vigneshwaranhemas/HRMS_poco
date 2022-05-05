@@ -19,7 +19,7 @@ class CommonController extends Controller
            return view('id_card_verification');
     } public function hr_id_card_verification(){
            return view('hr_id_card_verification');
-    }   
+    }
     public function __construct(IAdminRepository $admrpy,IProfileRepositories $profrpy,ICommonRepositories $cmmrpy){
         $this->admrpy = $admrpy;
         $this->profrpy = $profrpy;
@@ -39,9 +39,9 @@ class CommonController extends Controller
         $input_details = array( "empID" => $emp_ID,"cdID" =>"" );
         }
         $get_idcard_info_result = $this->profrpy->get_idcard_info( $input_details );
-        
+
         return response()->json( $get_idcard_info_result );
-        
+
     }
 
     /*ID_Card info save and update */
@@ -167,7 +167,7 @@ class CommonController extends Controller
         }
 
          /*HR ID_Card info Update */
-    public function hr_idcard_verfi(Request $request){       
+    public function hr_idcard_verfi(Request $request){
 
         /*$validator=Validator::make($request->all(),[
                 // 'pro_img_up' => 'required|mimes:jpg',
@@ -187,12 +187,12 @@ class CommonController extends Controller
                 'blood_grp.required' => 'Blood Group is required',
                 'emp_dob.required' => 'Date of birth is required',
                 ]);
-         
+
         if($validator->passes()){*/
 
               $file = $request->file('file');
         if($file!=""){
-            $destinationPath = public_path('ID_card_photo/'); 
+            $destinationPath = public_path('ID_card_photo/');
            $profileImage = $request->input('emp_code') . "." . $file->getClientOriginalExtension();
            // echo "<pre>";print_r($profileImage);die;
            $img_id=$request->input('emp_code');
@@ -271,20 +271,20 @@ class CommonController extends Controller
 
         $input_details = array( "id" => $request->id );
         $candidate_info_result_hr = $this->cmmrpy->get_candidate_info_hr( $input_details );
-        
+
         return response()->json( $candidate_info_result_hr );
-        
+
     }
 
      /*hr id card remarks information*/
-    public function hr_id_remark(Request $request){       
+    public function hr_id_remark(Request $request){
 
         $validator=Validator::make($request->all(),[
                 'id_remark' => 'required',
                 ], [
                 'id_remark.required' => 'Remark is required',
                 ]);
-         
+
         if($validator->passes()){
 
                 $data =array(
@@ -292,7 +292,7 @@ class CommonController extends Controller
                     'can_id_hr'=>$request->input('can_id_hr'),
                     );
             $update_role_unit_details_result = $this->cmmrpy->update_hr_idcard_remark( $data );
-                
+
                 /*ignore email*/
             $can_id = $request->input('can_id_hr');
             if ($can_id !="") {
@@ -309,12 +309,22 @@ class CommonController extends Controller
                     $message->to($Mail['email'])->subject($Mail['subject']);
                     });
                 /*email end*/
-            
-            
+
+
                 return response()->json(['response'=>'Update']);
         }else{
             return response()->json(['error'=>$validator->errors()->toArray()]);
             }
         }
+//vignesh code for check user status
+
+public function check_user_status(Request $request)
+{
+    $empID=$request->empID;
+    $result = $this->cmmrpy->check_user_status($empID);
+    echo json_encode($result);
+}
+
+
 
 }

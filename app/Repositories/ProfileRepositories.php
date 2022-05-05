@@ -23,11 +23,18 @@ use App\welcome_aboard;
 class ProfileRepositories implements IProfileRepositories
 {
     public function get_account_info( $input_details ){
-
+        if ($input_details['cdID'] != "") {
         $bandtbl = DB::table('candidate_account_information')
-        ->select('*')
-        ->where('cdID', '=', $input_details['cdID'])
-        ->get();
+                    ->select('*')
+                    ->where('cdID', '=', $input_details['cdID'])
+                    ->get();
+            }else if ($input_details['emp_ID'] != "") {
+
+                $bandtbl = DB::table('candidate_account_information')
+                    ->select('*')
+                    ->where('emp_id', '=', $input_details['emp_ID'])
+                    ->get();
+            }
 
         return $bandtbl;
     }

@@ -12,22 +12,9 @@
     <div class="nav-right col pull-right right-menu">
       <ul class="nav-menus">
         <li>
-         <!-- <form class="form-inline search-form" action="#" method="get">
-           <form class="form-inline search-form" action="#" method="get">
-            <div class="form-group">
-              <div class="Typeahead Typeahead--twitterUsers">
-                <div class="u-posRelative">
-                  <input class="Typeahead-input form-control-plaintext" id="demo-input" type="text" name="q" placeholder="Search Your Product...">
-                  <div class="spinner-border Typeahead-spinner" role="status"><span class="sr-only">Loading...</span></div><span class="d-sm-none mobile-search"><i data-feather="search"></i></span>
-                </div>
-                <div class="Typeahead-menu"></div>
-              </div>
-            </div>
-          </form> 
-          </form>  -->
         </li>
         <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
-        <li class="onhover-dropdown"><img class="img-fluid img-shadow-warning" src="../assets/images/dashboard/bookmark.png" alt="">
+        <!-- <li class="onhover-dropdown"><img class="img-fluid img-shadow-warning" src="../assets/images/dashboard/bookmark.png" alt="">
           <div class="onhover-show-div bookmark-flip">
             <div class="flip-card">
               <div class="flip-card-inner">
@@ -66,7 +53,7 @@
               </div>
             </div>
           </div>
-        </li>
+        </li> 
         <li class="onhover-dropdown"><img class="img-fluid img-shadow-secondary" src="../assets/images/dashboard/like.png" alt="">
           <ul class="onhover-show-div droplet-dropdown">
             <li class="gradient-primary text-center">
@@ -86,7 +73,7 @@
               <button class="btn btn-primary btn-air-primary">Follows Up</button>
             </li>
           </ul>
-        </li>
+        </li> -->
         <li class="onhover-dropdown"><img class="img-fluid img-shadow-warning" src="../assets/images/dashboard/notification.png" alt="">
           <ul class="onhover-show-div notification-dropdown">
             <li class="gradient-primary">
@@ -113,7 +100,7 @@
             <li class="bg-light txt-dark"><a href="#">All </a> notification</li>
           </ul>
         </li>
-        <li><a class="right_side_toggle" href="#"><img class="img-fluid img-shadow-success" src="../assets/images/dashboard/chat.png" alt=""></a></li>
+        <!-- <li><a class="right_side_toggle" href="#"><img class="img-fluid img-shadow-success" src="../assets/images/dashboard/chat.png" alt=""></a></li> -->
         <li class="onhover-dropdown"> <span class="media user-header"><img class="img-fluid" src="../assets/images/dashboard/user.png" alt=""></span>
           <ul class="onhover-show-div profile-dropdown">
             <li class="gradient-primary">

@@ -157,7 +157,7 @@ class DocumentsController extends Controller
                     $emp_ID = $session_val['empID'];
                     $cdID = $session_val['cdID'];
 
-                     $user = DB::table( 'candidate_account_information' )->where('cdID', '=', $cdID)->first();
+                     $user = DB::table( 'candidate_account_information' )->where('emp_id', '=', $emp_ID)->first();
                      // echo "<pre>";print_r($user);die;
 
 
@@ -203,7 +203,9 @@ class DocumentsController extends Controller
 
         $session_val = Session::get('session_info');
         $cdID = $session_val['cdID'];
-        $input_details = array( "cdID" => $cdID, );
+        $emp_ID = $session_val['empID'];
+        $input_details = array( "cdID" => $cdID,
+                                "emp_ID" => $emp_ID );
         $get_account_info_result = $this->profrpy->get_account_info( $input_details );
         
         return response()->json( $get_account_info_result );

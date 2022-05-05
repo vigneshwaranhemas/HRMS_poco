@@ -10,10 +10,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <title>HRMS - @yield('title')</title>
+    <title>HRMS @yield('title')</title>
     @include('layouts.simple.css')
     @yield('style')
-    
+
   </head>
   <body class="@if(url()->current() == route('button-builder'))  button-builder @endif">
     <!-- Loader starts-->
@@ -54,7 +54,7 @@
               </div>
             </div>
             @yield('content')
-             <div class="welcome-popup modal fade" id="loadModal" tabindex="-1" role="dialog" aria-hidden="true">
+             {{-- <div class="welcome-popup modal fade" id="loadModal" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                  <div class="modal-content">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -70,7 +70,7 @@
                     </div>
                  </div>
               </div>
-            </div>
+            </div> --}}
         </div>
         <!-- footer start-->
         @include('layouts.simple.footer')
@@ -79,3 +79,9 @@
     @include('layouts.simple.script')
   </body>
 </html>
+
+
+
+
+
+

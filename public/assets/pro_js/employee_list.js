@@ -71,7 +71,7 @@ function employee_record(){
                 "titleAttr": 'Colvis',
                 // "action": newexportaction
             },
-    
+
         ],
         lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
         processing: true,
@@ -82,8 +82,8 @@ function employee_record(){
         scrollY: 800,
         scrollCollapse: true,
         drawCallback: function() {
-    
-    
+
+
         },
         // aoColumnDefs: [
         //     { 'visible': false, 'targets': [3] }
@@ -121,9 +121,9 @@ function employee_record(){
             {   data: 'contact_no', name: 'contact_no'    },
             {   data: 'sup_name', name: 'sup_name'    },
             {   data: 'reviewer_name', name: 'reviewer_name'    },
-            
+
             // {   data: 'Info', name: 'Info'  },
-    
+
         ],
     });
 }

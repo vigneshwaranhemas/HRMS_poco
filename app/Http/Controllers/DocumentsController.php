@@ -53,13 +53,13 @@ class DocumentsController extends Controller
 
         $session_val = Session::get('session_info');
         $cdID = $session_val['cdID'];
-        // echo "<pre>";print_r($emp_ID);die;
-        $input_details = array( "cdID" => $cdID, );
+        $emp_id = $session_val['empID'];
+        $input_details = array( "cdID" => $cdID,
+                                "emp_id"=> $emp_id );
         $get_profile_info_result = $this->profrpy->get_banner_view( $input_details );
+        // echo "123<pre>";print_r($get_profile_info_result);die;
 
         return response()->json( $get_profile_info_result );
-
-        // return response()->json(['success'=>'Crop Image Uploaded Successfully']);
     }
 
     /*PreviewImage */
@@ -157,7 +157,7 @@ class DocumentsController extends Controller
                     $emp_ID = $session_val['empID'];
                     $cdID = $session_val['cdID'];
 
-                     $user = DB::table( 'candidate_account_information' )->where('cdID', '=', $cdID)->first();
+                     $user = DB::table( 'candidate_account_information' )->where('emp_id', '=', $emp_ID)->first();
                      // echo "<pre>";print_r($user);die;
 
 
@@ -189,6 +189,7 @@ class DocumentsController extends Controller
                         'acc_mobile'=>$request->input('acc_mobile'),
                         'branch_name'=>$request->input('branch_name'),
                         );
+
                 $update_role_unit_details_result = $this->profrpy->update_account_info( $data );
                     return response()->json(['response'=>'Update']);
                 }
@@ -203,7 +204,9 @@ class DocumentsController extends Controller
 
         $session_val = Session::get('session_info');
         $cdID = $session_val['cdID'];
-        $input_details = array( "cdID" => $cdID, );
+        $emp_ID = $session_val['empID'];
+        $input_details = array( "cdID" => $cdID,
+                                "emp_ID" => $emp_ID );
         $get_account_info_result = $this->profrpy->get_account_info( $input_details );
         
         return response()->json( $get_account_info_result );

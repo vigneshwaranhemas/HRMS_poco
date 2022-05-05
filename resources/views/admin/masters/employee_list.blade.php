@@ -15,7 +15,7 @@
 {
    width: 170px !important;
    height: 169px !important;
-} 
+}
 .form-row
 {
     margin-right: 58px !important;
@@ -43,7 +43,7 @@
             <select  name="status" id="status" class="form-control">
                 <option value="">--Select--</option>
                 <option value="2">Accept</option>
-                <option value="3">Ignore</option>
+                <option value="3">Revert</option>
             </select>
         </div>
       <div class="col-sm-12">
@@ -97,10 +97,10 @@
                                             <label for="employe_role">Role Type </label>
                                             <select name="created_by" id="employe_role" name="employe_role" class="form-control">
                                                 <option value="">Select</option>
-                                                
+
                                               </select>
                                         </div>
-                                      
+
                                         <input type="hidden" name="ed_id" id="ed_id">
                                     </div>
                                 </div>
@@ -258,7 +258,7 @@
                   <center>
                      <button class="btn btn-success" type="btnSubmit">Accept</button>
                      <!-- <button class="btn btn-danger">  </button> -->
-                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ignoreModal" data-whatever="@mdo">Ignore</button>
+                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ignoreModal" data-whatever="@mdo">Revert</button>
 
                   </center>
                </form>
@@ -267,7 +267,7 @@
                   </div>
                 <!-- Pop-up div Ends-->
 
-                <!-- Pop-up ignore starts-->
+                <!-- Pop-up revert starts-->
                   <div class="modal fade" id="ignoreModal" tabindex="-1" role="dialog" aria-labelledby="ignoreModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -336,24 +336,24 @@
           $(".alpha").keydown(function(event){
               var inputValue = event.which;
               if(!(inputValue >= 65 && inputValue <= 123) &&/*letters,white space,tab*/
-               (inputValue != 32 && inputValue != 0) && 
+               (inputValue != 32 && inputValue != 0) &&
                (inputValue != 48 && inputValue != 8)/*backspace*/
-               && (inputValue != 9)/*tab*/) { 
-                  event.preventDefault(); 
+               && (inputValue != 9)/*tab*/) {
+                  event.preventDefault();
               }
           });
       });
 
      function previewFile(input){
         var file = $("input[type=file]").get(0).files[0];
- 
+
         if(file){
             var reader = new FileReader();
- 
+
             reader.onload = function(){
                 $("#pro_img").attr("src", reader.result);
             }
- 
+
             reader.readAsDataURL(file);
         }
     }

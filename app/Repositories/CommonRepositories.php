@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
+use App\Models\CustomUser;
 
 class CommonRepositories implements ICommonRepositories
 {
@@ -59,7 +60,7 @@ class CommonRepositories implements ICommonRepositories
             'hr_id_remark'=>'',
         ] );
         }
-        
+
     }
 
     public function update_hr_idcard_remark( $input_details ){
@@ -69,5 +70,14 @@ class CommonRepositories implements ICommonRepositories
             'hr_id_remark'=>$input_details['id_remark'],
             'hr_action'=>'3',
         ] );
+    }
+
+
+
+
+    public function check_user_status($id)
+    {
+             $result=CustomUser::select('hr_action')->where('empID',$id)->first();
+             return $result;
     }
 }

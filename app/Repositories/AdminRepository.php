@@ -926,7 +926,7 @@ class AdminRepository implements IAdminRepository
 
             $bandtbl['profile'] = DB::table('customusers')
                         ->select('*')
-                        ->where('empID', '=', $input_details['emp_ID'])
+                        ->where('cdID', '=', $input_details['cdID'])
                         ->first();
 
            $bandtbl['image'] = DB::table('images as img')
@@ -936,7 +936,7 @@ class AdminRepository implements IAdminRepository
                         ->first();
 
         }else if($input_details['emp_ID'] != ""){
-
+             // DB::enableQueryLog();
             $bandtbl['profile'] = DB::table('customusers')
                         ->select('*')
                         ->where('empID', '=', $input_details['emp_ID'])
@@ -947,6 +947,7 @@ class AdminRepository implements IAdminRepository
                         ->where('cus.empID', '=', $input_details['emp_ID'])
                         ->join('customusers as cus', 'cus.empID', '=', 'img.emp_id')
                         ->first();
+           // dd(DB::getQueryLog());
         }
         
         return $bandtbl;

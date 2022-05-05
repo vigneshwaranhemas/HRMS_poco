@@ -1,6 +1,5 @@
 @extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
 
-@section('title', 'Premium Admin Template')
 @section('title', 'User Profile')
 @section('css')
 <!-- <link rel="stylesheet" type="text/css" href="../assets/css/photoswipe.css"> -->
@@ -22,7 +21,7 @@ max-width: 100%;
 }
 .preview {
 overflow: hidden;
-width: 160px; 
+width: 160px;
 height: 160px;
 margin: 10px;
 border: 1px solid red;
@@ -182,7 +181,7 @@ max-width: 1000px !important;
                      <a class="nav-link" id="v-pills-Experience-tab" data-toggle="pill" href="#v-pills-Experience" role="tab" aria-controls="v-pills-Experience" aria-selected="false">Experience</a>
                      <a class="nav-link" id="v-pills-Documents-tab" data-toggle="pill" href="#v-pills-Documents" role="tab" aria-controls="v-pills-Documents" aria-selected="false">Other Documents</a>
                      <a class="nav-link" id="v-pills-Family-tab" data-toggle="pill" href="#v-pills-Family" role="tab" aria-controls="v-pills-Family" aria-selected="false">Family</a>
-                     
+
                   </div>
                   <br>
                </div>
@@ -219,7 +218,7 @@ max-width: 1000px !important;
                                           <div> <strong>Marital Status : </strong> Single</div><hr>
                                        </div>
                                        <div class="col-md-6">
-                                          <div> <strong>Blood Group : </strong> A++
+                                          <div> <strong>Blood Group : </strong> <a id="blood_grp"></a>
                                           </div><hr>
                                           <div> <strong>Date of Birth :</strong> <a id="dob_tx"></a>
                                           </div><hr>
@@ -259,11 +258,11 @@ max-width: 1000px !important;
                                  <div class="row">
                                     <div class="col-md-6">
                                        <div><strong>Phone Number :</strong> <p id="p_num_view"></p></div><hr>
-                                       <div><strong>Permanent Address :</strong><p id="p_addres_view"></p></div><hr>                                       
+                                       <div><strong>Permanent Address :</strong><p id="p_addres_view"></p></div><hr>
                                        <div><strong>Personal Email :</strong> <p id="p_email_view"></p></div><hr>
                                     </div>
                                     <div class="col-md-6">
-                                      
+
                                        <div><strong>Secondary Number :</strong><p id="s_num_view"></p></div><hr>
                                        <div><strong>Current Address :</strong><p id="c_addres_view"></p></div><hr>
                                        <!-- <div><strong>State :</strong> <a id="State_view"></a></div><hr> -->
@@ -302,12 +301,12 @@ max-width: 1000px !important;
                                             <input class="form-control" name="p_email" id="p_email" type="email" placeholder="Email" required="">
                                             <div class="text-warning" id="p_email_error"></div>
                                         </div>
-                                       <div class="col-md-6 mb-3">                    
+                                       <div class="col-md-6 mb-3">
                                         <textarea class="custom-select"  type="text" id="p_addres" name="p_addres" maxlength="40" size="35" ></textarea>
                                           <input id="sameadd" name="sameadd" type="checkbox" value="Sameadd" onchange="CopyAdd();"/>
                                           <p id="text" style="display:none;color: green;">Address is Cloned...</p>
                                         </div>
-                                             
+
                                         <div class="col-md-6 mb-3">
                                             <label for="p_State">State</label>
                                             <select name="p_State" id="p_State" class="custom-select">
@@ -321,17 +320,17 @@ max-width: 1000px !important;
                                                   <option value="">--Select--</option>
                                              </select>
                                             <div class="text-warning" id="p_District_error"></div>
-                                        </div> 
+                                        </div>
                                         <div class="col-md-6 mb-3">
                                          <label for="p_town">Town</label>
                                          <select name="p_town" id="p_town" class="custom-select">
                                                   <option value="">--Select--</option>
                                              </select>
                                          <div class="text-warning" id="p_town_error"></div>
-                                       </div>  
-                                       <div class="col-md-6 mb-3"> 
+                                       </div>
+                                       <div class="col-md-6 mb-3">
                                           <textarea class="custom-select"  type="text" id="c_addres" name="c_addres" maxlength="40" size="35" ></textarea>
-                                       </div>                                       
+                                       </div>
                                        <div class="col-md-6 mb-3">
                                          <label for="c_State">State</label>
                                          <select name="c_State" id="c_State" class="custom-select">
@@ -345,14 +344,14 @@ max-width: 1000px !important;
                                                   <option value="">--Select--</option>
                                              </select>
                                             <div class="text-warning" id="c_District_error"></div>
-                                        </div> 
+                                        </div>
                                         <div class="col-md-6 mb-3">
                                           <label for="c_town">Town</label>
                                           <select name="c_town" id="c_town" class="custom-select">
                                           <option value="">--Select--</option>
                                           </select>
                                        <div class="text-warning" id="c_town_error"></div>
-                                       </div>                                         
+                                       </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -390,13 +389,13 @@ max-width: 1000px !important;
                                        <div class="col-md-6">
                                           <div><strong>Date Of Joining : </strong><a id="doj"></a></div><hr>
                                           <div><strong>Work Location : </strong><a id="worklocation_tx"></a></div><hr>
-                                          <div><strong>CTC : </strong> 29,869</div><hr>
-                                          <div><strong>RFH : </strong> HEPLRFH00436</div><hr>
+                                          <div><strong>CTC : </strong> *****</div><hr>
+                                          <div><strong>RFH : </strong> -</div><hr>
                                        </div>
                                        <div class="col-md-6">
                                           <div><strong>Department : </strong><a id="department"></a></div><hr>
-                                          <div><strong>Position : </strong> <a id="designation_tx"></a></div><hr>
-                                          <div><strong>Department : </strong>Business Process Outsourcing</div><hr>
+                                          <div><strong>Designation : </strong> <a id="designation_tx"></a></div><hr>
+                                          <!-- <div><strong>Designation : </strong><a id="designation"></a></div><hr> -->
                                           <div><strong>Grade : </strong><a id="grade"></a></div><hr>
                                        </div>
                                     </div>
@@ -429,12 +428,12 @@ max-width: 1000px !important;
                               <div class="card-body rounded">
                                  <div class="row">
                                     <div class="col-md-6">
-                                        <div><strong>HR Recruiter : </strong> Soumiya</div> <hr>
-                                        <div><strong>HR Onboarder : </strong> Anjum Fathima</div><hr>
+                                        <div><strong>HR Recruiter : </strong> - </div> <hr>
+                                        <div><strong>HR Onboarder : </strong> - </div><hr>
                                     </div>
                                     <div class="col-md-6">
-                                       <div><strong>Supervisor : </strong> Padmapriya B - padmapriyab@hemas.in</div> <hr>
-                                       <div><strong>Reviewer : </strong> Pradeesh N - pradeeshn@cavinkare.com</div><hr>
+                                       <div><strong>Supervisor : </strong> <a id="sup_name"></a></div> <hr>
+                                       <div><strong>Reviewer : </strong> <a id="reviewer_name"></a></div><hr>
                                        </div>
                                     </div>
                                  </div>
@@ -509,7 +508,7 @@ max-width: 1000px !important;
                   </div>
                   </div>
                </div>
-               <!-- Education --> 
+               <!-- Education -->
                <div class="tab-pane fade" id="v-pills-Education" role="tabpanel" aria-labelledby="v-pills-Education-tab">
                   <nav class="navbar navbar-light bg-primary rounded">
                     <span class="navbar-brand mb-0 h1">Education Information</span>
@@ -530,7 +529,7 @@ max-width: 1000px !important;
                                     </tr>
                                 </thead>
                                 <tbody id="education_td">
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -593,7 +592,7 @@ max-width: 1000px !important;
                   </nav>
                   <br>
                   <div class="ctm-border-radius shadow-sm card">
-                     <div id="Experience_tbl">                  
+                     <div id="Experience_tbl">
                      </div>
                   </div>
                    <!-- Pop-up div starts-->
@@ -654,7 +653,7 @@ max-width: 1000px !important;
                      <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#docModal">+ Add Document</button>
                   </nav>
                   <br>
-                     <div id="testing">                  
+                     <div id="testing">
                      </div>
                      <!-- Pop-up div starts-->
                   <div class="modal fade" id="docModal" tabindex="-1" role="dialog" aria-labelledby="docModalLabel" aria-hidden="true">
@@ -691,8 +690,8 @@ max-width: 1000px !important;
                       </div>
                   </div>
                   <!-- Pop-up div Ends-->
-               </div>  
-               <!-- Family -->                   
+               </div>
+               <!-- Family -->
                <div class="tab-pane fade" id="v-pills-Family" role="tabpanel" aria-labelledby="v-pills-Family-tab">
                   <nav class="navbar navbar-light bg-primary rounded">
                     <span class="navbar-brand mb-0 h1">Family</span>
@@ -713,7 +712,7 @@ max-width: 1000px !important;
                                     </tr>
                                 </thead>
                                 <tbody id="family_td">
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -794,7 +793,7 @@ max-width: 1000px !important;
                                              </select>
                                             <span class="text-danger color-hider" id="fn_blood_gr_error"  style="display:none;color: red;"></span>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -824,7 +823,7 @@ max-width: 1000px !important;
                                  <div class="card-body">
                                     <input type="file" name="image" class="image">
                                  </div>
-                              </div>  
+                              </div>
                            </div>
                               <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                                  <div class="modal-dialog modal-lg" role="document">
@@ -853,9 +852,9 @@ max-width: 1000px !important;
                                     </div>
                                  </div>
                               </div>
-                           </div>                            
+                           </div>
                           </div>
-                        </div>                             
+                        </div>
                          </form>
                      </div>
                    </div>
@@ -884,7 +883,7 @@ max-width: 1000px !important;
  <script src='../assets/js/select2/select2.full.min.js'></script>
 
  <script type="text/javascript">
-   
+
    $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -915,6 +914,6 @@ max-width: 1000px !important;
    var profile_banner_image_link = "{{url('profile_banner')}}";
    var experience_information_link = "{{url('experience_information')}}";
 
-   
+
  </script>
 @endsection

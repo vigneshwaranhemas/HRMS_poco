@@ -2110,7 +2110,7 @@ class AdminController extends Controller
         $input_details['cdID'] = $session_val['cdID'];
         $input_details['emp_ID'] = $session_val['empID'];
         $get_profile_info_result = $this->admrpy->get_profile_info( $input_details );
-        // echo "<pre>";print_r($get_profile_info_result);die;
+        // echo "33<pre>";print_r($get_profile_info_result['image']);die;
 
         return response()->json( $get_profile_info_result );
 

@@ -358,3 +358,8 @@ Route::post('hr_get_id_card_vari', 'CommonController@hr_get_id_card_vari');
 Route::post('hr_idcard_verfi', 'CommonController@hr_idcard_verfi');
 Route::post('hr_id_remark', 'CommonController@hr_id_remark');
 
+
+
+//vignesh routes for check user status
+
+Route::post('check_user_status','CommonController@check_user_status');

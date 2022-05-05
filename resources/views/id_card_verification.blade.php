@@ -76,7 +76,9 @@
                          <select class="form-control" name="working_loc" id="working_loc">
                               <option value="">Select</option>
                              <option value="Onsite">Onsite</option>
+                             <option value="Offsite">Offsite</option>
                              <option value="WFH">Work From Home</option>
+                             <option value="N/A">N/A</option>
                           </select>
                         <div class="invalid-feedback">Please provide a valid Location.</div>
                      </div>

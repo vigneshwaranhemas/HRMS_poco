@@ -1,5 +1,5 @@
 {{-- Divya --}}
-@extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
+@extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HRSS'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
 @section('title', 'Birthdays')
 
 @section('css')
@@ -31,7 +31,7 @@
    {{--<li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li>--}}
    <!-- <div class="col-md-12">  -->
-   <select class="select2 form-control" id="birthdays_filter_user" name="birthdays_filter_user">
+   <select class="js-example-basic-single col-sm-12"  id="birthdays_filter_user" name="birthdays_filter_user">
       <option value="">Select User...</option>
       @foreach($customusers as $customuser)
          <option value="{{$customuser->empID }}">{{$customuser->username }}</option>
@@ -110,7 +110,7 @@
                            <h6 class="f-w-700">DOJ:</h6>
                         </div>
                         <div class="col-sm-7">
-                           <p id="employee_doj_show">15/11/2021</p>
+                           <p id="employee_doj_show"></p>
                         </div>
                      </div>     
                      <div class="form-group form-row mt-1 mb-0">
@@ -163,9 +163,9 @@
    <script src="../assets/js/calendar/fullcalendar.min.js"></script> -->
    <!-- Plugins JS start-->
 
-   <!-- <script src="../assets/js/select2/select2.full.min.js"></script>
+   <script src="../assets/js/select2/select2.full.min.js"></script>
    <script src="../assets/js/select2/select2-custom.js"></script>
-   <script src="../assets/js/chat-menu.js"></script> -->
+   <!-- <script src="../assets/js/chat-menu.js"></script> -->
    <!-- Plugins JS start-->
    <!-- <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js"></script>
    <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/jquery.min.js"></script>

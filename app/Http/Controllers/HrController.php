@@ -278,9 +278,9 @@ class HrController extends Controller
 
     public function welcome_aboard_generate_image(Request $req)
     {
-        $width       = 1200;
-        $height      = 700;
-        $center_x    = 60;
+        $width       = 1600;
+        $height      = 800;
+        $center_x    = 490;
         $center_y    = 340;
         $max_len     = 120;
         $font_size   = 20;
@@ -292,7 +292,11 @@ class HrController extends Controller
 
         $lines = explode("\n", wordwrap($text, $max_len));
         $y     = $center_y - ((count($lines) - 1) * $font_height);
-        $image   = Image::canvas($width, $height, '#ffffff');
+
+        // $image   = Image::canvas($width, $height, '#ffffff');
+        $image   = Image::make('../public/assets/images/image_generator/welcome_aboard_background_image.png')->resize($width, $height);
+
+        // $image->insert('../public/assets/images/image_generator/watermark.jpg', 'bottom', 1300, 200);
 
         foreach ($lines as $line)
         {
@@ -301,7 +305,7 @@ class HrController extends Controller
                 $font->size($font_size);
                 $font->color('#000000');
                 $font->align('left');
-                $font->valign('center');
+                $font->valign('middle');
             });
 
             $y += $font_height * 2;

@@ -2,7 +2,7 @@
 @section('title', 'Department')
 
 @section('css')
-<link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
+<link rel="stylesheet" type="texcss" href="../assets/css/prism.css">
     <!-- Plugins css start-->
 <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">

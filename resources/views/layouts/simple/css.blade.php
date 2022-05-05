@@ -26,8 +26,9 @@
 {
     margin-right: 100%;
 }
-
-
+.page-main-header .main-header-right .nav-right.right-menu ul li .user-header img.db_profile_img {
+    width: 60px !important;
+}
 /* .dataTables_scrollBody
 {
     overflow: hidden !important;

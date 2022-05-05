@@ -111,7 +111,7 @@
                         <div class="text-center">
                                 <button class="btn btn-primary-gradien mb-5" type="submit" id="btnSubmit">Export</button>
                         </div>
-                        <a href="{{url('../assets/images/image_generator/image.jpg')}}" target="_blank"><img src="../assets/images/image_generator/image.jpg" alt="image_generator"></a>
+                        <a href="{{url('../assets/images/image_generator/image.jpg')}}" target="_blank"><img src="../assets/images/image_generator/image.jpg" alt="image_generator" style="width: -webkit-fill-available; margin-bottom: 60px;"></a>
                         <div class="text-center">
                             <a href="{{url('../assets/images/image_generator/image.jpg')}}" download>
                                 <button class="btn btn-primary-gradien" type="button">Download</button>
@@ -156,11 +156,13 @@ $(()=>{
        success:function(data) {
         //    alert('sdf')
            console.log(data);
+           $('#btnSubmit').prop("disabled",true);
+            $('#btnSubmit').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Processing');
 
            if(data.response =='success'){
             Toastify({
                    text: "Export Sucessfully..!",
-                   duration: 3000,
+                   duration: 1000,
                    close:true,
                    backgroundColor: "#4fbe87",
                }).showToast();

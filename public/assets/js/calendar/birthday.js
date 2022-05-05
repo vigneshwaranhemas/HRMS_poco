@@ -169,7 +169,7 @@ $('#birthdays_filter_user').change(function () {
     // alert(employee)
      var url = "fetch_birthdays_list";
     var fil = url+'?employee=' + employee;
-    alert(fil)
+    // alert(fil)
     $('#cal-basic').fullCalendar('refetchEvents', fil);    
 
     // $('#calendar').fullCalendar({ events: "fetch_birthdays_list?resourceid=1" });

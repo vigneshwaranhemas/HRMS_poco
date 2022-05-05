@@ -610,6 +610,7 @@ function profile_info_process(id){
              $('#pro_name').html(data['profile'].username);
              $('#can_name').html(data['profile'].username);
              $('#email').html(data['profile'].email);
+             $('#blood_grp').html(data['profile'].blood_grp);
              $('#dob').html(dob);
              $('#contact_no').html(data['profile'].contact_no);
              $('#worklocation').html(data['profile'].worklocation);
@@ -620,7 +621,10 @@ function profile_info_process(id){
              $('#doj').html(doj);
              $('#worklocation_tx').html(data['profile'].worklocation);
              $('#department').html(data['profile'].department);
+             $('#designation').html(data['profile'].designation);
              $('#grade').html(data['profile'].grade);
+             $('#sup_name').html(data['profile'].sup_name);
+             $('#reviewer_name').html(data['profile'].reviewer_name);
              $('#designation_tx').html(data['profile'].designation);
           }
           if(data['profile'] != ""){
@@ -748,7 +752,7 @@ function account_information(){
     }
 
 $('#add_account_info').submit(function(e) {
-
+    // alert("asdasd")
 
     e.preventDefault();
       var formData = new FormData(this);

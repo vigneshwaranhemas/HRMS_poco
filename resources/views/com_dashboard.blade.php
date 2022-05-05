@@ -3,7 +3,6 @@ $session_val = Session::get('session_info');
 $empID = $session_val['empID'];
 ?>
 @extends('layouts.simple.candidate_master')
-@section('title', 'Premium Admin Template')
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
@@ -93,33 +92,11 @@ $empID = $session_val['empID'];
             </div> -->
          </div>
       </div>
-      <div class="col-xl-8 xl-100 box-col-12">
-         <div class="card year-overview">
-            <div class="card-header no-border d-flex">
-               <h5>Year Overview</h5>
-               <ul class="creative-dots">
-                  <li class="bg-primary big-dot"></li>
-                  <li class="bg-secondary semi-big-dot"></li>
-                  <li class="bg-warning medium-dot"></li>
-                  <li class="bg-info semi-medium-dot"></li>
-                  <li class="bg-secondary semi-small-dot"></li>
-                  <li class="bg-primary small-dot"></li>
-               </ul>
-               <div class="header-right pull-right text-right">
-                  <h5 class="mb-2">70 / 100</h5>
-                  <h6 class="f-w-700 mb-0 default-text">Total 71,52,225 $</h6>
-               </div>
-            </div>
-            <div class="card-body row">
-               <div class="col-6 p-0 ct-10 default-chartist-container"></div>
-               <div class="col-6 p-0 ct-11 default-chartist-container"></div>
-            </div>
-         </div>
-      </div>
-      <div class="col-xl-4 xl-100 box-col-12">
+      
+      <div class="col-xl-7 xl-100 box-col-12">
          <div class="card">
             <div class="card-header no-border">
-               <h5>Sales By Countries</h5>
+               <h5>Today's Birthdays</h5>
                <ul class="creative-dots">
                   <li class="bg-primary big-dot"></li>
                   <li class="bg-secondary semi-big-dot"></li>
@@ -129,35 +106,143 @@ $empID = $session_val['empID'];
                   <li class="bg-primary small-dot"></li>
                </ul>
                <div class="card-header-right">
+               <i class="icofont icofont-birthday-cake font-primary"  style="font-size: 18px;"></i>
+               </div>
+            </div>
+            <div class="card-body pt-0">
+               <ul class="crm-activity">
+                  @foreach($todays_birthdays as $todays_birthday)
+                  <li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>
+                     <div class="align-self-center media-body" style="margin-left: 16px;">
+                        <h5 class="mt-0">{{$todays_birthday->username }}</h5>
+                        <p>Happy Birthday {{$todays_birthday->username }}, Have a great year ahead! <img style="width:34px" src="{{ asset('assets/images/cupcake.svg') }}" alt="Cupcake" class="img-fluid"></p>
+                     </div>
+                  </li>
+                  @endforeach
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-5 xl-100 box-col-12">
+         <div class="card">
+            <div class="card-header no-border">
+               <h5>Upcoming Holidays</h5>
+               <!-- <ul class="creative-dots">
+                  <li class="bg-primary big-dot"></li>
+                  <li class="bg-secondary semi-big-dot"></li>
+                  <li class="bg-warning medium-dot"></li>
+                  <li class="bg-info semi-medium-dot"></li>
+                  <li class="bg-secondary semi-small-dot"></li>
+                  <li class="bg-primary small-dot"></li>
+               </ul> -->
+               <div class="card-header-right">
                   <ul class="list-unstyled card-option">
-                     <li><i class="icofont icofont-gear fa fa-spin font-primary"></i></li>
-                     <li><i class="view-html fa fa-code font-primary"></i></li>
-                     <li><i class="icofont icofont-maximize full-card font-primary"></i></li>
-                     <li><i class="icofont icofont-minus minimize-card font-primary"></i></li>
-                     <li><i class="icofont icofont-refresh reload-card font-primary"></i></li>
-                     <li><i class="icofont icofont-error close-card font-primary"></i></li>
+                     <li><a href="{{ route('holidays') }}"><i class="icofont icofont-calendar font-primary"></i></a></li>
                   </ul>
                </div>
             </div>
-            <div class="card-body p-0">
-               <div class="radial-default">
-                  <div id="circlechart"></div>
-               </div>
-               <div class="code-box-copy">
-                  <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head1" title="Copy"><i class="icofont icofont-copy-alt"></i></button>
-                  <pre><code class="language-html" id="example-head1">&lt;!-- Cod Box Copy begin --&gt;
-&lt;div class="card-body p-0"&gt;
-&lt;div class="radial-default"&gt;
-&lt;div id="circlechart"&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;!-- Cod Box Copy end --&gt;</code></pre>
+            <div class="card-body pt-0">
+               <div class="activity-table table-responsive">
+                  <table class="table table-bordernone">
+                     <tbody>
+                        @foreach($upcoming_holidays as $upcoming_holiday)
+                           <tr>
+                              <td>
+                              <div class="activity-image"><img class="img-fluid" src="../assets/images/dashboard/clipboard.png" alt=""></div>
+                              </td>
+                              <td>
+                              <div class="activity-details">
+                                 <h4 class="default-text">{{ date('d', strtotime($upcoming_holiday->date)) }} <span class="f-14">{{ date('M', strtotime($upcoming_holiday->date)) }}</span></h4>
+                                 <h6>{{$upcoming_holiday->occassion }}</h6>
+                              </div>
+                              </td>
+                              <td>
+                              <button class="btn btn-shadow-primary" onclick="view_holidays({{ $upcoming_holiday->id }})">View</button>
+                              </td>
+                           </tr>
+                        @endforeach
+                     </tbody>
+                  </table>
                </div>
             </div>
          </div>
       </div>
-      <div class="col-xl-4 xl-50 box-col-12">
+
+      <div class="col-xl-7 xl-100 box-col-12">
+         <div class="card">
+            <div class="card-header no-border">
+               <h5>Today's Work Anniversary</h5>
+               <ul class="creative-dots">
+                  <li class="bg-primary big-dot"></li>
+                  <li class="bg-secondary semi-big-dot"></li>
+                  <li class="bg-warning medium-dot"></li>
+                  <li class="bg-info semi-medium-dot"></li>
+                  <li class="bg-secondary semi-small-dot"></li>
+                  <li class="bg-primary small-dot"></li>
+               </ul>
+               <div class="card-header-right">
+               <i class="icofont icofont-flora-flower font-primary"  style="font-size: 18px;"></i>
+               </div>
+            </div>
+            <div class="card-body pt-0">
+               <ul class="crm-activity">
+                  @foreach($tdy_work_anniversary as $tdy_work_avry)
+                  <li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>
+                     <div class="align-self-center media-body" style="margin-left: 16px;">
+                        <h5 class="mt-0">{{$tdy_work_avry->username }}</h5>
+                        <p>Happy Work Anniversary {{$tdy_work_avry->username }}, Have a great year ahead! <img style="width:34px" src="{{ asset('assets/images/flowers.svg') }}" alt="Cupcake" class="img-fluid"></p>
+                     </div>
+                  </li>
+                  @endforeach
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-5 xl-100 box-col-12">
+         <div class="card">
+            <div class="card-header no-border">
+               <h5>Upcoming Events</h5>
+               <!-- <ul class="creative-dots">
+                  <li class="bg-primary big-dot"></li>
+                  <li class="bg-secondary semi-big-dot"></li>
+                  <li class="bg-warning medium-dot"></li>
+                  <li class="bg-info semi-medium-dot"></li>
+                  <li class="bg-secondary semi-small-dot"></li>
+                  <li class="bg-primary small-dot"></li>
+               </ul> -->
+               <div class="card-header-right">
+                  <ul class="list-unstyled card-option">
+                     <li><a href="{{ route('events') }}"><i class="icofont icofont-calendar font-primary"></i></a></li>
+                  </ul>
+               </div>
+            </div>
+            <div class="card-body pt-0">
+               <div class="activity-table table-responsive">
+                  <table class="table table-bordernone">
+                     <tbody>
+                        @foreach($upcoming_events as $upcoming_event)
+                           <tr>
+                              <td>
+                              <div class="activity-image"><img class="img-fluid" src="../assets/images/dashboard/greeting.png" alt=""></div>
+                              </td>
+                              <td>
+                              <div class="activity-details">
+                                 <h4 class="default-text">{{ date('d', strtotime($upcoming_event->start_date_time)) }} <span class="f-14">{{ date('M', strtotime($upcoming_event->start_date_time)) }}</span></h4>
+                                 <h6>{{$upcoming_event->event_name }}</h6>
+                              </div>
+                              </td>
+                              <td>
+                              <button class="btn btn-shadow-primary" onclick="view_events({{ $upcoming_event->id }})">View</button>
+                              </td>
+                           </tr>
+                        @endforeach
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+        <div class="col-xl-4 xl-50 box-col-12">
          <div class="card gradient-secondary o-hidden monthly-overview">
             <div class="card-header no-border bg-transparent">
                <h5>Monthly Overview</h5>
@@ -360,85 +445,34 @@ View More&lt;/button&gt;
             </div>
          </div>
       </div>
-      <div class="col-xl-7 xl-100 box-col-12">
-         <div class="card">
-            <div class="card-header no-border">
-               <h5>Today's Birthdays</h5>
-               <ul class="creative-dots">
-                  <li class="bg-primary big-dot"></li>
-                  <li class="bg-secondary semi-big-dot"></li>
-                  <li class="bg-warning medium-dot"></li>
-                  <li class="bg-info semi-medium-dot"></li>
-                  <li class="bg-secondary semi-small-dot"></li>
-                  <li class="bg-primary small-dot"></li>
-               </ul>
-               <div class="card-header-right">
-               <i class="icofont icofont-birthday-cake font-primary"  style="font-size: 18px;"></i>
-               </div>
-            </div>
-            <div class="card-body pt-0">
-               <ul class="crm-activity">
-                  @foreach($todays_birthdays as $todays_birthday)
-                  <li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>
-                     <div class="align-self-center media-body" style="margin-left: 16px;">
-                        <h5 class="mt-0">{{$todays_birthday->username }}</h5>
-                        <p>Happy Birthday {{$todays_birthday->username }}, Have a great year ahead! <img style="width:34px" src="{{ asset('assets/images/cupcake.svg') }}" alt="Cupcake" class="img-fluid"></p>
-                     </div>
-                  </li>
-                  @endforeach
-               </ul>
-            </div>
-         </div>
-      </div>
-      <div class="col-xl-5 xl-100 box-col-12">
-         <div class="card">
-            <div class="card-header no-border">
-               <h5>Upcoming Holidays</h5>
-               <!-- <ul class="creative-dots">
-                  <li class="bg-primary big-dot"></li>
-                  <li class="bg-secondary semi-big-dot"></li>
-                  <li class="bg-warning medium-dot"></li>
-                  <li class="bg-info semi-medium-dot"></li>
-                  <li class="bg-secondary semi-small-dot"></li>
-                  <li class="bg-primary small-dot"></li>
-               </ul> -->
-               <div class="card-header-right">
-                  <ul class="list-unstyled card-option">
-                     <li><a href="{{ route('holidays') }}"><i class="icofont icofont-calendar font-primary"></i></a></li>
-                  </ul>
-               </div>
-            </div>
-            <div class="card-body pt-0">
-               <div class="activity-table table-responsive">
-                  <table class="table table-bordernone">
-                     <tbody>
-                        @foreach($upcoming_holidays as $upcoming_holiday)
-                           <tr>
-                              <td>
-                              <div class="activity-image"><img class="img-fluid" src="../assets/images/dashboard/clipboard.png" alt=""></div>
-                              </td>
-                              <td>
-                              <div class="activity-details">
-                                 <h4 class="default-text">{{ date('d', strtotime($upcoming_holiday->date)) }} <span class="f-14">{{ date('M', strtotime($upcoming_holiday->date)) }}</span></h4>
-                                 <h6>{{$upcoming_holiday->occassion }}</h6>
-                              </div>
-                              </td>
-                              <td>
-                              <button class="btn btn-shadow-primary" onclick="view_holidays({{ $upcoming_holiday->id }})">View</button>
-                              </td>
-                           </tr>
-                        @endforeach
-                     </tbody>
-                  </table>
-               </div>
-            </div>
-         </div>
-      </div>
 
-      <div class="col-xl-7 xl-100 box-col-12">
+      <div class="col-xl-8 xl-100 box-col-12">
+         <div class="card year-overview">
+            <div class="card-header no-border d-flex">
+               <h5>Year Overview</h5>
+               <ul class="creative-dots">
+                  <li class="bg-primary big-dot"></li>
+                  <li class="bg-secondary semi-big-dot"></li>
+                  <li class="bg-warning medium-dot"></li>
+                  <li class="bg-info semi-medium-dot"></li>
+                  <li class="bg-secondary semi-small-dot"></li>
+                  <li class="bg-primary small-dot"></li>
+               </ul>
+               <div class="header-right pull-right text-right">
+                  <h5 class="mb-2">70 / 100</h5>
+                  <h6 class="f-w-700 mb-0 default-text">Total 71,52,225 $</h6>
+               </div>
+            </div>
+            <div class="card-body row">
+               <div class="col-6 p-0 ct-10 default-chartist-container"></div>
+               <div class="col-6 p-0 ct-11 default-chartist-container"></div>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-4 xl-100 box-col-12">
          <div class="card">
             <div class="card-header no-border">
-               <h5>Today's Work Anniversary</h5>
+               <h5>Sales By Countries</h5>
                <ul class="creative-dots">
                   <li class="bg-primary big-dot"></li>
                   <li class="bg-secondary semi-big-dot"></li>
@@ -448,67 +482,36 @@ View More&lt;/button&gt;
                   <li class="bg-primary small-dot"></li>
                </ul>
                <div class="card-header-right">
-               <i class="icofont icofont-flora-flower font-primary"  style="font-size: 18px;"></i>
-               </div>
-            </div>
-            <div class="card-body pt-0">
-               <ul class="crm-activity">
-                  @foreach($tdy_work_anniversary as $tdy_work_avry)
-                  <li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>
-                     <div class="align-self-center media-body" style="margin-left: 16px;">
-                        <h5 class="mt-0">{{$tdy_work_avry->username }}</h5>
-                        <p>Happy Work Anniversary {{$tdy_work_avry->username }}, Have a great year ahead! <img style="width:34px" src="{{ asset('assets/images/flowers.svg') }}" alt="Cupcake" class="img-fluid"></p>
-                     </div>
-                  </li>
-                  @endforeach
-               </ul>
-            </div>
-         </div>
-      </div>
-      <div class="col-xl-5 xl-100 box-col-12">
-         <div class="card">
-            <div class="card-header no-border">
-               <h5>Upcoming Events</h5>
-               <!-- <ul class="creative-dots">
-                  <li class="bg-primary big-dot"></li>
-                  <li class="bg-secondary semi-big-dot"></li>
-                  <li class="bg-warning medium-dot"></li>
-                  <li class="bg-info semi-medium-dot"></li>
-                  <li class="bg-secondary semi-small-dot"></li>
-                  <li class="bg-primary small-dot"></li>
-               </ul> -->
-               <div class="card-header-right">
                   <ul class="list-unstyled card-option">
-                     <li><a href="{{ route('events') }}"><i class="icofont icofont-calendar font-primary"></i></a></li>
+                     <li><i class="icofont icofont-gear fa fa-spin font-primary"></i></li>
+                     <li><i class="view-html fa fa-code font-primary"></i></li>
+                     <li><i class="icofont icofont-maximize full-card font-primary"></i></li>
+                     <li><i class="icofont icofont-minus minimize-card font-primary"></i></li>
+                     <li><i class="icofont icofont-refresh reload-card font-primary"></i></li>
+                     <li><i class="icofont icofont-error close-card font-primary"></i></li>
                   </ul>
                </div>
             </div>
-            <div class="card-body pt-0">
-               <div class="activity-table table-responsive">
-                  <table class="table table-bordernone">
-                     <tbody>
-                        @foreach($upcoming_events as $upcoming_event)
-                           <tr>
-                              <td>
-                              <div class="activity-image"><img class="img-fluid" src="../assets/images/dashboard/greeting.png" alt=""></div>
-                              </td>
-                              <td>
-                              <div class="activity-details">
-                                 <h4 class="default-text">{{ date('d', strtotime($upcoming_event->start_date_time)) }} <span class="f-14">{{ date('M', strtotime($upcoming_event->start_date_time)) }}</span></h4>
-                                 <h6>{{$upcoming_event->event_name }}</h6>
-                              </div>
-                              </td>
-                              <td>
-                              <button class="btn btn-shadow-primary" onclick="view_events({{ $upcoming_event->id }})">View</button>
-                              </td>
-                           </tr>
-                        @endforeach
-                     </tbody>
-                  </table>
+            <div class="card-body p-0">
+               <div class="radial-default">
+                  <div id="circlechart"></div>
+               </div>
+               <div class="code-box-copy">
+                  <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head1" title="Copy"><i class="icofont icofont-copy-alt"></i></button>
+                  <pre><code class="language-html" id="example-head1">&lt;!-- Cod Box Copy begin --&gt;
+&lt;div class="card-body p-0"&gt;
+&lt;div class="radial-default"&gt;
+&lt;div id="circlechart"&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- Cod Box Copy end --&gt;</code></pre>
                </div>
             </div>
          </div>
       </div>
+    
+      
 
    </div>
 </div>

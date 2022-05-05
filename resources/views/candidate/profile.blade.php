@@ -1,6 +1,5 @@
 @extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
 
-@section('title', 'Premium Admin Template')
 @section('title', 'User Profile')
 @section('css')
 <!-- <link rel="stylesheet" type="text/css" href="../assets/css/photoswipe.css"> -->
@@ -219,7 +218,7 @@ max-width: 1000px !important;
                                           <div> <strong>Marital Status : </strong> Single</div><hr>
                                        </div>
                                        <div class="col-md-6">
-                                          <div> <strong>Blood Group : </strong> A++
+                                          <div> <strong>Blood Group : </strong> <a id="blood_grp"></a>
                                           </div><hr>
                                           <div> <strong>Date of Birth :</strong> <a id="dob_tx"></a>
                                           </div><hr>
@@ -390,13 +389,13 @@ max-width: 1000px !important;
                                        <div class="col-md-6">
                                           <div><strong>Date Of Joining : </strong><a id="doj"></a></div><hr>
                                           <div><strong>Work Location : </strong><a id="worklocation_tx"></a></div><hr>
-                                          <div><strong>CTC : </strong> 29,869</div><hr>
-                                          <div><strong>RFH : </strong> HEPLRFH00436</div><hr>
+                                          <div><strong>CTC : </strong> *****</div><hr>
+                                          <div><strong>RFH : </strong> -</div><hr>
                                        </div>
                                        <div class="col-md-6">
                                           <div><strong>Department : </strong><a id="department"></a></div><hr>
-                                          <div><strong>Position : </strong> <a id="designation_tx"></a></div><hr>
-                                          <div><strong>Department : </strong>Business Process Outsourcing</div><hr>
+                                          <div><strong>Designation : </strong> <a id="designation_tx"></a></div><hr>
+                                          <!-- <div><strong>Designation : </strong><a id="designation"></a></div><hr> -->
                                           <div><strong>Grade : </strong><a id="grade"></a></div><hr>
                                        </div>
                                     </div>
@@ -429,12 +428,12 @@ max-width: 1000px !important;
                               <div class="card-body rounded">
                                  <div class="row">
                                     <div class="col-md-6">
-                                        <div><strong>HR Recruiter : </strong> Soumiya</div> <hr>
-                                        <div><strong>HR Onboarder : </strong> Anjum Fathima</div><hr>
+                                        <div><strong>HR Recruiter : </strong> - </div> <hr>
+                                        <div><strong>HR Onboarder : </strong> - </div><hr>
                                     </div>
                                     <div class="col-md-6">
-                                       <div><strong>Supervisor : </strong> Padmapriya B - padmapriyab@hemas.in</div> <hr>
-                                       <div><strong>Reviewer : </strong> Pradeesh N - pradeeshn@cavinkare.com</div><hr>
+                                       <div><strong>Supervisor : </strong> <a id="sup_name"></a></div> <hr>
+                                       <div><strong>Reviewer : </strong> <a id="reviewer_name"></a></div><hr>
                                        </div>
                                     </div>
                                  </div>

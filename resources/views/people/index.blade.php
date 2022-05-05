@@ -88,7 +88,7 @@
                                                         </select>
                                                     <!-- </div>
                                                     <div class="col-lg-2"> -->
-                                                        <a class="badge badge-light btn btn-lg" href="#"><i data-feather="dollar-sign"></i></a>
+                                                        <!-- <a class="badge badge-light btn btn-lg" href="#"><i data-feather="filter"></i></a> -->
                                                     <!-- </div>
                                                 </div> -->
                                                 <!-- <form class="theme-form">

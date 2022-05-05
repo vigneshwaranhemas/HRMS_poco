@@ -144,6 +144,7 @@ class AdminController extends Controller
         $tdy = $current_month."-".$current_date;
         $current = $current_year."-".$current_month."-".$current_date;
         $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%%-'.$tdy.'%')->get();
+
         $html_todays_birthdays = '';
 
         foreach($todays_birthdays as $todays_birthday){

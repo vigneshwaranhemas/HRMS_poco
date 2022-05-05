@@ -53,13 +53,13 @@ class DocumentsController extends Controller
 
         $session_val = Session::get('session_info');
         $cdID = $session_val['cdID'];
-        // echo "<pre>";print_r($emp_ID);die;
-        $input_details = array( "cdID" => $cdID, );
+        $emp_id = $session_val['empID'];
+        $input_details = array( "cdID" => $cdID,
+                                "emp_id"=> $emp_id );
         $get_profile_info_result = $this->profrpy->get_banner_view( $input_details );
+        // echo "123<pre>";print_r($get_profile_info_result);die;
 
         return response()->json( $get_profile_info_result );
-
-        // return response()->json(['success'=>'Crop Image Uploaded Successfully']);
     }
 
     /*PreviewImage */

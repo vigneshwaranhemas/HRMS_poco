@@ -129,11 +129,12 @@ $('.upload-result').on('click', function (ev) {
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data.banner_image)
+            // console.log(data)
             if (data !="") {
                  $("#banner_img").attr('src',"../uploads/"+data.banner_image);
               }else{
-                // $("#banner_img").attr('src',"../assets/images/user/7.jpg");
+                // alert("asd")
+                $("#banner_img").attr('src',"../assets/images/user/7.JPG");
               }
             }
         });
@@ -591,7 +592,9 @@ function profile_info_process(id){
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data['profile'])
+            // console.log(data['image'].path)
+            // if (data['image'].path == ""){ alert("asdasd") }
+            
           if (data['profile'] != ""){
               var dob = moment(data['profile'].dob).format('DD-MM-YYYY');
               var doj = moment(data['profile'].doj).format('DD-MM-YYYY');
@@ -612,11 +615,12 @@ function profile_info_process(id){
              $('#department').html(data['profile'].department);
              $('#grade').html(data['profile'].grade);
              $('#designation_tx').html(data['profile'].designation);
+          } 
+          if(data['profile'] != ""){
             $("#profile_img").attr('src',"../uploads/"+data['image'].path);
-          }else if(data['image'] == ""){
-            $("#profile_img").attr('src',"../assets/images/user/7.jpg");
+          }else{
+            $("#profile_img").attr('src',"../assets/images/user/7.JPG");
           }
-
         }
     });
 }
@@ -724,7 +728,7 @@ function account_information(){
         data:{},
         dataType: "json",
         success: function(data) {
-            console.log(data)
+            // console.log(data)
             if (data !="") {
                     $('#acc_mobile').val(data['0'].acc_mobile);
                     $('#acc_name').val(data['0'].acc_name);

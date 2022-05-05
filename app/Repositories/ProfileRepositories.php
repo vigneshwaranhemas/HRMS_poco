@@ -59,12 +59,22 @@ class ProfileRepositories implements IProfileRepositories
     }
     public function get_banner_view( $input_details ){
 
-        $bandtbl = DB::table('candidate_banner_image')
-        ->select('*')
-        ->where('cdID', '=', $input_details['cdID'])
-        // ->join('customusers as cus', 'cus.cdID', '=', 'img.cdID')
-        ->first();
-        // echo "<pre>";print_r($bandtbl);die;
+        // echo "<pre>";print_r($input_details['cdID']);die;
+
+        if ($input_details['cdID'] != "") {
+             $bandtbl = DB::table('candidate_banner_image')
+                        ->select('*')
+                        ->where('cdID', '=', $input_details['cdID'])
+                        ->first();
+        }else if ($input_details['emp_id'] != "") {
+
+            $bandtbl = DB::table('candidate_banner_image')
+                        ->select('*')
+                        ->where('emp_id', '=', $input_details['emp_id'])
+                        ->first();
+        }
+
+       
         return $bandtbl;
     }
 

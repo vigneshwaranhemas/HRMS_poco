@@ -189,6 +189,7 @@ class DocumentsController extends Controller
                         'acc_mobile'=>$request->input('acc_mobile'),
                         'branch_name'=>$request->input('branch_name'),
                         );
+
                 $update_role_unit_details_result = $this->profrpy->update_account_info( $data );
                     return response()->json(['response'=>'Update']);
                 }

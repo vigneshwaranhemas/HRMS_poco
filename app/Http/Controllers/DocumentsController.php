@@ -353,7 +353,9 @@ class DocumentsController extends Controller
 
         $session_val = Session::get('session_info');
         $cdID = $session_val['cdID'];
-        $input_details = array( "cdID" => $cdID, );
+        $emp_id = $session_val['empID'];
+        $input_details = array( "cdID" => $cdID, 
+                                   "emp_id" => $emp_id  );
         $Contact_info_result = $this->profrpy->Contact_info( $input_details );
         // echo "<pre>";print_r($education_result);die;
         return response()->json( $Contact_info_result );
@@ -431,7 +433,9 @@ class DocumentsController extends Controller
 
         $session_val = Session::get('session_info');
         $cdID = $session_val['cdID'];
-        $input_details = array( "cdID" => $cdID, );
+        $emp_id = $session_val['empID'];
+        $input_details = array( "cdID" => $cdID,
+                                "emp_id" =>$emp_id );
         $education_result = $this->profrpy->family_info( $input_details );
         
         return response()->json( $education_result );

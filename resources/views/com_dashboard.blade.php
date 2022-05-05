@@ -92,7 +92,7 @@ $empID = $session_val['empID'];
             </div> -->
          </div>
       </div>
-      
+
       <div class="col-xl-7 xl-100 box-col-12">
          <div class="card">
             <div class="card-header no-border">
@@ -510,8 +510,8 @@ View More&lt;/button&gt;
             </div>
          </div>
       </div>
-    
-      
+
+
 
    </div>
 </div>

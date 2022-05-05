@@ -79,14 +79,7 @@
     @include('layouts.simple.script')
   </body>
 </html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
 
- $(()=>{
-     alert('test')
- })
-
-</script>
 
 
 

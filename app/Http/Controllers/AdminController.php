@@ -365,17 +365,17 @@ class AdminController extends Controller
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
                     </div> &nbsp;' ;
-                    if ($row->hr_action != 2) {                                                 
+                    if ($row->hr_action != 2) {
                     $btn .= '<button class="btn btn-info" type="button" data-toggle="modal" data-original-title="test" style="width: 15%;height: 35px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
-                        } 
+                        }
                 return $btn;
             })
-            /*->addColumn('Info', function($row) {                
-                $btn = '<a class="dropdown-item" href="candidate_profile_view" onclick="candidate_profile_view('."'".$row->id."'".'); style="width: 15%;height: 35px;""><i class="fa fa-edit"></i></a>'; 
+            /*->addColumn('Info', function($row) {
+                $btn = '<a class="dropdown-item" href="candidate_profile_view" onclick="candidate_profile_view('."'".$row->id."'".'); style="width: 15%;height: 35px;""><i class="fa fa-edit"></i></a>';
                 $btn .= '<a class="dropdown-item" href="hr_id_card_verification?id='."".$row->id."".'"  onclick="hr_id_card_ver('."'".$row->id."'".'); style="width: 15%;height: 35px;""><i class="fa fa-eye"></i></a>';
                 return $btn;
             })*/
-            
+
             ->rawColumns(['Info','action'])
             ->make(true);
         }
@@ -2260,9 +2260,9 @@ class AdminController extends Controller
     public function get_role_type(Request $request){
 
         $role_type_res = $this->admrpy->role_type_list();
-        
+
         return response()->json( $role_type_res );
-        
+
     }
 
     public function get_employee_pop(Request $req){

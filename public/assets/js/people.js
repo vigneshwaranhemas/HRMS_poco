@@ -635,7 +635,6 @@ $('body').on('click','.people_list_ul_li',function(){
 //     $('.div_filter').css('display', 'block');
 // });
 
-
 $('body').on('click','.div_filter_close',function(){
     $('.div_filter').css('display', 'none');
 });

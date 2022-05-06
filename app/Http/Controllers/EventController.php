@@ -26,7 +26,21 @@ class EventController extends Controller
         $customuser_details = DB::table('customusers')->get();
         $event_categories_data = DB::table('event_categories')->get();
         $event_types_data = DB::table('event_types')->get();
-        return view('event-calendar.index', ['customuser_details'=> $customuser_details, 'event_categories_data'=> $event_categories_data, 'event_types_data'=> $event_types_data]);    
+        $departments = DB::table('departments')->get();
+        $designations = DB::table('designations')->get();
+        $locations = DB::table('locations')->get();
+
+        $data = [
+            "customuser_details" => $customuser_details,
+            "event_categories_data" => $event_categories_data,
+            "event_types_data" => $event_types_data,
+            "departments" => $departments,
+            "designations" => $designations,
+            "locations" => $locations,
+        ];
+        return view('event-calendar.index')->with($data);
+
+        // return view('event-calendar.index', ['customuser_details'=> $customuser_details, 'event_categories_data'=> $event_categories_data, 'event_types_data'=> $event_types_data]);    
     }
     public function test(Request $request)
     {

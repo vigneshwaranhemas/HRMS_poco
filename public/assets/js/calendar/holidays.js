@@ -6,7 +6,6 @@ function getBirthdayFilter(){
     return $("#holidays_state_filter").val();
 };
 
-
 var basic_calendar = {
     init: function() {
         $('#cal-basic').fullCalendar({

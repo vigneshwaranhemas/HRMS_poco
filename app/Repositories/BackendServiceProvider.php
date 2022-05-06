@@ -52,11 +52,15 @@ class BackendServiceProvider extends ServiceProvider
             'App\Repositories\ICommonRepositories',
             'App\Repositories\CommonRepositories'
         );
+        $this->app->bind(
+            'App\Repositories\IPeopleRepository',
+            'App\Repositories\PeopleRepository'
+        );
 
     }
 
     /**
-     * Bootstrap services.
+     * Bootstrap services. 
      *
      * @return void
      */

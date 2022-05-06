@@ -65,10 +65,14 @@
                     <th>Designation</th>
                     <th>Work Location</th>
                     <th>Grade</th>
-                    <th>Email</th>
+                    <th>Official Email </th>
+                    <th>Personal Email </th>
                     <th>Contact No</th>
+                    <th>Contact No 2</th>
+                    <th>Blood Group</th>
                     <th>Supervisor Name</th>
                     <th>Reviewer Name</th>
+                    <th>Emergency Contact Number</th>
                     <!-- <th>Info</th> -->
                   </tr>
                 </thead>
@@ -256,7 +260,7 @@
                     </div>
                   <div class="text-center" style="margin-bottom: 26px;">
                   <center>
-                     <button class="btn btn-success" type="btnSubmit">Accept</button>
+                     <button class="btn btn-success" id="hr_acc_but" type="btnSubmit">Accept</button>
                      <!-- <button class="btn btn-danger">  </button> -->
                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ignoreModal" data-whatever="@mdo">Revert</button>
 
@@ -288,7 +292,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
-                                    <button class="btn btn-secondary" type="submit" id="btnSubmit">Save</button>
+                                    <button class="btn btn-secondary" id="hr_rev_but" type="submit" id="btnSubmit">Save</button>
                                 </div>
                               </form>
                         </div>

@@ -112,7 +112,7 @@
           </ul>
         </li>
         <li><a class="right_side_toggle" href="#"><img class="img-fluid img-shadow-success" src="{{route('/')}}/assets/images/dashboard/chat.png" alt=""></a></li>
-        <li class="onhover-dropdown"> <span class="media user-header"><img class="img-fluid" src="{{route('/')}}/assets/images/dashboard/user.png" alt=""></span>
+        <!-- <li class="onhover-dropdown"> <span class="media user-header"><img class="img-fluid" src="{{route('/')}}/assets/images/dashboard/user.png" alt=""></span> -->        
           <ul class="onhover-show-div profile-dropdown">
             <li class="gradient-primary">
               <h5 class="f-w-600 mb-0">Elana Saint</h5><span>Web Designer</span>

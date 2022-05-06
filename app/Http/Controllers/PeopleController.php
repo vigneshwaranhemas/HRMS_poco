@@ -63,12 +63,28 @@ class PeopleController extends Controller
     }
     public function fetch_starred_customusers_list(Request $request)
     {
-        $starred_customusers = $this->people->fetch_starred_customusers_list();
+        // if(!empty($request->all())){
+            // dd("yes");
+            $data = array(
+                'people_filter_dept' => $request->people_filter_dept,
+                'people_filter_design' => $request->people_filter_design,
+            );
+            $starred_customusers = $this->people->fetch_starred_customusers_list_with_filter($data);
+
+        // }else{
+        //     // dd("no");
+        //     $starred_customusers = $this->people->fetch_starred_customusers_list();
+        // }
         return json_encode($starred_customusers);
     }
-    public function fetch_everyone_customusers_list()
+    public function fetch_everyone_customusers_list(Request $request)
     {
-        $starred_customusers = $this->people->fetch_everyone_customusers_list();
+        $data = array(
+            'people_filter_dept' => $request->people_filter_dept,
+            'people_filter_design' => $request->people_filter_design,
+        );
+        $starred_customusers = $this->people->fetch_everyone_customusers_list_with_filter($data);
+
         return json_encode($starred_customusers);
     }
 }

@@ -58,6 +58,15 @@
     .chat-right-aside{
         display: none;
     }
+    .chat-box .chat-right-aside .chat .chat-header.chat-boder-bottom{
+        margin-right: 20px;
+    }
+    #star_class_name{
+        margin-left: 10px;
+    }
+    .chat-box .about.people_name_show{
+        margin-top: 10px;
+    }
 </style>
 @endsection
 
@@ -74,6 +83,10 @@
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <div class="row">
+            <div class="col-lg-12">
+                <input type="text" id="people_filter_dept_value" value="All">
+                <input type="text" id="people_filter_design_value" value="All">
+            </div>
             <div class="col-lg-3 div_filter">
                 <div class="card">
                     <h5 class="card-header people_filter_card_header">Apply Filter 
@@ -82,27 +95,29 @@
                         </button>
                     </h5>
                     <div class="card-body">
-                        <div class="row">               
-                            <div class="col-lg-12">  
-                                <select class="js-example-basic-single col-sm-12 mb-5"  id="holidays_state_filter" name="holidays_state_filter">
-                                    <option value="">Select Department...</option>
-                                    @foreach($departments as $department)
-                                        <option value="{{ $department->department_name }}">{{ $department->department_name }}</option>
-                                    @endforeach    
-                                </select>
-                            </div>
-                            <div class="col-lg-12 mt-3">  
-                                <select class="js-example-basic-single col-sm-12 mb-5"  id="holidays_state_filter" name="holidays_state_filter">
-                                    <option value="">Select Designation...</option>
-                                    @foreach($designations as $designation)
-                                        <option value="{{ $designation->designation_name }}">{{ $designation->designation_name }}</option>
-                                    @endforeach      
-                                </select>
-                            </div>                    
-                            <div class="col-lg-12 mt-3">  
-                                <button class="btn btn-primary mt-3">Apply</button>
-                                <button class="btn btn-danger mt-3">Reset</button>
-                            </div>
+                        <div class="row">   
+                            <form id="peopleFilterForm">
+                                <div class="col-lg-12"> 
+                                    <select class="js-example-basic-single col-sm-12 mb-5" style="width:215px" id="people_filter_dept" name="people_filter_dept">
+                                        <option value="All">Select Department...</option>                                              
+                                        @foreach($departments as $department)
+                                            <option value="{{ $department->department_name }}">{{ $department->department_name }}</option>
+                                        @endforeach  
+                                    </select>
+                                </div>
+                                <div class="col-lg-12 mt-3">  
+                                    <select class="js-example-basic-single col-sm-12 mb-5" style="width:215px" id="people_filter_design" name="people_filter_design">
+                                        <option value="All">Select Designation...</option>
+                                        @foreach($designations as $designation)
+                                            <option value="{{ $designation->designation_name }}">{{ $designation->designation_name }}</option>
+                                        @endforeach      
+                                    </select>
+                                </div>
+                                <div class="col-lg-12 mt-3">  
+                                    <button class="btn btn-primary mt-3" type="submit">Apply</button>
+                                    <button class="btn btn-danger mt-3">Reset</button>
+                                </div>  
+                            </form>                                                                                      
                         </div>
                     </div>
                 </div>               
@@ -201,16 +216,16 @@
                             </div>
                             <div class="col pr-0 chat-right-aside"> 
                                 <!-- <img style="width:150px;" src="../assets/images/user/1.jpg" alt="">                                             -->
-                                <div class="chat">
-                                    <?php $i=0; ?>
+                                <div class="chat chat-boder-bottom">
                                     <!-- chat-header start-->
                                     <div class="chat-header clearfix"><img style="width:50px;height:50px" class="rounded-circle" src="../assets/images/user/1.jpg" alt="">
-                                        <div class="about">
+                                        <div class="about people_name_show">
                                             <!-- <div class="name">Kori Thomas  <span class="font-primary f-12"><i class="icon-star"></i></span></div> -->
                                             <div class="name" style="font-size:20px;margin-top:10px:margin-left:10px;" id="people_name_show"></div>
                                             <!-- <div class="status digits">PHP Developer</div> -->
                                         </div>
-                                        <ul class="list-inline float-left float-sm-right chat-menu-icons">
+                                        <ul class="list-inline float-left chat-menu-icons">
+                                        <!-- <ul class="list-inline float-left float-sm-right chat-menu-icons"> -->
                                             <li class="list-inline-item" id="people_star_i_show"></li>
                                         </ul>
                                     </div>                                
@@ -320,6 +335,8 @@
             </div>
         </div>
     </div>
+
+    
     <!-- Container-fluid Ends-->
 @endsection
 
@@ -327,6 +344,7 @@
 <!-- Plugins JS start-->
 <script src="../assets/js/select2/select2.full.min.js"></script>
 <script src="../assets/js/select2/select2-custom.js"></script>
+<script src="../assets/js/chat-menu.js"></script>
 <script src="../assets/js/people.js"></script>    
 @endsection
 

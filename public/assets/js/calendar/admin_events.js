@@ -498,7 +498,7 @@ $('.delete-event').click(function(){
 });
 
 //Delete Holidays data
-$('#formEventsDelete').on('submit',function(event){
+$('#people_filter').on('submit',function(event){
     event.preventDefault();
     // Get Alll Text Box Id's
     var event_delete_id = $('#event_delete_id').val();

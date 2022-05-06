@@ -43,6 +43,53 @@ class PeopleRepository implements IPeopleRepository
       
       return $response;
    } 
+   public function fetch_starred_customusers_list_with_filter($data)
+   {           
+      $login_id = Auth::user()->empID;      
+      $check = PeopleStar::where('created_by', $login_id)->value('starred');
+
+      if(!empty($check)){
+         
+         $arrayStarred =json_decode($check);
+         
+         $response = '';
+
+         foreach($arrayStarred as $starred_empID){
+            // dd($starred_empID);
+
+            if($data['people_filter_dept'] == "All" && $data['people_filter_design'] == "All"){
+               $username = DB::table("customusers")->where('empID', $starred_empID)->value('username');
+               $designation = DB::table("customusers")->where('empID', $starred_empID)->value('designation');
+            }elseif($data['people_filter_dept'] == "All" || $data['people_filter_design'] == "All"){
+               if($data['people_filter_dept'] != "All"){
+                  $username = DB::table("customusers")->where('empID', $starred_empID)->where('department', $data['people_filter_dept'])->value('username');
+                  $designation = DB::table("customusers")->where('empID', $starred_empID)->where('department', $data['people_filter_dept'])->value('designation');
+               }else{
+                  $username = DB::table("customusers")->where('empID', $starred_empID)->where('designation', $data['people_filter_design'])->value('username');
+                  $designation = DB::table("customusers")->where('empID', $starred_empID)->where('designation', $data['people_filter_design'])->value('designation');
+               }
+            }
+
+            if(!empty($username) || !empty($designation)){
+               $response .= '<li class="clearfix people_list_ul_li" data-id="'.$starred_empID.'"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">';
+               $response .= '<div class="about">';
+               $response .= '<div class="name">'.$username.' <small><span class="digits">(#'.$starred_empID.')</span></small></div>';
+               $response .= '<div class="status"><i class="fa fa-share font-success"></i>  '.$designation.'</div>';
+               $response .= '</div>';
+               $response .= '</li>';
+            }else{
+               $response = 'empty';
+            }
+            
+
+         }
+
+      }else{
+         $response = 'empty';
+      }
+      
+      return $response;
+   } 
    public function fetch_everyone_customusers_list()
    {           
       $customusers = DB::table("customusers")->get();
@@ -112,6 +159,90 @@ class PeopleRepository implements IPeopleRepository
       // $response .= '<div class="status"><i class="fa fa-share font-success"></i>  fsdgs</div>';
       // $response .= '</div>';
       // $response .= '</li>';
+      
+      return $response;
+   }  
+   public function fetch_everyone_customusers_list_with_filter($data)
+   {           
+      if($data['people_filter_dept'] == "All" && $data['people_filter_design'] == "All"){
+         $customusers = DB::table("customusers")->get();
+      }elseif($data['people_filter_dept'] == "All" || $data['people_filter_design'] == "All"){
+         if($data['people_filter_dept'] != "All"){
+            $customusers = DB::table("customusers")->where('department', $data['people_filter_dept'])->get();
+         }else{
+            $customusers = DB::table("customusers")->where('designation', $data['people_filter_design'])->get();
+         }
+      }else{
+         $customusers = DB::table("customusers")->where('department', $data['people_filter_dept'])->where('designation', $data['people_filter_design'])->get();
+
+      }
+
+      if(!empty($customusers)){
+                  
+         $response = '';
+
+         foreach($customusers as $customuser){
+
+            $login_id = Auth::user()->empID;      
+            $check = PeopleStar::where('created_by', $login_id)->value('starred');
+            $emp_id = $customuser->empID;
+
+            if(!empty($check)){
+                              
+               $arrayStarred =json_decode($check);
+
+               if(($key = array_search($emp_id, $arrayStarred)) !== false){
+                  // dd("have");
+                  // <i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i>
+
+                  $response .= '<li class="clearfix people_list_ul_li" data-id="'.$customuser->empID.'"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">';
+                  $response .= '<div class="about">';
+                  $response .= '<div class="name">'.$customuser->username.' <small><span class="digits">(#'.$customuser->empID.') <i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star star_class_name"></i></span></small></div>';
+                  $response .= '<div class="status"><i class="fa fa-share font-success"></i>  '.$customuser->designation.'</div>';
+                  $response .= '</div>';
+                  $response .= '</li>';                  
+
+               }else{
+
+                  $response .= '<li class="clearfix people_list_ul_li" data-id="'.$customuser->empID.'"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">';
+                  $response .= '<div class="about">';
+                  $response .= '<div class="name">'.$customuser->username.' <small><span class="digits">(#'.$customuser->empID.')</span></small></div>';
+                  $response .= '<div class="status"><i class="fa fa-share font-success"></i>  '.$customuser->designation.'</div>';
+                  $response .= '</div>';
+                  $response .= '</li>';
+
+               }
+
+            }else{
+
+               $response .= '<li class="clearfix people_list_ul_li" data-id="'.$customuser->empID.'"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">';
+               $response .= '<div class="about">';
+               $response .= '<div class="name">'.$customuser->username.' <small><span class="digits">(#'.$customuser->empID.')</span></small></div>';
+               $response .= '<div class="status"><i class="fa fa-share font-success"></i>  '.$customuser->designation.'</div>';
+               $response .= '</div>';
+               $response .= '</li>';
+
+            }            
+
+         }
+
+      }else{
+         $response = 'empty';
+      }
+
+      // $response .= '<li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">';
+      // $response .= '<div class="about">';
+      // $response .= '<div class="name">fsdgs <small><span class="digits">(#fsdgs)</span></small></div>';
+      // $response .= '<div class="status"><i class="fa fa-share font-success"></i>  fsdgs</div>';
+      // $response .= '</div>';
+      // $response .= '</li>';
+      // $response .= '<li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">';
+      // $response .= '<div class="about">';
+      // $response .= '<div class="name">fsdgs<small><span class="digits">(#fsdgs)</span></small></div>';
+      // $response .= '<div class="status"><i class="fa fa-share font-success"></i>  fsdgs</div>';
+      // $response .= '</div>';
+      // $response .= '</li>';
+      // dd($response);
       
       return $response;
    } 

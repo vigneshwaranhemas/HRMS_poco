@@ -123,18 +123,10 @@ function fetch_people_list_ul_li(){
 
 function fetch_starred_details(){
     
-    
-    var people_filter_dept_value = $('#people_filter_dept_value').val();
-    var people_filter_design_value = $('#people_filter_design_value').val();
-
     //Star List
     $.ajax({
         url:"fetch_starred_customusers_list",
         type:"GET",
-        data: {
-            people_filter_dept: people_filter_dept_value,
-            people_filter_design: people_filter_design_value,
-        },
         dataType : "JSON",
         cache: false,
         success:function(response)
@@ -160,18 +152,10 @@ function fetch_starred_details(){
 }
 
 function fetch_everyone_details(){
-
-    var people_filter_dept_value = $('#people_filter_dept_value').val();
-    var people_filter_design_value = $('#people_filter_design_value').val();
-    // console.log(people_filter_dept_value);
     //Star List
     $.ajax({
         url:"fetch_everyone_customusers_list",
         type:"GET",
-        data: {
-            people_filter_dept: people_filter_dept_value,
-            people_filter_design: people_filter_design_value,
-        },
         dataType : "JSON",
         success:function(response)
         {
@@ -658,81 +642,36 @@ $('body').on('click','.div_filter_close',function(){
 //Getting Filter Datas
 $('#peopleFilterForm').on('submit',function(event){
     event.preventDefault();
-    
     // Get Alll Text Box Id's
     var people_filter_dept = $('#people_filter_dept').val();
-    var people_filter_design = $('#people_filter_design').val();
-    // alert(people_filter_dept);     
+    // alert(people_filter_dept);  
 
-    $('#people_filter_dept_value').val(people_filter_dept);
-    $('#people_filter_design_value').val(people_filter_design);
+    $.ajax({
+        url: "fetch_starred_customusers_list",
+        type:"GET",
+        data:$("#peopleFilterForm").serialize(),
+        dataType : "JSON",
+        success:function(response)
+        {
+            alert(response)
+            // $('#eventDeleteModal').modal('hide');
 
-    fetch_everyone_details();
-    fetch_starred_details();
-   
+            // Toastify({
+            //     text: "Deleted Sucessfully..!",
+            //     duration: 3000,
+            //     close:true,
+            //     backgroundColor: "#4fbe87",
+            // }).showToast();
+
+            // window.location.reload();
+                                                                    
+        },
+        error: function(response) {
+
+            console.log(response.responseJSON.errors);                   
+
+        }
+        
+    }); 
+
 });
-
-
-// $.ajax({
-//     url: "fetch_everyone_customusers_list",
-//     type:"GET",
-//     data:$("#peopleFilterForm").serialize(),
-//     dataType : "JSON",
-//     success:function(response)
-//     {
-//         alert(response)
-//        // console.log(response);
-//        if(response == "empty"){                                
-//             // alert("no 2")                               
-//             $(".chat-right-aside").css('display', 'none');
-//             $(".chat-right-aside-star").css('display', 'block');
-//             $(".chat-right-aside-employees-empty").css('display', 'none');
-//         }else{          
-//             // alert("yes 2")                               
-//             $("#people_starred_list_show").html(response); 
-//             $(".chat-right-aside-employees-empty").css('display', 'none');
-//             $(".chat-right-aside-star").css('display', 'none');
-//             $(".chat-right-aside").css('display', 'block');
-
-//         }
-                                                                
-//     },
-//     error: function(response) {
-
-//         console.log(response.responseJSON.errors);                   
-
-//     }
-    
-// }); 
-
-// $.ajax({
-//     url: "fetch_starred_customusers_list",
-//     type:"GET",
-//     data:$("#peopleFilterForm").serialize(),
-//     dataType : "JSON",
-//     success:function(response)
-//     {
-//         alert(response)
-//        // console.log(response);
-//        if(response == "empty"){                                
-//             // alert("no 2")                               
-//             $(".chat-right-aside").css('display', 'none');
-//             $(".chat-right-aside-star").css('display', 'block');
-//             $(".chat-right-aside-employees-empty").css('display', 'none');
-//         }else{          
-//             // alert("yes 2")                               
-//             $("#people_starred_list_show").html(response); 
-//             $(".chat-right-aside-employees-empty").css('display', 'none');
-//             $(".chat-right-aside-star").css('display', 'none');
-//             $(".chat-right-aside").css('display', 'block');
-
-//         }
-                                                                
-//     },
-//     error: function(response) {
-
-//         console.log(response.responseJSON.errors);                   
-
-//     }
-    
-// }); 

@@ -375,3 +375,4 @@ Route::post('fetch_people_star_add', 'PeopleController@fetch_people_star_add')->
 //vignesh routes for check user status
 
 Route::post('check_user_status','CommonController@check_user_status');
+

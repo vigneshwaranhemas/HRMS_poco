@@ -26,6 +26,10 @@ Route::get('dashboard','AdminController@permission');
 Route::get('com_dashboard','AdminController@com_dashboard');
 
 
+//Dashboard
+Route::get('fetch_tdys_brd_list', 'AdminController@fetch_tdys_brd_list')->name('fetch_tdys_brd_list');
+Route::get('fetch_tdys_work_annu_list', 'AdminController@fetch_tdys_work_annu_list')->name('fetch_tdys_work_annu_list');
+Route::get('fetch_login_profile_image', 'AdminController@fetch_login_profile_image')->name('fetch_login_profile_image');
 
 
 Route::prefix('perk-ui')->group(function () {
@@ -63,13 +67,11 @@ Route::post('Candidate_Email_Status_update','HrController@Candidate_Email_Status
 Route::post('DocumentStatusUpdate','HrController@UpdateDocumentStatus');
 Route::post('Candidate_Status_Update','HrController@CandidateOnboardStatusUpdate');
 
-
 //Buddy Controller
 
 Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('candidate_dashboard');
 Route::get('buddy', 'BuddyController@buddy_info')->name('buddy_info');
 Route::post('show_buddy_feedback','BuddyController@View_Buddy_feedback');
-
 
 //Candidate Controller
 Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
@@ -80,8 +82,6 @@ Route::get('candidate_profile','CandidateController@profile');
 Route::post("SaveBuddyFeedback",'candidateController@InsertBuddyFeedback');
 Route::get('Candidate_Induction','CandidateController@CandidateInduction');
 Route::get('Candidate_Assigned_Buddy','CandidateController@Candidate_Assigned_Buddy');
-
-
 
 //Calendaer Event
 
@@ -358,8 +358,17 @@ Route::post('hr_get_id_card_vari', 'CommonController@hr_get_id_card_vari');
 Route::post('hr_idcard_verfi', 'CommonController@hr_idcard_verfi');
 Route::post('hr_id_remark', 'CommonController@hr_id_remark');
 
-
+// People
+Route::get('people', 'PeopleController@people')->name('people');
+Route::get('fetch_people_list_filter', 'PeopleController@fetch_people_list_filter')->name('fetch_people_list_filter');
+Route::get('fetch_people_starred_first_empid', 'PeopleController@fetch_people_starred_first_empid')->name('fetch_people_starred_first_empid');
+Route::get('fetch_people_everyone_first_empid', 'PeopleController@fetch_people_everyone_first_empid')->name('fetch_people_everyone_first_empid');
+Route::get('fetch_starred_customusers_list', 'PeopleController@fetch_starred_customusers_list')->name('fetch_starred_customusers_list');
+Route::get('fetch_everyone_customusers_list', 'PeopleController@fetch_everyone_customusers_list')->name('fetch_everyone_customusers_list');
+Route::get('fetch_people_list_filter_star', 'PeopleController@fetch_people_list_filter_star')->name('fetch_people_list_filter_star');
+Route::post('fetch_people_star_add', 'PeopleController@fetch_people_star_add')->name('fetch_people_star_add');
 
 //vignesh routes for check user status
 
 Route::post('check_user_status','CommonController@check_user_status');
+

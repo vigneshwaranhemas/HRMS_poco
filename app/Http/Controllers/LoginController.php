@@ -15,6 +15,7 @@ class LoginController extends Controller
             'password' => $req['login_password'],
             'active'=>'1',
         ];
+        // echo "<pre>";print_r($credentials);die;
         if(auth()->attempt($credentials, true))
         {
 

@@ -131,7 +131,7 @@
                                 </div>
                                 <div class="collapse" id="collapseicon_first" aria-labelledby="collapseicon_first" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    <a href="{{url('assets/payslip/900002/March-2022/march-2022.pdf')}}" download><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@
                                 </div>
                                 <div class="collapse" id="collapseicon_second" aria-labelledby="collapseicon_second" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    <a href="{{url('assets/payslip/900002/March-2022/march-2022.pdf')}}" download><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +171,7 @@
                                 </div>
                                 <div class="collapse" id="collapseicon_third" aria-labelledby="collapseicon_third" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    <a href="{{url('assets/payslip/900002/March-2022/march-2022.pdf')}}" download><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
                             </div>
@@ -197,7 +197,7 @@
                                 </div>
                                 <div class="collapse" id="collapseicon_first" aria-labelledby="collapseicon_first" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    <a href="{{url('assets/payslip/900002/March-2022/march-2022.pdf')}}" download><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
                             </div>
@@ -217,7 +217,7 @@
                                 </div>
                                 <div class="collapse" id="collapseicon_second" aria-labelledby="collapseicon_second" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    <a href="{{url('assets/payslip/900002/March-2022/march-2022.pdf')}}" download><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +237,7 @@
                                 </div>
                                 <div class="collapse" id="collapseicon_third" aria-labelledby="collapseicon_third" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    <a href="{{url('assets/payslip/900002/March-2022/march-2022.pdf')}}" download><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
                             </div>
@@ -260,7 +260,7 @@
                                 </div>
                                 <div class="collapse" id="collapseicon_first" aria-labelledby="collapseicon_first" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    <a href="{{url('assets/payslip/900002/March-2022/march-2022.pdf')}}" download><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
                             </div>
@@ -280,7 +280,7 @@
                                 </div>
                                 <div class="collapse" id="collapseicon_second" aria-labelledby="collapseicon_second" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    <a href="{{url('assets/payslip/900002/March-2022/march-2022.pdf')}}" download><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
                             </div>
@@ -300,7 +300,7 @@
                                 </div>
                                 <div class="collapse" id="collapseicon_third" aria-labelledby="collapseicon_third" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    <a href="{{url('assets/payslip/900002/March-2022/march-2022.pdf')}}" download><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +322,7 @@
                                 </div>
                                 <div class="collapse" id="collapseicon_first" aria-labelledby="collapseicon_first" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    <a href="{{url('assets/payslip/900002/March-2022/march-2022.pdf')}}" download><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
                             </div>
@@ -342,7 +342,7 @@
                                 </div>
                                 <div class="collapse" id="collapseicon_second" aria-labelledby="collapseicon_second" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    <a href="{{url('assets/payslip/900002/March-2022/march-2022.pdf')}}" download><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
                             </div>
@@ -362,7 +362,7 @@
                                 </div>
                                 <div class="collapse" id="collapseicon_third" aria-labelledby="collapseicon_third" data-parent="#accordionoc" style="border: 1px solid rgba(0, 0, 0, 0.125);">
                                    <div class="card-body">
-                                    <a href=""><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
+                                    <a href="{{url('assets/payslip/900002/March-2022/march-2022.pdf')}}" download><button class="btn btn-primary">Mar 2022.pdf <i class="fa fa-download"></i></button></a>
                                     </div>
                                 </div>
                             </div>

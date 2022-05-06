@@ -168,21 +168,73 @@
                                 </select>
                                 <select class="form-control attendees_filter" id="dept_filter_option" name="dept_filter_option">  
                                     <option value="">Select Department...</option> 
-                                    @foreach($departments as $department)
-                                        <option value="{{ $department->department_name }}">{{ $department->department_name }}</option>
-                                    @endforeach    
+                                                                                 
+                                    <option value="Admin">Admin</option>                                              
+                                    <option value="HR">HR</option>                                              
+                                    <option value="Quality Assurance">Quality Assurance</option>                                              
+                                    <option value="Operations">Operations</option>                                              
+                                    <option value="Virtual Auditor Sales">Virtual Auditor Sales</option>                                              
+                                    <option value="Finance">Finance</option>                                              
+                                    <option value="Training and Quality">Training and Quality</option>                                              
+                                    <option value="MIS">MIS</option>                                              
+                                    <option value="Voice">Voice</option>                                              
+                                    <option value="Quality">Quality</option>                                              
+                                    <option value="Graphic Design">Graphic Design</option>                                              
+                                    <option value="Human Resource">Human Resource</option>                                              
+                                    <option value="IT">IT</option>                                              
+                                    <option value="Commerical">Commerical</option>                                              
+                                    <option value="E-com">E-com</option>                                              
+                                    <option value="Procurement">Procurement</option>                                              
+                                    <option value="Digital Marketing">Digital Marketing</option>                                              
+                                    <option value="L&D">L&D</option>                                              
+                                    <option value="S&D">S&D</option>                                              
+                                    <option value="R&D">R&D</option>                                              
+                                    <option value="Sales & Distribution">Sales & Distribution</option>                                              
+                                    <option value="Modern Trade">Modern Trade</option>                                              
+                                    <option value="IT Infra">IT Infra</option>                                              
+                                    <option value="Personal Care">Personal Care</option>                                              
+                                    <option value="H-Milk">H-Milk</option>                                              
+                                    <option value="Graphic Design">Graphic Design</option>                                              
+                                    <option value="International Business">International Business</option>                                              
+                                    <option value="Logistics">Logistics</option>                                              
+                                    <option value="Plant">Plant</option>                                              
+                                    <option value="Salon">Salon</option>                                              
+                                    <option value="Purchase">Purchase</option>                                              
+                                    <option value="Production">Production</option>                                              
+                                    <option value="Media">Media</option>                                              
                                 </select>
                                 <select class="form-control attendees_filter" id="designation_filter_option" name="designation_filter_option">  
-                                    <option value="">Select Designation...</option> 
-                                    @foreach($designations as $designation)
-                                        <option value="{{ $designation->designation_name }}">{{ $designation->designation_name }}</option>
-                                    @endforeach                                             
+                                    <option value="">Select Designation...</option>                                              
+                                    <option value="Senior Associate Scientist">Senior Associate Scientist</option>                                               
+                                    <option value="Operations Manager">Operations Manager</option>                                               
+                                    <option value="Team Leader">Team Leader</option>                                               
+                                    <option value="PC">PC</option>                                               
+                                    <option value="Admin Associate">Admin Associate</option>                                               
+                                    <option value="Quality analyst">Quality analyst</option>                                               
+                                    <option value="Subject matter expert">Subject matter expert</option>                                               
+                                    <option value="Senior Associate">Senior Associate</option>                                               
+                                    <option value="Senior Content Developer">Senior Content Developer</option>                                               
+                                    <option value="PC">PC</option>                                               
+                                    <option value="Manager">Manager</option>                                               
+                                    <option value="Accounts Executive">Accounts Executive</option>                                               
+                                    <option value="Virtual Tech Assistant">Virtual Tech Assistant</option>                                               
+                                    <option value="Recruiter">Recruiter</option>                                               
+                                    <option value="Graphic Designer">Graphic Designer</option>                                               
+                                    <option value="Executive">Executive</option>                                               
+                                    <option value="Associate">Associate</option>                                               
+                                    <option value="Head">Head</option>                                               
+                                    <option value="Planning executive">Planning executive</option>                                               
+                                    <option value="Media Associate">Media Associate</option>                                               
+                                    <option value="Sales Accountant">Sales Accountant</option>                                               
+                                    <option value="Business Finance Executive">Business Finance Executive</option>                                               
+                                    <option value="Accounts Officer">Accounts Officer</option>                                               
+                                    <option value="HR Executive">HR Executive</option>                                               
+                                    <option value="PHP Developer">PHP Developer</option>                                              
                                 </select>
                                 <select class="form-control attendees_filter" id="wfh_filter_option" name="wfh_filter_option">  
-                                    <option value="">Select Work Location...</option>                                         
-                                    @foreach($locations as $location)
-                                        <option value="{{ $location->location_name }}">{{ $location->location_name }}</option>
-                                    @endforeach                                                 
+                                    <option value="">Select Work Location...</option>                                              
+                                    <option value="On Site">On Site</option>                                              
+                                    <option value="Work From Home">Work From Home</option>                                              
                                 </select>
                             </div>
 
@@ -473,21 +525,72 @@
                                 </select>
                                 <select class="form-control attendees_filter_edit" id="dept_filter_option_edit" name="dept_filter_option">  
                                     <option value="">Select Department...</option>                                              
-                                    @foreach($departments as $department)
-                                        <option value="{{ $department->department_name }}">{{ $department->department_name }}</option>
-                                    @endforeach                                              
+                                    <option value="Admin">Admin</option>                                              
+                                    <option value="HR">HR</option>                                              
+                                    <option value="Quality Assurance">Quality Assurance</option>                                              
+                                    <option value="Operations">Operations</option>                                              
+                                    <option value="Virtual Auditor Sales">Virtual Auditor Sales</option>                                              
+                                    <option value="Finance">Finance</option>                                              
+                                    <option value="Training and Quality">Training and Quality</option>                                              
+                                    <option value="MIS">MIS</option>                                              
+                                    <option value="Voice">Voice</option>                                              
+                                    <option value="Quality">Quality</option>                                              
+                                    <option value="Graphic Design">Graphic Design</option>                                              
+                                    <option value="Human Resource">Human Resource</option>                                              
+                                    <option value="IT">IT</option>                                              
+                                    <option value="Commerical">Commerical</option>                                              
+                                    <option value="E-com">E-com</option>                                              
+                                    <option value="Procurement">Procurement</option>                                              
+                                    <option value="Digital Marketing">Digital Marketing</option>                                              
+                                    <option value="L&D">L&D</option>                                              
+                                    <option value="S&D">S&D</option>                                              
+                                    <option value="R&D">R&D</option>                                              
+                                    <option value="Sales & Distribution">Sales & Distribution</option>                                              
+                                    <option value="Modern Trade">Modern Trade</option>                                              
+                                    <option value="IT Infra">IT Infra</option>                                              
+                                    <option value="Personal Care">Personal Care</option>                                              
+                                    <option value="H-Milk">H-Milk</option>                                              
+                                    <option value="Graphic Design">Graphic Design</option>                                              
+                                    <option value="International Business">International Business</option>                                              
+                                    <option value="Logistics">Logistics</option>                                              
+                                    <option value="Plant">Plant</option>                                              
+                                    <option value="Salon">Salon</option>                                              
+                                    <option value="Purchase">Purchase</option>                                              
+                                    <option value="Production">Production</option>                                              
+                                    <option value="Media">Media</option>                                              
                                 </select>
                                 <select class="form-control attendees_filter_edit" id="designation_filter_option_edit" name="designation_filter_option">  
                                     <option value="">Select Designation...</option>                                              
-                                    @foreach($designations as $designation)
-                                        <option value="{{ $designation->designation_name }}">{{ $designation->designation_name }}</option>
-                                    @endforeach                                    
+                                    <option value="Senior Associate Scientist">Senior Associate Scientist</option>                                               
+                                    <option value="Operations Manager">Operations Manager</option>                                               
+                                    <option value="Team Leader">Team Leader</option>                                               
+                                    <option value="PC">PC</option>                                               
+                                    <option value="Admin Associate">Admin Associate</option>                                               
+                                    <option value="Quality analyst">Quality analyst</option>                                               
+                                    <option value="Subject matter expert">Subject matter expert</option>                                               
+                                    <option value="Senior Associate">Senior Associate</option>                                               
+                                    <option value="Senior Content Developer">Senior Content Developer</option>                                               
+                                    <option value="PC">PC</option>                                               
+                                    <option value="Manager">Manager</option>                                               
+                                    <option value="Accounts Executive">Accounts Executive</option>                                               
+                                    <option value="Virtual Tech Assistant">Virtual Tech Assistant</option>                                               
+                                    <option value="Recruiter">Recruiter</option>                                               
+                                    <option value="Graphic Designer">Graphic Designer</option>                                               
+                                    <option value="Executive">Executive</option>                                               
+                                    <option value="Associate">Associate</option>                                               
+                                    <option value="Head">Head</option>                                               
+                                    <option value="Planning executive">Planning executive</option>                                               
+                                    <option value="Media Associate">Media Associate</option>                                               
+                                    <option value="Sales Accountant">Sales Accountant</option>                                               
+                                    <option value="Business Finance Executive">Business Finance Executive</option>                                               
+                                    <option value="Accounts Officer">Accounts Officer</option>                                               
+                                    <option value="HR Executive">HR Executive</option>                                               
+                                    <option value="PHP Developer">PHP Developer</option>                               
                                 </select>
                                 <select class="form-control attendees_filter_edit" id="wfh_filter_option_edit" name="wfh_filter_option">  
                                     <option value="">Select Work Location...</option>                                              
-                                    @foreach($locations as $location)
-                                        <option value="{{ $location->location_name }}">{{ $location->location_name }}</option>
-                                    @endforeach                                                
+                                    <option value="On Site">On Site</option>                                              
+                                    <option value="Work From Home">Work From Home</option>                                              
                                 </select>
                             </div>
 

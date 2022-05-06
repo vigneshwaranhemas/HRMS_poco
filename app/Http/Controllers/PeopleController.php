@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class PeopleController extends Controller
 {
-
     public $people;  
 
     // public function __construct()
@@ -20,10 +19,14 @@ class PeopleController extends Controller
     {        
         $customusers = $this->people->fetch_customuser_list();  
 
+        $departments = DB::table('departments')->get();
+        $designations = DB::table('designations')->get();
 
        // echo json_encode($customusers[0]);die();
         $data = [
             "customusers" => $customusers,
+            "departments" => $departments,
+            "designations" => $designations,
         ];
         return view('people.index')->with($data);
     }
@@ -36,7 +39,7 @@ class PeopleController extends Controller
     public function fetch_people_starred_first_empid()
     {
         $emp_id = $this->people->fetch_people_starred_first_empid(); 
-        return response($emp_id);
+        return json_encode($emp_id);
     }
     public function fetch_people_everyone_first_empid()
     {

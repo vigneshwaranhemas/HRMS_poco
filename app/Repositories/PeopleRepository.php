@@ -38,7 +38,7 @@ class PeopleRepository implements IPeopleRepository
          }
 
       }else{
-         $response = '';
+         $response = 'empty';
       }
       
       return $response;
@@ -97,7 +97,7 @@ class PeopleRepository implements IPeopleRepository
          }
 
       }else{
-         $response = '';
+         $response = 'empty';
       }
 
       // $response .= '<li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">';
@@ -150,7 +150,12 @@ class PeopleRepository implements IPeopleRepository
    }
    public function fetch_people_list_filter($employee)
    {      
-      $response = DB::table("customusers")->where('empID', $employee)->orwhere('username', $employee)->get();      
+      $result = DB::table("customusers")->where('empID', $employee)->orwhere('username', $employee)->get();      
+      if(!empty($result)){
+         $response = $result;
+      }else{
+         $response = 'empty';
+      }
       return $response;
    }
    public function fetch_people_star_add($emp_id)

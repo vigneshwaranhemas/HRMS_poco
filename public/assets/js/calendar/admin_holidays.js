@@ -354,7 +354,7 @@ function addHolidayModal(arg){
 }
 
 //Save data
-$('#holidays-form-insert').on('submit',function(event){
+$('#getNewHolidaysForm').on('submit',function(event){
     event.preventDefault();
     $('#occassion_error').html("");
     $('#occassion_file_error').html("");

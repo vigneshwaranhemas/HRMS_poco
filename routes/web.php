@@ -342,7 +342,7 @@ Route::post('banner_image_crop', 'DocumentsController@imageCropPost');
 Route::post('profile_banner', 'DocumentsController@profile_banner');
 
 /*ID Card*/
-Route::get('id_card_varification', 'CommonController@id_card_varification');
+// Route::get('id_card_varification', 'CommonController@id_card_varification');
 Route::post('idcard_info', 'CommonController@idcard_info');
 Route::post('idcard_info_save', 'CommonController@idcard_info_save');
 

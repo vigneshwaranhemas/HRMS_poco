@@ -31,13 +31,12 @@
 @section('breadcrumb-items')
    {{--<li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li>--}}
-   <select class="js-example-basic-single col-sm-12"  id="holidays_state_filter" name="holidays_state_filter">
+   <select class="select2 form-control" id="holidays_state_filter" name="holidays_state_filter">
       <option value="">Select State...</option>
       @foreach($stateList as $state)
          <option value="{{ $state->state_name }}">{{ $state->state_name }}</option>
       @endforeach
    </select>
-   
 @endsection
 
 @section('content')
@@ -80,8 +79,8 @@
    <!-- Modal Fade Start -->
    <div class="modal fade" id="add-holidays" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-         <form method="post" id="holidays-form-insert" enctype="multipart/form-data">
-         <!-- <form  id="getNewHolidaysForm"> -->
+         <!-- <form method="POST" id="getNewHolidaysForm" enctype="multipart/form-data"> -->
+         <form  id="getNewHolidaysForm">
          @csrf
             <div class="modal-content">
                <div class="modal-header">
@@ -89,54 +88,30 @@
                   <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                </div>
                <div class="modal-body">
-                  <div class="form-row mb-3">
-                     <div class="col-md-12">
-                        <label for="occassion">Occassion:</label>
-                        <input type="text" name="occassion" id="occassion" class="form-control">
-                        <div class="text-danger" id="occassion_error"></div>
-                     </div>
+                  <div class="form-group">
+                     <label class="col-form-label" for="occassion">Occassion:</label>
+                     <input type="text" name="occassion" id="occassion" class="form-control">
+                     <div class="text-danger" id="occassion_error"></div>
                   </div>
-                  <div class="form-row mb-3">
-                     <div class="col-md-12">
-                        <label for="description">Description:</label>
-                        <textarea type="text" name="description" id="description" class="form-control"></textarea>
-                        <div class="text-danger" id="description_error"></div>
-                     </div>
+                  <div class="form-group">
+                     <label class="col-form-label" for="description">Description:</label>
+                     <textarea class="form-control" name="description" id="description"></textarea>
                   </div>
-                  <div class="form-row mb-3">
-                     <div class="col-md-3">
-                        <label for="repeat-event">State:</label>
-                     </div>
-                     <div class="col-md-9">
-                        <input id="candicate_list_edit" name="candicate_list" value="true" type="checkbox">                                
-                        <label for="">All State</label>
-                     </div>
-
-                     <div class="col-md-12">
-                        <!-- <select class="js-example-basic-multiple col-sm-12 form-control" style="width:500px" multiple="multiple">
-                           <option value="AL">Alabama</option>
-                           <option value="WY">Wyoming</option>
-                           <option value="WY">Coming</option>
-                           <option value="WY">Hanry Die</option>
-                           <option value="WY">John Doe</option>
-                        </select> -->
-                        <select class="select2 form-control" id="state" name="state[]"  multiple="multiple">
-                           <option value="" disabled>Select State...</option>
-                           @foreach($stateList as $state)
-                              <option value="{{ $state->state_name }}">{{ $state->state_name }}</option>
-                           @endforeach
-                        </select>   
-                        <div class="text-danger" id="state_error"></div>
-                     </div>
-                     
-                  </div>    
-                  <div class="form-row mb-3">
-                     <div class="col-md-12">
-                        <label for="occassion_file">File:</label>
-                        <input type="file" name="occassion_file" id="occassion_file" class="form-control">
-                        <div class="text-danger" id="occassion_file_error"></div>
-                     </div>
-                  </div>     
+                  <div class="form-group">
+                     <label class="col-form-label" for="description_edit">State:</label>
+                     <select class="select2 form-control" id="state" name="state">
+                        <option value="">Select State...</option>
+                        @foreach($stateList as $state)
+                           <option value="{{ $state->state_name }}">{{ $state->state_name }}</option>
+                        @endforeach
+                     </select>   
+                     <div class="text-danger" id="state_error"></div>
+                  </div> 
+                  <div class="form-group">
+                     <label class="col-form-label" for="occassion_file">File:</label>
+                     <input type="file" name="occassion_file" id="occassion_file" class="form-control">
+                     <div class="text-danger" id="occassion_file_error"></div>
+                  </div>   
                </div>
                <div class="modal-footer">
                   <input type="hidden" id="occassion_date" class="form-control" name="occassion_date">
@@ -318,10 +293,6 @@
    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
    <!-- Custom JS start-->
 
-   <!-- Plugins JS start-->
-   <script src="../assets/js/select2/select2.full.min.js"></script>
-   <script src="../assets/js/select2/select2-custom.js"></script>
-   
    @if(Auth::user()->role_type === 'Admin')
       <script src="../assets/js/calendar/admin_holidays.js"></script>    
    @else

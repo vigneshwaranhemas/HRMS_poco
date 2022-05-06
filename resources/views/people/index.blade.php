@@ -1,5 +1,5 @@
 {{-- Divya --}}
-@extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
+@extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HRSS'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
 @section('title', 'People')
 
 @section('css')
@@ -27,6 +27,37 @@
     .list li:hover {
         background-color: #ece2f9;
     }
+    .chat-box .people-list .search i.people_filter_i{
+        right: 0px;
+        top: 9px;
+        font-size: 22px;
+    }
+    .people_search_div{
+        margin-left: 15px;
+    }
+    .card .card-header.people_filter_card_header{
+        padding: 29px;
+        color: #7e37d8;
+    }
+    .div_filter{
+        display: none;
+    }
+    .close.div_close:hover{
+        color: #7e37d8;
+        border: 0px solid #7e37d8;
+    }
+    .chat-star-empty_state{
+        margin-top: 150px;
+    }
+    .chat-right-aside-star{
+        display: none;
+    }
+    .chat-right-aside-employees-empty{
+        display: none;
+    }
+    .chat-right-aside{
+        display: none;
+    }
 </style>
 @endsection
 
@@ -43,6 +74,39 @@
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <div class="row">
+            <div class="col-lg-3 div_filter">
+                <div class="card">
+                    <h5 class="card-header people_filter_card_header">Apply Filter 
+                        <button type="button" class="close div_close div_filter_close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h5>
+                    <div class="card-body">
+                        <div class="row">               
+                            <div class="col-lg-12">  
+                                <select class="js-example-basic-single col-sm-12 mb-5"  id="holidays_state_filter" name="holidays_state_filter">
+                                    <option value="">Select Department...</option>
+                                    @foreach($departments as $department)
+                                        <option value="{{ $department->department_name }}">{{ $department->department_name }}</option>
+                                    @endforeach    
+                                </select>
+                            </div>
+                            <div class="col-lg-12 mt-3">  
+                                <select class="js-example-basic-single col-sm-12 mb-5"  id="holidays_state_filter" name="holidays_state_filter">
+                                    <option value="">Select Designation...</option>
+                                    @foreach($designations as $designation)
+                                        <option value="{{ $designation->designation_name }}">{{ $designation->designation_name }}</option>
+                                    @endforeach      
+                                </select>
+                            </div>                    
+                            <div class="col-lg-12 mt-3">  
+                                <button class="btn btn-primary mt-3">Apply</button>
+                                <button class="btn btn-danger mt-3">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>
             <div class="col call-chat-body">
                 <div class="card">
                     <div class="card-body p-0">
@@ -61,13 +125,14 @@
                                 <div class="tab-content" id="info-tabContent">
                                     <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
                                         <div class="people-list">
-                                            <div class="search">
-                                                <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:500px" id="people_list_filter" name="people_list_filter">
+                                            <div class="search people_search_div">
+                                                <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:300px" id="people_list_filter" name="people_list_filter">
                                                     <option value="">Enter Emp. Name or ID...</option>
                                                     @foreach($customusers as $customuser)
                                                         <option value="{{ $customuser->empID }}">{{ $customuser->username }} (#{{ $customuser->empID }})</option>
                                                     @endforeach
                                                 </select>
+                                                <i class="icon-filter font-primary people_filter_i"></i>                                               
                                             </div>
                                             <ul class="list digits mt-3">
                                                 <p id="people_starred_list_show"></p>
@@ -76,26 +141,14 @@
                                     </div>
                                     <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
                                         <div class="people-list">
-
-                                            <div class="search">      
-                                                <!-- <div class="row">
-                                                    <div class="col-lg-10"> -->
-                                                        <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:400px" id="people_list_filter" name="people_list_filter">
-                                                            <option value="">Enter Emp. Name or ID...</option>
-                                                            @foreach($customusers as $customuser)                                                    
-                                                                <option value="{{ $customuser->empID }}">{{ $customuser->username }} (#{{ $customuser->empID }})</option>
-                                                            @endforeach
-                                                        </select>
-                                                    <!-- </div>
-                                                    <div class="col-lg-2"> -->
-                                                        <!-- <a class="badge badge-light btn btn-lg" href="#"><i data-feather="filter"></i></a> -->
-                                                    <!-- </div>
-                                                </div> -->
-                                                <!-- <form class="theme-form">
-                                                    <div class="form-group">
-                                                    <input class="form-control" id="people_list_filter" type="text" placeholder="Enter Emp. Name or ID..."><i class="fa fa-pencil"></i>
-                                                    </div>
-                                                </form> -->
+                                            <div class="search people_search_div">      
+                                                <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:300px" id="people_list_filter" name="people_list_filter">
+                                                    <option value="">Enter Emp. Name or ID...</option>
+                                                    @foreach($customusers as $customuser)                                                    
+                                                        <option value="{{ $customuser->empID }}">{{ $customuser->username }} (#{{ $customuser->empID }})</option>
+                                                    @endforeach
+                                                </select>
+                                                <i class="icon-filter font-primary people_filter_i"></i>                                               
                                             </div>
                                             <ul class="list digits mt-3" id="people_list">
                                                 <p id="people_everyone_list_show"></p>
@@ -226,6 +279,40 @@
                                         <p class="mb-0" style="font-size: 16px;" id="people_dob_show"></p>                                    
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col pr-0 chat-right-aside-star text-center">
+                                <div class="chat chat-star-empty_state">
+                                    <?php $i=0; ?>
+                                    <!-- chat-header start-->
+                                    <div class="chat-header text-center clearfix"><img style="width:250px;" src="../assets/images/landing/starred-empty-state.svg" alt="">
+                                        <div class="about">
+                                            <!-- <div class="name">Kori Thomas  <span class="font-primary f-12"><i class="icon-star"></i></span></div> -->
+                                            <div class="name" style="font-size:20px;margin-top:10px:margin-left:10px;" id="people_name_show"></div>
+                                            <!-- <div class="status digits">PHP Developer</div> -->
+                                        </div>
+                                        <ul class="list-inline float-left float-sm-right chat-menu-icons">
+                                            <li class="list-inline-item" id="people_star_i_show"></li>
+                                        </ul>
+                                    </div>                                
+                                </div> 
+                                <p>Hey, you haven't starred any peers!</p>
+                            </div>
+                            <div class="col pr-0 chat-right-aside-employees-empty text-center">
+                                <div class="chat chat-star-empty_state">
+                                    <?php $i=0; ?>
+                                    <!-- chat-header start-->
+                                    <div class="chat-header text-center clearfix"><img style="width:250px;" src="../assets/images/other-images/sad.png" alt="">
+                                        <div class="about">
+                                            <!-- <div class="name">Kori Thomas  <span class="font-primary f-12"><i class="icon-star"></i></span></div> -->
+                                            <div class="name" style="font-size:20px;margin-top:10px:margin-left:10px;" id="people_name_show"></div>
+                                            <!-- <div class="status digits">PHP Developer</div> -->
+                                        </div>
+                                        <ul class="list-inline float-left float-sm-right chat-menu-icons">
+                                            <li class="list-inline-item" id="people_star_i_show"></li>
+                                        </ul>
+                                    </div>                                
+                                </div> 
+                                <p>Hey, you haven't any peers!</p>
                             </div>
                         </div>
                     </div>

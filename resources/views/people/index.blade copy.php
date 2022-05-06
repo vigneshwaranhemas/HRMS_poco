@@ -3,6 +3,7 @@
 @section('title', 'People')
 
 @section('css')
+<link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
 
 @endsection
 
@@ -11,10 +12,20 @@
     .chat-box .chat-menu.chat-menu-style{
         margin-left: 20px;
         border-right: 1px solid #f8f5fd !important;
+        max-width: 400px;
     }
     .card-style{
         margin-left: 70px !important;
         margin-top: 30px !important;
+    }
+    .chat-box .chat-menu{
+        border-left: none;
+    }
+    .clearfix{
+        padding: 10px;
+    }
+    .list li:hover {
+        background-color: #ece2f9;
     }
 </style>
 @endsection
@@ -40,10 +51,10 @@
                             <div class="col pl-0 chat-menu chat-menu-style">
                                 <!-- chat start-->
                                 <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist">
-                                    <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-selected="true">Starred</a>
-                                    <div class="material-border"></div>
+                                    <li class="nav-item" id="people_tab_li_1"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-selected="true">Starred</a>
+                                        <div class="material-border"></div>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-selected="false">Everyone</a>
+                                    <li class="nav-item" id="people_tab_li_2"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-selected="false">Everyone</a>
                                         <div class="material-border"></div>
                                     </li>
                                 </ul>
@@ -51,154 +62,52 @@
                                     <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
                                         <div class="people-list">
                                             <div class="search">
-                                                <form class="theme-form">
-                                                    <div class="form-group">
-                                                    <input class="form-control" type="text" placeholder="Enter Emp. Name or ID..."><i class="fa fa-pencil"></i>
-                                                    </div>
-                                                </form>
+                                                <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:500px" id="people_list_filter" name="people_list_filter">
+                                                    <option value="">Enter Emp. Name or ID...</option>
+                                                    @foreach($customusers as $customuser)
+                                                        <option value="{{ $customuser->empID }}">{{ $customuser->username }} (#{{ $customuser->empID }})</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
-                                            <ul class="list digits">
-                                                <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li>
-                                                <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li> <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li>
+                                            <ul class="list digits mt-3">
+                                                <p id="people_starred_list_show"></p>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
                                         <div class="people-list">
-                                            <div class="search">
-                                                <form class="theme-form">
+
+                                            <div class="search">      
+                                                <!-- <div class="row">
+                                                    <div class="col-lg-10"> -->
+                                                        <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:400px" id="people_list_filter" name="people_list_filter">
+                                                            <option value="">Enter Emp. Name or ID...</option>
+                                                            @foreach($customusers as $customuser)                                                    
+                                                                <option value="{{ $customuser->empID }}">{{ $customuser->username }} (#{{ $customuser->empID }})</option>
+                                                            @endforeach
+                                                        </select>
+                                                    <!-- </div>
+                                                    <div class="col-lg-2"> -->
+                                                        <!-- <a class="badge badge-light btn btn-lg" href="#"><i data-feather="filter"></i></a> -->
+                                                    <!-- </div>
+                                                </div> -->
+                                                <!-- <form class="theme-form">
                                                     <div class="form-group">
-                                                    <input class="form-control" type="text" placeholder="Enter Emp. Name or ID..."><i class="fa fa-pencil"></i>
+                                                    <input class="form-control" id="people_list_filter" type="text" placeholder="Enter Emp. Name or ID..."><i class="fa fa-pencil"></i>
                                                     </div>
-                                                </form>
+                                                </form> -->
                                             </div>
-                                            <ul class="list digits">
-                                                <li class="clearfix"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
-                                                    <div class="about">
-                                                        <div class="name">A M Karthikeyan <small><span class="digits">(#900460)</span></small></div>
-                                                        <div class="status"><i class="fa fa-share font-success"></i>  Senior Manager</div>
-                                                    </div>
-                                                </li>
+                                            <ul class="list digits mt-3" id="people_list">
+                                                <p id="people_everyone_list_show"></p>
+
+                                               {{-- @foreach($customusers as $customuser)
+                                                    <li class="clearfix people_list_ul_li" data-id="{{ $customuser->empID }}"><img class="rounded-circle user-image" src="../assets/images/user/1.jpg" alt="">
+                                                        <div class="about">
+                                                            <div class="name">{{ $customuser->username }} <small><span class="digits">(#{{ $customuser->empID }})</span></small></div>
+                                                            <div class="status"><i class="fa fa-share font-success"></i>  {{ $customuser->designation }}</div>
+                                                        </div>
+                                                    </li>
+                                                @endforeach --}}
                                             </ul>
                                         </div>                                
                                     </div>
@@ -240,15 +149,16 @@
                             <div class="col pr-0 chat-right-aside"> 
                                 <!-- <img style="width:150px;" src="../assets/images/user/1.jpg" alt="">                                             -->
                                 <div class="chat">
+                                    <?php $i=0; ?>
                                     <!-- chat-header start-->
                                     <div class="chat-header clearfix"><img style="width:50px;height:50px" class="rounded-circle" src="../assets/images/user/1.jpg" alt="">
                                         <div class="about">
                                             <!-- <div class="name">Kori Thomas  <span class="font-primary f-12"><i class="icon-star"></i></span></div> -->
-                                            <div class="name" style="font-size:20px;margin-top:10px:margin-left:10px;">Kori Thomas</div>
+                                            <div class="name" style="font-size:20px;margin-top:10px:margin-left:10px;" id="people_name_show"></div>
                                             <!-- <div class="status digits">PHP Developer</div> -->
                                         </div>
                                         <ul class="list-inline float-left float-sm-right chat-menu-icons">
-                                            <li class="list-inline-item"><a href="#"><i class="icon-star"></i></a></li>
+                                            <li class="list-inline-item" id="people_star_i_show"></li>
                                         </ul>
                                     </div>                                
                                 </div> 
@@ -257,7 +167,7 @@
                                         <h6 class="mb-0">Employee ID:</h6>                                   
                                     </div>
                                     <div class="col-lg-9">
-                                        <p class="mb-0" style="font-size: 16px;">900386</p>                                    
+                                        <p class="mb-0" style="font-size: 16px;" id="people_empID_show"></p>                                    
                                     </div>
                                 </div>
                                 <div class="row mt-3" style="margin-left: 60px;">
@@ -265,7 +175,7 @@
                                         <h6 class="mb-0">Designation:</h6>                                   
                                     </div>
                                     <div class="col-lg-9">
-                                        <p class="mb-0" style="font-size: 16px;">PHP Developer</p>                                    
+                                        <p class="mb-0" style="font-size: 16px;" id="people_designation_show"></p>                                    
                                     </div>
                                 </div>
                                 <div class="row mt-3" style="margin-left: 60px;">
@@ -273,7 +183,7 @@
                                         <h6 class="mb-0">Department:</h6>                                   
                                     </div>
                                     <div class="col-lg-9">
-                                        <p class="mb-0" style="font-size: 16px;">IT</p>                                    
+                                        <p class="mb-0" style="font-size: 16px;" id="people_dept_show"></p>                                    
                                     </div>
                                 </div>
                                 <div class="row mt-3" style="margin-left: 60px;">
@@ -281,7 +191,7 @@
                                         <h6 class="mb-0">Contact Details:</h6>                                   
                                     </div>
                                     <div class="col-lg-9">
-                                        <p class="mb-0" style="font-size: 16px;">9514492479</p>                                    
+                                        <p class="mb-0" style="font-size: 16px;" id="people_contact_show"></p>                                    
                                     </div>
                                 </div>
                                 <div class="row mt-3" style="margin-left: 60px;">
@@ -289,7 +199,7 @@
                                         <h6 class="mb-0">Email:</h6>                                   
                                     </div>
                                     <div class="col-lg-9">
-                                        <p class="mb-0" style="font-size: 16px;">divyak@hemas.in</p>                                    
+                                        <p class="mb-0" style="font-size: 16px;" id="people_email_show"></p>                                    
                                     </div>
                                 </div>
                                 <div class="row mt-3" style="margin-left: 60px;">
@@ -297,7 +207,7 @@
                                         <h6 class="mb-0">Work Location:</h6>                                   
                                     </div>
                                     <div class="col-lg-9">
-                                        <p class="mb-0" style="font-size: 16px;">On Site</p>                                    
+                                        <p class="mb-0" style="font-size: 16px;" id="people_wl_show"></p>                                    
                                     </div>
                                 </div>
                                 <div class="row mt-3" style="margin-left: 60px;">
@@ -305,7 +215,7 @@
                                         <h6 class="mb-0">Joining Date:</h6>                                   
                                     </div>
                                     <div class="col-lg-9">
-                                        <p class="mb-0" style="font-size: 16px;">15/11/2021</p>                                    
+                                        <p class="mb-0" style="font-size: 16px;" id="people_doj_show"></p>                                    
                                     </div>
                                 </div>
                                 <div class="row mt-3" style="margin-left: 60px;">
@@ -313,7 +223,7 @@
                                         <h6 class="mb-0">Date Of Birth:</h6>                                   
                                     </div>
                                     <div class="col-lg-9">
-                                        <p class="mb-0" style="font-size: 16px;">09/04/1999</p>                                    
+                                        <p class="mb-0" style="font-size: 16px;" id="people_dob_show"></p>                                    
                                     </div>
                                 </div>
                             </div>
@@ -327,6 +237,9 @@
 @endsection
 
 @section('script')
- 
+<!-- Plugins JS start-->
+<script src="../assets/js/select2/select2.full.min.js"></script>
+<script src="../assets/js/select2/select2-custom.js"></script>
+<script src="../assets/js/people.js"></script>    
 @endsection
 

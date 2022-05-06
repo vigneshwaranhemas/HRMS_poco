@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
-use Auth;
 
 class HolidayController extends Controller
 {
@@ -28,19 +27,12 @@ class HolidayController extends Controller
     }
     public function add_new_holidays_insert(Request $request)
     {        
-        if($request->occassion_file != "undefined"){
-            $result = $request->validate([
-                'occassion' => 'required', 
-                'occassion_file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
-                'state' => 'required', 
-            ]);
-        }else{
-            $result = $request->validate([
-                'occassion' => 'required', 
-                'state' => 'required', 
-            ]);
-        }
-        
+        $result = $request->validate([
+            'occassion' => 'required', 
+            'occassion_file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
+            'state' => 'required', 
+        ]);
+
         //File upload
         $file = $request->file('occassion_file');
         if($file){
@@ -49,34 +41,18 @@ class HolidayController extends Controller
         }else {
             $name = "";
         }
-
-        $created_by =Auth::user()->empID;
-
+           
         //Data upload to server
         $data = array(
             'occassion' => $request->occassion,
             'date' => $request->occassion_date,
             'description' => $request->description,
+            'state' => $request->state,
             'occassion_file' => $name,
-            'created_by' => $created_by
+            'created_by' => "900386"
         );
 
-        $last_inserted_id = $this->holiday->add_holidays_insert($data);        
-        
-        //Holiday code
-        if(!empty($last_inserted_id)){
-            $holiday_code="H";				
-            $holiday_unique_code = $holiday_code."".$last_inserted_id; //T00.13 =T0013
-            $result = $this->event->insertHolidayCode($holiday_unique_code, $last_inserted_id);           
-        }     
-
-        //State upload
-        if($request->state){
-            foreach ($request->states as $state) {
-                // dd($state);
-                $result = HolidayState::firstOrCreate(['state_name' => $state, 'holiday_code' => $event_unique_code]);
-            }              
-        }
+        $result = $this->holiday->add_holidays_insert($data);        
 
         return response($result);
 

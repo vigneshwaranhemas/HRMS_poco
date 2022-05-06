@@ -67,13 +67,11 @@ Route::post('Candidate_Email_Status_update','HrController@Candidate_Email_Status
 Route::post('DocumentStatusUpdate','HrController@UpdateDocumentStatus');
 Route::post('Candidate_Status_Update','HrController@CandidateOnboardStatusUpdate');
 
-
 //Buddy Controller
 
 Route::get('/buddy_dashboard', 'BuddyController@buddy_dashboard')->name('candidate_dashboard');
 Route::get('buddy', 'BuddyController@buddy_info')->name('buddy_info');
 Route::post('show_buddy_feedback','BuddyController@View_Buddy_feedback');
-
 
 //Candidate Controller
 Route::get('/candidate_dashboard', 'CandidateController@candidate_dashboard')->name('candidate_dashboard');
@@ -84,8 +82,6 @@ Route::get('candidate_profile','CandidateController@profile');
 Route::post("SaveBuddyFeedback",'candidateController@InsertBuddyFeedback');
 Route::get('Candidate_Induction','CandidateController@CandidateInduction');
 Route::get('Candidate_Assigned_Buddy','CandidateController@Candidate_Assigned_Buddy');
-
-
 
 //Calendaer Event
 

@@ -331,6 +331,7 @@ Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_detai
 Route::get('view_welcome_aboard_hr', 'HrController@view_welcome_aboard_hr')->name('view_welcome_aboard_hr');
 Route::post( 'get_welcome_aboard_details_hr', 'HrController@get_welcome_aboard_details_hr' );
 Route::post('welcome_aboard_generate_image','HrController@welcome_aboard_generate_image');
+Route::post('welcome_aboard_image_show','HrController@welcome_aboard_image_show');
 
 /*employe list edit*/
 Route::post('get_role_type', 'AdminController@get_role_type');
@@ -342,7 +343,7 @@ Route::post('banner_image_crop', 'DocumentsController@imageCropPost');
 Route::post('profile_banner', 'DocumentsController@profile_banner');
 
 /*ID Card*/
-Route::get('id_card_varification', 'CommonController@id_card_varification');
+// Route::get('id_card_varification', 'CommonController@id_card_varification');
 Route::post('idcard_info', 'CommonController@idcard_info');
 Route::post('idcard_info_save', 'CommonController@idcard_info_save');
 
@@ -371,3 +372,4 @@ Route::post('fetch_people_star_add', 'PeopleController@fetch_people_star_add')->
 //vignesh routes for check user status
 
 Route::post('check_user_status','CommonController@check_user_status');
+

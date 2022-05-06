@@ -116,6 +116,7 @@
                              <option value="granddaughter">Granddaughter</option>
                              <option value="grandson">Grandson</option>
                            </select>
+                           <span class="text-danger color-hider" id="rel_emp_error"  style="display:none;color: red;"></span>
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="name_rel_ship">Name of Relationship</label>
@@ -168,7 +169,7 @@
                      </div>
                   </div>
                   <center>
-                     <button class="btn btn-success" id="btndis" type="btnSubmit">Submit For Approval</button>
+                     <button class="btn btn-success" id="btndis" type="Submit">Submit For Approval</button>
                      <!-- <button class="btn btn-secondary" id="req_hr_change" >Request to Hr Permission</button> -->
                      <h2 style="text-transform:uppercase" class="blinking"><a  id="req_hr_change"></a></h2>
                   </center>

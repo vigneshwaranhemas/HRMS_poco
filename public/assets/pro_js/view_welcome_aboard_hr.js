@@ -9,6 +9,7 @@ $( document ).ready(function() {
 $(document).ready(function(){
     // alert("Hao");
     view_welcome_aboard_process();
+    welcome_aboard_image_show();
 });
 
 // Data show
@@ -107,6 +108,38 @@ $.ajax({
 }
 
 
+// Image generator data show
+function welcome_aboard_image_show(){
+
+    var params = new window.URLSearchParams(window.location.search);
+    var id=params.get('id')
+    var image_div = "";
+
+    $.ajax({
+        url: get_welcome_aboard_image_show_link,
+        method: "POST",
+        data:{"id":id,},
+        dataType: "json",
+        success: function(data) {
+            if(data.image_path !=null){
+                image_div += "<a href='../assets/images/image_generator/"+data['image_path']+".jpg' target='_blank'><img src='../assets/images/image_generator/"+data['image_path']+".jpg' alt='image_generator' style='width: -webkit-fill-available; margin-bottom: 60px;'></a>\
+                ";
+                image_div += "<div class='text-center'>\
+                                <a href='../assets/images/image_generator/"+data['image_path']+".jpg' download>\
+                                    <button class='btn btn-primary-gradien' type='button'>Download</button>\
+                                </a>\
+                            </div>\
+                ";
+                $("#image_div").html(image_div);
+            }
+            else{
+                image_div = "";
+                $("#image_div").html(image_div);
+            }
+
+        }
+    });
+}
 
 
 

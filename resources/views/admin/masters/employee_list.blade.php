@@ -65,10 +65,14 @@
                     <th>Designation</th>
                     <th>Work Location</th>
                     <th>Grade</th>
-                    <th>Email</th>
+                    <th>Official Email </th>
+                    <th>Personal Email </th>
                     <th>Contact No</th>
+                    <th>Contact No 2</th>
+                    <th>Blood Group</th>
                     <th>Supervisor Name</th>
                     <th>Reviewer Name</th>
+                    <th>Emergency Contact Number</th>
                     <!-- <th>Info</th> -->
                   </tr>
                 </thead>

@@ -78,8 +78,6 @@ function employee_record(){
         serverSide: true,
         serverMethod: 'post',
         bDestroy: true,
-        scrollX: true,
-        scrollY: 800,
         scrollCollapse: true,
         drawCallback: function() {
 
@@ -118,9 +116,13 @@ function employee_record(){
             {   data: 'worklocation', name: 'worklocation'    },
             {   data: 'grade', name: 'grade'    },
             {   data: 'email', name: 'email'    },
+            {   data: 'p_email', name: 'p_email'    },
             {   data: 'contact_no', name: 'contact_no'    },
+            {   data: 'emp_num_2', name: 'emp_num_2'    },
+            {   data: 'blood_grp', name: 'blood_grp'    },
             {   data: 'sup_name', name: 'sup_name'    },
             {   data: 'reviewer_name', name: 'reviewer_name'    },
+            {   data: 'emrg_con_num', name: 'emrg_con_num'    },
 
             // {   data: 'Info', name: 'Info'  },
 

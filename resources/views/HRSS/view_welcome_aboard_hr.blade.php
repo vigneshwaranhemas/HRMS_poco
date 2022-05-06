@@ -111,12 +111,17 @@
                         <div class="text-center">
                                 <button class="btn btn-primary-gradien mb-5" type="submit" id="btnSubmit">Export</button>
                         </div>
-                        <a href="{{url('../assets/images/image_generator/image.jpg')}}" target="_blank"><img src="../assets/images/image_generator/image.jpg" alt="image_generator" style="width: -webkit-fill-available; margin-bottom: 60px;"></a>
-                        <div class="text-center">
+                        <div class="image_div" id="image_div">
+
+                        </div>
+
+
+                        {{-- <a href="{{url('../assets/images/image_generator/image.jpg')}}" target="_blank"><img src="../assets/images/image_generator/image.jpg" alt="image_generator" style="width: -webkit-fill-available; margin-bottom: 60px;"></a> --}}
+                        {{-- <div class="text-center">
                             <a href="{{url('../assets/images/image_generator/image.jpg')}}" download>
                                 <button class="btn btn-primary-gradien" type="button">Download</button>
                             </a>
-                        </div>
+                        </div> --}}
                     </form>
                 </div>
             </div>
@@ -139,6 +144,8 @@
 
 <script>
 var get_welcome_aboard_details_hr_link = "{{url('get_welcome_aboard_details_hr')}}";
+var welcome_aboard_generate_image_link = "{{url('welcome_aboard_generate_image') }}";
+var get_welcome_aboard_image_show_link = "{{url('welcome_aboard_image_show') }}";
 
 $(()=>{
     $('#btnSubmit').on('click',(e)=>{
@@ -147,17 +154,20 @@ $(()=>{
    var summernote_get = $('#summernote_copy').summernote('code').replace(/<\/?[^>]+(>|$)/g, " ");
 //    alert(summernote_get)
     console.log(summernote_get)
+    var params = new window.URLSearchParams(window.location.search);
+    var id=params.get('id')
+    $('#btnSubmit').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Processing');
 
    $.ajax({
        url:welcome_aboard_generate_image_link,
        type:"POST",
-       data: $("#add_welcome_aboard_image").serialize() + "&summernote_get=" + summernote_get,
+       data: $("#add_welcome_aboard_image").serialize() + "&summernote_get=" + summernote_get + "&id=" + id,
        dataType:"json",
        success:function(data) {
         //    alert('sdf')
            console.log(data);
            $('#btnSubmit').prop("disabled",true);
-            $('#btnSubmit').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Processing');
+
 
            if(data.response =='success'){
             Toastify({
@@ -178,6 +188,5 @@ $(()=>{
     })
 })
 
-var welcome_aboard_generate_image_link = "{{url('welcome_aboard_generate_image') }}";
 </script>
 @endsection

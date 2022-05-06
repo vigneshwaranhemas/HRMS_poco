@@ -123,11 +123,13 @@ class ProfileRepositories implements IProfileRepositories
     public function Contact_info( $input_details ){
 
         if ($input_details['cdID'] !="") {
+             // echo "<pre>cdID";print_r($input_details['cdID']);die;
            $bandtbl = DB::table('candidate_contact_information')
                         ->select('*')
                         ->where('cdID', '=', $input_details['cdID'])
                         ->get();
         }else if ($input_details['emp_id'] !=""){
+             // echo "<pre>emp_id";print_r($input_details['emp_id']);die;
             $bandtbl = DB::table('candidate_contact_information')
                         ->select('*')
                         ->where('emp_id', '=', $input_details['emp_id'])

@@ -122,7 +122,7 @@ $('.upload-result').on('click', function (ev) {
     }
 
 
-    function profile_banner_image(){
+function profile_banner_image(){
     $.ajax({
         url: profile_banner_image_link,
         method: "POST",
@@ -135,16 +135,9 @@ $('.upload-result').on('click', function (ev) {
             else{
                 $("#banner_img").attr('src',"../uploads/"+data.banner_image);
             }
-
-
-            // if (data !="") {
-            //      $("#banner_img").attr('src',"../uploads/"+data.banner_image);
-            //   }else{
-            //     $("#banner_img").attr('src',"../assets/images/user/7.JPG");
-            //   }
-            }
-        });
-    }
+        }
+    });
+}
 
 /*contact info in pop-up*/
 $("#v-pills-messages-tab").on('click', function() {

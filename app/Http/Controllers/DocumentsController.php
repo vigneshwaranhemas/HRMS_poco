@@ -357,7 +357,7 @@ class DocumentsController extends Controller
         $input_details = array( "cdID" => $cdID, 
                                    "emp_id" => $emp_id  );
         $Contact_info_result = $this->profrpy->Contact_info( $input_details );
-        // echo "<pre>";print_r($education_result);die;
+        // echo "<pre>";print_r($Contact_info_result);die;
         return response()->json( $Contact_info_result );
         
     }

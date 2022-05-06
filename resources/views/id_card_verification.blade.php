@@ -116,6 +116,7 @@
                              <option value="granddaughter">Granddaughter</option>
                              <option value="grandson">Grandson</option>
                            </select>
+                           <span class="text-danger color-hider" id="rel_emp_error"  style="display:none;color: red;"></span>
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="name_rel_ship">Name of Relationship</label>

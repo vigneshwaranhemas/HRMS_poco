@@ -51,8 +51,7 @@ function idcard_info_tvalue(){
 
     $('#idcard_info').submit(function(e) { 
     // getElementById("btndis").disabled=true; 
-    $(this).attr('disabled','disabled'); 
-    $("#btndis").text('Processing...'); 
+     
 
         e.preventDefault();
           var formData = new FormData(this);
@@ -64,7 +63,12 @@ function idcard_info_tvalue(){
             cache:false,
             contentType:false,
             dataType:"json",
+            beforeSend:function(data){
+                 $(this).attr('disabled','disabled'); 
+                    $("#btndis").text('Processing...');
+            },
             success:function(data) {
+                
                 // console.log(data)
             if(data.error)
                {
@@ -74,6 +78,9 @@ function idcard_info_tvalue(){
                     $("#"+key+'_error').text(value)
                     $("#"+key+'_error').show();
                     });
+                    $(this).removeAttr('disabled'); 
+                    $("#btndis").text('Submit For Approval');
+                    
                }
                 if(data.response =='insert'){
                    Toastify({

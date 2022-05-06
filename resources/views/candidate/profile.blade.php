@@ -127,7 +127,7 @@ max-width: 1000px !important;
                            </div>
                            <div class="col-md-6">
                               <div class="ttl-info text-left">
-                                 <h6><i class="fa fa-calendar"></i>   BOD</h6>
+                                 <h6><i class="fa fa-calendar"></i>   DOB</h6>
                                  <div id="dob"></div>
                               </div>
                            </div>

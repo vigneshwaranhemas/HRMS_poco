@@ -107,12 +107,26 @@ class CommonController extends Controller
                     // $Mail['password']="Welcome@123";
                 // $store_result=$this->cmmrpy->Candidate_info_mail($data);
                     $Mail['email']=$session_val['email'];
-                    $Mail['subject']="Waiting For Approval";
-
-                Mail::send('emails.id_card_submit_can', $Mail, function ($message) use ($Mail) {
+                    $Mail['hr_email']='radhakrishnan9317@gmail.com';
+                    $Mail['subject']="Thank you for submitting the details.";
+                    $Mail['candidate_name']=$user->username;
+                    $Mail['hr_subject']="ID Card Informatin approvel Awaited.";
+                 
+                    Mail::send('emails.id_card_submit_can', $Mail, function ($message) use ($Mail) {
                     $message->from("hr@hemas.in", 'HEPL - HR Team');
                     $message->to($Mail['email'])->subject($Mail['subject']);
                     });
+
+            /*email start*/
+                // $Mail['email']='hr@hemas.in';
+                                 // $Mail['email']=$session_val['email'];
+
+                Mail::send('emails.can_tohr_mail', $Mail, function ($message) use ($Mail) {
+                    $message->from("hr@hemas.in", 'HEPL - HR Team');
+                    $message->to($Mail['hr_email'])->subject($Mail['hr_subject']);
+                    });
+
+                
                 return response()->json(['response'=>'insert']);
 
             }else{
@@ -148,17 +162,24 @@ class CommonController extends Controller
             $user = DB::table( 'customusers' )->where('empID', '=', $emp_ID)->first();
             }
 
-            // echo "<pre>";print_r($user->username);die();
-            $Mail['candidate_name']=$user->username;
-            /*email start*/
-                $Mail['email']='hr@hemas.in';
-                $Mail['subject']="Waiting For Approval";
-
-                Mail::send('emails.id_card_submit_can', $Mail, function ($message) use ($Mail) {
+            /*email for can*/
+            $Mail['email']=$session_val['email'];
+                    $Mail['hr_email']='radhakrishnan9317@gmail.com';
+                    $Mail['subject']="Thank you for submitting the details.";
+                    $Mail['candidate_name']=$user->username;
+                    $Mail['hr_subject']="ID Card Informatin approvel Awaited.";
+                 
+                    Mail::send('emails.id_card_submit_can', $Mail, function ($message) use ($Mail) {
                     $message->from("hr@hemas.in", 'HEPL - HR Team');
                     $message->to($Mail['email'])->subject($Mail['subject']);
                     });
-                /*email end*/
+
+            /*email for hr*/
+                Mail::send('emails.can_tohr_mail', $Mail, function ($message) use ($Mail) {
+                    $message->from("hr@hemas.in", 'HEPL - HR Team');
+                    $message->to($Mail['hr_email'])->subject($Mail['hr_subject']);
+                    });
+
                 return response()->json(['response'=>'Update']);
             }
         }else{

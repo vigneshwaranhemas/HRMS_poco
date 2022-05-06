@@ -9,12 +9,12 @@
 <body>
 
       
-                <p><b>Dear HR Team,</b></p>
+                <p><b>Dear {{$candidate_name}} ,</b></p>
 
-                <p>Please note this, {{$candidate_name}} Sended a Request to Update this ID Card Verfication mail.</p>
+                <p>HR Dept will review the information and approve / revert with comments shortly.</p>
 
                 <p><b>Thank you,</b></p>
-                <p>{{$candidate_name}} - HEPL</p>
+                <p> HR Team - HEPL</p>
       
 
 

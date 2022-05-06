@@ -9,12 +9,14 @@
 <body>
 
       
-                <p><b>Dear {{$candidate_name}},</b></p>
+                <p><b>Dear HR Team ,</b></p>
 
-                <p>We have reviewed your submissions and approved. The updated information is displayed on the page for your view. </p>
+                <p>{{$candidate_name}} ID Card information for verfication.</p>
+
+                    <p>please verify the submission .</p>
 
                 <p><b>Thank you,</b></p>
-                <p>HR Team- HEPL</p>
+                <p> {{$candidate_name}} - HEPL</p>
       
 
 

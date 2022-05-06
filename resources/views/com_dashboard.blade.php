@@ -1,7 +1,3 @@
-<?php
-$session_val = Session::get('session_info');
-$empID = $session_val['empID'];
-?>
 @extends('layouts.simple.candidate_master')
 @section('title', 'Dashboard')
 
@@ -225,6 +221,76 @@ $empID = $session_val['empID'];
                      </tbody>
                   </table>
                </div>
+            </div>
+         </div>
+      </div>
+       <div class="col-xl-4 xl-50 box-col-12">
+         <div class="card gradient-secondary o-hidden monthly-overview">
+            <div class="card-header no-border bg-transparent">
+               <h5>Monthly Overview</h5>
+               <h6 class="mb-0">January</h6>
+               <span class="pull-right right-badge"><span class="badge badge-pill">70 / 100</span></span>
+            </div>
+            <div class="card-body p-0">
+               <div class="text-bg"><span>0.7</span></div>
+               <div class="area-range-apex">
+                  <div id="area-range"></div>
+               </div>
+               <span class="overview-dots full-lg-dots"><span class="dots-group"><span class="dots dots1"></span><span class="dots dots2 dot-small"></span><span class="dots dots3 dot-small"></span><span class="dots dots4 dot-medium"></span><span class="dots dots5 dot-small"></span><span class="dots dots6 dot-small"></span><span class="dots dots7 dot-small-semi"></span><span class="dots dots8 dot-small-semi"></span><span class="dots dots9 dot-small"></span></span></span>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-4 xl-50 box-col-6">
+         <div class="card">
+            <div class="card-header no-border">
+               <h5></h5>
+               <ul class="creative-dots">
+                  <li class="bg-primary big-dot"></li>
+                  <li class="bg-secondary semi-big-dot"></li>
+                  <li class="bg-warning medium-dot"></li>
+                  <li class="bg-info semi-medium-dot"></li>
+                  <li class="bg-secondary semi-small-dot"></li>
+                  <li class="bg-primary small-dot"></li>
+               </ul>
+               <div class="card-header-right">
+                  <ul class="list-unstyled card-option">
+                     <li><i class="icofont icofont-gear fa fa-spin font-warning"></i></li>
+                     <li><i class="view-html fa fa-code font-warning"></i></li>
+                     <li><i class="icofont icofont-maximize full-card font-warning"></i></li>
+                     <li><i class="icofont icofont-minus minimize-card font-warning"></i></li>
+                     <li><i class="icofont icofont-refresh reload-card font-warning"></i></li>
+                     <li><i class="icofont icofont-error close-card font-warning"></i></li>
+                  </ul>
+               </div>
+            </div>
+            <div class="card-body pb-0 pt-0">
+               <div class="music-layer">
+                  <button class="btn btn-pill">View More</button>
+               </div>
+               <div class="code-box-copy">
+                  <button class="code-box-copy__btn btn-clipboard" data-clipboard-target="#example-head2" title="Copy"><i class="icofont icofont-copy-alt"></i></button>
+                  <pre><code class="language-html" id="example-head2">&lt;!-- Cod Box Copy begin --&gt;
+&lt;div class="music-layer"&gt;
+&lt;button class="btn btn-pill"&gt;
+View More&lt;/button&gt;
+&lt;!-- Cod Box Copy end --&gt;</code></pre>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-4 xl-100 box-col-6">
+         <div class="card gradient-primary o-hidden monthly-overview yearly">
+            <div class="card-header no-border bg-transparent">
+               <h5>Yearly Overview</h5>
+               <h6 class="mb-0">Monday</h6>
+               <span class="pull-right right-badge"><span class="badge badge-pill">50 / 100</span></span>
+            </div>
+            <div class="card-body p-0">
+               <div class="text-bg"><span>0.5</span></div>
+               <div class="area-range-apex">
+                  <div id="area-range-1"></div>
+               </div>
+               <span class="overview-dots full-width-dots"><span class="dots-group"><span class="dots dots1"></span><span class="dots dots2 dot-small"></span><span class="dots dots3 dot-small"></span><span class="dots dots4 dot-medium"></span><span class="dots dots5 dot-small"></span><span class="dots dots6 dot-small"></span><span class="dots dots7 dot-small-semi"></span><span class="dots dots8 dot-small-semi"></span><span class="dots dots9 dot-small"> </span></span></span>
             </div>
          </div>
       </div>

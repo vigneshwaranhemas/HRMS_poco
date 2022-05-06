@@ -39,7 +39,11 @@ function hr_id_card_ver(id){
     });
 }
 
-$('#hr_idcard_info').submit(function(e) {    
+$('#hr_idcard_info').submit(function(e) {  
+
+    $(this).attr('disabled','disabled');   
+    $("#hr_acc_but").text('Processing...');   
+    
         e.preventDefault();
           var formData = new FormData(this);
         $.ajax({  
@@ -92,7 +96,11 @@ $('#hr_idcard_info').submit(function(e) {
     });
 
 $('#hr_remarks_form').submit(function(e) {
-// alert("asdasds")    
+
+    $(this).attr('disabled','disabled');   
+    $("#hr_rev_but").text('Processing...');   
+
+    // alert("asdasds")    
         e.preventDefault();
           var formData = new FormData(this);
         $.ajax({  

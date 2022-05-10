@@ -650,7 +650,16 @@ $(()=>{
         contentType:false,
         dataType:"json",
 
-       success:function(data) {
+       success:function(data) { 
+         if(data.error)
+           {
+            $(".color-hider").hide();
+                var keys=Object.keys(data.error);
+                $.each( data.error, function( key, value ) {
+                $("#"+key+'_error').text(value)
+                $("#"+key+'_error').show();
+                });
+           }
            // console.log(data);
            if(data.response =='insert'){
                Toastify({
@@ -675,7 +684,6 @@ $(()=>{
 
                setTimeout(
                    function() {
-                       location.reload();
                    }, 2000);
 
                }
@@ -863,6 +871,15 @@ $('#add_education_unit').submit(function(e) {
         contentType:false,
         dataType:"json",
         success:function(data) {
+            if(data.error){
+                // alert("assa")
+            $(".color-hider").hide();
+                var keys=Object.keys(data.error);
+                $.each( data.error, function( key, value ) {
+                $("#"+key+'_error').text(value)
+                $("#"+key+'_error').show();
+                });
+           }
             if(data.response =='insert'){
                Toastify({
                    text: "Added Sucessfully..!",
@@ -912,6 +929,15 @@ $('#add_experience_unit').submit(function(e) {
         contentType:false,
         dataType:"json",
         success:function(data) {
+            if(data.error){
+                // alert("assa")
+            $(".color-hider").hide();
+                var keys=Object.keys(data.error);
+                $.each( data.error, function( key, value ) {
+                $("#"+key+'_error').text(value)
+                $("#"+key+'_error').show();
+                });
+           }
             if(data.response =='insert'){
                Toastify({
                    text: "Added Sucessfully..!",
@@ -951,11 +977,10 @@ function experience_info(){
         data:{},
         dataType: "json",
         success: function(data) {
-
+            // console.log(data)
             $('#Experience_tbl').empty();
             if (data !="") {
                      html ="";
-                    console.log(data)
                         html +="<div class='card-body'>";
                         html +="<div class='row people-grid-row'>";
                   for (let index = 0; index < data.length; index++) {
@@ -966,8 +991,10 @@ function experience_info(){
                         html +="<div class='profile-info-widget'>";
                         html +="<a class='fa fa-suitcase' style='font-size:25px;color:black'></a>";
                         html +="<div class='profile-det-info'>";
-                        html +='<a href="../experience/'+  data[index].certificate +'" class="text-info" target =_blank >' + data[index].job_title + '</a>';
-                        html +="<p>" + data[index].company_name + "</p>";
+                        html +='Job Title : <a href="../experience/'+  data[index].certificate +'" class="text-info" target =_blank > ' + data[index].job_title + '</a><br>';
+                        html +="<p>Company Name :" + data[index].company_name + "</p>";
+                        html +="<p>Begin On : " + data[index].exp_start_month + ' - ' + data[index].exp_start_year + "</p>";
+                        html +="<p>End On : " +data[index].exp_end_month + ' - ' + data[index].exp_end_year + "</p>";
                         html +="</div>";
                         html +="</div>";
                         html +="</div>";

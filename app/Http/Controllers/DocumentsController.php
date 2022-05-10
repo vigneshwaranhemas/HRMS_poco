@@ -28,25 +28,37 @@ class DocumentsController extends Controller
         $emp_ID = $session_val['empID'];
         $cdID = $session_val['cdID'];
 
-        request()->validate([
+       /* request()->validate([
         'documents_name' => 'required',
         'file' => 'required|mimes:doc,docx,pdf,txt|max:2048',
-        ]);
-        if ($files = $request->file('file')) {
-        $destinationPath = public_path('uploads/'); 
-           $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-           $files->move($destinationPath, $profileImage);
-           $path = "$profileImage";
+        ]);*/
+        $validator=Validator::make($request->all(),[
+                     'documents_name' => 'required',
+                    'file' => 'required|mimes:doc,docx,pdf,txt|max:2048',
+                    ], [
+                    'documents_name.required' => 'Documents Name is required',
+                    'file.required' => 'File is required',
+                    
+                    ]);
 
-            $data =array(
-            'emp_id'=>$emp_ID,
-            'cdID'=>$cdID,
-            'doc_name'=>$request->input('documents_name'),
-            'path'=>$path);
-        $insert = DB::table( 'documents' )->insert( $data );
-    }
-        return response()->json(['response'=>'insert']);
+        if($validator->passes()){
+            if ($files = $request->file('file')) {
+                $destinationPath = public_path('uploads/'); 
+                   $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+                   $files->move($destinationPath, $profileImage);
+                   $path = "$profileImage";
+                    $data =array(
+                    'emp_id'=>$emp_ID,
+                    'cdID'=>$cdID,
+                    'doc_name'=>$request->input('documents_name'),
+                    'path'=>$path);
+                $insert = DB::table( 'documents' )->insert( $data );
+            }
+                return response()->json(['response'=>'insert']);
+        }else{
+            return response()->json(['error'=>$validator->errors()->toArray()]);
 
+        }
     }
     /*banner image */
     public function profile_banner(Request $request){
@@ -236,7 +248,7 @@ class DocumentsController extends Controller
                     'institute' => 'required',
                     'begin_on' => 'required',
                     'end_on' => 'required',
-                    'edu_certificate' => 'required',
+                    'edu_certificate' => 'required|mimes:csv,txt,pdf|max:2048',
                     ], [
                     'qualification.required' => 'Qualification is required',
                     'institute.required' => 'Institute is required',
@@ -244,7 +256,8 @@ class DocumentsController extends Controller
                     'end_on.required' => 'End On is required',
                     'edu_certificate.required' => 'file is required',
                     ]);
-                    if($validator->passes()){
+
+                if($validator->passes()){
 
                      $session_val = Session::get('session_info');
                     $emp_ID = $session_val['empID'];
@@ -279,8 +292,7 @@ class DocumentsController extends Controller
 
                     $insert_education_info_result = $this->profrpy->insert_education_info( $data );
                     return response()->json(['response'=>'insert']);
-            }
-            else{
+            }else{
                 return response()->json(['error'=>$validator->errors()->toArray()]);
                 }
         }
@@ -295,11 +307,13 @@ class DocumentsController extends Controller
                     'cmp_name' => 'required',
                     'exp_begin_on' => 'required',
                     'exp_end_on' => 'required',
+                    'exp_file'=> 'required|mimes:csv,txt,pdf|max:2048',
                     ], [
                     'job_title.required' => 'Job Title is required',
                     'cmp_name.required' => 'Company Name is required',
                     'exp_begin_on.required' => 'Begin On is required',
                     'exp_end_on.required' => 'End On is required',
+                    'exp_file.required' => 'File required',
                     ]);
                     if($validator->passes()){
 

@@ -60,12 +60,7 @@ $(()=>{
            }
 
        },
-       error: function(response) {
-
-        $('#division_name_error').text(response.responseJSON.errors.division_name);
-
-        }
-
+       
    });
     })
 })

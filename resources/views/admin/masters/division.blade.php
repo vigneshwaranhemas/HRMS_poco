@@ -119,6 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="division_name">Division Name </label>
                         <input type="text" id="division_name" class="form-control" placeholder="Division Name" name="division_name" />
+                        <div class="text-warning" id="edit_division_name_error"></div>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>

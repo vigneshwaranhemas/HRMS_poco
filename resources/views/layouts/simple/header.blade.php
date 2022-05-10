@@ -1,3 +1,4 @@
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="page-main-header">
   <div class="main-header-right">
     <div class="main-header-left text-center">
@@ -53,7 +54,7 @@
               </div>
             </div>
           </div>
-        </li> 
+        </li>
         <li class="onhover-dropdown"><img class="img-fluid img-shadow-secondary" src="../assets/images/dashboard/like.png" alt="">
           <ul class="onhover-show-div droplet-dropdown">
             <li class="gradient-primary text-center">

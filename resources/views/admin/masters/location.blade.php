@@ -119,6 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="location_name">Location Name </label>
                         <input type="text" id="location_name" class="form-control" placeholder="Location Name" name="location_name" />
+                        <div class="text-warning" id="edit_location_name_error"></div>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>

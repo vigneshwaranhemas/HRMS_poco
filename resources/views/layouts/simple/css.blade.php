@@ -22,6 +22,22 @@
 <!-- tost css -->
 <link rel="stylesheet" href="../assets/toastify/toastify.css">
 <style>
+
+
+body
+{
+    zoom: 90%;
+}
+.page-main-header
+{
+    max-width: 200vw !important;
+}
+
+.modal-backdrop {
+    width: 120vw !important;
+    height: 120vh !important;
+}
+
 .dataTables_wrapper .dataTables_length
 {
     margin-right: 100%;

@@ -90,7 +90,7 @@
          </div>
       </div>
 
-      <div class="col-xl-7 xl-100 box-col-12">
+      <div class="col-xl-7 xl-90 box-col-12">
          <div class="card">
             <div class="card-header no-border">
                <h5>Today's Birthdays</h5>
@@ -112,7 +112,7 @@
             </div>
          </div>
       </div>
-      <div class="col-xl-5 xl-100 box-col-12">
+      <div class="col-xl-5 xl-90 box-col-12">
          <div class="card">
             <div class="card-header no-border">
                <h5>Upcoming Holidays</h5>
@@ -157,7 +157,7 @@
          </div>
       </div>
 
-      <div class="col-xl-7 xl-100 box-col-12">
+      <div class="col-xl-7 xl-90 box-col-12">
          <div class="card">
             <div class="card-header no-border">
                <h5>Today's Work Anniversary</h5>
@@ -175,12 +175,12 @@
             </div>
             <div class="card-body pt-0">
                <ul class="crm-activity" id="tdys_work_annu_list">
-                  
+
                </ul>
             </div>
          </div>
       </div>
-      <div class="col-xl-5 xl-100 box-col-12">
+      <div class="col-xl-5 xl-90 box-col-12">
          <div class="card">
             <div class="card-header no-border">
                <h5>Upcoming Events</h5>
@@ -224,7 +224,7 @@
             </div>
          </div>
       </div>
-       <div class="col-xl-4 xl-50 box-col-12">
+       <div class="col-xl-4 xl-30 box-col-12">
          <div class="card gradient-secondary o-hidden monthly-overview">
             <div class="card-header no-border bg-transparent">
                <h5>Monthly Overview</h5>
@@ -240,7 +240,7 @@
             </div>
          </div>
       </div>
-      <div class="col-xl-4 xl-50 box-col-6">
+      <div class="col-xl-4 xl-30 box-col-6">
          <div class="card">
             <div class="card-header no-border">
                <h5></h5>
@@ -278,7 +278,7 @@ View More&lt;/button&gt;
             </div>
          </div>
       </div>
-      <div class="col-xl-4 xl-100 box-col-6">
+      <div class="col-xl-4 xl-30 box-col-6">
          <div class="card gradient-primary o-hidden monthly-overview yearly">
             <div class="card-header no-border bg-transparent">
                <h5>Yearly Overview</h5>
@@ -294,7 +294,7 @@ View More&lt;/button&gt;
             </div>
          </div>
       </div>
-     
+
    </div>
 </div>
 
@@ -352,7 +352,7 @@ View More&lt;/button&gt;
                   <div class="col-md-12">
                      <div class="form-group">
                            <h6 class="f-w-700">Description</h6>
-                           <p id="description_show"></p>
+                           <p id="event_description_show"></p>
                      </div>
                   </div>
                </div>
@@ -538,7 +538,7 @@ View More&lt;/button&gt;
 
                      $("#event_name_show").html(value.event_name);
                      $("#where_show").html(value.where);
-                     $("#description_show").html(value.description);
+                     $("#event_description_show").html(value.description);
                      $("#category_name_show").html(value.category_name);
                      $("#event_type_show").html(value.event_type);
 

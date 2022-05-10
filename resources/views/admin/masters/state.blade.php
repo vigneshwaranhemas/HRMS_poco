@@ -119,6 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="state_name">State Name </label>
                         <input type="text" id="state_name" class="form-control" placeholder="State Name" name="state_name" />
+                        <div class="text-warning" id="edit_state_name_error"></div>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>

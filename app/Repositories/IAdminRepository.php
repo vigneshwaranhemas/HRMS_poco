@@ -125,10 +125,14 @@ interface IAdminRepository {
 
        public function get_seating_requested($status);
        public function update_seating_status($id,$data);
-       public function update_candidate_seating_status($data,$update_data); 
+       public function update_candidate_seating_status($data,$update_data);
 
    //Employee list
-    public function get_employee_list( $input_details);      
+    public function get_employee_list( $input_details);
+
+    // Company policies
+    public function add_policy_category_process( $form_data );
+    public function get_policy_category_details();
 
 
 }

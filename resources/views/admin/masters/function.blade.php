@@ -119,6 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="function_name">Function Name </label>
                         <input type="text" id="function_name" class="form-control" placeholder="Function Name" name="function_name" />
+                        <div class="text-warning" id="edit_function_name_error"></div>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>

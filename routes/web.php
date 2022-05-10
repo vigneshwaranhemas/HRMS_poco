@@ -352,6 +352,9 @@ Route::post('get_employee_list', 'AdminController@get_employee_list' );
 // Document Centre
 Route::get('document_center', 'CandidateController@document_center')->name('document_center');
 Route::get('payslip', 'CandidateController@payslip')->name('payslip');
+Route::get('documents_candidate', 'CandidateController@documents_candidate')->name('documents_candidate');
+
+
 Route::get('id_card_varification', 'CommonController@id_card_varification');
 /*hr id card process*/
 Route::get('hr_id_card_verification', 'CommonController@hr_id_card_verification');
@@ -373,3 +376,7 @@ Route::post('fetch_people_star_add', 'PeopleController@fetch_people_star_add')->
 
 Route::post('check_user_status','CommonController@check_user_status');
 
+// Company Policies for Admin
+Route::get('company_policies', 'AdminController@company_policies')->name('company_policies');
+Route::post('add_policy_category_process', 'AdminController@add_policy_category_process');
+Route::post('get_policy_category_details', 'AdminController@get_policy_category_details');

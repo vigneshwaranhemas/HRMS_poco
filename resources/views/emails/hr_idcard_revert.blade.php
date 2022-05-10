@@ -11,9 +11,9 @@
       
                 <p><b>Dear {{$candidate_name}},</b></p>
 
-                <p>Your ID Card Verfication is Failed.</p>
+                <p> We have reviewed your submissions and have reverted to you with observations. </p>
 
-                <p>Check Your ID Card Informaition and ReSubmit it.</p>
+                <p>Kindly resubmit after revising the information.</p>
 
                 <p><b>Thank you,</b></p>
                 <p>HR Team- HEPL</p>

@@ -5,11 +5,13 @@
 <!-- <link rel="stylesheet" type="text/css" href="../assets/css/photoswipe.css"> -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
  -->
+ <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <link rel="stylesheet" href="../assets/css/cropper.css"/>
 <link rel="stylesheet" href="../assets/css/croppie.css"/>
 <script src="../assets/js/cropper.js"></script>
  <link href="../assets/css/select2.css" rel="stylesheet">
+
 
 @endsection
 
@@ -99,9 +101,10 @@ max-width: 1000px !important;
                               </div>
                               <div>
                                  <strong>Select Image:</strong>
-                                    <input type="file" id="upload">
+                                    <input type="file" id="upload" name="upload">
                                     <button class="btn btn-success upload-result">Upload Image</button>
                               </div>
+                                    <span class="text-danger color-hider" id="upload_error" style="display:none;color: red;"></span>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                               </div>
@@ -127,7 +130,7 @@ max-width: 1000px !important;
                            </div>
                            <div class="col-md-6">
                               <div class="ttl-info text-left">
-                                 <h6><i class="fa fa-calendar"></i>   BOD</h6>
+                                 <h6><i class="fa fa-calendar"></i>   DOB</h6>
                                  <div id="dob"></div>
                               </div>
                            </div>
@@ -236,7 +239,7 @@ max-width: 1000px !important;
                <!-- contact -->
                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                     <nav class="navbar navbar-light bg-primary rounded">
-                       <span class="navbar-brand mb-0 h1">Contant</span>
+                       <span class="navbar-brand mb-0 h1">Contact</span>
                        <button class="btn btn-success" type="button" onclick="Contact_information()" data-toggle="modal" data-original-title="test" data-target="#ContactModal">+ Add Contact</button>
                      </nav>
                      <br>
@@ -287,13 +290,13 @@ max-width: 1000px !important;
                                 <div class="modal-body">
                                     <div class="form-row">
                                        <div class="col-md-6 mb-3">
-                                            <label for="phone_number">Phone Number</label>
+                                            <label for="phone_number">Phone Number *</label>
                                             <input class="form-control" maxlength="10" name="phone_number" id="phone_number" type="text" placeholder="Phone Number" required="">
                                             <div class="text-warning" id="phone_number_error"></div>
-                                        </div>
+                                        </div> 
                                         <div class="col-md-6 mb-3">
                                             <label for="s_number">Secondary Number</label>
-                                            <input class="form-control" maxlength="10" name="s_number" id="s_number" type="text" placeholder="Secondary Number" required="">
+                                            <input class="form-control" maxlength="10" name="s_number" id="s_number" type="text" placeholder="Secondary Number" >
                                             <div class="text-warning" id="s_number_error"></div>
                                         </div>
                                         <div class="col-md-6 mb-3">
@@ -302,7 +305,7 @@ max-width: 1000px !important;
                                             <div class="text-warning" id="p_email_error"></div>
                                         </div>
                                        <div class="col-md-6 mb-3">
-                                        <textarea class="custom-select"  type="text" id="p_addres" name="p_addres" maxlength="40" size="35" ></textarea>
+                                        <textarea class="custom-select"  type="text" id="p_addres" name="p_addres" size="35" ></textarea>
                                           <input id="sameadd" name="sameadd" type="checkbox" value="Sameadd" onchange="CopyAdd();"/>
                                           <p id="text" style="display:none;color: green;">Address is Cloned...</p>
                                         </div>
@@ -329,7 +332,7 @@ max-width: 1000px !important;
                                          <div class="text-warning" id="p_town_error"></div>
                                        </div>
                                        <div class="col-md-6 mb-3">
-                                          <textarea class="custom-select"  type="text" id="c_addres" name="c_addres" maxlength="40" size="35" ></textarea>
+                                          <textarea class="custom-select"  type="text" id="c_addres" name="c_addres" size="35" ></textarea>
                                        </div>
                                        <div class="col-md-6 mb-3">
                                          <label for="c_State">State</label>
@@ -469,13 +472,18 @@ max-width: 1000px !important;
                              <span class="text-danger color-hider" id="acc_name_error"  style="display:none;color: red;"></span>
                         </div>
                        <div class="form-group col-6">
-                           <select class="custom-select  js-select2" id="bank_name"  name="bank_name">
+                           <select class="custom-select" id="bank_name"  name="bank_name">
                               <option>Select Bank</option>
                               <option>SBI</option>
+                              <option>AXIS</option>
+                              <option>UCO</option>
+                              <option>CBI</option>
+                              <option>UBI</option>
                               <option>ICICI</option>
-                              <option>KOTAK</option>
-                              <option>BOB</option>
-                              <option>PUVATHA BANK</option>
+                              <option>KVB</option>
+                              <option>HDFC</option>
+
+                              <!-- <option>PUVATHA BANK</option> -->
                            </select>
                            <span class="text-danger color-hider" id="bank_name_error"  style="display:none;color: red;"></span>
                         </div>
@@ -544,39 +552,43 @@ max-width: 1000px !important;
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                             </div>
                               <form method="POST" action="javascript:void(0)" id="add_education_unit" class="ajax-form" enctype="multipart/form-data">
-                                  {{ csrf_field() }}
                                 <div class="modal-body">
                                     <div class="form-row">
                                        <div class="col-md-12 mb-3">
                                             <label for="Qualification">Qualification</label>
-                                            <input class="form-control" name="qualification" id="qualification" type="text" placeholder="Qualification" required="">
-                                            <div class="text-warning" id="qualification_error"></div>
+                                            <input class="form-control" name="qualification" id="qualification" type="text" placeholder="Qualification">
+                                            <span class="text-danger color-hider" id="qualification_error"  style="display:none;color: red;"></span>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="University">Institute</label>
-                                            <input class="form-control" name="institute" id="institute" type="text" placeholder="University" required="">
-                                            <div class="text-warning" id="institute_error"></div>
+                                            <input class="form-control" name="institute" id="institute" type="text" placeholder="Institute">
+                                            <span class="text-danger color-hider" id="institute_error"  style="display:none;color: red;"></span>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="Begin_On">Begin On</label>
-                                            <input class="form-control" name="begin_on" id="begin_on" type="month" placeholder="" required="">
-                                            <div class="text-warning" id="begin_on_error"></div>
+                                            <input class="form-control" name="begin_on" id="begin_on" type="month" placeholder="" >
+                                            <span class="text-danger color-hider" id="begin_on_error"  style="display:none;color: red;"></span>
                                         </div>
+                                        <!-- <div class="col-md-12 mb-3">
+                                          <label for="Begin_On">Begin On</label>
+                                             <input class="datepicker-here form-control digits" type="text" data-language="en" data-min-view="months" data-view="months" data-date-format="MM yyyy"  name="begin_on" id="begin_on" >
+                                            <div class="text-warning" id="begin_on_error"></div>
+                                       </div> -->
                                         <div class="col-md-12 mb-3">
                                             <label for="Due By">End On</label>
-                                            <input class="form-control" name="end_on" id="end_on" type="month" placeholder="" required="">
-                                            <div class="text-warning" id="end_on_error"></div>
+                                            <input class="form-control" name="end_on" id="end_on" type="month" placeholder="" >
+                                            <span class="text-danger color-hider" id="end_on_error"  style="display:none;color: red;"></span>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="edu_certificate">Education Certificate</label>
-                                            <input class="form-control" name="edu_certificate" id="edu_certificate" type="file" placeholder="" required="">
-                                            <div class="text-warning" id="edu_certificate_error"></div>
+                                            <input class="form-control" name="edu_certificate" id="edu_certificate" type="file" placeholder="" >
+                                            <span class="text-danger color-hider" id="edu_certificate_error"  style="display:none;color: red;"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
-                                    <button class="btn btn-secondary" type="btnSubmit">Save</button>
+                                    <button class="btn btn-secondary" type="submit">Save</button>
                                 </div>
                               </form>
                         </div>
@@ -608,30 +620,29 @@ max-width: 1000px !important;
                                     <div class="form-row">
                                        <div class="col-md-12 mb-3">
                                             <label for="job_title">Job Title</label>
-                                            <input class="form-control" name="job_title" id="job_title" type="text" placeholder="Job Tiltle" required="">
-                                            <div class="text-warning" id="job_title_error"></div>
+                                            <input class="form-control" name="job_title" id="job_title" type="text" placeholder="Job Tiltle">
+                                            <span class="text-danger color-hider" id="job_title_error"  style="display:none;color: red;"></span>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="cmp_name">Company Name</label>
-                                            <input class="form-control" name="cmp_name" id="cmp_name" type="text" placeholder="Company Name" required="">
-                                            <div class="text-warning" id="cmp_name_error"></div>
+                                            <input class="form-control" name="cmp_name" id="cmp_name" type="text" placeholder="Company Name">
+                                            <span class="text-danger color-hider" id="cmp_name_error"  style="display:none;color: red;"></span>
                                         </div>
                                          <div class="col-md-12 mb-3">
                                             <label for="exp_begin_On">Begin On</label>
-                                            <input class="form-control" name="exp_begin_on" id="exp_begin_on" type="month" placeholder="" required="">
-                                            <div class="text-warning" id="exp_begin_on_error"></div>
+                                            <input class="form-control" name="exp_begin_on" id="exp_begin_on" type="date" placeholder="">
+                                            <span class="text-danger color-hider" id="exp_begin_on_error"  style="display:none;color: red;"></span>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="Due By">End On</label>
-                                            <input class="form-control" name="exp_end_on" id="exp_end_on" type="month" placeholder="" required="">
-                                            <div class="text-warning" id="exp_end_on_error"></div>
+                                            <input class="form-control" name="exp_end_on" id="exp_end_on" type="date" placeholder="">
+                                            <span class="text-danger color-hider" id="exp_end_on_error"  style="display:none;color: red;"></span>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="exp_upload_file">Experience Certificate</label>
                                             <input class="form-control" name="exp_file" id="exp_file" type="file" aria-describedby="fileHelp">
                                              <!-- <small id="fileHelp" class="form-text text-muted">Please upload a valid file.</small> -->
-
-                                            <div class="text-warning" id="exp_upload_file_error"></div>
+                                             <span class="text-danger color-hider" id="exp_file_error"  style="display:none;color: red;"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -670,14 +681,13 @@ max-width: 1000px !important;
                                        <div class="col-md-12 mb-3">
                                             <label for="documents_name">Documents Name</label>
                                             <input class="form-control" name="documents_name" id="documents_name" type="text" placeholder="Documents Name" required="">
-                                            <div class="text-warning" id="documents_name_error"></div>
+                                            <span class="text-danger color-hider" id="documents_name_error"  style="display:none;color: red;"></span>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="upload_file">File</label>
                                             <input class="form-control" name="file" id="file" type="file" placeholder=""  aria-describedby="fileHelp" required="">
                                              <!-- <small id="fileHelp" class="form-text text-muted">Please upload a valid file.</small> -->
-
-                                            <div class="text-warning" id="upload_file_error"></div>
+                                             <span class="text-danger color-hider" id="file_error"  style="display:none;color: red;"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -869,6 +879,11 @@ max-width: 1000px !important;
 @endsection
 
 @section('script')
+
+<!-- date picker -->
+<script src="../assets/js/datepicker/date-picker/datepicker.js"></script>
+<script src="../assets/js/datepicker/date-picker/datepicker.en.js"></script>
+<script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
 
 <script src="../assets/js/counter/jquery.waypoints.min.js"></script>
  <script src="../assets/js/counter/jquery.counterup.min.js"></script>

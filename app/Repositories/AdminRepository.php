@@ -70,9 +70,9 @@ class AdminRepository implements IAdminRepository
 
     public function update_profile_details( $input_details ){
 
-        $update_roletbl = DB::table('images')->where( 'cdID', '=', $input_details['cdID'] );
+        $update_roletbl = DB::table('images')->where( 'emp_id', '=', $input_details['emp_id'] );
         $update_roletbl->update( [
-            'cdID' => $input_details['cdID'],
+            'emp_id' => $input_details['emp_id'],
             'path' => $input_details['path'],
         ] );
 

@@ -343,7 +343,7 @@ Route::post('banner_image_crop', 'DocumentsController@imageCropPost');
 Route::post('profile_banner', 'DocumentsController@profile_banner');
 
 /*ID Card*/
-Route::get('id_card_varification', 'CommonController@id_card_varification');
+// Route::get('id_card_varification', 'CommonController@id_card_varification');
 Route::post('idcard_info', 'CommonController@idcard_info');
 Route::post('idcard_info_save', 'CommonController@idcard_info_save');
 
@@ -375,8 +375,19 @@ Route::post('fetch_people_star_add', 'PeopleController@fetch_people_star_add')->
 //vignesh routes for check user status
 
 Route::post('check_user_status','CommonController@check_user_status');
+Route::get('can_hr_profile','HrController@can_hr_profile');
 
 // Company Policies for Admin
 Route::get('company_policies', 'AdminController@company_policies')->name('company_policies');
 Route::post('add_policy_category_process', 'AdminController@add_policy_category_process');
 Route::post('get_policy_category_details', 'AdminController@get_policy_category_details');
+
+Route::post('experience_info_hr', 'CommonController@experience_info_hr_info');
+Route::post('family_information_hr', 'CommonController@family_information_hr');
+Route::post('Contact_info_hr', 'CommonController@Contact_info_hr');
+Route::post('account_info_hr', 'CommonController@account_info_hr');
+
+/*password change*/
+Route::get( 'change_password', 'CommonController@change_password' );
+Route::post( 'change_password_process', 'CommonController@change_password_process' );
+

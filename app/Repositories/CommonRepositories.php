@@ -6,12 +6,37 @@ use App\Models\CustomUser;
 class CommonRepositories implements ICommonRepositories
 {
 	public function get_candidate_info_hr( $input_details ){
-
-        $bandtbl = DB::table('customusers')
+        // echo "<pre>";print_r($input_details);die;
+        $bandtbl = DB::table('customusers as cs')
         ->select('*')
-        ->where('id', '=', $input_details['id'])
+        ->where('cs.empID', '=', $input_details['empID'])
         ->get();
         // echo "<pre>";print_r($bandtbl);die;
+        return $bandtbl;
+    }
+    public function account_hr_info( $input_details ){
+
+        $bandtbl = DB::table('candidate_account_information')
+        ->select('*')
+        ->where('emp_id', '=', $input_details['empID'])
+        ->get();
+        return $bandtbl;
+    }
+    public function get_candidate_exp_hr( $input_details ){
+
+        $bandtbl = DB::table('candidate_experience_details')
+        ->select('*')
+        ->where('empID', '=', $input_details['empID'])
+        ->get();
+        return $bandtbl;
+    }
+    public function family_info_to_hr( $input_details ){
+       // DB::enableQueryLog();
+        $bandtbl = DB::table('candidate_family_information')
+        ->select('*')
+        ->where('emp_id', '=', $input_details['emp_id'])
+        ->get();
+        // dd(DB::getQueryLog());
         return $bandtbl;
     }
 
@@ -75,9 +100,19 @@ class CommonRepositories implements ICommonRepositories
 
 
 
-    public function check_user_status($id)
-    {
+    public function check_user_status($id){
              $result=CustomUser::select('hr_action')->where('empID',$id)->first();
              return $result;
+    }
+
+    public function change_password_process( $form_credentials ){
+
+
+        $update_mdlusertbl = new CustomUser();
+        $update_mdlusertbl = $update_mdlusertbl->where( 'empID', '=', $form_credentials['empID'] );
+    
+        $update_mdlusertbl->update( [ 
+            'passcode' => $form_credentials['confirm_password']
+        ] );
     }
 }

@@ -40,9 +40,10 @@ class ProfileRepositories implements IProfileRepositories
     }
 
     public function update_account_info( $input_details ){
-
-        $update_roletbl = DB::table('candidate_account_information')->where( 'cdID', '=', $input_details['cdID'] );
-        $update_roletbl->update( [
+        
+        if ($input_details['emp_id'] !="") {
+             $update_roletbl = DB::table('candidate_account_information')->where( 'emp_id', '=', $input_details['emp_id'] );
+             $update_roletbl->update( [
             'emp_id' => $input_details['emp_id'],
             'cdID' => $input_details['cdID'],
             'acc_name' => $input_details['acc_name'],
@@ -52,11 +53,13 @@ class ProfileRepositories implements IProfileRepositories
             'ifsc_code' => $input_details['ifsc_code'],
             'acc_mobile' => $input_details['acc_mobile'],
             'branch_name' => $input_details['branch_name'],
-        ] );
+            ] );
+        }
+       
     }
     public function update_banner_image( $input_details ){
 
-        $update_roletbl = DB::table('candidate_banner_image')->where( 'cdID', '=', $input_details['cdID'] );
+        $update_roletbl = DB::table('candidate_banner_image')->where( 'emp_id', '=', $input_details['emp_id'] );
         $update_roletbl->update( [
             'emp_id' => $input_details['emp_id'],
             'cdID' => $input_details['cdID'],
@@ -74,7 +77,6 @@ class ProfileRepositories implements IProfileRepositories
                         ->where('cdID', '=', $input_details['cdID'])
                         ->first();
         }else if ($input_details['emp_id'] != "") {
-
             $bandtbl = DB::table('candidate_banner_image')
                         ->select('*')
                         ->where('emp_id', '=', $input_details['emp_id'])
@@ -101,22 +103,35 @@ class ProfileRepositories implements IProfileRepositories
 
     /*education_info*/
     public function education_info( $input_details ){
+         if ($input_details['cdID'] !="") {
+                $bandtbl = DB::table('candidate_education_details')
+                ->select('*')
+                ->where('cdID', '=', $input_details['cdID'])
+                ->get();
+            }else if ($input_details['emp_id'] !=""){
+                $bandtbl = DB::table('candidate_education_details')
+                ->select('*')
+                ->where('emp_id', '=', $input_details['emp_id'])
+                ->get();
+            }
 
-        $bandtbl = DB::table('candidate_education_details')
-        ->select('*')
-        ->where('cdID', '=', $input_details['cdID'])
-        ->get();
 
         return $bandtbl;
     }
     /*experience_info*/
     public function experience_info( $input_details ){
-
-        $bandtbl = DB::table('candidate_experience_details')
-        ->select('*')
-        ->where('cdID', '=', $input_details['cdID'])
-        ->get();
-
+        if ($input_details['cdID'] !="") {
+            $bandtbl = DB::table('candidate_experience_details')
+            ->select('*')
+            ->where('cdID', '=', $input_details['cdID'])
+            ->get();
+        }else if ($input_details['emp_id'] !=""){
+             // echo "<pre>emp_id";print_r($input_details['emp_id']);die;
+            $bandtbl = DB::table('candidate_experience_details')
+            ->select('*')
+            ->where('empID', '=', $input_details['emp_id'])
+            ->get();
+        }
         return $bandtbl;
     }
     /*Contact info*/

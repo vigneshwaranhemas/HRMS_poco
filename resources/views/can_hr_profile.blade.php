@@ -462,5 +462,7 @@ max-width: 1000px !important;
     var hr_id_remark_link = "{{url('hr_id_remark')}}";
     var experience_info_hr_link = "{{url('experience_info_hr')}}";
     var family_information_get_link = "{{url('family_information_hr')}}";
+    var Contact_info_hr_link = "{{url('Contact_info_hr')}}";
+    var account_info_hr_link = "{{url('account_info_hr')}}";
  </script>
 @endsection

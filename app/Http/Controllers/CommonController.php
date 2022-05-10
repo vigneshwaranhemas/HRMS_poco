@@ -19,6 +19,9 @@ class CommonController extends Controller
            return view('id_card_verification');
     } public function hr_id_card_verification(){
            return view('hr_id_card_verification');
+    }public function change_password(){
+        return view('change_password');
+
     }
     public function __construct(IAdminRepository $admrpy,IProfileRepositories $profrpy,ICommonRepositories $cmmrpy){
         $this->admrpy = $admrpy;
@@ -288,6 +291,22 @@ class CommonController extends Controller
             }*/
         }
 
+    public function Contact_info_hr(Request $request){
+
+        $input_details = array( "empID" => $request->empID, );
+        $candidate_info_result_hr = $this->cmmrpy->get_candidate_info_hr( $input_details );
+
+        return response()->json( $candidate_info_result_hr );
+
+    }
+    public function account_info_hr(Request $request){
+
+        $input_details = array( "empID" => $request->empID, );
+        $candidate_info_result_hr = $this->cmmrpy->account_hr_info( $input_details );
+
+        return response()->json( $candidate_info_result_hr );
+
+    }
     public function hr_get_id_card_vari(Request $request){
 
         $input_details = array( "id" => $request->id,"empID" => $request->empID, );
@@ -355,12 +374,26 @@ class CommonController extends Controller
         }
 //vignesh code for check user status
 
-public function check_user_status(Request $request)
-{
-    $empID=$request->empID;
-    $result = $this->cmmrpy->check_user_status($empID);
-    echo json_encode($result);
-}
+    public function check_user_status(Request $request){
+        $empID=$request->empID;
+        $result = $this->cmmrpy->check_user_status($empID);
+        echo json_encode($result);
+    }
+
+    public function change_password_process(Request $req){
+        // get all data
+        $session_val = Session::get('session_info');
+        $emp_ID = $session_val['empID'];
+        $input_details = array(
+            'empID'=>$emp_ID,
+            'confirm_password'=>bcrypt($req->input('confirm_password')),
+        );
+        $change_password_process_result = $this->cmmrpy->change_password_process( $input_details );
+
+        $response = 'Updated';
+        return response()->json( ['response' => $response] );
+
+    }
 
 
 

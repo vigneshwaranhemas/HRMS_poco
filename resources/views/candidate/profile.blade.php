@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="../assets/css/croppie.css"/>
 <script src="../assets/js/cropper.js"></script>
  <link href="../assets/css/select2.css" rel="stylesheet">
+ <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
+
 
 @endsection
 
@@ -236,7 +238,7 @@ max-width: 1000px !important;
                <!-- contact -->
                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                     <nav class="navbar navbar-light bg-primary rounded">
-                       <span class="navbar-brand mb-0 h1">Contant</span>
+                       <span class="navbar-brand mb-0 h1">Contact</span>
                        <button class="btn btn-success" type="button" onclick="Contact_information()" data-toggle="modal" data-original-title="test" data-target="#ContactModal">+ Add Contact</button>
                      </nav>
                      <br>
@@ -562,11 +564,15 @@ max-width: 1000px !important;
                                             <input class="form-control" name="institute" id="institute" type="text" placeholder="Institute" required="">
                                             <div class="text-warning" id="institute_error"></div>
                                         </div>
-                                        <div class="col-md-12 mb-3">
+                                        <!-- <div class="col-md-12 mb-3">
                                             <label for="Begin_On">Begin On</label>
                                             <input class="form-control" name="begin_on" id="begin_on" type="month" placeholder="" required="">
+                                        </div> -->
+                                        <div class="col-md-12 mb-3">
+                                          <label for="Begin_On">Begin On</label>
+                                             <input class="datepicker-here form-control digits" type="text" data-language="en" name="begin_on" id="begin_on"  data-min-view="months" data-view="months" data-date-format="MM yyyy">
                                             <div class="text-warning" id="begin_on_error"></div>
-                                        </div>
+                                       </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="Due By">End On</label>
                                             <input class="form-control" name="end_on" id="end_on" type="month" placeholder="" required="">
@@ -874,6 +880,11 @@ max-width: 1000px !important;
 @endsection
 
 @section('script')
+
+<!-- date picker -->
+<script src="../assets/js/datepicker/date-picker/datepicker.js"></script>
+<script src="../assets/js/datepicker/date-picker/datepicker.en.js"></script>
+<script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
 
 <script src="../assets/js/counter/jquery.waypoints.min.js"></script>
  <script src="../assets/js/counter/jquery.counterup.min.js"></script>

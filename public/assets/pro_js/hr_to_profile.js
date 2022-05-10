@@ -28,13 +28,6 @@ function hr_to_profile(id){
                     $('#can_blood_grp').html(data[0].blood_grp);
                     $('#gender').html(data[0].gender);
 
-                    /*contact*/
-                    $('#contact_no_1').html(data[0].contact_no);
-                    $('#emp_num_2').html(data[0].emp_num_2);
-                    $('#p_addres_view').html(data[0].p_addres+data[0].p_district+data[0].p_town+data[0].p_State);
-                    $('#c_addres_view').html(data[0].c_addres+data[0].c_district+data[0].c_town+data[0].c_State);
-                    $('#p_email').html(data[0].p_email);
-
                     /*working info*/
                     $('#doj').html(doj);
                     $('#working_loc').html(data[0].worklocation);
@@ -42,24 +35,63 @@ function hr_to_profile(id){
                     $('#can_designation').html(data[0].designation);
                     $('#grade').html(data[0].grade);
 
+
+                }
+        }
+    });
+}
+/*contact info in pop-up*/
+$("#v-pills-messages-tab").on('click', function() {
+    Contact_info_hr();
+});
+function Contact_info_hr(id){
+    var params = new window.URLSearchParams(window.location.search);
+    var id=params.get('id')
+    var empID=params.get('empID')
+    $.ajax({
+        url: Contact_info_hr_link,
+        method: "POST",
+        data:{"id":id,"empID":empID},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data)
+                if (data !="") {
+                    $('#contact_no_1').html(data[0].contact_no);
+                    $('#emp_num_2').html(data[0].emp_num_2);
+                    $('#p_addres_view').html(data[0].p_addres+data[0].p_district+data[0].p_town+data[0].p_State);
+                    $('#c_addres_view').html(data[0].c_addres+data[0].c_district+data[0].c_town+data[0].c_State);
+                    $('#p_email').html(data[0].p_email);
+                }
+            }
+        });
+    }
+/*account information*/
+$("#v-pills-Account-information-tab").on('click', function() {
+    account_info_hr();
+});
+
+function account_info_hr(){
+    var params = new window.URLSearchParams(window.location.search);
+    var empID=params.get('empID')
+    $.ajax({
+        url: account_info_hr_link,
+        method: "POST",
+        data:{"empID":empID},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data)
+            if (data !="") {
                     /*account information*/
                     $('#acc_name').html(data[0].acc_name);
                     $('#bank_name').html(data[0].bank_name);
                     $('#branch_name').html(data[0].branch_name);
                     $('#acc_number').html(data[0].acc_number);
                     $('#ifsc_code').html(data[0].ifsc_code);
-
-                   /* $('#emp_num_1').html(data[0].emp_num_1);
-                    $('#rel_emp').html(data[0].rel_emp);
-                    $('#name_rel_ship').html(data[0].name_rel_ship);
-                    $('#emrg_con_num').html(data[0].emrg_con_num);
-                    $('#blood_grp').html(data[0].blood_grp);
-                    $('#emp_code').html(data[0].sup_emp_code);
-                    $('#official_email').html(data[0].email);*/
                 }
-        }
-    });
-}
+            }
+        });
+    }
+
 
 /*Experience information*/
 $("#v-pills-Experience-tab").on('click', function() {

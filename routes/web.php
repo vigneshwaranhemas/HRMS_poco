@@ -376,4 +376,10 @@ Route::get('can_hr_profile','HrController@can_hr_profile');
 
 Route::post('experience_info_hr', 'CommonController@experience_info_hr_info');
 Route::post('family_information_hr', 'CommonController@family_information_hr');
+Route::post('Contact_info_hr', 'CommonController@Contact_info_hr');
+Route::post('account_info_hr', 'CommonController@account_info_hr');
 
+/*password change*/
+
+Route::get( 'change_password', 'CommonController@change_password' );
+Route::post( 'change_password_process', 'CommonController@change_password_process' );

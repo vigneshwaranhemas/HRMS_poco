@@ -287,13 +287,13 @@ max-width: 1000px !important;
                                 <div class="modal-body">
                                     <div class="form-row">
                                        <div class="col-md-6 mb-3">
-                                            <label for="phone_number">Phone Number</label>
+                                            <label for="phone_number">Phone Number *</label>
                                             <input class="form-control" maxlength="10" name="phone_number" id="phone_number" type="text" placeholder="Phone Number" required="">
                                             <div class="text-warning" id="phone_number_error"></div>
-                                        </div>
+                                        </div> 
                                         <div class="col-md-6 mb-3">
                                             <label for="s_number">Secondary Number</label>
-                                            <input class="form-control" maxlength="10" name="s_number" id="s_number" type="text" placeholder="Secondary Number" required="">
+                                            <input class="form-control" maxlength="10" name="s_number" id="s_number" type="text" placeholder="Secondary Number" >
                                             <div class="text-warning" id="s_number_error"></div>
                                         </div>
                                         <div class="col-md-6 mb-3">
@@ -302,7 +302,7 @@ max-width: 1000px !important;
                                             <div class="text-warning" id="p_email_error"></div>
                                         </div>
                                        <div class="col-md-6 mb-3">
-                                        <textarea class="custom-select"  type="text" id="p_addres" name="p_addres" maxlength="40" size="35" ></textarea>
+                                        <textarea class="custom-select"  type="text" id="p_addres" name="p_addres" size="35" ></textarea>
                                           <input id="sameadd" name="sameadd" type="checkbox" value="Sameadd" onchange="CopyAdd();"/>
                                           <p id="text" style="display:none;color: green;">Address is Cloned...</p>
                                         </div>
@@ -329,7 +329,7 @@ max-width: 1000px !important;
                                          <div class="text-warning" id="p_town_error"></div>
                                        </div>
                                        <div class="col-md-6 mb-3">
-                                          <textarea class="custom-select"  type="text" id="c_addres" name="c_addres" maxlength="40" size="35" ></textarea>
+                                          <textarea class="custom-select"  type="text" id="c_addres" name="c_addres" size="35" ></textarea>
                                        </div>
                                        <div class="col-md-6 mb-3">
                                          <label for="c_State">State</label>
@@ -469,13 +469,18 @@ max-width: 1000px !important;
                              <span class="text-danger color-hider" id="acc_name_error"  style="display:none;color: red;"></span>
                         </div>
                        <div class="form-group col-6">
-                           <select class="custom-select  js-select2" id="bank_name"  name="bank_name">
+                           <select class="custom-select" id="bank_name"  name="bank_name">
                               <option>Select Bank</option>
                               <option>SBI</option>
+                              <option>AXIS</option>
+                              <option>UCO</option>
+                              <option>CBI</option>
+                              <option>UBI</option>
                               <option>ICICI</option>
-                              <option>KOTAK</option>
-                              <option>BOB</option>
-                              <option>PUVATHA BANK</option>
+                              <option>KVB</option>
+                              <option>HDFC</option>
+
+                              <!-- <option>PUVATHA BANK</option> -->
                            </select>
                            <span class="text-danger color-hider" id="bank_name_error"  style="display:none;color: red;"></span>
                         </div>
@@ -554,7 +559,7 @@ max-width: 1000px !important;
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="University">Institute</label>
-                                            <input class="form-control" name="institute" id="institute" type="text" placeholder="University" required="">
+                                            <input class="form-control" name="institute" id="institute" type="text" placeholder="Institute" required="">
                                             <div class="text-warning" id="institute_error"></div>
                                         </div>
                                         <div class="col-md-12 mb-3">
@@ -618,12 +623,12 @@ max-width: 1000px !important;
                                         </div>
                                          <div class="col-md-12 mb-3">
                                             <label for="exp_begin_On">Begin On</label>
-                                            <input class="form-control" name="exp_begin_on" id="exp_begin_on" type="month" placeholder="" required="">
+                                            <input class="form-control" name="exp_begin_on" id="exp_begin_on" type="date" placeholder="" required="">
                                             <div class="text-warning" id="exp_begin_on_error"></div>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="Due By">End On</label>
-                                            <input class="form-control" name="exp_end_on" id="exp_end_on" type="month" placeholder="" required="">
+                                            <input class="form-control" name="exp_end_on" id="exp_end_on" type="date" placeholder="" required="">
                                             <div class="text-warning" id="exp_end_on_error"></div>
                                         </div>
                                         <div class="col-md-12 mb-3">

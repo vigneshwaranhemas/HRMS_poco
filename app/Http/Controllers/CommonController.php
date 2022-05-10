@@ -107,7 +107,7 @@ class CommonController extends Controller
                     // $Mail['password']="Welcome@123";
                 // $store_result=$this->cmmrpy->Candidate_info_mail($data);
                     $Mail['email']=$session_val['email'];
-                    $Mail['hr_email']='radhakrishnan9317@gmail.com';
+                    $Mail['hr_email']='hr@hemas.in';
                     $Mail['subject']="Thank you for submitting the details.";
                     $Mail['candidate_name']=$user->username;
                     $Mail['hr_subject']="ID Card Informatin approvel Awaited.";
@@ -164,7 +164,7 @@ class CommonController extends Controller
 
             /*email for can*/
             $Mail['email']=$session_val['email'];
-                    $Mail['hr_email']='radhakrishnan9317@gmail.com';
+                    $Mail['hr_email']='hr@hemas.in';
                     $Mail['subject']="Thank you for submitting the details.";
                     $Mail['candidate_name']=$user->username;
                     $Mail['hr_subject']="ID Card Informatin approvel Awaited.";
@@ -290,8 +290,24 @@ class CommonController extends Controller
 
     public function hr_get_id_card_vari(Request $request){
 
-        $input_details = array( "id" => $request->id );
+        $input_details = array( "id" => $request->id,"empID" => $request->empID, );
         $candidate_info_result_hr = $this->cmmrpy->get_candidate_info_hr( $input_details );
+
+        return response()->json( $candidate_info_result_hr );
+
+    }
+    public function experience_info_hr_info(Request $request){
+
+        $input_details = array( "id" => $request->id ,"empID" => $request->empID ,);
+        $candidate_info_result_hr = $this->cmmrpy->get_candidate_exp_hr( $input_details );
+
+        return response()->json( $candidate_info_result_hr );
+
+    }
+    public function family_information_hr(Request $request){
+
+        $input_details = array( "id" => $request->id ,"emp_id" => $request->emp_id ,);
+        $candidate_info_result_hr = $this->cmmrpy->family_info_to_hr( $input_details );
 
         return response()->json( $candidate_info_result_hr );
 

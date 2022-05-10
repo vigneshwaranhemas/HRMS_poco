@@ -6,12 +6,32 @@ use App\Models\CustomUser;
 class CommonRepositories implements ICommonRepositories
 {
 	public function get_candidate_info_hr( $input_details ){
-
-        $bandtbl = DB::table('customusers')
+        // DB::enableQueryLog();
+        $bandtbl = DB::table('customusers as cs')
         ->select('*')
-        ->where('id', '=', $input_details['id'])
+        ->join('candidate_contact_information as con', 'cs.empID', '=', 'con.emp_id')
+        ->join('candidate_account_information as ca', 'cs.empID', '=', 'ca.emp_id')
+        ->where('cs.id', '=', $input_details['id'])
         ->get();
+        // dd(DB::getQueryLog());
         // echo "<pre>";print_r($bandtbl);die;
+        return $bandtbl;
+    }
+    public function get_candidate_exp_hr( $input_details ){
+
+        $bandtbl = DB::table('candidate_experience_details')
+        ->select('*')
+        ->where('empID', '=', $input_details['empID'])
+        ->get();
+        return $bandtbl;
+    }
+    public function family_info_to_hr( $input_details ){
+       // DB::enableQueryLog();
+        $bandtbl = DB::table('candidate_family_information')
+        ->select('*')
+        ->where('emp_id', '=', $input_details['emp_id'])
+        ->get();
+        // dd(DB::getQueryLog());
         return $bandtbl;
     }
 

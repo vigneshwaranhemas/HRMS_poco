@@ -372,4 +372,8 @@ Route::post('fetch_people_star_add', 'PeopleController@fetch_people_star_add')->
 //vignesh routes for check user status
 
 Route::post('check_user_status','CommonController@check_user_status');
+Route::get('can_hr_profile','HrController@can_hr_profile');
+
+Route::post('experience_info_hr', 'CommonController@experience_info_hr_info');
+Route::post('family_information_hr', 'CommonController@family_information_hr');
 

@@ -174,16 +174,6 @@
                         <!-- <div class="invalid-feedback">Please provide a valid state.</div> -->
                      </div>
                   </div>
-                  <!-- <div class="form-group">
-                     <div class="form-check">
-                        <div class="checkbox p-0">
-                           <input class="form-check-input" id="invalidCheck" type="checkbox" required="">
-                           <label class="form-check-label" for="invalidCheck">Agree to terms and conditions</label>
-                        </div>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                     </div>
-                  </div> -->
-                  <!-- <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button> -->
                   <center>
                      <button class="btn btn-success" type="btnSubmit">Accept</button>
                      <!-- <button class="btn btn-danger">  </button> -->

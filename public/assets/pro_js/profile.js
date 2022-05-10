@@ -133,7 +133,7 @@ function profile_banner_image(){
                 $("#banner_img").attr('src',"../assets/images/other-images/profile-style-img3.png");
             }
             else{
-                $("#banner_img").attr('src',"../uploads/"+data.banner_image);
+                $("#banner_img").attr('src',"../banner/"+data.banner_image);
             }
         }
     });
@@ -155,8 +155,8 @@ function Contact_info_page(){
                     $('#p_num_view').html(data['0'].phone_number);
                     $('#s_num_view').html(data['0'].s_number);
                     $('#p_email_view').html(data['0'].p_email);
-                    $('#p_addres_view').html(data['0'].p_addres+','+data['0'].p_town+','+data['0']. p_State+data['0'].p_district);
-                    $('#c_addres_view').html(data['0'].c_addres+','+data['0'].c_town+data['0']. c_State+','+data['0'].c_district);
+                    $('#p_addres_view').html(data['0'].p_addres+','+data['0'].p_town+','+data['0']. p_district+','+data['0'].p_State);
+                    $('#c_addres_view').html(data['0'].c_addres+','+data['0'].c_town+','+data['0']. c_district+','+data['0'].c_State);
                 }
             }
         });
@@ -468,7 +468,15 @@ $('#add_contact_info').submit(function(e) {
     }
 
 
-
+/*$(document).ready(function () {
+   $("#p_State").select2();
+   $("#c_State").select2();
+   $("#c_district").select2();
+   $("#p_district").select2();
+   $("#c_town").select2();
+   $("#p_town").select2();
+ 
+});*/
 
 
 var $modal = $('#modal');
@@ -702,7 +710,7 @@ function documents_info(){
                     html +="<div class='profile-info-widget' style='margin-bottom: -37px;'>";
                     html +="<a class='fa fa-suitcase' style='font-size:25px;color:black'></a>";
                     html +="<div class='profile-det-info'>";
-                    html +="<h5><a href='' class='text-info'>" + data[index].doc_name + "</a></h5>";
+                    html +='<h5><a href="../uploads/'+  data[index].path +'" class="text-info" target =_blank>' + data[index].doc_name + '</a></h5>';
                     html +="</div>";
                     html +="</div>";
                     html +="</div>";
@@ -824,7 +832,7 @@ function education_information(){
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data)
+            console.log(data)
             if (data !="") {
                 $('#education_td').empty();
                         html ='';
@@ -834,7 +842,7 @@ function education_information(){
                         html +='<td data-label="allcount">'+val.university+'</td>';
                         html +='<td data-label="allcount">'+val.edu_start_month+"-"+val.edu_start_year+'</td>';
                         html +='<td data-label="allcount">'+val.edu_end_month+"-"+val.edu_end_year+'</td>';
-                        html +='<td data-label="allcount"><a href="../uploads/'+ val.edu_certificate +'" target =_blank><img class="rounded-circle" src="../assets/images/user/1.jpg"  alt=""></a></td>';
+                        html +='<td data-label="allcount"><a href="../education/'+ val.edu_certificate +'" target =_blank><img class="rounded-circle" src="../assets/images/user/1.jpg"  alt=""></a></td>';
 
                     });
                     $('#education_td').html(html);
@@ -947,7 +955,7 @@ function experience_info(){
             $('#Experience_tbl').empty();
             if (data !="") {
                      html ="";
-                    // console.log(data)
+                    console.log(data)
                         html +="<div class='card-body'>";
                         html +="<div class='row people-grid-row'>";
                   for (let index = 0; index < data.length; index++) {
@@ -958,7 +966,7 @@ function experience_info(){
                         html +="<div class='profile-info-widget'>";
                         html +="<a class='fa fa-suitcase' style='font-size:25px;color:black'></a>";
                         html +="<div class='profile-det-info'>";
-                        html +="<a class='text-info' >" + data[index].job_title + "</a>";
+                        html +='<a href="../experience/'+  data[index].certificate +'" class="text-info" target =_blank >' + data[index].job_title + '</a>';
                         html +="<p>" + data[index].company_name + "</p>";
                         html +="</div>";
                         html +="</div>";

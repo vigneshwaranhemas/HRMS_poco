@@ -387,4 +387,13 @@ class HrController extends Controller
    }
 
 
+//candidate profile for hr
+
+    public function can_hr_profile()
+    {
+         return view('can_hr_profile');
+    }
+
+
+
 }

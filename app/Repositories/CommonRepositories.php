@@ -110,9 +110,10 @@ class CommonRepositories implements ICommonRepositories
 
         $update_mdlusertbl = new CustomUser();
         $update_mdlusertbl = $update_mdlusertbl->where( 'empID', '=', $form_credentials['empID'] );
-    
-        $update_mdlusertbl->update( [ 
-            'passcode' => $form_credentials['confirm_password']
+
+        $update_mdlusertbl->update( [
+            'passcode' => $form_credentials['confirm_password'],
+            'passcode_status' => $form_credentials['passcode_status']
         ] );
     }
 }

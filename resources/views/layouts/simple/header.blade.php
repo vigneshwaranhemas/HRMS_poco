@@ -107,10 +107,10 @@
             <li class="gradient-primary">
               <h5 class="f-w-600 mb-0">{{ Auth::user()->username }}</h5><span>{{ Auth::user()->designation }}</span>
             </li>
-            <li><i data-feather="user"> <a href="{{ url('candidate_profile') }}"></i>Profile</a></li>
-            <li><i data-feather="Change password"><a href="{{ url('change_password') }}"> </i>Change password</a></li>
-            <li><i data-feather="file-text"> </i>Taskboard</li>
-            <li><i data-feather="settings"> </i>Settings</li>
+            <li class="sub_header"><i data-feather="user"> <a href="{{ url('candidate_profile') }}"></i>Profile</a></li>
+            <li class="sub_header"><i data-feather="Change password"><a href="{{ url('change_password') }}"> </i>Change password</a></li>
+            <li class="sub_header"><i data-feather="file-text"> </i>Taskboard</li>
+            <li class="sub_header"><i data-feather="settings"> </i>Settings</li>
             <li><i data-feather="log-out"> </i><a href="{{ url('../index.php') }}">Logout</a></li>
           </ul>
         </li>

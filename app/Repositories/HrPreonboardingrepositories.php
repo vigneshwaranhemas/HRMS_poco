@@ -256,6 +256,22 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
         return $welcome_aboard_data;
     }
 
+    public function welcome_aboard_image_upload_hr($id)
+    {
+        $welcome_aboard_image_upload_data = welcome_aboard::where('created_by',$id)
+                                                ->update(['image_path'=>$id]);
+
+        return $welcome_aboard_image_upload_data;
+    }
+
+    public function get_welcome_aboard_image_show_hr($id){
+
+        $welcome_aboard_image_data = welcome_aboard::where('image_path',$id)
+                                                ->first();
+
+        return $welcome_aboard_image_data;
+    }
+
 }
 
 

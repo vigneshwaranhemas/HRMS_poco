@@ -28,25 +28,37 @@ class DocumentsController extends Controller
         $emp_ID = $session_val['empID'];
         $cdID = $session_val['cdID'];
 
-        request()->validate([
+       /* request()->validate([
         'documents_name' => 'required',
         'file' => 'required|mimes:doc,docx,pdf,txt|max:2048',
-        ]);
-        if ($files = $request->file('file')) {
-        $destinationPath = public_path('uploads/'); 
-           $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-           $files->move($destinationPath, $profileImage);
-           $path = "$profileImage";
+        ]);*/
+        $validator=Validator::make($request->all(),[
+                     'documents_name' => 'required',
+                    'file' => 'required|mimes:doc,docx,pdf,txt|max:2048',
+                    ], [
+                    'documents_name.required' => 'Documents Name is required',
+                    'file.required' => 'File is required',
+                    
+                    ]);
 
-            $data =array(
-            'emp_id'=>$emp_ID,
-            'cdID'=>$cdID,
-            'doc_name'=>$request->input('documents_name'),
-            'path'=>$path);
-        $insert = DB::table( 'documents' )->insert( $data );
-    }
-        return response()->json(['response'=>'insert']);
+        if($validator->passes()){
+            if ($files = $request->file('file')) {
+                $destinationPath = public_path('uploads/'); 
+                   $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
+                   $files->move($destinationPath, $profileImage);
+                   $path = "$profileImage";
+                    $data =array(
+                    'emp_id'=>$emp_ID,
+                    'cdID'=>$cdID,
+                    'doc_name'=>$request->input('documents_name'),
+                    'path'=>$path);
+                $insert = DB::table( 'documents' )->insert( $data );
+            }
+                return response()->json(['response'=>'insert']);
+        }else{
+            return response()->json(['error'=>$validator->errors()->toArray()]);
 
+        }
     }
     /*banner image */
     public function profile_banner(Request $request){
@@ -84,11 +96,11 @@ class DocumentsController extends Controller
         if($validator->passes()){*/
 
             $session_val = Session::get('session_info');
-            $emp_ID = $session_val['empID'];
+            $emp_id = $session_val['empID'];
             $cdID = $session_val['cdID'];
 
-            $user = DB::table( 'candidate_banner_image' )->where('cdID', '=', $cdID)->first();
-
+            $user = DB::table( 'candidate_banner_image' )->where('emp_id', '=', $emp_id)->first();
+            // echo "<pre>";print_r($user);die;
              if ($user === null) {
 
                     $data = $request->image;
@@ -96,28 +108,29 @@ class DocumentsController extends Controller
                     list(, $data)      = explode(',', $data);
                     $data = base64_decode($data);
                     $image_name= 'Ban_'.time().'.png';
-                    $path = public_path() . "/uploads/" . $image_name;
+                    $path = public_path() . "/banner/" . $image_name;
                     file_put_contents($path, $data);
 
                             $data =array(
-                                'emp_id'=>$emp_ID,
+                                'emp_id'=>$emp_id,
                                 'cdID'=>$cdID,
                                 'banner_image'=>$image_name
                                 );
                             // echo "<pre>";print_r($data);die;
                             $insert = DB::table( 'candidate_banner_image' )->insert( $data );
                             return response()->json(['response'=>'insert']);
-                        }else{
-                            $data = $request->image;
+                        }
+            else{
+                    $data = $request->image;
                     list($type, $data) = explode(';', $data);
                     list(, $data)      = explode(',', $data);
                     $data = base64_decode($data);
                     $image_name= 'Ban_'.time().'.png';
-                    $path = public_path() . "/uploads/" . $image_name;
+                    $path = public_path() . "/banner/" . $image_name;
                     file_put_contents($path, $data);
 
                             $data =array(
-                                'emp_id'=>$emp_ID,
+                                'emp_id'=>$emp_id,
                                 'cdID'=>$cdID,
                                 'banner_image'=>$image_name
                                 );
@@ -218,7 +231,9 @@ class DocumentsController extends Controller
 
         $session_val = Session::get('session_info');
         $cdID = $session_val['cdID'];
-        $input_details = array( "cdID" => $cdID, );
+        $emp_id = $session_val['empID'];
+        $input_details = array( "cdID" => $cdID,
+                                    "emp_id"=> $emp_id );
         $education_result = $this->profrpy->education_info( $input_details );
         
         return response()->json( $education_result );
@@ -233,7 +248,7 @@ class DocumentsController extends Controller
                     'institute' => 'required',
                     'begin_on' => 'required',
                     'end_on' => 'required',
-                    'edu_certificate' => 'required',
+                    'edu_certificate' => 'required|mimes:csv,txt,pdf|max:2048',
                     ], [
                     'qualification.required' => 'Qualification is required',
                     'institute.required' => 'Institute is required',
@@ -241,14 +256,15 @@ class DocumentsController extends Controller
                     'end_on.required' => 'End On is required',
                     'edu_certificate.required' => 'file is required',
                     ]);
-                    if($validator->passes()){
+
+                if($validator->passes()){
 
                      $session_val = Session::get('session_info');
                     $emp_ID = $session_val['empID'];
                     $cdID = $session_val['cdID'];
 
                     $files = $request->file('edu_certificate');
-                    $destinationPath = public_path('uploads/'); 
+                    $destinationPath = public_path('education/'); 
                    $profileImage ="edu_certificate". date('YmdHis') . "." . $files->getClientOriginalExtension();
                    $files->move($destinationPath, $profileImage);
                    $edu_certificate = "$profileImage";
@@ -276,8 +292,7 @@ class DocumentsController extends Controller
 
                     $insert_education_info_result = $this->profrpy->insert_education_info( $data );
                     return response()->json(['response'=>'insert']);
-            }
-            else{
+            }else{
                 return response()->json(['error'=>$validator->errors()->toArray()]);
                 }
         }
@@ -292,11 +307,13 @@ class DocumentsController extends Controller
                     'cmp_name' => 'required',
                     'exp_begin_on' => 'required',
                     'exp_end_on' => 'required',
+                    'exp_file'=> 'required|mimes:csv,txt,pdf|max:2048',
                     ], [
                     'job_title.required' => 'Job Title is required',
                     'cmp_name.required' => 'Company Name is required',
                     'exp_begin_on.required' => 'Begin On is required',
                     'exp_end_on.required' => 'End On is required',
+                    'exp_file.required' => 'File required',
                     ]);
                     if($validator->passes()){
 
@@ -305,18 +322,21 @@ class DocumentsController extends Controller
                     $cdID = $session_val['cdID'];
 
                     $files = $request->file('exp_file');
-                    $destinationPath = public_path('uploads/'); 
+                    $destinationPath = public_path('experience/'); 
                    $profileexp ="exp_file". date('YmdHis') . "." . $files->getClientOriginalExtension();
                    $files->move($destinationPath, $profileexp);
                    $exp_file = "$profileexp";
 
-                    // echo "<pre>";print_r($exp_file);die;
+
                     $begin_on = explode('-', $request->input('exp_begin_on'));
                     $edu_start_month = $begin_on[1];
                     $edu_start_year = $begin_on[0];
                     $end_on = explode('-', $request->input('exp_end_on'));
                     $edu_end_month = $end_on[1];
                     $edu_end_year = $end_on[0];
+                   /* echo "<pre>";print_r($begin_on);
+                    echo "<pre>";print_r($end_on);
+                    die;*/
                     // $created_on = date("Y-m-d");
                     $data =array(
                         'empID'=>$emp_ID,
@@ -343,7 +363,9 @@ class DocumentsController extends Controller
 
         $session_val = Session::get('session_info');
         $cdID = $session_val['cdID'];
-        $input_details = array( "cdID" => $cdID, );
+        $emp_id = $session_val['empID'];
+        $input_details = array( "cdID" => $cdID,
+                                "emp_id" =>$emp_id );
         $education_result = $this->profrpy->experience_info( $input_details );
         
         return response()->json( $education_result );
@@ -376,15 +398,15 @@ class DocumentsController extends Controller
                     if($validator->passes()){
 
                      $session_val = Session::get('session_info');
-                    $emp_ID = $session_val['empID'];
+                    $emp_id = $session_val['empID'];
                     $cdID = $session_val['cdID'];
 
-                     $user = DB::table( 'candidate_contact_information' )->where('cdID', '=', $cdID)->first();
+                     $user = DB::table( 'candidate_contact_information' )->where('emp_id', '=', $emp_id)->first();
                      // echo "<pre>";print_r($user);die;
 
             if ($user === null) {
                     $data =array(
-                        'emp_id'=>$emp_ID,
+                        'emp_id'=>$emp_id,
                         'cdID'=>$cdID,
                         'phone_number'=>$request->input('phone_number'),
                         's_number'=>$request->input('s_number'),
@@ -404,7 +426,7 @@ class DocumentsController extends Controller
                     return response()->json(['response'=>'insert']);
                 }else{
                     $data =array(
-                        'emp_id'=>$emp_ID,
+                        'emp_id'=>$emp_id,
                         'cdID'=>$cdID,
                         'phone_number'=>$request->input('phone_number'),
                         's_number'=>$request->input('s_number'),

@@ -119,6 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="band_name">Band Name </label>
                         <input type="text" id="band_name" class="form-control" placeholder="Band Name" name="band_name" />
+                        <div class="text-warning" id="edit_band_name_error"></div>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>

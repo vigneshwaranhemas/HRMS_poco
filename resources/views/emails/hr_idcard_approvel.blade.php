@@ -11,7 +11,7 @@
       
                 <p><b>Dear {{$candidate_name}},</b></p>
 
-                <p>Your ID Card Verfication is Approved Kindly Check it out on HRMS Login.</p>
+                <p>We have reviewed your submissions and approved. The updated information is displayed on the page for your view. </p>
 
                 <p><b>Thank you,</b></p>
                 <p>HR Team- HEPL</p>

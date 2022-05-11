@@ -1,6 +1,5 @@
 {{-- Divya --}}
 @extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
-
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
     <!-- Plugins css start-->
@@ -29,12 +28,12 @@
 			<div class="col-sm-12">
 
 				<div class="card  card-absolute">
-					
+
 					<div class="card-header  bg-primary">
 						<h5 class="text-white">Goals - 22 1</h5>
 					</div>
 					<div class="card-body">
-						
+
 						<div class="table-responsive">
 							<table class="table  table-border-vertical table-border-horizontal" id="goal-tb">
 								<thead>
@@ -46,7 +45,7 @@
 										<th scope="col">Measurement Criteria (UOM)</th>
 										<th scope="col">Weightage</th>
 										<th scope="col">Reference </th>
-										
+
 									</tr>
 								</thead>
 								<tbody>
@@ -65,7 +64,7 @@
 											<p>Other Revenue Streams: </p>
 										</td>
 										<td>
-											
+
 										</td>
 										<td>
 											<p>Meet Business Expectations as per AOP sign off</p>
@@ -89,7 +88,7 @@
 											<p>AOP Automation Services </p>
 											<p>AOP </p>
 										</td>
-										
+
 									</tr>
 									<tr class="border-bottom-primary">
 										<th scope="row">1</th>
@@ -119,9 +118,9 @@
 											<p>Attrition MIS, Exit Interview MIS</p>
 											<p>C Sat Audit Reports</p>
 										</td>
-										
+
 									</tr>
-									
+
 
 								</tbody>
 							</table>
@@ -162,7 +161,7 @@
 	<!-- Plugin used-->
 	<script>
 
-		
+
 	</script>
 
 @endsection

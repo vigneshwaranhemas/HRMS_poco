@@ -25,7 +25,7 @@
 <!-- Container-fluid starts-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12">            
+        <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
                     <!-- <a href="hr_add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a> -->

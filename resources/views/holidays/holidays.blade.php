@@ -43,14 +43,14 @@
 <!-- Container-fluid starts-->
 <div class="container-fluid">
     <div class="calendar-wrap">
-        <div class="row">           
+        <div class="row">
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">                           
+                        <div class="row">
                             <div class="col-md-12">
                               <div class="row">
-                                 <div class="col-md-3">                                 
+                                 <div class="col-md-3">
                                     <div class="lnb-calendars" id="lnb-calendars">
                                        <div>
                                           <div class="lnb-calendars-item">
@@ -59,9 +59,9 @@
                                              </label>
                                           </div>
                                        </div>
-                                       
-                                       <div class="lnb-calendars-d1" id="calendarList">                                          
-                                       </div>                            
+
+                                       <div class="lnb-calendars-d1" id="calendarList">
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="col-md-9">
@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-    </div>   
+    </div>
 
    <!-- Modal Fade Start -->
    <div class="modal fade" id="add-holidays" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -104,14 +104,14 @@
                         @foreach($stateList as $state)
                            <option value="{{ $state->state_name }}">{{ $state->state_name }}</option>
                         @endforeach
-                     </select>   
+                     </select>
                      <div class="text-danger" id="state_error"></div>
-                  </div> 
+                  </div>
                   <div class="form-group">
                      <label class="col-form-label" for="occassion_file">File:</label>
                      <input type="file" name="occassion_file" id="occassion_file" class="form-control">
                      <div class="text-danger" id="occassion_file_error"></div>
-                  </div>   
+                  </div>
                </div>
                <div class="modal-footer">
                   <input type="hidden" id="occassion_date" class="form-control" name="occassion_date">
@@ -122,7 +122,7 @@
          </form>
       </div>
       </div>
-   </div> 
+   </div>
 
    <div class="modal fade" id="formHolidaysEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -142,13 +142,13 @@
                   <div class="form-group">
                      <label class="col-form-label" for="description_edit">Description:</label>
                      <textarea class="form-control" name="description" id="description_edit"></textarea>
-                  </div>          
+                  </div>
                   <div class="form-group">
                      <label class="col-form-label" for="description_edit">State:</label>
                      <select class="select2 form-control" id="state_edit" name="state_edit">
-                     </select>     
-                     <div class="text-danger" id="state_edit_error"></div>                  
-                  </div>            
+                     </select>
+                     <div class="text-danger" id="state_edit_error"></div>
+                  </div>
                   <div class="form-group">
                      <label class="col-form-label" for="occassion_file_edit">File:</label>
                      <input type="file" name="occassion_file" id="occassion_file_edit" class="form-control">
@@ -164,7 +164,7 @@
          </form>
       </div>
       </div>
-   </div> 
+   </div>
 
    <div class="modal fade" id="holidaysDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -187,7 +187,7 @@
          </form>
       </div>
       </div>
-   </div> 
+   </div>
 
    <div class="modal fade" id="holidaysDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -209,14 +209,14 @@
                         <div class="form-group">
                               <h6 class="f-w-700">Description:</h6>
                               <p id="description_show"></p>
-                        </div>  
+                        </div>
                         <div class="form-group">
                               <h6 class="f-w-700">State:</h6>
                               <p id="state_show"></p>
-                        </div>  
-                        <div class="form-group">                              
+                        </div>
+                        <div class="form-group">
                               <p id="occassion_file_show"></p>
-                        </div>                      
+                        </div>
                      </div>
                   </div>
                </div>
@@ -251,14 +251,14 @@
                         <div class="form-group">
                            <h6 class="f-w-700">Description:</h6>
                            <p id="description_show_list"></p>
-                        </div>    
+                        </div>
                         <div class="form-group">
                            <h6 class="f-w-700">State:</h6>
                            <p id="state_show_list"></p>
-                        </div>  
-                        <div class="form-group">                              
+                        </div>
+                        <div class="form-group">
                            <p id="occassion_file_show_list"></p>
-                        </div>                        
+                        </div>
                      </div>
                   </div>
                </div>
@@ -289,14 +289,14 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-   
+
    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
    <!-- Custom JS start-->
 
    @if(Auth::user()->role_type === 'Admin')
-      <script src="../assets/js/calendar/admin_holidays.js"></script>    
+      <script src="../assets/js/calendar/admin_holidays.js"></script>
    @else
-      <script src="../assets/js/calendar/holidays.js"></script>    
+      <script src="../assets/js/calendar/holidays.js"></script>
    @endif
 
 @endsection

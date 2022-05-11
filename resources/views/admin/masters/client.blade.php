@@ -121,14 +121,17 @@
                       <div class="col-md-12 mb-3">
                         <label for="client_name">Client Name </label>
                         <input type="text" id="client_name" class="form-control" placeholder="Client Name" name="client_name" />
+                        <div class="text-warning" id="edit_client_name_error"></div>
                       </div>
                       <div class="col-md-12 mb-3">
                         <label for="mobile_number">Mobile Number </label>
                         <input type="text" id="mobile_number" class="form-control" onkeypress="return isNumber(event)" maxlength="10" placeholder="Mobile Number" name="mobile_number" />
+                        <div class="text-warning" id="edit_mobile_number_error"></div>
                       </div>
                       <div class="col-md-12 mb-3">
                         <label for="email">Email </label>
-                        <input type="text" id="email" class="form-control" placeholder="Email" name="email" />
+                        <input type="email" id="email" class="form-control" placeholder="Email" name="email" required=""/>
+                        <div class="text-warning" id="edit_email_error"></div>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>
@@ -167,7 +170,7 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <label for="email">Email</label>
-                        <input class="form-control" name="email" id="email_name_input" type="text" placeholder="Email" required="">
+                        <input class="form-control" name="email" id="email_name_input" type="email" placeholder="Email" required="">
                         <div class="text-warning" id="email_error"></div>
                     </div>
                   </div>

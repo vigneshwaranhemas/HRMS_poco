@@ -91,7 +91,7 @@ class AdminController extends Controller
         // $tdy = $dt."-".$monthName;
         $tdy = $current_month."-".$current_date;
         $current = $current_year."-".$current_month."-".$current_date;
-        
+
         $current_date = date("d-m-Y");
         $date = Carbon::createFromFormat('d-m-Y', $current_date);
 
@@ -118,18 +118,18 @@ class AdminController extends Controller
         return view('com_dashboard')->with($data);
     }
     public function fetch_login_profile_image(){
-        
+
             // dd($todays_birthday->empID); 900036 900002
-            
+
             $login_id = Auth::user()->empID;
             $profile_images = DB::table('images')->where('emp_id', $login_id)->value('path');
 
             if(!empty($profile_images)){
-                // dd($profile_images); 
+                // dd($profile_images);
                 $login_profile_image = '<img class="img-fluid rounded-circle db_profile_img" src="../uploads/'.$profile_images.'" alt="user">';
 
             }else{
-               
+
                 $login_profile_image = '<img class="img-fluid" src="../assets/images/dashboard/user.png" alt="user">';
 
             }
@@ -149,15 +149,15 @@ class AdminController extends Controller
 
         foreach($todays_birthdays as $todays_birthday){
             // dd($todays_birthday->empID); 900036 900002
-            
+
             $profile_images = DB::table('images')->where('emp_id', $todays_birthday->empID)->value('path');
 
             if(!empty($profile_images)){
-                // dd($profile_images); 
+                // dd($profile_images);
                 $html_todays_birthdays .= '<li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../uploads/'.$profile_images.'" alt="#"></div>';
 
             }else{
-               
+
                 if($todays_birthday->gender == "Male"){
                     $html_todays_birthdays .= '<li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>';
                 }else{
@@ -177,7 +177,7 @@ class AdminController extends Controller
         return json_encode($html_todays_birthdays);
     }
     public function fetch_tdys_work_annu_list(){
-        
+
         $current_date = date("d");
         $current_month = date("m");
         $current_year = date("Y");
@@ -186,7 +186,7 @@ class AdminController extends Controller
         $current = $current_year."-".$current_month."-".$current_date;
 
         //Work anniversary
-        // $tdy_work_anniversary = DB::table('customusers')->select('*')->where('doj', 'LIKE', '%%-'.$tdy.'%')->get();        
+        // $tdy_work_anniversary = DB::table('customusers')->select('*')->where('doj', 'LIKE', '%%-'.$tdy.'%')->get();
 
         $tdy_work_anniversary = DB::table('customusers')
                                 ->select('*')
@@ -198,18 +198,18 @@ class AdminController extends Controller
 
         foreach($tdy_work_anniversary as $tdy_work_annu){
             // dd($todays_birthday->empID); 900036 900002
-            
+
             $doj_year = date("Y", strtotime($tdy_work_annu->doj));
             $total = $current_year - $doj_year;
             if($total != 0){
                 $profile_images = DB::table('images')->where('emp_id', $tdy_work_annu->empID)->value('path');
 
                 if(!empty($profile_images)){
-                    // dd($profile_images); 
+                    // dd($profile_images);
                     $html_tdy_work_annu .= '<li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../uploads/'.$profile_images.'" alt="#"></div>';
 
                 }else{
-               
+
                     if($tdy_work_annu->gender == "Male"){
                         $html_tdy_work_annu .= '<li class="media"><div class="avatar"><img class="img-50 rounded-circle" src="../assets/images/user/1.jpg" alt="#"></div>';
                     }else{
@@ -224,7 +224,7 @@ class AdminController extends Controller
                 $html_tdy_work_annu .= '</div>';
                 $html_tdy_work_annu .= '</li>';
             }
-            
+
         }
 
         return json_encode($html_tdy_work_annu);
@@ -364,6 +364,8 @@ class AdminController extends Controller
     // Business Process Start
     public function add_business_unit(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
 
         $data = $req->validate([
             'business_name' => 'required',
@@ -378,7 +380,7 @@ class AdminController extends Controller
             'business_name' => $req->input('business_name'),
             'status' => "active",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
 
@@ -456,29 +458,26 @@ class AdminController extends Controller
                     'status'=>$request->input('status'),
                 );
         }
-        // echo "<pre>";print_r($input_details);die;
         if ($request->ajax()) {
 
             $get_employee_list_result = $this->admrpy->get_employee_list( $input_details);
 
-            // echo "<pre>";print_r($get_employee_list_result[0]->hr_action);die;
             return DataTables::of($get_employee_list_result)
             ->addIndexColumn()
             ->addColumn('action', function($row) {
+                    // echo "<pre>";print_r($row);die;
                   $btn = '<div class="row"><button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
                     </div> &nbsp;' ;
+                   $btn .= '<button class="btn btn-success" type="button" style="width: 15%;height: 35px;"><a href="can_hr_profile?id='."".$row->id."".'&empID='."".$row->empID."".'"  onclick="hr_to_profile('."'".$row->id."'".'); "><i class="pe-7s-id" style="color: #ffffff; margin-left: -5px;"></i></a></button>';
+
                     if ($row->hr_action != 2) {
-                    $btn .= '<button class="btn btn-info" type="button" data-toggle="modal" data-original-title="test" style="width: 15%;height: 35px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
+                        $btn .= '<button class="btn btn-info" type="button" data-toggle="modal" data-original-title="test" style="width: 15%;height: 35px;margin-top: 5px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
                         }
                 return $btn;
             })
-            /*->addColumn('Info', function($row) {
-                $btn = '<a class="dropdown-item" href="candidate_profile_view" onclick="candidate_profile_view('."'".$row->id."'".'); style="width: 15%;height: 35px;""><i class="fa fa-edit"></i></a>';
-                $btn .= '<a class="dropdown-item" href="hr_id_card_verification?id='."".$row->id."".'"  onclick="hr_id_card_ver('."'".$row->id."'".'); style="width: 15%;height: 35px;""><i class="fa fa-eye"></i></a>';
-                return $btn;
-            })*/
+           
 
             ->rawColumns(['Info','action'])
             ->make(true);
@@ -497,6 +496,10 @@ class AdminController extends Controller
     }
 
     public function update_business_unit_details(Request $req){
+
+        $data = $req->validate([
+            'business_name' => 'required',
+            ]);
 
         $input_details = array(
             'id'=>$req->input('id'),
@@ -537,6 +540,9 @@ class AdminController extends Controller
     // Division Process Start
     public function add_division_unit_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
         $data = $req->validate([
             'division_name' => 'required',
             ]);
@@ -549,7 +555,7 @@ class AdminController extends Controller
             'division_name' => $req->input('division_name'),
             'status' => "active",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         // echo '<pre>';print_r($form_data);
@@ -634,6 +640,10 @@ class AdminController extends Controller
 
     public function update_division_details(Request $req){
 
+        $data = $req->validate([
+            'division_name' => 'required',
+            ]);
+
         $input_details = array(
             'id'=>$req->input('id'),
             'division_name'=>$req->input('division_name'),
@@ -675,6 +685,9 @@ class AdminController extends Controller
     // Function Process Start
     public function add_function_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
         $data = $req->validate([
             'function_name' => 'required',
             ]);
@@ -687,7 +700,7 @@ class AdminController extends Controller
             'function_name' => $req->input('function_name'),
             'status' => "1",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         // echo '<pre>';print_r($form_data);
@@ -770,6 +783,10 @@ class AdminController extends Controller
 
     public function update_function_details(Request $req){
 
+        $data = $req->validate([
+            'function_name' => 'required',
+            ]);
+
         $input_details = array(
             'id'=>$req->input('id'),
             'function_name'=>$req->input('function_name'),
@@ -810,6 +827,9 @@ class AdminController extends Controller
     // Grade Process Start
     public function add_grade_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
         $data = $req->validate([
             'grade_name' => 'required',
             ]);
@@ -822,7 +842,7 @@ class AdminController extends Controller
             'grade_name' => $req->input('grade_name'),
             'status' => "1",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         $add_grade_process_result = $this->admrpy->add_grade_process( $form_data );
@@ -903,6 +923,10 @@ class AdminController extends Controller
 
     public function update_grade_details(Request $req){
 
+        $data = $req->validate([
+            'grade_name' => 'required',
+            ]);
+
         $input_details = array(
             'id'=>$req->input('id'),
             'grade_name'=>$req->input('grade_name'),
@@ -944,6 +968,9 @@ class AdminController extends Controller
     // Location Process Start
     public function add_location_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
         $data = $req->validate([
             'location_name' => 'required',
             ]);
@@ -956,7 +983,7 @@ class AdminController extends Controller
             'location_name' => $req->input('location_name'),
             'status' => "1",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         $add_location_process_result = $this->admrpy->add_location_process( $form_data );
@@ -1036,6 +1063,10 @@ class AdminController extends Controller
 
     public function update_location_details(Request $req){
 
+        $data = $req->validate([
+            'location_name' => 'required',
+            ]);
+
         $input_details = array(
             'id'=>$req->input('id'),
             'location_name'=>$req->input('location_name'),
@@ -1077,6 +1108,9 @@ class AdminController extends Controller
     // Blood Process Start
     public function add_blood_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
         $data = $req->validate([
             'blood_group_name' => 'required',
             ]);
@@ -1089,7 +1123,7 @@ class AdminController extends Controller
             'blood_group_name' => $req->input('blood_group_name'),
             'status' => "1",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         $add_blood_process_result = $this->admrpy->add_blood_process( $form_data );
@@ -1169,6 +1203,10 @@ class AdminController extends Controller
 
     public function update_blood_details(Request $req){
 
+        $data = $req->validate([
+            'blood_group_name' => 'required',
+            ]);
+
         $input_details = array(
             'id'=>$req->input('id'),
             'blood_group_name'=>$req->input('blood_group_name'),
@@ -1210,6 +1248,9 @@ class AdminController extends Controller
     // Roll Process Start
     public function add_roll_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
         $data = $req->validate([
             'roll_name' => 'required',
             ]);
@@ -1222,7 +1263,7 @@ class AdminController extends Controller
             'roll_name' => $req->input('roll_name'),
             'status' => "1",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         $add_roll_process_result = $this->admrpy->add_roll_process( $form_data );
@@ -1302,6 +1343,10 @@ class AdminController extends Controller
 
     public function update_roll_details(Request $req){
 
+        $data = $req->validate([
+            'roll_name' => 'required',
+            ]);
+
         $input_details = array(
             'id'=>$req->input('id'),
             'roll_name'=>$req->input('roll_name'),
@@ -1343,6 +1388,9 @@ class AdminController extends Controller
     // Department Process Start
     public function add_department_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
         $data = $req->validate([
             'department_name' => 'required',
             ]);
@@ -1355,7 +1403,7 @@ class AdminController extends Controller
             'department_name' => $req->input('department_name'),
             'status' => "1",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         $add_department_process_result = $this->admrpy->add_department_process( $form_data );
@@ -1435,6 +1483,10 @@ class AdminController extends Controller
 
     public function update_department_details(Request $req){
 
+        $data = $req->validate([
+            'department_name' => 'required',
+            ]);
+
         $input_details = array(
             'id'=>$req->input('id'),
             'department_name'=>$req->input('department_name'),
@@ -1476,6 +1528,9 @@ class AdminController extends Controller
     // Designation Process Start
     public function add_designation_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
         $data = $req->validate([
             'designation_name' => 'required',
             ]);
@@ -1488,7 +1543,7 @@ class AdminController extends Controller
             'designation_name' => $req->input('designation_name'),
             'status' => "1",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         $add_designation_process_result = $this->admrpy->add_designation_process( $form_data );
@@ -1569,6 +1624,10 @@ class AdminController extends Controller
 
     public function update_designation_details(Request $req){
 
+        $data = $req->validate([
+            'designation_name' => 'required',
+            ]);
+
         $input_details = array(
             'id'=>$req->input('id'),
             'designation_name'=>$req->input('designation_name'),
@@ -1610,6 +1669,9 @@ class AdminController extends Controller
     // State Process Start
     public function add_state_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
         $data = $req->validate([
             'state_name' => 'required',
             ]);
@@ -1622,7 +1684,7 @@ class AdminController extends Controller
             'state_name' => $req->input('state_name'),
             'status' => "1",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         $add_state_process_result = $this->admrpy->add_state_process( $form_data );
@@ -1702,6 +1764,10 @@ class AdminController extends Controller
 
     public function update_state_details(Request $req){
 
+        $data = $req->validate([
+            'state_name' => 'required',
+            ]);
+
         $input_details = array(
             'id'=>$req->input('id'),
             'state_name'=>$req->input('state_name'),
@@ -1743,6 +1809,9 @@ class AdminController extends Controller
     // Zone Process Start
     public function add_zone_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
         $data = $req->validate([
             'zone_name' => 'required',
             ]);
@@ -1755,7 +1824,7 @@ class AdminController extends Controller
             'zone_name' => $req->input('zone_name'),
             'status' => "1",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         $add_zone_process_result = $this->admrpy->add_zone_process( $form_data );
@@ -1835,6 +1904,10 @@ class AdminController extends Controller
 
     public function update_zone_details(Request $req){
 
+        $data = $req->validate([
+            'zone_name' => 'required',
+            ]);
+
         $input_details = array(
             'id'=>$req->input('id'),
             'zone_name'=>$req->input('zone_name'),
@@ -1876,6 +1949,9 @@ class AdminController extends Controller
     // Band Process Start
     public function add_band_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
         $data = $req->validate([
             'band_name' => 'required',
             ]);
@@ -1888,7 +1964,7 @@ class AdminController extends Controller
             'band_name' => $req->input('band_name'),
             'status' => "1",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         $add_band_process_result = $this->admrpy->add_band_process( $form_data );
@@ -1969,6 +2045,10 @@ class AdminController extends Controller
 
     public function update_band_details(Request $req){
 
+        $data = $req->validate([
+            'band_name' => 'required',
+            ]);
+
         $input_details = array(
             'id'=>$req->input('id'),
             'band_name'=>$req->input('band_name'),
@@ -2010,10 +2090,20 @@ class AdminController extends Controller
     // Client Process Start
     public function add_client_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
         $data = $req->validate([
             'client_name' => 'required',
             'mobile_number' => 'required',
-            'email' => 'required',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users',
+                'regex:/^\w+[-\.\w]*@(?!(?:outlook|myemail|yahoo)\.com$)\w+[-\.\w]*?\.\w{2,4}$/'
+            ],
             ]);
 
         $cl_id = 'CL'.((DB::table( 'clients' )->max('id')) +1);
@@ -2026,7 +2116,7 @@ class AdminController extends Controller
             'email' => $req->input('email'),
             'status' => "1",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         $add_client_process_result = $this->admrpy->add_client_process( $form_data );
@@ -2105,6 +2195,19 @@ class AdminController extends Controller
     }
 
     public function update_client_details(Request $req){
+
+        $data = $req->validate([
+            'client_name' => 'required',
+            'mobile_number' => 'required',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users',
+                'regex:/^\w+[-\.\w]*@(?!(?:outlook|myemail|yahoo)\.com$)\w+[-\.\w]*?\.\w{2,4}$/'
+            ],
+            ]);
 
         $input_details = array(
             'id'=>$req->input('id'),
@@ -2223,6 +2326,8 @@ class AdminController extends Controller
      /* insert roles*/
     public function add_roles_process(Request $req)
     {
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
 
         $bu_id = 'RO'.((DB::table( 'roles' )->max('id')) +1);
 
@@ -2232,11 +2337,11 @@ class AdminController extends Controller
             'name' => $req->input('role_name'),
             'status' => "active",
             'created_on' => $today_date,
-            'created_by' => '900315'
+            'created_by' => $empID
 
         );
         // echo '<pre>';print_r($form_data); die;
-        $add_business_unit_process_result = $this->admrpy->add_role_process( $form_data );
+        $add_roles_unit_process_result = $this->admrpy->add_role_process( $form_data );
 
         $response = 'success';
         return response()->json( ['response' => $response] );
@@ -2390,6 +2495,50 @@ class AdminController extends Controller
         return response()->json( ['response' => $response] );
     }
 
+    public function company_policies()
+    {
+        return view('admin.masters.company_policies');
+    }
+
+     // Division Process Start
+     public function add_policy_category_process(Request $req)
+     {
+         $data = $req->validate([
+             'policy_category' => 'required',
+             ]);
+
+         $cp_id = 'CP'.((DB::table( 'company_policy_categories' )->max('id')) +1);
+
+        $session_val = Session::get('session_info');
+        $empID = $session_val['empID'];
+
+         $today_date = Carbon::now()->format('Y-m-d');
+         $form_data = array(
+             'cp_id' => $cp_id,
+             'policy_category' => $req->input('policy_category'),
+             'status' => "1",
+             'created_on' => $today_date,
+             'created_by' => $empID
+
+         );
+        //  echo '<pre>';print_r($form_data);
+        //  die;
+         $add_policy_category_process_result = $this->admrpy->add_policy_category_process( $form_data );
+
+         $response = 'success';
+         return response()->json( ['response' => $response] );
+           echo json_encode($form_data);
+     }
+
+     public function get_policy_category_details(){
+        // $input_details = array(
+        //     'id'=>$req->input('id'),
+        // );
+
+        $get_policy_category_details_result = $this->admrpy->get_policy_category_details();
+
+        return response()->json( $get_policy_category_details_result );
+    }
 
 
 }

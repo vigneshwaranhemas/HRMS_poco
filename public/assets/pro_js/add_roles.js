@@ -243,10 +243,6 @@ $(()=>{
 
 $("#editUpdate").on('click', function() {
     // alert("abc");
-
-    $("#editUpdate").attr("disabled", true);
-    $('#editUpdate').html('Processing..!');
-
     var ed_role_name = $('#role_name_edit').val();
     var ed_role_status = $('#role_status_edit').val();
     var ed_id = $('#ed_id').val();
@@ -263,10 +259,12 @@ $("#editUpdate").on('click', function() {
         success: function(data) {
 
             $('#close_edit_pop').click();
-            $("#editUpdate").attr("disabled", false);
+            $("#editUpdate").attr("disabled", true);
+            $('#editUpdate').html('Processing..!');
             $('#editUpdate').html('Update');
 
             if(data.response =='Updated'){
+                $("#editUpdate").attr("disabled", false);
                 Toastify({
                     text: "Updated Successfully",
                     duration: 3000,
@@ -294,7 +292,12 @@ $("#editUpdate").on('click', function() {
                     get_business_list();
                 }, 2000);
 
-        }
+        },
+        error: function(response) {
+
+            $('#edit_roll_name_error').text(response.responseJSON.errors.role_name);
+
+            }
     });
 });
 

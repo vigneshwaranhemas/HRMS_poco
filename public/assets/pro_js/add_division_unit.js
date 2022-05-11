@@ -60,12 +60,7 @@ $(()=>{
            }
 
        },
-       error: function(response) {
-
-        $('#division_name_error').text(response.responseJSON.errors.division_name);
-
-        }
-
+       
    });
     })
 })
@@ -236,10 +231,6 @@ $(()=>{
 
     $("#editUpdate").on('click', function() {
         // alert("abc");
-
-        $("#editUpdate").attr("disabled", true);
-        $('#editUpdate').html('Processing..!');
-
         var ed_division_name = $('#division_name').val();
         var ed_id = $('#ed_id').val();
 
@@ -254,11 +245,13 @@ $(()=>{
             success: function(data) {
 
                 $('#close_edit_pop').click();
-                $("#editUpdate").attr("disabled", false);
+                $("#editUpdate").attr("disabled", true);
+                $('#editUpdate').html('Processing..!');
                 $('#editUpdate').html('Update');
                 $('#division_edit_pop_modal_div').click();
 
                 if(data.response =='Updated'){
+                    $("#editUpdate").attr("disabled", false);
                     Toastify({
                         text: "Updated Successfully",
                         duration: 3000,
@@ -287,7 +280,12 @@ $(()=>{
                         get_division_list();
                     }, 2000);
 
-            }
+            },
+            error: function(response) {
+
+                $('#edit_division_name_error').text(response.responseJSON.errors.division_name);
+
+                }
         });
     });
 

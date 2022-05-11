@@ -288,15 +288,20 @@ class HrController extends Controller
         $postImagePath = null;
 
         $text = $req->summernote_get;
-        // print_r($text);die();
+        $id = $req->id;
+        $width1     = 320;
+        $height1      = 400;
+
+        $id_card_image = Image::make(public_path('ID_card_photo/'. $id .'.JPG'))->resize($width1, $height1);
+        // print_r($id_card_image);die();
 
         $lines = explode("\n", wordwrap($text, $max_len));
         $y     = $center_y - ((count($lines) - 1) * $font_height);
 
         // $image   = Image::canvas($width, $height, '#ffffff');
-        $image   = Image::make('../public/assets/images/image_generator/welcome_aboard_background_image.png')->resize($width, $height);
+        $image   = Image::make(public_path('/assets/images/image_generator/welcome_aboard_background_image.png'))->resize($width, $height);
 
-        // $image->insert('../public/assets/images/image_generator/watermark.jpg', 'bottom', 1300, 200);
+        $image->insert($id_card_image, 'left', 95, 4000, 5200, 6700);
 
         foreach ($lines as $line)
         {
@@ -310,8 +315,9 @@ class HrController extends Controller
 
             $y += $font_height * 2;
         }
+            $welcome_aboard_image_upload_hr_result = $this->hpreon->welcome_aboard_image_upload_hr($id);
 
-            $image->save(public_path('assets/images/image_generator/image.jpg'));
+            $image->save(public_path('assets/images/image_generator/'.$id.'.jpg'));
 
             $response = 'success';
             return response()->json( ['response' => $response] );
@@ -367,6 +373,25 @@ class HrController extends Controller
     //   echo '<pre>';print_r($id);die();
 
         return response()->json( $get_welcome_aboard_details_result );
+    }
+
+    public function welcome_aboard_image_show(Request $req){
+
+        $id = $req->id;
+
+       $get_welcome_aboard_image_show_result = $this->hpreon->get_welcome_aboard_image_show_hr($id);
+
+    //  echo '<pre>';print_r($get_welcome_aboard_image_show_result);die();
+
+       return response()->json( $get_welcome_aboard_image_show_result );
+   }
+
+
+//candidate profile for hr
+
+    public function can_hr_profile()
+    {
+         return view('can_hr_profile');
     }
 
 

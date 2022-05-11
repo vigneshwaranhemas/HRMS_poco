@@ -47,7 +47,7 @@ $('#event-form-insert').submit(function(e) {
 
     $.ajax({
         type:'POST',
-        url: `/add_new_event_insert`,
+        url: "add_new_event_insert",
         data: formData,
         contentType: false,
         processData: false,
@@ -855,7 +855,7 @@ $('#event-form-update').submit(function(e) {
 
     $.ajax({
         type:'POST',
-        url: `/event_update`,
+        url: 'event_update',
         data: formData,
         contentType: false,
         processData: false,

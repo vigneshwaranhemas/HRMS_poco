@@ -2,7 +2,8 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Holidays; 
-
+use App\HolidayState; 
+use Auth;
 class HolidayRepository implements IHolidayRepository
 {
 
@@ -20,42 +21,83 @@ class HolidayRepository implements IHolidayRepository
     }
     public function fetch_holidays_list()
     {      
-      // if(Auth::user()->role_type === 'Admin'){
+      if(Auth::user()->role_type === 'Admin'){
 
-      //    $response = DB::table("holidays")->select('*')
-      //    ->get();
+         $response = DB::table("holidays")->select('*')
+         ->get();
 
-      // }else{
+      }else{
 
-      //    // SELECT h.*
-      //    // FROM candidate_contact_information cci
-      //    // INNER JOIN holidays h
-      //    // ON h.state = cci.p_State
-      //    // WHERE cci.emp_id="900386";
-        
+         // SELECT holidays.*
+         // FROM candidate_contact_information cci
+         // INNER JOIN holidays h ON holidays.holiday_unique_code = holiday_states.holiday_code
+         // INNER JOIN holiday_states hs ON holiday_states.state_name = candidate_contact_information.p_State
+         // WHERE candidate_contact_information.emp_id="900386";
+                 
+         $logined_empID = Auth::user()->empID;
+         $logined_state = DB::table("candidate_contact_information")->where('emp_id', $logined_empID)->value('p_State');
          
-      //    $logined_empID = Auth::user()->empID;
-      //    // $response = DB::table('candidate_contact_information as cci')
-      //    //          ->distinct()         
-      //    //          ->select('h.*')         
-      //    //          ->join('holidays as h', 'event_attendees.event_id', '=', 'events.event_unique_code')
-      //    //          ->where('cci.state', $logined_empID)
-      //    //          ->get();
+         if(!empty($logined_state)){
+            $response = DB::table('holiday_states as hs')
+                     ->distinct()         
+                     ->select('h.*')         
+                     ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
+                     ->where('hs.state_name', $logined_state)
+                     ->get();
+            
+         }else{
+            $response = null;
+         }         
 
-      // }
+      }
 
-      $response = DB::table("holidays")->select('*')
-      ->get();
+      // $response = DB::table("holidays")->select('*')
+      // ->get();
       
        return $response;
     }
+    
     public function fetch_holidays_state_filter($state)
     {      
-       $response = DB::table("holidays")->select('*')
-                    ->where('state', $state)
-                    ->get();
+      if(Auth::user()->role_type === 'Admin'){
+
+         $response = DB::table("holidays")->select('*')
+                          ->where('state', $state)
+                          ->get();
+
+      }else{
+
+         $logined_empID = Auth::user()->empID;
+         $logined_state = DB::table("candidate_contact_information")->where('emp_id', $logined_empID)->value('p_State');
+         
+         if(!empty($logined_state)){
+            
+            $response = DB::table('holiday_states as hs')
+                     ->distinct()         
+                     ->select('h.*')         
+                     ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
+                     ->where('hs.state_name', $state)
+                     // ->where('state', $state)
+                     ->get();
+            
+         }else{
+            $response = null;
+         }         
+
+      }
+
+      // $response = DB::table("holidays")->select('*')
+      // ->get();
+      
        return $response;
     }
+   //  public function fetch_holidays_state_filter($state)
+   //  {      
+   //     $response = DB::table("holidays")->select('*')
+   //                  ->where('state', $state)
+   //                  ->get();
+   //     return $response;
+   //  }
     public function fetch_holidays_list_id($id)
     {      
        $response = DB::table('holidays')
@@ -70,14 +112,15 @@ class HolidayRepository implements IHolidayRepository
       ->groupByRaw('state_name')
       ->get();
 
-      $output = '<option value="">Select State...</option>';
+      $holiday_code = Holidays::where('id', $id)->value('holiday_unique_code');
+      
+      $output = '<option value="">Select State...</option>'; 
 
       foreach($state_names as $record){
 
-         $response = DB::table('holidays')
-                  ->where('id', $id)
-                  ->where('state', $record->state_name)
-                  ->value('state');
+         $response = HolidayState::where('holiday_code', $holiday_code)
+                                    ->where('state_name', $record->state_name)
+                                    ->value('state_name');
          
          if(!empty($response)){
             if($response == $record->state_name){  
@@ -91,13 +134,32 @@ class HolidayRepository implements IHolidayRepository
 
       return $output;
     }
+    public function fetch_holidays_state_id_show($id)
+    {      
+
+      $holiday_unique_code = Holidays::where('id', $id)->value('holiday_unique_code');
+
+      $output = '<ul class="pl-4 mb-4 list-circle">';
+
+      $state_names = HolidayState::where('holiday_code', $holiday_unique_code)->get();
+      
+      foreach($state_names as $record){
+          
+         $output .= '<li>'.$record->state_name.'</li>';         
+         
+      }
+
+      $output .= "</ul>";
+
+      return $output;
+    }
     public function holidays_update($data)
     {
        $response = Holidays::where('id', $data['id'])
                          ->update(array(
                             'occassion' => $data['occassion'],
                             'description' => $data['description'],                            
-                            'state' => $data['state'],                            
+                            'all_state' => $data['all_state'],                            
                          ));
        return $response;
     }
@@ -108,7 +170,7 @@ class HolidayRepository implements IHolidayRepository
                             'occassion' => $data['occassion'],
                             'description' => $data['description'],                            
                             'occassion_file' => $data['occassion_file'],                            
-                            'state' => $data['state'],                            
+                            'all_state' => $data['all_state'],                            
                          ));
        return $response;
     }

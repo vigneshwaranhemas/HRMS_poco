@@ -7,6 +7,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use Auth;
+use App\HolidayState; 
+use App\Holidays; 
 
 class HolidayController extends Controller
 {
@@ -27,12 +30,19 @@ class HolidayController extends Controller
     }
     public function add_new_holidays_insert(Request $request)
     {        
-        $result = $request->validate([
-            'occassion' => 'required', 
-            'occassion_file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
-            'state' => 'required', 
-        ]);
-
+        if($request->occassion_file != "undefined"){
+            $result = $request->validate([
+                'occassion' => 'required', 
+                'occassion_file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
+                'state' => 'required', 
+            ]);
+        }else{
+            $result = $request->validate([
+                'occassion' => 'required', 
+                'state' => 'required', 
+            ]);
+        }
+        
         //File upload
         $file = $request->file('occassion_file');
         if($file){
@@ -41,18 +51,55 @@ class HolidayController extends Controller
         }else {
             $name = "";
         }
-           
+
+        $created_by =Auth::user()->empID;
+
+        //All state upload
+        if($request->all_state){
+            $all_state = "yes";
+        }else{
+            $all_state = "no";
+        }
+
         //Data upload to server
         $data = array(
             'occassion' => $request->occassion,
             'date' => $request->occassion_date,
             'description' => $request->description,
-            'state' => $request->state,
+            'all_state' => $all_state,
             'occassion_file' => $name,
-            'created_by' => "900386"
+            'created_by' => $created_by
         );
 
-        $result = $this->holiday->add_holidays_insert($data);        
+        $last_inserted_id = $this->holiday->add_holidays_insert($data);        
+        
+        //Holiday code
+        if(!empty($last_inserted_id)){
+            $holiday_code="H";				
+            $holiday_unique_code = $holiday_code."".$last_inserted_id; //T00.13 =T0013
+            $result = $this->holiday->insertHolidayCode($holiday_unique_code, $last_inserted_id);           
+        }     
+
+        //All state upload
+        if($request->all_state){
+
+            $all_state_lists = DB::table("towns_details")->select('state_name')
+                ->groupByRaw('state_name')
+                ->get();
+                
+            foreach ($all_state_lists as $all_state) {                
+                // dd($all_state);
+                $result = HolidayState::firstOrCreate(['state_name' => $all_state->state_name, 'holiday_code' => $holiday_unique_code]);
+            }              
+        }
+        
+        //State upload
+        if($request->state){
+            foreach ($request->state as $state) {
+                // dd($state);
+                $result = HolidayState::firstOrCreate(['state_name' => $state, 'holiday_code' => $holiday_unique_code]);
+            }              
+        }
 
         return response($result);
 
@@ -99,6 +146,12 @@ class HolidayController extends Controller
         $holidays_state_list = $this->holiday->fetch_holidays_state_id($id);     
         return json_encode($holidays_state_list);               
     }
+    public function fetch_holidays_state_list_id_show(Request $request)
+    {
+        $id = $request['id'];
+        $holidays_state_list_show = $this->holiday->fetch_holidays_state_id_show($id);     
+        return json_encode($holidays_state_list_show);               
+    }
     public function fetch_holidays_list_date(Request $request)
     {
         $dt = $request['date'];
@@ -137,6 +190,14 @@ class HolidayController extends Controller
     }
     public function holidays_update(Request $request)
     {      
+        
+        //All state upload
+        if($request->all_state){
+            $all_state = "yes";
+        }else{
+            $all_state = "no";
+        }
+
         //File upload
         $file = $request->file('occassion_file');
 
@@ -148,7 +209,7 @@ class HolidayController extends Controller
             $data = array(
                 'occassion' => $request->occassion,
                 'description' => $request->description,
-                'state' => $request->state,
+                'all_state' => $all_state,
                 'occassion_file' => $name,
                 'id' => $request->id,
             );
@@ -162,7 +223,7 @@ class HolidayController extends Controller
             $data = array(
                 'occassion' => $request->occassion,
                 'description' => $request->description,
-                'state' => $request->state,
+                'all_state' => $all_state,
                 'id' => $request->id,
             );
 
@@ -171,7 +232,33 @@ class HolidayController extends Controller
 
         }                
 
+        //All state upload
         
+        $holiday_code = Holidays::where('id', $request->id)->value('holiday_unique_code');
+
+        if($request->state){
+
+            $response = HolidayState::where('holiday_code', $holiday_code)->delete();
+
+            foreach ($request->state as $state) {
+                // dd($state);
+                $result = HolidayState::firstOrCreate(['state_name' => $state, 'holiday_code' => $holiday_code]);
+            }              
+        }
+
+        if($all_state == "yes"){
+
+            $response = HolidayState::where('holiday_code', $holiday_code)->delete();
+
+            $all_state_lists = DB::table("towns_details")->select('state_name')
+                ->groupByRaw('state_name')
+                ->get();
+                            
+            foreach ($all_state_lists as $all_state) {                
+                $result = HolidayState::firstOrCreate(['state_name' => $all_state->state_name, 'holiday_code' => $holiday_code]);
+            }              
+        }                
+
         return response($result);
         
     }

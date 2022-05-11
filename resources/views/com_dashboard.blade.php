@@ -342,67 +342,67 @@ View More&lt;/button&gt;
                <div class="row">
                   <div class="col-md-12 ">
                      <div class="form-group">
-                           <h6 class="f-w-700">Event Details</h6>
-                           <p id="event_name_show"></p>
-                           <p class="font-normal"> &mdash; <i>at</i> <span  id="where_show"></span></p>
+                        <h6 class="f-w-700">Event Details</h6>
+                        <p id="event_name_show"></p>
+                        <p class="font-normal"> &mdash; <i>at</i> <span  id="where_show"></span></p>
                      </div>
                   </div>
                </div>
                <div class="row">
                   <div class="col-md-12">
                      <div class="form-group">
-                           <h6 class="f-w-700">Description</h6>
-                           <p id="description_show"></p>
+                        <h6 class="f-w-700">Description</h6>
+                        <p id="event_description_show"></p>
                      </div>
                   </div>
                </div>
                <div class="row">
                   <div class="col-md-12">
                      <div class="form-group">
-                           <h6 class="f-w-700">Attendees</h6>
-                           <p id="candicate_list_show"></p>
+                        <h6 class="f-w-700">Attendees</h6>
+                        <p id="candicate_list_show"></p>
                      </div>
                   </div>
                </div>
                <div class="row">
                   <div class="col-md-4">
                      <div class="form-group">
-                           <h6 class="f-w-700">Category</h6>
-                           <p id="category_name_show"></p>
+                        <h6 class="f-w-700">Category</h6>
+                        <p id="category_name_show"></p>
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
-                           <h6 class="f-w-700">Event type</h6>
-                           <p id="event_type_show"></p>
+                        <h6 class="f-w-700">Event type</h6>
+                        <p id="event_type_show"></p>
                      </div>
                   </div>
                </div>
                <div class="row">
                   <div class="col-md-4">
                      <div class="form-group">
-                           <h6 class="f-w-700">Starts On</h6>
-                           <div class="row">
-                              <div class="col-lg-5">
-                                 <p id="start_date_show"></p>
-                              </div>
-                              <div class="col-lg-7">
-                                 <p id="start_time_show"></p>
-                              </div>
+                        <h6 class="f-w-700">Starts On</h6>
+                        <div class="row">
+                           <div class="col-lg-5">
+                              <p id="start_date_show"></p>
                            </div>
+                           <div class="col-lg-7">
+                              <p id="start_time_show"></p>
+                           </div>
+                        </div>
                      </div>
                   </div>
                   <div class="col-md-4">
                      <div class="form-group">
-                           <h6 class="f-w-700">Ends On</h6>
-                           <div class="row">
-                              <div class="col-lg-5">
-                                 <p id="end_date_show"></p>
-                              </div>
-                              <div class="col-lg-7">
-                                 <p id="end_time_show"></p>
-                              </div>
+                        <h6 class="f-w-700">Ends On</h6>
+                        <div class="row">
+                           <div class="col-lg-5">
+                              <p id="end_date_show"></p>
                            </div>
+                           <div class="col-lg-7">
+                              <p id="end_time_show"></p>
+                           </div>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -538,7 +538,7 @@ View More&lt;/button&gt;
 
                      $("#event_name_show").html(value.event_name);
                      $("#where_show").html(value.where);
-                     $("#description_show").html(value.description);
+                     $("#event_description_show").html(value.description);
                      $("#category_name_show").html(value.category_name);
                      $("#event_type_show").html(value.event_type);
 

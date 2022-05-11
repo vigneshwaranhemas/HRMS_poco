@@ -11,6 +11,7 @@ var basic_calendar = {
 
         $('#cal-basic').fullCalendar({
             // defaultDate: '2016-06-12',
+            defaultDate: new Date(),
             header: {
                 left: 'prev,next today',
                 center: 'title',
@@ -22,6 +23,7 @@ var basic_calendar = {
             droppable: true,
             eventLimit: true,            
             events: function(start, end, callback, successCallback) {
+
                 var birthday_filter = getBirthdayFilter();
                 $.ajax({
                     url: 'fetch_birthdays_list',
@@ -39,7 +41,12 @@ var basic_calendar = {
                         // });
                         // callback(response);
 
-                        // console.log(response);
+                        var filter = $("#birthdays_filter_user").val();
+
+                        if(filter != ''){
+                            // console.log(response[0].start);
+                            loadDefaultDateFunction(response[0].start);
+                        }
 
                         // var events = [];  
 
@@ -53,7 +60,10 @@ var basic_calendar = {
                                 empID: data.empID,
                                 view: data.view,
                                 // end: data.end, 
-                            });                                  
+                            });          
+                        
+                            // $('#cal-basic').fullCalendar('defaultDate', data.start);    
+
                         });  
 
                         // events.push(response);   
@@ -73,6 +83,10 @@ var basic_calendar = {
 };
 
 // $('#cal-basic').fullCalendar('render'); // this is needed if the calendar is not immediately visible on DOM ready
+
+function loadDefaultDateFunction(startDate){
+    $('#cal-basic').fullCalendar('gotoDate', startDate);
+}
 
 var getEventDetail = function (empID) {
 
@@ -96,7 +110,7 @@ var getEventDetail = function (empID) {
             $("#employee_dob_show").text('');
             $("#employee_wl_show").text('');
             $("#employee_ps_show").text('');
-            $("#employee_grade_show").text('');
+            // $("#employee_grade_show").text('');
             $("#occassion_file_show").text('');
             $("#employee_dept_show").text('');
 
@@ -122,7 +136,7 @@ var getEventDetail = function (empID) {
             $("#employee_dob_show").append(dob);
             $("#employee_wl_show").append(response[0].worklocation);
             $("#employee_ps_show").append(response[0].payroll_status);
-            $("#employee_grade_show").append(response[0].grade);                
+            // $("#employee_grade_show").append(response[0].grade);                
             $("#employee_dept_show").append(response[0].department);                
 
             // var file = response[0].occassion_file;

@@ -27,13 +27,25 @@
     .list li:hover {
         background-color: #ece2f9;
     }
+    .chat-box .people-list ul li.active{
+        background-color: #7e37d8;
+    }
+    .chat-box .people-list ul li.active .about .name{
+        color: #ffffff;
+    }
     .chat-box .people-list .search i.people_filter_i{
         right: 0px;
-        top: 9px;
+        top: 8px;
         font-size: 22px;
     }
+    .chat-box .people-list .search i.people_filter_i_close{
+        right: 0px;
+        top: 8px;
+        font-size: 22px;
+        margin-right: 30px;
+    }
     .people_search_div{
-        margin-left: 15px;
+        margin-left: 10px;
     }
     .card .card-header.people_filter_card_header{
         padding: 29px;
@@ -46,6 +58,10 @@
         color: #7e37d8;
         border: 0px solid #7e37d8;
     }
+    /* .close.div_close:hover{
+        color: #7e37d8;
+        border: 0px solid #7e37d8;
+    } */
     .chat-star-empty_state{
         margin-top: 150px;
     }
@@ -65,8 +81,41 @@
         margin-left: 10px;
     }
     .chat-box .about.people_name_show{
-        margin-top: 10px;
+        margin-top: -5px;
     }
+    .chat-box .chat-right-aside .chat .chat-header .chat-menu-icons.chat-menu-icons-star{
+        margin-top: 0px;
+    }
+
+    /* Responsive */
+    /* @media only screen and (max-width: 425px){
+        .chat-menu.responsive-chat-menu {
+            right: none;
+            border-top: none;
+            opacity: none;
+            -webkit-transform: none;
+            transform: none;
+            visibility: none !important;
+            top: none;
+            position: none;
+            z-index: none;
+            background-color: none;
+            -webkit-transition: none;
+            transition: none;
+        }
+    } */
+
+    @media only screen and (max-width: 1199px){
+        .chat-menu {
+            opacity: 2 !important;
+            visibility: unset !important;
+            top: 30px;
+            position: relative;
+            border-radius: 20px;
+
+        }
+    }
+
 </style>
 @endsection
 
@@ -84,15 +133,18 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <input type="text" id="people_filter_dept_value" value="All">
-                <input type="text" id="people_filter_design_value" value="All">
+                <input type="hidden" id="people_filter_dept_value" value="All">
+                <input type="hidden" id="people_filter_design_value" value="All">
+                <input type="hidden" id="people_filter_location_value" value="All">
             </div>
             <div class="col-lg-3 div_filter">
                 <div class="card">
                     <h5 class="card-header people_filter_card_header">Apply Filter 
-                        <button type="button" class="close div_close div_filter_close" aria-label="Close">
+                        <!-- <button type="button" class="close div_close div_filter_close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
+                     -->
+                     <i class="icon-close font-dark div_filter_close"></i>                                               
                     </h5>
                     <div class="card-body">
                         <div class="row">   
@@ -114,8 +166,16 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-12 mt-3">  
+                                    <select class="js-example-basic-single col-sm-12 mb-5" style="width:215px" id="people_filter_location" name="people_filter_location">
+                                        <option value="All">Select Location...</option>
+                                        @foreach($locations as $location)
+                                            <option value="{{ $location->location_name }}">{{ $location->location_name }}</option>
+                                        @endforeach      
+                                    </select>
+                                </div>
+                                <div class="col-lg-12 mt-3">  
                                     <button class="btn btn-primary mt-3" type="submit">Apply</button>
-                                    <button class="btn btn-danger mt-3">Reset</button>
+                                    <button class="btn btn-danger mt-3" id="people_filter_reset">Reset</button>
                                 </div>  
                             </form>                                                                                      
                         </div>
@@ -127,7 +187,7 @@
                     <div class="card-body p-0">
                         <div class="row chat-box">
                             <!-- Chat right side start-->
-                            <div class="col pl-0 chat-menu chat-menu-style">
+                            <div class="col pl-0 chat-menu chat-menu-style responsive-chat-menu">
                                 <!-- chat start-->
                                 <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist">
                                     <li class="nav-item" id="people_tab_li_1"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-selected="true">Starred</a>
@@ -141,12 +201,13 @@
                                     <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
                                         <div class="people-list">
                                             <div class="search people_search_div">
-                                                <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:300px" id="people_list_filter" name="people_list_filter">
+                                                <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:280px" id="people_list_filter_starred" name="people_list_filter">
                                                     <option value="">Enter Emp. Name or ID...</option>
                                                     @foreach($customusers as $customuser)
                                                         <option value="{{ $customuser->empID }}">{{ $customuser->username }} (#{{ $customuser->empID }})</option>
                                                     @endforeach
                                                 </select>
+                                                <i class="icon-close font-primary people_filter_i_close" id="clearButtonStarred"  title="Clear Search Filter"></i>                                               
                                                 <i class="icon-filter font-primary people_filter_i"></i>                                               
                                             </div>
                                             <ul class="list digits mt-3">
@@ -157,12 +218,15 @@
                                     <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
                                         <div class="people-list">
                                             <div class="search people_search_div">      
-                                                <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:300px" id="people_list_filter" name="people_list_filter">
+                                                <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:280px" id="people_list_filter_everyone" name="people_list_filter">
                                                     <option value="">Enter Emp. Name or ID...</option>
                                                     @foreach($customusers as $customuser)                                                    
                                                         <option value="{{ $customuser->empID }}">{{ $customuser->username }} (#{{ $customuser->empID }})</option>
                                                     @endforeach
                                                 </select>
+                                                <!-- <input type="button" id="clearButton" value="X" /> -->
+
+                                                <i class="icon-close font-primary people_filter_i_close" id="clearButton"  title="Clear Search Filter"></i>                                               
                                                 <i class="icon-filter font-primary people_filter_i"></i>                                               
                                             </div>
                                             <ul class="list digits mt-3" id="people_list">
@@ -218,13 +282,13 @@
                                 <!-- <img style="width:150px;" src="../assets/images/user/1.jpg" alt="">                                             -->
                                 <div class="chat chat-boder-bottom">
                                     <!-- chat-header start-->
-                                    <div class="chat-header clearfix"><img style="width:50px;height:50px" class="rounded-circle" src="../assets/images/user/1.jpg" alt="">
+                                    <div class="chat-header clearfix"><p  id="people_show_img"></p>
                                         <div class="about people_name_show">
                                             <!-- <div class="name">Kori Thomas  <span class="font-primary f-12"><i class="icon-star"></i></span></div> -->
                                             <div class="name" style="font-size:20px;margin-top:10px:margin-left:10px;" id="people_name_show"></div>
                                             <!-- <div class="status digits">PHP Developer</div> -->
                                         </div>
-                                        <ul class="list-inline float-left chat-menu-icons">
+                                        <ul class="list-inline float-left chat-menu-icons chat-menu-icons-star">
                                         <!-- <ul class="list-inline float-left float-sm-right chat-menu-icons"> -->
                                             <li class="list-inline-item" id="people_star_i_show"></li>
                                         </ul>

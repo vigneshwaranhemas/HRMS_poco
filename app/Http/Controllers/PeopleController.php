@@ -21,30 +21,64 @@ class PeopleController extends Controller
 
         $departments = DB::table('departments')->get();
         $designations = DB::table('designations')->get();
+        $locations = DB::table('locations')->get();
 
        // echo json_encode($customusers[0]);die();
         $data = [
             "customusers" => $customusers,
             "departments" => $departments,
             "designations" => $designations,
+            "locations" => $locations,
         ];
         return view('people.index')->with($data);
     }
     public function fetch_people_list_filter(Request $request)
     {
-        $employee = $request->input('employee');
-        $customusers = $this->people->fetch_people_list_filter($employee); 
-        return response($customusers);
+        $data = array(
+            'people_filter_dept' => $request->people_filter_dept,
+            'people_filter_design' => $request->people_filter_design,
+            'people_filter_location' => $request->people_filter_location,
+            'employee' => $request->employee,
+        );
+        $customusers = $this->people->fetch_people_list_filter_with_filter($data); 
+        // $employee = $request->input('employee');
+        // $customusers = $this->people->fetch_people_list_filter($employee); 
+        return json_encode($customusers);
     }
-    public function fetch_people_starred_first_empid()
+    public function fetch_people_list_filter_starred(Request $request)
     {
-        $emp_id = $this->people->fetch_people_starred_first_empid(); 
+        $data = array(
+            'people_filter_dept' => $request->people_filter_dept,
+            'people_filter_design' => $request->people_filter_design,
+            'people_filter_location' => $request->people_filter_location,
+            'employee' => $request->employee,
+        );
+        $customusers = $this->people->fetch_people_list_filter_starred_with_filter($data); 
+        // $employee = $request->input('employee');
+        // $customusers = $this->people->fetch_people_list_filter($employee); 
+        return json_encode($customusers);
+    }
+    public function fetch_people_starred_first_empid(Request $request)
+    {
+        $data = array(
+            'people_filter_dept' => $request->people_filter_dept,
+            'people_filter_design' => $request->people_filter_design,
+            'people_filter_location' => $request->people_filter_location,
+        );
+        $emp_id = $this->people->fetch_people_starred_first_empid_with_filter($data);
+
+        // $emp_id = $this->people->fetch_people_starred_first_empid(); 
         return json_encode($emp_id);
     }
-    public function fetch_people_everyone_first_empid()
+    public function fetch_people_everyone_first_empid(Request $request)
     {
-        $emp_id = $this->people->fetch_people_everyone_first_empid(); 
-        return response($emp_id);
+        $data = array(
+            'people_filter_dept' => $request->people_filter_dept,
+            'people_filter_design' => $request->people_filter_design,
+            'people_filter_location' => $request->people_filter_location,
+        );
+        $emp_id = $this->people->fetch_people_everyone_first_empid_with_filter($data); 
+        return json_encode($emp_id);
     }
     public function fetch_people_star_add(Request $request)
     {
@@ -61,6 +95,12 @@ class PeopleController extends Controller
         $customusers = $this->people->fetch_people_list_filter_star($employee); 
         return json_encode($customusers);
     }
+    public function fetch_people_list_filter_img(Request $request)
+    {
+        $employee = $request->input('employee');
+        $customusers = $this->people->fetch_people_list_filter_img($employee); 
+        return json_encode($customusers);
+    }
     public function fetch_starred_customusers_list(Request $request)
     {
         // if(!empty($request->all())){
@@ -68,6 +108,7 @@ class PeopleController extends Controller
             $data = array(
                 'people_filter_dept' => $request->people_filter_dept,
                 'people_filter_design' => $request->people_filter_design,
+                'people_filter_location' => $request->people_filter_location,
             );
             $starred_customusers = $this->people->fetch_starred_customusers_list_with_filter($data);
 
@@ -82,6 +123,7 @@ class PeopleController extends Controller
         $data = array(
             'people_filter_dept' => $request->people_filter_dept,
             'people_filter_design' => $request->people_filter_design,
+            'people_filter_location' => $request->people_filter_location,
         );
         $starred_customusers = $this->people->fetch_everyone_customusers_list_with_filter($data);
 

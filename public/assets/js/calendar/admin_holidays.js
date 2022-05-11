@@ -326,7 +326,22 @@ var getEventDetail = function (id, start, end) {
 
         }               
         
-    });  
+    }); 
+    
+     //Get Holidays list
+     $.ajax({
+        url:"fetch_holidays_state_list_id_show",
+        type:"GET",
+        data : {id: id},
+        dataType : "JSON",
+        success:function(response)
+        {
+            // console.log(response); 
+            $("#state_show").text('');
+            $("#state_show").append(response);                  
+        }
+        
+    }); 
 
     $('#holidaysDetailModal').modal('show');
        
@@ -354,25 +369,31 @@ function addHolidayModal(arg){
 }
 
 //Save data
-$('#getNewHolidaysForm').on('submit',function(event){
+$('#holidays-form-insert').on('submit',function(event){
     event.preventDefault();
+    
     $('#occassion_error').html("");
     $('#occassion_file_error').html("");
     $('#state_error').html("");
     
-    var files = $('#occassion_file')[0].files;
-    var fd = new FormData();
-    // Append data 
-    fd.append('occassion',$('#occassion').val());
-    fd.append('description',$('#description').val());
-    fd.append('state',$('#state').val());
-    fd.append('occassion_date',$('#occassion_date').val());
-    fd.append('occassion_file',files[0]);
-    // console.log(fd)
+    // var files = $('#occassion_file')[0].files;
+    // var fd = new FormData();
+    // // Append data 
+    // fd.append('occassion',$('#occassion').val());
+    // fd.append('description',$('#description').val());
+    // fd.append('state',$('#state').val());
+    // fd.append('all_state',$('#all_state').val());
+    // fd.append('occassion_date',$('#occassion_date').val());
+    // fd.append('occassion_file',files[0]);
+    // console.log($('#all_state').html())
+
+    let formData = new FormData(this);
+
     $.ajax({
         url:"add_new_holidays_insert",
         type:"POST",
-        data: fd,
+        // data: fd,
+        data: formData,
         cache: false,
         processData: false,
         contentType: false,
@@ -403,20 +424,22 @@ $('#getNewHolidaysForm').on('submit',function(event){
 $('#updateHolidaysForm').on('submit',function(event){
     event.preventDefault();
     // Get Alll Text Box Id's
-    var files = $('#occassion_file_edit')[0].files;
-    var fd = new FormData();
+    // var files = $('#occassion_file_edit')[0].files;
+    // var fd = new FormData();
     // Append data 
-    fd.append('occassion',$('#occassion_edit').val());
-    fd.append('description',$('#description_edit').val());
-    fd.append('state',$('#state_edit').val());
-    fd.append('id',$('#holidays_edit_id').val());
-    fd.append('occassion_file',files[0]);
+    // fd.append('occassion',$('#occassion_edit').val());
+    // fd.append('description',$('#description_edit').val());
+    // fd.append('state',$('#state_edit').val());
+    // fd.append('id',$('#holidays_edit_id').val());
+    // fd.append('occassion_file',files[0]);
     // console.log(fd)
+
+    let formData = new FormData(this);
 
     $.ajax({
         url: "holidays_update",
         type:"POST",
-        data: fd,
+        data: formData,
         cache: false,
         processData: false,
         contentType: false,
@@ -523,6 +546,13 @@ $('body').on('click','.edit-holidays',function(){
             $("#occassion_edit").val(response[0].occassion);
             $("#description_edit").append(response[0].description);  
             $("#occassion_file_edit_show").text("");
+            $("#occassion_file_edit_show").text("");
+
+            if(response[0].all_state == "yes"){                    
+                $("#all_state_edit").prop("checked", true);        
+            }else{                   
+                $("#all_state_edit").prop("checked", false);        
+            }
 
             var file = response[0].occassion_file;
             var ext = file.split('.')[1];    

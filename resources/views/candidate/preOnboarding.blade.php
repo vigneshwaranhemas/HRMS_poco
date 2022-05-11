@@ -104,57 +104,11 @@
                </div>
             </div>
          </div>
+
     </div>
 </div>
-
-
-
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{{ url('assets/sticky_notes_js/jquery.magnific-popup-init.js') }}"></script>
-
-{{--sticky note script--}}
-{{-- <script src="{{ url('assets/sticky_notes_js/cbpFWTabs.js') }}"></script>
-<script src="{{ url('assets/sticky_notes_js/icheck.min.js') }}"></script>
-<script src="{{ url('assets/sticky_notes_js/icheck.init.js') }}"></script>
-<script src="{{ url('assets/sticky_notes_js/jquery.magnific-popup.min.js') }}"></script>
-<script src="{{ url('assets/sticky_notes_js/moment.js') }}"></script>
-<script src="https://js.pusher.com/5.0/pusher.min.js"></script> --}}
-<script>
-    //    sticky notes script
-    var stickyNoteOpen = $('#open-sticky-bar');
-    var stickyNoteClose = $('#close-sticky-bar');
-    var stickyNotes = $('#footer-sticky-notes');
-    var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    var stickyNoteHeaderHeight = stickyNotes.height();
-
-    $('#sticky-note-list').css('max-height', viewportHeight-150);
-
-    stickyNoteOpen.click(function () {
-        $('#sticky-note-list').toggle(function () {
-            $(this).animate({
-                height: (viewportHeight-150)
-            })
-        });
-        stickyNoteClose.toggle();
-        stickyNoteOpen.toggle();
-    })
-
-    stickyNoteClose.click(function () {
-        $('#sticky-note-list').toggle(function () {
-            $(this).animate({
-                height: 0
-            })
-        });
-        stickyNoteOpen.toggle();
-        stickyNoteClose.toggle();
-    })
-    $('#sticky-note-toggle').click(function () {
-        $('#footer-sticky-notes').toggle();
-        $('#sticky-note-toggle').hide();
-    })
-
-</script>
 <script src="{{url('pro_js/preonboarding/preonboarding.js')}}"></script>
 @section('script')
 @endsection

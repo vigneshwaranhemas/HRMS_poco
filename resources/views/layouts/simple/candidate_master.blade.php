@@ -15,6 +15,7 @@
     @yield('style')
 
   </head>
+
   <body class="@if(url()->current() == route('button-builder'))  button-builder @endif">
     <!-- Loader starts-->
     <div class="loader-wrapper">

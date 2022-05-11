@@ -7,10 +7,13 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
 <link rel="stylesheet" type="text/css" href="../assets/scss/bootstrap/_modal.scss">
-<meta name="csrf-token" content="{{ csrf_token() }}" />
+<meta name="csrf-token" content="{{ csrf_token() }}  />
+
+
 @endsection
 
 @section('style')
+
 @endsection
 
 @section('breadcrumb-title')
@@ -175,7 +178,7 @@
             </div>
             <div class="card-body pt-0">
                <ul class="crm-activity" id="tdys_work_annu_list">
-                  
+
                </ul>
             </div>
          </div>
@@ -294,7 +297,7 @@ View More&lt;/button&gt;
             </div>
          </div>
       </div>
-     
+
    </div>
 </div>
 

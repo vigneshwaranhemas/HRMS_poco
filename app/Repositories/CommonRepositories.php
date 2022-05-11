@@ -80,4 +80,23 @@ class CommonRepositories implements ICommonRepositories
              $result=CustomUser::select('hr_action')->where('empID',$id)->first();
              return $result;
     }
+
+    public function get_organization_info()
+    {
+        $organisation['reviewer']=CustomUser::select('empID','username','img_path','designation')->where('sup_name','CKR')->first();
+        $organisation['supervisors']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$organisation['reviewer']->empID)->get();
+        foreach($organisation['supervisors'] as $supervisors){
+          $team_leaders[]=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$supervisors['empID'])->get();
+        }
+        $organisation['team_leaders']=$team_leaders;
+        return $organisation;
+    }
+    public function supervisor_wise_info($id)
+    {
+        $organisation=CustomUser::select('empID','username','img_path','designation')->where('sup_name','CKR')->first();
+        $supervisor['supervisors']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$organisation->empID)->get();
+        $supervisor['supervisor_info']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('empID',$id)->first();
+        $supervisor['supervisor_tree']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$id)->get();
+        return $supervisor;
+    }
 }

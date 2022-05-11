@@ -326,5 +326,119 @@ public function check_user_status(Request $request)
 }
 
 
+public function organization_charts()
+{
+        $result = $this->cmmrpy->get_organization_info();
+        $filePath= $_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$result['reviewer']->img_path.'.jpg';
+        if(file_exists($filePath)){
+             $image='../ID_card_photo/'.$result['reviewer']->img_path.'.jpg';
+        }
+        else{
+            $image='../ID_card_photo/dummy.png';
+        }
+       //reviewer wise
+       $emp_data[]=array('id'=>$result['reviewer']->empID,
+                         'pid'=>0,
+                         'name'=>$result['reviewer']->username,
+                         'txt'=>$result['reviewer']->designation,
+                         'img'=>$image);
+
+      //superwisor wise
+      foreach($result['supervisors'] as $supervisors){
+                        if (file_exists($_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$supervisors['img_path'].'.jpg')) {
+                            $sup_image='../ID_card_photo/'.$supervisors['img_path'].'.jpg';
+                         }
+                         else{
+                            $sup_image='../ID_card_photo/dummy.png';
+                         }
+
+                $emp_data[]=array('id'=>$supervisors['empID'],
+                'pid'=>$supervisors['sup_emp_code'],
+                'name'=>$supervisors['username'],
+                'txt'=>$supervisors['designation'],
+                'img'=>$sup_image);
+      }
+
+    //teamleader wise
+      foreach($result['team_leaders'] as $team_leaders){
+
+        foreach($team_leaders as $leaders){
+            if (file_exists($_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$leaders['img_path'].'.jpg')) {
+                $team_image='../ID_card_photo/'.$leaders['img_path'].'.jpg';
+             }
+             else{
+                $team_image='../ID_card_photo/dummy.png';
+             }
+            $emp_data[]=array('id'=>$leaders['empID'],
+            'pid'=>$leaders['sup_emp_code'],
+            'name'=>$leaders['username'],
+            'txt'=>$leaders['designation'],
+            'img'=>$team_image);
+        }
+}
+
+
+    return view('HRSS.organization_charts')->with('emp_data',$emp_data)->with('supervisors',$result['supervisors']);
+
+}
+public function supervisor_wise_TreeData(Request $request)
+{
+    // $id=$request->id;
+    $id=$_GET['id'];
+    $result = $this->cmmrpy->supervisor_wise_info($id);
+    $filePath= $_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$result['supervisor_info']->img_path.'.jpg';
+        if(file_exists($filePath)){
+             $image='../ID_card_photo/'.$result['supervisor_info']->img_path.'.jpg';
+        }
+        else{
+            $image='../ID_card_photo/dummy.png';
+        }
+       //supervisor wise
+       $emp_data[]=array('id'=>$result['supervisor_info']->empID,
+                         'pid'=>0,
+                         'name'=>$result['supervisor_info']->username,
+                         'txt'=>$result['supervisor_info']->designation,
+                         'img'=>$image);
+
+        //superwisor wise
+        foreach($result['supervisor_tree'] as $supervisors){
+                        if (file_exists($_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$supervisors['img_path'].'.jpg')) {
+                            $sup_image='../ID_card_photo/'.$supervisors['img_path'].'.jpg';
+                        }
+                        else{
+                            $sup_image='../ID_card_photo/dummy.png';
+                        }
+
+                $emp_data[]=array('id'=>$supervisors['empID'],
+                'pid'=>$supervisors['sup_emp_code'],
+                'name'=>$supervisors['username'],
+                'txt'=>$supervisors['designation'],
+                'img'=>$sup_image);
+        }
+
+       //superwisor wise
+       foreach($result['supervisors'] as $supervisors){
+                    if (file_exists($_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$supervisors['img_path'].'.jpg')) {
+                        $sup_image='../ID_card_photo/'.$supervisors['img_path'].'.jpg';
+                    }
+                    else{
+                        $sup_image='../ID_card_photo/dummy.png';
+                    }
+                    $emp_data[]=array('id'=>$supervisors['empID'],
+                    'pid'=>$supervisors['sup_emp_code'],
+                    'name'=>$supervisors['username'],
+                    'txt'=>$supervisors['designation'],
+                    'img'=>$sup_image);
+            }
+
+
+
+        return view('HRSS.organization_charts')->with('emp_data',$emp_data)->with('supervisors',$result['supervisors']);
+
+
+
+
+    // echo json_encode($emp_data);
+}
 
 }

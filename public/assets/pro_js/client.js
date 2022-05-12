@@ -261,8 +261,8 @@ $(()=>{
 $("#editUpdate").on('click', function() {
     // alert("abc");
 
-    $("#editUpdate").attr("disabled", true);
-    $('#editUpdate').html('Processing..!');
+    // $("#editUpdate").attr("disabled", true);
+    // $('#editUpdate').html('Processing..!');
 
     var ed_client_name = $('#client_name').val();
     var ed_mobile_number = $('#mobile_number').val();
@@ -282,7 +282,8 @@ $("#editUpdate").on('click', function() {
         success: function(data) {
 
             $('#close_edit_pop').click();
-            $("#editUpdate").attr("disabled", false);
+            $("#editUpdate").attr("disabled", true);
+            $('#editUpdate').html('Processing..!');
             $('#editUpdate').html('Update');
             $('#client_edit_pop_modal_div').click();
 
@@ -315,7 +316,14 @@ $("#editUpdate").on('click', function() {
                     get_client_list();
                 }, 2000);
 
-        }
+        },
+        error: function(response) {
+
+            $('#edit_client_name_error').text(response.responseJSON.errors.client_name);
+            $('#edit_mobile_number_error').text(response.responseJSON.errors.mobile_number);
+            $('#edit_email_error').text(response.responseJSON.errors.email);
+
+            }
     });
 });
 

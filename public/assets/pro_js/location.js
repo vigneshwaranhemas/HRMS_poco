@@ -241,10 +241,6 @@ $(()=>{
 
 $("#editUpdate").on('click', function() {
     // alert("abc");
-
-    $("#editUpdate").attr("disabled", true);
-    $('#editUpdate').html('Processing..!');
-
     var ed_location_name = $('#location_name').val();
     var ed_id = $('#ed_id').val();
 
@@ -259,11 +255,13 @@ $("#editUpdate").on('click', function() {
         success: function(data) {
 
             $('#close_edit_pop').click();
-            $("#editUpdate").attr("disabled", false);
+            $("#editUpdate").attr("disabled", true);
+            $('#editUpdate').html('Processing..!');
             $('#editUpdate').html('Update');
             $('#location_edit_pop_modal_div').click();
 
             if(data.response =='Updated'){
+                $("#editUpdate").attr("disabled", false);
                 Toastify({
                     text: "Updated Successfully",
                     duration: 3000,
@@ -292,7 +290,12 @@ $("#editUpdate").on('click', function() {
                     get_location_list();
                 }, 2000);
 
-        }
+        },
+        error: function(response) {
+
+            $('#edit_location_name_error').text(response.responseJSON.errors.location_name);
+
+            }
     });
 });
 

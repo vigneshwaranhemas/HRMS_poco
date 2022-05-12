@@ -21,6 +21,7 @@ use App\Holidays;
 use App\Role;
 use App\Models\Candidate_seating_and_email_request;
 use App\welcome_aboard;
+use App\company_policy_category;
 
 
 class AdminRepository implements IAdminRepository
@@ -69,9 +70,9 @@ class AdminRepository implements IAdminRepository
 
     public function update_profile_details( $input_details ){
 
-        $update_roletbl = DB::table('images')->where( 'cdID', '=', $input_details['cdID'] );
+        $update_roletbl = DB::table('images')->where( 'emp_id', '=', $input_details['emp_id'] );
         $update_roletbl->update( [
-            'cdID' => $input_details['cdID'],
+            'emp_id' => $input_details['emp_id'],
             'path' => $input_details['path'],
         ] );
 
@@ -949,7 +950,7 @@ class AdminRepository implements IAdminRepository
                         ->first();
            // dd(DB::getQueryLog());
         }
-        
+
         return $bandtbl;
     }
 
@@ -1099,7 +1100,7 @@ class AdminRepository implements IAdminRepository
                         ->get();
 
         }
-       
+
         // dd(DB::getQueryLog());
         return $response;
     }
@@ -1107,7 +1108,7 @@ class AdminRepository implements IAdminRepository
     public function role_type_list( ){
         $bandtbl = DB::table('roles')
         ->select('*')
-        ->get();    
+        ->get();
         return $bandtbl;
     }
 
@@ -1130,6 +1131,23 @@ class AdminRepository implements IAdminRepository
             'role_type' => $input_details['employe_role'],
         ] );
 
+    }
+
+    // Company policies start
+    public function add_policy_category_process( $form_data ){
+
+        $response = company_policy_category::insert($form_data);
+        return $response;
+      }
+
+      public function get_policy_category_details(){
+
+        $divisiontbl = DB::table('company_policy_categories as dv')
+        ->select('dv.*')
+        ->orderBy('dv.created_at', 'desc')
+        ->get();
+
+        return $divisiontbl;
     }
 
 }

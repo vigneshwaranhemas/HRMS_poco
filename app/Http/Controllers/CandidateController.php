@@ -420,6 +420,11 @@ public function payslip()
     return view('candidate.payslip');
 }
 
+public function documents_candidate()
+{
+    return view('candidate.documents_candidate');
+}
+
 
 
 

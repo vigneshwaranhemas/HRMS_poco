@@ -119,6 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="roll_name">Roll Name </label>
                         <input type="text" id="roll_name" class="form-control" placeholder="Roll Name" name="roll_name" />
+                        <div class="text-warning" id="edit_roll_name_error"></div>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>

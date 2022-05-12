@@ -119,6 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="designation_name">Designation Name </label>
                         <input type="text" id="designation_name" class="form-control" placeholder="Designation Name" name="designation_name" />
+                        <div class="text-warning" id="edit_designation_name"></div>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>

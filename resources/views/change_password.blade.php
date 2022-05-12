@@ -87,11 +87,16 @@
 </div>
 @endsection
 
+<?php
+$session_val = Session::get('session_info');
+        $passcode_status = $session_val['passcode_status'];
+        // echo json_encode($emp_ID);
+?>
 @section('script')
 <script src="../assets/js/form-validation-custom.js"></script>
 <script src="../assets/pro_js/change_password.js"></script>
 <script type="text/javascript">
-    
+
      var change_password_process_link = "{{url('change_password_process')}}";
 
      $('#confirm_password').on('keyup', function() {
@@ -120,5 +125,20 @@
             }
         }
     });
+
+var sess_info=@json($passcode_status);
+// console.log(sess_info)
+
+if(sess_info == 0)
+{
+// Remove sidbar
+    var $this = $(".iconsidebar-menu");
+    $this.removeClass('iconbar-mainmenu-close').addClass('iconbar-second-close');
+
+    $('.mobile-sidebar').hide();
+    $('.sub_header').hide();
+}
+
+
 </script>
 @endsection

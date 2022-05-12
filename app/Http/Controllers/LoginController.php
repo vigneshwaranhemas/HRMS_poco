@@ -28,10 +28,17 @@ class LoginController extends Controller
                 'role_id' => auth()->user()->role_id,
                 'active' => auth()->user()->active,
                 'email' => auth()->user()->email,
+                'passcode_status'=>auth()->user()->passcode_status,
             ];
             // echo "<pre>";print_r($info);die;
             Session::put("session_info",$info);
+            if($info['passcode_status']==1){
              return response()->json( ['url'=>url('com_dashboard' ), 'logstatus' => 'success'] );
+            }
+            else if($info['passcode_status']==0){
+             return response()->json( ['url'=>url('change_password' ), 'logstatus' => 'success'] );
+
+            }
         }else{
             return response()->json( ['url'=>url( '../' ), 'logstatus' => 'failed'] );
         }

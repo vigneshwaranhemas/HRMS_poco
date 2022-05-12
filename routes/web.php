@@ -388,6 +388,7 @@ Route::post('Contact_info_hr', 'CommonController@Contact_info_hr');
 Route::post('account_info_hr', 'CommonController@account_info_hr');
 
 /*password change*/
-Route::get( 'change_password', 'CommonController@change_password' );
+Route::get( 'change_password', 'CommonController@change_password' )->name('change_password');
 Route::post( 'change_password_process', 'CommonController@change_password_process' );
+Route::post('add_policy_information_process','AdminController@add_policy_information_process');
 

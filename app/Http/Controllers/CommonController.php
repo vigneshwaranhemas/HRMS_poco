@@ -114,7 +114,7 @@ class CommonController extends Controller
                     $Mail['subject']="Thank you for submitting the details.";
                     $Mail['candidate_name']=$user->username;
                     $Mail['hr_subject']="ID Card Informatin approvel Awaited.";
-                 
+
                     Mail::send('emails.id_card_submit_can', $Mail, function ($message) use ($Mail) {
                     $message->from("hr@hemas.in", 'HEPL - HR Team');
                     $message->to($Mail['email'])->subject($Mail['subject']);
@@ -129,7 +129,7 @@ class CommonController extends Controller
                     $message->to($Mail['hr_email'])->subject($Mail['hr_subject']);
                     });
 
-                
+
                 return response()->json(['response'=>'insert']);
 
             }else{
@@ -171,7 +171,7 @@ class CommonController extends Controller
                     $Mail['subject']="Thank you for submitting the details.";
                     $Mail['candidate_name']=$user->username;
                     $Mail['hr_subject']="ID Card Informatin approvel Awaited.";
-                 
+
                     Mail::send('emails.id_card_submit_can', $Mail, function ($message) use ($Mail) {
                     $message->from("hr@hemas.in", 'HEPL - HR Team');
                     $message->to($Mail['email'])->subject($Mail['subject']);
@@ -387,6 +387,7 @@ class CommonController extends Controller
         $input_details = array(
             'empID'=>$emp_ID,
             'confirm_password'=>bcrypt($req->input('confirm_password')),
+            'passcode_status'=>"1",
         );
         $change_password_process_result = $this->cmmrpy->change_password_process( $input_details );
 

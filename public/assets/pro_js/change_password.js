@@ -30,7 +30,7 @@ $('#changePassForm').submit(function(e) {
 
                 setTimeout(
                     function() {
-                        window.location.href = "../";
+                        window.location.href = "../index.php";
 
                     }, 2000);
 

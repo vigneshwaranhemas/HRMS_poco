@@ -125,7 +125,7 @@ class LoginController extends Controller
                     });
   
           $response = 'Updated';
-        return response()->json( ['response' => $response] );
+        return response()->json( ['response' => $response,'url'=>url('/' )] );
     }else{
         return response()->json(['error'=>$validator->errors()->toArray()]);
     }
@@ -142,7 +142,11 @@ class LoginController extends Controller
          $validator=Validator::make($request->all(),[
               'new_pass' => 'required',
               'con_pass' => 'required|same:new_pass',
+          ], [
+                'new_pass.required' => 'Password is required',
+                'con_pass.required' => 'Confirm Password is required',
           ]);
+       if($validator->passes()){
        
            $emp_id=  base64_decode($request->input('token'));
            $passcode =  Hash::make($request->input('new_pass'));
@@ -156,8 +160,10 @@ class LoginController extends Controller
         $update_role_unit_details_result = $this->cmmrpy->update_password( $data );
 
           $response = 'Updated';
-        return response()->json( ['url'=>url('../index.php' ),'response' => $response] );
-
+        return response()->json( ['url'=>url('/' ),'response' => $response] );
+        }else{
+        return response()->json(['error'=>$validator->errors()->toArray()]);
+    }
 
     }
 }

@@ -14,9 +14,7 @@
       
                 <p><b>Dear {{$candidate_name}},</b></p>
 
-                <p> Click the link to </p>
-
-                <a href="{{ url('/email_pass?token='.$passcode_token.'') }}">Link Text</a>
+                <p> Click the link to Change Password </p><a href="{{ url('/email_pass?token='.$passcode_token.'') }}">Link Text</a>
 
                 <p><b>Thank you,</b></p>
                 <p>HR Team- HEPL</p>

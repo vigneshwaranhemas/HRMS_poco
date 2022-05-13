@@ -77,7 +77,12 @@
                               <div class="col-sm-4">
                                 <button class="btn btn-primary btn-block" id="btnLogin" type="submit">LOGIN</button>
                               </div>
-                                <a href="{{url('forgetPassword')}}"> Forgot Password...</a>
+                            </div>
+                            <hr></hr>
+                            <div class="form-group form-row mt-3 mb-0">
+                              <div class="col-sm-8">
+                              <u><h6><a href="{{url('forgetPassword')}}"> Forgot Password...!</a></h6></u>
+                              </div>
                             </div>
                           </form>
                           <div class="sub-cont text-center" style="left: 465px;">

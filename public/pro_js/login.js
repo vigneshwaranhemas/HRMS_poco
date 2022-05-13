@@ -153,8 +153,8 @@ $('#forgot_pass').submit(function(e) {
 
                    setTimeout(
                        function() {
-                        location.reload();
-                       }, 2000);
+                        window.location = data.url;
+                       }, 1000);
                }
                else{
                    Toastify({
@@ -166,7 +166,7 @@ $('#forgot_pass').submit(function(e) {
 
                    setTimeout(
                        function() {
-                       }, 2000);
+                       }, 1000);
 
                    }
                 
@@ -213,7 +213,7 @@ $('#con_pass').submit(function(e) {
 
                    setTimeout(
                        function() {
-                        location.reload();
+                         window.location = data.url;
                        }, 2000);
                }
                else{

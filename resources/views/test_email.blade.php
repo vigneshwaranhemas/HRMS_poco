@@ -31,63 +31,48 @@
 
 @section('content')
 <!-- login page start-->
-<div class="container-fluid p-0">
+<div class="container-fluid">
   <div class="authentication-main">
     <div class="row">
-      <div class="col-md-12">
-        <div class="auth-innerright">
-          <div class="authentication-box">
-            <div class="card-body p-0">
-              <div class="cont text-center">
-                <div>
-                  <div class="col-xl-8 xl-100 box-col-12">
-                    <div class="card year-overview">
-                      <div class="row">
-                        <div class="col-xl-1 col-lg-1 col-1">
-                          <div class="card-header no-border d-flex">
-                            <ul class="creative-dots">
-                              <li class="bg-primary big-dot"></li>
-                              <li class="bg-secondary semi-big-dot"></li>
-                              <li class="bg-warning medium-dot"></li>
-                              <li class="bg-info semi-medium-dot"></li>
-                              <li class="bg-secondary semi-small-dot"></li>
-                              <li class="bg-primary small-dot"></li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="col-xl-11 col-lg-11 col-11 responsive_top">
-                          <form class="theme-form mt-5 mb-5" id="con_pass" method="post" action="javascript:void(0)">
-                            <h4>New Password</h4><br>
-                            {{ csrf_field() }}
-                            <div class="form-group form-row mt-3 mb-0">
-                              <div class="col-sm-5">
-                              <label class="col-form-label pt-0">New Password </label>
-                              </div>
-                              <div class="col-sm-7">
-                                <input class="form-control" name="new_pass" id="new_pass" type="password" required="">
-                              </div>
-                            </div>
-                            <div class="form-group form-row mt-3 mb-0">
-                              <div class="col-sm-5"> <label class="col-form-label">Confirm Password </label></div>
-                              <div class="col-sm-7">
-                              <input class="form-control"  name="con_pass" id="con_pass"  type="password" required=""></div>
-                            </div>
-                            <div class="form-group form-row mt-3 mb-0">
-                              <div class="col-sm-4"></div>
-                              <div class="col-sm-4">
-                                <button class="btn btn-primary btn-block" id="btnLogin" type="submit">Save</button>
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
+      <div class="col-md-12 p-0">
+        <div class="auth-innerright auth-minibox">
+          <div class="reset-password-box">
+            <div class="text-center"><a href=""><img src="{{ asset('assets/images/logo/logo.png') }}" alt=""></a></div>
+            <center>
+              <div class="card mt-4 mb-0">
+              <div class="card-body p-0">
+                <h4>Reset Your Password</h4>
+               <form class="theme-form mt-5 mb-5" id="con_pass" method="post" action="javascript:void(0)">
+                  {{ csrf_field() }}
+                  <div class="form-group form-row mt-3 mb-0">
+                    <div class="col-sm-5">
+                    <label class="col-form-label pt-0">New Password </label>
+                    </div>
+                    <div class="col-sm-7">
+                      <input class="form-control" name="new_pass" id="new_pass" type="password" >
+                       <span class="text-danger color-hider" id="new_pass_error" style="display:none;color: red;"></span>
                     </div>
                   </div>
+                  <div class="form-group form-row mt-3 mb-0">
+                    <div class="col-sm-5"> <label class="col-form-label">Confirm Password </label></div>
+                    <div class="col-sm-7">
+                    <input class="form-control"  name="con_pass" id="con_pass"  type="password" >
+                     <span class="text-danger color-hider" id="con_pass_error" style="display:none;color: red;"></span>
+                  </div>
+                  </div>
+                  <div class="form-group form-row mt-3 mb-0">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                      <button class="btn btn-primary btn-block" id="btnLogin" type="submit">Save</button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
+            </center>
+            
           </div>
         </div>
-        <!-- </div> -->
       </div>
     </div>
   </div>
@@ -113,6 +98,7 @@
 
     var login_check_process_link = "{{url('login_check_process')}}";
     var con_pass_process_link = "{{url('con_pass_process')}}";
+
     
 </script>
 

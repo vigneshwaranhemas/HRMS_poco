@@ -397,7 +397,6 @@ Route::post('add_policy_information_process','AdminController@add_policy_informa
 
 /*forgot password*/
 Route::get('forgetPassword', 'LoginController@showForgetPasswordForm');
-
 Route::post('forgot_pass_process','LoginController@submitForgetPasswordForm');
 Route::get('email_pass','LoginController@email_pass');
 Route::post('con_pass_process','LoginController@con_pass_process');

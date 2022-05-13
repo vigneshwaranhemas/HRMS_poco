@@ -311,7 +311,7 @@ max-width: 1000px !important;
                                         </div>
 
                                         <div class="col-md-6 mb-3">
-                                            <label for="p_State">State</label>
+                                            <label for="p_State"> State</label>
                                             <select name="p_State" id="p_State" class="custom-select">
                                                   <option value="">--Select--</option>
                                              </select>

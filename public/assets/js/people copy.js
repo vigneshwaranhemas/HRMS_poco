@@ -4,15 +4,13 @@ $(document).ready(function() {
     
     var people_filter_dept_value = $('#people_filter_dept_value').val();
     var people_filter_design_value = $('#people_filter_design_value').val();
-    var people_filter_location_value = $('#people_filter_location_value').val();
-    
+
     $.ajax({
         url:"fetch_people_starred_first_empid",
         type:"GET", 
         data: {
             people_filter_dept: people_filter_dept_value,
             people_filter_design: people_filter_design_value,
-            people_filter_location: people_filter_location_value,
         },
         dataType : "JSON",
         success:function(response)
@@ -44,7 +42,6 @@ function fetch_people_list_ul_li(){
 
     var people_filter_dept_value = $('#people_filter_dept_value').val();
     var people_filter_design_value = $('#people_filter_design_value').val();
-    var people_filter_location_value = $('#people_filter_location_value').val();
 
     $.ajax({
         url:"fetch_people_starred_first_empid",
@@ -52,7 +49,6 @@ function fetch_people_list_ul_li(){
         data: {
             people_filter_dept: people_filter_dept_value,
             people_filter_design: people_filter_design_value,
-            people_filter_location: people_filter_location_value,
         },
         dataType : "JSON",
         success:function(response)
@@ -76,13 +72,7 @@ function fetch_people_list_ul_li(){
                 $.ajax({
                     url:"fetch_people_list_filter",
                     type:"GET",
-                    data: {
-                        people_filter_dept: people_filter_dept_value,
-                        people_filter_design: people_filter_design_value,
-                        people_filter_location: people_filter_location_value,
-                        employee: employee,
-                    },
-                    // data : {employee: employee},
+                    data : {employee: employee},
                     dataType : "JSON",
                     success:function(response)
                     {
@@ -167,7 +157,6 @@ function fetch_starred_details(){
     
     var people_filter_dept_value = $('#people_filter_dept_value').val();
     var people_filter_design_value = $('#people_filter_design_value').val();
-    var people_filter_location_value = $('#people_filter_location_value').val();
 
     //Star List
     $.ajax({
@@ -176,7 +165,6 @@ function fetch_starred_details(){
         data: {
             people_filter_dept: people_filter_dept_value,
             people_filter_design: people_filter_design_value,
-            people_filter_location: people_filter_location_value,
         },
         dataType : "JSON",
         cache: false,
@@ -218,7 +206,6 @@ function fetch_everyone_details(){
 
     var people_filter_dept_value = $('#people_filter_dept_value').val();
     var people_filter_design_value = $('#people_filter_design_value').val();
-    var people_filter_location_value = $('#people_filter_location_value').val();
     // console.log(people_filter_dept_value);
     //Star List
     $.ajax({
@@ -227,7 +214,6 @@ function fetch_everyone_details(){
         data: {
             people_filter_dept: people_filter_dept_value,
             people_filter_design: people_filter_design_value,
-            people_filter_location: people_filter_location_value,
         },
         dataType : "JSON",
         success:function(response)
@@ -277,20 +263,10 @@ $('.people_list_filter').change(function () {
         
         fetch_everyone_details();
 
-        var people_filter_dept_value = $('#people_filter_dept_value').val();
-        var people_filter_design_value = $('#people_filter_design_value').val();
-        var people_filter_location_value = $('#people_filter_location_value').val();
-
         $.ajax({
             url:"fetch_people_list_filter",
             type:"GET",
-            data: {
-                people_filter_dept: people_filter_dept_value,
-                people_filter_design: people_filter_design_value,
-                people_filter_location: people_filter_location_value,
-                employee: employee,
-            },
-            // data : {employee: employee},
+            data : {employee: employee},
             dataType : "JSON",
             success:function(response)
             {
@@ -368,20 +344,10 @@ $('.people_list_filter').change(function () {
             del_class.remove();
         }
 
-        var people_filter_dept_value = $('#people_filter_dept_value').val();
-        var people_filter_design_value = $('#people_filter_design_value').val();
-        var people_filter_location_value = $('#people_filter_location_value').val();
-                
         $.ajax({
-            url:"fetch_people_list_filter_starred",
+            url:"fetch_people_list_filter",
             type:"GET",
-            data: {
-                people_filter_dept: people_filter_dept_value,
-                people_filter_design: people_filter_design_value,
-                employee: employee,
-                people_filter_location: people_filter_location_value,
-            },
-            // data : {employee: employee},
+            data : {employee: employee},
             dataType : "JSON",
             success:function(response)
             {
@@ -389,8 +355,8 @@ $('.people_list_filter').change(function () {
     
                 if(response == "empty"){
                     $(".chat-right-aside").css('display', 'none');                        
-                    $(".chat-right-aside-star").css('display', 'block');
-                    $(".chat-right-aside-employees-empty").css('display', 'none');
+                    $(".chat-right-aside-star").css('display', 'none');
+                    $(".chat-right-aside-employees-empty").css('display', 'block');
                 }else{
                     // $(".chat-right-aside").css('display', 'block');                        
                     $(".chat-right-aside-star").css('display', 'none');
@@ -522,7 +488,6 @@ $('body').on('click','.people_star_add',function(){
                     
                     var people_filter_dept_value = $('#people_filter_dept_value').val();
                     var people_filter_design_value = $('#people_filter_design_value').val();
-                    var people_filter_location_value = $('#people_filter_location_value').val();
 
                     $.ajax({
                         url:"fetch_people_starred_first_empid",
@@ -530,7 +495,6 @@ $('body').on('click','.people_star_add',function(){
                         data: {
                             people_filter_dept: people_filter_dept_value,
                             people_filter_design: people_filter_design_value,
-                            people_filter_location: people_filter_location_value,
                         },
                         dataType : "JSON",
                         success:function(response)
@@ -545,7 +509,6 @@ $('body').on('click','.people_star_add',function(){
                                 // //Star List
                                 var people_filter_dept_value = $('#people_filter_dept_value').val();
                                 var people_filter_design_value = $('#people_filter_design_value').val();
-                                var people_filter_location_value = $('#people_filter_location_value').val();
 
                                 $.ajax({
                                     url:"fetch_starred_customusers_list",
@@ -553,7 +516,6 @@ $('body').on('click','.people_star_add',function(){
                                     data: {
                                         people_filter_dept: people_filter_dept_value,
                                         people_filter_design: people_filter_design_value,
-                                        people_filter_location: people_filter_location_value,
                                     },
                                     dataType : "JSON",
                                     cache: false,
@@ -577,7 +539,6 @@ $('body').on('click','.people_star_add',function(){
                                 // //Star List
                                 var people_filter_dept_value = $('#people_filter_dept_value').val();
                                 var people_filter_design_value = $('#people_filter_design_value').val();
-                                var people_filter_location_value = $('#people_filter_location_value').val();
 
                                 $.ajax({
                                     url:"fetch_starred_customusers_list",
@@ -585,7 +546,6 @@ $('body').on('click','.people_star_add',function(){
                                     data: {
                                         people_filter_dept: people_filter_dept_value,
                                         people_filter_design: people_filter_design_value,
-                                        people_filter_location: people_filter_location_value,
                                     },
                                     dataType : "JSON",
                                     cache: false,
@@ -600,7 +560,6 @@ $('body').on('click','.people_star_add',function(){
 
                                 var people_filter_dept_value = $('#people_filter_dept_value').val();
                                 var people_filter_design_value = $('#people_filter_design_value').val();
-                                var people_filter_location_value = $('#people_filter_location_value').val();
 
                                 $.ajax({
                                     url:"fetch_people_starred_first_empid",
@@ -608,7 +567,6 @@ $('body').on('click','.people_star_add',function(){
                                     data: {
                                         people_filter_dept: people_filter_dept_value,
                                         people_filter_design: people_filter_design_value,
-                                        people_filter_location: people_filter_location_value,
                                     },
                                     dataType : "JSON",
                                     success:function(response)
@@ -624,13 +582,7 @@ $('body').on('click','.people_star_add',function(){
                                         $.ajax({
                                             url:"fetch_people_list_filter",
                                             type:"GET",
-                                            data: {
-                                                people_filter_dept: people_filter_dept_value,
-                                                people_filter_design: people_filter_design_value,
-                                                people_filter_location: people_filter_location_value,
-                                                employee: employee,
-                                            },
-                                            // data : {employee: employee},
+                                            data : {employee: employee},
                                             dataType : "JSON",
                                             success:function(response)
                                             {
@@ -730,7 +682,6 @@ $('#people_tab_li_1').click(function () {
 
     var people_filter_dept_value = $('#people_filter_dept_value').val();
     var people_filter_design_value = $('#people_filter_design_value').val();
-    var people_filter_location_value = $('#people_filter_location_value').val();
 
     fetch_starred_details();
 
@@ -741,7 +692,6 @@ $('#people_tab_li_1').click(function () {
         data: {
             people_filter_dept: people_filter_dept_value,
             people_filter_design: people_filter_design_value,
-            people_filter_location: people_filter_location_value,
         },
         dataType : "JSON",
         success:function(response)
@@ -763,13 +713,7 @@ $('#people_tab_li_1').click(function () {
                 $.ajax({
                     url:"fetch_people_list_filter",
                     type:"GET",
-                    data: {
-                        people_filter_dept: people_filter_dept_value,
-                        people_filter_design: people_filter_design_value,
-                        employee: employee,
-                        people_filter_location: people_filter_location_value,
-                    },
-                    // data : {employee: employee},
+                    data : {employee: employee},
                     dataType : "JSON",
                     success:function(response)
                     {
@@ -855,7 +799,6 @@ $('#people_tab_li_2').click(function () {
 
     var people_filter_dept_value = $('#people_filter_dept_value').val();
     var people_filter_design_value = $('#people_filter_design_value').val();
-    var people_filter_location_value = $('#people_filter_location_value').val();
 
     fetch_everyone_details();
 
@@ -866,7 +809,6 @@ $('#people_tab_li_2').click(function () {
         data: {
             people_filter_dept: people_filter_dept_value,
             people_filter_design: people_filter_design_value,
-            people_filter_location: people_filter_location_value,
         },
         dataType : "JSON",
         success:function(response)
@@ -889,13 +831,7 @@ $('#people_tab_li_2').click(function () {
                 $.ajax({
                     url:"fetch_people_list_filter",
                     type:"GET",
-                    data: {
-                        people_filter_dept: people_filter_dept_value,
-                        people_filter_design: people_filter_design_value,
-                        people_filter_location: people_filter_location_value,
-                        employee: employee,
-                    },
-                    // data : {employee: employee},
+                    data : {employee: employee},
                     dataType : "JSON",
                     success:function(response)
                     {
@@ -981,23 +917,12 @@ $('body').on('click','.people_list_ul_li',function(){
 
     $(this).addClass('active');
 
-    var people_filter_dept_value = $('#people_filter_dept_value').val();
-    var people_filter_design_value = $('#people_filter_design_value').val();
-    var people_filter_location_value = $('#people_filter_location_value').val();
-    
     var employee = $(this).data('id');
-    // alert(employee)
-    
+    // alert(emp_id)
     $.ajax({
         url:"fetch_people_list_filter",
         type:"GET",
-        data: {
-            people_filter_dept: people_filter_dept_value,
-            people_filter_design: people_filter_design_value,
-            people_filter_location: people_filter_location_value,
-            employee: employee,
-        },
-        // data : {employee: employee},
+        data : {employee: employee},
         dataType : "JSON",
         success:function(response)
         {
@@ -1089,12 +1014,10 @@ $('#peopleFilterForm').on('submit',function(event){
     // Get Alll Text Box Id's
     var people_filter_dept = $('#people_filter_dept').val();
     var people_filter_design = $('#people_filter_design').val();
-    var people_filter_location = $('#people_filter_location').val();
     // alert(people_filter_dept);     
 
     $('#people_filter_dept_value').val(people_filter_dept);
     $('#people_filter_design_value').val(people_filter_design);
-    $('#people_filter_location_value').val(people_filter_location);
 
     fetch_everyone_details();
     fetch_starred_details();
@@ -1105,7 +1028,6 @@ $('#peopleFilterForm').on('submit',function(event){
 
         var people_filter_dept_value = $('#people_filter_dept_value').val();
         var people_filter_design_value = $('#people_filter_design_value').val();
-        var people_filter_location_value = $('#people_filter_location_value').val();
 
         // fetch_everyone_details();
 
@@ -1115,7 +1037,6 @@ $('#peopleFilterForm').on('submit',function(event){
             data: {
                 people_filter_dept: people_filter_dept_value,
                 people_filter_design: people_filter_design_value,
-                people_filter_location: people_filter_location_value,
             },
             dataType : "JSON",
             success:function(response)
@@ -1137,24 +1058,18 @@ $('#peopleFilterForm').on('submit',function(event){
                     $.ajax({
                         url:"fetch_people_list_filter",
                         type:"GET",
-                        data: {
-                            people_filter_dept: people_filter_dept_value,
-                            people_filter_design: people_filter_design_value,
-                            people_filter_location: people_filter_location_value,
-                            employee: employee,
-                        },
-                        // data : {employee: employee},
+                        data : {employee: employee},
                         dataType : "JSON",
                         success:function(response)
                         {
                             // console.log(response);
                             if(response == "empty"){
-                                $(".chat-right-aside").css('display', 'none');
-                                $(".chat-right-aside-star").css('display', 'none');
-                                $(".chat-right-aside-employees-empty").css('display', 'block');
+                                // $(".chat-right-aside").css('display', 'none');
+                                // $(".chat-right-aside-star").css('display', 'none');
+                                // $(".chat-right-aside-employees-empty").css('display', 'block');
                             }else{
-                                $(".chat-right-aside-star").css('display', 'none');
-                                $(".chat-right-aside-employees-empty").css('display', 'none');
+                                // $(".chat-right-aside-star").css('display', 'none');
+                                // $(".chat-right-aside-employees-empty").css('display', 'none');
 
                                 var rData = [];
                                 rData = response;                   
@@ -1218,14 +1133,13 @@ $('#peopleFilterForm').on('submit',function(event){
         });
             
         // $('.chat-box .people-list ul p li:first').addClass('active');
-        // $(".chat-box .people-list ul li").removeClass("active");
-        // $('.chat-box .people-list ul #people_everyone_list_show li:first').addClass('active');
+        $(".chat-box .people-list ul li").removeClass("active");
+        $('.chat-box .people-list ul #people_everyone_list_show li:first').addClass('active');
         // $('.chat-box .people-list ul #people_everyone_list_show li').first().css('background-color', '#7e37d8');
 
     }else{
         var people_filter_dept_value = $('#people_filter_dept_value').val();
         var people_filter_design_value = $('#people_filter_design_value').val();
-        var people_filter_location_value = $('#people_filter_location_value').val();
     
         // fetch_starred_details();
     
@@ -1236,7 +1150,6 @@ $('#peopleFilterForm').on('submit',function(event){
             data: {
                 people_filter_dept: people_filter_dept_value,
                 people_filter_design: people_filter_design_value,
-                people_filter_location: people_filter_location_value,
             },
             dataType : "JSON",
             success:function(response)
@@ -1258,13 +1171,7 @@ $('#peopleFilterForm').on('submit',function(event){
                     $.ajax({
                         url:"fetch_people_list_filter",
                         type:"GET",
-                        data: {
-                            people_filter_dept: people_filter_dept_value,
-                            people_filter_design: people_filter_design_value,
-                            people_filter_location: people_filter_location_value,
-                            employee: employee,
-                        },
-                        // data : {employee: employee},
+                        data : {employee: employee},
                         dataType : "JSON",
                         success:function(response)
                         {
@@ -1342,8 +1249,8 @@ $('#peopleFilterForm').on('submit',function(event){
             }
         });
         
-        // $(".chat-box .people-list ul li").removeClass("active");
-        // $('.chat-box .people-list ul #people_starred_list_show li:first').addClass('active');
+        $(".chat-box .people-list ul li").removeClass("active");
+        $('.chat-box .people-list ul #people_starred_list_show li:first').addClass('active');
     
         // $('.chat-box .people-list ul #people_starred_list_show li').first().css('background-color', '#7e37d8');
     
@@ -1373,7 +1280,6 @@ $("#clearButton").click(function() {
        
     var people_filter_dept_value = $('#people_filter_dept_value').val();
     var people_filter_design_value = $('#people_filter_design_value').val();
-    var people_filter_location_value = $('#people_filter_location_value').val();
 
     fetch_everyone_details();
 
@@ -1384,7 +1290,6 @@ $("#clearButton").click(function() {
         data: {
             people_filter_dept: people_filter_dept_value,
             people_filter_design: people_filter_design_value,
-            people_filter_location: people_filter_location_value,
         },
         dataType : "JSON",
         success:function(response)
@@ -1407,13 +1312,7 @@ $("#clearButton").click(function() {
                 $.ajax({
                     url:"fetch_people_list_filter",
                     type:"GET",
-                    data: {
-                        people_filter_dept: people_filter_dept_value,
-                        people_filter_design: people_filter_design_value,
-                        people_filter_location: people_filter_location_value,
-                        employee: employee,
-                    },
-                    // data : {employee: employee},
+                    data : {employee: employee},
                     dataType : "JSON",
                     success:function(response)
                     {
@@ -1504,7 +1403,6 @@ $("#clearButtonStarred").click(function() {
 
     var people_filter_dept_value = $('#people_filter_dept_value').val();
     var people_filter_design_value = $('#people_filter_design_value').val();
-    var people_filter_location_value = $('#people_filter_location_value').val();
 
     fetch_starred_details();
 
@@ -1514,7 +1412,6 @@ $("#clearButtonStarred").click(function() {
         data: {
             people_filter_dept: people_filter_dept_value,
             people_filter_design: people_filter_design_value,
-            people_filter_location: people_filter_location_value,
         },
         dataType : "JSON",
         success:function(response)
@@ -1536,13 +1433,7 @@ $("#clearButtonStarred").click(function() {
                 $.ajax({
                     url:"fetch_people_list_filter",
                     type:"GET",
-                    data: {
-                        people_filter_dept: people_filter_dept_value,
-                        people_filter_design: people_filter_design_value,
-                        people_filter_location: people_filter_location_value,
-                        employee: employee,
-                    },
-                    // data : {employee: employee},
+                    data : {employee: employee},
                     dataType : "JSON",
                     success:function(response)
                     {

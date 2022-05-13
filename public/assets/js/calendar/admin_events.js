@@ -47,7 +47,7 @@ $('#event-form-insert').submit(function(e) {
 
     $.ajax({
         type:'POST',
-        url: `/add_new_event_insert`,
+        url: "add_new_event_insert",
         data: formData,
         contentType: false,
         processData: false,
@@ -498,7 +498,7 @@ $('.delete-event').click(function(){
 });
 
 //Delete Holidays data
-$('#formEventsDelete').on('submit',function(event){
+$('#people_filter').on('submit',function(event){
     event.preventDefault();
     // Get Alll Text Box Id's
     var event_delete_id = $('#event_delete_id').val();
@@ -855,7 +855,7 @@ $('#event-form-update').submit(function(e) {
 
     $.ajax({
         type:'POST',
-        url: `/event_update`,
+        url: 'event_update',
         data: formData,
         contentType: false,
         processData: false,

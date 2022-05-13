@@ -18,7 +18,8 @@ class CreateHolidaysTable extends Migration
             $table->date('date');
             $table->string('occassion');
             $table->string('description');
-            $table->string('state');
+            $table->string('all_state');
+            $table->string('holiday_unique_code');
             $table->string('created_by');
             $table->timestamps();
         });

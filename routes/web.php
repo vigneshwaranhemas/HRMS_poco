@@ -127,6 +127,7 @@ Route::get('holidays', 'HolidayController@holidays')->name('holidays');
 Route::get('fetch_holidays_list', 'HolidayController@fetch_holidays_list')->name('fetch_holidays_list');
 Route::get('fetch_holidays_list_id', 'HolidayController@fetch_holidays_list_id');
 Route::get('fetch_holidays_state_id', 'HolidayController@fetch_holidays_state_id');
+Route::get('fetch_holidays_state_list_id_show', 'HolidayController@fetch_holidays_state_list_id_show');
 Route::get('fetch_holidays_list_date', 'HolidayController@fetch_holidays_list_date');
 Route::post( 'add_new_holidays_insert', 'HolidayController@add_new_holidays_insert' );
 Route::post( 'holidays_update', 'HolidayController@holidays_update' );
@@ -365,11 +366,13 @@ Route::post('hr_id_remark', 'CommonController@hr_id_remark');
 // People
 Route::get('people', 'PeopleController@people')->name('people');
 Route::get('fetch_people_list_filter', 'PeopleController@fetch_people_list_filter')->name('fetch_people_list_filter');
+Route::get('fetch_people_list_filter_starred', 'PeopleController@fetch_people_list_filter_starred')->name('fetch_people_list_filter_starred');
 Route::get('fetch_people_starred_first_empid', 'PeopleController@fetch_people_starred_first_empid')->name('fetch_people_starred_first_empid');
 Route::get('fetch_people_everyone_first_empid', 'PeopleController@fetch_people_everyone_first_empid')->name('fetch_people_everyone_first_empid');
 Route::get('fetch_starred_customusers_list', 'PeopleController@fetch_starred_customusers_list')->name('fetch_starred_customusers_list');
 Route::get('fetch_everyone_customusers_list', 'PeopleController@fetch_everyone_customusers_list')->name('fetch_everyone_customusers_list');
 Route::get('fetch_people_list_filter_star', 'PeopleController@fetch_people_list_filter_star')->name('fetch_people_list_filter_star');
+Route::get('fetch_people_list_filter_img', 'PeopleController@fetch_people_list_filter_img')->name('fetch_people_list_filter_img');
 Route::post('fetch_people_star_add', 'PeopleController@fetch_people_star_add')->name('fetch_people_star_add');
 
 //vignesh routes for check user status

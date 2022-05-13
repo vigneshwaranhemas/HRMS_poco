@@ -56,39 +56,29 @@
                           </div>
                         </div>
                         <div class="col-xl-11 col-lg-11 col-11 responsive_top">
-                          <form class="theme-form mt-5 mb-5" id="loginForm" method="post" action="javascript:void(0)">
-                            <h4>LOGIN</h4><br>
+                          <form class="theme-form mt-5 mb-5" id="con_pass" method="post" action="javascript:void(0)">
+                            <h4>New Password</h4><br>
                             {{ csrf_field() }}
                             <div class="form-group form-row mt-3 mb-0">
                               <div class="col-sm-5">
-                              <label class="col-form-label pt-0">Employee ID</label>
+                              <label class="col-form-label pt-0">New Password </label>
                               </div>
                               <div class="col-sm-7">
-                                <input class="form-control" name="employee_id" id="employee_id" type="text" required="">
+                                <input class="form-control" name="new_pass" id="new_pass" type="password" required="">
                               </div>
                             </div>
                             <div class="form-group form-row mt-3 mb-0">
-                              <div class="col-sm-5"> <label class="col-form-label">Password</label></div>
+                              <div class="col-sm-5"> <label class="col-form-label">Confirm Password </label></div>
                               <div class="col-sm-7">
-                              <input class="form-control"  name="login_password" id="login_password"  type="password" required=""></div>
+                              <input class="form-control"  name="con_pass" id="con_pass"  type="password" required=""></div>
                             </div>
                             <div class="form-group form-row mt-3 mb-0">
                               <div class="col-sm-4"></div>
                               <div class="col-sm-4">
-                                <button class="btn btn-primary btn-block" id="btnLogin" type="submit">LOGIN</button>
+                                <button class="btn btn-primary btn-block" id="btnLogin" type="submit">Save</button>
                               </div>
-                                <a href="{{url('forgetPassword')}}"> Forgot Password...</a>
                             </div>
                           </form>
-                          <div class="sub-cont text-center" style="left: 465px;">
-                            <div class="img">
-                              <div class="img__text m--up">
-                                <h2 style="margin-left: -25px">Welcome To HEPL</h2>
-                              </div>
-                              <div class="img__text m--in">
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -122,6 +112,7 @@
         });
 
     var login_check_process_link = "{{url('login_check_process')}}";
+    var con_pass_process_link = "{{url('con_pass_process')}}";
     
 </script>
 

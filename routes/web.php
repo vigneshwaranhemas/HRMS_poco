@@ -392,3 +392,12 @@ Route::get( 'change_password', 'CommonController@change_password' )->name('chang
 Route::post( 'change_password_process', 'CommonController@change_password_process' );
 Route::post('add_policy_information_process','AdminController@add_policy_information_process');
 
+/*forgot password*/
+Route::get('forgetPassword', 'LoginController@showForgetPasswordForm');
+
+Route::post('forgot_pass_process','LoginController@submitForgetPasswordForm');
+Route::get('email_pass','LoginController@email_pass');
+Route::post('con_pass_process','LoginController@con_pass_process');
+Route::post('getemail_process','LoginController@getemail_process');
+
+

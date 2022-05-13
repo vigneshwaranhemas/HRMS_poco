@@ -4,10 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\IAdminRepository;
+use App\Repositories\IProfileRepositories;
+use App\Repositories\ICommonRepositories;
+use App\Models\User; 
 use Session;
+use Mail;
+use DB; 
+use Hash;
+use Validator;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
+    public function showForgetPasswordForm(){
+         return view('forgetPassword');
+      }
+      public function __construct(IAdminRepository $admrpy,IProfileRepositories $profrpy,ICommonRepositories $cmmrpy){
+        $this->admrpy = $admrpy;
+        $this->profrpy = $profrpy;
+        $this->cmmrpy = $cmmrpy;
+    }
+
     public function login_check_process(Request $req){
 
         $credentials = [
@@ -67,10 +85,79 @@ class LoginController extends Controller
           else{
             echo '<script>toastr.success("Something Went Wrong Please Try Again Later!....")</script>';
           }
+    }
 
+    function getemail_process(Request $request ){
 
+        // echo "s<pre>";print_r($request->input('data'));die;
+        $emp_id = $request->input('data');
+
+         $user = DB::table( 'customusers' )->where('empID', '=', $emp_id)->first();
+
+         return response()->json( $user );  
+    }
+
+    
+    public function submitForgetPasswordForm(Request $request){
+
+         $validator=Validator::make($request->all(),[
+              'employee_id' => 'required',
+              'emp_email' => 'required'
+          ], [
+                'employee_id.required' => 'EmployeeID is required',
+                'emp_email.required' => 'Employee Email is required',
+          ]);
+       if($validator->passes()){
+
+        $passcode_token=  base64_encode($request->input('employee_id'));
+        $emp_id = $request->input('employee_id');
+        $user = DB::table( 'customusers' )->where('empID', '=', $emp_id)->first();
+
+        // echo "22<pre>";print_r($user);die;
+           $Mail['candidate_name']=$user->username;
+           $Mail['passcode_token']=$passcode_token;
+           $Mail['email']= $request->input('emp_email');
+           $Mail['subject']="Change Password link ";
+
+           Mail::send('emails.forget_password', $Mail, function ($message) use ($Mail) {
+                    $message->from("hr@hemas.in", 'HEPL - HR Team');
+                    $message->to($Mail['email'])->subject($Mail['subject']);
+                    });
+  
+          $response = 'Updated';
+        return response()->json( ['response' => $response] );
+    }else{
+        return response()->json(['error'=>$validator->errors()->toArray()]);
+    }
 
 
     }
+     public function email_pass(){
+        return view('test_email');
+    }
 
+
+    public function con_pass_process(Request $request){
+
+         $validator=Validator::make($request->all(),[
+              'new_pass' => 'required',
+              'con_pass' => 'required|same:new_pass',
+          ]);
+       
+           $emp_id=  base64_decode($request->input('token'));
+           $passcode =  Hash::make($request->input('new_pass'));
+            // echo "c<pre>";print_r($passcode );die;
+
+
+          $data =array(
+                    'passcode'=> $passcode ,
+                    'emp_id'=>$emp_id );
+
+        $update_role_unit_details_result = $this->cmmrpy->update_password( $data );
+
+          $response = 'Updated';
+        return response()->json( ['url'=>url('../index.php' ),'response' => $response] );
+
+
+    }
 }

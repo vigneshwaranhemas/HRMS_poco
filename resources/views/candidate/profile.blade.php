@@ -101,7 +101,7 @@ max-width: 1000px !important;
                               </div>
                               <div>
                                  <strong>Select Image:</strong>
-                                    <input type="file" id="upload" name="upload">
+                                    <input type="file" id="upload" accept=".jpeg,.jpg,.png,.GIF,.JPEG,.JPG,.PNG" name="upload">
                                     <button class="btn btn-success upload-result">Upload Image</button>
                               </div>
                                     <span class="text-danger color-hider" id="upload_error" style="display:none;color: red;"></span>
@@ -581,7 +581,7 @@ max-width: 1000px !important;
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="edu_certificate">Education Certificate</label>
-                                            <input class="form-control" name="edu_certificate" id="edu_certificate" type="file" placeholder="" >
+                                            <input class="form-control" name="edu_certificate" id="edu_certificate" type="file" accept=".doc,.docx,.xls,.xlsx,.ppt,.pdf" placeholder="" >
                                             <span class="text-danger color-hider" id="edu_certificate_error"  style="display:none;color: red;"></span>
                                         </div>
                                     </div>
@@ -640,7 +640,7 @@ max-width: 1000px !important;
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="exp_upload_file">Experience Certificate</label>
-                                            <input class="form-control" name="exp_file" id="exp_file" type="file" aria-describedby="fileHelp">
+                                            <input class="form-control" name="exp_file" id="exp_file" accept=".doc,.docx,.xls,.xlsx,.ppt,.pdf" type="file" aria-describedby="fileHelp">
                                              <!-- <small id="fileHelp" class="form-text text-muted">Please upload a valid file.</small> -->
                                              <span class="text-danger color-hider" id="exp_file_error"  style="display:none;color: red;"></span>
                                         </div>
@@ -685,7 +685,7 @@ max-width: 1000px !important;
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="upload_file">File</label>
-                                            <input class="form-control" name="file" id="file" type="file" placeholder=""  aria-describedby="fileHelp" required="">
+                                            <input class="form-control" name="file" id="file" accept=".doc,.docx,.xls,.xlsx,.ppt,.pdf" type="file" placeholder=""  aria-describedby="fileHelp" required="">
                                              <!-- <small id="fileHelp" class="form-text text-muted">Please upload a valid file.</small> -->
                                              <span class="text-danger color-hider" id="file_error"  style="display:none;color: red;"></span>
                                         </div>
@@ -831,7 +831,7 @@ max-width: 1000px !important;
                            <div class="container mt-3">
                               <div class="card">
                                  <div class="card-body">
-                                    <input type="file" name="image" class="image">
+                                    <input type="file" name="image" accept=".jpeg,.jpg,.png,.GIF,.JPEG,.JPG,.PNG" class="image">
                                  </div>
                               </div>
                            </div>

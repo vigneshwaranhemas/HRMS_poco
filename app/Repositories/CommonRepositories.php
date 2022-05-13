@@ -116,4 +116,24 @@ class CommonRepositories implements ICommonRepositories
             'passcode_status' => $form_credentials['passcode_status']
         ] );
     }
+
+   /* public function update_reset_pass( $data ){
+        // echo "22<pre>";print_r($data);die;
+
+        $update_mdlusertbl = new CustomUser();
+        $update_mdlusertbl = $update_mdlusertbl->where( 'empID', '=', $data['empID'] );
+
+        $update_mdlusertbl->update( [
+            'passcode_token' => $data['passcode_token'],
+        ] );
+    }*/
+    public function update_password( $data ){
+        
+        $update_mdlusertbl = new CustomUser();
+        $update_mdlusertbl = $update_mdlusertbl->where( 'empID', '=', $data['emp_id'] );
+
+        $update_mdlusertbl->update( [
+            'passcode' => $data['passcode'],
+        ] );
+    }
 }

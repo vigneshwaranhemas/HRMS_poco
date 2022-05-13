@@ -27,6 +27,7 @@
     }
   }
 </style>
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
 @section('content')
@@ -40,7 +41,6 @@
             <div class="card-body p-0">
               <div class="cont text-center">
                 <div>
-                  <div class="col-xl-8 xl-100 box-col-12">
                     <div class="card year-overview">
                       <div class="row">
                         <div class="col-xl-1 col-lg-1 col-1">
@@ -55,48 +55,36 @@
                             </ul>
                           </div>
                         </div>
-                        <div class="col-xl-11 col-lg-11 col-11 responsive_top">
-                          <form class="theme-form mt-5 mb-5" id="loginForm" method="post" action="javascript:void(0)">
-                            <h4>LOGIN</h4><br>
+                          <form class="theme-form mt-5 mb-5" id="forgot_pass" method="post" action="javascript:void(0)">
+                            <h4>Forget Password</h4><br>
                             {{ csrf_field() }}
                             <div class="form-group form-row mt-3 mb-0">
-                              <div class="col-sm-5">
-                              <label class="col-form-label pt-0">Employee ID</label>
-                              </div>
+                              <div class="col-sm-5"><label class="col-form-label pt-0">Employee ID</label></div>
                               <div class="col-sm-7">
-                                <input class="form-control" name="employee_id" id="employee_id" type="text" required="">
+                                <input class="form-control" name="employee_id" id="employee_id" type="text" onfocusout="getEmpemail()">
+                                <span class="text-danger color-hider" id="employee_id_error" style="display:none;color: red;"></span>
                               </div>
                             </div>
                             <div class="form-group form-row mt-3 mb-0">
-                              <div class="col-sm-5"> <label class="col-form-label">Password</label></div>
+                              <div class="col-sm-5"> <label class="col-form-label pt-0">Email</label></div>
                               <div class="col-sm-7">
-                              <input class="form-control"  name="login_password" id="login_password"  type="password" required=""></div>
+                              <input class="form-control"  name="emp_email" id="emp_email"  type="email" >
+                              <span class="text-danger color-hider" id="emp_email_error" style="display:none;color: red;"></span>
+                              </div>
                             </div>
                             <div class="form-group form-row mt-3 mb-0">
                               <div class="col-sm-4"></div>
                               <div class="col-sm-4">
-                                <button class="btn btn-primary btn-block" id="btnLogin" type="submit">LOGIN</button>
+                                <button class="btn btn-primary btn-block" id="forgot_pass_but" type="submit">Submit</button>
                               </div>
-                                <a href="{{url('forgetPassword')}}"> Forgot Password...</a>
                             </div>
                           </form>
-                          <div class="sub-cont text-center" style="left: 465px;">
-                            <div class="img">
-                              <div class="img__text m--up">
-                                <h2 style="margin-left: -25px">Welcome To HEPL</h2>
-                              </div>
-                              <div class="img__text m--in">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                       
                       </div>
                     </div>
                   </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
         <!-- </div> -->
       </div>
     </div>
@@ -121,8 +109,9 @@
 
         });
 
-    var login_check_process_link = "{{url('login_check_process')}}";
-    
+    var forgot_pass_process_link = "{{url('forgot_pass_process')}}";
+    var getemail_process_link = "{{url('getemail_process')}}";
+
 </script>
 
  @endsection

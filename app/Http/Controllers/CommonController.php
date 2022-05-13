@@ -121,9 +121,6 @@ class CommonController extends Controller
                     });
 
             /*email start*/
-                // $Mail['email']='hr@hemas.in';
-                                 // $Mail['email']=$session_val['email'];
-
                 Mail::send('emails.can_tohr_mail', $Mail, function ($message) use ($Mail) {
                     $message->from("hr@hemas.in", 'HEPL - HR Team');
                     $message->to($Mail['hr_email'])->subject($Mail['hr_subject']);
@@ -396,6 +393,5 @@ class CommonController extends Controller
 
     }
 
-
-
+  
 }

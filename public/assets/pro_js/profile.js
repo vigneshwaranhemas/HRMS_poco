@@ -840,7 +840,7 @@ function education_information(){
         data:{},
         dataType: "json",
         success: function(data) {
-            console.log(data)
+            // console.log(data)
             if (data !="") {
                 $('#education_td').empty();
                         html ='';

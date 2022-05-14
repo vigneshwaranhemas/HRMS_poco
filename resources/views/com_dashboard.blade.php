@@ -302,7 +302,7 @@ View More&lt;/button&gt;
 <div class="modal fade" id="holidaysDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
       <div class="modal-content">
-         <div class="modal-header">
+         <div class="modal-header bg-primary">
             <h5 class="modal-title" id="exampleModalLabel">Holiday Details</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
          </div>
@@ -311,19 +311,17 @@ View More&lt;/button&gt;
                <div class="row">
                   <div class="col-md-12 ">
                      <div class="form-group">
-                           <h6 class="f-w-700">Occassion:</h6>
-                           <p id="occassion_show"></p>
+                        <h6 class="f-w-700">Occassion:</h6>
+                        <p id="occassion_show"></p>
                      </div>
                      <div class="form-group">
-                           <h6 class="f-w-700">Description:</h6>
-                           <p id="description_show"></p>
+                        <h6 class="f-w-700">Description:</h6>
+                        <p id="description_show"></p>
                      </div>
+                     <div id="occassion_file_show_list"></div>
                   </div>
                </div>
             </div>
-         </div>
-         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
          </div>
       </div>
    </div>
@@ -333,7 +331,7 @@ View More&lt;/button&gt;
 <div class="modal fade bd-example-modal-lg" id="eventDetailModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg">
       <div class="modal-content">
-         <div class="modal-header">
+         <div class="modal-header bg-primary">
             <h4 class="modal-title" id="myLargeModalLabel">Event Details</h4>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
          </div>
@@ -407,9 +405,6 @@ View More&lt;/button&gt;
                   </div>
                </div>
             </div>
-         </div>
-         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
          </div>
       </div>
    </div>
@@ -496,9 +491,40 @@ View More&lt;/button&gt;
                   // console.log(response);
                   $("#occassion_show").text('');
                   $("#description_show").text('');
+                  $("#occassion_file_show_list").text('');
                   $("#occassion_show").append(response[0].occassion);
                   $("#description_show").append(response[0].description);
 
+                  var file = response[0].occassion_file;
+                  var ext = file.split('.')[1];    
+                  // alert(ext);
+                  if(ext=="jpg" || ext=="PNG" || ext=="png" || ext=="jpeg" || ext=="gif") {
+                     // alert("one");
+                     // var link = object[i].Value;
+
+                     var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm image-layer-item image-size"   src="../holidays_file/'+file+'" style="cursor:pointer;width: 400px;height: 200px;">';
+                     // row.append($('<td>').html(image));
+                     $("#occassion_file_show_list").append(image);  
+                     
+                  }else if (ext=="pdf"|| ext=="doc" || ext=="docx" || ext=="xlsx" || ext=="csv"){
+                     
+                     var file = '<a href="/file_upload/'+file+'"  style="color:white;"  download><div class="badge bg-danger">'+file+'</div></a>';
+                     $("#occassion_file_show_list").append(file);  
+
+                  }else if(ext=="mp4") {
+
+                     var video = '';            
+                     video += '<video width="320" height="240" controls>';
+                     video += '<source src="../../holidays_file/'+file+'" type="video/ogg">';
+                     video += '</video>';
+
+                     $("#occassion_file_show_list").append(video);  
+                     
+                  } else{
+
+                     $("#occassion_file_show_list").append(" ");  
+
+                  }
             }
 
          });

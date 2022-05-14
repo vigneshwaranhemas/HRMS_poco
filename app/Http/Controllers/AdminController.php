@@ -10,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use PDF;
 use Auth;
 use Session;
+use Mail;
 
 class AdminController extends Controller
 {
@@ -18,7 +19,30 @@ class AdminController extends Controller
         $this->middleware('is_admin');
         $this->admrpy = $admrpy;
     }
+    public function birthday_email() {
 
+        $current_date = date("d");
+        $current_month = date("m");
+        $current_year = date("Y");
+        // $tdy = $dt."-".$monthName;
+        $tdy = $current_month."-".$current_date;
+        $current = $current_year."-".$current_month."-".$current_date;
+        $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%%-'.$tdy.'%')->get();
+
+        foreach($todays_birthdays as $todays_birthday){            
+
+            $data = array('name'=> $todays_birthday->username);
+            Mail::send('birthday.mail', $data, function($message) {
+                // $message->to($todays_birthday->email)->subject
+                //     ('Birthday Mail');
+                $message->to('divyak@hemas.in')->subject
+                    ('Birthday Mail');
+                $message->from("hr@hemas.in", 'HEPL - HR Team');
+            });
+            
+        }
+
+    }
     public function admin_dashboard()
     {
         //Birthday card
@@ -96,7 +120,18 @@ class AdminController extends Controller
         $date = Carbon::createFromFormat('d-m-Y', $current_date);
 
         //Upcoming holidays
-        $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();
+        $logined_empID = Auth::user()->empID;
+        $logined_state = DB::table("candidate_contact_information")->where('emp_id', $logined_empID)->value('p_State');              
+        
+        $upcoming_holidays = DB::table('holiday_states as hs')
+                ->distinct()         
+                ->select('h.*')         
+                ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
+                ->where('hs.state_name', $logined_state)
+                ->where('h.date','>=', $date)
+                ->limit(2)
+                ->get();
+        // $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();
 
         //Upcoming events
         $logined_empid = Auth::user()->empID;

@@ -1,5 +1,5 @@
 {{-- Divya --}}
-@extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HRSS'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
+@extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
 @section('title', 'Holidays')
 
 @section('css')
@@ -10,7 +10,6 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/sweetalert2.css">
-
 @endsection
 
 @section('style')
@@ -21,6 +20,23 @@
 .fc-resizable{
    max-width: fit-content;
 } */
+
+/* Multi Select2 */
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid #b3d7ff 3px !important;
+    outline: 0;
+}
+.selection .select2-selection{
+   font-family: work-Sans,sans-serif;
+   border-radius: 0 !important;
+}   
+.select2-container--default .select2-selection--multiple {
+    background-color: white;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    cursor: text;
+}
+
 </style>
 @endsection
 
@@ -113,19 +129,12 @@
                      </div>
 
                      <div class="col-md-12">
-                        <!-- <select class="js-example-basic-multiple col-sm-12 form-control" style="width:500px" multiple="multiple">
-                           <option value="AL">Alabama</option>
-                           <option value="WY">Wyoming</option>
-                           <option value="WY">Coming</option>
-                           <option value="WY">Hanry Die</option>
-                           <option value="WY">John Doe</option>
-                        </select> -->
-                        <select class="select2 form-control" id="state" name="state[]"  multiple="multiple">
+                        <select class="js-example-basic-multiple col-sm-12 form-control js-example-basic-multiple-state" id="state" name="state[]"  style="width:100%" multiple="multiple">
                            <option value="" disabled>Select State...</option>
                            @foreach($stateList as $state)
                               <option value="{{ $state->state_name }}">{{ $state->state_name }}</option>
                            @endforeach
-                        </select>   
+                        </select>
                         <div class="text-danger" id="state_error"></div>
                      </div>
                      
@@ -167,14 +176,7 @@
                   <div class="form-group">
                      <label class="col-form-label" for="description_edit">Description:</label>
                      <textarea class="form-control" name="description" id="description_edit"></textarea>
-                  </div>          
-                  <!-- <div class="form-group">
-                     <label class="col-form-label" for="description_edit">State:</label>
-                     <select class="select2 form-control" id="state_edit" name="state_edit">
-                     </select>     
-                     <div class="text-danger" id="state_edit_error"></div>                  
-                  </div>             -->
-                  
+                  </div>                            
                   <div class="form-row mb-3">
                      <div class="col-md-3">
                         <label for="repeat-event">State:</label>
@@ -185,15 +187,10 @@
                      </div>
 
                      <div class="col-md-12">
-                        <!-- <select class="js-example-basic-multiple col-sm-12 form-control" style="width:500px" multiple="multiple">
-                           <option value="AL">Alabama</option>
-                           <option value="WY">Wyoming</option>
-                           <option value="WY">Coming</option>
-                           <option value="WY">Hanry Die</option>
-                           <option value="WY">John Doe</option>
-                        </select> -->
-                        <select class="select2 form-control" id="state_edit" name="state[]"  multiple="multiple">                           
-                        </select>   
+                        <select class="js-example-basic-multiple col-sm-12 form-control" id="state_edit" name="state[]" style="width:100%" multiple="multiple">                           
+                        </select>
+                        <!-- <select class="select2 form-control"   multiple="multiple">                           
+                        </select>    -->
                         <div class="text-danger" id="state_error"></div>
                      </div>
                      
@@ -334,9 +331,10 @@
    <script src="../assets/js/calendar/fullcalendar.min.js"></script> -->
    <!-- Plugins JS start-->
 
-   <!-- <script src="../assets/js/select2/select2.full.min.js"></script>
+   <script src="../assets/js/select2/select2.full.min.js"></script>
+
    <script src="../assets/js/select2/select2-custom.js"></script>
-   <script src="../assets/js/chat-menu.js"></script> -->
+   <script src="../assets/js/chat-menu.js"></script>
    <!-- Plugins JS start-->
    <!-- <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js"></script>
    <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/jquery.min.js"></script>
@@ -351,14 +349,21 @@
    <!-- Custom JS start-->
 
    <!-- Plugins JS start-->
-   <script src="../assets/js/select2/select2.full.min.js"></script>
-   <script src="../assets/js/select2/select2-custom.js"></script>
+   <!-- <script src="../assets/js/select2/select2.full.min.js"></script>
+   <script src="../assets/js/select2/select2-custom.js"></script> -->
    
    @if(Auth::user()->role_type === 'Admin')
       <script src="../assets/js/calendar/admin_holidays.js"></script>
    @else
       <script src="../assets/js/calendar/holidays.js"></script>
    @endif
+
+   <script>
+      $(document).ready(function() {
+         // $('.js-example-basic-multiple').select2();
+      });
+
+   </script>
 
 @endsection
 

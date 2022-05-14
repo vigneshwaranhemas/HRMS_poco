@@ -121,6 +121,9 @@ Route::get('fetch_birthdays_list', 'BirthdayController@fetch_birthdays_list')->n
 Route::get('fetch_birthdays_list_date', 'BirthdayController@fetch_birthdays_list_date')->name('fetch_birthdays_list_date');
 Route::get('fetch_birthdays_filter_user', 'BirthdayController@fetch_birthdays_filter_user')->name('fetch_birthdays_filter_user');
 Route::get('fetch_birthdays_list_empID', 'BirthdayController@fetch_birthdays_list_empID');
+Route::get('fetch_birthdays_list_img', 'BirthdayController@fetch_birthdays_list_img')->name('fetch_birthdays_list_img');
+
+Route::get('birthday_email','AdminController@birthday_email');
 
 //Holidays Controller
 Route::get('holidays', 'HolidayController@holidays')->name('holidays');

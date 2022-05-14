@@ -29,7 +29,7 @@ class HolidayController extends Controller
         return view('holidays.holidays')->with($data);
     }
     public function add_new_holidays_insert(Request $request)
-    {        
+    {                
         if($request->occassion_file != "undefined"){
             $result = $request->validate([
                 'occassion' => 'required', 

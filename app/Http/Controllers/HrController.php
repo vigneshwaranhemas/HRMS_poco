@@ -27,7 +27,6 @@ class HrController extends Controller
         $this->middleware('is_admin');
     }
 
-
     public function hr_dashboard()
     {
         //Birthday card
@@ -182,14 +181,6 @@ class HrController extends Controller
                     $message->to($Mail['hr_to_mail'])->subject($Mail['hr_subject']);
                     });
 
-                    //  Mail::send('emails.InductionMail', $Mail, function ($message) use ($Mail,$str_arr) {
-                    // $message->from("rfh@hemas.in", 'HEPL - HR Team');
-                    // foreach($str_arr as $string)
-                    // {
-                    //     $message->cc($string);
-                    // }
-                    // $message->to($Mail['hr_to_mail'])->subject($Mail['hr_subject']);
-                    // });
                     // //  if($store_result['message']['location']->worklocation=='Onsite'){
                         Mail::send('emails.AdminMail', $Mail, function ($message) use ($Mail,$admin_str_arr) {
                         $message->from("hr@hemas.in", 'HEPL - HR Team');

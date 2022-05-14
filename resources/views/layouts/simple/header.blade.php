@@ -1,8 +1,17 @@
+<?php
+$session_val = Session::get('session_info');
+        $passcode_status = $session_val['passcode_status'];
+?>
+
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="page-main-header">
   <div class="main-header-right">
     <div class="main-header-left text-center">
-      <div class="logo-wrapper"><a href="{{ url('com_dashboard') }}"><img src="../assets/images/logo/logo.png" alt=""></a></div>
+         @if ($passcode_status==0)
+           <div class="logo-wrapper"><a href="{{ url('change_password') }}"><img src="../assets/images/logo/logo.png" alt=""></a></div>
+         @else
+           <div class="logo-wrapper"><a href="{{ url('com_dashboard') }}"><img src="../assets/images/logo/logo.png" alt=""></a></div>
+         @endif
     </div>
     <div class="mobile-sidebar">
       <div class="media-body text-right switch-sm">

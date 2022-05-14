@@ -133,6 +133,12 @@ interface IAdminRepository {
     // Company policies
     public function add_policy_category_process( $form_data );
     public function get_policy_category_details();
+    public function Store_Policy_information($data);
+    public function get_company_policy_infomation_database_data();
+    public function get_policy_information_details( $input_details );
+    public function edit_policy_information_details( $input_details );
+    public function process_policy_information_status( $input_details );
+    public function process_policy_information_delete( $input_details );
 
 
 }

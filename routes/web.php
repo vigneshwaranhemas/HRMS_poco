@@ -393,5 +393,10 @@ Route::post('account_info_hr', 'CommonController@account_info_hr');
 /*password change*/
 Route::get( 'change_password', 'CommonController@change_password' )->name('change_password');
 Route::post( 'change_password_process', 'CommonController@change_password_process' );
-Route::post('add_policy_information_process','AdminController@add_policy_information_process');
+Route::post('Insert_policy_information','AdminController@add_policy_information_process');
+Route::post( 'get_company_policy_infomation_database', 'AdminController@get_company_policy_infomation_database' );
+Route::post( 'get_policy_information_details', 'AdminController@get_policy_information_details' );
+Route::post( 'edit_policy_information_details', 'AdminController@edit_policy_information_details' );
+Route::post( 'process_policy_information_status', 'AdminController@process_policy_information_status' );
+Route::post( 'process_policy_information_delete', 'AdminController@process_policy_information_delete' );
 

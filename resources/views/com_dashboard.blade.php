@@ -13,6 +13,7 @@
 @endsection
 
 @section('style')
+
 @endsection
 
 @section('breadcrumb-title')

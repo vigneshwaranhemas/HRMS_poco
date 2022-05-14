@@ -2,8 +2,7 @@
 @section('title', 'Seating Request')
 
 @section('css')
-<link rel="stylesheet" type="text/css" href="{{url("assets/css/datatables.css")}}">
-<link rel="stylesheet" type="text/css" href="{{url('assets/css/datatable-extension.css')}}">
+
 @endsection
 
 @section('style')
@@ -138,14 +137,14 @@
                                      <td>
                                         <div class="media-body text-center icon-state">
                                             <label class="switch">
-                                            <input type="checkbox" {{$data['Seating_Request'] == 0 ? '' : 'checked'}}  onchange=model_trigger("{{$data['empId']}}",1)><span class="switch-state bg-info"></span>
+                                            <input type="checkbox" {{$data['Seating_Request'] == 0 ? '' : 'checked'}} disabled  onchange=model_trigger("{{$data['empId']}}",1)><span class="switch-state bg-info"></span>
                                             </label>
                                          </div>
                                         </td>
                                         <td>
                                             <div class="media-body text-center icon-state">
                                                 <label class="switch">
-                                                <input type="checkbox" {{$data['IdCard_status'] == 0 ? '' : 'checked'}}  onchange=model_trigger1("{{$data['empId']}}",2)><span class="switch-state bg-info"></span>
+                                                <input type="checkbox" {{$data['IdCard_status'] == 0 ? '' : 'checked'}} disabled   onchange=model_trigger1("{{$data['empId']}}",2)><span class="switch-state bg-info"></span>
                                                 </label>
                                              </div>
                                             </td>
@@ -209,7 +208,7 @@
 
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{{url('pro_js/admin/Seating_Request.js')}}">
+<script src="../pro_js/admin/Seating_Request.js">
 </script>
 <script>
 var Seating_url="Admin_Seating_Request";

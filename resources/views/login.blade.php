@@ -8,6 +8,9 @@
 
 @section('style')
 <style>
+
+
+
   .authentication-main .auth-innerright .card-body .theme-form{
     /* width: 500px !important; */
     width: 336px !important;
@@ -120,6 +123,7 @@
 <script type="text/javascript">
 
     $( document ).ready(function() {
+        document.body.style.zoom = "90%";
             $.ajaxSetup({
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

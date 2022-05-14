@@ -2,8 +2,7 @@
 @section('title', 'EmailId Creation')
 
 @section('css')
-<link rel="stylesheet" type="text/css" href="{{url("assets/css/datatables.css")}}">
-<link rel="stylesheet" type="text/css" href="{{url('assets/css/datatable-extension.css')}}">
+
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
@@ -164,7 +163,7 @@
 
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{{url('pro_js/ITInfra/EmailCreationRequest.js')}}"></script>
+<script src="../pro_js/ITInfra/EmailCreationRequest.js"></script>
 <script>
     var url="ITInfra_Email_Creation";
 </script>

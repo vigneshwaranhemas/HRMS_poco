@@ -133,7 +133,7 @@ Route::post( 'add_new_holidays_insert', 'HolidayController@add_new_holidays_inse
 Route::post( 'holidays_update', 'HolidayController@holidays_update' );
 Route::post( 'holidays_delete', 'HolidayController@holidays_delete' );
 
-//ItINfra Controller
+//ItINfra Controller`
 
 Route::get('/ItInfra_Dashboard','ItInfraController@index');
 Route::get('/EmailCreation','ItInfraController@EmailIdCreation');
@@ -378,6 +378,10 @@ Route::post('fetch_people_star_add', 'PeopleController@fetch_people_star_add')->
 //vignesh routes for check user status
 
 Route::post('check_user_status','CommonController@check_user_status');
+
+Route::get('organization_charts', 'CommonController@organization_charts')->name('organization_charts');
+Route::get('supervisor_wise_organisation','CommonController@supervisor_wise_TreeData');
+
 Route::get('can_hr_profile','HrController@can_hr_profile');
 
 // Company Policies for Admin
@@ -401,5 +405,6 @@ Route::post('forgot_pass_process','LoginController@submitForgetPasswordForm');
 Route::get('email_pass','LoginController@email_pass');
 Route::post('con_pass_process','LoginController@con_pass_process');
 Route::post('getemail_process','LoginController@getemail_process');
+
 
 

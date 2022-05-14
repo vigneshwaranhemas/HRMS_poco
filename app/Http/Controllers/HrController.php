@@ -345,7 +345,7 @@ class HrController extends Controller
     {
         $id=$request->id;
         $status=array('pre_onboarding'=>'0');
-        $status_update=$this->hpreon->update_candidate_doc_status($id,$status);
+        $status_update=$this->hpreon->update_candidate_onboard_status($id,$status);
         if($status_update){
              $response=array('success'=>1,'message'=>"Status Updated Successfully");
         }
@@ -393,6 +393,7 @@ class HrController extends Controller
     {
          return view('can_hr_profile');
     }
+
 
 
 

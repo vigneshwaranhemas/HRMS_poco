@@ -364,6 +364,27 @@ function addHolidayModal(arg){
     var date = convert(arg);
     // alert("YES");
     $('#occassion_date').val(date);
+
+        
+    $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+
+    $('.js-example-basic-multiple').select2({
+        dropdownParent: $('#add-holidays'),
+        // width: 500,
+        height: 150
+
+        // dropdownParent: $('#myModal'),
+        // closeOnSelect: false,
+        // selectOnClose: true
+    });
+
+    // $('#mySelect2').select2({
+    //     dropdownParent: $('#add-holidays~'),
+    //     // dropdownParent: $('#myModal'),
+    //     // closeOnSelect: false,
+    //     // selectOnClose: true
+    // });
+
     $('#add-holidays').modal('show');
 
 }
@@ -446,7 +467,7 @@ $('#updateHolidaysForm').on('submit',function(event){
         dataType : "JSON",
         success:function(response)
         {
-            
+
             $('#formHolidaysEditModal').modal('hide');
 
             Toastify({
@@ -511,28 +532,7 @@ $('body').on('click','.edit-holidays',function(){
     // alert("edit");
     $('#holidaysDetailModal').modal('hide');
     var id = $("#holidays_show_id").val();     
-    // alert(id)
-
-    //Get State list
-    $.ajax({
-        url:"fetch_holidays_state_id",
-        type:"GET",
-        data : { id: id },
-        dataType : "JSON",
-        cache: false,
-        processData:true, 
-        success:function(response)
-        {
-            // console.log(response); 
-            $("#state_edit").html(response);           
-          
-        },
-        error: function(error){
-            console.log(error); 
-
-        }
-        
-    });
+    // alert(id)   
 
     //Get Holidays list
     $.ajax({
@@ -556,12 +556,12 @@ $('body').on('click','.edit-holidays',function(){
 
             var file = response[0].occassion_file;
             var ext = file.split('.')[1];    
-            // alert(ext);
+
             if(ext=="jpg" || ext=="PNG" || ext=="png" || ext=="jpeg" || ext=="gif") {
                 // alert("one");
                 // var link = object[i].Value;
 
-                var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm rounded-circle image-layer-item image-size"   src="../../holidays_file/'+file+'" style="cursor:pointer;width: 37px;height: 35px;">';
+                var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm rounded-circle image-layer-item image-size"   src="../holidays_file/'+file+'" style="cursor:pointer;width: 37px;height: 35px;">';
                 // row.append($('<td>').html(image));
                 $("#occassion_file_edit_show").append(image);  
                
@@ -576,13 +576,43 @@ $('body').on('click','.edit-holidays',function(){
 
             }
           
+            //Get State list
+            $.ajax({
+                url:"fetch_holidays_state_id",
+                type:"GET",
+                data : { id: id },
+                dataType : "JSON",
+                cache: false,
+                processData:true, 
+                success:function(response)
+                {
+                    // console.log(response); 
+                    $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+
+                    $('.js-example-basic-multiple').select2({
+                        dropdownParent: $('#formHolidaysEditModal'),
+                        // width: 500,
+                        height: 150
+                    });
+
+                    $("#state_edit").html(response);           
+                
+                },
+                error: function(error){
+                    console.log(error); 
+
+                }
+                
+            });
+
+            $('#holidays_edit_id').val(id);                             
+            $('#formHolidaysEditModal').modal('show');
 
         }               
         
     });  
 
-    $('#holidays_edit_id').val(id);                         
-    $('#formHolidaysEditModal').modal('show');
+    
 
 });
 

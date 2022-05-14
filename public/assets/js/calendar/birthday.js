@@ -21,7 +21,7 @@ var basic_calendar = {
             selectable: true,
             selectHelper: true,
             droppable: true,
-            eventLimit: true,            
+            eventLimit: true,         
             events: function(start, end, callback, successCallback) {
 
                 var birthday_filter = getBirthdayFilter();
@@ -86,12 +86,17 @@ var basic_calendar = {
 
 function loadDefaultDateFunction(startDate){
     $('#cal-basic').fullCalendar('gotoDate', startDate);
+    
+    $('#birthdays_filter_user').select2({
+        placeholder: 'Select Employee...',
+        allowClear: true,
+    });
+
 }
 
 var getEventDetail = function (empID) {
 
     $('#birthdayDetailModalList').modal('show');
-
     
     //Get empID list
     $.ajax({
@@ -119,17 +124,18 @@ var getEventDetail = function (empID) {
             var dd=d.getDate();
             var mm=d.getMonth()+1;
             var yy=d.getFullYear();
-            var doj = dd+"/"+mm+"/"+yy;
+            var doj = dd+"-"+mm+"-"+yy;
 
             var date_dob= response[0].dob;
             var dt=new Date(date_dob.split("/").reverse().join("-"));
             var dd_dob=dt.getDate();
             var mm_dob=dt.getMonth()+1;
             var yy_dob=dt.getFullYear();
-            var dob = dd_dob+"/"+mm_dob+"/"+yy_dob;
+            var dob = dd_dob+"-"+mm_dob+"-"+yy_dob;
 
             var name = response[0].username+' <i class="icofont icofont-birthday-cake"  style="font-size: 25px;"></i>';
             $("#employee_name_show").append(name);
+            
             $("#employee_id_show").append(response[0].empID);
             $("#employee_designation_show").append(response[0].designation);
             $("#employee_doj_show").append(doj);
@@ -139,36 +145,17 @@ var getEventDetail = function (empID) {
             // $("#employee_grade_show").append(response[0].grade);                
             $("#employee_dept_show").append(response[0].department);                
 
-            // var file = response[0].occassion_file;
-            // var ext = file.split('.')[1];    
-            // // alert(ext);
-            // if(ext=="jpg" || ext=="PNG" || ext=="png" || ext=="jpeg" || ext=="gif") {
-            //     // alert("one");
-            //     // var link = object[i].Value;
-
-            //     var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm image-layer-item image-size"   src="../../holidays_file/'+file+'" style="cursor:pointer;width: 400px;height: 200px;">';
-            //     // row.append($('<td>').html(image));
-            //     $("#occassion_file_show_list").append(image);  
-               
-            // }else if (ext=="pdf"|| ext=="doc" || ext=="docx" || ext=="xlsx" || ext=="csv"){
-               
-            //     var file = '<a href="/file_upload/'+file+'"  style="color:white;"  download><div class="badge bg-danger">'+file+'</div></a>';
-            //     $("#occassion_file_show_list").append(file);  
-
-            // }else if(ext=="mp4") {
-
-            //     var video = '';            
-            //     video += '<video width="320" height="240" controls>';
-            //     video += '<source src="../../holidays_file/'+file+'" type="video/ogg">';
-            //     video += '</video>';
-
-            //     $("#occassion_file_show_list").append(video);  
-               
-            // } else{
-
-            //     $("#occassion_file_show_list").append(" ");  
-
-            // }
+            $.ajax({
+                url:"fetch_birthdays_list_img",
+                type:"GET",
+                data : {employee: empID},
+                dataType : "JSON",
+                success:function(response)
+                {
+                    $("#brd_employee_img").html(response); 
+                    
+                }
+            });
 
         }               
         

@@ -32,7 +32,7 @@
 	<li class="breadcrumb-item active">Default</li>--}}
    <!-- <div class="col-md-12">  -->
    <select class="js-example-basic-single col-sm-12"  id="birthdays_filter_user" name="birthdays_filter_user">
-      <option value="">Select User...</option>
+      <option value="">Select Employee...</option>
       @foreach($customusers as $customuser)
          <option value="{{$customuser->empID }}">{{$customuser->username }}</option>
       @endforeach 
@@ -66,8 +66,9 @@
     <div class="modal fade" id="birthdayDetailModalList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
       <div class="modal-content">
-         <div class="modal-header bg-primary">
-            <h5 class="modal-title text-center" id="employee_name_show"></h5>
+         <div class="modal-header bg-primary" style="height: 80px;">
+            <p id="brd_employee_img"></p>
+            <h5 class="modal-title text-center p-l-10 p-t-10" id="employee_name_show"></h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
          </div>
          <div class="modal-body">

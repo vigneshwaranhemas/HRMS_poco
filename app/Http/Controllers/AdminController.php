@@ -10,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use PDF;
 use Auth;
 use Session;
+use Mail;
 
 class AdminController extends Controller
 {
@@ -18,7 +19,30 @@ class AdminController extends Controller
         $this->middleware('is_admin');
         $this->admrpy = $admrpy;
     }
+    public function birthday_email() {
 
+        $current_date = date("d");
+        $current_month = date("m");
+        $current_year = date("Y");
+        // $tdy = $dt."-".$monthName;
+        $tdy = $current_month."-".$current_date;
+        $current = $current_year."-".$current_month."-".$current_date;
+        $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%%-'.$tdy.'%')->get();
+
+        foreach($todays_birthdays as $todays_birthday){            
+
+            $data = array('name'=> $todays_birthday->username);
+            Mail::send('birthday.mail', $data, function($message) {
+                // $message->to($todays_birthday->email)->subject
+                //     ('Birthday Mail');
+                $message->to('divyak@hemas.in')->subject
+                    ('Birthday Mail');
+                $message->from("hr@hemas.in", 'HEPL - HR Team');
+            });
+            
+        }
+
+    }
     public function admin_dashboard()
     {
         //Birthday card
@@ -96,7 +120,18 @@ class AdminController extends Controller
         $date = Carbon::createFromFormat('d-m-Y', $current_date);
 
         //Upcoming holidays
-        $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();
+        $logined_empID = Auth::user()->empID;
+        $logined_state = DB::table("candidate_contact_information")->where('emp_id', $logined_empID)->value('p_State');              
+        
+        $upcoming_holidays = DB::table('holiday_states as hs')
+                ->distinct()         
+                ->select('h.*')         
+                ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
+                ->where('hs.state_name', $logined_state)
+                ->where('h.date','>=', $date)
+                ->limit(2)
+                ->get();
+        // $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();
 
         //Upcoming events
         $logined_empid = Auth::user()->empID;
@@ -2495,12 +2530,12 @@ class AdminController extends Controller
         return response()->json( ['response' => $response] );
     }
 
+    // Company Policy Information Process Start
     public function company_policies()
     {
         return view('admin.masters.company_policies');
     }
 
-     // Division Process Start
      public function add_policy_category_process(Request $req)
      {
          $data = $req->validate([
@@ -2541,17 +2576,184 @@ class AdminController extends Controller
     }
     public function add_policy_information_process(Request $request)
     {
-        // $title = $request->file;
-        // $fileName = time().'.'.$request->file->extension();
-
-        $file = $request->file('file');
+             $file = $request->file('file');
              $filename = time().'_'.$file->getClientOriginalName();
-
              // File extension
              $extension = $file->getClientOriginalExtension();
+             $request->file->move(public_path('company_policy_information'),$filename);
+             $session_val = Session::get('session_info');
+              $data=array('cp_id'=>$request->policy_category,
+                          'policy_category'=>$request->catagory_name,
+                          'policy_title'=>$request->policy_title,
+                          'policy_description'=>$request->policy_description,
+                          'file_upload'=>$filename,
+                          'status'=>1,
+                          'created_on'=>Carbon::now()->format('Y-m-d'),
+                          'created_by'=>$session_val['empID']);
 
-        echo '<pre>'; print_r('$filename');die();
+            // echo json_encode($data);
+
+             $Store_Policy_information_result = $this->admrpy->Store_Policy_information($data);
+             if($Store_Policy_information_result)
+             {
+                  $result=array('success'=>1,'message'=>"Company Policy Informations Added Successfully");
+             }
+             else{
+                 $result=array('success'=>2,'message'=>"Problem IN Adding Company Policy Informations");
+             }
+            echo json_encode($result);
+
     }
 
+    public function get_company_policy_infomation_database(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $get_company_policy_infomation_database_result = $this->admrpy->get_company_policy_infomation_database_data( );
+
+
+        return DataTables::of($get_company_policy_infomation_database_result)
+        ->addIndexColumn()
+
+        ->addColumn('file', function($row) {
+            $file = $row->file_upload;
+            $ext = pathinfo($file, PATHINFO_EXTENSION);
+            // echo '<pre>';print_r($ext);die();
+            if($ext =="pdf")
+                    {
+                        $btn = '<a href="../company_policy_information/'.$row->file_upload.'" target="_blank"><button class="btn btn-primary" type="button" style="width: 15%;height: 35px;"><i class="fa fa-download" aria-hidden="true" style="margin-left: -9px;"></i></button></a>';
+                    }else if($ext =="doc"){
+                        $btn = '<a href="../company_policy_information/'.$row->file_upload.'" download><button class="btn btn-primary" type="button" style="width: 15%;height: 35px;"><i class="fa fa-download" aria-hidden="true" style="margin-left: -9px;"></i></button></a>';
+                    }
+
+
+                return $btn;
+            })
+
+        ->addColumn('status', function($row) {
+            $btn = '';
+            $result =  $row->status;
+            // print_r($result);
+            // die();
+            if($result == "1")
+            {
+                $btn = '<span class="badge badge-success">Active</span>';
+            }elseif($result == "0"){
+                $btn = '<span class="badge badge-warning">Inactive</span>';
+            }
+
+            return $btn;
+        })
+
+        ->addColumn('action', function($row) {
+
+        if($row->status == "1")
+                {
+                    $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="policy_information_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick=policy_information_status_process('."'".$row->id."'".',"0");><i class="icon-settings"></i> Status</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick="policy_information_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>
+                    </div>';
+                }else{
+                    $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                    <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:;" onclick="policy_information_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick=policy_information_status_process('."'".$row->id."'".',"1");><i class="icon-settings"></i> Status</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript:;" onclick="policy_information_delete_process('."'".$row->id."'".');" class="sa-params"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>
+                    </div>';
+                }
+
+
+            return $btn;
+        })
+
+
+        ->rawColumns(['file','status','action'])
+        ->make(true);
+        }
+        return view('company_policies');
+    }
+
+    public function get_policy_information_details(Request $req){
+        $input_details = array(
+            'id'=>$req->input('id'),
+        );
+
+        $get_policy_information_details_result = $this->admrpy->get_policy_information_details( $input_details );
+
+        return response()->json( $get_policy_information_details_result );
+    }
+
+    public function edit_policy_information_details(Request $req){
+
+        $file = $req->file('file_one');
+        // echo '1</pre>';print_r($file);die();
+        if($file == "")
+        {
+        // echo '1</pre>';print_r($file);die();
+
+            $input_details = array('id'=>$req->ed_id,
+                          'cp_id'=>$req->edit_policy_category,
+                          'policy_category'=>$req->catagory_name,
+                          'policy_title'=>$req->edit_policy_title,
+                          'policy_description'=>$req->edit_policy_description,
+                          'file_upload'=>"",
+                          );
+        }
+        else {
+            $file = $req->file('file_one');
+        $filename = time().'_'.$file->getClientOriginalName();
+        // File extension
+        $extension = $file->getClientOriginalExtension();
+        $req->file_one->move(public_path('company_policy_information'),$filename);
+
+        $input_details = array('id'=>$req->ed_id,
+                          'cp_id'=>$req->edit_policy_category,
+                          'policy_category'=>$req->catagory_name,
+                          'policy_title'=>$req->edit_policy_title,
+                          'policy_description'=>$req->edit_policy_description,
+                          'file_upload'=>$filename,
+                          );
+        }
+        // echo '</pre>';print_r($input_details);die();
+
+        $edit_policy_information_details_result = $this->admrpy->edit_policy_information_details( $input_details );
+
+        $response = 'Updated';
+        return response()->json( ['response' => $response] );
+    }
+
+    public function process_policy_information_status(Request $req){
+        $input_details = array(
+            'id'=>$req->input('id'),
+            'status'=>$req->input('status'),
+
+        );
+
+        $process_policy_information_status_result = $this->admrpy->process_policy_information_status( $input_details );
+
+        $response = 'success';
+        return response()->json( ['response' => $response] );
+
+    }
+
+    public function process_policy_information_delete(Request $req){
+        $input_details = array(
+            'id'=>$req->input('id'),
+        );
+
+        $process_policy_information_delete_result = $this->admrpy->process_policy_information_delete( $input_details );
+
+        $response = 'success';
+        return response()->json( ['response' => $response] );
+
+    }
+
+    // Company Policy Information Process End
 
 }

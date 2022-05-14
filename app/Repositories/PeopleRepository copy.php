@@ -53,6 +53,7 @@ class PeopleRepository implements IPeopleRepository
          $arrayStarred =json_decode($check);
          
          $response = '';
+         $data_arr = array();
 
          foreach($arrayStarred as $starred_empID){
             // dd($starred_empID);
@@ -126,11 +127,24 @@ class PeopleRepository implements IPeopleRepository
                $response .= '<div class="status"><i class="fa fa-share font-success"></i>  '.$designation.'</div>';
                $response .= '</div>';
                $response .= '</li>';
+               // array_push($arr_value, $response);
+
+               $data_arr[] = array(
+                  "data" => $response,
+               );
+               
+
             }
             
+            
          }
+         
+         if(!empty($data_arr)){
+            $response = $data_arr;
 
-         if($response == ''){
+         // dd($response); 
+
+         }else{
             $response = 'empty';
          }
 

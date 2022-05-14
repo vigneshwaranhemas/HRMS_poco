@@ -41,6 +41,8 @@
               <div class="cont text-center">
                 <div>
                   <div class="col-xl-8 xl-100 box-col-12">
+                                <div class="text-center"><a href=""><img src="{{ asset('assets/images/logo/logo.png') }}" alt=""></a></div>
+
                     <div class="card year-overview">
                       <div class="row">
                         <div class="col-xl-1 col-lg-1 col-1">

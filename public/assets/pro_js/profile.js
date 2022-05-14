@@ -104,6 +104,16 @@ $('.upload-result').on('click', function (ev) {
 /*banner image end upload*/
 
 
+$("#sameadd").on('click', function() {
+       var c_State = document.getElementById('c_State');
+      get_district(c_State);
+      var c_district = document.getElementById('c_district');
+       get_town_name(c_district);
+
+       CopyAdd();
+
+});
+
 /*clone textbox value*/
     function CopyAdd() {
       var cb1 = document.getElementById('sameadd');

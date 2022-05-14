@@ -540,7 +540,7 @@ class DocumentsController extends Controller
      public function get_district_cur(Request $request){
         $input_details['state_name']  =  $request->input('c_State');
         $district_result = $this->profrpy->get_district_listing($input_details);
-        
+        // echo "<pre>";print_r($district_result);die;
         return response()->json( $district_result );
         
     }

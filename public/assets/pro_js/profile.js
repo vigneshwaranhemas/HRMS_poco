@@ -104,7 +104,7 @@ $('.upload-result').on('click', function (ev) {
 /*banner image end upload*/
 
 
-$("#sameadd").on('click', function() {
+/*$("#sameadd").on('click', function() {
        var c_State = document.getElementById('c_State');
       get_district(c_State);
       var c_district = document.getElementById('c_district');
@@ -112,7 +112,7 @@ $("#sameadd").on('click', function() {
 
        CopyAdd();
 
-});
+});*/
 
 /*clone textbox value*/
     function CopyAdd() {
@@ -131,7 +131,9 @@ $("#sameadd").on('click', function() {
 
                 c_addres.value = p_addres.value;
                 c_State.value = p_State.value;
+                 get_district_Current(c_State.value);
                 c_district.value = p_district.value;
+                get_town_name_Current(c_district.value);
                 c_town.value = p_town.value;
           if (checkBox.checked == true){
             text.style.display = "block";
@@ -364,7 +366,7 @@ $('#add_contact_info').submit(function(e) {
 
         });
     }else{
-        // alert("not_empty")
+        // console.log(c_State)
         $.ajax({
             url: get_district_cur_link,
             method: "POST",
@@ -374,7 +376,6 @@ $('#add_contact_info').submit(function(e) {
                 // console.log(data)
                 var html = '<option value="">Select</option>';
                 for (let index = 0; index < data.length; index++) {
-                    // console.log(data[index].district_name )
                     if (c_district == data[index].district_name ) {
 
                     html += "<option value=" + data[index].district_name + " selected>" + data[index].district_name + "</option>";

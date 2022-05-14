@@ -132,10 +132,10 @@ var getEventDetail = function (id, start, end) {
             $("#occassion_show_list").text('');
             $("#description_show_list").text('');
             $("#occassion_file_show_list").text('');
-            $("#state_show_list").text('');
+            // $("#state_show_list").text('');
             $("#occassion_show_list").append(response[0].occassion);
             $("#description_show_list").append(response[0].description);                
-            $("#state_show_list").append(response[0].state);                
+            // $("#state_show_list").append(response[0].state);                
 
             var file = response[0].occassion_file;
             var ext = file.split('.')[1];    
@@ -171,6 +171,21 @@ var getEventDetail = function (id, start, end) {
         }               
         
     });  
+
+     //Get Holidays list
+     $.ajax({
+        url:"fetch_holidays_state_list_id_show",
+        type:"GET",
+        data : {id: id},
+        dataType : "JSON",
+        success:function(response)
+        {
+            // console.log(response); 
+            $("#state_show_list").text('');
+            $("#state_show_list").append(response);                  
+        }
+        
+    }); 
 
     $('#holidaysDetailModalList').modal('show');
        

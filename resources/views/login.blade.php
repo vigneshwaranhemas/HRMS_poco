@@ -44,6 +44,8 @@
               <div class="cont text-center">
                 <div>
                   <div class="col-xl-8 xl-100 box-col-12">
+                                <div class="text-center"><a href=""><img src="{{ asset('assets/images/logo/logo.png') }}" alt=""></a></div>
+
                     <div class="card year-overview">
                       <div class="row">
                         <div class="col-xl-1 col-lg-1 col-1">
@@ -81,18 +83,20 @@
                                 <button class="btn btn-primary btn-block" id="btnLogin" type="submit">LOGIN</button>
                               </div>
                             </div>
+                            <hr></hr>
+                            <div class="form-group form-row mt-3 mb-0">
+                              <div class="col-sm-8">
+                              <u><h6><a href="{{url('forgetPassword')}}"> Forgot Password...!</a></h6></u>
+                              </div>
+                            </div>
                           </form>
                           <div class="sub-cont text-center" style="left: 465px;">
                             <div class="img">
                               <div class="img__text m--up">
                                 <h2 style="margin-left: -25px">Welcome To HEPL</h2>
-                                <!-- <p></p> -->
                               </div>
                               <div class="img__text m--in">
-                                <!-- <h2>One of us?</h2>
-                                <p>If you already has an account, just sign in. We've missed you!</p> -->
                               </div>
-                              <!-- <div class="img__btn"><span class="m--up">Sign up</span><span class="m--in">Sign in</span></div> -->
                             </div>
                           </div>
                         </div>
@@ -129,6 +133,7 @@
         });
 
     var login_check_process_link = "{{url('login_check_process')}}";
+    
 </script>
 
  @endsection

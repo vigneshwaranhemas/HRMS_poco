@@ -67,7 +67,8 @@ class EventController extends Controller
     }
 
     public function add_new_event_insert(Request $request)
-    {        
+    {                
+
         if($request->attendees_all_filter || $request->candicate_list){
             $result = $request->validate([
                 'event_name' => 'required', 
@@ -202,7 +203,6 @@ class EventController extends Controller
             foreach ($attendees as $attendee) {
                 EventAttendee::firstOrCreate(['candidate_name' => $attendee->empID, 'event_id' => $event_unique_code]);
             }
-
             // Notification::send($attendees, new OffersNotification($offerData));
         }
 

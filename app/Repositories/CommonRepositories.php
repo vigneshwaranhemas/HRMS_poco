@@ -6,12 +6,18 @@ use App\Models\CustomUser;
 class CommonRepositories implements ICommonRepositories
 {
 	public function get_candidate_info_hr( $input_details ){
-        // echo "<pre>";print_r($input_details);die;
+        // echo "11<pre>";print_r($input_details);die;
+       $bandtbl = DB::table('customusers')
+        ->select('*')
+        ->where('id', '=', $input_details['id'])
+        ->get();
+        return $bandtbl;
+    }
+    public function get_candidate_info_hr2( $input_details ){
         $bandtbl = DB::table('customusers as cs')
         ->select('*')
         ->where('cs.empID', '=', $input_details['empID'])
         ->get();
-        // echo "<pre>";print_r($bandtbl);die;
         return $bandtbl;
     }
     public function account_hr_info( $input_details ){
@@ -135,6 +141,26 @@ class CommonRepositories implements ICommonRepositories
         $update_mdlusertbl->update( [
             'passcode' => $form_credentials['confirm_password'],
             'passcode_status' => $form_credentials['passcode_status']
+        ] );
+    }
+
+   /* public function update_reset_pass( $data ){
+        // echo "22<pre>";print_r($data);die;
+
+        $update_mdlusertbl = new CustomUser();
+        $update_mdlusertbl = $update_mdlusertbl->where( 'empID', '=', $data['empID'] );
+
+        $update_mdlusertbl->update( [
+            'passcode_token' => $data['passcode_token'],
+        ] );
+    }*/
+    public function update_password( $data ){
+
+        $update_mdlusertbl = new CustomUser();
+        $update_mdlusertbl = $update_mdlusertbl->where( 'empID', '=', $data['emp_id'] );
+
+        $update_mdlusertbl->update( [
+            'passcode' => $data['passcode'],
         ] );
     }
 }

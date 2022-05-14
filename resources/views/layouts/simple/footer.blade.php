@@ -73,17 +73,11 @@
       <footer class="footer">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-4 footer-copyright">
+            <div class="col-md-6 footer-copyright">
               <p class="mb-0">Copyright © {{ date('Y') }}  HRMS. All rights reserved.</p>
             </div>
-
-
-            <div class="col-md-4">
-              <p class="pull-right mb-0">Design & Develop by HEMAS <i class="fa fa-heart"></i></p>
-                {{-- <div class="note">
-                    <a href="javascript:;" title="sticky-note" data-toggle="modal" data-original-title="test" data-target="#exampleModal"><i class="pe-7s-note" style="font-size: 22px; border: 1px solid; padding: 0.5rem 0.5rem 0.5rem 0.5rem;"></i></a>
-                </div> --}}
-
+            <div class="col-md-6">
+              <p class="pull-right mb-0">Design & Developed by HEMAS <i class="fa fa-heart"></i></p>
             </div>
           </div>
         </div>

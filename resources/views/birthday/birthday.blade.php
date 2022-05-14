@@ -137,14 +137,14 @@
                            <p id="employee_ps_show"></p>
                         </div>
                      </div> 
-                     <div class="form-group form-row mt-1 mb-0">
+                     <!-- <div class="form-group form-row mt-1 mb-0">
                         <div class="col-sm-5">
                            <h6 class="f-w-700">Grade:</h6>
                         </div>
                         <div class="col-sm-7">
                            <p id="employee_grade_show"></p>
                         </div>
-                     </div>                     
+                     </div>                      -->
                   </div>
                </div>
             </div>

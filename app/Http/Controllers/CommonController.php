@@ -121,9 +121,6 @@ class CommonController extends Controller
                     });
 
             /*email start*/
-                // $Mail['email']='hr@hemas.in';
-                                 // $Mail['email']=$session_val['email'];
-
                 Mail::send('emails.can_tohr_mail', $Mail, function ($message) use ($Mail) {
                     $message->from("hr@hemas.in", 'HEPL - HR Team');
                     $message->to($Mail['hr_email'])->subject($Mail['hr_subject']);
@@ -294,7 +291,7 @@ class CommonController extends Controller
     public function Contact_info_hr(Request $request){
 
         $input_details = array( "empID" => $request->empID, );
-        $candidate_info_result_hr = $this->cmmrpy->get_candidate_info_hr( $input_details );
+        $candidate_info_result_hr = $this->cmmrpy->get_candidate_info_hr2( $input_details );
 
         return response()->json( $candidate_info_result_hr );
 
@@ -308,7 +305,7 @@ class CommonController extends Controller
 
     }
     public function hr_get_id_card_vari(Request $request){
-
+        // echo "<pre>";print_r($request->empID);die;
         $input_details = array( "id" => $request->id,"empID" => $request->empID, );
         $candidate_info_result_hr = $this->cmmrpy->get_candidate_info_hr( $input_details );
 
@@ -395,7 +392,6 @@ class CommonController extends Controller
         return response()->json( ['response' => $response] );
 
     }
-
 
 public function organization_charts()
 {
@@ -535,5 +531,6 @@ public function supervisor_wise_TreeData(Request $request)
 
     // echo json_encode($emp_data);
 }
+
 
 }

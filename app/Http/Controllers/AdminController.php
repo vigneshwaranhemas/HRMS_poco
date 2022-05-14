@@ -477,7 +477,7 @@ class AdminController extends Controller
                         }
                 return $btn;
             })
-           
+
 
             ->rawColumns(['Info','action'])
             ->make(true);
@@ -2538,6 +2538,19 @@ class AdminController extends Controller
         $get_policy_category_details_result = $this->admrpy->get_policy_category_details();
 
         return response()->json( $get_policy_category_details_result );
+    }
+    public function add_policy_information_process(Request $request)
+    {
+        // $title = $request->file;
+        // $fileName = time().'.'.$request->file->extension();
+
+        $file = $request->file('file');
+             $filename = time().'_'.$file->getClientOriginalName();
+
+             // File extension
+             $extension = $file->getClientOriginalExtension();
+
+        echo '<pre>'; print_r('$filename');die();
     }
 
 

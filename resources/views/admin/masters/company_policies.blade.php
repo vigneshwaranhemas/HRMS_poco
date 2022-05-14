@@ -171,7 +171,7 @@
               <h5 class="modal-title" id="exampleModal2Label">Add Policy Information</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
-            <form method="POST" action="javascript:void(0)" id="add_policy_information" class="ajax-form">
+            <form method="POST" action="javascript:void(0)" enctype="multipart/form-data" id="add_policy_information" class="ajax-form">
                 {{ csrf_field() }}
               <div class="modal-body">
                   <div class="form-row">
@@ -179,7 +179,7 @@
                           <label for="policy_category">Policy Category</label>
                           <select class="form-control" id="policy_category" name="policy_category">
                           </select>
-                          <div class="text-warning" id="policy_category_error"></div>
+                          <div class="text-warning" id="policy_category_information_error"></div>
                       </div>
                       <div class="col-md-12 mb-3">
                         <label for="policy_title">Policy Title</label>
@@ -199,7 +199,7 @@
               </div>
               <div class="modal-footer">
                   <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
-                  <button class="btn btn-secondary" type="button" id="btnSubmit">Save</button>
+                  <button class="btn btn-secondary" type="button" id="info_submit">Save</button>
               </div>
             </form>
       </div>
@@ -218,6 +218,7 @@
 <script>
 var add_policy_category_process_link = "{{url('add_policy_category_process')}}";
 var get_policy_category_details_link = "{{url('get_policy_category_details')}}";
+var add_policy_information_process_link = "{{url('add_policy_information_process')}}";
 
 </script>
 @endsection

@@ -41,9 +41,11 @@
   padding-top: 1px;
 }
 .dtree-node .dtree-img img {
-  max-width: 100%;
-  max-width: 90px;
+  /* max-width: 100%; */
+  float: left;
+  max-width: 50px;
   border-radius: 50px;
+  margin-top: 12px;
   font-size: 0;
 }
 .dtree-node .dtree-branch {
@@ -83,6 +85,7 @@
   font-size: 30px;
   line-height: 25px;
   cursor: pointer;
+  bottom: 12px;
 }
 .node-collapse:after {
   content: "-";
@@ -90,6 +93,7 @@
 .dtree-collapsed .node-collapse:after {
   content: "+";
 }
+
 .dtree-collapsed.dtree-node .dtree-branch.liney {
   height: 50% !important;
 }
@@ -211,6 +215,7 @@ input.dtree-search-control {
 .dtree-name {
   display: inline-block;
   vertical-align: middle;
+  float: left;
 }
 .dtree-node {
   background: white;
@@ -225,6 +230,7 @@ input.dtree-search-control {
   padding: 10px;
   text-transform: capitalize;
   text-align: left;
+  margin-top: 5px;
 }
 .dtree-name .sub {
   display: block;
@@ -407,14 +413,14 @@ input.dtree-search-control {
                 nodeHTML +=
                   '<div class="dtree-node-cell "  >' +
                   '<div class="dtree-node-main">' +
-                  '<div class="dtree-node ' +
+                  '<div class="dtree-node  ' +
                   (isCollapsedNode && "dtree-collapsed") +
                   '" style="margin:' +
                   settings.gutter +
                   'px">' +
                   '<div class="dtree-img"><img src="' +
                   imgSrc +
-                  '"  width="100" height="100"></div>' +
+                  '" ></div>' +
                   '<div class="dtree-name">' +
                   childNds[i].name +
                   '<span class="sub">' +
@@ -694,6 +700,10 @@ $(()=>{
         //     }
         // })
      })
+})
+$(document).ready(function() {
+     $(".dtree-node").addClass('dtree-collapsed');
+     $('.dtree-child-container').addClass('dtree-target-collapsed');
 })
 
 

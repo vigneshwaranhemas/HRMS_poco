@@ -132,7 +132,7 @@ Route::post( 'add_new_holidays_insert', 'HolidayController@add_new_holidays_inse
 Route::post( 'holidays_update', 'HolidayController@holidays_update' );
 Route::post( 'holidays_delete', 'HolidayController@holidays_delete' );
 
-//ItINfra Controller
+//ItINfra Controller`
 
 Route::get('/ItInfra_Dashboard','ItInfraController@index');
 Route::get('/EmailCreation','ItInfraController@EmailIdCreation');

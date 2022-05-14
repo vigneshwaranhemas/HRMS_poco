@@ -457,7 +457,31 @@ public function supervisor_wise_TreeData(Request $request)
     // $id=$request->id;
     $id=$_GET['id'];
     $result = $this->cmmrpy->supervisor_wise_info($id);
-    $filePath= $_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$result['supervisor_info']->img_path.'.jpg';
+    foreach($result['employees'] as $emp)
+    {
+           foreach($emp as $employees){
+                if(count($emp)>0){
+                    if (file_exists($_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$employees['img_path'].'.jpg')) {
+                        $sup_image='../ID_card_photo/'.$employees['img_path'].'.jpg';
+                    }
+                    else{
+                        $sup_image='../ID_card_photo/dummy.png';
+                    }
+                  $emp_data[]=array('id'=>$employees['empID'],
+                  'pid'=>$employees['sup_emp_code'],
+                  'name'=>$employees['username'],
+                  'txt'=>$employees['designation'],
+                  'img'=>$sup_image);
+                // $emp_data[]=$employees;
+                }
+                else{
+
+                }
+            }
+
+    }
+
+       $filePath= $_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$result['supervisor_info']->img_path.'.jpg';
         if(file_exists($filePath)){
              $image='../ID_card_photo/'.$result['supervisor_info']->img_path.'.jpg';
         }
@@ -472,7 +496,7 @@ public function supervisor_wise_TreeData(Request $request)
                          'img'=>$image);
 
         //superwisor wise
-        foreach($result['supervisor_tree'] as $supervisors){
+        foreach($result['team_leaders'] as $supervisors){
                         if (file_exists($_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$supervisors['img_path'].'.jpg')) {
                             $sup_image='../ID_card_photo/'.$supervisors['img_path'].'.jpg';
                         }

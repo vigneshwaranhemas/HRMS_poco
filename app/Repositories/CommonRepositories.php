@@ -120,7 +120,11 @@ class CommonRepositories implements ICommonRepositories
         $organisation=CustomUser::select('empID','username','img_path','designation')->where('sup_name','CKR')->first();
         $supervisor['supervisors']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$organisation->empID)->get();
         $supervisor['supervisor_info']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('empID',$id)->first();
-        $supervisor['supervisor_tree']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$id)->get();
+        $supervisor['team_leaders']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$id)->get();
+        foreach($supervisor['team_leaders'] as $teamleaders){
+            $emp[]=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$teamleaders['empID'])->get();
+          }
+        $supervisor['employees']=$emp;
         return $supervisor;
     }
     public function change_password_process( $form_credentials ){

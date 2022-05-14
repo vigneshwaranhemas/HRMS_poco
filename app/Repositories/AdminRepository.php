@@ -1149,5 +1149,77 @@ class AdminRepository implements IAdminRepository
 
         return $divisiontbl;
     }
+    public function Store_Policy_information($data)
+    {
+       $result= DB::table('company_policy_information')->insert(
+           $data
+        );
+        return $result;
+    }
+
+    public function get_company_policy_infomation_database_data(){
+
+        $company_policy_infomation_data = DB::table('company_policy_information')->get();
+
+        return $company_policy_infomation_data;
+    }
+
+    public function get_policy_information_details( $input_details ){
+
+        $policy_information_tbl = DB::table('company_policy_information as cpi')
+        ->select('cpi.*')
+        ->where('cpi.id', '=', $input_details['id'])
+        ->orderBy('cpi.created_at', 'desc')
+        ->get();
+
+        return $policy_information_tbl;
+    }
+
+    public function edit_policy_information_details( $input_details ){
+
+        $update_policy_information_tbl = DB::table('company_policy_information');
+        $update_policy_information_tbl = $update_policy_information_tbl->where( 'id', '=', $input_details['id'] );
+
+        // echo '12</pre>';print_r($input_details);die();
+        // $file_upload = $input_details['file_upload'];
+        if($input_details['file_upload'] == "")
+        {
+            $result = $update_policy_information_tbl->update( [
+                'cp_id' => $input_details['cp_id'],
+                'policy_category' => $input_details['policy_category'],
+                'policy_title' => $input_details['policy_title'],
+                'policy_description' => $input_details['policy_description'],
+            ] );
+            // echo '</pre>';print_r($result);die();
+        }else if($input_details['file_upload']!== ""){
+        $update_policy_information_tbl->update( [
+            'cp_id' => $input_details['cp_id'],
+            'policy_category' => $input_details['policy_category'],
+            'policy_title' => $input_details['policy_title'],
+            'policy_description' => $input_details['policy_description'],
+            'file_upload' => $input_details['file_upload'],
+        ] );
+        }
+
+    }
+
+    public function process_policy_information_status( $input_details ){
+
+        $update_policy_information_tbl = DB::table('company_policy_information');
+        $update_policy_information_tbl = $update_policy_information_tbl->where( 'id', '=', $input_details['id'] );
+        $status = $input_details['status'];
+
+        $update_policy_information_tbl->update( [
+            'status' => $status
+        ] );
+    }
+
+    public function process_policy_information_delete( $input_details ){
+
+        $update_policy_information_tbl = DB::table('company_policy_information');
+        $update_policy_information_tbl = $update_policy_information_tbl->where( 'id', '=', $input_details['id'] );
+
+        $update_policy_information_tbl->delete();
+    }
 
 }

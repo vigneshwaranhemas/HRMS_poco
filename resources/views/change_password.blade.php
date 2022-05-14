@@ -90,11 +90,12 @@
 <?php
 $session_val = Session::get('session_info');
         $passcode_status = $session_val['passcode_status'];
-        // echo json_encode($emp_ID);
+        // echo json_encode($passcode_status);
 ?>
 @section('script')
 <script src="../assets/js/form-validation-custom.js"></script>
 <script src="../assets/pro_js/change_password.js"></script>
+
 <script type="text/javascript">
 
      var change_password_process_link = "{{url('change_password_process')}}";

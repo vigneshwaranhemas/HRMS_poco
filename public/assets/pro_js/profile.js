@@ -104,15 +104,35 @@ $('.upload-result').on('click', function (ev) {
 /*banner image end upload*/
 
 
+$("#sameadd").on('click', function() {
+       var c_State = document.getElementById('c_State');
+      get_district(c_State);
+      var c_district = document.getElementById('c_district');
+       get_town_name(c_district);
+
+       CopyAdd();
+
+});
+
 /*clone textbox value*/
     function CopyAdd() {
       var cb1 = document.getElementById('sameadd');
       var p_addres = document.getElementById('p_addres');
       var c_addres = document.getElementById('c_addres');
+      var p_State = document.getElementById('p_State');
+      var p_district = document.getElementById('p_district');
+      var p_town = document.getElementById('p_town');
+      var c_State = document.getElementById('c_State');
+      var c_district = document.getElementById('c_district');
+      var c_town = document.getElementById('c_town');
       if (cb1.checked) {
-         var checkBox = document.getElementById("sameadd");
-          var text = document.getElementById("text");
+        var checkBox = document.getElementById("sameadd");
+        var text = document.getElementById("text");
+
                 c_addres.value = p_addres.value;
+                c_State.value = p_State.value;
+                c_district.value = p_district.value;
+                c_town.value = p_town.value;
           if (checkBox.checked == true){
             text.style.display = "block";
           } else {
@@ -840,7 +860,7 @@ function education_information(){
         data:{},
         dataType: "json",
         success: function(data) {
-            console.log(data)
+            // console.log(data)
             if (data !="") {
                 $('#education_td').empty();
                         html ='';

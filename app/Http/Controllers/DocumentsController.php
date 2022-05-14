@@ -390,9 +390,27 @@ class DocumentsController extends Controller
       
             $validator=Validator::make($request->all(),[
                     'phone_number' => 'required|numeric',
+                    'p_email' => 'required',
+                    'p_addres' => 'required',
+                    'p_State' => 'required',
+                    'p_district' => 'required',
+                    'p_town' => 'required',
+                    'c_addres' => 'required',
+                    'c_State' => 'required',
+                    'c_district' => 'required',
+                    'c_town' => 'required',
                     
                     ], [
                     'phone_number.required' => 'Phone Number is required',
+                    'p_email.required' => 'Email is required',
+                    'p_addres.required' => 'Permanent Address is required',
+                    'p_State.required' => 'Permanent State is required',
+                    'p_district.required' => 'Permanent District is required',
+                    'p_town.required' => 'Permanent Town is required',
+                    'c_addres.required' => 'Present Address is required',
+                    'c_State.required' => 'Present State is required',
+                    'c_district.required' => 'Present District is required',
+                    'c_town.required' => 'Present Town is required',
                     
                     ]);
                     if($validator->passes()){

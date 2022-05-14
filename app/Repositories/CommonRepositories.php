@@ -6,12 +6,18 @@ use App\Models\CustomUser;
 class CommonRepositories implements ICommonRepositories
 {
 	public function get_candidate_info_hr( $input_details ){
-        // echo "<pre>";print_r($input_details);die;
+        // echo "11<pre>";print_r($input_details);die;
+       $bandtbl = DB::table('customusers')
+        ->select('*')
+        ->where('id', '=', $input_details['id'])
+        ->get();
+        return $bandtbl;
+    }
+    public function get_candidate_info_hr2( $input_details ){
         $bandtbl = DB::table('customusers as cs')
         ->select('*')
         ->where('cs.empID', '=', $input_details['empID'])
         ->get();
-        // echo "<pre>";print_r($bandtbl);die;
         return $bandtbl;
     }
     public function account_hr_info( $input_details ){
@@ -105,8 +111,29 @@ class CommonRepositories implements ICommonRepositories
              return $result;
     }
 
+    public function get_organization_info()
+    {
+        $organisation['reviewer']=CustomUser::select('empID','username','img_path','designation')->where('sup_name','CKR')->first();
+        $organisation['supervisors']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$organisation['reviewer']->empID)->get();
+        foreach($organisation['supervisors'] as $supervisors){
+          $team_leaders[]=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$supervisors['empID'])->get();
+        }
+        $organisation['team_leaders']=$team_leaders;
+        return $organisation;
+    }
+    public function supervisor_wise_info($id)
+    {
+        $organisation=CustomUser::select('empID','username','img_path','designation')->where('sup_name','CKR')->first();
+        $supervisor['supervisors']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$organisation->empID)->get();
+        $supervisor['supervisor_info']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('empID',$id)->first();
+        $supervisor['team_leaders']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$id)->get();
+        foreach($supervisor['team_leaders'] as $teamleaders){
+            $emp[]=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$teamleaders['empID'])->get();
+          }
+        $supervisor['employees']=$emp;
+        return $supervisor;
+    }
     public function change_password_process( $form_credentials ){
-
 
         $update_mdlusertbl = new CustomUser();
         $update_mdlusertbl = $update_mdlusertbl->where( 'empID', '=', $form_credentials['empID'] );
@@ -114,6 +141,26 @@ class CommonRepositories implements ICommonRepositories
         $update_mdlusertbl->update( [
             'passcode' => $form_credentials['confirm_password'],
             'passcode_status' => $form_credentials['passcode_status']
+        ] );
+    }
+
+   /* public function update_reset_pass( $data ){
+        // echo "22<pre>";print_r($data);die;
+
+        $update_mdlusertbl = new CustomUser();
+        $update_mdlusertbl = $update_mdlusertbl->where( 'empID', '=', $data['empID'] );
+
+        $update_mdlusertbl->update( [
+            'passcode_token' => $data['passcode_token'],
+        ] );
+    }*/
+    public function update_password( $data ){
+
+        $update_mdlusertbl = new CustomUser();
+        $update_mdlusertbl = $update_mdlusertbl->where( 'empID', '=', $data['emp_id'] );
+
+        $update_mdlusertbl->update( [
+            'passcode' => $data['passcode'],
         ] );
     }
 }

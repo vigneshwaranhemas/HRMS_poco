@@ -109,6 +109,6 @@
 </div>
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{{url('pro_js/preonboarding/preonboarding.js')}}"></script>
+<script src="../pro_js/preonboarding/preonboarding.js"></script>
 @section('script')
 @endsection

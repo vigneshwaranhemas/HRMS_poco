@@ -25,18 +25,18 @@ class SidebarController extends Controller
             $menu_list = DB::table('role_permissions as rp')->select('*')
                             ->leftjoin('menus as m','m.menu_id', '=', 'rp.menu')
                             ->where('rp.role', '=', $role_id)->where('rp.view', '=', '1')->groupBy('rp.menu')->get();
-                            // echo "<pre>";print_r($menu_list);
+                            // echo "<pre>";print_r($menu_list);die;
                             $html ='';
                             for ($i=0; $i < count($menu_list) ; $i++) { 
                                 // echo "<pre>";print_r($menu_list);die;
                                  if ($menu_list[$i]->child == 0) {
                                         $html .='<li>';
                                         $html .='<a class="bar-icons" href="'.$menu_list[$i]->menu_path.'">';
-                                        $html .='<i class="pe-7s-home"></i><span>'.$menu_list[$i]->menu_name.'</span></a>';
+                                        $html .='<i class="'.$menu_list[$i]->icon_class.'" style="'.$menu_list[$i]->style_class.'"></i><span>'.$menu_list[$i]->menu_name.'</span></a>';
                                         $html .='</li>';
                                 }else{
                                         $html .='<li onclick="test(this)">';
-                                        $html .='<a class="bar-icons" href="'.$menu_list[$i]->menu_path.'"><i class="pe-7s-portfolio"></i><span>'.$menu_list[$i]->menu_name.'</span></a>';
+                                        $html .='<a class="bar-icons" href="'.$menu_list[$i]->menu_path.'"><i class="'.$menu_list[$i]->icon_class.'" style="'.$menu_list[$i]->style_class.'"></i><span>'.$menu_list[$i]->menu_name.'</span></a>';
 
                                             $html .='<ul class="iconbar-mainmenu custom-scrollbar">';
 

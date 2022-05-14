@@ -7,8 +7,7 @@
       display: none;
     }
  </style>
-<link rel="stylesheet" type="text/css" href="{{url("assets/css/datatables.css")}}">
-<link rel="stylesheet" type="text/css" href="{{url('assets/css/datatable-extension.css')}}">
+
 @endsection
 
 @section('style')
@@ -185,4 +184,4 @@
     var Candidate_status_update="{{url('Candidate_Status_Update')}}";
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{{url('pro_js/Hrss/OnBoarding.js')}}"></script>
+<script src="../pro_js/Hrss/OnBoarding.js"></script>

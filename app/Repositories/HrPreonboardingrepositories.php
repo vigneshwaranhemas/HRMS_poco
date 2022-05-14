@@ -244,6 +244,12 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
     }
     public function update_candidate_doc_status($id,$status)
     {
+        $result=CustomUser::where("cdID",$id)->update($status);
+        return $result;
+    }
+
+    public function update_candidate_onboard_status($id,$status)
+    {
         $result=CustomUser::where("empID",$id)->update($status);
         return $result;
     }

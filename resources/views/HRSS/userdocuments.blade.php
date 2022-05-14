@@ -2,8 +2,7 @@
 @section("title", "User Documents ")
 
 @section("css")
-<link rel="stylesheet" type="text/css" href="{{url("assets/css/datatables.css")}}">
-<link rel="stylesheet" type="text/css" href="{{url("assets/css/datatable-extension.css")}}">
+
 @endsection
 
 @section("style")
@@ -110,12 +109,12 @@
      @endif
    <button type="button" class="btn btn-primary" id="DocStatusBtn">Submit</button>
  </div>
-@endsection
+@endsection`
 @section("script")
 
 @endsection
 <script>
-    var DocumentStatusurl="{{url('DocumentStatusUpdate')}}";
+    var DocumentStatusurl="DocumentStatusUpdate";
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="../pro_js/Hrss/OnBoarding.js"></script>

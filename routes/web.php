@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 /*login*/
-Route::get('logout','AuthController@logout');
+Route::get('logout','LoginController@logout');
 Route::post('login_check_process', 'LoginController@login_check_process' );
 Route::get("UserEmailSend","LoginController@UserEmailSend");
 Route::get('dashboard','AdminController@permission');

@@ -285,7 +285,7 @@ $('#add_contact_info').submit(function(e) {
             // console.log(data)
             var html = '<option value="">Select</option>';
             for (let index = 0; index < data.length; index++) {
-                html += "<option value=" + data[index].state_name + ">" + data[index].state_name + "</option>";
+                html += "<option value='" + data[index].state_name + "'>" + data[index].state_name + "</option>";
             }
             $('#p_State').html(html);
             $('#c_State').html(html);
@@ -415,7 +415,7 @@ $('#add_contact_info').submit(function(e) {
                 // console.log(data)
                 var html = '<option value="">Select</option>';
                 for (let index = 0; index < data.length; index++) {
-                    html += "<option value=" + data[index].town_name + ">" + data[index].town_name + "</option>";
+                    html += "<option value='" + data[index].town_name + "'>" + data[index].town_name + "</option>";
                 }
                 $('#p_town').html(html);
             }
@@ -433,9 +433,9 @@ $('#add_contact_info').submit(function(e) {
                 for (let index = 0; index < data.length; index++) {
 
                     if (p_town == data[index].town_name ) {
-                    html += "<option value=" + data[index].town_name + " selected>" + data[index].town_name + "</option>";
+                    html += "<option value='" + data[index].town_name + "' selected>" + data[index].town_name + "</option>";
                     }else{
-                         html += "<option value=" + data[index].town_name + ">" + data[index].town_name + "</option>";
+                         html += "<option value='" + data[index].town_name + "'>" + data[index].town_name + "</option>";
                     }
                 }
                 $('#p_town').html(html);
@@ -455,7 +455,7 @@ $('#add_contact_info').submit(function(e) {
                 // console.log(data)
                 var html = '<option value="">Select</option>';
                 for (let index = 0; index < data.length; index++) {
-                    html += "<option value=" + data[index].town_name + ">" + data[index].town_name + "</option>";
+                    html += "<option value='" + data[index].town_name + "'>" + data[index].town_name + "</option>";
                 }
                 $('#c_town').html(html);
             }
@@ -474,9 +474,9 @@ $('#add_contact_info').submit(function(e) {
                 for (let index = 0; index < data.length; index++) {
 
                     if (c_town == data[index].town_name ) {
-                        html += "<option value=" + data[index].town_name + " selected>" + data[index].town_name + "</option>";
+                        html += "<option value='" + data[index].town_name + "' selected>" + data[index].town_name + "</option>";
                     }else{
-                         html += "<option value=" + data[index].town_name + ">" + data[index].town_name + "</option>";
+                         html += "<option value='" + data[index].town_name + "'>" + data[index].town_name + "</option>";
                     }
                 }
                 // alert(html)

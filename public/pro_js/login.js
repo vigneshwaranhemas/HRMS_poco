@@ -79,7 +79,7 @@ $('#loginForm').submit(function(e) {
             success:function(data) {
                     // console.log(data)
                 if(data.logstatus =='success'){
-                     window.location = data.url;
+                     // window.location = data.url;
                     Toastify({
                         text: "Login Successfully",
                         duration: 3000,

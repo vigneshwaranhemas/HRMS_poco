@@ -36,11 +36,12 @@
                 <div class="b-r-4 card-body">
                   <div class="media static-top-widget">
                     <div class="align-self-center text-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle text-white i"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                       <div class="text-white i" data-feather="message-circle"></div>
-                    </div>
-                    <div class="media-body"><a class="m-0 text-white" href="{{ url('id_card_varification') }}" >ID Card Info</a>
+                    </div><i class="icon-bg" data-feather="message-circle"></i>
+                    <div class="media-body"><a class="m-0 text-white" href="{{ url('id_card_varification') }}" ><h5 style="color:black;">ID Card Info</h5></a>
                         {{-- <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token"> --}}
-                     <i class="icon-bg" data-feather="message-circle"></i>
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle icon-bg"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                      <!--  <h4 class="mb-0 counter text-white">893</h4> -->
                     </div>
                   </div>
@@ -52,9 +53,11 @@
                 <div class="b-r-4 card-body">
                   <div class="media static-top-widget">
                     <div class="align-self-center text-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus text-white i"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
                       <div class="text-white i" data-feather="user-plus"></div>
                     </div>
-                    <div class="media-body"><a class="m-0 text-white" href="{{ url('candidate_profile') }}">Profile</a><i class="icon-bg" data-feather="user-plus"></i>
+                    <div class="media-body"><a class="m-0 text-white" href="{{ url('candidate_profile') }}"><h5 style="color:black;">Profile</h5></a>
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus icon-bg"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
                     </div>
                   </div>
                 </div>

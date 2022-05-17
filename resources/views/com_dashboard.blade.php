@@ -2,13 +2,15 @@
 @section('title', 'Dashboard')
 
 @section('css')
-<link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
+{{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/prism.css"> --}}
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/prism.css')}}">
+
     <!-- Plugins css start-->
-<link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
-<link rel="stylesheet" type="text/css" href="../assets/scss/bootstrap/_modal.scss">
-<link rel="stylesheet" type="text/css" href="../assets/css/whether-icon.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/ionic-icon.css">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/chartist.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/date-picker.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/scss/bootstrap/_modal.scss')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/whether-icon.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/ionic-icon.css')}}">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
@@ -140,7 +142,7 @@
                         @foreach($upcoming_holidays as $upcoming_holiday)
                            <tr>
                               <td>
-                              <div class="activity-image"><img class="img-fluid" src="../assets/images/dashboard/clipboard.png" alt=""></div>
+                              <div class="activity-image"><img class="img-fluid" src="{{asset('assets/images/dashboard/clipboard.png')}}" alt=""></div>
                               </td>
                               <td>
                               <div class="activity-details">
@@ -208,7 +210,7 @@
                         @foreach($upcoming_events as $upcoming_event)
                            <tr>
                               <td>
-                              <div class="activity-image"><img class="img-fluid" src="../assets/images/dashboard/greeting.png" alt=""></div>
+                              <div class="activity-image"><img class="img-fluid" src="{{asset('assets/images/dashboard/greeting.png')}}" alt=""></div>
                               </td>
                               <td>
                               <div class="activity-details">
@@ -423,28 +425,28 @@ View More&lt;/button&gt;
 @endsection
 
 @section('script')
-<script src="../assets/js/typeahead/handlebars.js"></script>
-<script src="../assets/js/typeahead/typeahead.bundle.js"></script>
-<script src="../assets/js/typeahead/typeahead.custom.js"></script>
-<script src="../assets/js/typeahead-search/handlebars.js"></script>
-<script src="../assets/js/typeahead-search/typeahead-custom.js"></script>
-<script src="../assets/js/chart/chartist/chartist.js"></script>
-<script src="../assets/js/chart/chartist/chartist-plugin-tooltip.js"></script>
-<script src="../assets/js/chart/apex-chart/apex-chart.js"></script>
-<script src="../assets/js/chart/apex-chart/stock-prices.js"></script>
-<script src="../assets/js/prism/prism.min.js"></script>
-<script src="../assets/js/clipboard/clipboard.min.js"></script>
-<script src="../assets/js/counter/jquery.waypoints.min.js"></script>
-<script src="../assets/js/counter/jquery.counterup.min.js"></script>
-<script src="../assets/js/counter/counter-custom.js"></script>
-<script src="../assets/js/custom-card/custom-card.js"></script>
-<script src="../assets/js/notify/bootstrap-notify.min.js"></script>
-<script src="../assets/js/dashboard/default.js"></script>
-<script src="../assets/js/notify/index.js"></script>
-<script src="../assets/js/datepicker/date-picker/datepicker.js"></script>
-<script src="../assets/js/datepicker/date-picker/datepicker.en.js"></script>
-<script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
-<script src="../pro_js/side_bar.js"></script>
+<script src="{{asset('assets/js/typeahead/handlebars.js')}}"></script>
+<script src="{{asset('assets/js/typeahead/typeahead.bundle.js')}}"></script>
+<script src="{{asset('assets/js/typeahead/typeahead.custom.js')}}"></script>
+<script src="{{asset('assets/js/typeahead-search/handlebars.js')}}"></script>
+<script src="{{asset('assets/js/typeahead-search/typeahead-custom.js')}}"></script>
+<script src="{{asset('assets/js/chart/chartist/chartist.js')}}"></script>
+<script src="{{asset('assets/js/chart/chartist/chartist-plugin-tooltip.js')}}"></script>
+<script src="{{asset('assets/js/chart/apex-chart/apex-chart.js')}}"></script>
+<script src="{{asset('assets/js/chart/apex-chart/stock-prices.js')}}"></script>
+<script src="{{asset('assets/js/prism/prism.min.js')}}"></script>
+<script src="{{asset('assets/js/clipboard/clipboard.min.js')}}"></script>
+<script src="{{asset('assets/js/counter/jquery.waypoints.min.js')}}"></script>
+<script src="{{asset('assets/js/counter/jquery.counterup.min.js')}}"></script>
+<script src="{{asset('assets/js/counter/counter-custom.js')}}"></script>
+<script src="{{asset('assets/js/custom-card/custom-card.js')}}"></script>
+<script src="{{asset('assets/js/notify/bootstrap-notify.min.js')}}"></script>
+<script src="{{asset('assets/js/dashboard/default.js')}}"></script>
+<script src="{{asset('assets/js/notify/index.js')}}"></script>
+<script src="{{asset('assets/js/datepicker/date-picker/datepicker.js')}}"></script>
+<script src="{{asset('assets/js/datepicker/date-picker/datepicker.en.js')}}"></script>
+<script src="{{asset('assets/js/datepicker/date-picker/datepicker.custom.js')}}"></script>
+<script src="{{asset('pro_js/side_bar.js')}}"></script>
 <script>
       var get_session_sidebar_link = "{{url('get_session_sidebar')}}";
 

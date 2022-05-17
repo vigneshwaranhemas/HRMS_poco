@@ -40,7 +40,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-12">                        
+                            <div class="col-md-12">
                                 <div id="cal-basic"></div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 
     <!-- Modal Fade Start -->
     <!-- Event Add -->
@@ -56,7 +56,7 @@
         <div class="modal-dialog modal-lg">
             <form method="post" id="event-form-insert" enctype="multipart/form-data">
                 @csrf
-                <div class="modal-content">                
+                <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myLargeModalLabel">Add Event</h4>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -70,8 +70,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="where">Where</label>
-                                <input type="text" name="where" id="where" class="form-control">                                
-                                <div class="text-danger" id="where_error"></div> 
+                                <input type="text" name="where" id="where" class="form-control">
+                                <div class="text-danger" id="where_error"></div>
                             </div>
                         </div>
                         <div class="form-row mb-3">
@@ -79,10 +79,10 @@
                                 <label for="category_name">Category
                                     <a href="javascript:;" id="add_category" class="btn btn-xs btn-primary btn-outline add_category"><i class="fa fa-plus"></i></a>
                                 </label>
-                                <select class="form-control" id="category_id" name="category_name">  
-                                    <option value="">Select Category...</option>                                              
+                                <select class="form-control" id="category_id" name="category_name">
+                                    <option value="">Select Category...</option>
                                 </select>
-                                <div class="text-danger" id="category_name_sel_error"></div> 
+                                <div class="text-danger" id="category_name_sel_error"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="label_color">Event Type
@@ -91,7 +91,7 @@
                                 <select class="select2 form-control" id="event_type_id" name="event_type">
                                     <option value="">Please Select Event Type</option>
                                 </select>
-                                <div class="text-danger" id="event_type_sel_error"></div> 
+                                <div class="text-danger" id="event_type_sel_error"></div>
                             </div>
                         </div>
                         <div class="form-row mb-3">
@@ -99,7 +99,7 @@
                                 <label for="file">Event File</label>
                                 <input type="file" name="file" class="form-control form-control-sm" id="image-input">
                                 <div class="text-danger" id="file_error"></div>
-                            </div>                            
+                            </div>
                             <div class="col-md-6">
                                 <label for="label_color">Color</label>
                                 <input type="color" name="label_color" value="#7e37d8" id="colorselector" class="form-control">
@@ -109,34 +109,34 @@
                             <div class="col-md-12">
                                 <label for="category_name">Description</label>
                                 <textarea name="description" id="description" class="form-control"></textarea>
-                                <div class="text-danger" id="description_error"></div> 
+                                <div class="text-danger" id="description_error"></div>
                             </div>
                         </div>
                         <div class="form-row mb-3">
                             <div class="col-xs-6 col-md-3">
                                 <label for="category_name">Starts On</label>
                                 <input type="date" name="start_date" id="start_date" class="form-control">
-                                <div class="text-danger" id="start_date_error"></div> 
+                                <div class="text-danger" id="start_date_error"></div>
                             </div>
                             <div class="col-xs-5 col-md-3">
                                 <label>&nbsp;</label>
                                 <input type="time" name="start_time" id="start_time"
                                     class="form-control">
-                                <div class="text-danger" id="start_time_error"></div> 
+                                <div class="text-danger" id="start_time_error"></div>
                             </div>
                             <div class="col-xs-6 col-md-3">
                                 <label for="category_name">Ends On</label>
                                 <input type="date" name="end_date" id="end_date" class="form-control">
-                                <div class="text-danger" id="end_date_error"></div> 
+                                <div class="text-danger" id="end_date_error"></div>
                             </div>
                             <div class="col-xs-5 col-md-3">
                                 <label>&nbsp;</label>
                                 <input type="time" name="end_time" id="end_time"
                                     class="form-control">
-                                <div class="text-danger" id="end_time_error"></div> 
+                                <div class="text-danger" id="end_time_error"></div>
                             </div>
-                        </div>  
-                        
+                        </div>
+
                         <div class="form-row mb-3">
                             <div class="col-md-2">
                                 <label for="repeat-event">Add Attendees</label>
@@ -149,50 +149,50 @@
                                 <div id="all_filter">
                                     <input id="attendees_all_filter" name="attendees_all_filter" type="checkbox">
                                     <label for="attendees_all_filter" id="attendees_all_filter_label"></label>
-                                </div>                               
+                                </div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <select class="form-control" id="attendees_filter_op" name="attendees_filter_op">  
-                                    <option value="">Select Attendees...</option>                                              
-                                    <option value="Gender">Gender</option>                                              
-                                    <option value="Department">Department</option>                                              
-                                    <option value="Designation">Designation</option>                                              
-                                    <option value="Work Location">Work Location</option>                                              
+                                <select class="form-control" id="attendees_filter_op" name="attendees_filter_op">
+                                    <option value="">Select Attendees...</option>
+                                    <option value="Gender">Gender</option>
+                                    <option value="Department">Department</option>
+                                    <option value="Designation">Designation</option>
+                                    <option value="Work Location">Work Location</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <select class="form-control attendees_filter" id="gender_filter_option" name="gender_filter_option">  
-                                    <option value="">Select Gender...</option>                                              
-                                    <option value="Male">Male</option>                                              
-                                    <option value="Female">Female</option>                                              
+                                <select class="form-control attendees_filter" id="gender_filter_option" name="gender_filter_option">
+                                    <option value="">Select Gender...</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
                                 </select>
-                                <select class="form-control attendees_filter" id="dept_filter_option" name="dept_filter_option">  
-                                    <option value="">Select Department...</option> 
+                                <select class="form-control attendees_filter" id="dept_filter_option" name="dept_filter_option">
+                                    <option value="">Select Department...</option>
                                     @foreach($departments as $department)
                                         <option value="{{ $department->department_name }}">{{ $department->department_name }}</option>
-                                    @endforeach    
+                                    @endforeach
                                 </select>
-                                <select class="form-control attendees_filter" id="designation_filter_option" name="designation_filter_option">  
-                                    <option value="">Select Designation...</option> 
+                                <select class="form-control attendees_filter" id="designation_filter_option" name="designation_filter_option">
+                                    <option value="">Select Designation...</option>
                                     @foreach($designations as $designation)
                                         <option value="{{ $designation->designation_name }}">{{ $designation->designation_name }}</option>
-                                    @endforeach                                             
+                                    @endforeach
                                 </select>
-                                <select class="form-control attendees_filter" id="wfh_filter_option" name="wfh_filter_option">  
-                                    <option value="">Select Work Location...</option>                                         
+                                <select class="form-control attendees_filter" id="wfh_filter_option" name="wfh_filter_option">
+                                    <option value="">Select Work Location...</option>
                                     @foreach($locations as $location)
                                         <option value="{{ $location->location_name }}">{{ $location->location_name }}</option>
-                                    @endforeach                                                 
+                                    @endforeach
                                 </select>
                             </div>
 
                             <div class="col-md-12">
                                 <select class="select2 m-b-10 select2-multiple form-control" multiple="multiple" id="candicate_list_options" name="candicate_list_options[]">
-                                    
+
                                 </select>
-                                <div class="text-danger" id="candicate_list_options_error"></div> 
+                                <div class="text-danger" id="candicate_list_options_error"></div>
                             </div>
-                            
+
                         </div>
                         <div class="form-row mb-3">
                             <div class="col-md-12">
@@ -334,8 +334,8 @@
                             <button class="btn btn-danger delete-event" type="button" onclick="_gaq.push(['_trackEvent', 'example', 'try', 'delete-event']);">Delete</button>
                             <!-- <button class="btn btn-danger delete-event" type="button">Delete</button> -->
                             <button class="btn btn-primary edit-event" type="button">Edit</button>
-                        </div> 
-                    @endif                    
+                        </div>
+                    @endif
                 </form>
             </div>
         </div>
@@ -344,18 +344,18 @@
      <!-- /.Sample upload pop up image -->
      <div class="modal fade sample-preview" tabindex="-1" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">     
-            <div class="modal-header" style="border-bottom: 0;">                      
+        <div class="modal-dialog modal-lg">
+            <div class="modal-header" style="border-bottom: 0;">
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
             <img id="sample_view" style="width: 75%; margin-left: 124px;">
-            </div>                                            
+            </div>
         </div>
     </div>
     <!-- /.End sample upload pop up image -->
-        
+
     <!-- Event edit -->
     <div class="modal fade bd-example-modal-lg" id="formEventEditModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -375,8 +375,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="where">Where</label>
-                                <input type="text" name="where" id="where_edit" class="form-control">                                
-                                <div class="text-danger" id="where_edit_error"></div> 
+                                <input type="text" name="where" id="where_edit" class="form-control">
+                                <div class="text-danger" id="where_edit_error"></div>
                             </div>
                         </div>
                         <div class="form-row mb-3">
@@ -384,8 +384,8 @@
                                 <label for="category_name">Category
                                     <a href="javascript:;" id="add_category" class="btn btn-xs btn-primary btn-outline add_category"><i class="fa fa-plus"></i></a>
                                 </label>
-                                <select class="form-control" id="category_id_edit" name="category_name">  
-                                    <option value="">Select Category...</option>                                              
+                                <select class="form-control" id="category_id_edit" name="category_name">
+                                    <option value="">Select Category...</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -408,93 +408,93 @@
                                 <label for="label_color">Color</label>
                                 <input type="color" name="label_color" value="#7e37d8" id="label_color_edit" class="form-control">
                             </div>
-                            <p id="chosen_file_show"></p>                           
+                            <p id="chosen_file_show"></p>
                         </div>
                         <div class="form-row mb-3">
                             <div class="col-md-12">
                                 <label for="category_name">Description</label>
                                 <textarea name="description" id="description_edit" class="form-control"></textarea>
-                                <div class="text-danger" id="description_edit_error"></div> 
+                                <div class="text-danger" id="description_edit_error"></div>
                             </div>
                         </div>
                         <div class="form-row mb-3">
                             <div class="col-xs-6 col-md-3">
                                 <label for="category_name">Starts On</label>
                                 <input type="date" name="start_date" id="start_date_edit" class="form-control">
-                                <div class="text-danger" id="start_date_edit_error"></div> 
+                                <div class="text-danger" id="start_date_edit_error"></div>
                             </div>
                             <div class="col-xs-5 col-md-3">
                                 <label>&nbsp;</label>
                                 <input type="time" name="start_time" id="start_time_edit"
                                     class="form-control">
-                                <div class="text-danger" id="start_time_edit_error"></div> 
+                                <div class="text-danger" id="start_time_edit_error"></div>
                             </div>
                             <div class="col-xs-6 col-md-3">
                                 <label for="category_name">Ends On</label>
                                 <input type="date" name="end_date" id="end_date_edit" class="form-control">
-                                <div class="text-danger" id="end_date_edit_error"></div> 
+                                <div class="text-danger" id="end_date_edit_error"></div>
                             </div>
                             <div class="col-xs-5 col-md-3">
                                 <label>&nbsp;</label>
                                 <input type="time" name="end_time" id="end_time_edit"
                                     class="form-control">
-                                <div class="text-danger" id="end_time_edit_error"></div> 
+                                <div class="text-danger" id="end_time_edit_error"></div>
                             </div>
-                        </div>                       
+                        </div>
                         <div class="form-row mb-3">
                             <div class="col-md-2">
                                 <label for="repeat-event">Add Attendees</label>
                             </div>
                             <div class="col-md-2">
-                                <input id="candicate_list_edit" name="candicate_list" value="true" type="checkbox">                                
+                                <input id="candicate_list_edit" name="candicate_list" value="true" type="checkbox">
                                 <label for="">All Candicates</label>
                             </div>
                             <div class="col-md-8">
                                 <div id="all_filter_edit">
                                     <input id="attendees_all_filter_edit" name="attendees_all_filter" type="checkbox">
                                     <label for="attendees_all_filter" id="attendees_all_filter_label_edit"></label>
-                                </div>                               
+                                </div>
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <select class="form-control" id="attendees_filter_op_edit" name="attendees_filter_op">  
-                                    <option value="">Select Attendees...</option>                                              
-                                    <option value="Gender">Gender</option>                                              
-                                    <option value="Department">Department</option>                                              
-                                    <option value="Designation">Designation</option>                                              
-                                    <option value="Work Location">Work Location</option>                                              
+                                <select class="form-control" id="attendees_filter_op_edit" name="attendees_filter_op">
+                                    <option value="">Select Attendees...</option>
+                                    <option value="Gender">Gender</option>
+                                    <option value="Department">Department</option>
+                                    <option value="Designation">Designation</option>
+                                    <option value="Work Location">Work Location</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <select class="form-control attendees_filter_edit" id="gender_filter_option_edit" name="gender_filter_option">  
-                                    <option value="">Select Gender...</option>                                              
-                                    <option value="Male">Male</option>                                              
-                                    <option value="Female">Female</option>                                              
+                                <select class="form-control attendees_filter_edit" id="gender_filter_option_edit" name="gender_filter_option">
+                                    <option value="">Select Gender...</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
                                 </select>
-                                <select class="form-control attendees_filter_edit" id="dept_filter_option_edit" name="dept_filter_option">  
-                                    <option value="">Select Department...</option>                                              
+                                <select class="form-control attendees_filter_edit" id="dept_filter_option_edit" name="dept_filter_option">
+                                    <option value="">Select Department...</option>
                                     @foreach($departments as $department)
                                         <option value="{{ $department->department_name }}">{{ $department->department_name }}</option>
-                                    @endforeach                                              
+                                    @endforeach
                                 </select>
-                                <select class="form-control attendees_filter_edit" id="designation_filter_option_edit" name="designation_filter_option">  
-                                    <option value="">Select Designation...</option>                                              
+                                <select class="form-control attendees_filter_edit" id="designation_filter_option_edit" name="designation_filter_option">
+                                    <option value="">Select Designation...</option>
                                     @foreach($designations as $designation)
                                         <option value="{{ $designation->designation_name }}">{{ $designation->designation_name }}</option>
-                                    @endforeach                                    
+                                    @endforeach
                                 </select>
-                                <select class="form-control attendees_filter_edit" id="wfh_filter_option_edit" name="wfh_filter_option">  
-                                    <option value="">Select Work Location...</option>                                              
+                                <select class="form-control attendees_filter_edit" id="wfh_filter_option_edit" name="wfh_filter_option">
+                                    <option value="">Select Work Location...</option>
                                     @foreach($locations as $location)
                                         <option value="{{ $location->location_name }}">{{ $location->location_name }}</option>
-                                    @endforeach                                                
+                                    @endforeach
                                 </select>
                             </div>
 
                             <div class="col-md-12">
-                                <select class="select2 m-b-10 select2-multiple form-control" id="candicate_select_op_list_edit" multiple="multiple" name="candicate_list_options_edit[]">                                   
+                                <select class="select2 m-b-10 select2-multiple form-control" id="candicate_select_op_list_edit" multiple="multiple" name="candicate_list_options_edit[]">
                                 </select>
-                                <div class="text-danger" id="candicate_list_options_edit_error"></div> 
+                                <div class="text-danger" id="candicate_list_options_edit_error"></div>
                             </div>
 
                         </div>
@@ -555,7 +555,7 @@
                 </div>
             </form>
         </div>
-   </div> 
+   </div>
 
     <!-- Add category -->
     <div class="modal fade bd-example-modal-lg" id="add-category-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -579,13 +579,13 @@
                             <tbody>
                             </tbody>
                         </table>
-                        
-                        <form method="post" action="javascript:void(0)" id="eventCategoryForm">  
+
+                        <form method="post" action="javascript:void(0)" id="eventCategoryForm">
                             <div class="form-row mb-3">
                                 <div class="col-md-6">
                                     <label for="category_name" style="font-weight: bold;">Add Category Name</label>
                                     <input type="text" name="category_name" id="category_name" class="form-control">
-                                    <div class="text-danger" id="category_name_error"></div> 
+                                    <div class="text-danger" id="category_name_error"></div>
                                 </div>
                             </div>
                             <button class="btn btn-success mt-2 mb-2" type="submit" id="submit_event_category">Save</button>
@@ -595,7 +595,7 @@
             </form>
         </div>
     </div>
-    
+
     <!-- Add event type -->
     <div class="modal fade bd-example-modal-lg" id="event-type-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -615,16 +615,16 @@
                                   <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>                             
+                            <tbody>
                             </tbody>
                         </table>
-                        
-                        <form method="post" action="javascript:void(0)" id="eventTypeForm">  
+
+                        <form method="post" action="javascript:void(0)" id="eventTypeForm">
                             <div class="form-row mb-3">
                                 <div class="col-md-6">
                                     <label for="event_type" style="font-weight: bold;">Event Type</label>
                                     <input type="text" name="event_type" id="event_type" class="form-control">
-                                    <div class="text-danger" id="event_type_error"></div>  
+                                    <div class="text-danger" id="event_type_error"></div>
                                 </div>
                             </div>
                             <button class="btn btn-success mt-2 mb-2" id="submit_event_type" type="button">Save</button>
@@ -636,7 +636,7 @@
     </div>
 
     <!-- Modal Fade End -->
-   
+
 </div>
 <!-- Container-fluid Ends-->
 @endsection
@@ -646,15 +646,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    
+
     <!-- <script src="../assets/js/jquery.ui.min.js"></script>
     <script src="../assets/js/calendar/moment.min.js"></script>
     <script src="../assets/js/calendar/fullcalendar.min.js"></script> -->
 
     @if(Auth::user()->role_type === 'Admin')
-      <script src="../assets/js/calendar/admin_events.js"></script>    
+      <script src="../assets/js/calendar/admin_events.js"></script>
     @else
-        <script src="../assets/js/calendar/events.js"></script>    
+        <script src="../assets/js/calendar/events.js"></script>
     @endif
 
     <!-- Plugins JS start-->
@@ -669,20 +669,20 @@
 
     <script>
         $(document).ready(function() {
-                            
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            });           
+            });
 
         });
 
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
-        });    
+        });
 
-        //Hide filter options 
+        //Hide filter options
         // $("#gender_filter_option").val(" ");
         // $("#dept_filter_option").val(" ");
         // $("#designation_filter_option").val(" ");
@@ -694,14 +694,14 @@
         $("#designation_filter_option").hide();
         $("#wfh_filter_option").hide();
         $("#candicate_list_options").hide();
-        $("#all_filter").hide();   
+        $("#all_filter").hide();
 
         $("#gender_filter_option_edit").hide();
         $("#dept_filter_option_edit").hide();
         $("#designation_filter_option_edit").hide();
         $("#wfh_filter_option_edit").hide();
         // $("#candicate_list_options_edit").hide();
-        $("#all_filter_edit").hide();   
+        $("#all_filter_edit").hide();
 
     </script>
 @endsection

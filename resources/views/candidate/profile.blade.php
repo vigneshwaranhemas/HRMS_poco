@@ -303,11 +303,19 @@ max-width: 1000px !important;
                                             <input class="form-control" name="p_email" id="p_email" type="email" placeholder="Email">
                                            <span class="text-danger color-hider" id="p_email_error"  style="display:none;color: red;"></span>
                                         </div>
+                                        <div class="col-md-6 mb-3">
+                                          
+                                        </div>
                                        <div class="col-md-6 mb-3">
                                           <label for="p_email">Permanent Address *</label>
                                         <textarea class="custom-select"  type="text" id="p_addres" name="p_addres" size="35" ></textarea>
                                           <span class="text-danger color-hider" id="p_addres_error"  style="display:none;color: red;"></span>
                                         </div>
+                                        <div class="col-md-6 mb-3">
+                                          <label for="p_email">Present Address *</label>
+                                          <textarea class="custom-select"  type="text" id="c_addres" name="c_addres" size="35" ></textarea>
+                                          <span class="text-danger color-hider" id="c_addres_error"  style="display:none;color: red;"></span>
+                                       </div>
 
                                         <div class="col-md-6 mb-3">
                                             <label for="p_State">Permanent State *</label>
@@ -317,27 +325,6 @@ max-width: 1000px !important;
                                             <span class="text-danger color-hider" id="p_State_error"  style="display:none;color: red;"></span>
                                         </div>
                                          <div class="col-md-6 mb-3">
-                                            <label for="p_district">Permanent District *</label>
-                                            <select name="p_district" id="p_district" class="custom-select">
-                                                  <option value="">--Select--</option>
-                                             </select>
-                                            <span class="text-danger color-hider" id="p_district_error"  style="display:none;color: red;"></span>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                         <label for="p_town">Permanent Town *</label>
-                                         <select name="p_town" id="p_town" class="custom-select">
-                                                  <option value="">--Select--</option>
-                                             </select>
-                                              <input id="sameadd" name="sameadd" type="checkbox" value="Sameadd" onchange="CopyAdd();"/>Click to Clone the Address
-                                          <p id="text" style="display:none;color: green;">Address is Cloned...</p>
-                                         <span class="text-danger color-hider" id="p_town_error"  style="display:none;color: red;"></span>
-                                       </div>
-                                       <div class="col-md-6 mb-3">
-                                          <label for="p_email">Present Address *</label>
-                                          <textarea class="custom-select"  type="text" id="c_addres" name="c_addres" size="35" ></textarea>
-                                          <span class="text-danger color-hider" id="c_addres_error"  style="display:none;color: red;"></span>
-                                       </div>
-                                       <div class="col-md-6 mb-3">
                                          <label for="c_State"> Present State *</label>
                                          <select name="c_State" id="c_State" class="custom-select">
                                                <option value="">--Select--</option>
@@ -345,6 +332,13 @@ max-width: 1000px !important;
                                        <span class="text-danger color-hider" id="c_State_error"  style="display:none;color: red;"></span>
                                        </div>
                                          <div class="col-md-6 mb-3">
+                                            <label for="p_district">Permanent District *</label>
+                                            <select name="p_district" id="p_district" class="custom-select">
+                                                  <option value="">--Select--</option>
+                                             </select>
+                                            <span class="text-danger color-hider" id="p_district_error"  style="display:none;color: red;"></span>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
                                             <label for="c_district">Present District *</label>
                                             <select name="c_district" id="c_district" class="custom-select">
                                                   <option value="">--Select--</option>
@@ -352,11 +346,22 @@ max-width: 1000px !important;
                                             <span class="text-danger color-hider" id="c_district_error"  style="display:none;color: red;"></span>
                                         </div>
                                         <div class="col-md-6 mb-3">
+                                         <label for="p_town">Permanent Town *</label>
+                                         <select name="p_town" id="p_town" class="custom-select">
+                                                  <option value="">--Select--</option>
+                                             </select>
+                                         <span class="text-danger color-hider" id="p_town_error"  style="display:none;color: red;"></span>
+                                       </div>
+                                        <div class="col-md-6 mb-3">
                                           <label for="c_town">Present Town *</label>
                                           <select name="c_town" id="c_town" class="custom-select">
                                           <option value="">--Select--</option>
                                           </select>
                                        <span class="text-danger color-hider" id="c_town_error"  style="display:none;color: red;"></span>
+                                       </div>
+                                       <div>
+                                          <input id="sameadd" name="sameadd" type="checkbox" value="Sameadd" onchange="CopyAdd();"/>Click to Clone the Address
+                                          <p id="text" style="display:none;color: green;">Address is Cloned...</p>
                                        </div>
                                     </div>
                                 </div>

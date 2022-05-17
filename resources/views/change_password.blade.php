@@ -90,7 +90,7 @@
 <?php
 $session_val = Session::get('session_info');
         $passcode_status = $session_val['passcode_status'];
-        // echo json_encode($emp_ID);
+        // echo json_encode($passcode_status);
 ?>
 @section('script')
 <script src="../assets/js/form-validation-custom.js"></script>

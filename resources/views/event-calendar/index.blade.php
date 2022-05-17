@@ -19,6 +19,21 @@
 #formEventEditModal{
     position: absolute !important;
 }
+/* Multi Select2 */
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid #b3d7ff 3px !important;
+    outline: 0;
+}
+.selection .select2-selection{
+   font-family: work-Sans,sans-serif;
+   border-radius: 0 !important;
+}
+.select2-container--default .select2-selection--multiple {
+    background-color: white;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    cursor: text;
+}
 </style>
 @endsection
 
@@ -157,7 +172,7 @@
                                     <option value="Gender">Gender</option>
                                     <option value="Department">Department</option>
                                     <option value="Designation">Designation</option>
-                                    <option value="Work Location">Work Location</option>
+                                    <option value="worklocation">Work Location</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -185,11 +200,11 @@
                                     @endforeach
                                 </select>
                             </div>
-
-                            <div class="col-md-12">
-                                <select class="select2 m-b-10 select2-multiple form-control" multiple="multiple" id="candicate_list_options" name="candicate_list_options[]">
-
+                            <div class="col-md-12" id="candicate_list_options_div">
+                                <select class="js-example-basic-multiple col-sm-12 form-control" id="candicate_list_options" name="candicate_list_options[]" style="width:100%" multiple="multiple">
                                 </select>
+                                <!-- <select class="select2 m-b-10 select2-multiple form-control" multiple="multiple" id="candicate_list_options" name="candicate_list_options[]">
+                                </select> -->
                                 <div class="text-danger" id="candicate_list_options_error"></div>
                             </div>
 
@@ -462,7 +477,7 @@
                                     <option value="Gender">Gender</option>
                                     <option value="Department">Department</option>
                                     <option value="Designation">Designation</option>
-                                    <option value="Work Location">Work Location</option>
+                                    <option value="worklocation">Work Location</option>
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -492,8 +507,10 @@
                             </div>
 
                             <div class="col-md-12">
-                                <select class="select2 m-b-10 select2-multiple form-control" id="candicate_select_op_list_edit" multiple="multiple" name="candicate_list_options_edit[]">
+                                <select class="js-example-basic-multiple col-sm-12 form-control" id="candicate_select_op_list_edit" name="candicate_list_options_edit[]" style="width:100%" multiple="multiple">
                                 </select>
+                                <!-- <select class="select2 m-b-10 select2-multiple form-control" id="candicate_select_op_list_edit" multiple="multiple" name="candicate_list_options_edit[]">
+                                </select> -->
                                 <div class="text-danger" id="candicate_list_options_edit_error"></div>
                             </div>
 
@@ -693,9 +710,8 @@
         $("#dept_filter_option").hide();
         $("#designation_filter_option").hide();
         $("#wfh_filter_option").hide();
-        $("#candicate_list_options").hide();
+        $("#candicate_list_options_div").hide();
         $("#all_filter").hide();
-
         $("#gender_filter_option_edit").hide();
         $("#dept_filter_option_edit").hide();
         $("#designation_filter_option_edit").hide();

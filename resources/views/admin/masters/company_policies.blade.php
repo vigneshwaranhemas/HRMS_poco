@@ -35,17 +35,20 @@
 @section('content')
 
   <!-- Container-fluid starts-->
-  {{-- <div class="container-fluid">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-sm-12">
         <div class="card">
           <div class="card-body">
             <div class="dt-ext table-responsive">
-              <table class="display" id="division_data">
+              <table class="display" id="company_policy_information_data">
                 <thead>
                   <tr>
                     <th>S.No</th>
-                    <th>Division</th>
+                    <th>Policy Category</th>
+                    <th>Policy Title</th>
+                    <th>Policy Description</th>
+                    <th>File</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -59,15 +62,15 @@
         </div>
       </div>
     </div>
-  </div> --}}
+  </div>
   <!-- Container-fluid Ends-->
 
 <!-- Status pop-up model start-->
-{{-- <div class="modal fade" id="status_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="status_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Division Unit Status</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Policy Information Status</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
 
@@ -81,15 +84,15 @@
 
       </div>
     </div>
-  </div> --}}
+  </div>
 <!-- Status pop-up model start -->
 
 <!-- Delete pop-up model start-->
-{{-- <div class="modal fade" id="delete_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="delete_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Division Unit Delete</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Policy Information Delete</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
 
@@ -103,35 +106,59 @@
 
       </div>
     </div>
-  </div> --}}
+  </div>
 <!-- Delete pop-up model start -->
 
 <!-- Edit pop-up model start-->
-{{-- <div class="modal fade" id="division_edit_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="policy_information_edit_pop_modal_div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit Division Unit Details</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Edit Policy Information Details</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
-
+          <form method="POST" action="javascript:void(0)" enctype="multipart/form-data" id="edit_policy_information" class="ajax-form">
+            {{ csrf_field() }}
               <div class="modal-body">
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
-                        <label for="division_name">Division Name </label>
-                        <input type="text" id="division_name" class="form-control" placeholder="Division Name" name="division_name" />
+                        <label for="edit_policy_category">Policy Category </label>
+                        <select class="form-control" id="edit_policy_category" name="edit_policy_category" required="">
+                        </select>
+                        <div class="text-warning" id="edit_policy_category_error"></div>
                       </div>
+                      <div class="col-md-12 mb-3">
+                        <label for="edit_policy_title">Policy Title</label>
+                        <input class="form-control" name="edit_policy_title" id="edit_policy_title" type="text" placeholder="Policy Title" required="">
+                        <div class="text-warning" id="edit_policy_title_error"></div>
+                      </div>
+                      <div class="col-md-12 mb-3">
+                        <label for="edit_policy_description">Policy Description</label>
+                        <textarea class="form-control" name="edit_policy_description" id="edit_policy_description" rows="4" cols="50" required=""></textarea>
+                        <div class="text-warning" id="edit_policy_description_error"></div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="policy_category">File Upload</label>
+                        <input class="form-control" name="file_one" id="file_one" type="file" accept=".pdf,.doc">
+                        <span>File upload accepts only pdf and docs...</span>
+                        <table>
+                            <tbody id="fileuploaded">
+
+                            </tbody>
+                       </table>
+                    </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>
               </div>
               <div class="modal-footer">
                   <button class="btn btn-primary" type="button" data-dismiss="modal">Close</button>
-                  <button class="btn btn-secondary" type="button" id="editUpdate">Save</button>
+                  <button class="btn btn-secondary" type="submit" id="editUpdate">Save</button>
               </div>
+          </form>
 
       </div>
     </div>
-  </div> --}}
+  </div>
 <!-- Edit pop-up model start -->
 
   <!-- Pop-up div Policy Category starts-->
@@ -177,7 +204,7 @@
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
                           <label for="policy_category">Policy Category</label>
-                          <select class="form-control" id="policy_category" name="policy_category">
+                          <select class="form-control" id="policy_category" name="policy_category" required="">
                           </select>
                           <div class="text-warning" id="policy_category_information_error"></div>
                       </div>
@@ -193,13 +220,14 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <label for="policy_category">File Upload</label>
-                        <input class="form-control" name="file" id="file" type="file" required="">
+                        <input class="form-control" name="file" id="file" type="file" accept=".pdf,.doc" required="">
+                        <span>File upload accepts only pdf and docs...</span>
                     </div>
                   </div>
               </div>
               <div class="modal-footer">
                   <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
-                  <button class="btn btn-secondary" type="button" id="info_submit">Save</button>
+                  <button class="btn btn-secondary" type="submit" id="info_submit">Save</button>
               </div>
             </form>
       </div>
@@ -218,7 +246,11 @@
 <script>
 var add_policy_category_process_link = "{{url('add_policy_category_process')}}";
 var get_policy_category_details_link = "{{url('get_policy_category_details')}}";
-var add_policy_information_process_link = "{{url('add_policy_information_process')}}";
+var get_company_policy_infomation_link_database = "{{url('get_company_policy_infomation_database')}}";
+var get_policy_information_details_link = "{{url('get_policy_information_details')}}";
+var edit_policy_information_details_link = "{{url('edit_policy_information_details')}}";
+var process_policy_information_status_link = "{{url('process_policy_information_status')}}";
+var process_policy_information_delete_link = "{{url('process_policy_information_delete')}}";
 
 </script>
 @endsection

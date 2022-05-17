@@ -61,24 +61,45 @@ class PeopleRepository implements IPeopleRepository
                $username = DB::table("customusers")->where('empID', $starred_empID)->value('username');
                $designation = DB::table("customusers")->where('empID', $starred_empID)->value('designation');
                $gender = DB::table("customusers")->where('empID', $starred_empID)->value('gender');
-            }elseif($data['people_filter_dept'] == "All" || $data['people_filter_design'] == "All" || $data['people_filter_location'] == "All"){
-               if($data['people_filter_dept'] != "All"){
+            }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
+
+               $username = DB::table("customusers")->where('empID', $starred_empID)->where('department', $data['people_filter_dept'])->where('designation', $data['people_filter_design'])->value('username');
+               $designation = DB::table("customusers")->where('empID', $starred_empID)->where('worklocation', $data['people_filter_location'])->value('designation');
+               $gender = DB::table("customusers")->where('empID', $starred_empID)->where('worklocation', $data['people_filter_location'])->value('gender');
+
+            }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] != "All"){
+               
+               $username = DB::table("customusers")->where('empID', $starred_empID)->value('username');
+               $designation = DB::table("customusers")->where('empID', $starred_empID)->where('department', $data['people_filter_dept'])->where('designation', $data['people_filter_design'])->where('worklocation', $data['people_filter_location'])->value('designation');
+               $gender = DB::table("customusers")->where('empID', $starred_empID)->where('department', $data['people_filter_dept'])->value('gender');
+            
+            }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] != "All"){
+               
+               $username = DB::table("customusers")->where('empID', $starred_empID)->where('department', $data['people_filter_dept'])->value('username');
+               $designation = DB::table("customusers")->where('empID', $starred_empID)->where('designation', $data['people_filter_design'])->where('worklocation', $data['people_filter_location'])->value('designation');
+               $gender = DB::table("customusers")->where('empID', $starred_empID)->where('designation', $data['people_filter_design'])->value('gender');
+            
+            }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] != "All"){
+               
+               $username = DB::table("customusers")->where('empID', $starred_empID)->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->where('designation', $data['people_filter_design'])->value('username');
+               $designation = DB::table("customusers")->where('empID', $starred_empID)->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->where('designation', $data['people_filter_design'])->value('designation');      
+               $gender = DB::table("customusers")->where('empID', $starred_empID)->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->where('designation', $data['people_filter_design'])->value('gender');                     
+
+            }else{
+               
+               if($data['people_filter_dept'] != "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] == "All"){
                   $username = DB::table("customusers")->where('empID', $starred_empID)->where('department', $data['people_filter_dept'])->value('username');
                   $designation = DB::table("customusers")->where('empID', $starred_empID)->where('department', $data['people_filter_dept'])->value('designation');
                   $gender = DB::table("customusers")->where('empID', $starred_empID)->where('department', $data['people_filter_dept'])->value('gender');
-               }elseif($data['people_filter_location'] != "All"){
+               }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] != "All"){
                   $username = DB::table("customusers")->where('empID', $starred_empID)->where('worklocation', $data['people_filter_location'])->value('username');
                   $designation = DB::table("customusers")->where('empID', $starred_empID)->where('worklocation', $data['people_filter_location'])->value('designation');
                   $gender = DB::table("customusers")->where('empID', $starred_empID)->where('worklocation', $data['people_filter_location'])->value('gender');
-               }else{
+               }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
                   $username = DB::table("customusers")->where('empID', $starred_empID)->where('designation', $data['people_filter_design'])->value('username');
                   $designation = DB::table("customusers")->where('empID', $starred_empID)->where('designation', $data['people_filter_design'])->value('designation');
                   $gender = DB::table("customusers")->where('empID', $starred_empID)->where('designation', $data['people_filter_design'])->value('gender');
                }
-            }else{
-               $username = DB::table("customusers")->where('empID', $starred_empID)->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->where('designation', $data['people_filter_design'])->value('username');
-               $designation = DB::table("customusers")->where('empID', $starred_empID)->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->where('designation', $data['people_filter_design'])->value('designation');      
-               $gender = DB::table("customusers")->where('empID', $starred_empID)->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->where('designation', $data['people_filter_design'])->value('gender');      
             }            
 
             $profile_images = DB::table('images')->where('emp_id', $starred_empID)->value('path');
@@ -105,8 +126,6 @@ class PeopleRepository implements IPeopleRepository
                $response .= '<div class="status"><i class="fa fa-share font-success"></i>  '.$designation.'</div>';
                $response .= '</div>';
                $response .= '</li>';
-            }else{
-               $response = '';
             }
             
          }
@@ -197,16 +216,23 @@ class PeopleRepository implements IPeopleRepository
    {           
       if($data['people_filter_dept'] == "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] == "All"){
          $customusers = DB::table("customusers")->get();
-      }elseif($data['people_filter_dept'] == "All" || $data['people_filter_design'] == "All" || $data['people_filter_location'] == "All"){
-         if($data['people_filter_dept'] != "All"){
+      }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
+         $customusers = DB::table("customusers")->where('department', $data['people_filter_dept'])->where('designation', $data['people_filter_design'])->get();
+      }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] != "All"){
+         $customusers = DB::table("customusers")->where('designation', $data['people_filter_design'])->get();      
+      }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] != "All"){
+         $customusers = DB::table("customusers")->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->get();   
+      }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] != "All"){         
+         $customusers = DB::table("customusers")->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->get();      
+      }else{
+
+         if($data['people_filter_dept'] != "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] == "All"){
             $customusers = DB::table("customusers")->where('department', $data['people_filter_dept'])->get();
-         }elseif($data['people_filter_location'] != "All"){
+         }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] != "All"){
             $customusers = DB::table("customusers")->where('worklocation', $data['people_filter_location'])->get();
-         }else{
+         }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
             $customusers = DB::table("customusers")->where('designation', $data['people_filter_design'])->get();
          }
-      }else{
-         $customusers = DB::table("customusers")->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->get();
       }
 
       if(!empty($customusers)){
@@ -324,8 +350,81 @@ class PeopleRepository implements IPeopleRepository
                $response = 'empty';
             }       
 
-         }elseif($data['people_filter_dept'] == "All" || $data['people_filter_design'] == "All" || $data['people_filter_location'] == "All"){
-            if($data['people_filter_dept'] != "All"){  
+         }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
+
+            $filter_arrayStarred = array();
+
+            foreach($arrayStarred as $star_arr){
+               
+               $customusers = DB::table("customusers")->where('empID', $star_arr)->where('department', $data['people_filter_dept'])->where('designation', $data['people_filter_design'])->value('empID');
+               if(!empty($customusers)){          
+                  array_push($filter_arrayStarred, $star_arr);
+               }
+            }
+            if(!empty($filter_arrayStarred[0])){ 
+               $response = $filter_arrayStarred[0];
+            }else{
+               $response = 'empty';
+            }  
+            
+         }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] != "All"){
+         
+            $filter_arrayStarred = array();
+
+            foreach($arrayStarred as $star_arr){
+               
+               $customusers = DB::table("customusers")->where('empID', $star_arr)->where('designation', $data['people_filter_design'])->where('worklocation', $data['people_filter_location'])->value('empID');
+               if(!empty($customusers)){          
+                  array_push($filter_arrayStarred, $star_arr);
+               }
+            }
+            if(!empty($filter_arrayStarred[0])){ 
+               $response = $filter_arrayStarred[0];
+            }else{
+               $response = 'empty';
+            }  
+            
+         
+         }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] != "All"){
+         
+            $filter_arrayStarred = array();
+
+            foreach($arrayStarred as $star_arr){
+               
+               $customusers = DB::table("customusers")->where('empID', $star_arr)->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->value('empID');
+               if(!empty($customusers)){          
+                  array_push($filter_arrayStarred, $star_arr);
+               }
+            }
+            if(!empty($filter_arrayStarred[0])){ 
+               $response = $filter_arrayStarred[0];
+            }else{
+               $response = 'empty';
+            }  
+            
+         }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] != "All"){
+            
+            $filter_arrayStarred = array();
+
+            foreach($arrayStarred as $star_arr){
+               
+               $customusers = DB::table("customusers")->where('empID', $star_arr)->where('department', $data['people_filter_dept'])->where('designation', $data['people_filter_design'])->where('worklocation', $data['people_filter_location'])->value('empID');
+               if(!empty($customusers)){          
+                  array_push($filter_arrayStarred, $star_arr);
+               }
+            }
+            if(!empty($filter_arrayStarred[0])){ 
+               $response = $filter_arrayStarred[0];
+            }else{
+               $response = 'empty';
+            }  
+            
+
+         }else{
+
+           
+            if($data['people_filter_dept'] != "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] == "All"){  
+               
                $filter_arrayStarred = array();
 
                foreach($arrayStarred as $star_arr){
@@ -341,7 +440,8 @@ class PeopleRepository implements IPeopleRepository
                   $response = 'empty';
                }  
 
-            }elseif($data['people_filter_location'] != "All"){  
+            }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] != "All"){  
+               
                $filter_arrayStarred = array();
 
                foreach($arrayStarred as $star_arr){
@@ -357,7 +457,7 @@ class PeopleRepository implements IPeopleRepository
                   $response = 'empty';
                }  
 
-            }else{
+            }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
 
                $filter_arrayStarred = array();
 
@@ -375,23 +475,6 @@ class PeopleRepository implements IPeopleRepository
                }  
 
             }
-
-         }else{
-
-            $filter_arrayStarred = array();
-
-            foreach($arrayStarred as $star_arr){
-               
-               $customusers = DB::table("customusers")->where('empID', $star_arr)->where('department', $data['people_filter_dept'])->where('designation', $data['people_filter_design'])->value('empID');
-               if(!empty($customusers)){          
-                  array_push($filter_arrayStarred, $star_arr);
-               }
-            }
-            if(!empty($filter_arrayStarred[0])){ 
-               $response = $filter_arrayStarred[0];
-            }else{
-               $response = 'empty';
-            }  
                
          }
          
@@ -439,16 +522,23 @@ class PeopleRepository implements IPeopleRepository
 
       if($data['people_filter_dept'] == "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] == "All"){
          $customusers = DB::table("customusers")->value("empID");
-      }elseif($data['people_filter_dept'] == "All" || $data['people_filter_design'] == "All" || $data['people_filter_location'] == "All"){
-         if($data['people_filter_dept'] != "All"){
+      }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
+         $customusers = DB::table("customusers")->where('department', $data['people_filter_dept'])->where('designation', $data['people_filter_design'])->value("empID");
+      }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] != "All"){      
+         $customusers = DB::table("customusers")->where('designation', $data['people_filter_design'])->where('worklocation', $data['people_filter_location'])->value("empID");      
+      }elseif($data['people_filter_dept'] != "All"  && $data['people_filter_design'] == "All" && $data['people_filter_location'] != "All"){
+         $customusers = DB::table("customusers")->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->value("empID");      
+      }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] != "All"){
+         $customusers = DB::table("customusers")->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->value("empID");
+                  
+      }else{
+         if($data['people_filter_dept'] != "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] == "All"){
             $customusers = DB::table("customusers")->where('department', $data['people_filter_dept'])->value("empID");
-         }elseif($data['people_filter_location'] != "All"){
+         }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] != "All"){
             $customusers = DB::table("customusers")->where('worklocation', $data['people_filter_location'])->value("empID");
-         }else{
+         }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
             $customusers = DB::table("customusers")->where('designation', $data['people_filter_design'])->value("empID");
          }
-      }else{
-         $customusers = DB::table("customusers")->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->value("empID");
       }   
 
       // $customusers = DB::table("customusers")->first("empID");
@@ -476,16 +566,25 @@ class PeopleRepository implements IPeopleRepository
    {      
       if($data['people_filter_dept'] == "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] == "All"){
          $result = DB::table("customusers")->where('empID', $data['employee'])->orwhere('username', $data['employee'])->get();      
-      }elseif($data['people_filter_dept'] == "All" || $data['people_filter_design'] == "All" || $data['people_filter_location'] == "All"){
-         if($data['people_filter_dept'] != "All"){
+      }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
+         $result = DB::table("customusers")->where('empID', $data['employee'])->where('department', $data['people_filter_dept'])->where('designation', $data['people_filter_design'])->orwhere('username', $data['employee'])->get();      
+      }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] != "All"){
+         $result = DB::table("customusers")->where('empID', $data['employee'])->where('designation', $data['people_filter_design'])->where('worklocation', $data['people_filter_location'])->orwhere('username', $data['employee'])->get();                  
+      }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] != "All"){
+         $result = DB::table("customusers")->where('empID', $data['employee'])->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->orwhere('username', $data['employee'])->get();            
+      }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] != "All"){
+         $result = DB::table("customusers")->where('empID', $data['employee'])->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->orwhere('username', $data['employee'])->get();      
+                  
+      }else{
+
+         if($data['people_filter_dept'] != "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] == "All"){
             $result = DB::table("customusers")->where('empID', $data['employee'])->where('department', $data['people_filter_dept'])->orwhere('username', $data['employee'])->get();      
-         }elseif($data['people_filter_location'] != "All"){
+         }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] != "All"){
             $result = DB::table("customusers")->where('empID', $data['employee'])->where('worklocation', $data['people_filter_location'])->orwhere('username', $data['employee'])->get();      
-         }else{
+         }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
             $result = DB::table("customusers")->where('empID', $data['employee'])->where('designation', $data['people_filter_design'])->orwhere('username', $data['employee'])->get();      
          }
-      }else{
-         $result = DB::table("customusers")->where('empID', $data['employee'])->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->orwhere('username', $data['employee'])->get();      
+
       }
 
       if(!empty($result[0])){
@@ -511,16 +610,26 @@ class PeopleRepository implements IPeopleRepository
 
             if($data['people_filter_dept'] == "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] == "All"){
                $result = DB::table("customusers")->where('empID', $data['employee'])->orwhere('username', $data['employee'])->get();      
-            }elseif($data['people_filter_dept'] == "All" || $data['people_filter_design'] == "All" || $data['people_filter_location'] == "All"){
-               if($data['people_filter_dept'] != "All"){
+            }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
+               $result = DB::table("customusers")->where('empID', $data['employee'])->where('department', $data['people_filter_dept'])->where('designation', $data['people_filter_design'])->orwhere('username', $data['employee'])->get();      
+            
+            }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] != "All"){            
+               $result = DB::table("customusers")->where('empID', $data['employee'])->where('designation', $data['people_filter_design'])->where('worklocation', $data['people_filter_location'])->orwhere('username', $data['employee'])->get();      
+            
+            }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] != "All"){
+               $result = DB::table("customusers")->where('empID', $data['employee'])->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->orwhere('username', $data['employee'])->get();      
+
+            }elseif($data['people_filter_dept'] != "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
+               $result = DB::table("customusers")->where('empID', $data['employee'])->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->orwhere('username', $data['employee'])->get();                     
+               
+            }else{
+               if($data['people_filter_dept'] != "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] == "All"){
                   $result = DB::table("customusers")->where('empID', $data['employee'])->where('department', $data['people_filter_dept'])->orwhere('username', $data['employee'])->get();      
-               }elseif($data['people_filter_location'] != "All"){
+               }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] == "All" && $data['people_filter_location'] != "All"){
                   $result = DB::table("customusers")->where('empID', $data['employee'])->where('worklocation', $data['people_filter_location'])->orwhere('username', $data['employee'])->get();      
-               }else{
+               }elseif($data['people_filter_dept'] == "All" && $data['people_filter_design'] != "All" && $data['people_filter_location'] == "All"){
                   $result = DB::table("customusers")->where('empID', $data['employee'])->where('designation', $data['people_filter_design'])->orwhere('username', $data['employee'])->get();      
                }
-            }else{
-               $result = DB::table("customusers")->where('empID', $data['employee'])->where('department', $data['people_filter_dept'])->where('worklocation', $data['people_filter_location'])->where('designation', $data['people_filter_design'])->orwhere('username', $data['employee'])->get();      
             }
       
             if(!empty($result[0])){

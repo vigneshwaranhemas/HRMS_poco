@@ -370,7 +370,7 @@ $('#attendees_filter_op').change(function(){
             $("#dept_filter_option").hide();
             $("#designation_filter_option").show();
             $("#wfh_filter_option").hide();            
-        }else if(attendees_filter_op == "Work Location"){
+        }else if(attendees_filter_op == "worklocation"){
             $("#gender_filter_option").hide();
             $("#dept_filter_option").hide();
             $("#designation_filter_option").hide();
@@ -412,7 +412,7 @@ $('#attendees_filter_op_edit').change(function(){
             $("#dept_filter_option_edit").hide();
             $("#designation_filter_option_edit").show();
             $("#wfh_filter_option_edit").hide();            
-        }else if(attendees_filter_op == "Work Location"){
+        }else if(attendees_filter_op == "worklocation"){
             $("#gender_filter_option_edit").hide();
             $("#dept_filter_option_edit").hide();
             $("#designation_filter_option_edit").hide();
@@ -453,8 +453,17 @@ $('.attendees_filter').change(function(e){
         {
             // console.log(response)
             $("#candicate_list_options").val(" ");
+
+            $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+
+            $('.js-example-basic-multiple').select2({
+                dropdownParent: $('#add-event'),
+                // width: 800,
+                height: 200
+            });
+
             $("#candicate_list_options").html(response);
-            $("#candicate_list_options").show();
+            $("#candicate_list_options_div").show();
             $("#all_filter").show();
 
         }
@@ -1092,7 +1101,7 @@ $('body').on('click','.edit-event',function(){
                 }else if(value.attendees_filter_op == "Designation"){
                     $("#designation_filter_option_edit").val(value.attendees_filter);
                     $("#designation_filter_option_edit").show();
-                }else if(value.attendees_filter_op == "Work Location"){
+                }else if(value.attendees_filter_op == "worklocation"){
                     $("#wfh_filter_option_edit").val(value.attendees_filter);
                     $("#wfh_filter_option_edit").show();
                 }
@@ -1163,6 +1172,14 @@ $('body').on('click','.edit-event',function(){
         {
             // console.log(response);                                                                                                                      
             // $("#category_id_edit").val(response);
+            $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+
+            $('.js-example-basic-multiple').select2({
+                dropdownParent: $('#formEventEditModal'),
+                // width: 500,
+                height: 150
+            });
+
             $('#candicate_select_op_list_edit').html(response);
 
         }               

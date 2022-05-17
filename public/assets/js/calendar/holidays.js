@@ -144,7 +144,7 @@ var getEventDetail = function (id, start, end) {
                 // alert("one");
                 // var link = object[i].Value;
 
-                var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm image-layer-item image-size"   src="../../holidays_file/'+file+'" style="cursor:pointer;width: 400px;height: 200px;">';
+                var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm image-layer-item image-size"   src="../holidays_file/'+file+'" style="cursor:pointer;width: 400px;height: 200px;">';
                 // row.append($('<td>').html(image));
                 $("#occassion_file_show_list").append(image);  
                

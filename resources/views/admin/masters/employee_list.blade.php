@@ -134,7 +134,7 @@
                         </div>
                      </div>
                      <div class="text-center">
-                        <div class="col-sm-4 form-group" style="margin-left: 41px;">
+                        <div class="col-sm-4 form-group" >
                           <input type="file" name="file" class="form-control" onchange="previewFile(this);" id="pro_img_up">
                           <span class="text-danger color-hider" id="pro_img_up_error"  style="display:none;color: red;"></span>
                            <input type="hidden" name="img_path_hide" id="img_path_hide">

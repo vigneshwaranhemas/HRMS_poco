@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 /*login*/
-Route::get('logout','AuthController@logout');
+Route::get('logout','LoginController@logout');
 Route::post('login_check_process', 'LoginController@login_check_process' );
 Route::get("UserEmailSend","LoginController@UserEmailSend");
 Route::get('dashboard','AdminController@permission');
@@ -114,6 +114,7 @@ Route::post('/Admin_Request_update',"AdminController@Seating_Status_update");
 Route::get('goals', 'GoalsController@goals')->name('goals');
 Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
 Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
+Route::post('add_goals_data', 'GoalsController@add_goals_data');
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');
@@ -121,6 +122,12 @@ Route::get('fetch_birthdays_list', 'BirthdayController@fetch_birthdays_list')->n
 Route::get('fetch_birthdays_list_date', 'BirthdayController@fetch_birthdays_list_date')->name('fetch_birthdays_list_date');
 Route::get('fetch_birthdays_filter_user', 'BirthdayController@fetch_birthdays_filter_user')->name('fetch_birthdays_filter_user');
 Route::get('fetch_birthdays_list_empID', 'BirthdayController@fetch_birthdays_list_empID');
+Route::get('fetch_birthdays_list_img', 'BirthdayController@fetch_birthdays_list_img')->name('fetch_birthdays_list_img');
+
+Route::get('birthday_email','AdminController@birthday_email');
+Route::get('work_anniversay_email','AdminController@work_anniversay_email');
+Route::get('holidays_email','AdminController@holidays_email');
+Route::get('events_email','AdminController@events_email');
 
 //Holidays Controller
 Route::get('holidays', 'HolidayController@holidays')->name('holidays');
@@ -378,9 +385,9 @@ Route::post('fetch_people_star_add', 'PeopleController@fetch_people_star_add')->
 //vignesh routes for check user status
 
 Route::post('check_user_status','CommonController@check_user_status');
-
-Route::get('organization_charts', 'CommonController@organization_charts')->name('organization_charts');
-Route::get('supervisor_wise_organisation','CommonController@supervisor_wise_TreeData');
+Route::get('organisation_one', 'CommonController@organisation_one');
+Route::get('organization_charts', 'CommonController@organization_charts');
+Route::post('supervisor_wise_organisation','CommonController@supervisor_wise_TreeData');
 
 Route::get('can_hr_profile','HrController@can_hr_profile');
 

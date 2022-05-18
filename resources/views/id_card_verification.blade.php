@@ -119,8 +119,8 @@
                            <span class="text-danger color-hider" id="rel_emp_error"  style="display:none;color: red;"></span>
                      </div>
                      <div class="col-md-4 mb-3">
-                        <label for="name_rel_ship">Name of Relationship</label>
-                        <input class="form-control alpha" id="name_rel_ship" name="name_rel_ship" type="text" placeholder="Name of Relationship" required="">
+                        <label for="name_rel_ship">Name of Relationship *</label>
+                        <input class="form-control alpha" style="text-transform:uppercase" id="name_rel_ship" name="name_rel_ship" type="text" placeholder="Name of Relationship" required="">
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="emrg_con_num">Emergency contact number *</label>

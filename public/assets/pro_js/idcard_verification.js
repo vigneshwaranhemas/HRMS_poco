@@ -37,12 +37,12 @@ function idcard_info_tvalue(){
                      $('#hr_id_remark').html(data[0].hr_id_remark);
                 }if (data[0].hr_action == 1 ) {
                     $("#btndis").hide();
-                    $("#req_hr_change").html("<h2 style='color:green;'>Waiting For HR Approval</h2>")
+                    $("#req_hr_change").html("<h2 style='color:brown;'>Waiting For HR Approval</h2>")
                 }else if(data[0].hr_action == 0 || data[0].hr_action == 3){
                     $("#btndis").show();
                 }else if(data[0].hr_action == 2 ){
                     $("#btndis").hide();
-                    $("#req_hr_change").html("<h2 style='color:blue;'>Your ID Card is Approved</h2>")
+                    $("#req_hr_change").html("<h2 style='color:green;'>Your ID Card is Approved</h2>")
                  }
             }
         });

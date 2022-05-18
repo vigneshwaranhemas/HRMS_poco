@@ -32,7 +32,7 @@
 	<li class="breadcrumb-item active">Default</li>--}}
    <!-- <div class="col-md-12">  -->
    <select class="js-example-basic-single col-sm-12"  id="birthdays_filter_user" name="birthdays_filter_user">
-      <option value="">Select User...</option>
+      <option value="">Select Employee...</option>
       @foreach($customusers as $customuser)
          <option value="{{$customuser->empID }}">{{$customuser->username }}</option>
       @endforeach 
@@ -66,8 +66,9 @@
     <div class="modal fade" id="birthdayDetailModalList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
       <div class="modal-content">
-         <div class="modal-header bg-primary">
-            <h5 class="modal-title text-center" id="employee_name_show"></h5>
+         <div class="modal-header bg-primary" style="height: 80px;">
+            <p id="brd_employee_img"></p>
+            <h5 class="modal-title text-center p-l-10 p-t-10" id="employee_name_show"></h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
          </div>
          <div class="modal-body">
@@ -77,7 +78,7 @@
             <div class="form-body">
                <div class="row">
                   <div class="col-md-12 ">
-                     <div class="form-group form-row mt-1 mb-0">
+                     <div class="form-group form-row mt-1 mb-0" style="display:none">
                         <div class="col-sm-5">
                            <h6 class="f-w-700">Employee ID:</h6>
                         </div>
@@ -101,11 +102,19 @@
                            <p id="employee_dept_show"></p>
                         </div>
                      </div>  
+                     <div class="form-group form-row mt-1 mb-0">
+                        <div class="col-sm-5">
+                           <h6 class="f-w-700">Email:</h6>
+                        </div>
+                        <div class="col-sm-7">
+                           <p id="email_show"></p>
+                        </div>
+                     </div>   
                      <!-- <div class="form-group">
                            <h6 class="f-w-700">Gender:</h6>
                            <p id="occassion_show"></p>
                      </div> -->  
-                     <div class="form-group form-row mt-1 mb-0">
+                     <div class="form-group form-row mt-1 mb-0"  style="display:none">
                         <div class="col-sm-5">
                            <h6 class="f-w-700">DOJ:</h6>
                         </div>
@@ -129,7 +138,7 @@
                            <p id="employee_wl_show"></p>
                         </div>
                      </div> 
-                     <div class="form-group form-row mt-1 mb-0">
+                     <div class="form-group form-row mt-1 mb-0" style="display:none">
                         <div class="col-sm-5">
                            <h6 class="f-w-700">Payroll Status:</h6>
                         </div>

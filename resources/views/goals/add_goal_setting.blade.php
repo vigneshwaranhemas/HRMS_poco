@@ -33,15 +33,15 @@
                         <div class="col-md-4">
 
                         <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Name</h6>
-                        <p>Ganagavathy KGV</p>
+                        <p>{{ Auth::user()->username }}</p>
                         </div>
                         <div class="col-md-4">
                         <h6 class="mb-0 f-w-700"><i class="fa fa-sitemap"> </i> Function</h6>
-                        <p>IT</p>
+                        <p>{{ Auth::user()->designation }}</p>
                         </div>
                         <div class="col-md-4">
                         <h6 class="mb-0 f-w-700"><i class="fa fa-ticket"> </i> Emp ID</h6>
-                        <p>900102</p>
+                        <p>{{ Auth::user()->empID }}</p>
                         </div>
 
                     </div>
@@ -79,6 +79,7 @@
                 <div class="card-body">
 
                     <div class="table-responsive">
+                        <form id="goalsForm">
                         <table class="table" id="goal-tb">
                             <thead>
                                 <tr>
@@ -137,6 +138,8 @@
 
                             </tbody>
                         </table>
+                        <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Save</button>                                            
+                        </form>
                     </div>
                 </div>
 
@@ -179,7 +182,7 @@
                 var html = '<tr>';
                         html +='<td scope="row">1</td>';
                         html +='<td>';
-                            html +='<select class="form-control js-example-basic-single">';
+                            html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers[]">';
                                 html +='<option value="Revenue">Revenue</option>';
                                 html +='<option value="Customer">Customer</option>';
                                 html +='<option value="Process">Process</option>';
@@ -189,34 +192,40 @@
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<input type="text" name="" id="" class="form-control">';
+                            html +='<textarea name="key_res_areas_0[]" id="" class="form-control"></textarea>';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<input type="text" name="" id="" class="form-control">';
+                            html +='<textarea name="sub_indicators_0[]" id="" class="form-control"></textarea>';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<input type="text" name="" id="" class="form-control">';
+                            html +='<textarea name="measurement_criteria_0[]" id="" class="form-control"></textarea>';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<input type="text" name="" id="" class="form-control">';
+                            html +='<input type="text" name="weightage_0[]" id="" class="form-control">';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<input type="text" name="" id="" class="form-control">';
+                            html +='<textarea name="reference_0[]" id="" class="form-control"></textarea>';
                         html +='</td>';
 
                         html +='<td>';
                             html +='<div class="dropup">';
-                                html +='<button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>';
+                                html +='<button type="button" class="btn btn-xs btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>';
                                 html +='<div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">';
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs" type="button" data-original-title="Add KRA" title="Add KRA"><i class="fa fa-plus" onclick="additionalKRA(this,0);"></i></button></a>';
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs" type="button" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button></a>';
-                                    html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button" data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
+                                    html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button"  id="btnDelete" data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
                                 html +='</div>';
                             html +='</div>';
+                            // html +='<div class="dropup m-t-5">';
+                            //     html +='<button type="button" class="btn btn-xs btn-info" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button>';
+                            // html +='</div>';
+                            // html +='<div class="dropup m-t-5">';
+                            //     html +='<button type="button" class="btn btn-xs btn-danger" id="btnDelete" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
+                            // html +='</div>';
 
                             // html +=' <button class="btn btn-primary btn-xs" type="button" data-original-title="Add KRA" title="Add KRA"><i class="fa fa-plus" onclick="additionalKRA(this,0);"></i></button>';
                             // html +=' <button class="btn btn-info btn-xs" type="button" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button>';
@@ -238,14 +247,15 @@
 
     function additionalKRA(x,cur_rowCount) {
         // alert($(x).closest('td').parent()[0].sectionRowIndex);
-
-        var html = '<input type="text" name="" id="" class="form-control m-t-5">';
-        $(x).closest("tr").find("td:eq(2)").append(html);
-        $(x).closest("tr").find("td:eq(3)").append(html);
-        $(x).closest("tr").find("td:eq(4)").append(html);
-        $(x).closest("tr").find("td:eq(6)").append(html);
-
-
+        // alert(cur_rowCount)
+        var html2 = '<textarea id="" class="form-control m-t-5" name="key_res_areas_'+cur_rowCount+'[]"></textarea>';
+        var html3 = '<textarea id="" class="form-control m-t-5" name="sub_indicators_'+cur_rowCount+'[]"></textarea>';
+        var html4 = '<textarea id="" class="form-control m-t-5" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
+        var html6 = '<textarea id="" class="form-control m-t-5" name="reference_'+cur_rowCount+'[]"></textarea>';
+        $(x).closest("tr").find("td:eq(2)").append(html2);
+        $(x).closest("tr").find("td:eq(3)").append(html3);
+        $(x).closest("tr").find("td:eq(4)").append(html4);
+        $(x).closest("tr").find("td:eq(6)").append(html6);
 
     }
     function additionalKBD(){
@@ -254,7 +264,7 @@
         var html = '<tr>';
                 html +='<td scope="row">1</td>';
                 html +='<td>';
-                    html +='<select class="form-control js-example-basic-single">';
+                    html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers[]">';
                         html +='<option value="Revenue">Revenue</option>';
                         html +='<option value="Customer">Customer</option>';
                         html +='<option value="Process">Process</option>';
@@ -264,23 +274,23 @@
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<input type="text" name="" id="" class="form-control">';
+                    html +='<textarea name="key_res_areas[]" id="" class="form-control"></textarea>';
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<input type="text" name="" id="" class="form-control">';
+                    html +='<textarea name="sub_indicators[]" id="" class="form-control"></textarea>';
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<input type="text" name="" id="" class="form-control">';
+                    html +='<textarea name="measurement_criteria[]" id="" class="form-control"></textarea>';
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<input type="text" name="" id="" class="form-control">';
+                    html +='<input type="text" name="weightage[]" id="" class="form-control">';
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<input type="text" name="" id="" class="form-control">';
+                    html +='<textarea name="reference[]" id="" class="form-control"></textarea>';
                 html +='</td>';
 
                 html +='<td>';
@@ -289,10 +299,12 @@
                         html +='<div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">';
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs" type="button" data-original-title="Add KRA" title="Add KRA"><i class="fa fa-plus" onclick="additionalKRA(this,'+cur_rowCount+');"></i></button></a>';
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs" type="button" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button></a>';
-                                    html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button" data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
+                                    html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button" id="btnDelete"  data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
                         html +='</div>';
                     html +='</div>';
-
+                    // html +='<div class="dropup m-t-5">';
+                    //     html +='<button type="button" class="btn btn-xs btn-danger" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
+                    // html +='</div>';
                 html +='</td>';
 
             html +='</tr>';
@@ -310,6 +322,103 @@
         })
 
     }
+
+    $("#goal-tb").on('click','#btnDelete',function(){
+        // alert("sdf")
+        $(this).closest('tr').remove();
+        updatesno();
+    }); 
+
+
+    function formTable() {
+
+        var test = [];
+        var error='';
+        
+        $('#goal-tb tr').each(function(index, tr) {
+            $(tr).find('td').each (function (index, td) {
+                console.log(td)
+            });
+        });
+
+        // $('#goal-tb tbody>tr').each(function (element) {
+        //     // var currrow=$(this).closest('tr');
+        //     alert("col4")
+
+        //     var col0=$(this).find("td:eq(0)").text();
+        //     // var col1=$(this).find("td:eq(1) textarea").val();
+        //     //    var col2=$(this).find("td:eq(2) option:selected").val();
+        //     //    var col4_input=$(this).find("td:eq(4) input:checked").val();
+        //     // alert(col0)
+            
+                                                                    
+        // });
+
+        //Sending data to database
+        //    if(error==""){
+        //        // alert("succes")
+        //        data_insert();
+        //    }
+        //    else{
+        //        // alert("test")
+        //        // data_insert();
+        //        scrollUp();
+        //    }
+          
+           // console.log(test);
+           // var formData =  JSON.stringify(test);
+           // alert(formData);
+                    
+        //    function data_insert(){
+        //        // alert("jsd");
+
+        //        var business_name_option=$("#business_name_option").val();
+
+        //        $.ajax({
+                   
+        //            url:"{{ ('business_form') }}",
+        //            type:"POST",
+        //            data:{business_name:business_name_option, serialize_form_value:test},
+        //            dataType : "JSON",
+        //            success:function(data)
+        //            {
+        //                window.location.reload();                         
+        //            },
+        //            error: function(response) {
+        //                // alert(response.responseJSON.errors.business_name_option);
+        //                $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+        //            }                                              
+                       
+        //        });
+        //    }            
+       
+
+    }
+
+    $("#goalsForm").submit(function(e) {
+        e.preventDefault();
+        
+        console.log($('#goalsForm').serialize());
+        $.ajax({
+                   
+            url:"{{ ('add_goals_data') }}",
+            type:"POST",
+            data:$('#goalsForm').serialize(),
+            dataType : "JSON",
+            success:function(data)
+            {
+                window.location.reload();                         
+            },
+            error: function(response) {
+                alert(response.responseJSON.errors.business_name_option);
+                // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+            }                                              
+                
+        });
+
+    });
 
 </script>
 @endsection

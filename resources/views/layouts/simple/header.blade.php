@@ -24,66 +24,6 @@ $session_val = Session::get('session_info');
         <li>
         </li>
         <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
-        <!-- <li class="onhover-dropdown"><img class="img-fluid img-shadow-warning" src="../assets/images/dashboard/bookmark.png" alt="">
-          <div class="onhover-show-div bookmark-flip">
-            <div class="flip-card">
-              <div class="flip-card-inner">
-                <div class="front">
-                  <ul class="droplet-dropdown bookmark-dropdown">
-                    <li class="gradient-primary text-center">
-                      <h5 class="f-w-700">Bookmark</h5><span>Bookmark Icon With Grid</span>
-                    </li>
-                    <li>
-                      <div class="row">
-                        <div class="col-4 text-center"><i data-feather="file-text"></i></div>
-                        <div class="col-4 text-center"><i data-feather="activity"></i></div>
-                        <div class="col-4 text-center"><i data-feather="users"></i></div>
-                        <div class="col-4 text-center"><i data-feather="clipboard"></i></div>
-                        <div class="col-4 text-center"><i data-feather="anchor"></i></div>
-                        <div class="col-4 text-center"><i data-feather="settings"></i></div>
-                      </div>
-                    </li>
-                    <li class="text-center">
-                      <button class="flip-btn" id="flip-btn">Add New Bookmark</button>
-                    </li>
-                  </ul>
-                </div>
-                <div class="back">
-                  <ul>
-                    <li>
-                      <div class="droplet-dropdown bookmark-dropdown flip-back-content">
-                        <input type="text" placeholder="search...">
-                      </div>
-                    </li>
-                    <li>
-                      <button class="d-block flip-back" id="flip-back">Back</button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="onhover-dropdown"><img class="img-fluid img-shadow-secondary" src="../assets/images/dashboard/like.png" alt="">
-          <ul class="onhover-show-div droplet-dropdown">
-            <li class="gradient-primary text-center">
-              <h5 class="f-w-700">Grid Dashboard</h5><span>Easy Grid inside dropdown</span>
-            </li>
-            <li>
-              <div class="row">
-                <div class="col-sm-4 col-6 droplet-main"><i data-feather="file-text"></i><span class="d-block">Content</span></div>
-                <div class="col-sm-4 col-6 droplet-main"><i data-feather="activity"></i><span class="d-block">Activity</span></div>
-                <div class="col-sm-4 col-6 droplet-main"><i data-feather="users"></i><span class="d-block">Contacts</span></div>
-                <div class="col-sm-4 col-6 droplet-main"><i data-feather="clipboard"></i><span class="d-block">Reports</span></div>
-                <div class="col-sm-4 col-6 droplet-main"><i data-feather="anchor"></i><span class="d-block">Automation</span></div>
-                <div class="col-sm-4 col-6 droplet-main"><i data-feather="settings"></i><span class="d-block">Settings</span></div>
-              </div>
-            </li>
-            <li class="text-center">
-              <button class="btn btn-primary btn-air-primary">Follows Up</button>
-            </li>
-          </ul>
-        </li> -->
         <li class="onhover-dropdown"><img class="img-fluid img-shadow-warning" src="../assets/images/dashboard/notification.png" alt="">
           <ul class="onhover-show-div notification-dropdown">
             <li class="gradient-primary">
@@ -116,11 +56,10 @@ $session_val = Session::get('session_info');
             <li class="gradient-primary">
               <h5 class="f-w-600 mb-0">{{ Auth::user()->username }}</h5><span>{{ Auth::user()->designation }}</span>
             </li>
-            <li class="sub_header"><i data-feather="user"> <a href="{{ url('candidate_profile') }}"></i>Profile</a></li>
-            <li class="sub_header"><i data-feather="Change password"><a href="{{ url('change_password') }}"> </i>Change password</a></li>
-            <li class="sub_header"><i data-feather="file-text"> </i>Taskboard</li>
-            <li class="sub_header"><i data-feather="settings"> </i>Settings</li>
-            <li><i data-feather="log-out"> </i><a href="{{ url('../index.php') }}">Logout</a></li>
+            <!-- <li class="sub_header"><i data-feather="user"> <a href="{{ url('candidate_profile') }}"></i>Profile</a></li> -->
+            <li class="sub_header"><i data-feather=""> <a href="{{ url('candidate_profile') }}"></i>Profile</a></li>
+            <li class="sub_header"><i data-feather=""><a href="{{ url('change_password') }}"> </i>Change password</a></li>
+            <li class="logout"><a href="{{ url('../index.php/') }}" ><i data-feather="bi bi-door-closed-fill"> </i><span>Logout</span></a></li>
           </ul>
         </li>
       </ul>

@@ -111,8 +111,8 @@ function fetch_people_list_ul_li(){
                                 $("#people_contact_show").html(value.contact_no);
                                 $("#people_email_show").html(value.email);
                                 $("#people_wl_show").html(value.worklocation);         
-                                var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                                var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                var doj = moment(value.doj).format('DD MMM YYYY');                        
+                                var dob = moment(value.dob).format('DD MMM');                        
                                 $("#people_doj_show").html(doj);                                
                                 $("#people_dob_show").html(dob);    
                                 // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
@@ -232,7 +232,7 @@ function fetch_everyone_details(){
         dataType : "JSON",
         success:function(response)
         {
-            // console.log(response);
+            console.log(response);
             if(response == "empty"){                
                 // alert("no 3")                               
                 $("#people_everyone_list_show").html(''); 
@@ -316,10 +316,11 @@ $('.people_list_filter').change(function () {
                         $("#people_contact_show").html(value.contact_no);
                         $("#people_email_show").html(value.email);
                         $("#people_wl_show").html(value.worklocation);       
-                        var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                        var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                        var doj = moment(value.doj).format('DD MMM YYYY');                        
+                        var dob = moment(value.doj).format('DD-MM-YYYY');  
+                        var dob_1 = moment(value.dob).format('DD MMM');
                         $("#people_doj_show").html(doj);                                
-                        $("#people_dob_show").html(dob);                                                         
+                        $("#people_dob_show").html(dob_1);                                                         
                         $(".chat-right-aside").css('display', 'block');  
                                                                                       
                         var $this = $(".list #people_everyone_list_show li");
@@ -407,10 +408,11 @@ $('.people_list_filter').change(function () {
                         $("#people_contact_show").html(value.contact_no);
                         $("#people_email_show").html(value.email);
                         $("#people_wl_show").html(value.worklocation);       
-                        var doj = moment(value.doj).format('DD-MM-YYYY');                        
+                        var doj = moment(value.doj).format('DD MMM YYYY');                        
                         var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                        var dob_1 = moment(response[0].dob).format('DD MMM');
                         $("#people_doj_show").html(doj);                                
-                        $("#people_dob_show").html(dob);    
+                        $("#people_dob_show").html(dob_1);    
                         // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
                         // // alert(star_icon)
                         // $("#people_star_i_show").html(star_icon);                                
@@ -659,10 +661,11 @@ $('body').on('click','.people_star_add',function(){
                                                         $("#people_contact_show").html(value.contact_no);
                                                         $("#people_email_show").html(value.email);
                                                         $("#people_wl_show").html(value.worklocation);       
-                                                        var doj = moment(value.doj).format('DD-MM-YYYY');                        
+                                                        var doj = moment(value.doj).format('DD MMM YYYY');                        
                                                         var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                                        var dob_1 = moment(value.dob).format('DD MMM');
                                                         $("#people_doj_show").html(doj);                                
-                                                        $("#people_dob_show").html(dob);    
+                                                        $("#people_dob_show").html(dob_1);    
                                                         // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
                                                         // // alert(star_icon)
                                                         // $("#people_star_i_show").html(star_icon);                                
@@ -794,10 +797,11 @@ $('#people_tab_li_1').click(function () {
                                 $("#people_contact_show").html(value.contact_no);
                                 $("#people_email_show").html(value.email);
                                 $("#people_wl_show").html(value.worklocation);        
-                                var doj = moment(value.doj).format('DD-MM-YYYY');                        
+                                var doj = moment(value.doj).format('DD MMM YYYY');                        
                                 var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                var dob_1 = moment(response[0].dob).format('DD MMM');
                                 $("#people_doj_show").html(doj);                                
-                                $("#people_dob_show").html(dob);    
+                                $("#people_dob_show").html(dob_1);    
                                 // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
                                 // // alert(star_icon)
                                 // $("#people_star_i_show").html(star_icon);  
@@ -919,8 +923,8 @@ $('#people_tab_li_2').click(function () {
                                 $("#people_contact_show").html(value.contact_no);
                                 $("#people_email_show").html(value.email);
                                 $("#people_wl_show").html(value.worklocation);        
-                                var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                                var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                var doj = moment(value.doj).format('DD MMM YYYY');                        
+                                var dob = moment(value.dob).format('DD MMM');                        
                                 $("#people_doj_show").html(doj);                                
                                 $("#people_dob_show").html(dob);    
                                 // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
@@ -970,8 +974,7 @@ $('#people_tab_li_2').click(function () {
             
         }
     });
-        
-    
+            
 });
 
 //Menu list active 
@@ -1021,8 +1024,8 @@ $('body').on('click','.people_list_ul_li',function(){
                     $("#people_contact_show").html(value.contact_no);
                     $("#people_email_show").html(value.email);
                     $("#people_wl_show").html(value.worklocation);        
-                    var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                    var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                    var doj = moment(value.doj).format('DD MMM YYYY');                        
+                    var dob = moment(value.dob).format('DD MMM');                        
                     $("#people_doj_show").html(doj);                                
                     $("#people_dob_show").html(dob);    
                     // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
@@ -1078,8 +1081,266 @@ $('body').on('click','.div_filter_close',function(){
 
 $('body').on('click','#people_filter_reset',function(){
     // alert("reset")
-    window.location.reload();                                                                                            
-   
+    window.location.reload();  
+
+    // $('#people_filter_dept').text("All");
+    // $('#people_filter_design').val("All");
+    // $('#people_filter_location').val("All");
+    // $('#people_filter_dept_value').val("All");
+    // $('#people_filter_design_value').val("All");
+    // $('#people_filter_location_value').val("All");
+
+    // var $this = $(".chat-box .chat-menu .nav-tabs #people_tab_li_2 a");
+
+    // if ($this.hasClass('active')) {
+
+    //     var people_filter_dept_value = $('#people_filter_dept_value').val();
+    //     var people_filter_design_value = $('#people_filter_design_value').val();
+    //     var people_filter_location_value = $('#people_filter_location_value').val();
+
+    //     $.ajax({
+    //         url:"fetch_people_everyone_first_empid",
+    //         type:"GET",
+    //         data: {
+    //             people_filter_dept: people_filter_dept_value,
+    //             people_filter_design: people_filter_design_value,
+    //             people_filter_location: people_filter_location_value,
+    //         },
+    //         dataType : "JSON",
+    //         success:function(response)
+    //         {
+    //             // console.log(response)
+    //             // alert(response)
+    //             if(response == "empty"){
+    //                 // alert("star tab 1  no")
+    //                 $(".chat-right-aside-employees-empty").css('display', 'block');
+    //                 $(".chat-right-aside").css('display', 'none');                        
+    //                 $(".chat-right-aside-star").css('display', 'none');
+
+    //             }else{
+    //                 // alert("star tab 2  no")
+    //                 $(".chat-right-aside-employees-empty").css('display', 'none');
+    //                 $(".chat-right-aside-star").css('display', 'none');
+                    
+    //                 var employee = response;
+                
+    //                 $.ajax({
+    //                     url:"fetch_people_list_filter",
+    //                     type:"GET",
+    //                     data: {
+    //                         people_filter_dept: people_filter_dept_value,
+    //                         people_filter_design: people_filter_design_value,
+    //                         people_filter_location: people_filter_location_value,
+    //                         employee: employee,
+    //                     },
+    //                     // data : {employee: employee},
+    //                     dataType : "JSON",
+    //                     success:function(response)
+    //                     {
+    //                         // console.log(response);
+    //                         if(response == "empty"){
+    //                             $(".chat-right-aside").css('display', 'none');
+    //                             $(".chat-right-aside-star").css('display', 'none');
+    //                             $(".chat-right-aside-employees-empty").css('display', 'block');
+    //                         }else{
+    //                             $(".chat-right-aside-star").css('display', 'none');
+    //                             $(".chat-right-aside-employees-empty").css('display', 'none');
+
+    //                             var rData = [];
+    //                             rData = response;                   
+    //                             $.each(rData, function (index, value) {
+                                                                                                                                                        
+    //                                 $("#people_name_show").html(value.username);
+    //                                 $("#people_empID_show").html(value.empID);
+    //                                 $("#people_designation_show").html(value.designation);
+    //                                 $("#people_dept_show").html(value.department);
+    //                                 $("#people_contact_show").html(value.contact_no);
+    //                                 $("#people_email_show").html(value.email);
+    //                                 $("#people_wl_show").html(value.worklocation);      
+    //                                 var doj = moment(value.doj).format('DD-MM-YYYY');                        
+    //                                 var dob = moment(value.doj).format('DD-MM-YYYY');                        
+    //                                 $("#people_doj_show").html(doj);                                
+    //                                 $("#people_dob_show").html(dob);    
+    //                                 // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
+    //                                 // // alert(star_icon)
+    //                                 // $("#people_star_i_show").html(star_icon);                                
+    //                                 $(".chat-right-aside").css('display', 'block');
+    //                                 $(".chat-box .people-list ul li").removeClass("active");
+    //                                 $('.chat-box .people-list ul #people_everyone_list_show li:first').addClass('active');
+                                    
+    //                             });
+    //                         }
+                            
+    //                     }               
+                        
+    //                 });
+
+    //                 //Star List
+    //                 $.ajax({
+    //                     url:"fetch_people_list_filter_star",
+    //                     type:"GET",
+    //                     data : {employee: employee},
+    //                     dataType : "JSON",
+    //                     success:function(response)
+    //                     {
+    //                         // console.log(response);
+    //                         $("#people_star_i_show").html(response); 
+    //                     }               
+                        
+    //                 });
+
+    //                 //Img List
+    //                 $.ajax({
+    //                     url:"fetch_people_list_filter_img",
+    //                     type:"GET",
+    //                     data : {employee: employee},
+    //                     dataType : "JSON",
+    //                     success:function(response)
+    //                     {
+    //                         console.log(response);
+    //                         $("#people_show_img").html(response); 
+    //                     }               
+                        
+    //                 });
+    //             }
+                
+    //         }
+    //     });
+            
+    //     fetch_everyone_details();
+
+    //     // $('.chat-box .people-list ul p li:first').addClass('active');
+    //     // $(".chat-box .people-list ul li").removeClass("active");
+    //     // $('.chat-box .people-list ul #people_everyone_list_show li:first').addClass('active');
+    //     // $('.chat-box .people-list ul #people_everyone_list_show li').first().css('background-color', '#7e37d8');
+
+    // }else{
+    //     var people_filter_dept_value = $('#people_filter_dept_value').val();
+    //     var people_filter_design_value = $('#people_filter_design_value').val();
+    //     var people_filter_location_value = $('#people_filter_location_value').val();
+    
+    //     fetch_starred_details();
+    
+    //     // alert("1")
+    //     $.ajax({
+    //         url:"fetch_people_starred_first_empid",
+    //         type:"GET",
+    //         data: {
+    //             people_filter_dept: people_filter_dept_value,
+    //             people_filter_design: people_filter_design_value,
+    //             people_filter_location: people_filter_location_value,
+    //         },
+    //         dataType : "JSON",
+    //         success:function(response)
+    //         {
+    //             // alert(response)
+    //             // console.log(response)
+    //             if(response == "empty"){
+    //                 // alert("star tab 1  no")
+    //                 $(".chat-right-aside").css('display', 'none');                        
+    //                 $(".chat-right-aside-star").css('display', 'block');
+    //                 $(".chat-right-aside-employees-empty").css('display', 'none');
+    
+    //             }else{
+    //                 $(".chat-right-aside-star").css('display', 'none');
+    
+    //                 // alert("star tab 1 yes")
+    //                 var employee = response;
+                
+    //                 $.ajax({
+    //                     url:"fetch_people_list_filter",
+    //                     type:"GET",
+    //                     data: {
+    //                         people_filter_dept: people_filter_dept_value,
+    //                         people_filter_design: people_filter_design_value,
+    //                         people_filter_location: people_filter_location_value,
+    //                         employee: employee,
+    //                     },
+    //                     // data : {employee: employee},
+    //                     dataType : "JSON",
+    //                     success:function(response)
+    //                     {
+    //                         // console.log(response);
+    //                         if(response == "empty"){
+    //                             // alert("no")
+    //                             // $(".chat-right-aside").css('display', 'none');                        
+    //                             // $(".chat-right-aside-star").css('display', 'none');
+    //                             // $(".chat-right-aside-employees-empty").css('display', 'none');
+    
+    //                         }else{
+    //                             // alert("yes")
+    
+    //                             var rData = [];
+    //                             rData = response;                   
+    //                             $.each(rData, function (index, value) {
+                                                                                                                                                        
+    //                                 $("#people_name_show").html(value.username);
+    //                                 $("#people_empID_show").html(value.empID);
+    //                                 $("#people_designation_show").html(value.designation);
+    //                                 $("#people_dept_show").html(value.department);
+    //                                 $("#people_contact_show").html(value.contact_no);
+    //                                 $("#people_email_show").html(value.email);
+    //                                 $("#people_wl_show").html(value.worklocation);        
+    //                                 var doj = moment(value.doj).format('DD-MM-YYYY');                        
+    //                                 var dob = moment(value.doj).format('DD-MM-YYYY');                        
+    //                                 $("#people_doj_show").html(doj);                                
+    //                                 $("#people_dob_show").html(dob);    
+    //                                 // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
+    //                                 // // alert(star_icon)
+    //                                 // $("#people_star_i_show").html(star_icon);  
+    //                                 $(".chat-right-aside-star").css('display', 'none');
+    //                                 $(".chat-right-aside-employees-empty").css('display', 'none');                                  
+    //                                 $(".chat-right-aside").css('display', 'block');
+    
+    //                                 $(".chat-box .people-list ul li").removeClass("active");
+    //                                 $('.chat-box .people-list ul #people_starred_list_show li:first').addClass('active');
+                                    
+    //                             });
+    //                         }
+                            
+    //                     }               
+                        
+    //                 });
+    
+    //                 //Star List
+    //                 $.ajax({
+    //                     url:"fetch_people_list_filter_star",
+    //                     type:"GET",
+    //                     data : {employee: employee},
+    //                     dataType : "JSON",
+    //                     success:function(response)
+    //                     {
+    //                         console.log(response);
+    //                         $("#people_star_i_show").html(response); 
+    //                     }               
+                        
+    //                 });
+
+    //                 //Img List
+    //                 $.ajax({
+    //                     url:"fetch_people_list_filter_img",
+    //                     type:"GET",
+    //                     data : {employee: employee},
+    //                     dataType : "JSON",
+    //                     success:function(response)
+    //                     {
+    //                         console.log(response);
+    //                         $("#people_show_img").html(response); 
+    //                     }               
+                        
+    //                 });
+    //             }
+                
+    //         }
+    //     });
+        
+    //     // $(".chat-box .people-list ul li").removeClass("active");
+    //     // $('.chat-box .people-list ul #people_starred_list_show li:first').addClass('active');
+    
+    //     // $('.chat-box .people-list ul #people_starred_list_show li').first().css('background-color', '#7e37d8');
+    
+    // }
+
 });
 
 //Getting Filter Datas
@@ -1096,9 +1357,6 @@ $('#peopleFilterForm').on('submit',function(event){
     $('#people_filter_design_value').val(people_filter_design);
     $('#people_filter_location_value').val(people_filter_location);
 
-    fetch_everyone_details();
-    fetch_starred_details();
-
     var $this = $(".chat-box .chat-menu .nav-tabs #people_tab_li_2 a");
 
     if ($this.hasClass('active')) {
@@ -1107,7 +1365,7 @@ $('#peopleFilterForm').on('submit',function(event){
         var people_filter_design_value = $('#people_filter_design_value').val();
         var people_filter_location_value = $('#people_filter_location_value').val();
 
-        // fetch_everyone_details();
+        fetch_everyone_details();
 
         $.ajax({
             url:"fetch_people_everyone_first_empid",
@@ -1124,11 +1382,12 @@ $('#peopleFilterForm').on('submit',function(event){
                 // alert(response)
                 if(response == "empty"){
                     // alert("star tab 1  no")
+                    $(".chat-right-aside-employees-empty").css('display', 'block');
                     $(".chat-right-aside").css('display', 'none');                        
                     $(".chat-right-aside-star").css('display', 'none');
-                    $(".chat-right-aside-employees-empty").css('display', 'block');
 
                 }else{
+                    // alert("star tab 2  no")
                     $(".chat-right-aside-employees-empty").css('display', 'none');
                     $(".chat-right-aside-star").css('display', 'none');
                     
@@ -1167,10 +1426,11 @@ $('#peopleFilterForm').on('submit',function(event){
                                     $("#people_contact_show").html(value.contact_no);
                                     $("#people_email_show").html(value.email);
                                     $("#people_wl_show").html(value.worklocation);      
-                                    var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                                    var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                    var doj = moment(value.doj).format('DD MMM YYYY');                        
+                                    var dob = moment(value.doj).format('DD-MM-YYYY');
+                                    var dob_1 = moment(value.dob).format('DD MMM');
                                     $("#people_doj_show").html(doj);                                
-                                    $("#people_dob_show").html(dob);    
+                                    $("#people_dob_show").html(dob_1);    
                                     // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
                                     // // alert(star_icon)
                                     // $("#people_star_i_show").html(star_icon);                                
@@ -1227,7 +1487,7 @@ $('#peopleFilterForm').on('submit',function(event){
         var people_filter_design_value = $('#people_filter_design_value').val();
         var people_filter_location_value = $('#people_filter_location_value').val();
     
-        // fetch_starred_details();
+        fetch_starred_details();
     
         // alert("1")
         $.ajax({
@@ -1289,10 +1549,11 @@ $('#peopleFilterForm').on('submit',function(event){
                                     $("#people_contact_show").html(value.contact_no);
                                     $("#people_email_show").html(value.email);
                                     $("#people_wl_show").html(value.worklocation);        
-                                    var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                                    var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                    var doj = moment(value.doj).format('DD MMM YYYY');                        
+                                    var dob = moment(value.doj).format('DD-MM-YYYY');  
+                                    var dob_1 = moment(value.dob).format('DD MMM');                      
                                     $("#people_doj_show").html(doj);                                
-                                    $("#people_dob_show").html(dob);    
+                                    $("#people_dob_show").html(dob_1);    
                                     // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
                                     // // alert(star_icon)
                                     // $("#people_star_i_show").html(star_icon);  
@@ -1437,8 +1698,8 @@ $("#clearButton").click(function() {
                                 $("#people_contact_show").html(value.contact_no);
                                 $("#people_email_show").html(value.email);
                                 $("#people_wl_show").html(value.worklocation);        
-                                var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                                var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                var doj = moment(value.doj).format('DD MMM YYYY');                        
+                                var dob = moment(value.dob).format('DD MMM');                        
                                 $("#people_doj_show").html(doj);                                
                                 $("#people_dob_show").html(dob);    
                                 // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
@@ -1567,8 +1828,8 @@ $("#clearButtonStarred").click(function() {
                                 $("#people_contact_show").html(value.contact_no);
                                 $("#people_email_show").html(value.email);
                                 $("#people_wl_show").html(value.worklocation);        
-                                var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                                var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                var doj = moment(value.doj).format('DD MMM YYYY');                        
+                                var dob = moment(value.dob).format('DD MMM');                        
                                 $("#people_doj_show").html(doj);                                
                                 $("#people_dob_show").html(dob);    
                                 // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
@@ -1593,7 +1854,7 @@ $("#clearButtonStarred").click(function() {
                     dataType : "JSON",
                     success:function(response)
                     {
-                        console.log(response);
+                        // console.log(response);
                         $("#people_star_i_show").html(response); 
                     }               
                     
@@ -1607,7 +1868,7 @@ $("#clearButtonStarred").click(function() {
                     dataType : "JSON",
                     success:function(response)
                     {
-                        console.log(response);
+                        // console.log(response);
                         $("#people_show_img").html(response); 
                     }               
                     
@@ -1620,5 +1881,4 @@ $("#clearButtonStarred").click(function() {
     $(".chat-box .people-list ul li").removeClass("active");
     $('.chat-box .people-list ul #people_starred_list_show li:first').addClass('active');
 
-   
 });

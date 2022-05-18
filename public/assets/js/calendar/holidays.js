@@ -1,6 +1,5 @@
 "use strict";
 
-
 function getBirthdayFilter(){
     // implementation omitted
     return $("#holidays_state_filter").val();
@@ -68,7 +67,7 @@ $('#holidays_state_filter').change(function () {
     // alert(this.value)
     var state = this.value;
     // alert(state)
-     var url = "fetch_holidays_list";
+    var url = "fetch_holidays_list";
     var fil = url+'?state=' + state;
     // alert(fil)
     $('#cal-basic').fullCalendar('refetchEvents', fil);    
@@ -144,7 +143,7 @@ var getEventDetail = function (id, start, end) {
                 // alert("one");
                 // var link = object[i].Value;
 
-                var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm image-layer-item image-size"   src="../../holidays_file/'+file+'" style="cursor:pointer;width: 400px;height: 200px;">';
+                var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm image-layer-item image-size"   src="../holidays_file/'+file+'" style="cursor:pointer;width: 400px;height: 200px;">';
                 // row.append($('<td>').html(image));
                 $("#occassion_file_show_list").append(image);  
                

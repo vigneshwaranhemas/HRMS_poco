@@ -3,7 +3,7 @@
 @section('title', 'Day Zero')
 
 @section('css')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> --}}
 @endsection
 
 @section('style')
@@ -28,6 +28,10 @@
   white-space: nowrap;
   vertical-align: top;
   transition: 0.3s all ease;
+/* incase box wise data */
+/* white-space: nowrap; */
+/* // */
+
 }
 .dtree-node {
   text-align: center;
@@ -247,8 +251,13 @@ input.dtree-search-control {
 @endsection
 
 @section('breadcrumb-items')
-   {{-- <li class="breadcrumb-item">Day Zero</li> --}}
-	{{-- <li class="breadcrumb-item active">Default</li> --}}
+<div class="breadcrumb-item">
+    <select class="form-control" id="Supervisors_info" style="font-size: 15px;">
+    <option>Supervisor Wise</option>
+    <option value=1>All</option>
+</select>
+</div>
+
 @endsection
 
 @section('content')
@@ -307,26 +316,23 @@ input.dtree-search-control {
 
             if (settings.searchbox) {
                var supervisor=@json($supervisors);
-              nodeHTML +=
-                '<div class="dtree-searchbox"><select class="form-control" id="Supervisors_info" style="font-size: 15px;"><option>Supervisor Wise</option><option value=1>All</option>'
-                    if (window.location.href.indexOf("id") > -1) {
-                        var params = new window.URLSearchParams(window.location.search);
-                        var id=params.get('id')
-                                for(var i=0;i<supervisor.length;i++){
-                                nodeHTML+='<option value='+supervisor[i].empID+' '+(id == supervisor[i].empID ? "selected" : "")+'>'+supervisor[i].username+'</option>';
-                            }
-                        }
-                        else{
-                            for(var i=0;i<supervisor.length;i++){
-                                nodeHTML+='<option value='+supervisor[i].empID+'>'+supervisor[i].username+'</option>';
-                            }
-                        }
-                    // for(var i=0;i<supervisor.length;i++){
-                    //             nodeHTML+='<option value='+supervisor[i].empID+'>'+supervisor[i].username+'</option>';
-                    // }
+            //   nodeHTML +=
+            //     '<div class="dtree-searchbox"><select class="form-control" id="Supervisors_info" style="font-size: 15px;"><option>Supervisor Wise</option><option value=1>All</option>'
+            //         if (window.location.href.indexOf("id") > -1) {
+            //             var params = new window.URLSearchParams(window.location.search);
+            //             var id=params.get('id')
+            //                     for(var i=0;i<supervisor.length;i++){
+            //                     nodeHTML+='<option value='+supervisor[i].empID+' '+(id == supervisor[i].empID ? "selected" : "")+'>'+supervisor[i].username+'</option>';
+            //                 }
+            //             }
+            //             else{
+            //                 for(var i=0;i<supervisor.length;i++){
+            //                     nodeHTML+='<option value='+supervisor[i].empID+'>'+supervisor[i].username+'</option>';
+            //                 }
+            //             }
 
-                nodeHTML+='</select><ul class="dtree-search-list"></ul>' +
-                "</div>";
+            //     nodeHTML+='</select><ul class="dtree-search-list"></ul>' +
+            //     "</div>";
             }
 
             nodeHTML +=
@@ -549,10 +555,39 @@ input.dtree-search-control {
       },
       handlers = {
         onToggleCollapseClick: function (e) {
-          var $thisBtn = $(this),
-            $target = $($thisBtn.attr("data-dtree-collpase-node"));
+            var $thisBtn = $(this),
+          $target = $($thisBtn.attr("data-dtree-collpase-node"));
           $thisBtn.parent().toggleClass("dtree-collapsed");
           $target.toggleClass("dtree-target-collapsed");
+        //   $('.dtree-collapsed .node-collapse').after().click(function () {
+        //      alert('clickable!');
+        //    });
+
+        //   if($('.dtree-node').hasClass('dtree-collapsed') && $('.dtree-child-container').hasClass('dtree-target-collapsed')){
+        //     //    alert("one")
+        //     console.log("one")
+        //   }
+        //   else{
+        //       console.log("two")
+        //     //   alert("two")
+        //   }
+
+        // if(!$('.dtree-node').hasClass('dtree-collapsed') && !$('.dtree-child-container').hasClass('dtree-target-collapsed') ) {
+        //     alert("one")
+        // }
+        // else if($('.dtree-node').hasClass('dtree-collapsed') && $('.dtree-child-container').hasClass('dtree-target-collapsed')){
+        //     alert('two')
+        // }
+        // console.log('tests')
+
+        // if($thisBtn.hasClass('dtree-collapsed')){
+        //     alert('two')
+        //     console.log('tests')
+        // }
+
+
+
+
         },
         onSearchKeyup: function () {
           var searchKey = $(this).val(),
@@ -659,51 +694,73 @@ $(document).ready(function () {
            }
        });
     var treeNodes = @json($emp_data);
-    test(treeNodes);
+    $("#ochart").dtree({
+    isHorizontal: false,
+    nodes: treeNodes
+  });
 
 
 });
 
-function test(one){
-    $("#ochart").dtree({
-    isHorizontal: false,
-    nodes: one
-  });
-}
 
 $(()=>{
      $("#Supervisors_info").on('change',(e)=>{
         //  alert("one")
         var supervisor_id = $('#Supervisors_info').find(":selected").val();
         // alert(supervisor_id)
-        if(supervisor_id==1)
-        {
-          window.location.href="{{url('organization_charts')}}";
-        }
-        else{
-        window.location.href="supervisor_wise_organisation?id="+supervisor_id;
+        // if(supervisor_id==1)
+        // {
+        //   window.location.href="{{url('organization_charts')}}";
+        // }
+        // else{
+        // window.location.href="supervisor_wise_organisation?id="+supervisor_id;
 
-        }
-        // $.ajax({
-        //     url:"{{url('supervisor_wise_organisation')}}",
-        //     type:"POST",
-        //     data:{id:supervisor_id},
-        //     beforeSend:function(data){
-        //         console.log("Loading!.....");
-        //     },
-        //     success:function(response){
-        //         var res=JSON.parse(response);
-        //         // $("#ochart").dtree.closeAll();
-        //         // $('#ochart').dtree(true).refresh();
-        //         // console.log(res)
-        //          test(res);
-        //     }
-        // })
+        // }
+        $.ajax({
+            url:"{{url('supervisor_wise_organisation')}}",
+            type:"POST",
+            data:{id:supervisor_id},
+            beforeSend:function(data){
+                console.log("Loading!.....");
+            },
+            success:function(response){
+                var res=JSON.parse(response);
+                $("#ochart").dtree({
+                    isHorizontal: false,
+                    nodes: res
+                });
+                $(".dtree-node").addClass('dtree-collapsed');
+                $('.dtree-child-container').addClass('dtree-target-collapsed');
+                $('#ochart').dtree().refresh();
+
+            }
+        })
      })
 })
 $(document).ready(function() {
      $(".dtree-node").addClass('dtree-collapsed');
      $('.dtree-child-container').addClass('dtree-target-collapsed');
+//option value pushing
+                    var supervisor=@json($supervisors);
+                    if (window.location.href.indexOf("id") > -1) {
+                        var params = new window.URLSearchParams(window.location.search);
+                        var id=params.get('id')
+                                for(var i=0;i<supervisor.length;i++){
+                               var super_tag='<option value='+supervisor[i].empID+' '+(id == supervisor[i].empID ? "selected" : "")+'>'+supervisor[i].username+'</option>';
+                               $("#Supervisors_info").append(super_tag);
+                            }
+                        }
+                        else{
+                            for(var i=0;i<supervisor.length;i++){
+                                var super_tag='<option value='+supervisor[i].empID+'>'+supervisor[i].username+'</option>';
+                               $("#Supervisors_info").append(super_tag);
+
+                            }
+                        }
+
+
+
+
 })
 
 

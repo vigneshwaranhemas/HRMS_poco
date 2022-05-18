@@ -28,12 +28,6 @@ class HolidayRepository implements IHolidayRepository
 
       }else{
 
-         // SELECT holidays.*
-         // FROM candidate_contact_information cci
-         // INNER JOIN holidays h ON holidays.holiday_unique_code = holiday_states.holiday_code
-         // INNER JOIN holiday_states hs ON holiday_states.state_name = candidate_contact_information.p_State
-         // WHERE candidate_contact_information.emp_id="900386";
-                 
          $logined_empID = Auth::user()->empID;
          $logined_state = DB::table("candidate_contact_information")->where('emp_id', $logined_empID)->value('p_State');
          
@@ -61,9 +55,13 @@ class HolidayRepository implements IHolidayRepository
     {      
       if(Auth::user()->role_type === 'Admin'){
 
-         $response = DB::table("holidays")->select('*')
-                          ->where('state', $state)
-                          ->get();
+         $response = DB::table('holiday_states as hs')
+                     ->distinct()         
+                     ->select('h.*')         
+                     ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
+                     ->where('hs.state_name', $state)
+                     // ->where('state', $state)
+                     ->get();
 
       }else{
 
@@ -182,11 +180,38 @@ class HolidayRepository implements IHolidayRepository
 
     }
     public function fetch_holidays_list_date($filter_date)
-    {
-        $response = Holidays::where('date', 'LIKE', '%'.$filter_date.'%')
-                            ->get();
-        return $response;
+    {                
 
+      if(Auth::user()->role_type === 'Admin'){
+
+         $response = Holidays::where('date', 'LIKE', '%'.$filter_date.'%')
+         ->get();
+
+      }else{
+
+         $logined_empID = Auth::user()->empID;
+         $logined_state = DB::table("candidate_contact_information")->where('emp_id', $logined_empID)->value('p_State');
+         
+         if(!empty($logined_state)){
+            $response = DB::table('holiday_states as hs')
+                     ->distinct()         
+                     ->select('h.*')         
+                     ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
+                     ->where('hs.state_name', $logined_state)
+                     ->where('h.date', 'LIKE', '%'.$filter_date.'%')
+                     ->get();
+            
+         }     
+
+      }
+
+      // $response = DB::table("holidays")->select('*')
+      // ->get();
+      
+      return $response;
+      
+
+      
     }
     public function fetch_state_list()
     {      

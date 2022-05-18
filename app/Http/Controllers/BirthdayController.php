@@ -139,9 +139,39 @@ class BirthdayController extends Controller
         $holidays_list = DB::table('customusers')
                     ->where('empID', $empID)
                     ->get();
+
+        // $holidays_list = DB::table('customusers as c')
+        //         ->distinct()         
+        //         ->select('customusers.*, images.*')         
+        //         ->join('images as img', 'images.emp_id', '=', 'customusers.empID')
+        //         ->where('customusers.empID', $empID)
+        //         ->orwhere('images.emp_id', $empID)
+        //         ->get();
+
         return response($holidays_list);               
     }
 
+    public function fetch_birthdays_list_img(Request $request)
+    {
+        $employee = $request->input('employee');
+
+        $profile_images = DB::table('images')->where('emp_id', $employee)->value('path');
+        $gender = DB::table('customusers')->where('empID', $employee)->value('gender');
+     
+        if(!empty($profile_images)){
+           $response = '<img class="img-50 user-image rounded-circle" src="../uploads/'.$profile_images.'" alt="#">';
+        }else{
+     
+           if($gender == "Male"){
+              $response = '<img style="width:50px;height:50px" class="rounded-circle" src="../assets/images/user/1.jpg" alt="">';
+           }else{
+              $response = '<img style="width:50px;height:50px" class="rounded-circle" src="../assets/images/user/4.jpg" alt="">';
+           }
+     
+        }
     
+        return json_encode($response);
+
+    }   
 
 }

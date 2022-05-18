@@ -198,12 +198,13 @@ class ProfileRepositories implements IProfileRepositories
         return $bandtbl;
     }
     public function get_district_listing($input_details){
+        // DB::enableQueryLog();
         $bandtbl = DB::table('towns_details')
         ->select('id','district_name','state_name')
         ->where('state_name', '=' ,$input_details['state_name'])
         ->groupBy('district_name')
         ->get();
-
+        // dd(DB::getQueryLog());
         return $bandtbl;
     }
     public function get_town_name_listing($input_details){

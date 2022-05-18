@@ -22,5 +22,10 @@ class GoalsController extends Controller
     {
         return view('goals.goal_setting');
     }  
-    
+    public function add_goals_data(Request $request)
+    {
+        dd($request->all());die();
+        // dd($request->input('key_res_areas'));die();
+        return response();
+    } 
 }

@@ -34,6 +34,19 @@
     border-radius: 4px;
     cursor: text;
 }
+.events_filter_i{
+    /* right: 10px;
+    top: 3px; */
+    /* font-size: 16px; */
+}
+#events_filter_btn{
+    padding: 6px;
+    margin-right: 10px;
+    width: 50px;
+}
+#events_filter_div{
+    display: none;
+}
 </style>
 @endsection
 
@@ -44,6 +57,8 @@
 @section('breadcrumb-items')
    {{--<li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li>--}}
+    <button class="btn btn-primary" id="events_filter_btn"><i class="icon-filter events_filter_i"></i> </button>                                                  
+    <button class="btn btn-success p-l-25" id="event_add_btn">Add <i class="icofont icofont-plus"></i></button>                                                  
 @endsection
 
 @section('content')
@@ -51,6 +66,47 @@
 <div class="container-fluid">
     <div class="calendar-wrap">
         <div class="row">
+            <div class="col-lg-12" id="events_filter_div">
+                <!-- <i class="icon-close font-dark div_filter_close"></i>                                                -->
+                <h4 class="people_filter_card_header m-b-15">Filter By
+                    <i class="icon-close font-dark div_filter_close"></i>                                               
+                </h4>
+                <form id="eventFilterForm">                         
+                    <div class="row m-b-25">   
+                        <div class="col-lg-3 m-b-15">
+                            <label for="event_name">Select Employees</label>
+                            <select class="form-control" id="emp_fil" name="emp_fil">  
+                                <option value="All">All</option> 
+                                @foreach($customuser_details as $customuser_detail)
+                                    <option value="{{ $customuser_detail->empID }}">{{ $customuser_detail->username }}</option>
+                                @endforeach                                                 
+                            </select>
+                        </div>
+                        <div class="col-lg-3 m-b-15">
+                            <label for="event_name">Select Category</label>
+                            <select class="form-control" id="category_filter" name="category_filter">  
+                                <option value="All">All</option> 
+                                @foreach($event_categories_data as $event_categories)
+                                    <option value="{{ $event_categories->category_name }}">{{ $event_categories->category_name }}</option>
+                                @endforeach                                             
+                            </select>
+                        </div>
+                        <div class="col-lg-3 m-b-15">
+                            <label for="event_name">Select Event Type</label>
+                            <select class="form-control" id="event_type_filter" name="event_type_filter">  
+                                <option value="All">All</option> 
+                                @foreach($event_types as $event_type)
+                                    <option value="{{ $event_type->event_type }}">{{ $event_type->event_type }}</option>
+                                @endforeach                                                 
+                            </select>
+                        </div>
+                        <div class="col-lg-3 m-b-15 m-t-30">
+                            <button class="btn btn-info" id="submit_filter" type="submit"><i class="icofont icofont-tick-mark"></i> Apply</button>                                                  
+                            <button class="btn btn-dark p-l-25" id="reset_filter_op"><i class="icofont icofont-spinner-alt-3"></i> Reset</button>           
+                        </div>
+                    </div>
+                </form>
+            </div>
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
@@ -207,9 +263,8 @@
                                 </select> -->
                                 <div class="text-danger" id="candicate_list_options_error"></div>
                             </div>
-
                         </div>
-                        <div class="form-row mb-3">
+                        <div class="form-row mb-3" style="display: none">
                             <div class="col-md-12">
                                 <input id="repeat-event" name="repeat" value="yes" type="checkbox">
                                 <label for="repeat-event">Repeat</label>
@@ -293,7 +348,9 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <h6 class="f-w-700">Attendees List</h6>
-                                        <p id="candicate_list_show"></p>
+                                        <div class="vertical-scroll scroll-demo scroll_div">
+                                            <p id="candicate_list_show"></p>                                            
+                                        </div>
                                     </div>
                                 </div>
                             </div>

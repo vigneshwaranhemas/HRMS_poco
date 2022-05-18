@@ -47,6 +47,82 @@ class EventRepositories implements IEventRepositories {
       
       return $response;
    }
+   public function fetch_event_with_filter($data)
+   {      
+      if(Auth::user()->role_type === 'Admin'){
+
+         if($data['emp_fil'] == "All" && $data['category_filter'] == "All" && $data['event_type_filter'] == "All"){
+            $response = DB::table("events")->select('*')->get();
+         }elseif($data['emp_fil'] != "All" && $data['category_filter'] != "All" && $data['event_type_filter'] == "All"){
+            
+            $response = DB::table('event_attendees as ea')
+                ->distinct()         
+                ->select('e.*')     
+                ->join('events as e', 'e.event_unique_code', '=', 'ea.event_id')
+                ->where('ea.candidate_name', $data['emp_fil'])
+                ->where('e.category_name', $data['category_filter'])
+                ->get();
+         
+         }elseif($data['emp_fil'] == "All" && $data['category_filter'] != "All" && $data['event_type_filter'] != "All"){
+            
+            $response = DB::table("events")->select('*')->where('category_name', $data['category_filter'])->where('event_type', $data['event_type_filter'])->get();
+         
+         }elseif($data['emp_fil'] != "All" && $data['category_filter'] == "All" && $data['event_type_filter'] != "All"){
+            
+            $response = DB::table('event_attendees as ea')
+                ->distinct()         
+                ->select('e.*')     
+                ->join('events as e', 'e.event_unique_code', '=', 'ea.event_id')
+                ->where('ea.candidate_name', $data['emp_fil'])
+                ->where('e.event_type', $data['event_type_filter'])
+                ->get();                
+         
+         }elseif($data['emp_fil'] != "All" && $data['category_filter'] != "All" && $data['event_type_filter'] != "All"){
+            
+            $response = DB::table('event_attendees as ea')
+                ->distinct()         
+                ->select('e.*')     
+                ->join('events as e', 'e.event_unique_code', '=', 'ea.event_id')
+                ->where('ea.candidate_name', $data['emp_fil'])
+                ->where('e.event_type', $data['event_type_filter'])
+                ->where('e.category_name', $data['category_filter'])
+                ->get();   
+
+         }else{
+            
+            if($data['emp_fil'] != "All" && $data['category_filter'] == "All" && $data['event_type_filter'] == "All"){
+
+               $response = DB::table('event_attendees as ea')
+               ->distinct()         
+               ->select('e.*')     
+               ->join('events as e', 'e.event_unique_code', '=', 'ea.event_id')
+               ->where('ea.candidate_name', $data['emp_fil'])
+               ->get();   
+
+            }elseif($data['emp_fil'] == "All" && $data['category_filter'] == "All" && $data['event_type_filter'] != "All"){
+               $response = DB::table("events")->select('*')->where('event_type', $data['event_type_filter'])->get();
+              
+            }elseif($data['emp_fil'] == "All" && $data['category_filter'] != "All" && $data['event_type_filter'] == "All"){
+               $response = DB::table("events")->select('*')->where('category_name', $data['category_filter'])->get();
+              
+            }
+         }          
+         
+
+      }else{
+
+         $logined_empID = Auth::user()->empID;
+         $response = DB::table('event_attendees')
+                  ->distinct()         
+                  ->select('events.*')         
+                  ->join('events', 'event_attendees.event_id', '=', 'events.event_unique_code')
+                  ->where('event_attendees.candidate_name', $logined_empID)
+                  ->get();
+
+      }
+      
+      return $response;
+   }
    public function fetch_event_edit($id)
    {
       $response = Event::where('id', $id)
@@ -83,6 +159,7 @@ class EventRepositories implements IEventRepositories {
                            'description' => $data['description'],
                            'start_date_time' => $data['start_date_time'],
                            'end_date_time' => $data['end_date_time'],
+                           'date' => $data['date'],
                            'repeat' => $data['repeat'],
                            'repeat_every' => $data['repeat_every'],
                            'repeat_cycles' => $data['repeat_cycles'],
@@ -106,6 +183,7 @@ class EventRepositories implements IEventRepositories {
                            'description' => $data['description'],
                            'start_date_time' => $data['start_date_time'],
                            'end_date_time' => $data['end_date_time'],
+                           'date' => $data['date'],
                            'repeat' => $data['repeat'],
                            'repeat_every' => $data['repeat_every'],
                            'repeat_cycles' => $data['repeat_cycles'],

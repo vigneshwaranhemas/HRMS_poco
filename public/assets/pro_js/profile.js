@@ -17,7 +17,7 @@ $uploadCrop = $('#upload-demo').croppie({
     viewport: {
         width: 200,
         height: 200,
-        type: 'circle'
+        // type: 'circle'
     },
     boundary: {
         width: 300,

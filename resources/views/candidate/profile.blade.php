@@ -72,9 +72,10 @@ max-width: 1000px !important;
                <div class="img-container">
                   <div class="my-gallery" id="aniimated-thumbnials" itemscope="">
                       <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5" data-toggle="modal" data-original-title="test" data-target="#exampleModal"></i></div>
-                     <figure itemprop="associatedMedia" itemscope="">
+                     <figure itemprop="associatedMedia" itemscope>
                         <!-- <a href="../assets/images/other-images/profile-style-img3.png" itemprop="contentUrl" data-size="1600x950"><img class="img-fluid rounded" src="../assets/images/other-images/profile-style-img3.png" itemprop="thumbnail" alt="gallery"></a> -->
-                        <div class="avatar"><img width="1300" height="330" lass="img-fluid rounded" alt="" id="banner_img" src=""></div>
+                        <a class="avatar" itemprop="contentUrl" data-size="1600x950"><img width="1300" height="330" class="img-fluid rounded" itemprop="thumbnail"  alt="" id="banner_img"></a>
+                        <!-- <div class="avatar" itemprop="contentUrl" data-size="1600x950"><img class="img-fluid rounded" itemprop="thumbnail" alt="" id="banner_img" src=""></div> -->
                      </figure>
                   </div>
                </div>
@@ -96,12 +97,12 @@ max-width: 1000px !important;
                              <div class="panel-body">
                               <div class="row">
                                  <div class="col-md-4 text-center">
-                                    <div id="upload-demo" style="width:250px"></div>
+                                    <div id="upload-demo" itemprop="contentUrl" data-size="1600x950"></div>
                                  </div>
                               </div>
                               <div>
                                  <strong>Select Image:</strong>
-                                    <input type="file" id="upload" accept=".jpeg,.jpg,.png,.GIF,.JPEG,.JPG,.PNG" name="upload">
+                                    <input type="file" class="img-fluid rounded" itemprop="thumbnail" id="upload" accept=".jpeg,.jpg,.png,.GIF,.JPEG,.JPG,.PNG" name="upload">
                                     <button class="btn btn-success upload-result">Upload Image</button>
                               </div>
                                     <span class="text-danger color-hider" id="upload_error" style="display:none;color: red;"></span>
@@ -279,8 +280,9 @@ max-width: 1000px !important;
                      </div>
                        <!-- Pop-up div starts-->
                   <div class="modal fade" id="ContactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content" style="margin-left: -28%;width: 166%;">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <!-- <div class="modal-content" style="margin-left: -28%;width: 166%;"> -->
+                        <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Add Contact</h5>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -508,7 +510,7 @@ max-width: 1000px !important;
                            <span class="text-danger color-hider" id="ifsc_code_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
-                           <input class="form-control" minlength="9" maxlength="10" name="acc_mobile" id="acc_mobile" type="text" placeholder="Enter mobile number">
+                           <input class="form-control" minlength="10" maxlength="10" name="acc_mobile" id="acc_mobile" type="text" placeholder="Enter mobile number">
                            <span class="text-danger color-hider" id="acc_mobile_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">

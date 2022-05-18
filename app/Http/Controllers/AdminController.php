@@ -501,14 +501,14 @@ class AdminController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($row) {
                     // echo "<pre>";print_r($row);die;
-                  $btn = '<div class="row"><button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                  $btn = '<div class="row"><button class="btn btn-primary" type="button" data-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Action" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                        <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Role</a>
                     </div> &nbsp;' ;
-                   $btn .= '<button class="btn btn-success" type="button" style="width: 15%;height: 35px;"><a href="can_hr_profile?id='."".$row->id."".'&empID='."".$row->empID."".'"  onclick="hr_to_profile('."'".$row->id."'".'); "><i class="pe-7s-id" style="color: #ffffff; margin-left: -5px;"></i></a></button>';
+                   $btn .= '<button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Profile" type="button" style="width: 15%;height: 35px;"><a href="can_hr_profile?id='."".$row->id."".'&empID='."".$row->empID."".'"  onclick="hr_to_profile('."'".$row->id."'".'); "><i class="pe-7s-id" style="color: #ffffff; margin-left: -5px;"></i></a></button>';
 
                     if ($row->hr_action != 2) {
-                        $btn .= '<button class="btn btn-info" type="button" data-toggle="modal" data-original-title="test" style="width: 15%;height: 35px;margin-top: 5px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
+                        $btn .= '<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="ID Card Info" type="button" style="width: 15%;height: 35px;margin-top: 5px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
                         }
                 return $btn;
             })

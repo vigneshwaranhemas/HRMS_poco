@@ -481,26 +481,26 @@ max-width: 1000px !important;
                         </div>
                        <div class="form-group col-6">
                            <select class="custom-select" id="bank_name"  name="bank_name">
-                              <option>Select Bank</option>
-                              <option>SBI</option>
-                              <option>AXIS</option>
-                              <option>UCO</option>
-                              <option>CBI</option>
-                              <option>UBI</option>
-                              <option>ICICI</option>
-                              <option>KVB</option>
-                              <option>HDFC</option>
+                              <option value="">--Select Bank--</option>
+                              <option value="SBI">SBI</option>
+                              <option value="AXIS">AXIS</option>
+                              <option value="UCO">UCO</option>
+                              <option value="CBI">CBI</option>
+                              <option value="UBI">UBI</option>
+                              <option value="ICICI">ICICI</option>
+                              <option value="KVB">KVB</option>
+                              <option value="HDFC">HDFC</option>
 
                               <!-- <option>PUVATHA BANK</option> -->
                            </select>
                            <span class="text-danger color-hider" id="bank_name_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
-                           <input class="form-control" type="text" maxlength="13" name="acc_number" id="acc_number" placeholder="Account number">
+                           <input class="form-control" type="text" minlength="12" maxlength="13" name="acc_number" id="acc_number" placeholder="Account number">
                            <span class="text-danger color-hider" id="acc_number_error" style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
-                           <input class="form-control" type="text" maxlength="13" name="con_acc_number" id="con_acc_number" placeholder="Confirm Account number">
+                           <input class="form-control" type="text" minlength="12" maxlength="13" name="con_acc_number" id="con_acc_number" placeholder="Confirm Account number">
                            <span class="text-danger color-hider" id="con_acc_number_error" style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
@@ -508,7 +508,7 @@ max-width: 1000px !important;
                            <span class="text-danger color-hider" id="ifsc_code_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
-                           <input class="form-control" maxlength="10" name="acc_mobile" id="acc_mobile" type="text" placeholder="Enter mobile number">
+                           <input class="form-control" minlength="9" maxlength="10" name="acc_mobile" id="acc_mobile" type="text" placeholder="Enter mobile number">
                            <span class="text-danger color-hider" id="acc_mobile_error"  style="display:none;color: red;"></span>
                         </div>
                         <div class="form-group col-6">
@@ -701,7 +701,7 @@ max-width: 1000px !important;
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
-                                    <button class="btn btn-secondary" type="button" id="btnSubmit">Save</button>
+                                    <button class="btn btn-secondary" type="submit" id="doc_Submit">Save</button>
                                 </div>
                               </form>
                         </div>

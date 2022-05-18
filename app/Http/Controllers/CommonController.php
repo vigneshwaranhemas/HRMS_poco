@@ -55,6 +55,7 @@ class CommonController extends Controller
                 'l_name' => 'required',
                 'emp_num_1' => 'required|numeric',
                 'emrg_con_num' => 'required|numeric',
+                'name_rel_ship'=>'required',
                 'rel_emp' => 'required',
                 'doj' => 'required',
                 'official_email' => 'required',

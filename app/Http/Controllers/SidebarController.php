@@ -65,3 +65,6 @@ class SidebarController extends Controller
     }
 
 }
+
+/*full menu bar krish */
+

@@ -15,6 +15,7 @@ class Event extends Model
         'description', 
         'start_date_time', 
         'end_date_time', 
+        'date', 
         'repeat', 
         'repeat_every', 
         'repeat_cycles', 

@@ -17,7 +17,7 @@ $uploadCrop = $('#upload-demo').croppie({
     viewport: {
         width: 200,
         height: 200,
-        type: 'circle'
+        // type: 'circle'
     },
     boundary: {
         width: 300,
@@ -645,8 +645,13 @@ function profile_info_process(id){
 
 /*upload file in popup*/
 $(()=>{
-    $('#btnSubmit').on('click',(e)=>{
+    // $('#btnSubmit').on('click',(e)=>{
         // alert('asdasdasdas')
+$('#add_documents_unit').submit(function(e) { 
+    
+        $(this).attr('disabled','disabled');   
+        $("#doc_Submit").text('Processing...');  
+
    e.preventDefault();
       var formData = new FormData(document.getElementById("add_documents_unit"));
    $.ajax({

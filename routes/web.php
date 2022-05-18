@@ -114,6 +114,7 @@ Route::post('/Admin_Request_update',"AdminController@Seating_Status_update");
 Route::get('goals', 'GoalsController@goals')->name('goals');
 Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
 Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
+Route::post('add_goals_data', 'GoalsController@add_goals_data');
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');
@@ -124,6 +125,9 @@ Route::get('fetch_birthdays_list_empID', 'BirthdayController@fetch_birthdays_lis
 Route::get('fetch_birthdays_list_img', 'BirthdayController@fetch_birthdays_list_img')->name('fetch_birthdays_list_img');
 
 Route::get('birthday_email','AdminController@birthday_email');
+Route::get('work_anniversay_email','AdminController@work_anniversay_email');
+Route::get('holidays_email','AdminController@holidays_email');
+Route::get('events_email','AdminController@events_email');
 
 //Holidays Controller
 Route::get('holidays', 'HolidayController@holidays')->name('holidays');

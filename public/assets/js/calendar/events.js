@@ -15,7 +15,7 @@ var basic_calendar = {
             eventLimit: true,
             events: "fetch_all_event",  
             eventClick: function(arg) { //edit option     
-                getEventDetail(arg.id, arg.start, arg.end); 
+                getEventDetail(arg.view, arg.start, arg.end); 
             },          
         });
             

@@ -1,4 +1,21 @@
 "use strict";
+
+function getEmployeeFilter(){
+    // implementation omitted
+    return $("#emp_fil").val();
+};
+
+function getCategoryFilter(){
+    // implementation omitted
+    return $("#category_filter").val();
+};
+
+function getEventTypeFilter(){
+    // implementation omitted
+    return $("#event_type_filter").val();
+};
+
+
 var basic_calendar = {
     init: function() {
         $('#cal-basic').fullCalendar({
@@ -18,10 +35,46 @@ var basic_calendar = {
                 addEventModal(arg); //Fri Apr 08 2022 00:00:00 GMT+0000
                 // $('#cal-basic').fullCalendar('unselect');
             },
-            events: "fetch_all_event",  
+            // events: "fetch_all_event", 
+            events: function(start, end, callback, successCallback) {
+                var emp_fil = getEmployeeFilter();
+                var category_filter = getCategoryFilter();
+                var event_type_filter = getEventTypeFilter();
+                $.ajax({
+                    url: 'fetch_all_event',
+                    // dataType: 'xml',
+                    data: {                        
+                        emp_fil: emp_fil,
+                        category_filter: category_filter,
+                        event_type_filter: event_type_filter
+                    },
+                    success: function(response) {
+                        var events = [];                        
+                        $.each(response, function (i, data)  
+                        {  
+                        // console.log(data.title);
+                            events.push(  
+                            {  
+                                id: data.id,  
+                                title: data.title,  
+                                view: data.view,
+                                color: data.color,
+                                start: data.start,
+                                end: data.end,
+                                category_name: data.category_name,
+                                // end: data.end, 
+                            });                                  
+                        });  
+
+                        // events.push(response);   
+                        // console.log(events)  
+                        successCallback(events);
+                    }
+                });
+            },  
             eventClick: function(arg) { //edit option              
-                console.log(arg);
-                getEventDetail(arg.id, arg.start, arg.end); 
+                // console.log(arg);
+                getEventDetail(arg.view, arg.start, arg.end); 
             },          
         });
             
@@ -132,7 +185,7 @@ $('#event-form-insert').submit(function(e) {
 // });
 
 function addEventModal(arg){  
-    
+
     if(arg){
         
         var sd = new Date(arg); //getting date from select list like Thu Apr 07 2022 05:30:00 GMT+0530 (India Standard Time)   
@@ -292,8 +345,8 @@ var getEventDetail = function (id, start, end) {
                     {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
                 );
 
-                // console.log();
-                $("#start_date_show").html(split[0]);
+                // console.log(split[0]);
+                $("#start_date_show").html(moment(split[0]).format('DD-MM-YYYY'));
                 $("#start_time_show").html(timeString12hr);
 
                 var end_date_time = value.end_date_time;
@@ -307,12 +360,15 @@ var getEventDetail = function (id, start, end) {
                 );
 
                 // console.log();
-                $("#end_date_show").html(split[0]);
+                $("#end_date_show").html(moment(split[0]).format('DD-MM-YYYY'));
                 $("#end_time_show").html(timeString12hr_end);
 
                 var file = response[0].event_file;
                 var ext = file.split('.')[1];    
                 // alert(ext);
+
+                $(".scroll_div").css('overflow', 'auto');
+                $(".scroll_div").css('max-height', '100px');
 
                 if(ext=="jpg" || ext=="PNG" || ext=="png" || ext=="jpeg" || ext=="gif") {
                     // alert("one");
@@ -453,15 +509,12 @@ $('.attendees_filter').change(function(e){
         {
             // console.log(response)
             $("#candicate_list_options").val(" ");
-
             $.fn.modal.Constructor.prototype.enforceFocus = function() {};
-
             $('.js-example-basic-multiple').select2({
                 dropdownParent: $('#add-event'),
                 // width: 800,
                 height: 200
             });
-
             $("#candicate_list_options").html(response);
             $("#candicate_list_options_div").show();
             $("#all_filter").show();
@@ -1226,4 +1279,111 @@ $('#apply-filters').click(function () {
     basic_calendar.init();    
 
 })(jQuery);
+
+
+$('#event_add_btn').click(function(){                        
+    // $('#events_filter_div').css('display', 'block');    
+
+    var d = new Date();
+    var n = d.toLocaleString([], { hour: '2-digit', minute: '2-digit' });
+
+    $('#start_time').val(n);
+    $('#end_time').val(n);
+    
+    //Get category list
+    $.ajax({
+        url:"fetch_event_category_all",
+        type:"GET",
+        dataType : "JSON",
+        success:function(response)
+        {
+            // console.log(response);
+                               
+            var options = [];
+            var rData = [];
+            rData = response;
+            var selectData = '';
+            selectData = '<option value="" selected>Select Category...</option>';
+            options.push(selectData); 
+            $.each(rData, function (index, value) {
+                selectData = '<option value="' + value.category_name + '">' + value.category_name + '</option>';
+                options.push(selectData);                      
+            });
+
+            $('#category_id' ).html(options);                      
+                                
+        }
+       
+        
+    }); 
+
+    //Get event type list
+    $.ajax({
+        url:"fetch_event_type_all",
+        type:"GET",
+        dataType : "JSON",
+        success:function(response)
+        {
+            // console.log(response);
+                               
+            var options = [];
+            var rData = [];
+            rData = response;
+            var selectData = '';
+            selectData = '<option value="" selected>Please Select Event Type</option>';
+            options.push(selectData); 
+            $.each(rData, function (index, value) {                        
+                selectData = '<option value="' + value.event_type + '">' + value.event_type + '</option>';
+                options.push(selectData);                      
+            });
+
+            $('#event_type_id' ).html(options);                      
+                                
+        }
+       
+        
+    }); 
+
+    // $('#colorselector').colorselector();
+    
+    $('#add-event').modal('show');
+
+});
+
+$('#events_filter_btn').click(function(){                        
+    $('#events_filter_div').slideToggle();
+});
+
+$('.div_filter_close').click(function(){         
+    $('#events_filter_div').slideToggle();
+});
+
+$("#eventFilterForm").submit(function(e){
+    e.preventDefault();
+
+    var emp_fil = $("#emp_fil").val();
+    var category_filter = $("#category_filter").val();
+    var event_type_filter = $("#event_type_filter").val();
+
+    var url = "fetch_all_event";
+    var fil = url+'?emp_fil=' + emp_fil + '&category_filter=' + category_filter + '&event_type_filter=' + event_type_filter;
+    // alert(fil)
+    $('#cal-basic').fullCalendar('refetchEvents', fil);    
+
+});
+
+
+$('#reset_filter_op').click(function(){    
+    
+    var emp_fil = $("#emp_fil").val("All").trigger('change');
+    var category_filter = $("#category_filter").val("All").trigger('change');
+    var event_type_filter = $("#event_type_filter").val("All").trigger('change');
+
+    var url = "fetch_all_event";
+    var fil = url+'?emp_fil=' + emp_fil + '&category_filter=' + category_filter + '&event_type_filter=' + event_type_filter;
+    // alert(fil)
+    $('#cal-basic').fullCalendar('refetchEvents', fil);   
+    
+    $('#events_filter_div').slideToggle();
+});
 

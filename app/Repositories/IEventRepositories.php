@@ -7,6 +7,7 @@ interface IEventRepositories{
        // public function fetch_category_details_all();      
        public function insertEventCode($event_unique_code, $last_inserted_id);      
        public function fetch_event_filter();      
+       public function fetch_event_with_filter($data);      
        public function fetch_event_edit($id);      
        public function event_delete($id);      
        public function event_attendees_delete($id);      

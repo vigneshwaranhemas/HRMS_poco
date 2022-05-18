@@ -11,6 +11,8 @@ use PDF;
 use Auth;
 use Session;
 use Mail;
+use App\Holidays;
+use App\state;
 
 class AdminController extends Controller
 {
@@ -31,18 +33,354 @@ class AdminController extends Controller
 
         foreach($todays_birthdays as $todays_birthday){            
 
-            $data = array('name'=> $todays_birthday->username);
-            Mail::send('birthday.mail', $data, function($message) {
+            $data = array(
+                'name'=> $todays_birthday->username,
+                'to_email'=> $todays_birthday->email,
+            );
+            Mail::send('mail.birthday-mail', $data, function($message) use ($data) {
                 // $message->to($todays_birthday->email)->subject
                 //     ('Birthday Mail');
-                $message->to('divyak@hemas.in')->subject
-                    ('Birthday Mail');
+                $message->to($data['to_email'])->subject
+                    ('We Wish You A Very Happy Birthday');
                 $message->from("hr@hemas.in", 'HEPL - HR Team');
             });
             
         }
 
     }
+    public function work_anniversay_email() {
+
+        $current_date = date("d");
+        $current_month = date("m");
+        $current_year = date("Y");
+        // $tdy = $dt."-".$monthName;
+        $tdy = $current_month."-".$current_date;
+        $current = $current_year."-".$current_month."-".$current_date;
+
+        //Work anniversary
+        // $tdy_work_anniversary = DB::table('customusers')->select('*')->where('doj', 'LIKE', '%%-'.$tdy.'%')->get();
+
+        $tdy_work_anniversary = DB::table('customusers')
+                                ->select('*')
+                                ->where('doj', 'LIKE', '%%-'.$tdy.'%')
+                                ->whereNotIn('doj', [$current])
+                                ->get();
+
+        foreach($tdy_work_anniversary as $tdy_work_annu){
+            // dd($todays_birthday->empID); 900036 900002
+
+            $doj_year = date("Y", strtotime($tdy_work_annu->doj));
+            $total = $current_year - $doj_year;
+
+            if($total != 0){
+                
+                $data = array(
+                    'name'=> $tdy_work_annu->username,
+                    'to_email'=> $tdy_work_annu->email,
+            );
+                Mail::send('mail.work-anniversary-mail', $data, function($message) use ($data) {
+                    // $message->to($tdy_work_annu->email)->subject
+                    //     ('Birthday Mail');
+                    $message->to($data['to_email'])->subject
+                        ('Wish You A Happy Work Anniversary');
+                    $message->from("hr@hemas.in", 'HEPL - HR Team');
+                });
+                            
+            }
+
+        }        
+
+    }
+    // public function holidays_email() {
+
+    //     $current_date = date("d");
+    //     $next_date = $current_date + 1;
+    //     $current_month = date("m");
+    //     $current_year = date("Y");
+    //     // $tdy = $dt."-".$monthName;
+    //     $tdy = $current_month."-".$current_date;
+    //     $next = $current_year."-".$current_month."-".$next_date;
+    //     // $tomorrow = Carbon::tomorrow('Europe/London');
+    //     $tomorrow = Carbon::tomorrow('Asia/Kolkata');
+     
+       
+
+ 
+    //     $tmw_holidays = DB::table('holiday_states as hs')
+    //             ->distinct()         
+    //             ->select('h.*','hs.*')     
+    //             ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
+    //             ->where('h.date','=', $tomorrow)
+    //             ->get();
+
+    //     $can_info=[];
+    //        foreach($tmw_holidays as $data){
+               
+    //        if($data->state_name==""){
+               
+    //        }
+    //        else{
+    //             //  echo "one";
+    //                  $can_data[]= DB::table('holiday_states as hs')
+    //                 ->distinct()         
+    //                 ->select('ca.emp_id')     
+    //                 ->join('candidate_contact_information as ca', 'ca.p_State', '=', 'hs.state_name')
+    //                 ->where('hs.state_name','=', $data->state_name)
+    //                 ->get();
+                   
+
+    //        }
+
+    //        }
+
+        
+    //     $final_can_info=[];
+
+    //     //    foreach($can_info as $candidate_info){
+    //     //         $final_can_info= array_unique($candidate_info);
+    //     //         //   echo json_encode($candidate_info);
+                
+    //     //    }
+    //        echo json_encode($can_info['1']);
+       
+    //     //    dd($can_data);
+
+    //     // $tmw_holidays = DB::table('holiday_states as hs')
+    //     //         ->distinct()         
+    //     //         ->select('h.*', 'hs.*')     
+    //     //         ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
+    //     //         ->where('h.date','=', $tomorrow)
+    //     //         ->where('hs.state_name','=', "Tamilnadu")
+    //     //         ->get();
+
+    //     $tmw_holidays = DB::table('holidays')
+    //             ->distinct()         
+    //             ->where('date','=', $tomorrow)
+    //             ->get();
+
+    //     $tmw_holiday_code_arr = array();
+    //     foreach($tmw_holidays as $tmw_holiday){
+
+    //         // $holiday_code = $tmw_holiday->holiday_code;
+            
+    //         array_push($tmw_holiday_code_arr, $tmw_holiday->holiday_unique_code);
+
+    //     } 
+    //     dd($tmw_holiday_code_arr);
+
+    //     // $tmw_holiday_arr_st_lt = array();
+        
+    //     foreach($tmw_holiday_code_arr as $tmw_holiday_code_arr){
+
+    //         // $holiday_code = $tmw_holiday->holiday_code;
+            
+    //         array_push($tmw_holiday_arr_st_lt, $tmw_holiday->state_name);
+
+    //     }    
+
+    //     $tmw_holiday_emps = array();
+
+    //     foreach ($tmw_holiday_arr_st_lt as $state) {
+
+    //         if($state!=""){
+
+    //             $tmw_holiday_states_emps = DB::table('candidate_contact_information')
+    //                                         ->select('*')
+    //                                         ->where('p_State', $state)
+    //                                         ->get();
+
+    //             foreach($tmw_holiday_states_emps as $record){
+    //                 array_push($tmw_holiday_emps, $record->emp_id);    
+
+    //             } 
+    //         }
+
+    //     }      
+
+    //     foreach($tmw_holiday_emps as $tmw_holiday_emp_id){
+
+    //         $tmw_holiday_emp_email = DB::table('customusers')
+    //                     ->where('empID', $tmw_holiday_emp_id)
+    //                     ->value('email');
+            
+    //         $occassion = DB::table('holidays')
+    //                     ->where('holiday_unique_code', $holiday_code)
+    //                     ->value('occassion');
+
+    //         $description = DB::table('holidays')
+    //                     ->where('holiday_unique_code', $holiday_code)
+    //                     ->value('description');
+
+    //         $occassion_file = DB::table('holidays')
+    //                     ->where('holiday_unique_code', $holiday_code)
+    //                     ->value('occassion_file');
+
+    //         $Mail = array(
+    //             'occassion'=> $occassion,
+    //             'description'=> $description,      
+    //             'occassion_file'=> $occassion_file,
+    //             'to_mail'=>$tmw_holiday_emp_email
+    //         );
+
+    //         Mail::send('mail.holiday-mail', $Mail, function ($message) use ($Mail) {
+    //             $message->from("hr@hemas.in", 'HEPL - HR Team');
+    //             $message->to($Mail['to_mail'])->subject('Tomorrow Holidays');
+    //         });
+
+
+    //     }
+        
+    // }
+
+
+    public function holidays_email() {
+
+        $current_date = date("d");
+        $next_date = $current_date + 1;
+        $current_month = date("m");
+        $current_year = date("Y");
+        // $tdy = $dt."-".$monthName;
+        $tdy = $current_month."-".$current_date;
+        $next = $current_year."-".$current_month."-".$next_date;
+        // $tomorrow = Carbon::tomorrow('Europe/London');
+        $tomorrow = Carbon::tomorrow('Asia/Kolkata');            
+ 
+        $tmw_holidays = DB::table('holiday_states as hs')
+                ->distinct()         
+                ->select('h.*','hs.*')     
+                ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
+                ->where('h.date','=', $tomorrow)
+                ->get();
+
+        // dd($tmw_holidays);
+        $can_info= array();
+        $arr_empID= [];
+
+        foreach($tmw_holidays as $data){
+               
+           if($data->state_name==""){
+               
+           }
+           else{
+                
+                $can_data_id = DB::table('candidate_contact_information as ca')
+                // ->distinct()         
+                ->select('ca.emp_id')     
+                // ->join('candidate_contact_information as ca', 'ca.p_State', '=', 'hs.state_name')
+                // ->where('ca.p_State','=', "Bihar")
+                ->where('ca.p_State','=', $data->state_name)
+                ->get();
+                                    
+                foreach($can_data_id as $id){
+                    // dd($id->emp_id);
+                    if($id->emp_id){
+                        // arrary_push($kk, $id->emp_id);
+
+                        $arr_empID[] = $id->emp_id;
+                    }
+                }
+                    
+           }
+
+        }
+
+        $h_empID = array_unique($arr_empID);
+
+        foreach($h_empID as $tmw_holiday_emp_id){
+
+            $tmw_holiday_emp_email = DB::table('customusers')
+                        ->where('empID', $tmw_holiday_emp_id)
+                        // ->where('empID', "900004")
+                        ->value('email');
+            
+            $state = DB::table('candidate_contact_information')
+                        // ->where('emp_id', "900004")
+                        ->where('emp_id', $tmw_holiday_emp_id)
+                        ->value('p_State');
+
+            $holiday_code = DB::table('holiday_states as hs')
+                            ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
+                            ->where('h.date','=', $tomorrow)
+                            ->where('hs.state_name','=', $state)
+                            ->value('h.holiday_unique_code');                
+
+            $occassion = DB::table('holidays')
+                        ->where('holiday_unique_code', $holiday_code)
+                        ->value('occassion');
+
+            $description = DB::table('holidays')
+                        ->where('holiday_unique_code', $holiday_code)
+                        ->value('description');
+
+            $occassion_file = DB::table('holidays')
+                        ->where('holiday_unique_code', $holiday_code)
+                        ->value('occassion_file');
+
+            $Mail = array(
+                'occassion'=> $occassion,
+                'description'=> $description,      
+                'occassion_file'=> $occassion_file,
+                'to_mail'=>$tmw_holiday_emp_email
+            );
+
+            Mail::send('mail.holiday-mail', $Mail, function ($message) use ($Mail) {
+                $message->from("hr@hemas.in", 'HEPL - HR Team');
+                $message->to($Mail['to_mail'])->subject('Test mail');
+                // $message->to($Mail['to_mail'])->subject('Tomorrow Holidays');
+            });
+
+
+        }
+        
+    }
+
+    public function events_email() {
+
+        $current_date = date("d");
+        $next_date = $current_date + 1;
+        $current_month = date("m");
+        $current_year = date("Y");
+        // $tdy = $dt."-".$monthName;
+        $tdy = $current_month."-".$current_date;
+        $next = $current_year."-".$current_month."-".$next_date;
+        // $tomorrow = Carbon::tomorrow('Europe/London');
+        $tomorrow = Carbon::tomorrow('Asia/Kolkata');         
+
+        $tmw_events = DB::table('event_attendees as ea')
+                    ->distinct()         
+                    ->select('e.*', 'ea.*')     
+                    ->join('events as e', 'e.event_unique_code', '=', 'ea.event_id')
+                    ->where('e.date','=', $next)
+                    ->get();
+      
+        foreach($tmw_events as $tmw_event){
+
+            $tmw_event_emp_email = DB::table('customusers')
+                        ->where('empID', $tmw_event->candidate_name)
+                        // ->where('empID', "900004")
+                        ->value('email');
+
+            $Mail = array(
+                'event_name'=> $tmw_event->event_name,
+                'where'=> $tmw_event->where,      
+                'event_file'=> $tmw_event->event_file,
+                'start_date_time'=> $tmw_event->start_date_time,
+                'end_date_time'=> $tmw_event->end_date_time,
+                'event_type'=> $tmw_event->event_type,
+                'category_name'=> $tmw_event->category_name,
+                'to_mail'=>$tmw_event_emp_email
+            );
+
+            Mail::send('mail.event-mail', $Mail, function ($message) use ($Mail) {
+                $message->from("hr@hemas.in", 'HEPL - HR Team');
+                $message->to($Mail['to_mail'])->subject('Test mail');
+            });
+            
+
+        }
+        
+    }
+
     public function admin_dashboard()
     {
         //Birthday card
@@ -501,14 +839,14 @@ class AdminController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($row) {
                     // echo "<pre>";print_r($row);die;
-                  $btn = '<div class="row"><button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                  $btn = '<div class="row"><button class="btn btn-primary" type="button" data-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Action" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                        <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Role</a>
                     </div> &nbsp;' ;
-                   $btn .= '<button class="btn btn-success" type="button" style="width: 15%;height: 35px;"><a href="can_hr_profile?id='."".$row->id."".'&empID='."".$row->empID."".'"  onclick="hr_to_profile('."'".$row->id."'".'); "><i class="pe-7s-id" style="color: #ffffff; margin-left: -5px;"></i></a></button>';
+                   $btn .= '<button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Profile" type="button" style="width: 15%;height: 35px;"><a href="can_hr_profile?id='."".$row->id."".'&empID='."".$row->empID."".'"  onclick="hr_to_profile('."'".$row->id."'".'); "><i class="pe-7s-id" style="color: #ffffff; margin-left: -5px;"></i></a></button>';
 
                     if ($row->hr_action != 2) {
-                        $btn .= '<button class="btn btn-info" type="button" data-toggle="modal" data-original-title="test" style="width: 15%;height: 35px;margin-top: 5px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
+                        $btn .= '<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="ID Card Info" type="button" style="width: 15%;height: 35px;margin-top: 5px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
                         }
                 return $btn;
             })

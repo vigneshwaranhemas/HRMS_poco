@@ -110,6 +110,7 @@ var getEventDetail = function (empID) {
             // console.log(response[0].username); 
             $("#employee_name_show").text('');
             $("#employee_id_show").text('');
+            $("#email_show").text('');
             $("#employee_designation_show").text('');
             $("#employee_doj_show").text('');
             $("#employee_dob_show").text('');
@@ -131,13 +132,14 @@ var getEventDetail = function (empID) {
             var dd_dob=dt.getDate();
             var mm_dob=dt.getMonth()+1;
             var yy_dob=dt.getFullYear();
-            var dob = dd_dob+"-"+mm_dob+"-"+yy_dob;
+            var dob_1 = moment(response[0].dob).format('DD MMM');
+            var dob = dob_1;
 
             var name = response[0].username+' <i class="icofont icofont-birthday-cake"  style="font-size: 25px;"></i>';
             $("#employee_name_show").append(name);
-            
             $("#employee_id_show").append(response[0].empID);
             $("#employee_designation_show").append(response[0].designation);
+            $("#email_show").append(response[0].email);
             $("#employee_doj_show").append(doj);
             $("#employee_dob_show").append(dob);
             $("#employee_wl_show").append(response[0].worklocation);

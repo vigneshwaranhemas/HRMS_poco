@@ -19,6 +19,7 @@ function employee_record(){
     table_cot = $('#employee_data').DataTable({
 
         dom: 'lBfrtip',
+        lengthChange: true,
         "buttons": [
             {
                 "extend": 'copy',

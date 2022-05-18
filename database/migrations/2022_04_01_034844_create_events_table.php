@@ -22,6 +22,7 @@ class CreateEventsTable extends Migration
             $table->mediumText('description');
             $table->dateTime('start_date_time');
             $table->dateTime('end_date_time');
+            $table->date('date');
             $table->enum('repeat', ['yes', 'no'])->default('no');
             $table->integer('repeat_every')->nullable();
             $table->integer('repeat_cycles')->nullable();

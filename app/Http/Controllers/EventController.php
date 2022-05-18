@@ -25,6 +25,7 @@ class EventController extends Controller
     {                     
         $customuser_details = DB::table('customusers')->get();
         $event_categories_data = DB::table('event_categories')->get();
+        $event_types = DB::table('event_types')->get();
         $event_types_data = DB::table('event_types')->get();
         $departments = DB::table('departments')->get();
         $designations = DB::table('designations')->get();
@@ -33,6 +34,7 @@ class EventController extends Controller
         $data = [
             "customuser_details" => $customuser_details,
             "event_categories_data" => $event_categories_data,
+            "event_types" => $event_types,
             "event_types_data" => $event_types_data,
             "departments" => $departments,
             "designations" => $designations,
@@ -162,6 +164,7 @@ class EventController extends Controller
             'description' => $request->description,
             'start_date_time' => $start_date_time,
             'end_date_time' => $end_date_time,
+            'date' => $request->start_date,
             'repeat' => $repeat,
             'repeat_every' => $request->repeat_count,
             'repeat_cycles' => $request->repeat_cycles,
@@ -185,25 +188,12 @@ class EventController extends Controller
             $event_unique_code = $event_code."".$last_inserted_id; //T00.13 =T0013
             $result = $this->event->insertEventCode($event_unique_code, $last_inserted_id);           
         }        
-      
-        //Store event attendees
-        // $eventIds [] = $last_inserted_id;
-
-        // $offerData = [
-        //     'name' => 'BOGO',
-        //     'body' => 'You received an offer.',
-        //     'thanks' => 'Thank you',
-        //     'offerText' => 'Check out the offer',
-        //     'offerUrl' => url('/'),
-        //     'offer_id' => 007
-        // ];
 
         if ($request->candicate_list) {
             $attendees = DB::table("customusers")->select('*')->get(); // get all the user list
             foreach ($attendees as $attendee) {
                 EventAttendee::firstOrCreate(['candidate_name' => $attendee->empID, 'event_id' => $event_unique_code]);
             }
-            // Notification::send($attendees, new OffersNotification($offerData));
         }
 
         if($request->attendees_filter_op == "Gender"){
@@ -222,7 +212,6 @@ class EventController extends Controller
                 EventAttendee::firstOrCreate(['candidate_name' => $attendee->empID, 'event_id' => $event_unique_code]);
             }
 
-            // Notification::send($attendees, new OffersNotification($offerData));
         }
 
         // Select employees
@@ -232,7 +221,6 @@ class EventController extends Controller
                 EventAttendee::firstOrCreate(['candidate_name' => $candicateName, 'event_id' => $event_unique_code]);
             }            
             // $attendees = DB::table("candidate_details")->whereIn('id', $request->candicate_list_options)->get(); // get all the user list
-            // Notification::send($attendees, new EventInvite($event));
         }
 
         // if (!$request->has('repeat') || $request->repeat == 'no') {
@@ -247,32 +235,27 @@ class EventController extends Controller
     public function fetch_all_event(Request $request)
     {
 
-        // $eventFilter = DB::whereDate('event_start', '>=', $request->start)
-        //     ->whereDate('event_end',   '<=', $request->end)
-        //     ->get(['id', 'event_name', 'event_start', 'event_end']);
-        
-        // dd($request['custom_param1']);
+        if (request()->has('emp_fil') && request()->has('category_filter') && request()->has('event_type_filter')) {
+            $data = array(
+                'emp_fil' => $request->emp_fil,
+                'category_filter' => $request->category_filter,
+                'event_type_filter' => $request->event_type_filter,
+            );
+            $eventFilter = $this->event->fetch_event_with_filter($data);              
+        }else{
+            $eventFilter = $this->event->fetch_event_filter();  
+        }
 
-        // if (request()->has('employee') && $request->employee != 0) {
-        //     // $eventFilter->whereHas('attendee', function ($query)use($request) {
-        //     //     return $query->where('user_id', $request->employee);
-                   
-        //     // });
-        //     dd("yes");
-        // }else{
-        //     dd("no");
-        // }
-
-        $eventFilter = $this->event->fetch_event_filter();  
 
         $event_list = array();
 
         foreach ($eventFilter as $key => $value) {
-            
+
             $event_list[] = [
 
                 'id' => $value->id,
                 'title' => $value->event_name,
+                'view' => $value->id,
                 'color' => $value->label_color,
                 'category_name' => $value->category_name,
                 'start' => $value->start_date_time,
@@ -387,9 +370,23 @@ class EventController extends Controller
                 ->where('empID', $record->candidate_name)
                 ->value('username');
                 
-            $output .= '<img class="img-30 rounded-circle" src="../assets/images/user/1.jpg" data-toggle="tooltip"
-             data-original-title="'.$name.'" data-placement="right  alt="user"><span>'.$name.'</span>';
-
+            $profile_images = DB::table('images')->where('emp_id', $record->candidate_name)->value('path');
+            $gender = DB::table('customusers')->where('empID', $record->candidate_name)->value('gender');
+                    
+            if($profile_images){
+                $output .= '<img class="img-30 user-image rounded-circle" src="../uploads/'.$profile_images.'" alt="user"><span>'.$name.'</span>';
+            }else{
+        
+                if($gender == "Male"){
+                    $output .= '<img class="img-30 rounded-circle" src="../assets/images/user/1.jpg" data-toggle="tooltip"
+                    data-original-title="'.$name.'" data-placement="right  alt="user"><span>'.$name.'</span>';
+                }else{
+                    $output .= '<img class="img-30 rounded-circle" src="../assets/images/user/4.jpg" data-toggle="tooltip"
+                    data-original-title="'.$name.'" data-placement="right  alt="user"><span>'.$name.'</span>';
+                }
+        
+            }
+                       
         }    
 
         $output .= '</div></p>';
@@ -521,6 +518,7 @@ class EventController extends Controller
                 'description' => $request->description,
                 'start_date_time' => $start_date_time,
                 'end_date_time' => $end_date_time,
+                'date' => $request->start_date,
                 'repeat' => $repeat,
                 'repeat_every' => $request->repeat_count,
                 'repeat_cycles' => $request->repeat_cycles,
@@ -550,6 +548,7 @@ class EventController extends Controller
                 'description' => $request->description,
                 'start_date_time' => $start_date_time,
                 'end_date_time' => $end_date_time,
+                'date' => $request->start_date,
                 'repeat' => $repeat,
                 'repeat_every' => $request->repeat_count,
                 'repeat_cycles' => $request->repeat_cycles,

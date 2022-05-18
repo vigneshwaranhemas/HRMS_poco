@@ -79,7 +79,6 @@
                 <div class="card-body">
 
                     <div class="table-responsive">
-                        <form id="goalsForm">
                         <table class="table" id="goal-tb">
                             <thead>
                                 <tr>
@@ -138,8 +137,6 @@
 
                             </tbody>
                         </table>
-                        <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Save</button>                                            
-                        </form>
                     </div>
                 </div>
 
@@ -182,7 +179,7 @@
                 var html = '<tr>';
                         html +='<td scope="row">1</td>';
                         html +='<td>';
-                            html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers[]">';
+                            html +='<select class="form-control js-example-basic-single">';
                                 html +='<option value="Revenue">Revenue</option>';
                                 html +='<option value="Customer">Customer</option>';
                                 html +='<option value="Process">Process</option>';
@@ -192,23 +189,23 @@
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<textarea name="key_res_areas_0[]" id="" class="form-control"></textarea>';
+                            html +='<textarea name="" id="" class="form-control"></textarea>';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<textarea name="sub_indicators_0[]" id="" class="form-control"></textarea>';
+                            html +='<input type="text" name="" id="" class="form-control">';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<textarea name="measurement_criteria_0[]" id="" class="form-control"></textarea>';
+                            html +='<input type="text" name="" id="" class="form-control">';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<input type="text" name="weightage_0[]" id="" class="form-control">';
+                            html +='<input type="text" name="" id="" class="form-control">';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<textarea name="reference_0[]" id="" class="form-control"></textarea>';
+                            html +='<input type="text" name="" id="" class="form-control">';
                         html +='</td>';
 
                         html +='<td>';
@@ -247,15 +244,12 @@
 
     function additionalKRA(x,cur_rowCount) {
         // alert($(x).closest('td').parent()[0].sectionRowIndex);
-        // alert(cur_rowCount)
-        var html2 = '<textarea id="" class="form-control m-t-5" name="key_res_areas_'+cur_rowCount+'[]"></textarea>';
-        var html3 = '<textarea id="" class="form-control m-t-5" name="sub_indicators_'+cur_rowCount+'[]"></textarea>';
-        var html4 = '<textarea id="" class="form-control m-t-5" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
-        var html6 = '<textarea id="" class="form-control m-t-5" name="reference_'+cur_rowCount+'[]"></textarea>';
-        $(x).closest("tr").find("td:eq(2)").append(html2);
-        $(x).closest("tr").find("td:eq(3)").append(html3);
-        $(x).closest("tr").find("td:eq(4)").append(html4);
-        $(x).closest("tr").find("td:eq(6)").append(html6);
+
+        var html = '<input type="text" name="" id="" class="form-control m-t-5">';
+        $(x).closest("tr").find("td:eq(2)").append(html);
+        $(x).closest("tr").find("td:eq(3)").append(html);
+        $(x).closest("tr").find("td:eq(4)").append(html);
+        $(x).closest("tr").find("td:eq(6)").append(html);
 
     }
     function additionalKBD(){
@@ -264,7 +258,7 @@
         var html = '<tr>';
                 html +='<td scope="row">1</td>';
                 html +='<td>';
-                    html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers[]">';
+                    html +='<select class="form-control js-example-basic-single">';
                         html +='<option value="Revenue">Revenue</option>';
                         html +='<option value="Customer">Customer</option>';
                         html +='<option value="Process">Process</option>';
@@ -274,23 +268,23 @@
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<textarea name="key_res_areas[]" id="" class="form-control"></textarea>';
+                    html +='<input type="text" name="" id="" class="form-control">';
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<textarea name="sub_indicators[]" id="" class="form-control"></textarea>';
+                    html +='<input type="text" name="" id="" class="form-control">';
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<textarea name="measurement_criteria[]" id="" class="form-control"></textarea>';
+                    html +='<input type="text" name="" id="" class="form-control">';
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<input type="text" name="weightage[]" id="" class="form-control">';
+                    html +='<input type="text" name="" id="" class="form-control">';
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<textarea name="reference[]" id="" class="form-control"></textarea>';
+                    html +='<input type="text" name="" id="" class="form-control">';
                 html +='</td>';
 
                 html +='<td>';
@@ -329,96 +323,16 @@
         updatesno();
     }); 
 
-
-    function formTable() {
-
-        var test = [];
-        var error='';
-        
-        $('#goal-tb tr').each(function(index, tr) {
-            $(tr).find('td').each (function (index, td) {
-                console.log(td)
-            });
-        });
-
-        // $('#goal-tb tbody>tr').each(function (element) {
-        //     // var currrow=$(this).closest('tr');
-        //     alert("col4")
-
-        //     var col0=$(this).find("td:eq(0)").text();
-        //     // var col1=$(this).find("td:eq(1) textarea").val();
-        //     //    var col2=$(this).find("td:eq(2) option:selected").val();
-        //     //    var col4_input=$(this).find("td:eq(4) input:checked").val();
-        //     // alert(col0)
-            
-                                                                    
-        // });
-
-        //Sending data to database
-        //    if(error==""){
-        //        // alert("succes")
-        //        data_insert();
-        //    }
-        //    else{
-        //        // alert("test")
-        //        // data_insert();
-        //        scrollUp();
-        //    }
-          
-           // console.log(test);
-           // var formData =  JSON.stringify(test);
-           // alert(formData);
-                    
-        //    function data_insert(){
-        //        // alert("jsd");
-
-        //        var business_name_option=$("#business_name_option").val();
-
-        //        $.ajax({
-                   
-        //            url:"{{ ('business_form') }}",
-        //            type:"POST",
-        //            data:{business_name:business_name_option, serialize_form_value:test},
-        //            dataType : "JSON",
-        //            success:function(data)
-        //            {
-        //                window.location.reload();                         
-        //            },
-        //            error: function(response) {
-        //                // alert(response.responseJSON.errors.business_name_option);
-        //                $('#business_name_option_error').text(response.responseJSON.errors.business_name);
-
-        //            }                                              
-                       
-        //        });
-        //    }            
-       
+    function deleteKRA(x,cur_rowCount) {
+        // alert($(x).closest('td').parent()[0].sectionRowIndex);
+        // console.log(x)
+        var html = '<input type="text" name="" id="" class="form-control m-t-5">';
+        $(x).closest("tr").find("td:eq(2)").append(html);
+        $(x).closest("tr").find("td:eq(3)").append(html);
+        $(x).closest("tr").find("td:eq(4)").append(html);
+        $(x).closest("tr").find("td:eq(6)").append(html);
 
     }
-
-    $("#goalsForm").submit(function(e) {
-        e.preventDefault();
-        
-        console.log($('#goalsForm').serialize());
-        $.ajax({
-                   
-            url:"{{ ('add_goals_data') }}",
-            type:"POST",
-            data:$('#goalsForm').serialize(),
-            dataType : "JSON",
-            success:function(data)
-            {
-                window.location.reload();                         
-            },
-            error: function(response) {
-                alert(response.responseJSON.errors.business_name_option);
-                // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
-
-            }                                              
-                
-        });
-
-    });
 
 </script>
 @endsection

@@ -111,8 +111,8 @@ function fetch_people_list_ul_li(){
                                 $("#people_contact_show").html(value.contact_no);
                                 $("#people_email_show").html(value.email);
                                 $("#people_wl_show").html(value.worklocation);         
-                                var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                                var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                var doj = moment(value.doj).format('DD MMM YYYY');                        
+                                var dob = moment(value.dob).format('DD MMM');                        
                                 $("#people_doj_show").html(doj);                                
                                 $("#people_dob_show").html(dob);    
                                 // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
@@ -316,10 +316,11 @@ $('.people_list_filter').change(function () {
                         $("#people_contact_show").html(value.contact_no);
                         $("#people_email_show").html(value.email);
                         $("#people_wl_show").html(value.worklocation);       
-                        var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                        var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                        var doj = moment(value.doj).format('DD MMM YYYY');                        
+                        var dob = moment(value.doj).format('DD-MM-YYYY');  
+                        var dob_1 = moment(value.dob).format('DD MMM');
                         $("#people_doj_show").html(doj);                                
-                        $("#people_dob_show").html(dob);                                                         
+                        $("#people_dob_show").html(dob_1);                                                         
                         $(".chat-right-aside").css('display', 'block');  
                                                                                       
                         var $this = $(".list #people_everyone_list_show li");
@@ -407,10 +408,11 @@ $('.people_list_filter').change(function () {
                         $("#people_contact_show").html(value.contact_no);
                         $("#people_email_show").html(value.email);
                         $("#people_wl_show").html(value.worklocation);       
-                        var doj = moment(value.doj).format('DD-MM-YYYY');                        
+                        var doj = moment(value.doj).format('DD MMM YYYY');                        
                         var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                        var dob_1 = moment(response[0].dob).format('DD MMM');
                         $("#people_doj_show").html(doj);                                
-                        $("#people_dob_show").html(dob);    
+                        $("#people_dob_show").html(dob_1);    
                         // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
                         // // alert(star_icon)
                         // $("#people_star_i_show").html(star_icon);                                
@@ -659,10 +661,11 @@ $('body').on('click','.people_star_add',function(){
                                                         $("#people_contact_show").html(value.contact_no);
                                                         $("#people_email_show").html(value.email);
                                                         $("#people_wl_show").html(value.worklocation);       
-                                                        var doj = moment(value.doj).format('DD-MM-YYYY');                        
+                                                        var doj = moment(value.doj).format('DD MMM YYYY');                        
                                                         var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                                        var dob_1 = moment(value.dob).format('DD MMM');
                                                         $("#people_doj_show").html(doj);                                
-                                                        $("#people_dob_show").html(dob);    
+                                                        $("#people_dob_show").html(dob_1);    
                                                         // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
                                                         // // alert(star_icon)
                                                         // $("#people_star_i_show").html(star_icon);                                
@@ -794,10 +797,11 @@ $('#people_tab_li_1').click(function () {
                                 $("#people_contact_show").html(value.contact_no);
                                 $("#people_email_show").html(value.email);
                                 $("#people_wl_show").html(value.worklocation);        
-                                var doj = moment(value.doj).format('DD-MM-YYYY');                        
+                                var doj = moment(value.doj).format('DD MMM YYYY');                        
                                 var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                var dob_1 = moment(response[0].dob).format('DD MMM');
                                 $("#people_doj_show").html(doj);                                
-                                $("#people_dob_show").html(dob);    
+                                $("#people_dob_show").html(dob_1);    
                                 // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
                                 // // alert(star_icon)
                                 // $("#people_star_i_show").html(star_icon);  
@@ -919,8 +923,8 @@ $('#people_tab_li_2').click(function () {
                                 $("#people_contact_show").html(value.contact_no);
                                 $("#people_email_show").html(value.email);
                                 $("#people_wl_show").html(value.worklocation);        
-                                var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                                var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                var doj = moment(value.doj).format('DD MMM YYYY');                        
+                                var dob = moment(value.dob).format('DD MMM');                        
                                 $("#people_doj_show").html(doj);                                
                                 $("#people_dob_show").html(dob);    
                                 // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
@@ -970,8 +974,7 @@ $('#people_tab_li_2').click(function () {
             
         }
     });
-        
-    
+            
 });
 
 //Menu list active 
@@ -1021,8 +1024,8 @@ $('body').on('click','.people_list_ul_li',function(){
                     $("#people_contact_show").html(value.contact_no);
                     $("#people_email_show").html(value.email);
                     $("#people_wl_show").html(value.worklocation);        
-                    var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                    var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                    var doj = moment(value.doj).format('DD MMM YYYY');                        
+                    var dob = moment(value.dob).format('DD MMM');                        
                     $("#people_doj_show").html(doj);                                
                     $("#people_dob_show").html(dob);    
                     // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
@@ -1423,10 +1426,11 @@ $('#peopleFilterForm').on('submit',function(event){
                                     $("#people_contact_show").html(value.contact_no);
                                     $("#people_email_show").html(value.email);
                                     $("#people_wl_show").html(value.worklocation);      
-                                    var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                                    var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                    var doj = moment(value.doj).format('DD MMM YYYY');                        
+                                    var dob = moment(value.doj).format('DD-MM-YYYY');
+                                    var dob_1 = moment(value.dob).format('DD MMM');
                                     $("#people_doj_show").html(doj);                                
-                                    $("#people_dob_show").html(dob);    
+                                    $("#people_dob_show").html(dob_1);    
                                     // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
                                     // // alert(star_icon)
                                     // $("#people_star_i_show").html(star_icon);                                
@@ -1545,10 +1549,11 @@ $('#peopleFilterForm').on('submit',function(event){
                                     $("#people_contact_show").html(value.contact_no);
                                     $("#people_email_show").html(value.email);
                                     $("#people_wl_show").html(value.worklocation);        
-                                    var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                                    var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                    var doj = moment(value.doj).format('DD MMM YYYY');                        
+                                    var dob = moment(value.doj).format('DD-MM-YYYY');  
+                                    var dob_1 = moment(value.dob).format('DD MMM');                      
                                     $("#people_doj_show").html(doj);                                
-                                    $("#people_dob_show").html(dob);    
+                                    $("#people_dob_show").html(dob_1);    
                                     // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
                                     // // alert(star_icon)
                                     // $("#people_star_i_show").html(star_icon);  
@@ -1693,8 +1698,8 @@ $("#clearButton").click(function() {
                                 $("#people_contact_show").html(value.contact_no);
                                 $("#people_email_show").html(value.email);
                                 $("#people_wl_show").html(value.worklocation);        
-                                var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                                var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                var doj = moment(value.doj).format('DD MMM YYYY');                        
+                                var dob = moment(value.dob).format('DD MMM');                        
                                 $("#people_doj_show").html(doj);                                
                                 $("#people_dob_show").html(dob);    
                                 // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';
@@ -1823,8 +1828,8 @@ $("#clearButtonStarred").click(function() {
                                 $("#people_contact_show").html(value.contact_no);
                                 $("#people_email_show").html(value.email);
                                 $("#people_wl_show").html(value.worklocation);        
-                                var doj = moment(value.doj).format('DD-MM-YYYY');                        
-                                var dob = moment(value.doj).format('DD-MM-YYYY');                        
+                                var doj = moment(value.doj).format('DD MMM YYYY');                        
+                                var dob = moment(value.dob).format('DD MMM');                        
                                 $("#people_doj_show").html(doj);                                
                                 $("#people_dob_show").html(dob);    
                                 // var star_icon = '<a href="javascript:void(0);" id="people_star_add" data-id="'+value.empID+'" data-username="'+value.username+'"><i id="star_class_name" style="color: rgb(255, 199, 23);" class="fa fa-star"></i></a>';

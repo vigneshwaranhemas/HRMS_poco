@@ -78,7 +78,7 @@
             <div class="form-body">
                <div class="row">
                   <div class="col-md-12 ">
-                     <div class="form-group form-row mt-1 mb-0">
+                     <div class="form-group form-row mt-1 mb-0" style="display:none">
                         <div class="col-sm-5">
                            <h6 class="f-w-700">Employee ID:</h6>
                         </div>
@@ -102,11 +102,19 @@
                            <p id="employee_dept_show"></p>
                         </div>
                      </div>  
+                     <div class="form-group form-row mt-1 mb-0">
+                        <div class="col-sm-5">
+                           <h6 class="f-w-700">Email:</h6>
+                        </div>
+                        <div class="col-sm-7">
+                           <p id="email_show"></p>
+                        </div>
+                     </div>   
                      <!-- <div class="form-group">
                            <h6 class="f-w-700">Gender:</h6>
                            <p id="occassion_show"></p>
                      </div> -->  
-                     <div class="form-group form-row mt-1 mb-0">
+                     <div class="form-group form-row mt-1 mb-0"  style="display:none">
                         <div class="col-sm-5">
                            <h6 class="f-w-700">DOJ:</h6>
                         </div>
@@ -130,7 +138,7 @@
                            <p id="employee_wl_show"></p>
                         </div>
                      </div> 
-                     <div class="form-group form-row mt-1 mb-0">
+                     <div class="form-group form-row mt-1 mb-0" style="display:none">
                         <div class="col-sm-5">
                            <h6 class="f-w-700">Payroll Status:</h6>
                         </div>

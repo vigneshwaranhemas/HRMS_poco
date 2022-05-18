@@ -1,6 +1,5 @@
 "use strict";
 
-
 function getBirthdayFilter(){
     // implementation omitted
     return $("#holidays_state_filter").val();
@@ -68,7 +67,7 @@ $('#holidays_state_filter').change(function () {
     // alert(this.value)
     var state = this.value;
     // alert(state)
-     var url = "fetch_holidays_list";
+    var url = "fetch_holidays_list";
     var fil = url+'?state=' + state;
     // alert(fil)
     $('#cal-basic').fullCalendar('refetchEvents', fil);    

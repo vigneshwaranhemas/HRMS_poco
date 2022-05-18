@@ -20,14 +20,14 @@ class SidebarController extends Controller
          $cdID = $session_val['cdID'];
          $role_id = $session_val['role_id'];
          // echo "1<pre>";print_r($role_type);die;
-         
+
          if ($emp_ID !="") {
             $menu_list = DB::table('role_permissions as rp')->select('*')
                             ->leftjoin('menus as m','m.menu_id', '=', 'rp.menu')
                             ->where('rp.role', '=', $role_id)->where('rp.view', '=', '1')->groupBy('rp.menu')->get();
                             // echo "<pre>";print_r($menu_list);die;
                             $html ='';
-                            for ($i=0; $i < count($menu_list) ; $i++) { 
+                            for ($i=0; $i < count($menu_list) ; $i++) {
                                 // echo "<pre>";print_r($menu_list);die;
                                  if ($menu_list[$i]->child == 0) {
                                         $html .='<li>';
@@ -48,7 +48,7 @@ class SidebarController extends Controller
                                                             ->where('rp.view', '=', '1')
                                                             ->get();
                                             // echo "<pre>";print_r($sub_menu_list);die;
-                                            for ($j=0; $j < count($sub_menu_list) ; $j++) { 
+                                            for ($j=0; $j < count($sub_menu_list) ; $j++) {
                                                 $html .='<li><a href="'.$sub_menu_list[$j]->submenu_path.'"">'.$sub_menu_list[$j]->sub_menu_name.'</a></li>';
                                             }
 
@@ -57,7 +57,7 @@ class SidebarController extends Controller
                                 }
 
                             }
-                
+
                     return response()->json( ['sidebar_list' => $html] );
 
          }
@@ -65,4 +65,6 @@ class SidebarController extends Controller
     }
 
 }
+
 /*full menu bar krish */
+

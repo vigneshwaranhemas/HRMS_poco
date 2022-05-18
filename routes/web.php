@@ -381,9 +381,9 @@ Route::post('fetch_people_star_add', 'PeopleController@fetch_people_star_add')->
 //vignesh routes for check user status
 
 Route::post('check_user_status','CommonController@check_user_status');
-
-Route::get('organization_charts', 'CommonController@organization_charts')->name('organization_charts');
-Route::get('supervisor_wise_organisation','CommonController@supervisor_wise_TreeData');
+Route::get('organisation_one', 'CommonController@organisation_one');
+Route::get('organization_charts', 'CommonController@organization_charts');
+Route::post('supervisor_wise_organisation','CommonController@supervisor_wise_TreeData');
 
 Route::get('can_hr_profile','HrController@can_hr_profile');
 

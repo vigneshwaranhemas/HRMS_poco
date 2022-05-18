@@ -119,7 +119,8 @@
 <script src="../assets/toastify/toastify.js"></script>
 
 <script src="../pro_js/jquery/jquery.min.js"></script>
-<script src="../pro_js/login.js"></script>
+<!-- <script src="../pro_js/login.js"></script> -->
+<script src="{{asset('pro_js/login.js')}}"></script>
 <script type="text/javascript">
 
     $( document ).ready(function() {

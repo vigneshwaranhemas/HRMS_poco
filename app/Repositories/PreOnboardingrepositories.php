@@ -108,6 +108,26 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
             }
 
 
+    public function get_policy_category_candidate_details(){
+
+        $divisiontbl = DB::table('company_policy_categories as dv')
+        ->select('dv.*')
+        ->orderBy('dv.created_at', 'desc')
+        ->get();
+
+        return $divisiontbl;
+    }
+
+    public function get_policy_information_candidate_details( $input_details ){
+
+        $policy_information_candidate_tbl = DB::table('company_policy_information as cpi')
+        ->select('cpi.*')
+        ->where('cpi.cp_id', '=', $input_details['cp_id'])
+        ->orderBy('cpi.created_at', 'desc')
+        ->get();
+
+        return $policy_information_candidate_tbl;
+    }
 
 
 

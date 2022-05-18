@@ -216,9 +216,9 @@ table_cot = $('#client_data').DataTable({
     createdRow: function( row, data, dataIndex ) {
         $( row ).find('td:eq(0)').attr('data-label', 'Sno');
         $( row ).find('td:eq(1)').attr('data-label', 'Client Name');
-        $( row ).find('td:eq(1)').attr('data-label', 'Mobile Number');
-        $( row ).find('td:eq(1)').attr('data-label', 'Email');
-        $( row ).find('td:eq(2)').attr('data-label', 'action');
+        $( row ).find('td:eq(2)').attr('data-label', 'Mobile Number');
+        $( row ).find('td:eq(3)').attr('data-label', 'Email');
+        $( row ).find('td:eq(4)').attr('data-label', 'action');
     },
     columns: [
         {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },

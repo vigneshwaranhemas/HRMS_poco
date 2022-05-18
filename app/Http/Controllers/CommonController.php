@@ -55,6 +55,7 @@ class CommonController extends Controller
                 'l_name' => 'required',
                 'emp_num_1' => 'required|numeric',
                 'emrg_con_num' => 'required|numeric',
+                'name_rel_ship'=>'required',
                 'rel_emp' => 'required',
                 'doj' => 'required',
                 'official_email' => 'required',
@@ -445,13 +446,13 @@ public function organization_charts()
 }
 
 
-    return view('HRSS.organization_charts')->with('emp_data',$emp_data)->with('supervisors',$result['supervisors']);
+    return view('HRSS.organization_charts1')->with('emp_data',$emp_data)->with('supervisors',$result['supervisors']);
 
 }
 public function supervisor_wise_TreeData(Request $request)
 {
-    // $id=$request->id;
-    $id=$_GET['id'];
+    $id=$request->id;
+    // $id=$_GET['id'];
     $result = $this->cmmrpy->supervisor_wise_info($id);
     foreach($result['employees'] as $emp)
     {
@@ -524,13 +525,87 @@ public function supervisor_wise_TreeData(Request $request)
 
 
 
-        return view('HRSS.organization_charts')->with('emp_data',$emp_data)->with('supervisors',$result['supervisors']);
+        // return view('HRSS.organization_charts')->with('emp_data',$emp_data)->with('supervisors',$result['supervisors']);
 
 
 
 
-    // echo json_encode($emp_data);
+    echo json_encode($emp_data);
+}
+public function organisation_one(Request $request)
+{
+    $result = $this->cmmrpy->get_organization_info();
+    $filePath= $_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$result['reviewer']->img_path.'.jpg';
+    if(file_exists($filePath)){
+         $image='../ID_card_photo/'.$result['reviewer']->img_path.'.jpg';
+    }
+    else{
+        $image='../ID_card_photo/dummy.png';
+    }
+   //reviewer wise
+   $emp_data[]=array('nodeId'=>$result['reviewer']->empID,
+                     'parentNodeId'=>null,
+                     'name'=>$result['reviewer']->username,
+                     'template'=>$result['reviewer']->designation,
+                     'nodeImage'=>$image);
+
+      //superwisor wise
+                foreach($result['supervisors'] as $supervisors){
+                    if (file_exists($_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$supervisors['img_path'].'.jpg')) {
+                        $sup_image='../ID_card_photo/'.$supervisors['img_path'].'.jpg';
+                    }
+                    else{
+                        $sup_image='../ID_card_photo/dummy.png';
+                    }
+
+                    $emp_data[]=array('nodeId'=>$supervisors['empID'],
+                    'parentNodeId'=>$supervisors['sup_emp_code'],
+                    'name'=>$supervisors['username'],
+                    'template'=>$supervisors['designation'],
+                    'nodeImage'=>$sup_image);
+                    }
+                      //teamleader wise
+      foreach($result['team_leaders'] as $team_leaders){
+        foreach($team_leaders as $leaders){
+            if (file_exists($_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$leaders['img_path'].'.jpg')) {
+                $team_image='../ID_card_photo/'.$leaders['img_path'].'.jpg';
+             }
+             else{
+                $team_image='../ID_card_photo/dummy.png';
+             }
+            $emp_data[]=array('nodeId'=>$leaders['empID'],
+            'parentNodeId'=>$leaders['sup_emp_code'],
+            'name'=>$leaders['username'],
+            'template'=>$leaders['designation'],
+            'nodeImage'=>$team_image);
+        }
+}
+foreach($result['employees'] as $emp)
+{
+       foreach($emp as $employees){
+            if(count($emp)>0){
+                if (file_exists($_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$employees['img_path'].'.jpg')) {
+                    $sup_image='../ID_card_photo/'.$employees['img_path'].'.jpg';
+                }
+                else{
+                    $sup_image='../ID_card_photo/dummy.png';
+                }
+              $emp_data[]=array('nodeId'=>$employees['empID'],
+              'parentNodeId'=>$employees['sup_emp_code'],
+              'name'=>$employees['username'],
+              'template'=>$employees['designation'],
+              'nodeImage'=>$sup_image);
+            // $emp_data[]=$employees;
+            }
+            else{
+
+            }
+        }
+
 }
 
+
+     return view('HRSS.organization_charts1')->with('emp_data',$emp_data);
+}
 
 }

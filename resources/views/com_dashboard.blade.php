@@ -2,13 +2,15 @@
 @section('title', 'Dashboard')
 
 @section('css')
-<link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
+{{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/prism.css"> --}}
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/prism.css')}}">
+
     <!-- Plugins css start-->
-<link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
-<link rel="stylesheet" type="text/css" href="../assets/scss/bootstrap/_modal.scss">
-<link rel="stylesheet" type="text/css" href="../assets/css/whether-icon.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/ionic-icon.css">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/chartist.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/date-picker.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/scss/bootstrap/_modal.scss')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/whether-icon.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/ionic-icon.css')}}">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
@@ -36,11 +38,12 @@
                 <div class="b-r-4 card-body">
                   <div class="media static-top-widget">
                     <div class="align-self-center text-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle text-white i"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                       <div class="text-white i" data-feather="message-circle"></div>
-                    </div>
-                    <div class="media-body"><a class="m-0 text-white" href="{{ url('id_card_varification') }}" >ID Card Info</a>
+                    </div><i class="icon-bg" data-feather="message-circle"></i>
+                    <div class="media-body"><a class="m-0 text-white" href="{{ url('id_card_varification') }}" ><h5 style="color:black;">ID Card Info</h5></a>
                         {{-- <input type="hidden" name="_token" value="{!! csrf_token() !!}" id="token"> --}}
-                     <i class="icon-bg" data-feather="message-circle"></i>
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle icon-bg"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                      <!--  <h4 class="mb-0 counter text-white">893</h4> -->
                     </div>
                   </div>
@@ -52,9 +55,11 @@
                 <div class="b-r-4 card-body">
                   <div class="media static-top-widget">
                     <div class="align-self-center text-center">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus text-white i"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
                       <div class="text-white i" data-feather="user-plus"></div>
                     </div>
-                    <div class="media-body"><a class="m-0 text-white" href="{{ url('candidate_profile') }}">Profile</a><i class="icon-bg" data-feather="user-plus"></i>
+                    <div class="media-body"><a class="m-0 text-white" href="{{ url('candidate_profile') }}"><h5 style="color:black;">Profile</h5></a>
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus icon-bg"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
                     </div>
                   </div>
                 </div>
@@ -140,7 +145,7 @@
                         @foreach($upcoming_holidays as $upcoming_holiday)
                            <tr>
                               <td>
-                              <div class="activity-image"><img class="img-fluid" src="../assets/images/dashboard/clipboard.png" alt=""></div>
+                              <div class="activity-image"><img class="img-fluid" src="{{asset('assets/images/dashboard/clipboard.png')}}" alt=""></div>
                               </td>
                               <td>
                               <div class="activity-details">
@@ -208,7 +213,7 @@
                         @foreach($upcoming_events as $upcoming_event)
                            <tr>
                               <td>
-                              <div class="activity-image"><img class="img-fluid" src="../assets/images/dashboard/greeting.png" alt=""></div>
+                              <div class="activity-image"><img class="img-fluid" src="{{asset('assets/images/dashboard/greeting.png')}}" alt=""></div>
                               </td>
                               <td>
                               <div class="activity-details">
@@ -418,28 +423,28 @@ View More&lt;/button&gt;
 @endsection
 
 @section('script')
-<script src="../assets/js/typeahead/handlebars.js"></script>
-<script src="../assets/js/typeahead/typeahead.bundle.js"></script>
-<script src="../assets/js/typeahead/typeahead.custom.js"></script>
-<script src="../assets/js/typeahead-search/handlebars.js"></script>
-<script src="../assets/js/typeahead-search/typeahead-custom.js"></script>
-<script src="../assets/js/chart/chartist/chartist.js"></script>
-<script src="../assets/js/chart/chartist/chartist-plugin-tooltip.js"></script>
-<script src="../assets/js/chart/apex-chart/apex-chart.js"></script>
-<script src="../assets/js/chart/apex-chart/stock-prices.js"></script>
-<script src="../assets/js/prism/prism.min.js"></script>
-<script src="../assets/js/clipboard/clipboard.min.js"></script>
-<script src="../assets/js/counter/jquery.waypoints.min.js"></script>
-<script src="../assets/js/counter/jquery.counterup.min.js"></script>
-<script src="../assets/js/counter/counter-custom.js"></script>
-<script src="../assets/js/custom-card/custom-card.js"></script>
-<script src="../assets/js/notify/bootstrap-notify.min.js"></script>
-<script src="../assets/js/dashboard/default.js"></script>
-<script src="../assets/js/notify/index.js"></script>
-<script src="../assets/js/datepicker/date-picker/datepicker.js"></script>
-<script src="../assets/js/datepicker/date-picker/datepicker.en.js"></script>
-<script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
-<script src="../pro_js/side_bar.js"></script>
+<script src="{{asset('assets/js/typeahead/handlebars.js')}}"></script>
+<script src="{{asset('assets/js/typeahead/typeahead.bundle.js')}}"></script>
+<script src="{{asset('assets/js/typeahead/typeahead.custom.js')}}"></script>
+<script src="{{asset('assets/js/typeahead-search/handlebars.js')}}"></script>
+<script src="{{asset('assets/js/typeahead-search/typeahead-custom.js')}}"></script>
+<script src="{{asset('assets/js/chart/chartist/chartist.js')}}"></script>
+<script src="{{asset('assets/js/chart/chartist/chartist-plugin-tooltip.js')}}"></script>
+<script src="{{asset('assets/js/chart/apex-chart/apex-chart.js')}}"></script>
+<script src="{{asset('assets/js/chart/apex-chart/stock-prices.js')}}"></script>
+<script src="{{asset('assets/js/prism/prism.min.js')}}"></script>
+<script src="{{asset('assets/js/clipboard/clipboard.min.js')}}"></script>
+<script src="{{asset('assets/js/counter/jquery.waypoints.min.js')}}"></script>
+<script src="{{asset('assets/js/counter/jquery.counterup.min.js')}}"></script>
+<script src="{{asset('assets/js/counter/counter-custom.js')}}"></script>
+<script src="{{asset('assets/js/custom-card/custom-card.js')}}"></script>
+<script src="{{asset('assets/js/notify/bootstrap-notify.min.js')}}"></script>
+<script src="{{asset('assets/js/dashboard/default.js')}}"></script>
+<script src="{{asset('assets/js/notify/index.js')}}"></script>
+<script src="{{asset('assets/js/datepicker/date-picker/datepicker.js')}}"></script>
+<script src="{{asset('assets/js/datepicker/date-picker/datepicker.en.js')}}"></script>
+<script src="{{asset('assets/js/datepicker/date-picker/datepicker.custom.js')}}"></script>
+<script src="{{asset('pro_js/side_bar.js')}}"></script>
 <script>
       var get_session_sidebar_link = "{{url('get_session_sidebar')}}";
 

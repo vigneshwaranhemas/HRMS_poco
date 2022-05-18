@@ -38,7 +38,6 @@ class AuthController extends Controller
 
     public function dashboard()
     {
- 
       if(Auth::check()){
         return view('dashboard');
       }
@@ -46,8 +45,8 @@ class AuthController extends Controller
     }
 
      
-    public function logout(){
+   /* public function logout(){
         Auth::logout();
         return view('login');
-    }
+    }*/
 }   

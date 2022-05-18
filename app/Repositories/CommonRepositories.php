@@ -119,6 +119,32 @@ class CommonRepositories implements ICommonRepositories
           $team_leaders[]=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$supervisors['empID'])->get();
         }
         $organisation['team_leaders']=$team_leaders;
+        foreach($organisation['team_leaders'] as $teamleaders){
+            foreach($teamleaders as $leaders)
+            {
+                      $emp[]=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$leaders['empID'])->get();
+
+            }
+        }
+      $organisation['employees']=$emp;
+        return $organisation;
+    }
+    public function get_organization_info_one()
+    {
+        $organisation['reviewer']=CustomUser::select('empID','username','img_path','designation')->where('sup_name','CKR')->first();
+        $organisation['supervisors']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$organisation['reviewer']->empID)->get();
+        foreach($organisation['supervisors'] as $supervisors){
+          $team_leaders[]=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$supervisors['empID'])->get();
+        }
+        $organisation['team_leaders']=$team_leaders;
+        foreach($organisation['team_leaders'] as $teamleaders){
+              foreach($teamleaders as $leaders)
+              {
+                        $emp[]=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$leaders['empID'])->get();
+
+              }
+          }
+        $organisation['employees']=$emp;
         return $organisation;
     }
     public function supervisor_wise_info($id)

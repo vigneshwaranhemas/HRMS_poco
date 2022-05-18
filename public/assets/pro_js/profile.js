@@ -15,9 +15,9 @@ headers: {
 $uploadCrop = $('#upload-demo').croppie({
     enableExif: true,
     viewport: {
-        width: 200,
+        width: 700,
         height: 200,
-        // type: 'circle'
+        type: 'rectangle'
     },
     boundary: {
         width: 300,
@@ -648,7 +648,7 @@ $(()=>{
     // $('#btnSubmit').on('click',(e)=>{
         // alert('asdasdasdas')
 $('#add_documents_unit').submit(function(e) { 
-    
+
         $(this).attr('disabled','disabled');   
         $("#doc_Submit").text('Processing...');  
 

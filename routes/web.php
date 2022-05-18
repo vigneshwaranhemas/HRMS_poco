@@ -357,11 +357,11 @@ Route::post('idcard_info_save', 'CommonController@idcard_info_save');
 
 //Employee List
 Route::post('get_employee_list', 'AdminController@get_employee_list' );
-// Document Centre
+
+// Document Centre for Candidate
 Route::get('document_center', 'CandidateController@document_center')->name('document_center');
 Route::get('payslip', 'CandidateController@payslip')->name('payslip');
 Route::get('documents_candidate', 'CandidateController@documents_candidate')->name('documents_candidate');
-
 
 Route::get('id_card_varification', 'CommonController@id_card_varification');
 /*hr id card process*/
@@ -418,5 +418,8 @@ Route::get('email_pass','LoginController@email_pass');
 Route::post('con_pass_process','LoginController@con_pass_process');
 Route::post('getemail_process','LoginController@getemail_process');
 
-
+// Company Policy Candidate
+Route::get('company_policy_candidate', 'CandidateController@company_policy_candidate')->name('company_policy_candidate');
+Route::post('get_policy_category_candidate_details', 'CandidateController@get_policy_category_candidate_details');
+Route::post('get_policy_information_candidate_details', 'CandidateController@get_policy_information_candidate_details');
 

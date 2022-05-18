@@ -425,6 +425,31 @@ public function documents_candidate()
     return view('candidate.documents_candidate');
 }
 
+public function company_policy_candidate()
+{
+    return view('candidate.company_policy_candidate');
+}
+
+public function get_policy_category_candidate_details(){
+        // $input_details = array(
+        //     'id'=>$req->input('id'),
+        // );
+
+        $get_policy_category_candidate_details_result = $this->preon->get_policy_category_candidate_details();
+
+        return response()->json( $get_policy_category_candidate_details_result );
+    }
+
+public function get_policy_information_candidate_details(Request $req){
+        $input_details = array(
+            'cp_id'=>$req->input('cp_id'),
+        );
+        // echo '<pre>';print_r($input_details);die();
+
+        $get_policy_information_candidate_details_result = $this->preon->get_policy_information_candidate_details( $input_details );
+
+        return response()->json( $get_policy_information_candidate_details_result );
+    }
 
 
 

@@ -33,7 +33,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" />
 
         <!-- Styles -->
-        <link rel="stylesheet" href="./assets/css/main.css" /><html lang="en" class="no-js">
+        <link rel="stylesheet" href="../assets/css/main.css" /><html lang="en" class="no-js">
     <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="robots" content="noindex">

@@ -101,7 +101,7 @@ max-width: 1000px !important;
                      <div class="col-sm-12 col-lg-4 order-sm-0 order-xl-1">
                         <div class="user-designation">
                            <div class="title"><a target="_blank" id="can_name_1" href=""></a></div>
-                           <div class="desc mt-2" id="designation"></div>
+                           <div class="desc mt-2" id="can_designation_1"></div>
                         </div>
                      </div>
                      <div class="col-sm-6 col-lg-4 order-sm-2 order-xl-2">
@@ -372,7 +372,7 @@ max-width: 1000px !important;
                                         <th>Certificate</th>
                                     </tr>
                                 </thead>
-                                <tbody id="education_td">
+                                <tbody id="education_td_hr">
 
                                 </tbody>
                             </table>
@@ -465,5 +465,6 @@ max-width: 1000px !important;
     var family_information_get_link = "{{url('family_information_hr')}}";
     var Contact_info_hr_link = "{{url('Contact_info_hr')}}";
     var account_info_hr_link = "{{url('account_info_hr')}}";
+   var education_information_get_link = "{{url('education_information_hr')}}";
  </script>
 @endsection

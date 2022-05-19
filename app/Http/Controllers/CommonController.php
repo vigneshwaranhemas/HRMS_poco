@@ -239,6 +239,7 @@ class CommonController extends Controller
                     'blood_grp'=>$request->input('blood_grp'),
                     'empID'=>$request->input('emp_code'),
                     'official_email'=>$request->input('official_email'),
+                    'p_email'=>$request->input('p_email'),
                     'emp_dob'=>$request->input('emp_dob'),
                     );
             }else{
@@ -262,6 +263,7 @@ class CommonController extends Controller
                     'blood_grp'=>$request->input('blood_grp'),
                     'empID'=>$request->input('emp_code'),
                     'official_email'=>$request->input('official_email'),
+                    'p_email'=>$request->input('p_email'),
                     'emp_dob'=>$request->input('emp_dob'),
                     );
             }
@@ -301,6 +303,14 @@ class CommonController extends Controller
 
         $input_details = array( "empID" => $request->empID, );
         $candidate_info_result_hr = $this->cmmrpy->account_hr_info( $input_details );
+
+        return response()->json( $candidate_info_result_hr );
+
+    }
+    public function education_information_hr(Request $request){
+
+        $input_details = array( "empID" => $request->empID, );
+        $candidate_info_result_hr = $this->cmmrpy->education_hr_info( $input_details );
 
         return response()->json( $candidate_info_result_hr );
 

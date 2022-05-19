@@ -38,17 +38,17 @@
   <!-- Container-fluid starts-->
   <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-2">
-            <span>ID Card Status</span>
-            <select  name="status" id="status" class="form-control">
-                <option value="">--Select--</option>
-                <option value="2">Accept</option>
-                <option value="3">Revert</option>
-            </select>
-        </div>
       <div class="col-sm-12">
         <div class="card">
           <div class="card-body">
+            <div class="col-lg-2 float-right">
+                <span>ID Card Status</span>
+                <select  name="status" id="status" class="form-control">
+                    <option value="">--Select--</option>
+                    <option value="2">Accept</option>
+                    <option value="3">Revert</option>
+                </select>
+            </div>
             <div class="dt-ext table-responsive">
               <table class="display" id="employee_data">
                 <thead>
@@ -135,7 +135,7 @@
                      </div>
                      <div class="text-center">
                         <div class="col-sm-4 form-group" >
-                          <input type="file" name="file" class="form-control" onchange="previewFile(this);" id="pro_img_up">
+                          <input type="file" name="file" class="form-control readone_1" onchange="previewFile(this);" id="pro_img_up">
                           <span class="text-danger color-hider" id="pro_img_up_error"  style="display:none;color: red;"></span>
                            <input type="hidden" name="img_path_hide" id="img_path_hide">
                        </div>
@@ -144,19 +144,19 @@
                       <div class="form-row">
                          <div class="col-md-4 mb-3">
                             <label for="f_name">First name</label>
-                            <input class="form-control alpha" style="text-transform:uppercase" id="f_name" type="text" name="f_name" placeholder="First name" required="">
+                            <input class="form-control alpha readone" style="text-transform:uppercase" id="f_name" type="text" name="f_name" placeholder="First name" required="">
                             <span class="text-danger color-hider" id="f_name_error"  style="display:none;color: red;"></span>
                             <div class="valid-feedback">Looks good!</div>
                          </div>
                          <div class="col-md-4 mb-3">
                             <label for="m_name">Middle Name</label>
-                            <input class="form-control alpha" id="m_name" type="text" name="m_name" placeholder="Middle name" >
+                            <input class="form-control alpha readone" id="m_name" type="text" name="m_name" placeholder="Middle name" >
                             <div class="valid-feedback">Looks good!</div>
                          </div>
                          <div class="col-md-4 mb-3">
                             <label for="validationCustomUsername">Last Name</label>
-                             <input class="form-control alpha" style="text-transform:uppercase" id="l_name" name="l_name" type="text" placeholder="Middle name" >
-                             <span class="text-danger color-hider" id="l_name_error"  style="display:none;color: red;"></span>
+                             <input class="form-control alpha readone" style="text-transform:uppercase" id="l_name" name="l_name" type="text" placeholder="Middle name" >
+                             <span class="text-danger color-hider " id="l_name_error"  style="display:none;color: red;"></span>
                          </div>
                       </div>
                   </div>
@@ -164,18 +164,18 @@
                       <div class="form-row">
                      <div class="col-md-4 mb-3">
                         <label for="working_loc">Work Location</label>
-                        <input class="form-control" id="working_loc" name="working_loc" type="text" placeholder="Working Location" >
+                        <input class="form-control readone" id="working_loc" name="working_loc" type="text" placeholder="Working Location" >
                         <div class="invalid-feedback">Please provide a valid Location.</div>
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="emp_num_1">Mobile Number 1 *</label>
-                        <input class="form-control" maxlength="10" onkeypress="return isNumber(event)" id="emp_num_1" name="emp_num_1" type="text" placeholder="Mobile Number 1" required="">
+                        <input class="form-control readone" maxlength="10" onkeypress="return isNumber(event)" id="emp_num_1" name="emp_num_1" type="text" placeholder="Mobile Number 1" required="">
                         <span class="text-danger color-hider" id="emp_num_1_loc_error"  style="display:none;color: red;"></span>
                         <!-- <div class="invalid-feedback">Please provide a valid state.</div> -->
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="emp_num_2">Mobile Number 2</label>
-                        <input class="form-control" maxlength="10" id="emp_num_2" onkeypress="return isNumber(event)" name="emp_num_2" type="text" placeholder="Mobile Number 2" required="">
+                        <input class="form-control readone" maxlength="10" id="emp_num_2" onkeypress="return isNumber(event)" name="emp_num_2" type="text" placeholder="Mobile Number 2" required="">
                         <!-- <div class="invalid-feedback">Please provide a valid zip.</div> -->
                      </div>
                   </div>
@@ -185,7 +185,7 @@
                      <div class="col-md-4 mb-3">
                         <label for="rel_emp">Emergency Contact of Relationship *</label>
                         <!-- <input class="form-control" id="rel_emp" name="rel_emp" type="text" placeholder="Relationship of Employee" required=""> -->
-                           <select class="form-control" name="rel_emp" id="rel_emp">
+                           <select class="form-control readone_1" name="rel_emp" id="rel_emp">
                               <option value="">Select</option>
                              <option value="Mother">Mother</option>
                              <option value="Father">Father</option>
@@ -205,11 +205,11 @@
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="name_rel_ship">Name of Relationship</label>
-                        <input class="form-control alpha" id="name_rel_ship" name="name_rel_ship" type="text" placeholder="Name of Relationship" required="">
+                        <input class="form-control alpha readone" id="name_rel_ship" name="name_rel_ship" type="text" placeholder="Name of Relationship" required="">
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="emrg_con_num">Emergency contact number *</label>
-                        <input class="form-control" maxlength="10" onkeypress="return isNumber(event)" id="emrg_con_num" name="emrg_con_num" type="text" placeholder="Emergency contact number" required="">
+                        <input class="form-control readone" maxlength="10" onkeypress="return isNumber(event)" id="emrg_con_num" name="emrg_con_num" type="text" placeholder="Emergency contact number" required="">
                         <span class="text-danger color-hider" id="emrg_con_num_error"  style="display:none;color: red;"></span>
                      </div>
                   </div>
@@ -218,11 +218,11 @@
                           <div class="form-row">
                      <div class="col-md-4 mb-3">
                         <label for="rel_emp">Date Of Joining *</label>
-                        <input class="form-control" id="doj" name="doj" type="date" placeholder="Date Of Join" >
+                        <input class="form-control readone" id="doj" name="doj" type="date" placeholder="Date Of Join" >
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="blood_grp">Blood Group *</label>
-                        <select class="form-control" placeholder="Blood Group" id="blood_grp" name="blood_grp" required=""> <option value="">Select Blood Group</option>
+                        <select class="form-control readone_1" placeholder="Blood Group" id="blood_grp" name="blood_grp" required=""> <option value="">Select Blood Group</option>
                            <option value="A+">A+</option><option value="A-">A-</option>
                            <option value="B+">B+</option><option value="B-">B-</option>
                            <option value="O+">O+</option><option value="O-">O-</option>
@@ -233,7 +233,7 @@
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="emp_code">Employee code</label>
-                        <input class="form-control" id="emp_code" name="emp_code" type="text" placeholder="Employee code" readonly>
+                        <input class="form-control readone" id="emp_code" name="emp_code" type="text" placeholder="Employee code" readonly>
                         <!-- <div class="invalid-feedback">Please provide a valid zip.</div> -->
                      </div>
                   </div>
@@ -242,17 +242,17 @@
                       <div class="form-row">
                      <div class="col-md-4 mb-3">
                         <label for="official_email">Official Email ID *</label>
-                        <input class="form-control" id="official_email" name="official_email" type="email" placeholder="Official Email Id"  >
+                        <input class="form-control readone" id="official_email" name="official_email" type="email" placeholder="Official Email Id"  >
                         <!-- <div class="invalid-feedback">Please provide a valid Location.</div> -->
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="p_email">Personal Email ID</label>
-                        <input class="form-control" id="p_email" name="p_email" type="email" placeholder=" Email Id" >
+                        <input class="form-control readone" id="p_email" name="p_email" type="email" placeholder=" Email Id" >
                         <!-- <div class="invalid-feedback">Please provide a valid Location.</div> -->
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="emp_dob">Date Of Birth *</label>
-                        <input class="form-control" id="emp_dob" name="emp_dob" type="date" placeholder="Blood Group">
+                        <input class="form-control readone" id="emp_dob" name="emp_dob" type="date" placeholder="Blood Group">
                         <span class="text-danger color-hider" id="emp_dob_error"  style="display:none;color: red;"></span>
                         <!-- <div class="invalid-feedback">Please provide a valid state.</div> -->
                      </div>
@@ -262,7 +262,7 @@
                   <center>
                      <button class="btn btn-success" id="hr_acc_but" type="btnSubmit">Accept</button>
                      <!-- <button class="btn btn-danger">  </button> -->
-                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ignoreModal" data-whatever="@mdo">Revert</button>
+                     <button type="button" id="rev_but" class="btn btn-danger" data-toggle="modal" data-target="#ignoreModal" data-whatever="@mdo">Revert</button>
 
                   </center>
                </form>
@@ -325,6 +325,8 @@
      var hr_idcard_verfi_link = "{{url('hr_idcard_verfi')}}";
     var hr_id_remark_link = "{{url('hr_id_remark')}}";
 
+
+
      /*only Numbers*/
    function isNumber(evt) {
           evt = (evt) ? evt : window.event;
@@ -361,6 +363,7 @@
             reader.readAsDataURL(file);
         }
     }
+
 </script>
 @endsection
 

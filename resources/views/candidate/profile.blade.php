@@ -74,13 +74,13 @@ max-width: 1000px !important;
                       <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5" data-toggle="modal" data-original-title="test" data-target="#exampleModal"></i></div>
                      <figure itemprop="associatedMedia" itemscope>
                         <!-- <a href="../assets/images/other-images/profile-style-img3.png" itemprop="contentUrl" data-size="1600x950"><img class="img-fluid rounded" src="../assets/images/other-images/profile-style-img3.png" itemprop="thumbnail" alt="gallery"></a> -->
-                        <a class="avatar" itemprop="contentUrl" data-size="1600x950"><img width="1300" height="330" class="img-fluid rounded" itemprop="thumbnail"  alt="" id="banner_img"></a>
+                        <a class="avatar" itemprop="contentUrl" data-size="1600x950"><img width="1300" height="330" class="img-fluid rounded" itemprop="thumbnail" alt="" id="banner_img"></a>
                         <!-- <div class="avatar" itemprop="contentUrl" data-size="1600x950"><img class="img-fluid rounded" itemprop="thumbnail" alt="" id="banner_img" src=""></div> -->
                      </figure>
                   </div>
                </div>
                <div class="user-image">
-                  <div class="avatar"><img alt="" id="profile_img" src=""></div>
+                  <div class="avatar"><img id="profile_img" src=""></div>
                   <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5" data-toggle="modal" data-original-title="test" data-target="#profile_image"></i></div>
                </div>
             <!-- Pop-up banner starts-->
@@ -119,6 +119,7 @@ max-width: 1000px !important;
                </div>
             </div>
             <!-- Pop-up div Ends-->
+            <div class="text-center">
                <div class="info">
                   <div class="row">
                      <div class="col-sm-6 col-lg-4 order-sm-1 order-xl-0">
@@ -161,6 +162,7 @@ max-width: 1000px !important;
                      </div>
                   </div>
                </div>
+            </div>
             </div>
          </div>
          <!-- user profile first-style end-->
@@ -878,6 +880,35 @@ max-width: 1000px !important;
                    </div>
                  </div>
                <!-- Pop-up div Ends-->
+               <!-- /.banner popup image -->
+                  <div class="modal fade sample-preview_ban" tabindex="-1" role="dialog"
+                  aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg">
+                        <div class="modal-header" style="border-bottom: 0;">
+                           <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                           <img id="sample_view_ban" style="width: 65%; margin-left: 20%;">
+                        </div>
+                     </div>
+                  </div>
+                  <!-- /.End banner pop up image -->
+
+                  <!-- /.profile popup image -->
+                  <div class="modal fade sample-preview_pro" tabindex="-1" role="dialog"
+                  aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-lg">
+                        <div class="modal-header" style="border-bottom: 0;">
+                           <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                           <img id="sample_view_pro" style="width: 35%; margin-left: 30%;">
+                        </div>
+                     </div>
+                  </div>
+                  <!-- /.End banner pop up image -->
                </div>
             </div>
          </div>
@@ -913,7 +944,7 @@ max-width: 1000px !important;
         }
     });
 
-
+  
    /*state list*/
    var state_get_link = "{{url('state_get')}}";
    var get_district_link = "{{url('get_district')}}";

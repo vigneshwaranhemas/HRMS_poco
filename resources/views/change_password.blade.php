@@ -48,7 +48,7 @@
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label for="New Password">New Password </label>
-                                                    <input type="text" id="new_password" class="form-control"
+                                                    <input type="Password" id="new_password" class="form-control"
                                                         placeholder="New Password" name="new_password" required />
                                                 </div>
                                             </div>
@@ -57,7 +57,7 @@
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label for="Confirm Password">Confirm Password</label>
-                                                    <input type="text" id="confirm_password" class="form-control"
+                                                    <input type="Password" id="confirm_password" class="form-control"
                                                         placeholder="Confirm Password" name="confirm_password"
                                                         required />
                                                     <br>

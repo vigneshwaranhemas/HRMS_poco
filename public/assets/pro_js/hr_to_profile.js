@@ -19,8 +19,9 @@ function hr_to_profile(id){
             var doj = moment(data[0].doj).format('DD-MM-YYYY');
                     // $('#pro_img').val(data[0].img_path);
                     $("#pro_img").attr('src',"../ID_card_photo/"+data[0].img_path+".jpg");
-                    $('#can_name').html(data[0].username + data[0].m_name + data[0].l_name);
-                    $('#can_name_1').html(data[0].username + data[0].m_name + data[0].l_name);
+                    $('#can_name').html(data[0].username + data[0].m_name +" " + data[0].l_name);
+                    $('#can_name_1').html(data[0].username + data[0].m_name +" "+ data[0].l_name);
+                     $('#can_designation_1').html(data[0].designation);
                     $('#can_email').html(data[0].email);
                     $('#can_dob').html(dob);
                     $('#can_dob_1').html(dob);
@@ -87,6 +88,39 @@ function account_info_hr(){
                     $('#branch_name').html(data[0].branch_name);
                     $('#acc_number').html(data[0].acc_number);
                     $('#ifsc_code').html(data[0].ifsc_code);
+                }
+            }
+        });
+    }
+
+/*education information*/
+$("#v-pills-Education-tab").on('click', function() {
+    education_information_hr();
+});
+
+function education_information_hr(){
+    var params = new window.URLSearchParams(window.location.search);
+    var empID=params.get('empID')
+    $.ajax({
+        url: education_information_get_link,
+        method: "POST",
+        data:{"empID":empID},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data)
+            if (data !="") {
+                $('#education_td_hr').empty();
+                        html ='';
+                    $.each(data, function (key, val) {
+                        html +='<tr>';
+                        html +='<td data-label="allcount">'+val.degree+'</td>';
+                        html +='<td data-label="allcount">'+val.university+'</td>';
+                        html +='<td data-label="allcount">'+val.edu_start_month+"-"+val.edu_start_year+'</td>';
+                        html +='<td data-label="allcount">'+val.edu_end_month+"-"+val.edu_end_year+'</td>';
+                        html +='<td data-label="allcount"><a href="../education/'+ val.edu_certificate +'" target =_blank><img class="rounded-circle" src="../assets/images/user/1.jpg"  alt=""></a></td>';
+
+                    });
+                    $('#education_td_hr').html(html);
                 }
             }
         });

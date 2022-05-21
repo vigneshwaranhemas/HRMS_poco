@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\IAdminRepository;
+use App\Repositories\ICommonRepositories;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,12 +16,21 @@ use App\Holidays;
 use App\state;
 use Validator;
 
+
 class AdminController extends Controller
 {
-    public function __construct(IAdminRepository $admrpy)
+    public function __construct(IAdminRepository $admrpy,ICommonRepositories $cmmrpy)
     {
+        // die();
         $this->middleware('is_admin');
         $this->admrpy = $admrpy;
+        $this->cmmrpy = $cmmrpy;
+        $this->middleware(function($request,$next){
+              if(!Session::has('session_info')){
+                  return response()->view('login');
+              }
+              return $next($request);
+        });
     }
     public function birthday_email() {
 
@@ -485,9 +495,19 @@ class AdminController extends Controller
 
         // $upcoming_events = DB::table('events')->select('*')->where('start_date_time', '>=', $date)->limit(2)->get();
 
+        $session_val = Session::get('session_info');
+        $sess_emp_Id=array('empID'=>$session_val['empID']);
+        $diff_date=Carbon::now('Asia/Kolkata');;
+        $sticky_date = Carbon::createFromFormat('Y-m-d H:i:s', $diff_date);
+
+        // echo json_encode($session_val);die();
+
+        $result = $this->cmmrpy->Fetch_Notes($sess_emp_Id);
         $data = [
             "upcoming_holidays" => $upcoming_holidays,
             "upcoming_events" => $upcoming_events,
+            "stickyNotes"=>$result,
+            "Time"=>$sticky_date
         ];
         return view('com_dashboard')->with($data);
     }
@@ -841,14 +861,16 @@ class AdminController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($row) {
                     // echo "<pre>";print_r($row);die;
-                  $btn = '<div class="row"><button class="btn btn-primary" type="button" data-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Action" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                  $btn = '<div class="row"><button class="btn btn-warning" type="button" data-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Action" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Role</a>
                     </div> &nbsp;' ;
-                   $btn .= '<button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Profile" type="button" style="width: 15%;height: 35px;"><a href="can_hr_profile?id='."".$row->id."".'&empID='."".$row->empID."".'"  onclick="hr_to_profile('."'".$row->id."'".'); "><i class="pe-7s-id" style="color: #ffffff; margin-left: -5px;"></i></a></button>';
+                   $btn .= '<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Profile" type="button" style="width: 15%;height: 35px;"><a href="can_hr_profile?id='."".$row->id."".'&empID='."".$row->empID."".'"  onclick="hr_to_profile('."'".$row->id."'".'); "><i class="pe-7s-id" style="color: #ffffff; margin-left: -5px;"></i></a></button>';
+                   if ($row->hr_action != 2) {
+                    $btn .= '<button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="ID Card Info" type="button" style="width: 15%;height: 35px;margin-top: 5px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
+                        }else{
+                    $btn .= '<button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="ID Card Info" type="button" style="width: 15%;height: 35px;margin-top: 5px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
 
-                    if ($row->hr_action != 2) {
-                        $btn .= '<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="ID Card Info" type="button" style="width: 15%;height: 35px;margin-top: 5px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
                         }
                 return $btn;
             })

@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Repositories\IAdminRepository;
 use App\Repositories\IProfileRepositories;
 use App\Repositories\ICommonRepositories;
-use App\Models\User; 
+use App\Models\User;
 use Session;
 use Mail;
-use DB; 
+use DB;
 use Hash;
 use Validator;
 use Illuminate\Support\Str;
@@ -36,7 +36,6 @@ class LoginController extends Controller
         // echo "<pre>";print_r($credentials);die;
         if(auth()->attempt($credentials, true))
         {
-
             $info = [
                 'empID' => auth()->user()->empID,
                 'cdID' => auth()->user()->cdID,
@@ -94,10 +93,10 @@ class LoginController extends Controller
 
          $user = DB::table( 'customusers' )->where('empID', '=', $emp_id)->first();
 
-         return response()->json( $user );  
+         return response()->json( $user );
     }
 
-    
+
     public function submitForgetPasswordForm(Request $request){
 
          $validator=Validator::make($request->all(),[
@@ -123,7 +122,7 @@ class LoginController extends Controller
                     $message->from("hr@hemas.in", 'HEPL - HR Team');
                     $message->to($Mail['email'])->subject($Mail['subject']);
                     });
-  
+
           $response = 'Updated';
         return response()->json( ['response' => $response,'url'=>url('/' )] );
     }else{
@@ -147,7 +146,7 @@ class LoginController extends Controller
                 'con_pass.required' => 'Confirm Password is required',
           ]);
        if($validator->passes()){
-       
+
            $emp_id=  base64_decode($request->input('token'));
            $passcode =  Hash::make($request->input('new_pass'));
             // echo "c<pre>";print_r($passcode );die;

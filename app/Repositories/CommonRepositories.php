@@ -2,6 +2,7 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Models\CustomUser;
+use App\Models\StickyNotesModel;
 
 class CommonRepositories implements ICommonRepositories
 {
@@ -23,6 +24,14 @@ class CommonRepositories implements ICommonRepositories
     public function account_hr_info( $input_details ){
 
         $bandtbl = DB::table('candidate_account_information')
+        ->select('*')
+        ->where('emp_id', '=', $input_details['empID'])
+        ->get();
+        return $bandtbl;
+    }
+    public function education_hr_info( $input_details ){
+
+        $bandtbl = DB::table('candidate_education_details')
         ->select('*')
         ->where('emp_id', '=', $input_details['empID'])
         ->get();
@@ -68,6 +77,7 @@ class CommonRepositories implements ICommonRepositories
             'empID'=>$input_details['empID'],
             'email'=>$input_details['official_email'],
             'dob'=>$input_details['emp_dob'],
+            'p_email'=>$input_details['p_email'],
             'hr_action'=>'2',
             'hr_id_remark'=>'',
         ] );
@@ -87,6 +97,7 @@ class CommonRepositories implements ICommonRepositories
             'empID'=>$input_details['empID'],
             'email'=>$input_details['official_email'],
             'dob'=>$input_details['emp_dob'],
+            'p_email'=>$input_details['p_email'],
             'hr_action'=>'2',
             'hr_id_remark'=>'',
         ] );
@@ -188,5 +199,52 @@ class CommonRepositories implements ICommonRepositories
         $update_mdlusertbl->update( [
             'passcode' => $data['passcode'],
         ] );
+    }
+
+    public function Store_StickyNotes($data)
+    {
+        $result=StickyNotesModel::insert($data);
+        return $result;
+    }
+    public function Fetch_Notes($data)
+    {
+         $result=StickyNotesModel::select('id','empID','Notes','color','updated_at')->where($data)->get();
+         if($result){
+             return $result;
+         }
+         else{
+             return false;
+         }
+    }
+    public function Fetch_Notes_id_wise($data)
+    {
+        $result=StickyNotesModel::select('id','empID','Notes','color','updated_at')->where($data)->first();
+         if($result){
+             return $result;
+         }
+         else{
+             return false;
+         }
+    }
+    public function Update_Notes_id_wise($data,$id)
+    {
+        $result=StickyNotesModel::where('id',$id)->update($data);
+        if($result){
+            return $result;
+        }
+        else{
+            return false;
+        }
+
+    }
+    public function Delete_Notes_id_wise($coloumn,$id)
+    {
+        $result = StickyNotesModel::where($coloumn, $id)->delete();
+        if($result){
+            return $result;
+        }
+        else{
+            return false;
+        }
     }
 }

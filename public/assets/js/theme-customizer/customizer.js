@@ -9,9 +9,6 @@ if(localStorage.getItem("dark"))
                  <a class="nav-link" id="c-pills-profile-tab" data-toggle="pill" href="#c-pills-profile" role="tab" aria-controls="c-pills-profile" aria-selected="false">\
                  <div class="settings color-settings"> <img src="../assets/images/color-picker.png" alt="" /></div>\
                  </a>\
-                 <a class="nav-link" id="c-pills-sticky-tab" data-toggle="pill" href="#c-pills-sticky" role="tab" aria-controls="c-pills-profile" aria-selected="false">\
-                 <div class="settings color-settings"> <img src="../assets/images/color-picker.png" alt="" /></div>\
-                 </a>\
             </div>\
         </div>\
           <div class="customizer-contain">\
@@ -20,30 +17,6 @@ if(localStorage.getItem("dark"))
                      <i class="icofont-close icon-close"></i>\
                            <div class="tab-pane fade show active" id="c-pills-home" role="tabpanel" aria-labelledby="c-pills-home-tab">\
                                 <h6>Layout Type</h6><ul class="main-layout layout-grid">\
-                                 <li data-attr="ltr" class="active"><div class="header bg-light">\
-                                 <ul><li></li><li></li><li></li></ul></div>\
-                                    <div class="body">\
-                                    <ul>\
-                                    <li class="bg-dark sidebar"></li>\
-                                    <li class="bg-light body">\
-                                    <span class="badge badge-dark">LTR Layout</span></li>\
-                                    </ul></div></li>\
-                                    <li data-attr="rtl"><div class="header bg-light"><ul>\
-                                  <li></li><li></li><li></li></ul></div>\
-                             <div class="body"><ul><li class="bg-light body">\
-                             <span class="badge badge-dark">RTL Layout</span></li>\
-                                  <li class="bg-dark sidebar"></li></ul>\
-                            </div></li>\
-                            <li data-attr="ltr" class="box-layout"><div class="header bg-light"><ul>\
-                            <li></li><li></li><li></li></ul></div>\
-                            <div class="body">\
-                               <ul>\
-                                 <li class="bg-dark sidebar"></li>\
-                                 <li class="bg-light body"> <span class="badge badge-dark">Box Layout</span></li></ul></div></li>\
-                                </ul>\
-                            </div>\
-                            <div class="tab-pane fade show active" id="c-pills-sticky" role="tabpanel" aria-labelledby="c-pills-sticky-tab">\
-                                <h6>Sticky Notes</h6><ul class="main-layout layout-grid">\
                                  <li data-attr="ltr" class="active"><div class="header bg-light">\
                                  <ul><li></li><li></li><li></li></ul></div>\
                                     <div class="body">\

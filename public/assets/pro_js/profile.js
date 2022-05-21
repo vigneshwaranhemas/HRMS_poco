@@ -11,13 +11,52 @@ headers: {
 }
 });
 
+/*popup*/
+
+/*banner image popup*/
+$("#banner_img").on('click', function() {
+    $.ajax({
+        url: profile_banner_image_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            banner_img_popup(data.banner_image);
+        }
+    });
+});
+ function banner_img_popup(sample){
+       $("#sample_view_ban").attr("src", "../banner/"+sample);
+       $(".sample-preview_ban").modal('show');
+   }
+
+/*profile image popup*/
+$("#profile_img").on('click', function() {
+    $.ajax({
+        url: display_image,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data['image'])
+          if(data['image'] != ""){
+            profile_img_popup(data['image'].path);
+          }
+        }
+    });
+});
+ function profile_img_popup(sample){
+       $("#sample_view_pro").attr("src", "../uploads/"+sample);
+       $(".sample-preview_pro").modal('show');
+   }
+
 /*banner image upload*/
 $uploadCrop = $('#upload-demo').croppie({
     enableExif: true,
     viewport: {
-        width: 200,
+        width: 700,
         height: 200,
-        // type: 'circle'
+        type: 'rectangle'
     },
     boundary: {
         width: 300,
@@ -155,10 +194,13 @@ function profile_banner_image(){
     });
 }
 
+
+
 /*contact info in pop-up*/
 $("#v-pills-messages-tab").on('click', function() {
     Contact_info_page();
 });
+
 function Contact_info_page(){
     $.ajax({
         url: Contact_info_get_link,

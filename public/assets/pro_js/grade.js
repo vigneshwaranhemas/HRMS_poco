@@ -183,6 +183,7 @@ table_cot = $('#grade_data').DataTable({
     scrollX: true,
     scrollY: 800,
     scrollCollapse: true,
+    order: [[2, 'desc']],
     drawCallback: function() {
 
 
@@ -199,12 +200,13 @@ table_cot = $('#grade_data').DataTable({
         }
     },
     createdRow: function( row, data, dataIndex ) {
+        $( row ).find('td:eq(0)').attr('data-label', '#');
         $( row ).find('td:eq(0)').attr('data-label', 'Sno');
         $( row ).find('td:eq(1)').attr('data-label', 'Grade Name');
         $( row ).find('td:eq(2)').attr('data-label', 'action');
     },
     columns: [
-        {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
+        {   data: 'DT_RowIndex', name: 'DT_RowIndex'  },
         {   data: 'grade_name', name: 'grade_name'    },
         {   data: 'status', name: 'status'    },
         {   data: 'action', name: 'action'    },

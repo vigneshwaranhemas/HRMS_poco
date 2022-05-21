@@ -29,6 +29,14 @@ class CommonRepositories implements ICommonRepositories
         ->get();
         return $bandtbl;
     }
+    public function education_hr_info( $input_details ){
+
+        $bandtbl = DB::table('candidate_education_details')
+        ->select('*')
+        ->where('emp_id', '=', $input_details['empID'])
+        ->get();
+        return $bandtbl;
+    }
     public function get_candidate_exp_hr( $input_details ){
 
         $bandtbl = DB::table('candidate_experience_details')
@@ -69,6 +77,7 @@ class CommonRepositories implements ICommonRepositories
             'empID'=>$input_details['empID'],
             'email'=>$input_details['official_email'],
             'dob'=>$input_details['emp_dob'],
+            'p_email'=>$input_details['p_email'],
             'hr_action'=>'2',
             'hr_id_remark'=>'',
         ] );
@@ -88,6 +97,7 @@ class CommonRepositories implements ICommonRepositories
             'empID'=>$input_details['empID'],
             'email'=>$input_details['official_email'],
             'dob'=>$input_details['emp_dob'],
+            'p_email'=>$input_details['p_email'],
             'hr_action'=>'2',
             'hr_id_remark'=>'',
         ] );

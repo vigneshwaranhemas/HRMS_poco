@@ -2,6 +2,9 @@
 $(document).ready(function(){
     // hr_id_card_ver();
 });
+
+
+
 function hr_id_card_ver(id){
     // var params = new window.URLSearchParams(window.location.search);
     // var id=params.get('id')
@@ -34,7 +37,18 @@ function hr_id_card_ver(id){
                     $('#emp_dob').val(data[0].dob);
                     $('#p_email').val(data[0].p_email);
                 }
-                $("#idModal").modal('show')
+                if (data[0].hr_action ==2 ) {
+                        $('#hr_acc_but').hide();
+                        $('.readone').prop("readonly",true);
+                        $('.readone_1').prop("disabled",true);
+                        $('#rev_but').hide();
+                    }else{
+                        $('.readone').prop("readonly",false);
+                        $('.readone_1').prop("disabled",false);
+                        $('#hr_acc_but').show();
+                        $('#rev_but').show();
+                    }
+            $("#idModal").modal('show')
         }
     });
 }

@@ -162,7 +162,7 @@ col-xs-9 {
 
             </div>
 
-            <div id="sticky-note-list" style="display: none">
+            <div id="sticky-note-list" style="display: none; overflow:auto;" >
 
                     {{-- @if ($session_status==1)
                         @foreach($stickyNotes as $note)
@@ -367,6 +367,7 @@ col-xs-9 {
         $('#sticky-note-list').toggle(function () {
             $(this).animate({
                 height: (viewportHeight-150)
+                // overflow: auto
             })
         });
         stickyNoteClose.toggle();

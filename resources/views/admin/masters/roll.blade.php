@@ -28,7 +28,7 @@
 @section('breadcrumb-items')
    {{-- <li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li> --}}
-    <button class="btn btn-primary" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">Add Roll</button>
+    <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal"><i class="fa fa-plus" aria-hidden="true"></i> Add Roll</button>
 @endsection
 
 @section('content')
@@ -119,7 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="roll_name">Roll Name </label>
                         <input type="text" id="roll_name" class="form-control" placeholder="Roll Name" name="roll_name" />
-                        <div class="text-warning" id="edit_roll_name_error"></div>
+                        <span class="text-danger color-hider-edit" id="roll_name_error_edit" style="display:none;color: red;"></span>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>
@@ -149,7 +149,7 @@
                       <div class="col-md-12 mb-3">
                           <label for="roll_name">Roll Name</label>
                           <input class="form-control" name="roll_name" id="roll_name_input" type="text" placeholder="Roll Name" required="">
-                          <div class="text-warning" id="roll_name_error"></div>
+                          <span class="text-danger color-hider" id="roll_name_error" style="display:none;color: red;"></span>
                       </div>
                   </div>
               </div>

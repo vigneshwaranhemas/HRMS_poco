@@ -25,14 +25,21 @@ $(()=>{
        dataType:"json",
 
        success:function(data) {
-        //    alert('sdf')
-           console.log(data);
-           $('#btnSubmit').prop("disabled",false);
-               $('#btnSubmit').html('Submit');
-               $('#policy_category_input').val('');
+            $(".color-hider").hide();
+            if(data.error)
+            {
+                var keys=Object.keys(data.error);
+                $.each( data.error, function( key, value ) {
+                $("#"+key+'_error').text(value)
+                $("#"+key+'_error').show();
+                });
+            }
 
            if(data.response =='success'){
-                $('#exampleModal').click();
+            $('#btnSubmit').prop("disabled",true);
+            $('#policy_category_input').val('');
+            $('#exampleModal').click();
+            $('#btnSubmit').prop("disabled",false);
 
                Toastify({
                    text: "Added Sucessfully..!",
@@ -47,27 +54,7 @@ $(()=>{
                     location.reload();
                    }, 2000);
            }
-           else{
-               Toastify({
-                   text: "Request Failed..! Try Again",
-                   duration: 3000,
-                   close:true,
-                   backgroundColor: "#f3616d",
-               }).showToast();
-
-               setTimeout(
-                   function() {
-                       location.reload();
-                   }, 2000);
-           }
-
-       },
-       error: function(response) {
-
-        $('#policy_category_error').text(response.responseJSON.errors.policy_category);
-
-        }
-
+       }
    });
     })
 })

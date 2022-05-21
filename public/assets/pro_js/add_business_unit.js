@@ -22,18 +22,26 @@ $(()=>{
        dataType:"json",
 
        success:function(data) {
-        //    alert('sdf')
-           console.log(data);
-           $('#btnSubmit').prop("disabled",false);
-               $('#btnSubmit').html('Submit');
-            //    $('#btnSubmit').unbind('click');
 
-            $('#business_name_input').val('');
+        //    console.log(data);
+
+        $(".color-hider").hide();
+        if(data.error)
+        {
+             var keys=Object.keys(data.error);
+             $.each( data.error, function( key, value ) {
+             $("#"+key+'_error').text(value)
+             $("#"+key+'_error').show();
+             });
+         }
+
            if(data.response =='success'){
-
-            // $('#btnSubmit').prop("disabled",true);
-            // $('#btnSubmit').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Processing');
+            $('#btnSubmit').prop("disabled",true);
+            $('#business_name_input').val('');
             $('#exampleModal').click();
+            $('#btnSubmit').prop("disabled",false);
+            // $('#btnSubmit').html('<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Processing');
+
 
                Toastify({
                    text: "Added Sucessfully..!",
@@ -51,27 +59,10 @@ $(()=>{
                    }, 2000);
 
            }
-           else{
-               Toastify({
-                   text: "Request Failed..! Try Again",
-                   duration: 3000,
-                   close:true,
-                   backgroundColor: "#f3616d",
-               }).showToast();
 
-               setTimeout(
-                   function() {
-                       location.reload();
-                   }, 2000);
 
-           }
+       }
 
-       },
-       error: function(response) {
-
-        $('#business_name_error').text(response.responseJSON.errors.business_name);
-
-        }
    });
     })
 })
@@ -260,13 +251,18 @@ $("#editUpdate").on('click', function() {
         dataType: "json",
         success: function(data) {
 
-            $('#close_edit_pop').click();
-            $("#editUpdate").attr("disabled", true);
-            $('#editUpdate').html('Processing..!');
-            $('#editUpdate').html('Update');
-            $('#business_edit_pop_modal_div').click();
+            if(data.error)
+                {
+                    var keys=Object.keys(data.error);
+                    $.each( data.error, function( key, value ) {
+                    $("#"+key+'_error_edit').text(value)
+                    $("#"+key+'_error_edit').show();
+                    });
+                }
 
             if(data.response =='Updated'){
+                $("#editUpdate").attr("disabled", true);
+                $('#business_edit_pop_modal_div').click();
                 $("#editUpdate").attr("disabled", false);
                 Toastify({
                     text: "Updated Successfully",
@@ -281,27 +277,8 @@ $("#editUpdate").on('click', function() {
                         get_business_list();
                     }, 2000);
             }
-            else {
-                Toastify({
-                    text: "Request Failed..! Try Again",
-                    duration: 3000,
-                    close:true,
-                    backgroundColor: "#f3616d",
-                }).showToast();
 
-            }
-
-            setTimeout(
-                function() {
-                    get_business_list();
-                }, 2000);
-
-        },
-        error: function(response) {
-
-            $('#edit_business_name_error').text(response.responseJSON.errors.business_name);
-
-            }
+        }
     });
 });
 

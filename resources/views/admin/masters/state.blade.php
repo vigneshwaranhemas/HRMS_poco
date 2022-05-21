@@ -28,7 +28,7 @@
 @section('breadcrumb-items')
    {{-- <li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li> --}}
-    <button class="btn btn-primary" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">Add State</button>
+    <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal"><i class="fa fa-plus" aria-hidden="true"></i> Add State</button>
 @endsection
 
 @section('content')
@@ -119,7 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="state_name">State Name </label>
                         <input type="text" id="state_name" class="form-control" placeholder="State Name" name="state_name" />
-                        <div class="text-warning" id="edit_state_name_error"></div>
+                        <span class="text-danger color-hider-edit" id="state_name_error_edit" style="display:none;color: red;"></span>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>
@@ -149,7 +149,7 @@
                       <div class="col-md-12 mb-3">
                           <label for="state_name">State Name</label>
                           <input class="form-control" name="state_name" id="state_name_input" type="text" placeholder="State Name" required="">
-                          <div class="text-warning" id="state_name_error"></div>
+                          <span class="text-danger color-hider" id="state_name_error" style="display:none;color: red;"></span>
                       </div>
                   </div>
               </div>

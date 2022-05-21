@@ -122,7 +122,7 @@ $("#sameadd").on('click', function() {
       var c_addres = document.getElementById('c_addres');
       var p_State = document.getElementById('p_State');
       var c_State = document.getElementById('c_State');
-     
+
       if (cb1.checked) {
         var checkBox = document.getElementById("sameadd");
         var text = document.getElementById("text");
@@ -331,7 +331,7 @@ $('#add_contact_info').submit(function(e) {
                 for (let index = 0; index < data.length; index++) {
                     // console.log(data[index].district_name )
                     if (p_district == data[index].district_name ) {
-                
+
                     html += "<option value='" + data[index].district_name + "' selected>" + data[index].district_name + "</option>";
                     }else{
                          html += "<option value='" + data[index].district_name + "'>" + data[index].district_name + "</option>";
@@ -647,10 +647,10 @@ function profile_info_process(id){
 $(()=>{
     // $('#btnSubmit').on('click',(e)=>{
         // alert('asdasdasdas')
-$('#add_documents_unit').submit(function(e) { 
-    
-        $(this).attr('disabled','disabled');   
-        $("#doc_Submit").text('Processing...');  
+$('#add_documents_unit').submit(function(e) {
+
+        $(this).attr('disabled','disabled');
+        $("#doc_Submit").text('Processing...');
 
    e.preventDefault();
       var formData = new FormData(document.getElementById("add_documents_unit"));
@@ -663,7 +663,7 @@ $('#add_documents_unit').submit(function(e) {
         contentType:false,
         dataType:"json",
 
-       success:function(data) { 
+       success:function(data) {
          if(data.error)
            {
             $(".color-hider").hide();

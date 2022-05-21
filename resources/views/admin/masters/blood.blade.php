@@ -28,7 +28,7 @@
 @section('breadcrumb-items')
    {{-- <li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li> --}}
-    <button class="btn btn-primary" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">Add Blood</button>
+    <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal"><i class="fa fa-plus" aria-hidden="true"></i> Add Blood</button>
 @endsection
 
 @section('content')
@@ -119,7 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="blood_group_name">Blood Group Name </label>
                         <input type="text" id="blood_group_name" class="form-control" placeholder="Blood Group Name" name="blood_group_name" />
-                        <div class="text-warning" id="edit_blood_group_name_error"></div>
+                        <span class="text-danger color-hider-edit" id="blood_group_name_error_edit" style="display:none;color: red;"></span>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>
@@ -149,7 +149,7 @@
                       <div class="col-md-12 mb-3">
                           <label for="blood_group_name">Blood Group Name</label>
                           <input class="form-control" name="blood_group_name" id="blood_group_name_input" type="text" placeholder="Blood Group Name" required="">
-                          <div class="text-warning" id="blood_group_name_error"></div>
+                          <span class="text-danger color-hider" id="blood_group_name_error" style="display:none;color: red;"></span>
                       </div>
                   </div>
               </div>

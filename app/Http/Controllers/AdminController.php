@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\IAdminRepository;
+use App\Repositories\ICommonRepositories;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,12 +15,21 @@ use Mail;
 use App\Holidays;
 use App\state;
 
+
 class AdminController extends Controller
 {
-    public function __construct(IAdminRepository $admrpy)
+    public function __construct(IAdminRepository $admrpy,ICommonRepositories $cmmrpy)
     {
+        // die();
         $this->middleware('is_admin');
         $this->admrpy = $admrpy;
+        $this->cmmrpy = $cmmrpy;
+        $this->middleware(function($request,$next){
+              if(!Session::has('session_info')){
+                  return response()->view('login');
+              }
+              return $next($request);
+        });
     }
     public function birthday_email() {
 
@@ -31,7 +41,7 @@ class AdminController extends Controller
         $current = $current_year."-".$current_month."-".$current_date;
         $todays_birthdays = DB::table('customusers')->select('*')->where('dob', 'LIKE', '%%-'.$tdy.'%')->get();
 
-        foreach($todays_birthdays as $todays_birthday){            
+        foreach($todays_birthdays as $todays_birthday){
 
             $data = array(
                 'name'=> $todays_birthday->username,
@@ -44,7 +54,7 @@ class AdminController extends Controller
                     ('We Wish You A Very Happy Birthday');
                 $message->from("hr@hemas.in", 'HEPL - HR Team');
             });
-            
+
         }
 
     }
@@ -73,7 +83,7 @@ class AdminController extends Controller
             $total = $current_year - $doj_year;
 
             if($total != 0){
-                
+
                 $data = array(
                     'name'=> $tdy_work_annu->username,
                     'to_email'=> $tdy_work_annu->email,
@@ -85,10 +95,10 @@ class AdminController extends Controller
                         ('Wish You A Happy Work Anniversary');
                     $message->from("hr@hemas.in", 'HEPL - HR Team');
                 });
-                            
+
             }
 
-        }        
+        }
 
     }
     // public function holidays_email() {
@@ -102,59 +112,59 @@ class AdminController extends Controller
     //     $next = $current_year."-".$current_month."-".$next_date;
     //     // $tomorrow = Carbon::tomorrow('Europe/London');
     //     $tomorrow = Carbon::tomorrow('Asia/Kolkata');
-     
-       
 
- 
+
+
+
     //     $tmw_holidays = DB::table('holiday_states as hs')
-    //             ->distinct()         
-    //             ->select('h.*','hs.*')     
+    //             ->distinct()
+    //             ->select('h.*','hs.*')
     //             ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
     //             ->where('h.date','=', $tomorrow)
     //             ->get();
 
     //     $can_info=[];
     //        foreach($tmw_holidays as $data){
-               
+
     //        if($data->state_name==""){
-               
+
     //        }
     //        else{
     //             //  echo "one";
     //                  $can_data[]= DB::table('holiday_states as hs')
-    //                 ->distinct()         
-    //                 ->select('ca.emp_id')     
+    //                 ->distinct()
+    //                 ->select('ca.emp_id')
     //                 ->join('candidate_contact_information as ca', 'ca.p_State', '=', 'hs.state_name')
     //                 ->where('hs.state_name','=', $data->state_name)
     //                 ->get();
-                   
+
 
     //        }
 
     //        }
 
-        
+
     //     $final_can_info=[];
 
     //     //    foreach($can_info as $candidate_info){
     //     //         $final_can_info= array_unique($candidate_info);
     //     //         //   echo json_encode($candidate_info);
-                
+
     //     //    }
     //        echo json_encode($can_info['1']);
-       
+
     //     //    dd($can_data);
 
     //     // $tmw_holidays = DB::table('holiday_states as hs')
-    //     //         ->distinct()         
-    //     //         ->select('h.*', 'hs.*')     
+    //     //         ->distinct()
+    //     //         ->select('h.*', 'hs.*')
     //     //         ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
     //     //         ->where('h.date','=', $tomorrow)
     //     //         ->where('hs.state_name','=', "Tamilnadu")
     //     //         ->get();
 
     //     $tmw_holidays = DB::table('holidays')
-    //             ->distinct()         
+    //             ->distinct()
     //             ->where('date','=', $tomorrow)
     //             ->get();
 
@@ -162,21 +172,21 @@ class AdminController extends Controller
     //     foreach($tmw_holidays as $tmw_holiday){
 
     //         // $holiday_code = $tmw_holiday->holiday_code;
-            
+
     //         array_push($tmw_holiday_code_arr, $tmw_holiday->holiday_unique_code);
 
-    //     } 
+    //     }
     //     dd($tmw_holiday_code_arr);
 
     //     // $tmw_holiday_arr_st_lt = array();
-        
+
     //     foreach($tmw_holiday_code_arr as $tmw_holiday_code_arr){
 
     //         // $holiday_code = $tmw_holiday->holiday_code;
-            
+
     //         array_push($tmw_holiday_arr_st_lt, $tmw_holiday->state_name);
 
-    //     }    
+    //     }
 
     //     $tmw_holiday_emps = array();
 
@@ -190,19 +200,19 @@ class AdminController extends Controller
     //                                         ->get();
 
     //             foreach($tmw_holiday_states_emps as $record){
-    //                 array_push($tmw_holiday_emps, $record->emp_id);    
+    //                 array_push($tmw_holiday_emps, $record->emp_id);
 
-    //             } 
+    //             }
     //         }
 
-    //     }      
+    //     }
 
     //     foreach($tmw_holiday_emps as $tmw_holiday_emp_id){
 
     //         $tmw_holiday_emp_email = DB::table('customusers')
     //                     ->where('empID', $tmw_holiday_emp_id)
     //                     ->value('email');
-            
+
     //         $occassion = DB::table('holidays')
     //                     ->where('holiday_unique_code', $holiday_code)
     //                     ->value('occassion');
@@ -217,7 +227,7 @@ class AdminController extends Controller
 
     //         $Mail = array(
     //             'occassion'=> $occassion,
-    //             'description'=> $description,      
+    //             'description'=> $description,
     //             'occassion_file'=> $occassion_file,
     //             'to_mail'=>$tmw_holiday_emp_email
     //         );
@@ -229,7 +239,7 @@ class AdminController extends Controller
 
 
     //     }
-        
+
     // }
 
 
@@ -243,11 +253,11 @@ class AdminController extends Controller
         $tdy = $current_month."-".$current_date;
         $next = $current_year."-".$current_month."-".$next_date;
         // $tomorrow = Carbon::tomorrow('Europe/London');
-        $tomorrow = Carbon::tomorrow('Asia/Kolkata');            
- 
+        $tomorrow = Carbon::tomorrow('Asia/Kolkata');
+
         $tmw_holidays = DB::table('holiday_states as hs')
-                ->distinct()         
-                ->select('h.*','hs.*')     
+                ->distinct()
+                ->select('h.*','hs.*')
                 ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
                 ->where('h.date','=', $tomorrow)
                 ->get();
@@ -257,20 +267,20 @@ class AdminController extends Controller
         $arr_empID= [];
 
         foreach($tmw_holidays as $data){
-               
+
            if($data->state_name==""){
-               
+
            }
            else{
-                
+
                 $can_data_id = DB::table('candidate_contact_information as ca')
-                // ->distinct()         
-                ->select('ca.emp_id')     
+                // ->distinct()
+                ->select('ca.emp_id')
                 // ->join('candidate_contact_information as ca', 'ca.p_State', '=', 'hs.state_name')
                 // ->where('ca.p_State','=', "Bihar")
                 ->where('ca.p_State','=', $data->state_name)
                 ->get();
-                                    
+
                 foreach($can_data_id as $id){
                     // dd($id->emp_id);
                     if($id->emp_id){
@@ -279,7 +289,7 @@ class AdminController extends Controller
                         $arr_empID[] = $id->emp_id;
                     }
                 }
-                    
+
            }
 
         }
@@ -292,7 +302,7 @@ class AdminController extends Controller
                         ->where('empID', $tmw_holiday_emp_id)
                         // ->where('empID', "900004")
                         ->value('email');
-            
+
             $state = DB::table('candidate_contact_information')
                         // ->where('emp_id', "900004")
                         ->where('emp_id', $tmw_holiday_emp_id)
@@ -302,7 +312,7 @@ class AdminController extends Controller
                             ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
                             ->where('h.date','=', $tomorrow)
                             ->where('hs.state_name','=', $state)
-                            ->value('h.holiday_unique_code');                
+                            ->value('h.holiday_unique_code');
 
             $occassion = DB::table('holidays')
                         ->where('holiday_unique_code', $holiday_code)
@@ -318,7 +328,7 @@ class AdminController extends Controller
 
             $Mail = array(
                 'occassion'=> $occassion,
-                'description'=> $description,      
+                'description'=> $description,
                 'occassion_file'=> $occassion_file,
                 'to_mail'=>$tmw_holiday_emp_email
             );
@@ -331,7 +341,7 @@ class AdminController extends Controller
 
 
         }
-        
+
     }
 
     public function events_email() {
@@ -344,15 +354,15 @@ class AdminController extends Controller
         $tdy = $current_month."-".$current_date;
         $next = $current_year."-".$current_month."-".$next_date;
         // $tomorrow = Carbon::tomorrow('Europe/London');
-        $tomorrow = Carbon::tomorrow('Asia/Kolkata');         
+        $tomorrow = Carbon::tomorrow('Asia/Kolkata');
 
         $tmw_events = DB::table('event_attendees as ea')
-                    ->distinct()         
-                    ->select('e.*', 'ea.*')     
+                    ->distinct()
+                    ->select('e.*', 'ea.*')
                     ->join('events as e', 'e.event_unique_code', '=', 'ea.event_id')
                     ->where('e.date','=', $next)
                     ->get();
-      
+
         foreach($tmw_events as $tmw_event){
 
             $tmw_event_emp_email = DB::table('customusers')
@@ -362,7 +372,7 @@ class AdminController extends Controller
 
             $Mail = array(
                 'event_name'=> $tmw_event->event_name,
-                'where'=> $tmw_event->where,      
+                'where'=> $tmw_event->where,
                 'event_file'=> $tmw_event->event_file,
                 'start_date_time'=> $tmw_event->start_date_time,
                 'end_date_time'=> $tmw_event->end_date_time,
@@ -375,10 +385,10 @@ class AdminController extends Controller
                 $message->from("hr@hemas.in", 'HEPL - HR Team');
                 $message->to($Mail['to_mail'])->subject('Test mail');
             });
-            
+
 
         }
-        
+
     }
 
     public function admin_dashboard()
@@ -459,11 +469,11 @@ class AdminController extends Controller
 
         //Upcoming holidays
         $logined_empID = Auth::user()->empID;
-        $logined_state = DB::table("candidate_contact_information")->where('emp_id', $logined_empID)->value('p_State');              
-        
+        $logined_state = DB::table("candidate_contact_information")->where('emp_id', $logined_empID)->value('p_State');
+
         $upcoming_holidays = DB::table('holiday_states as hs')
-                ->distinct()         
-                ->select('h.*')         
+                ->distinct()
+                ->select('h.*')
                 ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
                 ->where('hs.state_name', $logined_state)
                 ->where('h.date','>=', $date)
@@ -484,9 +494,19 @@ class AdminController extends Controller
 
         // $upcoming_events = DB::table('events')->select('*')->where('start_date_time', '>=', $date)->limit(2)->get();
 
+        $session_val = Session::get('session_info');
+        $sess_emp_Id=array('empID'=>$session_val['empID']);
+        $diff_date=Carbon::now('Asia/Kolkata');;
+        $sticky_date = Carbon::createFromFormat('Y-m-d H:i:s', $diff_date);
+
+        // echo json_encode($session_val);die();
+
+        $result = $this->cmmrpy->Fetch_Notes($sess_emp_Id);
         $data = [
             "upcoming_holidays" => $upcoming_holidays,
             "upcoming_events" => $upcoming_events,
+            "stickyNotes"=>$result,
+            "Time"=>$sticky_date
         ];
         return view('com_dashboard')->with($data);
     }

@@ -277,7 +277,7 @@ $("#editUpdate").on('click', function() {
         dataType: "json",
         success: function(data) {
 
-            $(".color-hider").hide();
+            $(".color-hider-edit").hide();
            if(data.error)
            {
                 var keys=Object.keys(data.error);

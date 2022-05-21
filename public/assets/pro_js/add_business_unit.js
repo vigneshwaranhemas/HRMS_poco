@@ -22,9 +22,7 @@ $(()=>{
        dataType:"json",
 
        success:function(data) {
-
         //    console.log(data);
-
         $(".color-hider").hide();
         if(data.error)
         {
@@ -250,7 +248,7 @@ $("#editUpdate").on('click', function() {
         },
         dataType: "json",
         success: function(data) {
-
+            $(".color-hider-edit").hide();
             if(data.error)
                 {
                     var keys=Object.keys(data.error);

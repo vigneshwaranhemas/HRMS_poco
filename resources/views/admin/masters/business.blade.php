@@ -119,7 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="business_name">Business Name </label>
                         <input type="text" id="business_name" class="form-control" placeholder="Business Name" name="business_name" />
-                        <span class="text-danger color-hider" id="business_name_error_edit" style="display:none;color: red;"></span>
+                        <span class="text-danger color-hider-edit" id="business_name_error_edit" style="display:none;color: red;"></span>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>

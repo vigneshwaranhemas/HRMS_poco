@@ -121,17 +121,17 @@
                       <div class="col-md-12 mb-3">
                         <label for="client_name">Client Name </label>
                         <input type="text" id="client_name" class="form-control" placeholder="Client Name" name="client_name" />
-                        <span class="text-danger color-hider" id="client_name_error_edit" style="display:none;color: red;"></span>
+                        <span class="text-danger color-hider-edit" id="client_name_error_edit" style="display:none;color: red;"></span>
                       </div>
                       <div class="col-md-12 mb-3">
                         <label for="mobile_number">Mobile Number </label>
                         <input type="text" id="mobile_number" class="form-control" onkeypress="return isNumber(event)" maxlength="10" placeholder="Mobile Number" name="mobile_number" />
-                        <span class="text-danger color-hider" id="mobile_number_error_edit" style="display:none;color: red;"></span>
+                        <span class="text-danger color-hider-edit" id="mobile_number_error_edit" style="display:none;color: red;"></span>
                       </div>
                       <div class="col-md-12 mb-3">
                         <label for="email">Email </label>
                         <input type="email" id="email" class="form-control" placeholder="Email" name="email" required=""/>
-                        <span class="text-danger color-hider" id="email_error_edit" style="display:none;color: red;"></span>
+                        <span class="text-danger color-hider-edit" id="email_error_edit" style="display:none;color: red;"></span>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>

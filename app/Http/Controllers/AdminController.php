@@ -467,6 +467,7 @@ class AdminController extends Controller
                 ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
                 ->where('hs.state_name', $logined_state)
                 ->where('h.date','>=', $date)
+                ->orderBy('date', 'asc')
                 ->limit(2)
                 ->get();
         // $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();
@@ -479,6 +480,7 @@ class AdminController extends Controller
                      ->join('events', 'event_attendees.event_id', '=', 'events.event_unique_code')
                      ->where('events.start_date_time', '>=', $date)
                      ->where('event_attendees.candidate_name', $logined_empid)
+                     ->orderBy('date', 'asc')
                      ->limit(2)
                      ->get();
 

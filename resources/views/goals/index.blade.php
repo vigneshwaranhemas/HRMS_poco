@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <!-- <a href="hr_add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a> -->
                     <div class="table-responsive">
-                        <table class="table" id="goal-tb">
+                        <table class="table" id="goal_data">
                             <thead>
                                 <tr>
                                   <th scope="col">No</th>
@@ -39,48 +39,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                  <td>1</td>
-                                  <td>Goal-22 1</td>
-                                  <td>
-                                      <div class="dropup">
-                                          <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                                          <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                              <a href="{{ route('add_goal_setting') }}" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs" type="button"><i class="fa fa-eye"></i></button></a>
-                                              <a class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs" type="button"><i class="fa fa-pencil"></i></button></a>
-                                              <a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button"><i class="fa fa-trash-o"></i></button></a>
-                                          </div>
-                                      </div>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td>2</td>
-                                  <td>Goal-22 2</td>
-                                  <td>
-                                      <div class="dropup">
-                                          <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                                          <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                              <a href="{{ route('add_goal_setting') }}" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs" type="button"><i class="fa fa-eye"></i></button></a>
-                                              <a class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs" type="button"><i class="fa fa-pencil"></i></button></a>
-                                              <a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button"><i class="fa fa-trash-o"></i></button></a>
-                                          </div>
-                                      </div>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td>3</td>
-                                  <td>Goal-22 3</td>
-                                  <td>
-                                      <div class="dropup">
-                                          <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                                          <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                              <a href="{{ route('add_goal_setting') }}" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs" type="button"><i class="fa fa-eye"></i></button></a>
-                                              <a class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs" type="button"><i class="fa fa-pencil"></i></button></a>
-                                              <a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button"><i class="fa fa-trash-o"></i></button></a>
-                                          </div>
-                                      </div>
-                                  </td>
-                              </tr>
                             </tbody>
                         </table>
                     </div>
@@ -115,5 +73,7 @@
 <script src="../assets/js/datepicker/date-picker/datepicker.js"></script>
 <script src="../assets/js/datepicker/date-picker/datepicker.en.js"></script>
 <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
+<script src="../assets/pro_js/goal_list.js"></script>
+
 @endsection
 

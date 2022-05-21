@@ -70,38 +70,108 @@ class EventController extends Controller
 
     public function add_new_event_insert(Request $request)
     {                
+        if($request->start_date == $request->end_date && $request->start_time == $request->end_time){
 
-        if($request->attendees_all_filter || $request->candicate_list){
-            $result = $request->validate([
-                'event_name' => 'required', 
-                'where' => 'required', 
-                'category_name' => 'required', 
-                'event_type' => 'required', 
-                'description' => 'required', 
-                // 'attendees_filter_op' => 'required', 
-                // 'candicate_list_options' => 'required', 
-                'start_date' => 'required|after_or_equal:today', 
-                'start_time' => 'required', 
-                'end_date' => 'required|after_or_equal:today', 
-                'end_time' => 'required|different:start_time', 
-                'file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
-            ]);
-        }else{
-            $result = $request->validate([
-                'event_name' => 'required', 
-                'where' => 'required', 
-                'category_name' => 'required', 
-                'event_type' => 'required', 
-                'description' => 'required', 
-                // 'attendees_filter_op' => 'required', 
-                'candicate_list_options' => 'required', 
-                'start_date' => 'required|after_or_equal:today', 
-                'start_time' => 'required', 
-                'end_date' => 'required|after_or_equal:today', 
-                'end_time' => 'required|different:start_time',
-                'file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
-            ]);
-        }       
+            if($request->attendees_all_filter || $request->candicate_list){
+                $result = $request->validate([
+                    'event_name' => 'required', 
+                    'where' => 'required', 
+                    'category_name' => 'required', 
+                    'event_type' => 'required', 
+                    'description' => 'required', 
+                    // 'attendees_filter_op' => 'required', 
+                    // 'candicate_list_options' => 'required', 
+                    'start_date' => 'required|after_or_equal:today', 
+                    'start_time' => 'required', 
+                    'end_date' => 'required|after_or_equal:today', 
+                    'end_time' => 'required|different:start_time', 
+                    'file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
+                ]);
+            }else{
+                $result = $request->validate([
+                    'event_name' => 'required', 
+                    'where' => 'required', 
+                    'category_name' => 'required', 
+                    'event_type' => 'required', 
+                    'description' => 'required', 
+                    // 'attendees_filter_op' => 'required', 
+                    'candicate_list_options' => 'required', 
+                    'start_date' => 'required|after_or_equal:today', 
+                    'start_time' => 'required', 
+                    'end_date' => 'required|after_or_equal:today', 
+                    'end_time' => 'required|different:start_time',
+                    'file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
+                ]);
+            }  
+
+        }elseif($request->start_date == $request->end_date && $request->start_time != $request->end_time){
+
+            if($request->attendees_all_filter || $request->candicate_list){
+                $result = $request->validate([
+                    'event_name' => 'required', 
+                    'where' => 'required', 
+                    'category_name' => 'required', 
+                    'event_type' => 'required', 
+                    'description' => 'required', 
+                    // 'attendees_filter_op' => 'required', 
+                    // 'candicate_list_options' => 'required', 
+                    'start_date' => 'required|after_or_equal:today', 
+                    'start_time' => 'required', 
+                    'end_date' => 'required|after_or_equal:today', 
+                    'end_time' => 'required|different:start_time', 
+                    'file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
+                ]);
+            }else{
+                $result = $request->validate([
+                    'event_name' => 'required', 
+                    'where' => 'required', 
+                    'category_name' => 'required', 
+                    'event_type' => 'required', 
+                    'description' => 'required', 
+                    // 'attendees_filter_op' => 'required', 
+                    'candicate_list_options' => 'required', 
+                    'start_date' => 'required|after_or_equal:today', 
+                    'start_time' => 'required', 
+                    'end_date' => 'required|after_or_equal:today', 
+                    'end_time' => 'required|different:start_time',
+                    'file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
+                ]);
+            }    
+        }elseif($request->start_date != $request->end_date && $request->start_time == $request->end_time){
+            
+            if($request->attendees_all_filter || $request->candicate_list){
+                $result = $request->validate([
+                    'event_name' => 'required', 
+                    'where' => 'required', 
+                    'category_name' => 'required', 
+                    'event_type' => 'required', 
+                    'description' => 'required', 
+                    // 'attendees_filter_op' => 'required', 
+                    // 'candicate_list_options' => 'required', 
+                    'start_date' => 'required|after_or_equal:today', 
+                    'start_time' => 'required', 
+                    'end_date' => 'required|after_or_equal:today', 
+                    'end_time' => 'required', 
+                    'file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
+                ]);
+            }else{
+                $result = $request->validate([
+                    'event_name' => 'required', 
+                    'where' => 'required', 
+                    'category_name' => 'required', 
+                    'event_type' => 'required', 
+                    'description' => 'required', 
+                    // 'attendees_filter_op' => 'required', 
+                    'candicate_list_options' => 'required', 
+                    'start_date' => 'required|after_or_equal:today', 
+                    'start_time' => 'required', 
+                    'end_date' => 'required|after_or_equal:today', 
+                    'end_time' => 'required',
+                    'file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
+                ]);
+            }    
+        }
+           
         
         //File upload
         $file = $request->file('file');

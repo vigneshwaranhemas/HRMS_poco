@@ -5,7 +5,9 @@
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
 <!-- Plugins css start-->
-<link rel="stylesheet" type="text/css" href="../assets/css/calendar.css">
+<!-- <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.5.1/fullcalendar.css' rel='stylesheet' /> -->
+
+<!-- <link rel="stylesheet" type="text/css" href="../assets/css/calendar.css"> -->
 <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/select2.css">

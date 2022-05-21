@@ -11,13 +11,52 @@ headers: {
 }
 });
 
+/*popup*/
+
+/*banner image popup*/
+$("#banner_img").on('click', function() {
+    $.ajax({
+        url: profile_banner_image_link,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            banner_img_popup(data.banner_image);
+        }
+    });
+});
+ function banner_img_popup(sample){
+       $("#sample_view_ban").attr("src", "../banner/"+sample);
+       $(".sample-preview_ban").modal('show');
+   }
+
+/*profile image popup*/
+$("#profile_img").on('click', function() {
+    $.ajax({
+        url: display_image,
+        method: "POST",
+        data:{},
+        dataType: "json",
+        success: function(data) {
+            // console.log(data['image'])
+          if(data['image'] != ""){
+            profile_img_popup(data['image'].path);
+          }
+        }
+    });
+});
+ function profile_img_popup(sample){
+       $("#sample_view_pro").attr("src", "../uploads/"+sample);
+       $(".sample-preview_pro").modal('show');
+   }
+
 /*banner image upload*/
 $uploadCrop = $('#upload-demo').croppie({
     enableExif: true,
     viewport: {
-        width: 200,
+        width: 700,
         height: 200,
-        type: 'circle'
+        type: 'rectangle'
     },
     boundary: {
         width: 300,
@@ -122,7 +161,7 @@ $("#sameadd").on('click', function() {
       var c_addres = document.getElementById('c_addres');
       var p_State = document.getElementById('p_State');
       var c_State = document.getElementById('c_State');
-     
+
       if (cb1.checked) {
         var checkBox = document.getElementById("sameadd");
         var text = document.getElementById("text");
@@ -155,10 +194,13 @@ function profile_banner_image(){
     });
 }
 
+
+
 /*contact info in pop-up*/
 $("#v-pills-messages-tab").on('click', function() {
     Contact_info_page();
 });
+
 function Contact_info_page(){
     $.ajax({
         url: Contact_info_get_link,
@@ -331,7 +373,7 @@ $('#add_contact_info').submit(function(e) {
                 for (let index = 0; index < data.length; index++) {
                     // console.log(data[index].district_name )
                     if (p_district == data[index].district_name ) {
-                
+
                     html += "<option value='" + data[index].district_name + "' selected>" + data[index].district_name + "</option>";
                     }else{
                          html += "<option value='" + data[index].district_name + "'>" + data[index].district_name + "</option>";
@@ -647,10 +689,10 @@ function profile_info_process(id){
 $(()=>{
     // $('#btnSubmit').on('click',(e)=>{
         // alert('asdasdasdas')
-$('#add_documents_unit').submit(function(e) { 
-    
-        $(this).attr('disabled','disabled');   
-        $("#doc_Submit").text('Processing...');  
+$('#add_documents_unit').submit(function(e) {
+
+        $(this).attr('disabled','disabled');
+        $("#doc_Submit").text('Processing...');
 
    e.preventDefault();
       var formData = new FormData(document.getElementById("add_documents_unit"));
@@ -663,7 +705,7 @@ $('#add_documents_unit').submit(function(e) {
         contentType:false,
         dataType:"json",
 
-       success:function(data) { 
+       success:function(data) {
          if(data.error)
            {
             $(".color-hider").hide();

@@ -132,7 +132,7 @@
         });
 
     var login_check_process_link = "{{url('login_check_process')}}";
-    
+
 </script>
 
  @endsection

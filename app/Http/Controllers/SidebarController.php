@@ -36,7 +36,7 @@ class SidebarController extends Controller
                                         $html .='</li>';
                                 }else{
                                         $html .='<li onclick="test(this)">';
-                                        $html .='<a class="bar-icons" href="'.$menu_list[$i]->menu_path.'"><img class="'.$menu_list[$i]->icon_class.'" ></img><span>'.$menu_list[$i]->menu_name.'</span></a>';
+                                        $html .='<a class="bar-icons" href="'.$menu_list[$i]->menu_path.'"><img height="40px" src="'.$menu_list[$i]->icon_class.'" ></img><span>'.$menu_list[$i]->menu_name.'</span></a>';
 
                                             $html .='<ul class="iconbar-mainmenu custom-scrollbar">';
 

@@ -35,7 +35,7 @@ const nodeImageDefaults = {
     borderWidth: 1,
     borderColor: { red: 0, green: 0, blue: 0, alpha: 0.15 }
 };
-const nodeIconDefault = { icon: './media/companies-tree.svg', size: 24 };
+const nodeIconDefault = { icon: '../media/companies-tree.svg', size: 24 };
 
 const templateDefault = (title, afterTitle, share) => {
     // Throw error if there was no title
@@ -64,7 +64,7 @@ for(var i=0;i<test_data.length;i++){
         nodeId: test_data[i].nodeId,
         parentNodeId:test_data[i].parentNodeId,
         nodeImage: { url: test_data[i].nodeImage },
-        template: templateDefault(test_data[i].template, test_data[i].name)
+        template: templateDefault(test_data[i].name,test_data[i].template)
     })
 }
 

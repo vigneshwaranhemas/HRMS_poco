@@ -14,9 +14,6 @@ $(document).ready(function(){
 //Insertion
 $(()=>{
     $('#btnSubmit').on('click',(e)=>{
-    //    alert("abc");
-
-
    e.preventDefault();
 
    $.ajax({
@@ -26,15 +23,22 @@ $(()=>{
        dataType:"json",
 
        success:function(data) {
-        //    alert('sdf')
-           console.log(data);
-           $('#btnSubmit').prop("disabled",false);
-            $('#btnSubmit').html('Submit');
-            $('#function_name_input').val('');
+        //    console.log(data);
+            $(".color-hider").hide();
+           if(data.error)
+           {
+                var keys=Object.keys(data.error);
+                $.each( data.error, function( key, value ) {
+                $("#"+key+'_error').text(value)
+                $("#"+key+'_error').show();
+                });
+            }
 
            if(data.response =='success'){
-
+            $('#btnSubmit').prop("disabled",true);
+            $('#function_name_input').val('');
             $('#exampleModal').click();
+            $('#btnSubmit').prop("disabled",false);
 
                Toastify({
                    text: "Added Sucessfully..!",
@@ -51,27 +55,8 @@ $(()=>{
                    }, 2000);
 
            }
-           else{
-               Toastify({
-                   text: "Request Failed..! Try Again",
-                   duration: 3000,
-                   close:true,
-                   backgroundColor: "#f3616d",
-               }).showToast();
 
-               setTimeout(
-                   function() {
-                       location.reload();
-                   }, 2000);
-
-           }
-
-       },
-       error: function(response) {
-
-        $('#function_name_error').text(response.responseJSON.errors.function_name);
-
-        }
+       }
    });
     })
 })
@@ -254,14 +239,19 @@ $("#editUpdate").on('click', function() {
         },
         dataType: "json",
         success: function(data) {
-
-            $('#close_edit_pop').click();
-            $("#editUpdate").attr("disabled", true);
-            $('#editUpdate').html('Processing..!');
-            $('#editUpdate').html('Update');
-            $('#function_edit_pop_modal_div').click();
+            $(".color-hider-edit").hide();
+            if(data.error)
+            {
+                var keys=Object.keys(data.error);
+                $.each( data.error, function( key, value ) {
+                $("#"+key+'_error_edit').text(value)
+                $("#"+key+'_error_edit').show();
+                });
+            }
 
             if(data.response =='Updated'){
+                $("#editUpdate").attr("disabled", true);
+                $('#function_edit_pop_modal_div').click();
                 $("#editUpdate").attr("disabled", false);
                 Toastify({
                     text: "Updated Successfully",
@@ -276,27 +266,9 @@ $("#editUpdate").on('click', function() {
                         get_function_list();
                     }, 2000);
             }
-            else {
-                Toastify({
-                    text: "Request Failed..! Try Again",
-                    duration: 3000,
-                    close:true,
-                    backgroundColor: "#f3616d",
-                }).showToast();
 
-            }
+        }
 
-            setTimeout(
-                function() {
-                    get_function_list();
-                }, 2000);
-
-        },
-        error: function(response) {
-
-            $('#edit_function_name_error').text(response.responseJSON.errors.function_name);
-
-            }
     });
 });
 

@@ -15,11 +15,13 @@ interface IPreOnboardingrepositories{
        public function fetch_buddy_info($data);
 
        // Welcome aboard process start
-    public function add_welcome_aboard_process( $form_data );
-    public function get_welcome_aboard_details($data);
-   public function get_candidate_and_buddy_info($data);
+       public function add_welcome_aboard_process( $form_data );
+       public function get_welcome_aboard_details($data);
+       public function get_candidate_and_buddy_info($data);
+       public function get_policy_category_candidate_details();
+       public function get_policy_information_candidate_details($data);
 
-    // Welcome aboard process End
+       // Welcome aboard process End
 
 }
 

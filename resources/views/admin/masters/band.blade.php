@@ -28,7 +28,7 @@
 @section('breadcrumb-items')
    {{-- <li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li> --}}
-    <button class="btn btn-primary" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">Add Band</button>
+    <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal"><i class="fa fa-plus" aria-hidden="true"></i> Add Band</button>
 @endsection
 
 @section('content')
@@ -119,7 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="band_name">Band Name </label>
                         <input type="text" id="band_name" class="form-control" placeholder="Band Name" name="band_name" />
-                        <div class="text-warning" id="edit_band_name_error"></div>
+                        <span class="text-danger color-hider-edit" id="band_name_error_edit" style="display:none;color: red;"></span>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>
@@ -149,7 +149,7 @@
                       <div class="col-md-12 mb-3">
                           <label for="band_name">Band Name</label>
                           <input class="form-control" name="band_name" id="band_name_input" type="text" placeholder="Band Name" required="">
-                          <div class="text-warning" id="band_name_error"></div>
+                          <div class="text-danger" id="band_name_error"></div>
                       </div>
                   </div>
               </div>

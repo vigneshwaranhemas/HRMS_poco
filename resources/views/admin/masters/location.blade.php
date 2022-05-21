@@ -28,7 +28,7 @@
 @section('breadcrumb-items')
    {{-- <li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li> --}}
-    <button class="btn btn-primary" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">Add Location</button>
+    <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal"><i class="fa fa-plus" aria-hidden="true"></i> Add Location</button>
 @endsection
 
 @section('content')
@@ -119,7 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="location_name">Location Name </label>
                         <input type="text" id="location_name" class="form-control" placeholder="Location Name" name="location_name" />
-                        <div class="text-warning" id="edit_location_name_error"></div>
+                        <span class="text-danger color-hider-edit" id="location_name_error_edit" style="display:none;color: red;"></span>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>
@@ -149,7 +149,7 @@
                       <div class="col-md-12 mb-3">
                           <label for="location_name">Location Name</label>
                           <input class="form-control" name="location_name" id="location_name_input" type="text" placeholder="Location Name" required="">
-                          <div class="text-warning" id="location_name_error"></div>
+                          <span class="text-danger color-hider-edit" id="location_name_error" style="display:none;color: red;"></span>
                       </div>
                   </div>
               </div>

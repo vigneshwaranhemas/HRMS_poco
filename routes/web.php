@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('login');
 });
+Route::get('pagenotfound', ['as' => 'notfound', 'uses' => 'CommonController@pagenotfound']);
+
 
 /*login*/
 Route::get('logout','LoginController@logout');
@@ -115,6 +117,8 @@ Route::get('goals', 'GoalsController@goals')->name('goals');
 Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
 Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
 Route::post('add_goals_data', 'GoalsController@add_goals_data');
+Route::get('get_goal_list', 'GoalsController@get_goal_list' );
+Route::get('calendar', 'GoalsController@calendar' );
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');

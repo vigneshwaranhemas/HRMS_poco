@@ -44,7 +44,7 @@
                          <div class="avatar">
                            <!-- <img width="300" height="330" lass="img-fluid rounded" alt="" id="pro_img"> -->
                             <!-- <img id="previewImg" src="/examples/images/transparent.png" alt="Placeholder"> -->
-                           <div class="col-auto"><img class="img-70 rounded-circle" alt="" id="pro_img"></div>
+                           <div class="col-auto"><img accept=".png" class="img-70 rounded-circle" alt="" id="pro_img"></div>
                         </div>
                      </div>
                      <div class="text-center">

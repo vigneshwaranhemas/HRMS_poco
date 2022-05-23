@@ -28,7 +28,7 @@
 @section('breadcrumb-items')
    {{-- <li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li> --}}
-    <button class="btn btn-primary" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal">Add Division</button>
+    <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#exampleModal"><i class="fa fa-plus" aria-hidden="true"></i> Add Division</button>
 @endsection
 
 @section('content')
@@ -119,7 +119,7 @@
                       <div class="col-md-12 mb-3">
                         <label for="division_name">Division Name </label>
                         <input type="text" id="division_name" class="form-control" placeholder="Division Name" name="division_name" />
-                        <div class="text-warning" id="edit_division_name_error"></div>
+                        <span class="text-danger color-hider-edit" id="division_name_error_edit" style="display:none;color: red;"></span>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">
                   </div>
@@ -149,7 +149,7 @@
                       <div class="col-md-12 mb-3">
                           <label for="division_name">Division Name</label>
                           <input class="form-control" name="division_name" id="division_name_input" type="text" placeholder="Division Name" required="">
-                          <div class="text-warning" id="division_name_error"></div>
+                          <span class="text-danger color-hider" id="division_name_error" style="display:none;color: red;"></span>
                       </div>
                   </div>
               </div>

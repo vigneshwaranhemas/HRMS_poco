@@ -14,6 +14,7 @@ use Session;
 use Mail;
 use App\Holidays;
 use App\state;
+use Validator;
 
 
 class AdminController extends Controller
@@ -35,6 +36,8 @@ class AdminController extends Controller
 
 
     }
+
+
     public function birthday_email() {
 
         $current_date = date("d");
@@ -481,6 +484,7 @@ class AdminController extends Controller
                 ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
                 ->where('hs.state_name', $logined_state)
                 ->where('h.date','>=', $date)
+                ->orderBy('date', 'asc')
                 ->limit(2)
                 ->get();
         // $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();
@@ -493,6 +497,7 @@ class AdminController extends Controller
                      ->join('events', 'event_attendees.event_id', '=', 'events.event_unique_code')
                      ->where('events.start_date_time', '>=', $date)
                      ->where('event_attendees.candidate_name', $logined_empid)
+                     ->orderBy('date', 'asc')
                      ->limit(2)
                      ->get();
 
@@ -761,28 +766,29 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'business_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'business_name' => 'required|unique:business_unit',
             ]);
 
-        $bu_id = 'BU'.((DB::table( 'business_unit' )->max('id')) +1);
+        if($data->passes()){
+            $bu_id = 'BU'.((DB::table( 'business_unit' )->max('id')) +1);
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                'bu_id' => $bu_id,
+                'business_name' => $req->input('business_name'),
+                'status' => "active",
+                'created_on' => $today_date,
+                'created_by' => $empID
+            );
 
-        $today_date = Carbon::now()->format('Y-m-d');
+            $add_business_unit_process_result = $this->admrpy->add_business_unit_process( $form_data );
 
-        $form_data = array(
-            'bu_id' => $bu_id,
-            'business_name' => $req->input('business_name'),
-            'status' => "active",
-            'created_on' => $today_date,
-            'created_by' => $empID
-
-        );
-
-        $add_business_unit_process_result = $this->admrpy->add_business_unit_process( $form_data );
-
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-          echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_business_unit_database(Request $request)
@@ -888,10 +894,38 @@ class AdminController extends Controller
         ->rawColumns(['Info','action'])
         ->make(true);
         }
+    }
 
+    public function get_business_unit_details(Request $req){
 
+        $input_details = array(
+            'id'=>$req->input('id'),
+        );
 
+        $get_business_unit_details_result = $this->admrpy->get_business_unit_details( $input_details );
+
+        return response()->json( $get_business_unit_details_result );
+    }
+
+    public function update_business_unit_details(Request $req){
+
+        $data = Validator::make($req->all(),[
+            'business_name' => 'required|unique:business_unit',
+            ]);
+        if($data->passes()){
+            $input_details = array(
+                'id'=>$req->input('id'),
+                'business_name'=>$req->input('business_name'),
+            );
+
+            $update_business_unit_details_result = $this->admrpy->update_business_unit_details( $input_details );
+
+            $response = 'Updated';
+            return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
         }
+    }
 
     public function process_business_unit_status(Request $req){
         $input_details = array(
@@ -924,28 +958,28 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'division_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'division_name' => 'required|unique:divisions',
             ]);
 
-        $d_id = 'D'.((DB::table( 'divisions' )->max('id')) +1);
+        if($data->passes()){
+            $d_id = 'D'.((DB::table( 'divisions' )->max('id')) +1);
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                'd_id' => $d_id,
+                'division_name' => $req->input('division_name'),
+                'status' => "active",
+                'created_on' => $today_date,
+                'created_by' => $empID
+            );
+            $add_division_unit_process_result = $this->admrpy->add_division_unit_process( $form_data );
 
-        $today_date = Carbon::now()->format('Y-m-d');
-        $form_data = array(
-            'd_id' => $d_id,
-            'division_name' => $req->input('division_name'),
-            'status' => "active",
-            'created_on' => $today_date,
-            'created_by' => $empID
-
-        );
-        // echo '<pre>';print_r($form_data);
-        // die;
-        $add_division_unit_process_result = $this->admrpy->add_division_unit_process( $form_data );
-
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-          echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_division_unit_database(Request $request)
@@ -1021,19 +1055,23 @@ class AdminController extends Controller
 
     public function update_division_details(Request $req){
 
-        $data = $req->validate([
-            'division_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'division_name' => 'required|unique:divisions',
             ]);
 
-        $input_details = array(
-            'id'=>$req->input('id'),
-            'division_name'=>$req->input('division_name'),
-        );
+        if($data->passes()){
+            $input_details = array(
+                'id'=>$req->input('id'),
+                'division_name'=>$req->input('division_name'),
+            );
 
-        $update_division_details_result = $this->admrpy->update_division_details( $input_details );
+            $update_division_details_result = $this->admrpy->update_division_details( $input_details );
 
-        $response = 'Updated';
-        return response()->json( ['response' => $response] );
+            $response = 'Updated';
+            return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function process_division_status(Request $req){
@@ -1069,28 +1107,28 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'function_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'function_name' => 'required|unique:function_masters',
             ]);
 
-        $f_id = 'F'.((DB::table( 'function_masters' )->max('id')) +1);
+        if($data->passes()){
+            $f_id = 'F'.((DB::table( 'function_masters' )->max('id')) +1);
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                'f_id' => $f_id,
+                'function_name' => $req->input('function_name'),
+                'status' => "1",
+                'created_on' => $today_date,
+                'created_by' => $empID
+            );
+            $add_function_process_result = $this->admrpy->add_function_process( $form_data );
 
-        $today_date = Carbon::now()->format('Y-m-d');
-        $form_data = array(
-            'f_id' => $f_id,
-            'function_name' => $req->input('function_name'),
-            'status' => "1",
-            'created_on' => $today_date,
-            'created_by' => $empID
-
-        );
-        // echo '<pre>';print_r($form_data);
-        // die;
-        $add_function_process_result = $this->admrpy->add_function_process( $form_data );
-
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-          echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_function_database(Request $request)
@@ -1164,19 +1202,22 @@ class AdminController extends Controller
 
     public function update_function_details(Request $req){
 
-        $data = $req->validate([
-            'function_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'function_name' => 'required|unique:function_masters',
             ]);
+        if($data->passes()){
+            $input_details = array(
+                'id'=>$req->input('id'),
+                'function_name'=>$req->input('function_name'),
+            );
 
-        $input_details = array(
-            'id'=>$req->input('id'),
-            'function_name'=>$req->input('function_name'),
-        );
+            $update_function_details_result = $this->admrpy->update_function_details( $input_details );
 
-        $update_function_details_result = $this->admrpy->update_function_details( $input_details );
-
-        $response = 'Updated';
-        return response()->json( ['response' => $response] );
+            $response = 'Updated';
+            return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function process_function_status(Request $req){
@@ -1211,26 +1252,27 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'grade_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'grade_name' => 'required|unique:grades',
             ]);
+        if($data->passes()){
+            $g_id = 'G'.((DB::table( 'grades' )->max('id')) +1);
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                'g_id' => $g_id,
+                'grade_name' => $req->input('grade_name'),
+                'status' => "1",
+                'created_on' => $today_date,
+                'created_by' => $empID
+            );
+            $add_grade_process_result = $this->admrpy->add_grade_process( $form_data );
 
-        $g_id = 'G'.((DB::table( 'grades' )->max('id')) +1);
-
-        $today_date = Carbon::now()->format('Y-m-d');
-        $form_data = array(
-            'g_id' => $g_id,
-            'grade_name' => $req->input('grade_name'),
-            'status' => "1",
-            'created_on' => $today_date,
-            'created_by' => $empID
-
-        );
-        $add_grade_process_result = $this->admrpy->add_grade_process( $form_data );
-
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-          echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_grade_database(Request $request)
@@ -1304,19 +1346,22 @@ class AdminController extends Controller
 
     public function update_grade_details(Request $req){
 
-        $data = $req->validate([
-            'grade_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'grade_name' => 'required|unique:grades',
             ]);
+        if($data->passes()){
+            $input_details = array(
+                'id'=>$req->input('id'),
+                'grade_name'=>$req->input('grade_name'),
+            );
 
-        $input_details = array(
-            'id'=>$req->input('id'),
-            'grade_name'=>$req->input('grade_name'),
-        );
+            $update_grade_details_result = $this->admrpy->update_grade_details( $input_details );
 
-        $update_grade_details_result = $this->admrpy->update_grade_details( $input_details );
-
-        $response = 'Updated';
-        return response()->json( ['response' => $response] );
+            $response = 'Updated';
+            return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function process_grade_status(Request $req){
@@ -1352,26 +1397,29 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'location_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'location_name' => 'required|unique:locations',
             ]);
+        if($data->passes()){
+            $l_id = 'L'.((DB::table( 'locations' )->max('id')) +1);
 
-        $l_id = 'L'.((DB::table( 'locations' )->max('id')) +1);
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                'l_id' => $l_id,
+                'location_name' => $req->input('location_name'),
+                'status' => "1",
+                'created_on' => $today_date,
+                'created_by' => $empID
 
-        $today_date = Carbon::now()->format('Y-m-d');
-        $form_data = array(
-            'l_id' => $l_id,
-            'location_name' => $req->input('location_name'),
-            'status' => "1",
-            'created_on' => $today_date,
-            'created_by' => $empID
+            );
+            $add_location_process_result = $this->admrpy->add_location_process( $form_data );
 
-        );
-        $add_location_process_result = $this->admrpy->add_location_process( $form_data );
-
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-          echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_location_database(Request $request)
@@ -1444,19 +1492,22 @@ class AdminController extends Controller
 
     public function update_location_details(Request $req){
 
-        $data = $req->validate([
-            'location_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'location_name' => 'required|unique:locations',
             ]);
+        if($data->passes()){
+            $input_details = array(
+                'id'=>$req->input('id'),
+                'location_name'=>$req->input('location_name'),
+            );
 
-        $input_details = array(
-            'id'=>$req->input('id'),
-            'location_name'=>$req->input('location_name'),
-        );
+            $update_location_details_result = $this->admrpy->update_location_details( $input_details );
 
-        $update_location_details_result = $this->admrpy->update_location_details( $input_details );
-
-        $response = 'Updated';
-        return response()->json( ['response' => $response] );
+            $response = 'Updated';
+            return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function process_location_status(Request $req){
@@ -1492,26 +1543,30 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'blood_group_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'blood_group_name' => 'required|unique:blood_groups',
             ]);
+        if($data->passes()){
 
-        $bg_id = 'BG'.((DB::table( 'blood_groups' )->max('id')) +1);
+            $bg_id = 'BG'.((DB::table( 'blood_groups' )->max('id')) +1);
 
-        $today_date = Carbon::now()->format('Y-m-d');
-        $form_data = array(
-            'bg_id' => $bg_id,
-            'blood_group_name' => $req->input('blood_group_name'),
-            'status' => "1",
-            'created_on' => $today_date,
-            'created_by' => $empID
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                'bg_id' => $bg_id,
+                'blood_group_name' => $req->input('blood_group_name'),
+                'status' => "1",
+                'created_on' => $today_date,
+                'created_by' => $empID
 
-        );
-        $add_blood_process_result = $this->admrpy->add_blood_process( $form_data );
+            );
+            $add_blood_process_result = $this->admrpy->add_blood_process( $form_data );
 
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-          echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_blood_database(Request $request)
@@ -1584,19 +1639,22 @@ class AdminController extends Controller
 
     public function update_blood_details(Request $req){
 
-        $data = $req->validate([
-            'blood_group_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'blood_group_name' => 'required|unique:blood_groups',
             ]);
+        if($data->passes()){
+            $input_details = array(
+                'id'=>$req->input('id'),
+                'blood_group_name'=>$req->input('blood_group_name'),
+            );
 
-        $input_details = array(
-            'id'=>$req->input('id'),
-            'blood_group_name'=>$req->input('blood_group_name'),
-        );
+            $update_blood_details_result = $this->admrpy->update_blood_details( $input_details );
 
-        $update_blood_details_result = $this->admrpy->update_blood_details( $input_details );
-
-        $response = 'Updated';
-        return response()->json( ['response' => $response] );
+            $response = 'Updated';
+            return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function process_blood_status(Request $req){
@@ -1632,26 +1690,29 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'roll_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'roll_name' => 'required|unique:rolls',
             ]);
+        if($data->passes()){
+            $r_id = 'R'.((DB::table( 'rolls' )->max('id')) +1);
 
-        $r_id = 'R'.((DB::table( 'rolls' )->max('id')) +1);
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                'r_id' => $r_id,
+                'roll_name' => $req->input('roll_name'),
+                'status' => "1",
+                'created_on' => $today_date,
+                'created_by' => $empID
 
-        $today_date = Carbon::now()->format('Y-m-d');
-        $form_data = array(
-            'r_id' => $r_id,
-            'roll_name' => $req->input('roll_name'),
-            'status' => "1",
-            'created_on' => $today_date,
-            'created_by' => $empID
+            );
+            $add_roll_process_result = $this->admrpy->add_roll_process( $form_data );
 
-        );
-        $add_roll_process_result = $this->admrpy->add_roll_process( $form_data );
-
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-          echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_roll_database(Request $request)
@@ -1724,19 +1785,22 @@ class AdminController extends Controller
 
     public function update_roll_details(Request $req){
 
-        $data = $req->validate([
-            'roll_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'roll_name' => 'required|unique:rolls',
             ]);
+        if($data->passes()){
+            $input_details = array(
+                'id'=>$req->input('id'),
+                'roll_name'=>$req->input('roll_name'),
+            );
 
-        $input_details = array(
-            'id'=>$req->input('id'),
-            'roll_name'=>$req->input('roll_name'),
-        );
+            $update_roll_details_result = $this->admrpy->update_roll_details( $input_details );
 
-        $update_roll_details_result = $this->admrpy->update_roll_details( $input_details );
-
-        $response = 'Updated';
-        return response()->json( ['response' => $response] );
+            $response = 'Updated';
+            return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function process_roll_status(Request $req){
@@ -1772,26 +1836,28 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'department_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'department_name' => 'required|unique:departments',
             ]);
+        if($data->passes()){
+            $d_id = 'D'.((DB::table( 'departments' )->max('id')) +1);
 
-        $d_id = 'D'.((DB::table( 'departments' )->max('id')) +1);
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                'd_id' => $d_id,
+                'department_name' => $req->input('department_name'),
+                'status' => "1",
+                'created_on' => $today_date,
+                'created_by' => $empID
+            );
+            $add_department_process_result = $this->admrpy->add_department_process( $form_data );
 
-        $today_date = Carbon::now()->format('Y-m-d');
-        $form_data = array(
-            'd_id' => $d_id,
-            'department_name' => $req->input('department_name'),
-            'status' => "1",
-            'created_on' => $today_date,
-            'created_by' => $empID
-
-        );
-        $add_department_process_result = $this->admrpy->add_department_process( $form_data );
-
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-          echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_department_database(Request $request)
@@ -1864,19 +1930,21 @@ class AdminController extends Controller
 
     public function update_department_details(Request $req){
 
-        $data = $req->validate([
-            'department_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'department_name' => 'required|unique:departments',
             ]);
+        if($data->passes()){
+            $input_details = array(
+                'id'=>$req->input('id'),
+                'department_name'=>$req->input('department_name'),
+            );
+            $update_department_details_result = $this->admrpy->update_department_details( $input_details );
 
-        $input_details = array(
-            'id'=>$req->input('id'),
-            'department_name'=>$req->input('department_name'),
-        );
-
-        $update_department_details_result = $this->admrpy->update_department_details( $input_details );
-
-        $response = 'Updated';
-        return response()->json( ['response' => $response] );
+            $response = 'Updated';
+            return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function process_department_status(Request $req){
@@ -1912,26 +1980,28 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'designation_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'designation_name' => 'required|unique:designations',
             ]);
+        if($data->passes()){
+            $dg_id = 'DG'.((DB::table( 'designations' )->max('id')) +1);
 
-        $dg_id = 'DG'.((DB::table( 'designations' )->max('id')) +1);
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                'dg_id' => $dg_id,
+                'designation_name' => $req->input('designation_name'),
+                'status' => "1",
+                'created_on' => $today_date,
+                'created_by' => $empID
+            );
+            $add_designation_process_result = $this->admrpy->add_designation_process( $form_data );
 
-        $today_date = Carbon::now()->format('Y-m-d');
-        $form_data = array(
-            'dg_id' => $dg_id,
-            'designation_name' => $req->input('designation_name'),
-            'status' => "1",
-            'created_on' => $today_date,
-            'created_by' => $empID
-
-        );
-        $add_designation_process_result = $this->admrpy->add_designation_process( $form_data );
-
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-          echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_designation_database(Request $request)
@@ -2005,19 +2075,22 @@ class AdminController extends Controller
 
     public function update_designation_details(Request $req){
 
-        $data = $req->validate([
-            'designation_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'designation_name' => 'required|unique:designations',
             ]);
+        if($data->passes()){
+            $input_details = array(
+                'id'=>$req->input('id'),
+                'designation_name'=>$req->input('designation_name'),
+            );
 
-        $input_details = array(
-            'id'=>$req->input('id'),
-            'designation_name'=>$req->input('designation_name'),
-        );
+            $update_designation_details_result = $this->admrpy->update_designation_details( $input_details );
 
-        $update_designation_details_result = $this->admrpy->update_designation_details( $input_details );
-
-        $response = 'Updated';
-        return response()->json( ['response' => $response] );
+            $response = 'Updated';
+            return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function process_designation_status(Request $req){
@@ -2053,26 +2126,29 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'state_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'state_name' => 'required|unique:states',
             ]);
+        if($data->passes()){
+            $s_id = 'S'.((DB::table( 'states' )->max('id')) +1);
 
-        $s_id = 'S'.((DB::table( 'states' )->max('id')) +1);
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                's_id' => $s_id,
+                'state_name' => $req->input('state_name'),
+                'status' => "1",
+                'created_on' => $today_date,
+                'created_by' => $empID
 
-        $today_date = Carbon::now()->format('Y-m-d');
-        $form_data = array(
-            's_id' => $s_id,
-            'state_name' => $req->input('state_name'),
-            'status' => "1",
-            'created_on' => $today_date,
-            'created_by' => $empID
+            );
+            $add_state_process_result = $this->admrpy->add_state_process( $form_data );
 
-        );
-        $add_state_process_result = $this->admrpy->add_state_process( $form_data );
-
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-          echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_state_database(Request $request)
@@ -2145,19 +2221,22 @@ class AdminController extends Controller
 
     public function update_state_details(Request $req){
 
-        $data = $req->validate([
-            'state_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'state_name' => 'required|unique:states',
             ]);
+        if($data->passes()){
+            $input_details = array(
+                'id'=>$req->input('id'),
+                'state_name'=>$req->input('state_name'),
+            );
 
-        $input_details = array(
-            'id'=>$req->input('id'),
-            'state_name'=>$req->input('state_name'),
-        );
+            $update_state_details_result = $this->admrpy->update_state_details( $input_details );
 
-        $update_state_details_result = $this->admrpy->update_state_details( $input_details );
-
-        $response = 'Updated';
-        return response()->json( ['response' => $response] );
+            $response = 'Updated';
+            return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function process_state_status(Request $req){
@@ -2193,26 +2272,29 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'zone_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'zone_name' => 'required|unique:zones',
             ]);
+        if($data->passes()){
+            $z_id = 'Z'.((DB::table( 'zones' )->max('id')) +1);
 
-        $z_id = 'Z'.((DB::table( 'zones' )->max('id')) +1);
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                'z_id' => $z_id,
+                'zone_name' => $req->input('zone_name'),
+                'status' => "1",
+                'created_on' => $today_date,
+                'created_by' => $empID
 
-        $today_date = Carbon::now()->format('Y-m-d');
-        $form_data = array(
-            'z_id' => $z_id,
-            'zone_name' => $req->input('zone_name'),
-            'status' => "1",
-            'created_on' => $today_date,
-            'created_by' => $empID
+            );
+            $add_zone_process_result = $this->admrpy->add_zone_process( $form_data );
 
-        );
-        $add_zone_process_result = $this->admrpy->add_zone_process( $form_data );
-
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-          echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_zone_database(Request $request)
@@ -2285,19 +2367,22 @@ class AdminController extends Controller
 
     public function update_zone_details(Request $req){
 
-        $data = $req->validate([
-            'zone_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'zone_name' => 'required|unique:zones',
             ]);
+        if($data->passes()){
+            $input_details = array(
+                'id'=>$req->input('id'),
+                'zone_name'=>$req->input('zone_name'),
+            );
 
-        $input_details = array(
-            'id'=>$req->input('id'),
-            'zone_name'=>$req->input('zone_name'),
-        );
+            $update_zone_details_result = $this->admrpy->update_zone_details( $input_details );
 
-        $update_zone_details_result = $this->admrpy->update_zone_details( $input_details );
-
-        $response = 'Updated';
-        return response()->json( ['response' => $response] );
+            $response = 'Updated';
+            return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function process_zone_status(Request $req){
@@ -2333,26 +2418,29 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'band_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'band_name' => 'required|unique:bands',
             ]);
+        if($data->passes()){
+            $bn_id = 'BN'.((DB::table( 'bands' )->max('id')) +1);
 
-        $bn_id = 'BN'.((DB::table( 'bands' )->max('id')) +1);
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                'bn_id' => $bn_id,
+                'band_name' => $req->input('band_name'),
+                'status' => "1",
+                'created_on' => $today_date,
+                'created_by' => $empID
 
-        $today_date = Carbon::now()->format('Y-m-d');
-        $form_data = array(
-            'bn_id' => $bn_id,
-            'band_name' => $req->input('band_name'),
-            'status' => "1",
-            'created_on' => $today_date,
-            'created_by' => $empID
+            );
+            $add_band_process_result = $this->admrpy->add_band_process( $form_data );
 
-        );
-        $add_band_process_result = $this->admrpy->add_band_process( $form_data );
-
-        $response = 'success';
-        return response()->json( ['response' => $response] );
-          echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_band_database(Request $request)
@@ -2426,19 +2514,22 @@ class AdminController extends Controller
 
     public function update_band_details(Request $req){
 
-        $data = $req->validate([
-            'band_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'band_name' => 'required|unique:bands',
             ]);
+        if($data->passes()){
+            $input_details = array(
+                'id'=>$req->input('id'),
+                'band_name'=>$req->input('band_name'),
+            );
 
-        $input_details = array(
-            'id'=>$req->input('id'),
-            'band_name'=>$req->input('band_name'),
-        );
+            $update_band_details_result = $this->admrpy->update_band_details( $input_details );
 
-        $update_band_details_result = $this->admrpy->update_band_details( $input_details );
-
-        $response = 'Updated';
-        return response()->json( ['response' => $response] );
+            $response = 'Updated';
+            return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function process_band_status(Request $req){
@@ -2474,8 +2565,8 @@ class AdminController extends Controller
         $session_val = Session::get('session_info');
         $empID = $session_val['empID'];
 
-        $data = $req->validate([
-            'client_name' => 'required',
+        $data = Validator::make($req->all(),[
+            'client_name' => 'required|unique:clients',
             'mobile_number' => 'required',
             'email' => [
                 'required',
@@ -2486,7 +2577,7 @@ class AdminController extends Controller
                 'regex:/^\w+[-\.\w]*@(?!(?:outlook|myemail|yahoo)\.com$)\w+[-\.\w]*?\.\w{2,4}$/'
             ],
             ]);
-
+    if($data->passes()){
         $cl_id = 'CL'.((DB::table( 'clients' )->max('id')) +1);
 
         $today_date = Carbon::now()->format('Y-m-d');
@@ -2505,6 +2596,9 @@ class AdminController extends Controller
         $response = 'success';
         return response()->json( ['response' => $response] );
           echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function get_client_database(Request $request)
@@ -2577,7 +2671,7 @@ class AdminController extends Controller
 
     public function update_client_details(Request $req){
 
-        $data = $req->validate([
+        $data = Validator::make($req->all(),[
             'client_name' => 'required',
             'mobile_number' => 'required',
             'email' => [
@@ -2589,7 +2683,7 @@ class AdminController extends Controller
                 'regex:/^\w+[-\.\w]*@(?!(?:outlook|myemail|yahoo)\.com$)\w+[-\.\w]*?\.\w{2,4}$/'
             ],
             ]);
-
+    if($data->passes()){
         $input_details = array(
             'id'=>$req->input('id'),
             'client_name'=>$req->input('client_name'),
@@ -2601,6 +2695,9 @@ class AdminController extends Controller
 
         $response = 'Updated';
         return response()->json( ['response' => $response] );
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
     }
 
     public function process_client_status(Request $req){
@@ -2884,31 +2981,32 @@ class AdminController extends Controller
 
      public function add_policy_category_process(Request $req)
      {
-         $data = $req->validate([
-             'policy_category' => 'required',
+        $data = Validator::make($req->all(),[
+             'policy_category' => 'required|unique:company_policy_categories',
              ]);
+        if($data->passes()){
+            $cp_id = 'CP'.((DB::table( 'company_policy_categories' )->max('id')) +1);
 
-         $cp_id = 'CP'.((DB::table( 'company_policy_categories' )->max('id')) +1);
+            $session_val = Session::get('session_info');
+            $empID = $session_val['empID'];
 
-        $session_val = Session::get('session_info');
-        $empID = $session_val['empID'];
+            $today_date = Carbon::now()->format('Y-m-d');
+            $form_data = array(
+                'cp_id' => $cp_id,
+                'policy_category' => $req->input('policy_category'),
+                'status' => "1",
+                'created_on' => $today_date,
+                'created_by' => $empID
 
-         $today_date = Carbon::now()->format('Y-m-d');
-         $form_data = array(
-             'cp_id' => $cp_id,
-             'policy_category' => $req->input('policy_category'),
-             'status' => "1",
-             'created_on' => $today_date,
-             'created_by' => $empID
+            );
+            $add_policy_category_process_result = $this->admrpy->add_policy_category_process( $form_data );
 
-         );
-        //  echo '<pre>';print_r($form_data);
-        //  die;
-         $add_policy_category_process_result = $this->admrpy->add_policy_category_process( $form_data );
-
-         $response = 'success';
-         return response()->json( ['response' => $response] );
-           echo json_encode($form_data);
+            $response = 'success';
+            return response()->json( ['response' => $response] );
+            echo json_encode($form_data);
+        }else{
+            return response()->json(['error'=>$data->errors()->toArray()]);
+        }
      }
 
      public function get_policy_category_details(){

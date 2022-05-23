@@ -171,7 +171,7 @@
                   <div class="form-group">
                      <label class="col-form-label" for="occassion_edit">Occassion:</label>
                      <input type="text" name="occassion" id="occassion_edit" class="form-control">
-                     <div class="text-danger" id="occassion_error"></div>
+                     <div class="text-danger" id="occassion_edit_error"></div>
                   </div>
                   <div class="form-group">
                      <label class="col-form-label" for="description_edit">Description:</label>
@@ -185,13 +185,12 @@
                         <input id="all_state_edit" name="all_state" value="true" type="checkbox">                                
                         <label for="">All State</label>
                      </div>
-
                      <div class="col-md-12">
                         <select class="js-example-basic-multiple col-sm-12 form-control" id="state_edit" name="state[]" style="width:100%" multiple="multiple">                           
                         </select>
                         <!-- <select class="select2 form-control"   multiple="multiple">                           
                         </select>    -->
-                        <div class="text-danger" id="state_error"></div>
+                        <div class="text-danger" id="state_edit_error"></div>
                      </div>
                      
                   </div>  

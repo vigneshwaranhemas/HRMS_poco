@@ -15,7 +15,13 @@
 {
     border-bottom: 0px solid #f2f4ff;
 }
-
+.leave-balance-header
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+}
 
 </style>
 @endsection
@@ -31,6 +37,17 @@
 
 @section('content')
 <div class="container-fluid">
+
+    <div class="col-md-12 leave-balance-header" style="margin-bottom: 25px;">
+        <button class="btn btn-secondary" type="button" style="margin-right: 12px;">Apply</button>
+        <button class="btn btn-info" type="button" style="margin-right: 12px;"><i class="fa fa-download" aria-hidden="true"></i></button>
+        <select class="col-md-1 form-control" name="years" id="years">
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+        </select>
+    </div>
     <div class="row">
 
         <div class="col-sm-8 col-xl-4">

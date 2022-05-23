@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('login');
 });
+Route::get('pagenotfound', ['as' => 'notfound', 'uses' => 'CommonController@pagenotfound']);
+
 
 /*login*/
 Route::get('logout','LoginController@logout');

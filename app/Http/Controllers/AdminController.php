@@ -20,7 +20,21 @@ class AdminController extends Controller
     {
         $this->middleware('is_admin');
         $this->admrpy = $admrpy;
+
+        $this->middleware(function($request,$next){
+
+              if(!Session::has('session_info')){
+
+                  return response()->view('login');
+
+              }
+
+              return $next($request);
+
+        });
     }
+
+
     public function birthday_email() {
 
         $current_date = date("d");

@@ -85,7 +85,7 @@
                      <div class="col-md-4 mb-3">
                         <label for="emp_num_1">Mobile Number 1 *</label>
                         <input class="form-control" maxlength="10" onkeypress="return isNumber(event)" id="emp_num_1" name="emp_num_1" type="text" placeholder="Mobile Number 1" required="">
-                        <span class="text-danger color-hider" id="emp_num_1_loc_error"  style="display:none;color: red;"></span>
+                        <span class="text-danger color-hider" id="emp_num_1_error"  style="display:none;color: red;"></span>
                         <!-- <div class="invalid-feedback">Please provide a valid state.</div> -->
                      </div>
                      <div class="col-md-4 mb-3">
@@ -132,6 +132,7 @@
                      <div class="col-md-4 mb-3">
                         <label for="rel_emp">Date Of Joining *</label>
                         <input class="form-control" id="doj" name="doj" type="date" placeholder="Date Of Join" >
+                        <span class="text-danger color-hider" id="doj_error"  style="display:none;color: red;"></span>
                      </div>
                      <div class="col-md-4 mb-3">
                         <label for="blood_grp">Blood Group *</label>

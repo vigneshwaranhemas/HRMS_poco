@@ -16,6 +16,18 @@
 
 @section('style')
 <style>
+body
+{
+   zoom: 100%;
+} 
+.calendar-wrap .fc-toolbar button{
+   position: inherit;
+}
+.calendar-wrap .fc-unthemed .fc-today{
+    background: #f2ebfb;
+    /* opacity: 0.1; */
+    opacity: 1;
+}
 #formEventEditModal{
     position: absolute !important;
 }
@@ -216,7 +228,7 @@
 
                         <div class="form-row mb-3">
                             <div class="col-md-2">
-                                <label for="repeat-event">Add Attendees</label>
+                                <label for="add-attendees">Add Attendees</label>
                             </div>
                             <div class="col-md-2">
                                 <input id="candicate_list" name="candicate_list" type="checkbox">
@@ -521,7 +533,7 @@
                         </div>
                         <div class="form-row mb-3">
                             <div class="col-md-2">
-                                <label for="repeat-event">Add Attendees</label>
+                                <label for="add-attendees">Add Attendees</label>
                             </div>
                             <div class="col-md-2">
                                 <input id="candicate_list_edit" name="candicate_list" value="true" type="checkbox">
@@ -578,7 +590,7 @@
                             </div>
 
                         </div>
-                        <div class="form-row mb-3">
+                        <div class="form-row mb-3"  style="display: none">
                             <div class="col-md-12">
                                 <input id="repeat-event-edit" name="repeat" value="yes" type="checkbox">
                                 <label for="repeat-event">Repeat</label>
@@ -722,21 +734,6 @@
 @endsection
 
 @section('script')
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <!-- <script src="../assets/js/jquery.ui.min.js"></script>
-    <script src="../assets/js/calendar/moment.min.js"></script>
-    <script src="../assets/js/calendar/fullcalendar.min.js"></script> -->
-
-    @if(Auth::user()->role_type === 'Admin')
-      <script src="../assets/js/calendar/admin_events.js"></script>
-    @else
-        <script src="../assets/js/calendar/events.js"></script>
-    @endif
-
     <!-- Plugins JS start-->
     <script src="../assets/js/select2/select2.full.min.js"></script>
     <script src="../assets/js/select2/select2-custom.js"></script>
@@ -746,7 +743,30 @@
     <script src="../assets/js/script.js"></script>
     <script src="../assets/js/theme-customizer/customizer.js"></script>
     <script src="../assets/js/tooltip-init.js"></script>
+    <!-- Calendar -->
+    <script src="../assets/js/jquery.ui.min.js"></script>
+    <script src="../assets/js/calendar/moment.min.js"></script>
+    <script src="../assets/js/calendar/full-calendar.min.js"></script>
+    @if(Auth::user()->role_type === 'Admin')
+      <script src="../assets/js/calendar/admin_events.js"></script>
+    @else
+        <script src="../assets/js/calendar/events.js"></script>
+    @endif    
+    <script>
+      $(function() {
+         // this will get the full URL at the address bar
+         // var url =  window.location.href.split(/[?#]/)[0];
+         var $this = $(".fc-day-grid-container");
 
+         if ($this.hasClass('fc-scroller')) {
+
+            $this.removeClass('fc-scroller');
+
+         }
+
+      });
+
+   </script>
     <script>
         $(document).ready(function() {
 

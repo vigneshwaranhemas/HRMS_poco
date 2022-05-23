@@ -112,9 +112,14 @@ Route::post('/Admin_Request_update',"AdminController@Seating_Status_update");
 
 //Goals Controller
 Route::get('goals', 'GoalsController@goals')->name('goals');
-Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
+Route::get('goal_setting/{id}', 'GoalsController@goal_setting')->name('goal_setting');
+Route::get('edit_goal/{id}', 'GoalsController@edit_goal')->name('edit_goal');
+Route::get('fetch_goals_setting_id_details', 'GoalsController@fetch_goals_setting_id_details')->name('fetch_goals_setting_id_details');
+Route::get('fetch_goals_setting_id_edit', 'GoalsController@fetch_goals_setting_id_edit')->name('fetch_goals_setting_id_edit');
+Route::get('goals_sheet_head', 'GoalsController@goals_sheet_head')->name('goals_sheet_head');
 Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
 Route::post('add_goals_data', 'GoalsController@add_goals_data');
+Route::post('goals_delete', 'GoalsController@goals_delete');
 Route::get('get_goal_list', 'GoalsController@get_goal_list' );
 Route::get('calendar', 'GoalsController@calendar' );
 
@@ -432,3 +437,7 @@ Route::get('Get_Notes_info','CommonController@Fetch_notes_info');
 Route::post('Get_Notes_info_id_wise','CommonController@Get_Notes_info_id_wise');
 Route::post('Edit_Sticky_Notes','CommonController@Edit_Sticky_Notes');
 Route::post('Delete_Sticky_note','CommonController@Destroy_Sticky_note');
+
+
+//vignesh calender test
+Route::get('new_birthday','CommonController@new_birthday');

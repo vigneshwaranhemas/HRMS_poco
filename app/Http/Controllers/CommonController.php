@@ -707,5 +707,9 @@ foreach($result['employees'] as $emp)
     }
 
 
+    public function new_birthday()
+    {
+         return view('birthday.new_birthday');
+    }
 
 }

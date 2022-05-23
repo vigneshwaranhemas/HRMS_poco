@@ -7,6 +7,8 @@ use App\Models\BuddyFeedbackModel;
 use App\Models\CustomUser;
 use App\Models\UsersInfoModel;
 use App\welcome_aboard;
+use App\Models\Epf_Forms;
+use App\Models\Medical_insurance;
 
 class PreOnboardingrepositories implements IPreOnboardingrepositories {
      public function Check_onBoard($table,$test)
@@ -127,6 +129,71 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
         ->get();
 
         return $policy_information_candidate_tbl;
+    }
+
+    public function insert_epf_form($data)
+    {
+        $response=Epf_Forms::insert($data);
+        return $response;
+
+    }
+    public function update_epf_form($data)
+    {
+
+        $reqtbl = new Epf_Forms();
+        $reqtbl = $reqtbl->where( 'cdID','=', $data['cdID'] );
+        $reqtbl->update( [
+        'a_pf_no'=>$data['a_pf_no'],
+        'a_uan_no'=>$data['a_uan_no'],
+        'ekyc_status'=>$data['ekyc_status'],
+        'sign_status'=>$data['sign_status'],
+        'file_name'=>$data['file_name'],
+
+    ] );
+        return $reqtbl;
+    }
+    public function get_candidate_epf_details($cdID)
+    {
+        # code...
+        $querytbl = new Epf_Forms();
+        $querytbl = $querytbl->where( 'cdID','=', $cdID );
+        return $querytbl = $querytbl->get();
+    }
+
+    public function check_epf_form($cdID){
+        $querytbl = new Epf_Forms();
+        $querytbl = $querytbl->where( 'cdID','=', $cdID );
+        return $querytbl = $querytbl->count();
+
+    }
+    public function insert_medical_form($data)
+    {
+        $response=Medical_insurance::insert($data);
+        return $response;
+
+    }
+    public function check_medical_details($cdID){
+        $querytbl = new Medical_insurance();
+        $querytbl = $querytbl->where( 'cdID','=', $cdID );
+        return $querytbl = $querytbl->count();
+
+    }
+    public function update_medical_form($data)
+    {
+        $reqtbl = new Medical_insurance();
+        $reqtbl = $reqtbl->where( 'cdID','=', $data['cdID'] );
+        $reqtbl->update( [
+            'insur_name'=>$data['insur_name'],
+            'relation'=>$data['relation'],
+            'dob'=>$data['dob'],
+            'age'=>$data['age'],
+            'gender'=>$data['gender'],
+            'file_name'=>$data['file_name'],
+
+        ] );
+        return $reqtbl;
+
+
     }
 
 

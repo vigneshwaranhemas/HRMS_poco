@@ -13,7 +13,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Goal Setting<span>Process</span></h2>
+	<h2>Edit Goal Setting<span>Process</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -25,6 +25,7 @@
 <!-- Container-fluid starts-->
 <div class="container-fluid">
     <div class="row">
+        <input type="text" id="edit_goals_setting_id" value="{{ $id }}">
         <div class="col-sm-12">
             <div class="ribbon-vertical-right-wrapper card">
                 <div class="card-body">
@@ -177,71 +178,6 @@
 
 <script>
 
-    $(document).ready(function() {
-        setTimeout(
-            function() {
-                var html = '<tr>';
-                        html +='<td scope="row">1</td>';
-                        html +='<td>';
-                            html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_1[]">';
-                                html +='<option value="Revenue">Revenue</option>';
-                                html +='<option value="Customer">Customer</option>';
-                                html +='<option value="Process">Process</option>';
-                                html +='<option value="People">People</option>';
-                                html +='<option value="Projects">Projects</option>';
-                            html +='</select>';
-                        html +='</td>';
-
-                        html +='<td>';
-                            html +='<textarea name="key_res_areas_1[]" id="" class="form-control"></textarea>';
-                        html +='</td>';
-
-                        html +='<td>';
-                            html +='<textarea name="sub_indicators_1[]" id="" class="form-control"></textarea>';
-                        html +='</td>';
-
-                        html +='<td>';
-                            html +='<textarea name="measurement_criteria_1[]" id="" class="form-control"></textarea>';
-                        html +='</td>';
-
-                        html +='<td>';
-                            html +='<input type="text" name="weightage_1[]" id="" class="form-control">';
-                        html +='</td>';
-
-                        html +='<td>';
-                            html +='<textarea name="reference_1[]" id="" class="form-control"></textarea>';
-                        html +='</td>';
-
-                        html +='<td>';
-                            html +='<div style="margin-top: 80px;"></div>';
-                        html +='</td>';
-
-                        html +='<td>';
-                            html +='<div class="dropup">';
-                                html +='<button type="button" class="btn btn-xs btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>';
-                                html +='<div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">';
-                                    html +='<a class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs" type="button" data-original-title="Add KRA" title="Add KRA"><i class="fa fa-plus" onclick="additionalKRA(this,1);"></i></button></a>';
-                                    // html +='<a class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs" type="button" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button></a>';
-                                    html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button"  id="btnDelete" data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
-                                html +='</div>';
-                            html +='</div>';
-                            // html +='<div class="dropup m-t-5">';
-                            //     html +='<button type="button" class="btn btn-xs btn-info" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button>';
-                            // html +='</div>';
-                            // html +='<div class="dropup m-t-5">';
-                            //     html +='<button type="button" class="btn btn-xs btn-danger" id="btnDelete" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
-                            // html +='</div>';
-
-                            // html +=' <button class="btn btn-primary btn-xs" type="button" data-original-title="Add KRA" title="Add KRA"><i class="fa fa-plus" onclick="additionalKRA(this,0);"></i></button>';
-                            // html +=' <button class="btn btn-info btn-xs" type="button" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button>';
-                            // html +=' <button class="btn btn-danger btn-xs" type="button" data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button>';
-                        html +='</td>';
-                    html +='</tr>';
-                $('#goal-tb tr:last').after(html);
-
-            },
-        2000 );
-    });
 
     $(".use-address").click(function() {
         var html = '<input type="text" name="" id="" class="form-control m-t-5">';
@@ -463,6 +399,49 @@
 
     });
 
+
+
 </script>
+
+<script>
+    var id = $('#edit_goals_setting_id').val();
+
+    $.ajax({                   
+        url:"{{ url('goals_sheet_head') }}",
+        type:"GET",
+        data:{id:id},
+        dataType : "JSON",
+        success:function(response)
+        {
+            $('#goals_sheet_head').append('');
+            $('#goals_sheet_head').append(response);
+        },
+        error: function(error) {
+            console.log(error);
+
+        }                                              
+            
+    });
+
+    $.ajax({                   
+        url:"{{ url('fetch_goals_setting_id_edit') }}",
+        type:"GET",
+        data:{id:id},
+        dataType : "JSON",
+        success:function(response)
+        {
+            $('#goal-tb tr:last').after(response);
+
+            // $('#goals_edit_record').append('');
+            // $('#goals_edit_record').append(response);
+        },
+        error: function(error) {
+            console.log(error);
+
+        }                                              
+            
+    });
+</script>
+
 @endsection
 

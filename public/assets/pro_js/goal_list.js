@@ -153,5 +153,47 @@ function newexportaction(e, dt, button, config) {
     dt.ajax.reload();
 }
 
+//Delete Record
+$('#goal_data').on('click','.deleteRecord',function(){
+    // alert("delete");
+    var id = $(this).data('id'); 
+    // alert(id) 
+    $('#goalsDeleteModal').modal('show');
+    $('#goals_id_delete').val(id);
 
+});
 
+$("#formGoalDelete").submit(function(e) {
+    e.preventDefault();
+
+    $('button[type="submit"]').attr('disabled' , true);
+
+    $.ajax({                   
+        url:"goals_delete",
+        type:"POST",
+        data:$('#formGoalDelete').serialize(),
+        dataType : "JSON",
+        success:function(data)
+        {
+            Toastify({
+                text: "Deleted Sucessfully..!",
+                duration: 3000,
+                close:true,
+                backgroundColor: "#4fbe87",
+            }).showToast();    
+            
+            $('button[type="submit"]').attr('disabled' , false);
+            $('#goalsDeleteModal').modal('hide');
+            goal_record();
+            // window.location = "{{ url('goals')}}";                
+            // $("#goal_data").load("{{url('get_goal_list')}}");               
+        },
+        error: function(response) {
+            // alert(response.responseJSON.errors.business_name_option);
+            // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+        }                                              
+            
+    });
+
+});

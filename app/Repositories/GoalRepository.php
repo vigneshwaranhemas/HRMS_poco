@@ -26,6 +26,18 @@ class GoalRepository implements IGoalRepository
                ->where('created_by', $logined_empID)
                ->get();     
       return $response;
-  }
+   }
+   public function fetchGoalIdDetails( $id ){
+      $response = Goals::where('goal_unique_code', $id)->value('goal_process');
+      return $response;
+   }
+   public function fetchGoalIdHead( $id ){
+      $response = Goals::where('goal_unique_code', $id)->value('goal_name');
+      return $response;
+   }
+   public function fetchGoalIdDelete( $id ){
+      $response = Goals::where('goal_unique_code', $id)->delete();
+      return $response;
+   }
 
 }

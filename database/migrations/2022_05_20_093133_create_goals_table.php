@@ -16,7 +16,7 @@ class CreateGoalsTable extends Migration
         Schema::create('goals', function (Blueprint $table) {
             $table->id();
             $table->string('goal_name');
-            $table->string('goal_process');
+            $table->text('goal_process');
             $table->string('goal_status');
             $table->string('goal_unique_code');
             $table->string('created_by');

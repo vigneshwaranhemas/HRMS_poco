@@ -117,6 +117,8 @@ Route::get('goals', 'GoalsController@goals')->name('goals');
 Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
 Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
 Route::post('add_goals_data', 'GoalsController@add_goals_data');
+Route::get('get_goal_list', 'GoalsController@get_goal_list' );
+Route::get('calendar', 'GoalsController@calendar' );
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');
@@ -426,3 +428,9 @@ Route::get('company_policy_candidate', 'CandidateController@company_policy_candi
 Route::post('get_policy_category_candidate_details', 'CandidateController@get_policy_category_candidate_details');
 Route::post('get_policy_information_candidate_details', 'CandidateController@get_policy_information_candidate_details');
 
+//vignesh code for sticky code
+Route::post('Store_Sticky_Notes','CommonController@Store_Sticky_Notes');
+Route::get('Get_Notes_info','CommonController@Fetch_notes_info');
+Route::post('Get_Notes_info_id_wise','CommonController@Get_Notes_info_id_wise');
+Route::post('Edit_Sticky_Notes','CommonController@Edit_Sticky_Notes');
+Route::post('Delete_Sticky_note','CommonController@Destroy_Sticky_note');

@@ -8,7 +8,7 @@ use App\Repositories\IProfileRepositories;
 use App\Repositories\ICommonRepositories;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
-
+use Carbon\Carbon;
 use App\Image;
 use Session;
 use Validator;
@@ -553,7 +553,7 @@ public function organisation_one(Request $request)
          $image='../ID_card_photo/'.$result['reviewer']->img_path.'.jpg';
     }
     else{
-        $image='../ID_card_photo/dummy.png';
+        $image='../media/dummy.png';
     }
    //reviewer wise
    $emp_data[]=array('nodeId'=>$result['reviewer']->empID,
@@ -568,7 +568,7 @@ public function organisation_one(Request $request)
                         $sup_image='../ID_card_photo/'.$supervisors['img_path'].'.jpg';
                     }
                     else{
-                        $sup_image='../ID_card_photo/dummy.png';
+                        $sup_image='../media/dummy.png';
                     }
 
                     $emp_data[]=array('nodeId'=>$supervisors['empID'],
@@ -584,7 +584,7 @@ public function organisation_one(Request $request)
                 $team_image='../ID_card_photo/'.$leaders['img_path'].'.jpg';
              }
              else{
-                $team_image='../ID_card_photo/dummy.png';
+                $team_image='../media/dummy.png';
              }
             $emp_data[]=array('nodeId'=>$leaders['empID'],
             'parentNodeId'=>$leaders['sup_emp_code'],
@@ -601,7 +601,7 @@ foreach($result['employees'] as $emp)
                     $sup_image='../ID_card_photo/'.$employees['img_path'].'.jpg';
                 }
                 else{
-                    $sup_image='../ID_card_photo/dummy.png';
+                    $sup_image='../media/dummy.png';
                 }
               $emp_data[]=array('nodeId'=>$employees['empID'],
               'parentNodeId'=>$employees['sup_emp_code'],
@@ -617,8 +617,98 @@ foreach($result['employees'] as $emp)
 
 }
 
-
      return view('HRSS.organization_charts1')->with('emp_data',$emp_data);
 }
+
+
+
+//vignesh code for sticky note creation
+
+   public function Sticky_note_create()
+   {
+       return view('Sticky_notes.Sticky_note_create');
+   }
+   public function Store_Sticky_Notes(request $request )
+   {
+        $session_val = Session::get('session_info');
+        if($request->color == ''){
+           $colour = 'blue';
+        }
+        else{
+            $colour=$request->color;
+        }
+
+        $data=array('empID'=>$session_val['empID'],
+                    'Notes' =>$request->text,
+                    'color'=>$colour);
+
+        //  echo json_encode($data);die();
+
+        $result = $this->cmmrpy->Store_StickyNotes($data);
+        if($result){
+            $response=array('success'=>1,'message'=>"Note Added Successfully");
+        }
+        else{
+            $response=array('success'=>1,'message'=>"Problem in Adding Note");
+        }
+
+        echo json_encode($response);
+   }
+  //get notes info
+   public function Fetch_notes_info()
+   {
+        $session_val = Session::get('session_info');
+        $data=array('empID'=>$session_val['empID']);
+        $result = $this->cmmrpy->Fetch_Notes($data);
+        $current_date=Carbon::now('Asia/Kolkata');;
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $current_date);
+        if(request()->ajax())
+        {
+            return view('Sticky_notes.note-ajax')->with('sticky_note',$result)->with('Time',$date);
+        }
+
+
+   }
+
+
+   //get notes info id wise
+   public function Get_Notes_info_id_wise(request $request)
+   {
+        $data=array('id'=>$request->id);
+        $result = $this->cmmrpy->Fetch_Notes_id_wise($data);
+        echo json_encode($result);
+
+   }
+   public function Edit_Sticky_Notes(request $request)
+   {
+        $id=$request->id;
+        $current_date=Carbon::now('Asia/Kolkata');;
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $current_date);
+        $data=array('Notes'=>$request->text,'color'=>$request->color,'updated_at'=>$date);
+        $result = $this->cmmrpy->Update_Notes_id_wise($data,$id);
+        if($result){
+            $response=array('success'=>1,'message'=>"Note Updated Successfully");
+        }
+        else{
+            $response=array('success'=>1,'message'=>"Problem in Adding Note");
+        }
+        echo json_encode($response);
+
+    }
+    public function Destroy_Sticky_note(request $request)
+    {
+        $id=$request->id;
+        $coloumn="id";
+        $result = $this->cmmrpy->Delete_Notes_id_wise($coloumn,$id);
+        if($result){
+            $response=array('success'=>1,'message'=>"Note Deleted Successfully");
+        }
+        else{
+            $response=array('success'=>1,'message'=>"Problem in Deleting Note");
+        }
+        echo json_encode($response);
+    }
+
+
 
 }

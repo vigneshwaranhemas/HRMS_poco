@@ -90,6 +90,7 @@
                                     <th scope="col">Measurement Criteria (UOM)</th>
                                     <th scope="col">Weightage</th>
                                     <th scope="col">Reference </th>
+                                    <th scope="col"></th>
                                     <th scope="col">
                                         <i class="fa fa-plus txt-primary"
                                             style="font-size: x-large;" data-original-title="Add KBD" title="Add KBD"  onclick="additionalKBD();"></i>
@@ -182,7 +183,7 @@
                 var html = '<tr>';
                         html +='<td scope="row">1</td>';
                         html +='<td>';
-                            html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers[]">';
+                            html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_0[]">';
                                 html +='<option value="Revenue">Revenue</option>';
                                 html +='<option value="Customer">Customer</option>';
                                 html +='<option value="Process">Process</option>';
@@ -192,31 +193,35 @@
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<textarea name="key_res_areas_0[]" id="" class="form-control"></textarea>';
+                            html +='<textarea name="key_res_areas_1[]" id="" class="form-control"></textarea>';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<textarea name="sub_indicators_0[]" id="" class="form-control"></textarea>';
+                            html +='<textarea name="sub_indicators_1[]" id="" class="form-control"></textarea>';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<textarea name="measurement_criteria_0[]" id="" class="form-control"></textarea>';
+                            html +='<textarea name="measurement_criteria_1[]" id="" class="form-control"></textarea>';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<input type="text" name="weightage_0[]" id="" class="form-control">';
+                            html +='<input type="text" name="weightage_1[]" id="" class="form-control">';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<textarea name="reference_0[]" id="" class="form-control"></textarea>';
+                            html +='<textarea name="reference_1[]" id="" class="form-control"></textarea>';
+                        html +='</td>';
+
+                        html +='<td>';
+                            html +='<div style="margin-top: 80px;"></div>';
                         html +='</td>';
 
                         html +='<td>';
                             html +='<div class="dropup">';
                                 html +='<button type="button" class="btn btn-xs btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>';
                                 html +='<div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">';
-                                    html +='<a class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs" type="button" data-original-title="Add KRA" title="Add KRA"><i class="fa fa-plus" onclick="additionalKRA(this,0);"></i></button></a>';
-                                    html +='<a class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs" type="button" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button></a>';
+                                    html +='<a class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs" type="button" data-original-title="Add KRA" title="Add KRA"><i class="fa fa-plus" onclick="additionalKRA(this,1);"></i></button></a>';
+                                    // html +='<a class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs" type="button" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button></a>';
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button"  id="btnDelete" data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
                                 html +='</div>';
                             html +='</div>';
@@ -248,23 +253,47 @@
     function additionalKRA(x,cur_rowCount) {
         // alert($(x).closest('td').parent()[0].sectionRowIndex);
         // alert(cur_rowCount)
-        var html2 = '<textarea id="" class="form-control m-t-5" name="key_res_areas_'+cur_rowCount+'[]"></textarea>';
-        var html3 = '<textarea id="" class="form-control m-t-5" name="sub_indicators_'+cur_rowCount+'[]"></textarea>';
-        var html4 = '<textarea id="" class="form-control m-t-5" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
-        var html6 = '<textarea id="" class="form-control m-t-5" name="reference_'+cur_rowCount+'[]"></textarea>';
+
+        var rand_no = Math.floor(Math.random()*90000) + 10000;
+        var code = cur_rowCount+'_'+rand_no;
+        
+        var html2 = '<textarea id="" class="form-control m-t-5 '+code+'" name="key_res_areas_'+cur_rowCount+'[]"></textarea>';
+        var html3 = '<textarea id="" class="form-control m-t-5 '+code+'" name="sub_indicators_'+cur_rowCount+'[]"></textarea>';
+        var html4 = '<textarea id="" class="form-control m-t-5 '+code+'" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
+        var html6 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
+        
+        var html7 = '';
+
+        html7 +='<div class="dropup m-t-35">';
+            html7 +='<button type="button" class="btn btn-xs btn-danger '+code+'" onclick="removeRow(this,'+code+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
+            // html7 +='<button type="button" class="btn btn-xs btn-danger sub_row_'+cur_rowCount+'" onclick="removeRow(this,'+class_sub+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
+        html7 +='</div>';
+        
         $(x).closest("tr").find("td:eq(2)").append(html2);
         $(x).closest("tr").find("td:eq(3)").append(html3);
         $(x).closest("tr").find("td:eq(4)").append(html4);
         $(x).closest("tr").find("td:eq(6)").append(html6);
+        $(x).closest("tr").find("td:eq(7)").append(html7);
 
     }
+
+    function removeRow(html_ui, class_name){
+        const string = ''+class_name+'';
+        var first = string.slice(0, 1);
+        var last = string.slice(-5);
+        var code = first+'_'+last;
+        $('.'+code+'').remove();
+    }
+
     function additionalKBD(){
-        var rowCount = $('#myTable tr').length;
-        var cur_rowCount = rowCount + 1;
+        var rowCount = $('#goal-tb tr').length;
+        // var cur_rowCount = rowCount + 1;
+        var cur_rowCount = rowCount;
+
         var html = '<tr>';
                 html +='<td scope="row">1</td>';
                 html +='<td>';
-                    html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers[]">';
+                    html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_'+cur_rowCount+'[]">';
                         html +='<option value="Revenue">Revenue</option>';
                         html +='<option value="Customer">Customer</option>';
                         html +='<option value="Process">Process</option>';
@@ -274,23 +303,27 @@
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<textarea name="key_res_areas[]" id="" class="form-control"></textarea>';
+                    html +='<textarea name="key_res_areas_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<textarea name="sub_indicators[]" id="" class="form-control"></textarea>';
+                    html +='<textarea name="sub_indicators_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<textarea name="measurement_criteria[]" id="" class="form-control"></textarea>';
+                    html +='<textarea name="measurement_criteria_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<input type="text" name="weightage[]" id="" class="form-control">';
+                    html +='<input type="text" name="weightage_'+cur_rowCount+'[]" id="" class="form-control">';
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<textarea name="reference[]" id="" class="form-control"></textarea>';
+                    html +='<textarea name="reference_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                html +='</td>';
+
+                html +='<td>';
+                        html +='<div style="margin-top: 80px;"></div>';
                 html +='</td>';
 
                 html +='<td>';
@@ -298,7 +331,7 @@
                         html +='<button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>';
                         html +='<div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">';
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs" type="button" data-original-title="Add KRA" title="Add KRA"><i class="fa fa-plus" onclick="additionalKRA(this,'+cur_rowCount+');"></i></button></a>';
-                                    html +='<a class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs" type="button" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button></a>';
+                                    // html +='<a class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs" type="button" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button></a>';
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button" id="btnDelete"  data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
                         html +='</div>';
                     html +='</div>';
@@ -310,13 +343,12 @@
             html +='</tr>';
         $('#goal-tb tr:last').after(html);
         updatesno();
-
     }
 
     function updatesno(){
 
         $.each($("#goal-tb tr:not(:first)"), function (i, el) {
-            var sn = i + 1;
+            var sn = i + 1;            
             var sno = "<p>"+sn+"</p>";
             $(this).find("td:first").html(sno);
         })
@@ -408,10 +440,18 @@
             dataType : "JSON",
             success:function(data)
             {
-                window.location.reload();                         
+                Toastify({
+                    text: "Added Sucessfully..!",
+                    duration: 3000,
+                    close:true,
+                    backgroundColor: "#4fbe87",
+                }).showToast();    
+                
+                window.location.reload();   
+                
             },
             error: function(response) {
-                alert(response.responseJSON.errors.business_name_option);
+                // alert(response.responseJSON.errors.business_name_option);
                 // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
 
             }                                              

@@ -2,6 +2,7 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Models\CustomUser;
+use App\Models\StickyNotesModel;
 
 class CommonRepositories implements ICommonRepositories
 {
@@ -198,5 +199,52 @@ class CommonRepositories implements ICommonRepositories
         $update_mdlusertbl->update( [
             'passcode' => $data['passcode'],
         ] );
+    }
+
+    public function Store_StickyNotes($data)
+    {
+        $result=StickyNotesModel::insert($data);
+        return $result;
+    }
+    public function Fetch_Notes($data)
+    {
+         $result=StickyNotesModel::select('id','empID','Notes','color','updated_at')->where($data)->get();
+         if($result){
+             return $result;
+         }
+         else{
+             return false;
+         }
+    }
+    public function Fetch_Notes_id_wise($data)
+    {
+        $result=StickyNotesModel::select('id','empID','Notes','color','updated_at')->where($data)->first();
+         if($result){
+             return $result;
+         }
+         else{
+             return false;
+         }
+    }
+    public function Update_Notes_id_wise($data,$id)
+    {
+        $result=StickyNotesModel::where('id',$id)->update($data);
+        if($result){
+            return $result;
+        }
+        else{
+            return false;
+        }
+
+    }
+    public function Delete_Notes_id_wise($coloumn,$id)
+    {
+        $result = StickyNotesModel::where($coloumn, $id)->delete();
+        if($result){
+            return $result;
+        }
+        else{
+            return false;
+        }
     }
 }

@@ -74,6 +74,8 @@ var basic_calendar = {
             droppable: true,
             eventLimit: true,
             select: function(arg) {
+                console.log(arg)
+
                 addHolidayModal(arg);
                 $('#cal-basic').fullCalendar('unselect');
             },
@@ -302,7 +304,7 @@ var getEventDetail = function (id, start, end) {
                 // alert("one");
                 // var link = object[i].Value;
 
-                var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm image-layer-item image-size"   src="../../holidays_file/'+file+'" style="cursor:pointer;width: 400px;height: 200px;">';
+                var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm image-layer-item image-size"   src="../holidays_file/'+file+'" style="cursor:pointer;width: 400px;height: 200px;">';
                 // row.append($('<td>').html(image));
                 $("#occassion_file_show").append(image);  
                
@@ -350,6 +352,7 @@ var getEventDetail = function (id, start, end) {
 $('.delete-holidays').click(function(){
     var id = $("#holidays_show_id").val(); 
     $('#holidays_delete_id').val(id);                             
+    $('#holidaysDetailModal').modal('hide');
     $('#holidaysDeleteModal').modal('show');
 });
 
@@ -364,7 +367,6 @@ function addHolidayModal(arg){
     var date = convert(arg);
     // alert("YES");
     $('#occassion_date').val(date);
-
         
     $.fn.modal.Constructor.prototype.enforceFocus = function() {};
 
@@ -483,7 +485,8 @@ $('#updateHolidaysForm').on('submit',function(event){
         error: function(response) {
 
             console.log(response.responseJSON.errors);                   
-
+            $('#occassion_edit_error').text(response.responseJSON.errors.occassion);
+            $('#state_edit_error').text(response.responseJSON.errors.state);
         }
         
     }); 
@@ -544,7 +547,7 @@ $('body').on('click','.edit-holidays',function(){
         {
             // console.log(response); 
             $("#occassion_edit").val(response[0].occassion);
-            $("#description_edit").append(response[0].description);  
+            $("#description_edit").val(response[0].description);  
             $("#occassion_file_edit_show").text("");
             $("#occassion_file_edit_show").text("");
 

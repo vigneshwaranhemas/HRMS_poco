@@ -12,7 +12,7 @@
     .chat-box .chat-menu.chat-menu-style{
         margin-left: 20px;
         border-right: 1px solid #f8f5fd !important;
-        max-width: 400px;
+        max-width: 440px;
     }
     .card-style{
         margin-left: 70px !important;
@@ -45,7 +45,7 @@
         margin-right: 30px;
     }
     .people_search_div{
-        margin-left: 10px;
+        margin-left: 0px;
     }
     .card .card-header.people_filter_card_header{
         padding: 29px;
@@ -83,10 +83,18 @@
     .chat-box .about.people_name_show{
         margin-top: -5px;
     }
-    .chat-box .chat-right-aside .chat .chat-header .chat-menu-icons.chat-menu-icons-star{
+    /* .chat-box .chat-right-aside .chat .chat-header .chat-menu-icons.chat-menu-icons-star{
         margin-top: 0px;
+    } */
+    .select2-dropdown{
+        z-index: 10;
     }
-
+    #people_list_filter_starred{
+        max-width: 320px !important;
+    }    
+    #people_list_filter_everyone{
+        max-width: 320px !important;
+    }
     /* Responsive */
     /* @media only screen and (max-width: 425px){
         .chat-menu.responsive-chat-menu {
@@ -116,6 +124,43 @@
         }
     }
 
+    @media only screen and (max-width: 640px) {
+        .chat-box .chat-right-aside .chat .chat-header .chat-menu-icons.chat-menu-icons-star{
+            margin-top: -32px;
+        }
+    }
+    @media only screen and (max-width: 375px) {
+        .chat-box .chat-menu.chat-menu-style {
+            margin-left: 20px;
+            border-right: 1px solid #f8f5fd !important;
+            max-width: 382px;
+        }
+        .chat-box .people-list .search i.people_filter_i{
+            font-size: 16px;
+            right: -15px;
+            top: 10px;
+        }        .chat-box .people-list .search i.people_filter_i_close{
+            font-size: 16px;
+            right: -25px;
+            top: 10px;
+        }
+        .people_search_div{
+            margin-left: -10px;
+        }
+    }
+    @media only screen and (max-width: 1660px){
+        .call-chat-body .chat-box .people-list ul {
+            max-height: 420px;
+            overflow: auto;
+        }
+    }
+    @media only screen and (max-width: 767px){
+        .chat-box .chat-menu .people-list ul.list {
+            max-height: 221px;            
+            border-bottom: 1px solid #efefef;
+            padding-bottom: 30px;
+        }
+    }
 </style>
 @endsection
 
@@ -201,7 +246,7 @@
                                     <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
                                         <div class="people-list">
                                             <div class="search people_search_div">
-                                                <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:280px" id="people_list_filter_starred" name="people_list_filter">
+                                                <select class="js-example-basic-single col-sm-12 form-group people_list_filter" id="people_list_filter_starred" name="people_list_filter">
                                                     <option value="">Enter Emp. Name or ID...</option>
                                                     @foreach($customusers as $customuser)
                                                         <option value="{{ $customuser->empID }}">{{ $customuser->username }} (#{{ $customuser->empID }})</option>
@@ -218,7 +263,7 @@
                                     <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
                                         <div class="people-list">
                                             <div class="search people_search_div">      
-                                                <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:280px" id="people_list_filter_everyone" name="people_list_filter">
+                                                <select class="js-example-basic-single col-sm-12 form-group people_list_filter" style="width:320px;" id="people_list_filter_everyone" name="people_list_filter">
                                                     <option value="">Enter Emp. Name or ID...</option>
                                                     @foreach($customusers as $customuser)                                                    
                                                         <option value="{{ $customuser->empID }}">{{ $customuser->username }} (#{{ $customuser->empID }})</option>

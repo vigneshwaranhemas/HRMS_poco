@@ -203,7 +203,17 @@ class HolidayController extends Controller
     }
     public function holidays_update(Request $request)
     {      
-        
+        if($request->all_state){
+            $result = $request->validate([
+                'occassion' => 'required', 
+            ]);
+        }else{
+            $result = $request->validate([
+                'occassion' => 'required', 
+                'state' => 'required', 
+            ]);
+        }       
+
         //All state upload
         if($request->all_state){
             $all_state = "yes";

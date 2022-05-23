@@ -11,6 +11,8 @@
 <link rel="stylesheet" type="text/css" href="{{asset('assets/scss/bootstrap/_modal.scss')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/whether-icon.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/ionic-icon.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/sweetalert2.css')}}">
+{{-- <link rel="stylesheet" type="text/css" href="{{route('/')}}/assets/css/sweetalert2.css"> --}}
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
@@ -504,7 +506,7 @@ View More&lt;/button&gt;
                   $("#description_show").append(response[0].description);
 
                   var file = response[0].occassion_file;
-                  var ext = file.split('.')[1];    
+                  var ext = file.split('.')[1];
                   // alert(ext);
                   if(ext=="jpg" || ext=="PNG" || ext=="png" || ext=="jpeg" || ext=="gif") {
                      // alert("one");
@@ -512,25 +514,25 @@ View More&lt;/button&gt;
 
                      var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm image-layer-item image-size"   src="../holidays_file/'+file+'" style="cursor:pointer;width: 400px;height: 200px;">';
                      // row.append($('<td>').html(image));
-                     $("#occassion_file_show_list").append(image);  
-                     
+                     $("#occassion_file_show_list").append(image);
+
                   }else if (ext=="pdf"|| ext=="doc" || ext=="docx" || ext=="xlsx" || ext=="csv"){
-                     
+
                      var file = '<a href="/file_upload/'+file+'"  style="color:white;"  download><div class="badge bg-danger">'+file+'</div></a>';
-                     $("#occassion_file_show_list").append(file);  
+                     $("#occassion_file_show_list").append(file);
 
                   }else if(ext=="mp4") {
 
-                     var video = '';            
+                     var video = '';
                      video += '<video width="320" height="240" controls>';
                      video += '<source src="../../holidays_file/'+file+'" type="video/ogg">';
                      video += '</video>';
 
-                     $("#occassion_file_show_list").append(video);  
-                     
+                     $("#occassion_file_show_list").append(video);
+
                   } else{
 
-                     $("#occassion_file_show_list").append(" ");  
+                     $("#occassion_file_show_list").append(" ");
 
                   }
             }

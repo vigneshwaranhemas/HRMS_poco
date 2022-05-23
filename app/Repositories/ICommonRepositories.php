@@ -10,4 +10,15 @@ interface ICommonRepositories {
     public function get_organization_info();
     public function get_organization_info_one();
     public function supervisor_wise_info($id);
+    public function Store_StickyNotes($data);
+    public function Fetch_Notes($data);
+    public function Fetch_Notes_id_wise($data);
+    public function Update_Notes_id_wise($data,$id);
+    public function Delete_Notes_id_wise($coloumn,$id);
+
+
+
+
+
+
 }

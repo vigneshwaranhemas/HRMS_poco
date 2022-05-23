@@ -15,13 +15,14 @@ use Validator;
 use Mail;
 class CommonController extends Controller
 {
-     public function id_card_varification(){
+    public function id_card_varification(){
            return view('id_card_verification');
-    } public function hr_id_card_verification(){
+    }public function hr_id_card_verification(){
            return view('hr_id_card_verification');
     }public function change_password(){
-        return view('change_password');
-
+            return view('change_password');
+    }public function pagenotfound(){
+            return view('404');
     }
     public function __construct(IAdminRepository $admrpy,IProfileRepositories $profrpy,ICommonRepositories $cmmrpy){
         $this->admrpy = $admrpy;
@@ -242,6 +243,7 @@ class CommonController extends Controller
                     'p_email'=>$request->input('p_email'),
                     'emp_dob'=>$request->input('emp_dob'),
                     );
+                // echo "1<pre>";print_r($data);die;
             }else{
                 $img_id=$request->input('img_path_hide');
                 $path = $img_id;
@@ -266,6 +268,7 @@ class CommonController extends Controller
                     'p_email'=>$request->input('p_email'),
                     'emp_dob'=>$request->input('emp_dob'),
                     );
+                // echo "2<pre>";print_r($data);die;
             }
              // echo "<pre>";print_r($data);die;
             $update_role_unit_details_result = $this->cmmrpy->update_hr_idcard_info( $data );
@@ -705,6 +708,7 @@ foreach($result['employees'] as $emp)
         }
         echo json_encode($response);
     }
+
 
 
 

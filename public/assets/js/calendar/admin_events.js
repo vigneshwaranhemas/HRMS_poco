@@ -15,7 +15,6 @@ function getEventTypeFilter(){
     return $("#event_type_filter").val();
 };
 
-
 var basic_calendar = {
     init: function() {
         $('#cal-basic').fullCalendar({
@@ -374,7 +373,7 @@ var getEventDetail = function (id, start, end) {
                     // alert("one");
                     // var link = object[i].Value;
 
-                    var image = '<img class="img-sm image-layer-item image-size"  src="../../event_file/'+file+'" style="cursor:pointer;width: 700px;height: 300px;">';
+                    var image = '<img class="img-sm image-layer-item image-size"  src="../event_file/'+file+'" style="cursor:pointer;width: 700px;height: 300px;">';
                     // row.append($('<td>').html(image));
                     $("#event_file_show").append(image);  
                 
@@ -560,7 +559,7 @@ $('.delete-event').click(function(){
 });
 
 //Delete Holidays data
-$('#people_filter').on('submit',function(event){
+$('#formEventsDelete').on('submit',function(event){
     event.preventDefault();
     // Get Alll Text Box Id's
     var event_delete_id = $('#event_delete_id').val();
@@ -1179,7 +1178,7 @@ $('body').on('click','.edit-event',function(){
                     // alert("one");
                     // var link = object[i].Value;
 
-                    var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm image-layer-item image-size rounded-circle mt-2"   src="../../event_file/'+file+'" style="cursor:pointer;width: 32px;height: 32px;">';
+                    var image = '<img onclick=sample_popup_viewer("'+file+'") class="img-sm image-layer-item image-size rounded-circle mt-2"   src="../event_file/'+file+'" style="cursor:pointer;width: 32px;height: 32px;">';
                     // row.append($('<td>').html(image));
                     $("#chosen_file_show").append(image);  
                 
@@ -1384,6 +1383,6 @@ $('#reset_filter_op').click(function(){
     // alert(fil)
     $('#cal-basic').fullCalendar('refetchEvents', fil);   
     
-    $('#events_filter_div').slideToggle();
+    // $('#events_filter_div').slideToggle();
 });
 

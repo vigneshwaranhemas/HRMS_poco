@@ -60,12 +60,9 @@
                     </div>
                   </div>
                   <span id="err_message"></span>
-                  
-                  <div class="form-group form-row mt-3 mb-0">
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
-                      <button class="btn btn-primary btn-block" id="forgot_pass_but" style="width: 126%;" type="submit">Submit</button>
-                    </div>
+                  <br>
+                  <div class="form-group">
+                        <button class="btn btn-primary" id="forgot_pass_but" type="submit">Submit</button>
                   </div>
                 </form>
               </div>

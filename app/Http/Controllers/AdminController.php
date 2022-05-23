@@ -25,13 +25,19 @@ class AdminController extends Controller
         $this->middleware('is_admin');
         $this->admrpy = $admrpy;
         $this->cmmrpy = $cmmrpy;
+        Session::forget('session_info');
         $this->middleware(function($request,$next){
               if(!Session::has('session_info')){
                   return response()->view('login');
               }
               return $next($request);
         });
+
+
+
     }
+
+
     public function birthday_email() {
 
         $current_date = date("d");
@@ -478,6 +484,7 @@ class AdminController extends Controller
                 ->join('holidays as h', 'h.holiday_unique_code', '=', 'hs.holiday_code')
                 ->where('hs.state_name', $logined_state)
                 ->where('h.date','>=', $date)
+                ->orderBy('date', 'asc')
                 ->limit(2)
                 ->get();
         // $upcoming_holidays = DB::table('holidays')->select('*')->where('date', '>=', $date)->limit(2)->get();
@@ -490,6 +497,7 @@ class AdminController extends Controller
                      ->join('events', 'event_attendees.event_id', '=', 'events.event_unique_code')
                      ->where('events.start_date_time', '>=', $date)
                      ->where('event_attendees.candidate_name', $logined_empid)
+                     ->orderBy('date', 'asc')
                      ->limit(2)
                      ->get();
 
@@ -499,9 +507,6 @@ class AdminController extends Controller
         $sess_emp_Id=array('empID'=>$session_val['empID']);
         $diff_date=Carbon::now('Asia/Kolkata');;
         $sticky_date = Carbon::createFromFormat('Y-m-d H:i:s', $diff_date);
-
-        // echo json_encode($session_val);die();
-
         $result = $this->cmmrpy->Fetch_Notes($sess_emp_Id);
         $data = [
             "upcoming_holidays" => $upcoming_holidays,
@@ -848,41 +853,51 @@ class AdminController extends Controller
 
     public function get_employee_list(Request $request){
 
+
+
         if ($request !="") {
-            $input_details = array(
-                    'status'=>$request->input('status'),
-                );
+        $input_details = array(
+        'status'=>$request->input('status'),
+        );
         }
         if ($request->ajax()) {
 
-            $get_employee_list_result = $this->admrpy->get_employee_list( $input_details);
-
-            return DataTables::of($get_employee_list_result)
-            ->addIndexColumn()
-            ->addColumn('action', function($row) {
-                    // echo "<pre>";print_r($row);die;
-                  $btn = '<div class="row"><button class="btn btn-warning" type="button" data-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Action" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Role</a>
-                    </div> &nbsp;' ;
-                   $btn .= '<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Profile" type="button" style="width: 15%;height: 35px;"><a href="can_hr_profile?id='."".$row->id."".'&empID='."".$row->empID."".'"  onclick="hr_to_profile('."'".$row->id."'".'); "><i class="pe-7s-id" style="color: #ffffff; margin-left: -5px;"></i></a></button>';
-                   if ($row->hr_action != 2) {
-                    $btn .= '<button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="ID Card Info" type="button" style="width: 15%;height: 35px;margin-top: 5px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
-                        }else{
-                    $btn .= '<button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="ID Card Info" type="button" style="width: 15%;height: 35px;margin-top: 5px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
-
-                        }
-                return $btn;
-            })
 
 
-            ->rawColumns(['Info','action'])
-            ->make(true);
+        $get_employee_list_result = $this->admrpy->get_employee_list( $input_details);
+
+
+
+        return DataTables::of($get_employee_list_result)
+        ->addIndexColumn()
+        ->addColumn('action', function($row) {
+        // echo "<pre>";print_r($row);die;
+        $btn = '<div class="row"><button class="btn btn-warning" type="button" data-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Action" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+        <div class="dropdown-menu">
+        <a class="dropdown-item" href="javascript:;" onclick="employee_edit_process('."'".$row->id."'".');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Role</a>
+        </div> &nbsp;' ;
+        $btn .= '<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Profile" type="button" style="width: 15%;height: 35px;"><a href="can_hr_profile?id='."".$row->id."".'&empID='."".$row->empID."".'" onclick="hr_to_profile('."'".$row->id."'".'); "><i class="pe-7s-id" style="color: #ffffff; margin-left: -5px;"></i></a></button>';
+        if ($row->hr_action != 2) {
+        $btn .= '<button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="ID Card Info" type="button" style="width: 15%;height: 35px;margin-top: 5px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
+        }else{
+        $btn .= '<button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="ID Card Info" type="button" style="width: 15%;height: 35px;margin-top: 5px;"><i class="fa fa-eye" onclick="hr_id_card_ver('."'".$row->id."'".');" style="margin-left: -9px;"></i></button></div>';
+
+
+
         }
+        return $btn;
+        })
 
+
+
+
+        ->rawColumns(['Info','action'])
+        ->make(true);
+        }
     }
 
     public function get_business_unit_details(Request $req){
+
         $input_details = array(
             'id'=>$req->input('id'),
         );

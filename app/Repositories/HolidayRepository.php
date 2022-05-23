@@ -208,9 +208,7 @@ class HolidayRepository implements IHolidayRepository
       // $response = DB::table("holidays")->select('*')
       // ->get();
       
-      return $response;
-      
-
+      return $response;      
       
     }
     public function fetch_state_list()

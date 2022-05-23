@@ -47,6 +47,9 @@
 #events_filter_div{
     display: none;
 }
+.div_filter_close {
+    cursor: pointer;
+}
 </style>
 @endsection
 
@@ -57,8 +60,10 @@
 @section('breadcrumb-items')
    {{--<li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li>--}}
+    @if(Auth::user()->role_type === 'Admin')
     <button class="btn btn-primary" id="events_filter_btn"><i class="icon-filter events_filter_i"></i> </button>                                                  
     <button class="btn btn-success p-l-25" id="event_add_btn">Add <i class="icofont icofont-plus"></i></button>                                                  
+    @endif
 @endsection
 
 @section('content')
@@ -69,7 +74,8 @@
             <div class="col-lg-12" id="events_filter_div">
                 <!-- <i class="icon-close font-dark div_filter_close"></i>                                                -->
                 <h4 class="people_filter_card_header m-b-15">Filter By
-                    <i class="icon-close font-dark div_filter_close"></i>                                               
+                <i class="icon-close font-dark div_filter_close"></i>                                                  
+                                                                   
                 </h4>
                 <form id="eventFilterForm">                         
                     <div class="row m-b-25">   
@@ -214,7 +220,7 @@
                             </div>
                             <div class="col-md-2">
                                 <input id="candicate_list" name="candicate_list" type="checkbox">
-                                <label for="candicate_list">All Candicates</label>
+                                <label for="candicate_list">All Candidates</label>
                             </div>
                             <div class="col-md-8">
                                 <div id="all_filter">
@@ -261,8 +267,8 @@
                                 </select>
                                 <!-- <select class="select2 m-b-10 select2-multiple form-control" multiple="multiple" id="candicate_list_options" name="candicate_list_options[]">
                                 </select> -->
-                                <div class="text-danger" id="candicate_list_options_error"></div>
                             </div>
+                            <div class="text-danger" id="candicate_list_options_error"></div>
                         </div>
                         <div class="form-row mb-3" style="display: none">
                             <div class="col-md-12">
@@ -519,7 +525,7 @@
                             </div>
                             <div class="col-md-2">
                                 <input id="candicate_list_edit" name="candicate_list" value="true" type="checkbox">
-                                <label for="">All Candicates</label>
+                                <label for="">All Candidates</label>
                             </div>
                             <div class="col-md-8">
                                 <div id="all_filter_edit">
@@ -601,7 +607,7 @@
                     <div class="modal-footer">
                         <input type="hidden" name="event_update_id" id="event_update_id" class="form-control">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" type="submit">Edit</button>
+                        <button class="btn btn-primary" type="submit">Update</button>
                     </div>
                 </div>
             </form>

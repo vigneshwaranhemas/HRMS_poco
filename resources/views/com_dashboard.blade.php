@@ -122,6 +122,21 @@
             </div>
          </div>
       </div>
+      <div class="col-xl-7 xl-90 box-col-12">
+        <div class="card">
+           <div class="card-header no-border">
+              <h5>Attendance</h5>
+              <span id="txt"></span>
+              <div class="card-header-right">
+              <i class="icofont icofont-birthday-cake font-primary"  style="font-size: 18px;"></i>
+              </div>
+           </div>
+           <div class="card-body pt-0">
+              <ul class="crm-activity" id="tdy_birthday_card_list">
+              </ul>
+           </div>
+        </div>
+     </div>
       <div class="col-xl-5 xl-90 box-col-12">
          <div class="card">
             <div class="card-header no-border">
@@ -649,4 +664,36 @@ $(()=>{
         }
     })
 })
+
+
+var ctoday = <?php echo time() * 1000 ?>;
+setInterval(function() {ctoday += 1000;},1000);
+function startTime() {
+    var today = new Date(ctoday);
+    var montharray = new Array("Jan","Feb","Mar","Abr","May","Jun","Jul","Ogu","Sep","Oct","Nov","Des");
+    var h = today.getHours();
+    var ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12;
+    h = h ? h : 12;
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    h = checkTime(h);
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('txt').innerHTML =
+    checkTime(today.getDate())+" "+montharray[today.getMonth()]+" "+today.getFullYear() + " ("+ h + ":" + m + ":" + s +" "+ampm+")";
+    // checkTime(today.getDate())+" "+montharray[today.getMonth()]+" "+today.getFullYear() + " (" + ampm +" " + h + ":" + m + ":" + s +")";
+    setTimeout(startTime, 1000);
+}
+
+function checkTime(i) {
+    if (i < 10) {i = "0" + i};
+    return i;
+}
+
+$(()=>{
+    startTime();
+})
+
+
 </script>

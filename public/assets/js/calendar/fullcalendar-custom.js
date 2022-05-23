@@ -457,17 +457,17 @@ var basic_calendar = {
             eventLimit: true,
             select: function(start, end, allDay) {
                 var title = prompt('Event Title:');
-                if (title) {
-                    $('#fc-external-drag').fullCalendar('renderEvent',
-                    {
-                        title: title,
-                        start: start._d,
-                        end: end._d,
-                        allDay: allDay
-                    },
-                    true 
-                    );
-                }
+                // if (title) {
+                //     $('#fc-external-drag').fullCalendar('renderEvent',
+                //     {
+                //         title: title,
+                //         start: start._d,
+                //         end: end._d,
+                //         allDay: allDay
+                //     },
+                //     true 
+                //     );
+                // }
                 $('#fc-external-drag').fullCalendar('unselect');
             },
             events: [
@@ -538,11 +538,11 @@ var basic_calendar = {
                 color: '#1ea6ec'
             }
             ],
-            drop: function() {
-                if ($('#drop-remove').is(':checked')) {
-                    $(this).remove();
-                }
-            }   
+            // drop: function() {
+            //     if ($('#drop-remove').is(':checked')) {
+            //         $(this).remove();
+            //     }
+            // }   
         }), $('#external-events .fc-event').each(function() {
                 $(this).css({'backgroundColor': $(this).data('color'), 'borderColor': $(this).data('color')});
                 $(this).data('event', {

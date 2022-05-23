@@ -56,6 +56,10 @@ class BackendServiceProvider extends ServiceProvider
             'App\Repositories\IPeopleRepository',
             'App\Repositories\PeopleRepository'
         );
+        $this->app->bind(
+            'App\Repositories\IGoalRepository',
+            'App\Repositories\GoalRepository'
+        );
 
     }
 

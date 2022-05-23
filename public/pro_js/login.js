@@ -77,7 +77,7 @@ $('#loginForm').submit(function(e) {
             dataType:"json",
 
             success:function(data) {
-                    // console.log(data)
+                    console.log(data)
                 if(data.logstatus =='success'){
                      // window.location = data.url;
                     Toastify({
@@ -128,7 +128,7 @@ $('#forgot_pass').submit(function(e) {
             dataType:"json",
              beforeSend:function(data){
                  $(this).attr('disabled','disabled'); 
-                    $("#forgot_pass_but").text('Sending a Email...');
+                    $("#forgot_pass_but").text('Sending Email...');
             },
 
             success:function(data) {
@@ -154,7 +154,7 @@ $('#forgot_pass').submit(function(e) {
                    setTimeout(
                        function() {
                         window.location = data.url;
-                       }, 1000);
+                       }, 2000);
                }
                else{
                    Toastify({

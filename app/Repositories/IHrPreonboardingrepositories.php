@@ -21,6 +21,8 @@ interface IHrPreonboardingrepositories{
    public function get_welcome_aboard_details_hr($id);
    public function welcome_aboard_image_upload_hr($id);
    public function get_welcome_aboard_image_show_hr($id);
+   public function get_epf_list_data();
+   public function get_medical_list_data();
 
 }
 

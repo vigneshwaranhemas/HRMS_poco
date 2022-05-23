@@ -142,7 +142,7 @@ table_cot = $('#client_data').DataTable({
             "text": '<i class="bi bi-clipboard" ></i>  Copy',
             "titleAttr": 'Copy',
             "exportOptions": {
-                'columns': ':visible'
+                'columns': [0,1,2]
             },
             "action": newexportaction
         },
@@ -151,7 +151,7 @@ table_cot = $('#client_data').DataTable({
             "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
             "titleAttr": 'Excel',
             "exportOptions": {
-                'columns': ':visible'
+                'columns': [0,1,2]
             },
             "action": newexportaction
         },
@@ -160,7 +160,7 @@ table_cot = $('#client_data').DataTable({
             "text": '<i class="bi bi-file-text" ></i>  CSV',
             "titleAttr": 'CSV',
             "exportOptions": {
-                'columns': ':visible'
+                'columns': [0,1,2]
             },
             "action": newexportaction
         },
@@ -169,7 +169,7 @@ table_cot = $('#client_data').DataTable({
             "text": '<i class="bi bi-file-break" ></i>  PDF',
             "titleAttr": 'PDF',
             "exportOptions": {
-                'columns': ':visible'
+                'columns': [0,1,2]
             },
             "action": newexportaction
         },
@@ -178,7 +178,7 @@ table_cot = $('#client_data').DataTable({
             "text": '<i class="bi bi-printer"></i>  Print',
             "titleAttr": 'Print',
             "exportOptions": {
-                'columns': ':visible'
+                'columns': [0,1,2]
             },
             "action": newexportaction
         },
@@ -218,7 +218,8 @@ table_cot = $('#client_data').DataTable({
         $( row ).find('td:eq(1)').attr('data-label', 'Client Name');
         $( row ).find('td:eq(2)').attr('data-label', 'Mobile Number');
         $( row ).find('td:eq(3)').attr('data-label', 'Email');
-        $( row ).find('td:eq(4)').attr('data-label', 'action');
+        $( row ).find('td:eq(4)').attr('data-label', 'Status');
+        $( row ).find('td:eq(5)').attr('data-label', 'action');
     },
     columns: [
         {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },

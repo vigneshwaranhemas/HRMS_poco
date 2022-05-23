@@ -209,44 +209,12 @@ col-xs-9 {
 
 
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).ready(function() {
         getNoteData();
-
-  $('.fooot').click(function() {
-      if($('.foot').hasClass('slide-up')) {
-        $('.foot').addClass('slide-down', 1000, 'easeOutBounce');
-        $('.foot').removeClass('slide-up');
-      } else {
-        $('.foot').removeClass('slide-down');
-        $('.foot').addClass('slide-up', 1000, 'easeOutBounce');
-      }
-  });
 });
 
-</script>
-
-
-
- <div class="foot">
-
-    <div id="footer-sticky-notes" class="row hidden-xs hidden-sm">
-        <div class="col-xs-12" id="sticky-note-header">
-            <div class="col-xs-10" style="line-height: 30px">
-            Sticky Notes <a href="javascript:;"  class="btn btn-success btn-outline btn-xs m-l-10 fooot"><i class="fa fa-plus"></i> Add Note</a>
-                </div>
-            <div class="col-xs-2">
-                <a href="javascript:;" class="btn btn-default btn-circle pull-right" id="open-sticky-bar"><i class="fa fa-chevron-up"></i></a>
-                <a style="display: none;" class="btn btn-default btn-circle pull-right" href="javascript:;" id="close-sticky-bar"><i class="fa fa-chevron-down"></i></a>
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-</div>
+</script> --}}
 
 
 
@@ -340,236 +308,238 @@ col-xs-9 {
 
 
 
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="{{asset('pro_js/side_bar.js')}}"></script>
+{{-- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> --}}
+{{-- <script src="{{asset('pro_js/side_bar.js')}}"></script>
 <script src="{{asset('assets/js/sweet-alert/sweetalert.min.js')}}"></script>
-{{-- <script src="{{asset('assets/js/sweet-alert/app.js')}}"></script> --}}
- <!-- date formate  -->
- <script src='{{asset('assets/js/moment.js')}}'></script>
-      <script>
-     var get_session_sidebar_link = "{{url('get_session_sidebar')}}";
-     $('#sticky-note-toggle').click(function () {
-         getNoteData();
-        $('#footer-sticky-notes').toggle();
-        $('#sticky-note-toggle').hide();
-
-    })
-
-    var stickyNoteOpen = $('#open-sticky-bar');
-    var stickyNoteClose = $('#close-sticky-bar');
-    var stickyNotes = $('#footer-sticky-notes');
-    var viewportHeight = Math.max(718, 718 || 0);
-    var stickyNoteHeaderHeight = stickyNotes.height();
-
-    $('#sticky-note-list').css('max-height', viewportHeight-150);
-
-    stickyNoteOpen.click(function () {
-        $('#sticky-note-list').toggle(function () {
-            $(this).animate({
-                height: (viewportHeight-150)
-                // overflow: auto
-            })
-        });
-        stickyNoteClose.toggle();
-        stickyNoteOpen.toggle();
-    })
-
-    stickyNoteClose.click(function () {
-        $('#sticky-note-list').toggle(function () {
-            $(this).animate({
-                height: 0
-            })
-        });
-        stickyNoteOpen.toggle();
-        stickyNoteClose.toggle();
-    })
+ <script src='{{asset('assets/js/moment.js')}}'></script> --}}
 
 
 
-    $('body').on('click', '.right-side-toggle', function () {
-        $(".right-sidebar").slideDown(50).removeClass("shw-rside");
-    })
 
+ {{-- <script>
+    var get_session_sidebar_link = "{{url('get_session_sidebar')}}";
+    $('#sticky-note-toggle').click(function () {
+        getNoteData();
+       $('#footer-sticky-notes').toggle();
+       $('#sticky-note-toggle').hide();
 
-    function showCreateNoteModal(){
-        $("#exampleModalmdo").modal('show');
-        return false;
-    }
-    function selectColor(id){
-        $('.reverter').removeClass('fa fa-check');
-        $('#'+id+'check').addClass('fa fa-check');
-        $('#stickyColor').val(id);
-
-    }
-    function selectColor1(id){
-        $('.reverter').removeClass('fa fa-check');
-        $('#'+id+'check1').addClass('fa fa-check');
-        $('#stickyColor1').val(id);
-
-    }
-
-
-
-   $(()=>{
-       $("#Save_notes").on('click',(e)=>{
-        $("#Save_notes").prop('disabled',true);
-        e.preventDefault();
-        var noteText = $('#notetext').val();
-        var stickyColor = $('#stickyColor').val();
-        $.ajax({
-            url:"{{url('Store_Sticky_Notes')}}",
-            type:"POST",
-            data:{text:noteText,color:stickyColor},
-            beforeSend:function(data){
-               console.log("Loading!....")
-            },
-            success:function(response){
-                var res=JSON.parse(response);
-                if(res.success==1){
-                            Toastify({
-                                text: res.message,
-                                duration: 3000,
-                                close:true,
-                                backgroundColor: "#4fbe87",
-                                }).showToast();
-                                getNoteData();
-                                $('.reverter').removeClass('fa fa-check');
-                                $("#stickyColor").val("");
-                                $('#sticky_notes_form')[0].reset();
-                                $("#Save_notes").prop('disabled',false);
-                                $("#exampleModalmdo").modal('hide');
-                        }
-                        else{
-                            Toastify({
-                                text: res.message,
-                                duration: 3000,
-                                close:true,
-                                backgroundColor: "#f3616d",
-                                }).showToast();
-
-                        }
-            }
-        })
-
-       })
    })
-   function getNoteData(){
-            $.ajax({
-                type: 'GET',
-                url: "{{url('Get_Notes_info')}}",
-                data:  {},
-                // container: ".noteBox",
-                beforeSend:function(data){
-                    console.log("Loading!...")
-                },
-                success:function(response){
-                    $('#sticky-note-list').html(response);
 
-                }
-            });
+   var stickyNoteOpen = $('#open-sticky-bar');
+   var stickyNoteClose = $('#close-sticky-bar');
+   var stickyNotes = $('#footer-sticky-notes');
+   var viewportHeight = Math.max(718, 718 || 0);
+   var stickyNoteHeaderHeight = stickyNotes.height();
+
+   $('#sticky-note-list').css('max-height', viewportHeight-150);
+
+   stickyNoteOpen.click(function () {
+       $('#sticky-note-list').toggle(function () {
+           $(this).animate({
+               height: (viewportHeight-150)
+               // overflow: auto
+           })
+       });
+       stickyNoteClose.toggle();
+       stickyNoteOpen.toggle();
+   })
+
+   stickyNoteClose.click(function () {
+       $('#sticky-note-list').toggle(function () {
+           $(this).animate({
+               height: 0
+           })
+       });
+       stickyNoteOpen.toggle();
+       stickyNoteClose.toggle();
+   })
+
+
+
+   $('body').on('click', '.right-side-toggle', function () {
+       $(".right-sidebar").slideDown(50).removeClass("shw-rside");
+   })
+
+
+   function showCreateNoteModal(){
+       $("#exampleModalmdo").modal('show');
+       return false;
+   }
+   function selectColor(id){
+       $('.reverter').removeClass('fa fa-check');
+       $('#'+id+'check').addClass('fa fa-check');
+       $('#stickyColor').val(id);
+
+   }
+   function selectColor1(id){
+       $('.reverter').removeClass('fa fa-check');
+       $('#'+id+'check1').addClass('fa fa-check');
+       $('#stickyColor1').val(id);
+
+   }
+
+
+
+  $(()=>{
+      $("#Save_notes").on('click',(e)=>{
+       $("#Save_notes").prop('disabled',true);
+       e.preventDefault();
+       var noteText = $('#notetext').val();
+       var stickyColor = $('#stickyColor').val();
+       $.ajax({
+           url:"{{url('Store_Sticky_Notes')}}",
+           type:"POST",
+           data:{text:noteText,color:stickyColor},
+           beforeSend:function(data){
+              console.log("Loading!....")
+           },
+           success:function(response){
+               var res=JSON.parse(response);
+               if(res.success==1){
+                           Toastify({
+                               text: res.message,
+                               duration: 3000,
+                               close:true,
+                               backgroundColor: "#4fbe87",
+                               }).showToast();
+                               getNoteData();
+                               $('.reverter').removeClass('fa fa-check');
+                               $("#stickyColor").val("");
+                               $('#sticky_notes_form')[0].reset();
+                               $("#Save_notes").prop('disabled',false);
+                               $("#exampleModalmdo").modal('hide');
+                       }
+                       else{
+                           Toastify({
+                               text: res.message,
+                               duration: 3000,
+                               close:true,
+                               backgroundColor: "#f3616d",
+                               }).showToast();
+
+                       }
+           }
+       })
+
+      })
+  })
+  function getNoteData(){
+           $.ajax({
+               type: 'GET',
+               url: "{{url('Get_Notes_info')}}",
+               data:  {},
+               // container: ".noteBox",
+               beforeSend:function(data){
+                   console.log("Loading!...")
+               },
+               success:function(response){
+                   $('#sticky-note-list').html(response);
+
+               }
+           });
 }
 function showEditNoteModal(id){
-    $.ajax({
-                type: 'POST',
-                url: "{{url('Get_Notes_info_id_wise')}}",
-                data:  {id:id},
-                // container: ".noteBox",
-                beforeSend:function(data){
-                    console.log("Loading!...")
-                },
-                success:function(response){
-                    var res=JSON.parse(response);
-                    $("#notetext1").val(res.Notes)
-                    $('.reverter').removeClass('fa fa-check');
-                    $('#'+res.color+'check1').addClass('fa fa-check');
-                    $('#stickyColor1').val(res.color);
-                    $('#stickyID1').val(res.id)
-                    $('#exampleModalmdo1').modal('show');
+   $.ajax({
+               type: 'POST',
+               url: "{{url('Get_Notes_info_id_wise')}}",
+               data:  {id:id},
+               // container: ".noteBox",
+               beforeSend:function(data){
+                   console.log("Loading!...")
+               },
+               success:function(response){
+                   var res=JSON.parse(response);
+                   $("#notetext1").val(res.Notes)
+                   $('.reverter').removeClass('fa fa-check');
+                   $('#'+res.color+'check1').addClass('fa fa-check');
+                   $('#stickyColor1').val(res.color);
+                   $('#stickyID1').val(res.id)
+                   $('#exampleModalmdo1').modal('show');
 
 
 
-                }
-            });
+               }
+           });
 }
 
 
 $(()=>{
-       $("#Update_notes").on('click',(e)=>{
-        $("#Update_notes").prop('disabled',true);
-        e.preventDefault();
-        var noteText = $('#notetext1').val();
-        var stickyColor = $('#stickyColor1').val();
-        var id=$("#stickyID1").val()
-        $.ajax({
-            url:"{{url('Edit_Sticky_Notes')}}",
-            type:"POST",
-            data:{text:noteText,color:stickyColor,id:id},
-            beforeSend:function(data){
-               console.log("Loading!....")
-            },
-            success:function(response){
-                var res=JSON.parse(response);
-                if(res.success==1){
-                            Toastify({
-                                text: res.message,
-                                duration: 3000,
-                                close:true,
-                                backgroundColor: "#4fbe87",
-                                }).showToast();
-                                getNoteData();
-                                $('.reverter').removeClass('fa fa-check');
-                                $("#stickyColor1").val("");
-                                $('#sticky_notes_form1')[0].reset();
-                                $("#Update_notes").prop('disabled',false);
-                                $("#exampleModalmdo1").modal('hide');
-                        }
-                        else{
-                            Toastify({
-                                text: res.message,
-                                duration: 3000,
-                                close:true,
-                                backgroundColor: "#f3616d",
-                                }).showToast();
+      $("#Update_notes").on('click',(e)=>{
+       $("#Update_notes").prop('disabled',true);
+       e.preventDefault();
+       var noteText = $('#notetext1').val();
+       var stickyColor = $('#stickyColor1').val();
+       var id=$("#stickyID1").val()
+       $.ajax({
+           url:"{{url('Edit_Sticky_Notes')}}",
+           type:"POST",
+           data:{text:noteText,color:stickyColor,id:id},
+           beforeSend:function(data){
+              console.log("Loading!....")
+           },
+           success:function(response){
+               var res=JSON.parse(response);
+               if(res.success==1){
+                           Toastify({
+                               text: res.message,
+                               duration: 3000,
+                               close:true,
+                               backgroundColor: "#4fbe87",
+                               }).showToast();
+                               getNoteData();
+                               $('.reverter').removeClass('fa fa-check');
+                               $("#stickyColor1").val("");
+                               $('#sticky_notes_form1')[0].reset();
+                               $("#Update_notes").prop('disabled',false);
+                               $("#exampleModalmdo1").modal('hide');
+                       }
+                       else{
+                           Toastify({
+                               text: res.message,
+                               duration: 3000,
+                               close:true,
+                               backgroundColor: "#f3616d",
+                               }).showToast();
 
-                        }
-            }
-        })
-
+                       }
+           }
        })
-   })
+
+      })
+  })
 
 
 
-   function deleteSticky(id)
-   {
-               swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this deleted Sticky Note!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                          $.ajax({
-                              url:"{{url('Delete_Sticky_note')}}",
-                              type:"POST",
-                              data:{id:id},
-                              beforeSend:function(data){
-                                  console.log("Loading!...")
-                              },
-                              success:function(response){
-                                //   console.log(response);
-                                  getNoteData();
+  function deleteSticky(id)
+  {
+              swal({
+                   title: "Are you sure?",
+                   text: "Once deleted, you will not be able to recover this deleted Sticky Note!",
+                   icon: "warning",
+                   buttons: true,
+                   dangerMode: true,
+               })
+               .then((willDelete) => {
+                   if (willDelete) {
+                         $.ajax({
+                             url:"{{url('Delete_Sticky_note')}}",
+                             type:"POST",
+                             data:{id:id},
+                             beforeSend:function(data){
+                                 console.log("Loading!...")
+                             },
+                             success:function(response){
+                               //   console.log(response);
+                                 getNoteData();
 
-                              }
-                          })
+                             }
+                         })
 
-                    } else {
-                        swal("Your Sticky Note is safe!");
-                    }
-                })
-        // $("#exampleModal").modal('show');
-   }
+                   } else {
+                       swal("Your Sticky Note is safe!");
+                   }
+               })
 
-   </script>
+  }
+
+  </script> --}}

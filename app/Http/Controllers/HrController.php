@@ -14,6 +14,9 @@ use Auth;
 use Response;
 use Intervention\Image\ImageManager;
 use Intervention\Image\ImageManagerStatic as Image;
+use Yajra\DataTables\Facades\DataTables;
+use PDF;
+use File;
 
 class HrController extends Controller
 {
@@ -384,6 +387,166 @@ class HrController extends Controller
     {
          return view('can_hr_profile');
     }
+
+    public function view_epf_form_hr(Request $request){
+        //  $sess_info=Session::get("session_info");
+         //  $cdID=$sess_info['empID'];
+         $cdID=$request->input('cdID');
+      $input = array(
+          'cdID'=> $cdID,
+      );
+           $get_epf_details = $this->preon->get_candidate_epf_details($cdID);
+          // print_r($get_epf_details);
+          echo json_encode($get_epf_details);
+
+
+       }
+       public function update_epf_form_hr(Request $request){
+
+          // $cdID="900002";
+          $file_name = $request->input('emp_id') . '.epf.' . 'pdf';
+          $cdID = $request->input('emp_id');
+           $data = array(
+              'cdID' =>$request->input('emp_id'),
+              'a_pf_no'=>$request->input('a_pf_no'),
+              'a_uan_no'=>$request->input('a_uan_no'),
+              'ekyc_status'=>$request->input('ekyc_status'),
+              'sign_status'=>$request->input('sign_status'),
+              'file_name'=>$file_name,
+        );
+             $update_epf_form = $this->preon->update_epf_form($data);
+          if( $update_epf_form){
+              $response ="success";
+          }
+          else{
+              $response ="error";
+          }
+         // $pdf_data =array();
+         $get_epf_details = $this->preon->get_candidate_epf_details($cdID);
+
+         $data = [
+          'cdID' =>$cdID,
+          'member_name'=>$get_epf_details[0]['member_name'],
+          'father_name'=>$get_epf_details[0]['father_name'],
+          'spouse_name'=>$get_epf_details[0]['spouse_name'],
+          'dob'=>$get_epf_details[0]['dob'],
+          'gender'=>$get_epf_details[0]['gender'],
+          'marry_status'=>$get_epf_details[0]['marry_status'],
+          'email_id'=>$get_epf_details[0]['email_id'],
+          'mob'=>$get_epf_details[0]['mob'],
+          'epfs_status'=>$get_epf_details[0]['epfs_status'],
+          'eps_status'=>$get_epf_details[0]['eps_status'],
+          'uan_number'=>$get_epf_details[0]['uan_number'],
+          'prev_pf_no'=>$get_epf_details[0]['prev_pf_no'],
+          'date_prev_exit'=>$get_epf_details[0]['date_prev_exit'],
+          'scheme_cert_no'=>$get_epf_details[0]['scheme_cert_no'],
+          'ppo'=>$get_epf_details[0]['ppo'],
+          'int_work_status'=>$get_epf_details[0]['int_work_status'],
+          'coun_origin'=>$get_epf_details[0]['coun_origin'],
+          'passport_no'=>$get_epf_details[0]['passport_no'],
+          'val_passport_from'=>$get_epf_details[0]['val_passport_from'],
+          'val_passport_to'=>$get_epf_details[0]['val_passport_to'],
+          'bank_account'=>$get_epf_details[0]['bank_account'],
+          'aadhar_no'=>$get_epf_details[0]['aadhar_no'],
+          'pan_no'=>$get_epf_details[0]['pan_no'],
+          'a_pf_no'=>$get_epf_details[0]['a_pf_no'],
+          'a_uan_no'=>$get_epf_details[0]['a_uan_no'],
+          'ekyc_status'=>$get_epf_details[0]['ekyc_status'],
+          'sign_status'=>$get_epf_details[0]['sign_status'],
+         ];
+      $pdf = PDF::loadView('HRSS/epf_form_pdf', $data);
+      $path = public_path().'/epf_form/'.$cdID;
+      File::isDirectory($path) or File::makeDirectory($path, 0777, true, true);
+
+      $fileName = $cdID . '.epf.' . 'pdf';
+      $pdf->save($path . '/' . $fileName);
+
+      return response()->json( [
+          'response' => $response,
+          'redirect_url' => '../epf_form/'.$cdID.'/'.$fileName,
+      ]
+
+  );
+      }
+       public function view_can_epf()
+       {
+           return view('HRSS.view_epf_form_hr');
+       }
+   public function epf_details(Request $request){
+      if ($request->ajax()) {
+
+          $get_epf_list = $this->hpreon->get_epf_list_data( );
+
+
+      return DataTables::of($get_epf_list)
+      ->addIndexColumn()
+
+
+
+      ->addColumn('action', function($row) {
+
+          $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                      <div class="dropdown-menu">';
+                      if($row->file_name == " "){
+              $btn .='<a class="dropdown-item" href="'.route('view_can_epf',$row->cdID).'" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                      </div>';
+                      }
+                      else{
+                   $btn .='<a class="dropdown-item" href="../epf_form/'.$row->cdID.'/'.$row->file_name.'" target="_blank" class="sa-params"><i class="fa fa-eyes" aria-hidden="true"></i> View</a>
+                   </div>';
+                      }
+
+          return $btn;
+      })
+
+
+      ->rawColumns(['action'])
+
+      ->make(true);
+      }
+
+   }
+  public function epf_list(){
+      return view('HRSS/epf_details');
+  }
+  public function medical_list(){
+      return view('HRSS/medical_details');
+  }
+
+  public function medical_details(Request $request){
+      if ($request->ajax()) {
+
+          $get_medical_list = $this->hpreon->get_medical_list_data( );
+
+
+      return DataTables::of($get_medical_list)
+      ->addIndexColumn()
+
+
+
+      ->addColumn('action', function($row) {
+
+          $btn = '<button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 15%;height: 35px;"><i class="fa fa-gears " style="margin-left: -9px;"></i></button>
+                      <div class="dropdown-menu">';
+                      if($row->file_name == " "){
+              $btn .='<a class="dropdown-item" href="'.route('view_can_epf',$row->cdID).'" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                      </div>';
+                      }
+                      else{
+                   $btn .='<a class="dropdown-item" href="../medical_insurance/'.$row->cdID.'/'.$row->file_name.'" target="_blank" class="sa-params"><i class="fa fa-eyes" aria-hidden="true"></i> View</a>
+                   </div>';
+                      }
+
+          return $btn;
+      })
+
+
+      ->rawColumns(['action'])
+
+      ->make(true);
+      }
+
+   }
 
 
 

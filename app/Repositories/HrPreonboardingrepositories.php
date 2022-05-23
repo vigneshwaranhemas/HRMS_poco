@@ -15,6 +15,8 @@ use App\documents;
 use App\Models\candidate_experience_details;
 use App\Models\candidate_benefits_details;
 use App\welcome_aboard;
+use App\Models\Epf_Forms;
+use App\Models\Medical_insurance;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -276,6 +278,23 @@ class HrPreonboardingrepositories implements IHrPreonboardingrepositories {
                                                 ->first();
 
         return $welcome_aboard_image_data;
+    }
+
+    public function get_epf_list_data(){
+
+        # code...
+        $querytbl = new Epf_Forms();
+        return $querytbl = $querytbl->get();
+
+    }
+    public function get_medical_list_data(){
+
+        # code...
+        $candidate_info=Epf_Forms::join('medical_insurance_form','medical_insurance_form.cdID','=','epf_form.cdID')
+    // ->where('candidate_email_request.status',$status)
+        ->select("*")->get();
+    return $candidate_info;
+
     }
 
 }

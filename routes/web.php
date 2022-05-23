@@ -434,3 +434,27 @@ Route::get('Get_Notes_info','CommonController@Fetch_notes_info');
 Route::post('Get_Notes_info_id_wise','CommonController@Get_Notes_info_id_wise');
 Route::post('Edit_Sticky_Notes','CommonController@Edit_Sticky_Notes');
 Route::post('Delete_Sticky_note','CommonController@Destroy_Sticky_note');
+
+// epf by Durga
+Route::get('epf', 'CandidateController@epf')->name('epf');
+Route::post('save_epf_form', 'CandidateController@save_epf_form')->name('save_epf_form');
+Route::post('view_epf', 'CandidateController@view_epf')->name('view_epf');
+Route::get('view_epf_form', 'CandidateController@view_epf_form')->name('view_epf_form');
+
+// medical by Durga
+Route::get('medical_form', 'CandidateController@medical_form')->name('medical_form');
+Route::post('save_medical_form', 'CandidateController@save_medical_form')->name('save_medical_form');
+Route::get('view_medical_form', 'CandidateController@view_medical_form')->name('view_medical_form');
+
+//view epf in hrss by Durga
+Route::post('view_epf_form_hr', 'HrController@view_epf_form_hr')->name('view_epf_form_hr');
+Route::get('view_can_epf', 'HrController@view_can_epf')->name('view_can_epf');
+Route::post('update_epf_form_hr', 'HrController@update_epf_form_hr')->name('update_epf_form_hr');
+Route::post('epf_details', 'HrController@epf_details')->name('epf_details');
+Route::get('epf_list', 'HrController@epf_list')->name('epf_list');
+Route::get('medical_list', 'HrController@medical_list')->name('medical_list');
+Route::post('medical_details', 'HrController@medical_details')->name('medical_details');
+
+// Leave Balance for Candidate
+Route::get('leave_balance', 'CandidateController@leave_balance')->name('leave_balance');
+

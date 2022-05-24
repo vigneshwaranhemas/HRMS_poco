@@ -27,7 +27,7 @@
 
 			<div class="col-sm-12">
 
-				<input type="hidden" id="goals_setting_id" value="{{ $id }}">
+				<input type="hidden" id="goals_setting_id">
 
 				<div class="card  card-absolute">
 					
@@ -94,6 +94,9 @@
 		// 	goals_record();
 		// });
 
+		var params = new window.URLSearchParams(window.location.search);
+		var id=params.get('id')
+		$('#goals_setting_id').val(id);
 		// function goals_record(){
 			
 			var id = $('#goals_setting_id').val();

@@ -28,6 +28,9 @@ body
 {
     zoom: 100%;
 } 
+.calendar-wrap .fc-toolbar button {
+   text-transform: capitalize !important; 
+}
 .calendar-wrap .fc-toolbar button{
    position: inherit;
 }

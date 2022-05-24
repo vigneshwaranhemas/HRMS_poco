@@ -13,7 +13,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Goal Setting<span>Process</span></h2>
+	<h2>Add Goal Setting<span>Process</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -436,7 +436,7 @@
 
         $.ajax({
                    
-            url:"{{ ('add_goals_data') }}",
+            url:"{{ url('add_goals_data') }}",
             type:"POST",
             data:$('#goalsForm').serialize(),
             dataType : "JSON",

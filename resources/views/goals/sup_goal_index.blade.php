@@ -19,12 +19,10 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Goal Setting<span>Process</span></h2>
+	<h2>Sup Goal Setting<span>Process</span></h2>
 @endsection
 
 @section('breadcrumb-items')
-  <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
-
 @endsection
 
 @section('content')
@@ -34,20 +32,56 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <!-- <a href="hr_add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a> -->
-                    <div class="table-responsive">
-                        <table class="table" id="goal_data">
-                            <thead>
-                                <tr>
-                                  <th scope="col">No</th>
-                                  <th scope="col">Goal list</th>
-                                  <th scope="col">Action </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>Team Member</a>
+                    <div class="material-border"></div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>MySelf</a>
+                    <div class="material-border"></div>
+                    </li>
+                </ul>
+                <div class="tab-content" id="info-tabContent">
+                    <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">                        
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- <a href="hr_add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a> -->
+                                <div class="table-responsive">
+                                    <table class="table" id="team_member_goal_data">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Goal list</th>
+                                            <th scope="col">Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">                        
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
+                                <div class="table-responsive">
+                                    <table class="table" id="goal_data">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Goal list</th>
+                                            <th scope="col">Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -102,6 +136,6 @@
 <script src="../assets/js/datepicker/date-picker/datepicker.js"></script>
 <script src="../assets/js/datepicker/date-picker/datepicker.en.js"></script>
 <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
-<script src="../assets/pro_js/goal_list.js"></script>
+<script src="../assets/pro_js/sup_goal_list.js"></script>
 @endsection
 

@@ -13,7 +13,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Edit Goal Setting<span>Process</span></h2>
+	<h2 id="goals_sheet_head"></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -25,7 +25,6 @@
 <!-- Container-fluid starts-->
 <div class="container-fluid">
     <div class="row">
-        <input type="text" id="edit_goals_setting_id" value="{{ $id }}">
         <div class="col-sm-12">
             <div class="ribbon-vertical-right-wrapper card">
                 <div class="card-body">
@@ -80,7 +79,7 @@
                 <div class="card-body">
 
                     <div class="table-responsive">
-                        <form id="goalsForm">
+                        <form id="goalsFormUpdate">
                         <table class="table" id="goal-tb">
                             <thead>
                                 <tr>
@@ -99,48 +98,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <tr>
-                                    <th scope="row">1</th>
-                                    <td>
-                                        <select class="form-control js-example-basic-single">
-                                            <option value="Revenue">Revenue</option>
-                                            <option value="Customer">Customer</option>
-                                            <option value="Process">Process</option>
-                                            <option value="People">People</option>
-                                            <option value="Projects">Projects</option>
-
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="" id="" class="form-control">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="" id="" class="form-control">
-
-                                    </td>
-                                    <td>
-                                        <input type="text" name="" id="" class="form-control">
-
-                                    </td>
-                                    <td>
-                                        <input type="text" name="" id="" class="form-control">
-
-                                    </td>
-                                    <td>
-                                        <input type="text" name="" id="" class="form-control">
-
-                                    </td>
-                                    <td>
-                                        <i class="fa fa-edit txt-info" style="font-size: x-large;"></i>
-                                        <i class="fa fa-trash-o txt-danger"
-                                            style="font-size: x-large;"></i>
-                                    </td>
-                                </tr>
-                                    -->
-
                             </tbody>
                         </table>
-                        <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Save</button>                                            
+                        <input type="hidden" id="edit_goals_setting_id" name="edit_id">
+                        <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
                         </form>
                     </div>
                 </div>
@@ -177,7 +138,9 @@
 <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
 
 <script>
-
+    var params = new window.URLSearchParams(window.location.search);
+    var id=params.get('id')
+    $("#edit_goals_setting_id").val(id);
 
     $(".use-address").click(function() {
         var html = '<input type="text" name="" id="" class="form-control m-t-5">';
@@ -364,28 +327,31 @@
 
     }
 
-    $("#goalsForm").submit(function(e) {
+    $("#goalsFormUpdate").submit(function(e) {
         e.preventDefault();
-        $('button[type="submit"]').attr('disabled' , true);
+        // $('button[type="submit"]').attr('disabled' , true);
 
-        // console.log($('#goalsForm').serialize());
+        // console.log($('#goalsFormUpdate').serialize());
 
+        var edit_id = $('#edit_goals_setting_id').val();
+        var path = "update_goals_data/"+edit_id;
+        var url = "{{ url('update_goals_data') }}";
         $.ajax({
                    
-            url:"{{ ('add_goals_data') }}",
+            url: "{{ url('update_goals_data') }}",
             type:"POST",
-            data:$('#goalsForm').serialize(),
+            data:$('#goalsFormUpdate').serialize(),
             dataType : "JSON",
             success:function(data)
             {
                 Toastify({
-                    text: "Added Sucessfully..!",
+                    text: "Updated Sucessfully..!",
                     duration: 3000,
                     close:true,
                     backgroundColor: "#4fbe87",
                 }).showToast();    
                 
-                $('button[type="submit"]').attr('disabled' , false);
+                // $('button[type="submit"]').attr('disabled' , false);
                 
                 window.location = "{{ url('goals')}}";                
             },
@@ -413,8 +379,9 @@
         dataType : "JSON",
         success:function(response)
         {
+            var head = "Edit <span>"+response+"</span>";
             $('#goals_sheet_head').append('');
-            $('#goals_sheet_head').append(response);
+            $('#goals_sheet_head').append(head);
         },
         error: function(error) {
             console.log(error);
@@ -422,7 +389,7 @@
         }                                              
             
     });
-
+    // Edit Goal Setting<span>Process</span>
     $.ajax({                   
         url:"{{ url('fetch_goals_setting_id_edit') }}",
         type:"GET",

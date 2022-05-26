@@ -21,7 +21,7 @@ class HolidayRepository implements IHolidayRepository
     }
     public function fetch_holidays_list()
     {      
-      if(Auth::user()->role_type === 'Admin'){
+      if(Auth::user()->role_id === 'RO1'){
 
          $response = DB::table("holidays")->select('*')
          ->get();
@@ -53,7 +53,7 @@ class HolidayRepository implements IHolidayRepository
     
     public function fetch_holidays_state_filter($state)
     {      
-      if(Auth::user()->role_type === 'Admin'){
+      if(Auth::user()->role_id === 'RO1'){
 
          $response = DB::table('holiday_states as hs')
                      ->distinct()         
@@ -182,7 +182,7 @@ class HolidayRepository implements IHolidayRepository
     public function fetch_holidays_list_date($filter_date)
     {                
 
-      if(Auth::user()->role_type === 'Admin'){
+      if(Auth::user()->role_id === 'RO1'){
 
          $response = Holidays::where('date', 'LIKE', '%'.$filter_date.'%')
          ->get();

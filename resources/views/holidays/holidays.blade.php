@@ -21,6 +21,12 @@ body
 .calendar-wrap .fc-toolbar button{
    position: inherit;
 }
+.fc-other-month .fc-day-number {
+    color: #9c9897;
+}
+.calendar-wrap .fc-toolbar button {
+   text-transform: capitalize !important; 
+}
 .calendar-wrap .fc-unthemed .fc-today{
     background: #f2ebfb;
     /* opacity: 0.1; */
@@ -340,7 +346,7 @@ body
    <script src="../assets/js/calendar/moment.min.js"></script>
    <script src="../assets/js/calendar/full-calendar.min.js"></script>
    
-   @if(Auth::user()->role_type === 'Admin')
+   @if(Auth::user()->role_id === 'RO1')
       <script src="../assets/js/calendar/admin_holidays.js"></script>
    @else
       <script src="../assets/js/calendar/holidays.js"></script>

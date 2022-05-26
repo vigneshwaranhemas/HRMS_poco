@@ -114,16 +114,19 @@ Route::post('/Admin_Request_update',"AdminController@Seating_Status_update");
 
 //Goals Controller
 Route::get('goals', 'GoalsController@goals')->name('goals');
-Route::get('goal_setting/{id}', 'GoalsController@goal_setting')->name('goal_setting');
-Route::get('edit_goal/{id}', 'GoalsController@edit_goal')->name('edit_goal');
+Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
+Route::get('edit_goal', 'GoalsController@edit_goal')->name('edit_goal');
 Route::get('fetch_goals_setting_id_details', 'GoalsController@fetch_goals_setting_id_details')->name('fetch_goals_setting_id_details');
 Route::get('fetch_goals_setting_id_edit', 'GoalsController@fetch_goals_setting_id_edit')->name('fetch_goals_setting_id_edit');
 Route::get('goals_sheet_head', 'GoalsController@goals_sheet_head')->name('goals_sheet_head');
 Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
 Route::post('add_goals_data', 'GoalsController@add_goals_data');
+Route::post('update_goals_data', 'GoalsController@update_goals_data');
 Route::post('goals_delete', 'GoalsController@goals_delete');
 Route::get('get_goal_list', 'GoalsController@get_goal_list' );
+Route::get('get_team_member_goal_list', 'GoalsController@get_team_member_goal_list' );
 Route::get('calendar', 'GoalsController@calendar' );
+Route::get('add_goal_btn', 'GoalsController@add_goal_btn' );
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');

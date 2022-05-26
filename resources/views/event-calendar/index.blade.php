@@ -3,7 +3,6 @@
 @section('title', 'Calendar Event')
 
 @section('css')
-
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
 <!-- Plugins css start-->
 <link rel="stylesheet" type="text/css" href="../assets/css/calendar.css">
@@ -11,7 +10,6 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/sweetalert2.css">
-
 @endsection
 
 @section('style')
@@ -20,6 +18,12 @@ body
 {
    zoom: 100%;
 } 
+.calendar-wrap .fc-toolbar button {
+   text-transform: capitalize !important; 
+}
+.fc-other-month .fc-day-number {
+    color: #9c9897;
+}
 .calendar-wrap .fc-toolbar button{
    position: inherit;
 }
@@ -72,7 +76,7 @@ body
 @section('breadcrumb-items')
    {{--<li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li>--}}
-    @if(Auth::user()->role_type === 'Admin')
+    @if(Auth::user()->role_id === 'RO1')
     <button class="btn btn-primary" id="events_filter_btn"><i class="icon-filter events_filter_i"></i> </button>                                                  
     <button class="btn btn-success p-l-25" id="event_add_btn">Add <i class="icofont icofont-plus"></i></button>                                                  
     @endif
@@ -417,7 +421,7 @@ body
                             <p id="event_file_show"></p>
                         </div>
                     </div>
-                    @if(Auth::user()->role_type === 'Admin')
+                    @if(Auth::user()->role_id === 'RO1')
                         <div class="modal-footer">
                             <input type="hidden" class="form form-control" id="event_edit_id">
                             <button class="btn btn-dark" type="button" data-dismiss="modal">Close</button>
@@ -747,7 +751,7 @@ body
     <script src="../assets/js/jquery.ui.min.js"></script>
     <script src="../assets/js/calendar/moment.min.js"></script>
     <script src="../assets/js/calendar/full-calendar.min.js"></script>
-    @if(Auth::user()->role_type === 'Admin')
+    @if(Auth::user()->role_id === 'RO1')
       <script src="../assets/js/calendar/admin_events.js"></script>
     @else
         <script src="../assets/js/calendar/events.js"></script>

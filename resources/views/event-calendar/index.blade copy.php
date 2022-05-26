@@ -379,7 +379,7 @@
                             <p id="event_file_show"></p>
                         </div>
                     </div>
-                    @if(Auth::user()->role_type === 'Admin')
+                    @if(Auth::user()->role_id === 'RO1')
                         <div class="modal-footer">
                             <input type="hidden" class="form form-control" id="event_edit_id">
                             <button class="btn btn-dark" type="button" data-dismiss="modal">Close</button>
@@ -754,7 +754,7 @@
     <script src="../assets/js/calendar/moment.min.js"></script>
     <script src="../assets/js/calendar/fullcalendar.min.js"></script> -->
 
-    @if(Auth::user()->role_type === 'Admin')
+    @if(Auth::user()->role_id === 'RO1')
       <script src="../assets/js/calendar/admin_events.js"></script>    
     @else
         <script src="../assets/js/calendar/events.js"></script>    

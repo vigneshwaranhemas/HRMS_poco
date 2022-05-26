@@ -13,7 +13,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Goal Setting<span>Process</span></h2>
+	<h2>Add Goal Setting<span>Process</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -183,7 +183,7 @@
                 var html = '<tr>';
                         html +='<td scope="row">1</td>';
                         html +='<td>';
-                            html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_0[]">';
+                            html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_1[]">';
                                 html +='<option value="Revenue">Revenue</option>';
                                 html +='<option value="Customer">Customer</option>';
                                 html +='<option value="Process">Process</option>';
@@ -430,11 +430,13 @@
 
     $("#goalsForm").submit(function(e) {
         e.preventDefault();
-        
-        console.log($('#goalsForm').serialize());
+        $('button[type="submit"]').attr('disabled' , true);
+
+        // console.log($('#goalsForm').serialize());
+
         $.ajax({
                    
-            url:"{{ ('add_goals_data') }}",
+            url:"{{ url('add_goals_data') }}",
             type:"POST",
             data:$('#goalsForm').serialize(),
             dataType : "JSON",
@@ -447,8 +449,9 @@
                     backgroundColor: "#4fbe87",
                 }).showToast();    
                 
-                window.location.reload();   
+                $('button[type="submit"]').attr('disabled' , false);
                 
+                window.location = "{{ url('goals')}}";                
             },
             error: function(response) {
                 // alert(response.responseJSON.errors.business_name_option);

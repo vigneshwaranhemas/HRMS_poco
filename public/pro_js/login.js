@@ -77,7 +77,7 @@ $('#loginForm').submit(function(e) {
             dataType:"json",
 
             success:function(data) {
-                    // console.log(data)
+                    console.log(data)
                 if(data.logstatus =='success'){
                      // window.location = data.url;
                     Toastify({

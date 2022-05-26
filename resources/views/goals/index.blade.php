@@ -10,6 +10,12 @@
 @endsection
 
 @section('style')
+<style>
+    .dataTables_wrapper button.goals_btn{
+        border-radius: unset !important;
+        padding: revert !important;
+    }
+</style>
 @endsection
 
 @section('breadcrumb-title')
@@ -17,7 +23,7 @@
 @endsection
 
 @section('breadcrumb-items')
-  <a href="add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
+  <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
 
 @endsection
 
@@ -46,6 +52,29 @@
             </div>
         </div>
 
+        <!-- MOdal Fade -->
+        <div class="modal fade" id="goalsDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form  id="formGoalDelete">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myLargeModalLabel">Goal Delete</h4>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Are you sure you want to Delete this Record?</h6>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" id="goals_id_delete" class="form-control">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">Delete</button>
+                    </div>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        
     </div>
 </div>
 <!-- Container-fluid Ends-->
@@ -74,6 +103,5 @@
 <script src="../assets/js/datepicker/date-picker/datepicker.en.js"></script>
 <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
 <script src="../assets/pro_js/goal_list.js"></script>
-
 @endsection
 

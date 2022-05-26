@@ -27,10 +27,12 @@
 
 			<div class="col-sm-12">
 
-				<div class="card  card-absolute">
+				<input type="hidden" id="goals_setting_id">
 
+				<div class="card  card-absolute">
+					
 					<div class="card-header  bg-primary">
-						<h5 class="text-white">Goals - 22 1</h5>
+						<h5 class="text-white" id="goals_sheet_head"></h5>
 					</div>
 					<div class="card-body">
 
@@ -48,80 +50,8 @@
 
 									</tr>
 								</thead>
-								<tbody>
-									<tr  class="border-bottom-primary">
-										<th scope="row">1</th>
-										<td>
-											<p>Revenue</p>
-										</td>
-										<td>
-											<p>HR Shared Services : </p>
-											<p>DTP: </p>
-											<p>NAPS: </p>
-											<p>BTP: </p>
-											<p>Recruiting Services : </p>
-											<p>HR Automation Services: </p>
-											<p>Other Revenue Streams: </p>
-										</td>
-										<td>
-
-										</td>
-										<td>
-											<p>Meet Business Expectations as per AOP sign off</p>
-											<p>Meet Business Expectations as per AOP sign off</p>
-											<p>Meet Business Expectations as per AOP sign off</p>
-											<p>Meet Business Expectations as per AOP sign off</p>
-											<p>Meet Business Expectations as per AOP sign off</p>
-											<p>Meet Business Expectations as per AOP sign off</p>
-											<p>Meet Business Expectations as per AOP sign off</p>
-										</td>
-										<td>
-											30%
-
-										</td>
-										<td>
-											<p>AOP HRSS</p>
-											<p>AOP DTP</p>
-											<p>AOP NAPS</p>
-											<p>AOP BTP</p>
-											<p>AOP Recruitment</p>
-											<p>AOP Automation Services </p>
-											<p>AOP </p>
-										</td>
-
-									</tr>
-									<tr class="border-bottom-primary">
-										<th scope="row">1</th>
-										<td>
-											<p>Customer</p>
-										</td>
-										<td>
-											<p>HEPL Core : Internal Customers</p>
-											<p>HR Shared Services & Other HR Verticals</p>
-										</td>
-										<td>
-											<p>1. Employee Engagement Scores</p>
-											<p>2. Attrition Management</p>
-											<p>1. External Customer Sat Audit Ratings </p>
-										</td>
-										<td>
-											<p>1. Engagement Score > 85%</p>
-											<p>2. Overall Voluntary Attrition less than 10% </p>
-											<p>1. External Customer Sat Audit Ratings  > 95%</p>
-										</td>
-										<td>
-											20%
-
-										</td>
-										<td>
-											<p>Employee Engagement Survey Results</p>
-											<p>Attrition MIS, Exit Interview MIS</p>
-											<p>C Sat Audit Reports</p>
-										</td>
-
-									</tr>
-
-
+								<tbody id="goals_record">
+									
 								</tbody>
 							</table>
 						</div>
@@ -160,7 +90,51 @@
 	<!-- login js-->
 	<!-- Plugin used-->
 	<script>
+		// $( document ).ready(function() {
+		// 	goals_record();
+		// });
 
+		var params = new window.URLSearchParams(window.location.search);
+		var id=params.get('id')
+		$('#goals_setting_id').val(id);
+		// function goals_record(){
+			
+			var id = $('#goals_setting_id').val();
+
+			$.ajax({                   
+				url:"{{ url('goals_sheet_head') }}",
+				type:"GET",
+				data:{id:id},
+				dataType : "JSON",
+				success:function(response)
+				{
+					$('#goals_sheet_head').append('');
+					$('#goals_sheet_head').append(response);
+				},
+				error: function(error) {
+					console.log(error);
+
+				}                                              
+					
+			});
+
+			$.ajax({                   
+				url:"{{ url('fetch_goals_setting_id_details') }}",
+				type:"GET",
+				data:{id:id},
+				dataType : "JSON",
+				success:function(response)
+				{
+					$('#goals_record').append('');
+					$('#goals_record').append(response);
+				},
+				error: function(error) {
+					console.log(error);
+
+				}                                              
+					
+			});
+		// }
 
 	</script>
 

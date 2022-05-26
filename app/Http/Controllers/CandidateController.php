@@ -5,10 +5,12 @@ use App\Repositories\IPreOnboardingrepositories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use App\Models\Epf_Forms;
 use PDF;
 use Carbon\Carbon;
 use Auth;
 use Session;
+use File;
 
 class CandidateController extends Controller
 {
@@ -450,6 +452,237 @@ public function get_policy_information_candidate_details(Request $req){
 
         return response()->json( $get_policy_information_candidate_details_result );
     }
+
+    public function epf()
+    {
+
+        $sess_info=Session::get("session_info");
+         $cdID=$sess_info['empID'];
+         $check_epf_form_result = $this->preon->check_epf_form($cdID);
+         if($check_epf_form_result == 0){
+            return view('candidate.epf');
+         }
+         else{
+            return view('candidate.view_epf');
+         }
+
+    }
+    public function save_epf_form(Request $request){
+        $sess_info=Session::get("session_info");
+         $cdID=$sess_info['empID'];
+        $fname = $request->input('f_name');
+        $sname = $request->input('s_name');
+        if($fname == null){
+            $fname ="no_val";
+        }
+        if($sname == null){
+            $sname ="no_val";
+        }
+        $uan_number = $request->input('uan');
+        $prev_pf_no = $request->input('ppf');
+        $date_prev_exit = $request->input('pr_exit_date');
+        $scheme_cert_no = $request->input('scn');
+        $ppo = $request->input('ppo');
+
+        if($uan_number == null){
+            $uan_number ="no_val";
+        }
+        if($prev_pf_no == null){
+            $prev_pf_no ="no_val";
+        }
+        if($date_prev_exit == null){
+            $date_prev_exit ="no_val";
+        }
+        if($scheme_cert_no == null){
+            $scheme_cert_no ="no_val";
+        }
+        if($ppo == null){
+            $ppo ="no_val";
+        }
+        $passport_no = $request->input('passport_no');
+        $val_passport_from = $request->input('from_date');
+        $val_passport_to = $request->input('to_date');
+        if($passport_no == null){
+            $passport_no ="no_val";
+        }
+        if($val_passport_from == null){
+            $val_passport_from ="no_val";
+        }
+        if($val_passport_to == null){
+            $val_passport_to ="no_val";
+        }
+        $pan_no = $request->input('pan');
+        if($pan_no == null){
+            $pan_no ="no_val";
+        }
+        $coun_origin = $request->input('sco');
+        if($coun_origin == null){
+            $coun_origin ="no_val";
+        }
+        $data = array(
+            'cdID' =>$cdID,
+            'member_name'=>$request->input('emp_name'),
+            'father_name'=>$fname,
+            'spouse_name'=>$sname,
+            'dob'=>$request->input('dob'),
+            'gender'=>$request->input('gender'),
+            'marry_status'=>$request->input('mar_status'),
+            'email_id'=>$request->input('email_id'),
+            'mob'=>$request->input('mob_no'),
+            'epfs_status'=>$request->input('epf'),
+            'eps_status'=>$request->input('eps'),
+            'uan_number'=>$uan_number,
+            'prev_pf_no'=>$prev_pf_no,
+            'date_prev_exit'=>$date_prev_exit,
+            'scheme_cert_no'=>$scheme_cert_no,
+            'ppo'=>$ppo,
+            'int_work_status'=>$request->input('inter_worker'),
+            'coun_origin'=>$coun_origin,
+            'passport_no'=>$passport_no,
+            'val_passport_from'=>$val_passport_from,
+            'val_passport_to'=>$val_passport_to,
+            'bank_account'=>$request->input('bank_account'),
+            'aadhar_no'=>$request->input('aadhar'),
+            'pan_no'=>$pan_no,
+        );
+       // print_r($cdID);
+        $response=$this->preon->insert_epf_form($data);
+    if($response){
+        $response = 'success';
+    }
+    else{
+        $response = 'error';
+    }
+        return response()->json( ['response' => $response] );
+     }
+
+     public function view_epf(Request $request){
+        $sess_info=Session::get("session_info");
+         $cdID=$sess_info['empID'];
+    $input = array(
+        'cdID'=> $cdID,
+    );
+         $get_epf_details = $this->preon->get_candidate_epf_details($cdID);
+        // print_r($get_epf_details);
+        echo json_encode($get_epf_details);
+
+
+     }
+     public function view_epf_form()
+     {
+         return view('candidate.view_epf');
+     }
+
+     public function medical_form()
+     {
+        // // $sess_info=Session::get("session_info");
+        // $cdID=$sess_info['empID'];
+        // $check_medical_details_result = $this->preon->check_medical_details($cdID);
+        // if($check_medical_details_result ==0){
+        //  return view('candidate.medical_insurance');
+        // }
+        // else{
+
+        //  $file_name = $cdID . '.medical.' . 'pdf';
+        //  //$path = Storage::get('\public\medical_insurance\.'.$file_name.'');
+        //  $path = '../medical_insurance/'.$cdID.'/'.$file_name;
+        //   echo app_path();
+        // }
+        return view('candidate.medical_insurance');
+
+     }
+
+
+     public function save_medical_form(Request $request){
+        $sess_info=Session::get("session_info");
+        $cdID=$sess_info['empID'];
+
+         $insurance_name = $request->input( 'insur_name' );
+         $insurance_name_json = json_encode($insurance_name);
+
+         $relation_name = $request->input( 'relation' );
+         $relation_name_json = json_encode($relation_name);
+
+         $dob = $request->input( 'dob' );
+         $dob_json = json_encode($dob);
+
+         $age = $request->input( 'age' );
+         $age_json = json_encode($age);
+
+         $gender = $request->input( 'gender' );
+         $gender_json = json_encode($gender);
+
+         $file_name = $cdID . '.medical.' . 'pdf';
+         $data = array(
+            'cdID' => $cdID,
+            'insur_name' => $insurance_name_json,
+            'relation' => $relation_name_json,
+            'dob' => $dob_json,
+            'age' => $age_json,
+            'gender' => $gender_json,
+            'file_name' => $file_name,
+        );
+
+        $path = public_path().'/medical_insurance/'.$cdID;
+
+        File::isDirectory($path) or File::makeDirectory($path, 0777, true, true);
+
+        $check_medical_details_result = $this->preon->check_medical_details($cdID);
+
+        if($check_medical_details_result ==0){
+
+            $response=$this->preon->insert_medical_form($data);
+
+        }else{
+            if (\File::exists($path)) \File::deleteDirectory($path);
+            $response=$this->preon->update_medical_form($data);
+
+        }
+
+        $pdf_data =array();
+        for ($i=0; $i < count($insurance_name); $i++) {
+            if(isset($insurance_name[$i])){
+            $pdf_data[$i]['insurance_name'] = $insurance_name[$i];
+            $pdf_data[$i]['relation_name'] = $relation_name[$i];
+            $pdf_data[$i]['dob'] = $dob[$i];
+            $pdf_data[$i]['age'] = $age[$i];
+            $pdf_data[$i]['gender'] = $gender[$i];
+            }
+        }
+        $data = array (
+            'json' => $pdf_data
+        );
+        $pdf = PDF::loadView('candidate/medical_insurance_pdf', $data);
+
+        $path = public_path().'/medical_insurance/'.$cdID;
+
+        if (\File::exists($path)) \File::deleteDirectory($path);
+
+        File::isDirectory($path) or File::makeDirectory($path, 0777, true, true);
+
+        $fileName = $cdID . '.medical.' . 'pdf';
+
+        $pdf->save($path . '/' . $fileName);
+
+
+
+        if($response){
+            $response = "success";
+        }
+        else{
+            $response = "error";
+        }
+        return response()->json( [
+            'response' => $response,
+            'redirect_url' =>'../medical_insurance/'.$cdID.'/'.$fileName,
+        ] );
+
+     }
+
+    public function leave_balance()
+{
+    return view('candidate.leave_balance');
+}
 
 
 

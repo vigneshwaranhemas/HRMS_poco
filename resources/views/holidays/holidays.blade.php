@@ -14,13 +14,24 @@
 
 @section('style')
 <style>
-/* .fc-widget-header{
-   width: 143.2px !important;
+body
+{
+   zoom: 100%;
+} 
+.calendar-wrap .fc-toolbar button{
+   position: inherit;
 }
-.fc-resizable{
-   max-width: fit-content;
-} */
-
+.fc-other-month .fc-day-number {
+    color: #9c9897;
+}
+.calendar-wrap .fc-toolbar button {
+   text-transform: capitalize !important; 
+}
+.calendar-wrap .fc-unthemed .fc-today{
+    background: #f2ebfb;
+    /* opacity: 0.1; */
+    opacity: 1;
+}
 /* Multi Select2 */
 .select2-container--default.select2-container--focus .select2-selection--multiple {
     border: solid #b3d7ff 3px !important;
@@ -324,42 +335,34 @@
 <!-- Container-fluid Ends-->
 @endsection
 
-@section('script')
-   <!-- <script src="../assets/js/jquery.ui.min.js"></script>
-   <script src="../assets/js/calendar/moment.min.js"></script>
-   <script src="../assets/js/calendar/fullcalendar.min.js"></script> -->
-   <!-- Plugins JS start-->
-
+@section('script')   
+   <!-- Select2 -->
    <script src="../assets/js/select2/select2.full.min.js"></script>
-
    <script src="../assets/js/select2/select2-custom.js"></script>
    <script src="../assets/js/chat-menu.js"></script>
-   <!-- Plugins JS start-->
-   <!-- <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js"></script>
-   <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/jquery.min.js"></script>
-   <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js"></script>
-   <script src="https://fullcalendar.io/releases/fullcalendar-scheduler/1.9.4/scheduler.min.js"></script> -->
-
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
-   <!-- Custom JS start-->
-
-   <!-- Plugins JS start-->
-   <!-- <script src="../assets/js/select2/select2.full.min.js"></script>
-   <script src="../assets/js/select2/select2-custom.js"></script> -->
+  
+   <!-- Calendar JS start-->
+   <script src="../assets/js/jquery.ui.min.js"></script>
+   <script src="../assets/js/calendar/moment.min.js"></script>
+   <script src="../assets/js/calendar/full-calendar.min.js"></script>
    
-   @if(Auth::user()->role_type === 'Admin')
+   @if(Auth::user()->role_id === 'RO1')
       <script src="../assets/js/calendar/admin_holidays.js"></script>
    @else
       <script src="../assets/js/calendar/holidays.js"></script>
    @endif
-
    <script>
-      $(document).ready(function() {
-         // $('.js-example-basic-multiple').select2();
+      $(function() {
+         // this will get the full URL at the address bar
+         // var url =  window.location.href.split(/[?#]/)[0];
+         var $this = $(".fc-day-grid-container");
+
+         if ($this.hasClass('fc-scroller')) {
+
+            $this.removeClass('fc-scroller');
+
+         }
+
       });
 
    </script>

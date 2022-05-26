@@ -115,10 +115,18 @@ Route::post('/Admin_Request_update',"AdminController@Seating_Status_update");
 //Goals Controller
 Route::get('goals', 'GoalsController@goals')->name('goals');
 Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
+Route::get('edit_goal', 'GoalsController@edit_goal')->name('edit_goal');
+Route::get('fetch_goals_setting_id_details', 'GoalsController@fetch_goals_setting_id_details')->name('fetch_goals_setting_id_details');
+Route::get('fetch_goals_setting_id_edit', 'GoalsController@fetch_goals_setting_id_edit')->name('fetch_goals_setting_id_edit');
+Route::get('goals_sheet_head', 'GoalsController@goals_sheet_head')->name('goals_sheet_head');
 Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
 Route::post('add_goals_data', 'GoalsController@add_goals_data');
+Route::post('update_goals_data', 'GoalsController@update_goals_data');
+Route::post('goals_delete', 'GoalsController@goals_delete');
 Route::get('get_goal_list', 'GoalsController@get_goal_list' );
+Route::get('get_team_member_goal_list', 'GoalsController@get_team_member_goal_list' );
 Route::get('calendar', 'GoalsController@calendar' );
+Route::get('add_goal_btn', 'GoalsController@add_goal_btn' );
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');
@@ -423,6 +431,9 @@ Route::get('email_pass','LoginController@email_pass');
 Route::post('con_pass_process','LoginController@con_pass_process');
 Route::post('getemail_process','LoginController@getemail_process');
 
+/*chat*/
+Route::get('chat_process','CommonController@chat_process');
+
 // Company Policy Candidate
 Route::get('company_policy_candidate', 'CandidateController@company_policy_candidate')->name('company_policy_candidate');
 Route::post('get_policy_category_candidate_details', 'CandidateController@get_policy_category_candidate_details');
@@ -438,4 +449,26 @@ Route::post('Wrf_user_sigin','CommonController@User_Activity_signin');
 Route::post('Wrf_user_signout','CommonController@User_Activity_signout');
 
 
+// epf by Durga
+Route::get('epf', 'CandidateController@epf')->name('epf');
+Route::post('save_epf_form', 'CandidateController@save_epf_form')->name('save_epf_form');
+Route::post('view_epf', 'CandidateController@view_epf')->name('view_epf');
+Route::get('view_epf_form', 'CandidateController@view_epf_form')->name('view_epf_form');
+
+// medical by Durga
+Route::get('medical_form', 'CandidateController@medical_form')->name('medical_form');
+Route::post('save_medical_form', 'CandidateController@save_medical_form')->name('save_medical_form');
+Route::get('view_medical_form', 'CandidateController@view_medical_form')->name('view_medical_form');
+
+//view epf in hrss by Durga
+Route::post('view_epf_form_hr', 'HrController@view_epf_form_hr')->name('view_epf_form_hr');
+Route::get('view_can_epf', 'HrController@view_can_epf')->name('view_can_epf');
+Route::post('update_epf_form_hr', 'HrController@update_epf_form_hr')->name('update_epf_form_hr');
+Route::post('epf_details', 'HrController@epf_details')->name('epf_details');
+Route::get('epf_list', 'HrController@epf_list')->name('epf_list');
+Route::get('medical_list', 'HrController@medical_list')->name('medical_list');
+Route::post('medical_details', 'HrController@medical_details')->name('medical_details');
+
+// Leave Balance for Candidate
+Route::get('leave_balance', 'CandidateController@leave_balance')->name('leave_balance');
 

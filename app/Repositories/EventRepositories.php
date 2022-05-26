@@ -28,7 +28,7 @@ class EventRepositories implements IEventRepositories {
    }
    public function fetch_event_filter()
    {      
-      if(Auth::user()->role_type === 'Admin'){
+      if(Auth::user()->role_id === 'RO1'){
 
          $response = DB::table("events")->select('*')
          ->get();
@@ -49,7 +49,7 @@ class EventRepositories implements IEventRepositories {
    }
    public function fetch_event_with_filter($data)
    {      
-      if(Auth::user()->role_type === 'Admin'){
+      if(Auth::user()->role_id === 'RO1'){
 
          if($data['emp_fil'] == "All" && $data['category_filter'] == "All" && $data['event_type_filter'] == "All"){
             $response = DB::table("events")->select('*')->get();

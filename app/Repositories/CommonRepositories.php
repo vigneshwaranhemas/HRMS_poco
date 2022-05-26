@@ -161,7 +161,7 @@ class CommonRepositories implements ICommonRepositories
     public function supervisor_wise_info($id)
     {
         $organisation=CustomUser::select('empID','username','img_path','designation')->where('sup_name','CKR')->first();
-        $supervisor['supervisors']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$organisation->empID)->get();
+        $supervisor['supervisors']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$id)->get();
         $supervisor['supervisor_info']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('empID',$id)->first();
         $supervisor['team_leaders']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$id)->get();
         foreach($supervisor['team_leaders'] as $teamleaders){
@@ -246,5 +246,20 @@ class CommonRepositories implements ICommonRepositories
         else{
             return false;
         }
+    }
+
+
+    public function my_team_tl_info($id)
+    {
+         // $organisation=CustomUser::select('empID','username','img_path','designation')->where('sup_name','CKR')->first();
+        $supervisor=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$id)->get();
+        // $supervisor['supervisor_info']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('empID',$id)->first();
+        // $supervisor['team_leaders']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$id)->get();
+        // foreach($supervisor['team_leaders'] as $teamleaders){
+        //     $emp[]=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$teamleaders['empID'])->get();
+        //   }
+        // $supervisor['employees']=$emp;
+        return $supervisor;
+
     }
 }

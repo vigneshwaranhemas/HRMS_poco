@@ -433,6 +433,9 @@ Route::post('getemail_process','LoginController@getemail_process');
 
 /*chat*/
 Route::get('chat_process','CommonController@chat_process');
+/*my_team*/
+Route::get('my_team','CommonController@my_team');
+Route::get('my_team_tl_info','CommonController@my_team_tl_info');
 
 // Company Policy Candidate
 Route::get('company_policy_candidate', 'CandidateController@company_policy_candidate')->name('company_policy_candidate');

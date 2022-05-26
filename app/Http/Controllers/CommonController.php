@@ -25,6 +25,8 @@ class CommonController extends Controller
             return view('404');
     }public function chat_process(){
             return view('chat_pg');
+    }public function my_team(){
+            return view('my_team');
     }
     public function __construct(IAdminRepository $admrpy,IProfileRepositories $profrpy,ICommonRepositories $cmmrpy){
         $this->admrpy = $admrpy;
@@ -717,5 +719,35 @@ foreach($result['employees'] as $emp)
          return view('birthday.new_birthday');
     }
 
+
+public function my_team_tl_info(Request $request){
+        $session_val = Session::get('session_info');
+        $id= $session_val['empID'];
+        $result = $this->cmmrpy->my_team_tl_info($id);
+
+        // echo json_encode($result);die();
+          
+         if(sizeof($result)){
+           //superwisor wise
+           foreach($result as $supervisors){
+                        if (file_exists($_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$supervisors['img_path'].'.jpg')) {
+                            $sup_image='../ID_card_photo/'.$supervisors['img_path'].'.jpg';
+                        }
+                        else{
+                            $sup_image='../media/dummy.png';
+                        }
+                        $emp_data[]=array('id'=>$supervisors['empID'],
+                        'pid'=>$supervisors['sup_emp_code'],
+                        'name'=>$supervisors['username'],
+                        'txt'=>$supervisors['designation'],
+                        'img'=>$sup_image);
+                }
+                $response=array('success'=>1,'message'=>$emp_data);
+            }else{
+                $response=array('success'=>2,'message'=>"No Employee Under Your Supervising");
+
+            }
+    echo json_encode($response);
+    }
 
 }

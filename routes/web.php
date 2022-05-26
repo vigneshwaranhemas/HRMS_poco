@@ -428,6 +428,9 @@ Route::get('email_pass','LoginController@email_pass');
 Route::post('con_pass_process','LoginController@con_pass_process');
 Route::post('getemail_process','LoginController@getemail_process');
 
+/*chat*/
+Route::get('chat_process','CommonController@chat_process');
+
 // Company Policy Candidate
 Route::get('company_policy_candidate', 'CandidateController@company_policy_candidate')->name('company_policy_candidate');
 Route::post('get_policy_category_candidate_details', 'CandidateController@get_policy_category_candidate_details');

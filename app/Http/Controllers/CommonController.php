@@ -23,6 +23,8 @@ class CommonController extends Controller
             return view('change_password');
     }public function pagenotfound(){
             return view('404');
+    }public function chat_process(){
+            return view('chat_pg');
     }
     public function __construct(IAdminRepository $admrpy,IProfileRepositories $profrpy,ICommonRepositories $cmmrpy){
         $this->admrpy = $admrpy;

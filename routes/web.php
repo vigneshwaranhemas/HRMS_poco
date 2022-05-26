@@ -448,6 +448,9 @@ Route::get('Get_Notes_info','CommonController@Fetch_notes_info');
 Route::post('Get_Notes_info_id_wise','CommonController@Get_Notes_info_id_wise');
 Route::post('Edit_Sticky_Notes','CommonController@Edit_Sticky_Notes');
 Route::post('Delete_Sticky_note','CommonController@Destroy_Sticky_note');
+Route::post('Wrf_user_sigin','CommonController@User_Activity_signin');
+Route::post('Wrf_user_signout','CommonController@User_Activity_signout');
+
 
 // epf by Durga
 Route::get('epf', 'CandidateController@epf')->name('epf');

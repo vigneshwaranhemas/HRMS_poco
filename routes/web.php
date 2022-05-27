@@ -467,7 +467,6 @@ Route::post('Delete_Sticky_note','CommonController@Destroy_Sticky_note');
 Route::post('Wrf_user_sigin','CommonController@User_Activity_signin');
 Route::post('Wrf_user_signout','CommonController@User_Activity_signout');
 
-
 // epf by Durga
 Route::get('epf', 'CandidateController@epf')->name('epf');
 Route::post('save_epf_form', 'CandidateController@save_epf_form')->name('save_epf_form');
@@ -491,3 +490,7 @@ Route::post('medical_details', 'HrController@medical_details')->name('medical_de
 // Leave Balance for Candidate
 Route::get('leave_balance', 'CandidateController@leave_balance')->name('leave_balance');
 
+
+//goals
+Route::get('get_hr_goal_list','GoalsController@get_hr_goal_list');
+Route::get('goals_sup_th_check','GoalsController@goals_sup_th_check');

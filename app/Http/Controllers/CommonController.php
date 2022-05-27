@@ -780,7 +780,7 @@ public function my_team_tl_info(Request $request){
         $id= $session_val['empID'];
         $result = $this->cmmrpy->my_team_tl_info($id);
 
-        // echo json_encode($result);die();
+        // echo "<pre>";print_r($result);die;  
           
          if(sizeof($result)){
            //superwisor wise
@@ -799,7 +799,7 @@ public function my_team_tl_info(Request $request){
                 }
                 $response=array('success'=>1,'message'=>$emp_data);
             }else{
-                $response=array('success'=>2,'message'=>"No Employee Under Your Supervising");
+                $response=array('success'=>2,'message'=>"<h3>No Employee Under Your Supervising</h3>");
 
             }
     echo json_encode($response);

@@ -249,10 +249,19 @@ class CommonRepositories implements ICommonRepositories
     }
 
 
-    public function my_team_tl_info($id)
-    {
+    public function my_team_tl_info($id){
+        // echo "<pre>";print_r($id);die;
          // $organisation=CustomUser::select('empID','username','img_path','designation')->where('sup_name','CKR')->first();
-        $supervisor=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$id)->get();
+        // DB::enableQueryLog();
+
+        $supervisor=CustomUser::select('empID','username','img_path','sup_emp_code','designation')
+                                ->where('sup_emp_code',$id)
+                                ->get();
+
+         // echo "<pre>";print_r($supervisor);die;                       
+
+        // dd(DB::getQueryLog());
+
         // $supervisor['supervisor_info']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('empID',$id)->first();
         // $supervisor['team_leaders']=CustomUser::select('empID','username','img_path','sup_emp_code','designation')->where('sup_emp_code',$id)->get();
         // foreach($supervisor['team_leaders'] as $teamleaders){

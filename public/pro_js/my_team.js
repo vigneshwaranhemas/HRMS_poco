@@ -10,8 +10,7 @@ function get_user_list() {
         method: "GET",
         dataType: "json",
         success: function(data) {
-
-            console.log(data)
+            // console.log(data)
             if(data.success==1){
               var data=data.message;
             var html = '';

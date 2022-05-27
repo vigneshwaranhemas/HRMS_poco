@@ -543,6 +543,7 @@ max-width: 1000px !important;
                                         <th>University</th>
                                         <th>Begin On</th>
                                         <th>End On</th>
+                                        <th>Skill Set</th>
                                         <th>Certificate</th>
                                     </tr>
                                 </thead>
@@ -579,16 +580,20 @@ max-width: 1000px !important;
                                             <input class="form-control" name="begin_on" id="begin_on" type="month" placeholder="" >
                                             <span class="text-danger color-hider" id="begin_on_error"  style="display:none;color: red;"></span>
                                         </div>
-                                        <!-- <div class="col-md-12 mb-3">
-                                          <label for="Begin_On">Begin On</label>
-                                             <input class="datepicker-here form-control digits" type="text" data-language="en" data-min-view="months" data-view="months" data-date-format="MM yyyy"  name="begin_on" id="begin_on" >
-                                            <div class="text-warning" id="begin_on_error"></div>
-                                       </div> -->
                                         <div class="col-md-12 mb-3">
                                             <label for="Due By">End On</label>
                                             <input class="form-control" name="end_on" id="end_on" type="month" placeholder="" >
                                             <span class="text-danger color-hider" id="end_on_error"  style="display:none;color: red;"></span>
                                         </div>
+                                         <div class="col-md-12 mb-3">
+                                            <label for="Skill">Skill</label>
+                                            <select class="form-control dynamic-option-create-multiple" name="skill[]" id="skill" placeholder="Enter Your Skills" >
+                                                <!-- <option value="a">apple</option>
+                                                <option value="b">banana</option>
+                                                <option value="c">cherry</option> -->
+                                            </select>
+                                             <span class="text-danger color-hider" id="skill_error"  style="display:none;color: red;"></span>
+                                          </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="edu_certificate">Education Certificate</label>
                                             <input class="form-control" name="edu_certificate" id="edu_certificate" type="file" accept=".doc,.docx,.xls,.xlsx,.ppt,.pdf" placeholder="" >
@@ -937,6 +942,14 @@ max-width: 1000px !important;
  <script src='../assets/js/select2/select2.full.min.js'></script>
 
  <script type="text/javascript">
+   /*multiselect*/
+   $(document).ready(function() {
+        $("select.exist-option-only").select2();
+        $("select.dynamic-option-create-multiple").select2({
+          tags: true,
+          multiple: true,
+        });
+      })
 
    $.ajaxSetup({
         headers: {

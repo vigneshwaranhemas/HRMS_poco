@@ -13,6 +13,7 @@ use App\Image;
 use Session;
 use Validator;
 use Mail;
+use App\Models\UserActivityModel;
 class CommonController extends Controller
 {
     public function id_card_varification(){
@@ -23,6 +24,10 @@ class CommonController extends Controller
             return view('change_password');
     }public function pagenotfound(){
             return view('404');
+    }public function chat_process(){
+            return view('chat_pg');
+    }public function my_team(){
+            return view('my_team');
     }
     public function __construct(IAdminRepository $admrpy,IProfileRepositories $profrpy,ICommonRepositories $cmmrpy){
         $this->admrpy = $admrpy;
@@ -52,6 +57,7 @@ class CommonController extends Controller
     public function idcard_info_save(Request $request){
 
         $validator=Validator::make($request->all(),[
+                'file' =>'required|image|mimes:png',
                 'f_name' => 'required',
                 'l_name' => 'required',
                 'emp_num_1' => 'required|numeric',
@@ -74,6 +80,7 @@ class CommonController extends Controller
                 'blood_grp.required' => 'Blood Group is required',
                 'emrg_con_num.required' => 'Emergency contact number is required',
                 'emp_dob.required' => 'Date of birth is required',
+                'file.required'=>'Image File is required',
                 ]);
         if($validator->passes()){
 
@@ -84,8 +91,15 @@ class CommonController extends Controller
             $user = DB::table( 'customusers' )->where('cdID', '=', $cdID)->first();
 
         if ($user === null) {
+                    $file = $request->file('file');
+                    $destinationPath = public_path('ID_card_photo/');
+                    $profileImage =  $emp_ID . "." . $file->getClientOriginalExtension();
+                    $img_id= $emp_ID;
+                    $file->move($destinationPath, $profileImage);
+                    $path = $img_id;
                 $data =array(
                     'emp_id'=>$emp_ID,
+                    'img_path'=>$path,
                     'cdID'=>$cdID,
                     'f_name'=>$request->input('f_name'),
                     'm_name'=>$request->input('m_name'),
@@ -112,6 +126,7 @@ class CommonController extends Controller
                     // $Mail['password']="Welcome@123";
                 // $store_result=$this->cmmrpy->Candidate_info_mail($data);
                     $Mail['email']=$session_val['email'];
+                    // $Mail['email']='vigneshb@hemas.in';
                     $Mail['hr_email']='hr@hemas.in';
                     $Mail['subject']="Thank you for submitting the details.";
                     $Mail['candidate_name']=$user->username;
@@ -132,9 +147,17 @@ class CommonController extends Controller
                 return response()->json(['response'=>'insert']);
 
             }else{
+
+                    $file = $request->file('file');
+                    $destinationPath = public_path('ID_card_photo/');
+                    $profileImage =  $emp_ID . "." . $file->getClientOriginalExtension();
+                    $img_id= $emp_ID;
+                    $file->move($destinationPath, $profileImage);
+                    $path = $img_id;
                 $data =array(
                     // 'emp_id'=>$emp_ID,
                     'cdID'=>$cdID,
+                    'img_path'=>$path,
                     'f_name'=>$request->input('f_name'),
                     'm_name'=>$request->input('m_name'),
                     'l_name'=>$request->input('l_name'),
@@ -152,6 +175,7 @@ class CommonController extends Controller
                     'emp_dob'=>$request->input('emp_dob'),
                     'hr_action'=>"1",
                     'hr_id_remark'=>"",
+
                     );
             $update_role_unit_details_result = $this->profrpy->update_idcard_info( $data );
 
@@ -165,7 +189,8 @@ class CommonController extends Controller
             }
 
             /*email for can*/
-            $Mail['email']=$session_val['email'];
+                    $Mail['email']=$session_val['email'];
+                    // $Mail['email']='vigneshb@hemas.in';
                     $Mail['hr_email']='hr@hemas.in';
                     $Mail['subject']="Thank you for submitting the details.";
                     $Mail['candidate_name']=$user->username;
@@ -709,11 +734,75 @@ foreach($result['employees'] as $emp)
         echo json_encode($response);
     }
 
-
-    public function new_birthday()
+    public function User_Activity_signin()
     {
-         return view('birthday.new_birthday');
+        $session_val = Session::get('session_info');
+        $diff_date=Carbon::now('Asia/Kolkata');
+        $current_date=Carbon::today()->toDateString();
+        $current_time=$diff_date->toTimeString();
+
+         $data=array('empID'=>$session_val['empID'],
+                     'current_date'=>$current_date,
+                     'sign_in'=>$current_time);
+
+         $result=UserActivityModel::insert($data);
+         if($result){
+             $response=array('success'=>1,'message'=>'Successfully Signing In');
+         }
+         else{
+            $response=array('success'=>2,'message'=>'Problem in Signing In');
+         }
+
+        echo json_encode($response);
+    }
+    public function User_Activity_signout()
+    {
+        $session_val = Session::get('session_info');
+        $diff_date=Carbon::now('Asia/Kolkata');
+        $current_date=Carbon::today()->toDateString();
+        $current_time=$diff_date->toTimeString();
+
+        //  $data=array('sign_out'=>$current_time,'status'=>0);
+         $where_data=array('current_date'=>Carbon::today()->toDateString(),'empID'=>$session_val['empID']);
+         $result=UserActivityModel::where($where_data)->update(['sign_out'=>$current_time,'status'=>'1']);
+         if($result){
+             $response=array('success'=>1,'message'=>'Successfully Signing Out');
+         }
+         else{
+            $response=array('success'=>2,'message'=>'Problem in Signing Out');
+         }
+        echo json_encode($response);
     }
 
+
+public function my_team_tl_info(Request $request){
+        $session_val = Session::get('session_info');
+        $id= $session_val['empID'];
+        $result = $this->cmmrpy->my_team_tl_info($id);
+
+        // echo "<pre>";print_r($result);die;  
+          
+         if(sizeof($result)){
+           //superwisor wise
+           foreach($result as $supervisors){
+                        if (file_exists($_SERVER["DOCUMENT_ROOT"].'/ID_card_photo/'.$supervisors['img_path'].'.jpg')) {
+                            $sup_image='../ID_card_photo/'.$supervisors['img_path'].'.jpg';
+                        }
+                        else{
+                            $sup_image='../media/dummy.png';
+                        }
+                        $emp_data[]=array('id'=>$supervisors['empID'],
+                        'pid'=>$supervisors['sup_emp_code'],
+                        'name'=>$supervisors['username'],
+                        'txt'=>$supervisors['designation'],
+                        'img'=>$sup_image);
+                }
+                $response=array('success'=>1,'message'=>$emp_data);
+            }else{
+                $response=array('success'=>2,'message'=>"<h3>No Employee Under Your Supervising</h3>");
+
+            }
+    echo json_encode($response);
+    }
 
 }

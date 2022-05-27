@@ -895,7 +895,6 @@ function education_information(){
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data)
             if (data !="") {
                 $('#education_td').empty();
                         html ='';
@@ -905,6 +904,9 @@ function education_information(){
                         html +='<td data-label="allcount">'+val.university+'</td>';
                         html +='<td data-label="allcount">'+val.edu_start_month+"-"+val.edu_start_year+'</td>';
                         html +='<td data-label="allcount">'+val.edu_end_month+"-"+val.edu_end_year+'</td>';
+                        for(var i = 0; i < val.skill.split(",").length; i++){
+                                html +='<td data-label="allcount">'+ val.skill.split(",")[i] + '</td>';
+                            }
                         html +='<td data-label="allcount"><a href="../education/'+ val.edu_certificate +'" target =_blank><img class="rounded-circle" src="../assets/images/user/1.jpg"  alt=""></a></td>';
 
                     });

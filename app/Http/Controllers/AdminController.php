@@ -15,6 +15,7 @@ use Mail;
 use App\Holidays;
 use App\state;
 use Validator;
+use App\Models\UserActivityModel;
 
 
 class AdminController extends Controller
@@ -505,15 +506,26 @@ class AdminController extends Controller
 
         $session_val = Session::get('session_info');
         $sess_emp_Id=array('empID'=>$session_val['empID']);
-        $diff_date=Carbon::now('Asia/Kolkata');;
+        $diff_date=Carbon::now('Asia/Kolkata');
         $sticky_date = Carbon::createFromFormat('Y-m-d H:i:s', $diff_date);
         $result = $this->cmmrpy->Fetch_Notes($sess_emp_Id);
         $data = [
             "upcoming_holidays" => $upcoming_holidays,
             "upcoming_events" => $upcoming_events,
             "stickyNotes"=>$result,
-            "Time"=>$sticky_date
+            "Time"=>$sticky_date,
+            'User_info'=>$session_val
         ];
+        if($session_val['worklocation']=='WFH'){
+                $where_data=array('current_date'=>Carbon::today()->toDateString(),'empID'=>$session_val['empID']);
+                $attendance_info=UserActivityModel::where($where_data)->get();
+                if($attendance_info){
+                    $max_id=UserActivityModel::where($where_data)->max('id');
+                    $data['attendance_info']=UserActivityModel::where('id',$max_id)->first();
+
+                }
+        }
+        // echo json_encode($data['attendance_info']);die();
         return view('com_dashboard')->with($data);
     }
     public function fetch_login_profile_image(){
@@ -924,6 +936,7 @@ class AdminController extends Controller
             return response()->json(['error'=>$data->errors()->toArray()]);
         }
     }
+
 
     public function process_business_unit_status(Request $req){
         $input_details = array(

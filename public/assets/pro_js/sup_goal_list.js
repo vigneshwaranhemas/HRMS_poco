@@ -132,6 +132,66 @@ function team_member_goal_record(){
     });
 }
 
+$('#team_member_goal_data').on('click','#employee_summary_show_fn',function(){
+    var id = $(this).data('id');
+    // alert(id)
+    $.ajax({                   
+    	url:"fetch_goals_employee_summary",
+    	type:"GET",
+    	data:{id: id},
+    	dataType : "JSON",
+    	success:function(data)
+    	{            
+    		$('#goal_employee_summary_show').html(data); 
+    		$('#goal_supervisor_sum_id').html(id); 
+    		$('#employeeSummaryShowModal').modal('show');            
+    	},
+    	error: function(response) {
+    		// alert(response.responseJSON.errors.business_name_option);
+    		// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+    	}                                              
+            
+    });
+    
+});
+
+
+$("#supervisorSummaryForm").submit(function(e) {
+    e.preventDefault();
+
+    // $('button[type="submit"]').attr('disabled' , true);
+
+    $.ajax({                   
+        url:"goals_supervisor_summary",
+        type:"POST",
+        data:$('#supervisorSummaryForm').serialize(),
+        dataType : "JSON",
+        success:function(data)
+        {
+            Toastify({
+                text: "Send Sucessfully..!",
+                duration: 3000,
+                close:true,
+                backgroundColor: "#4fbe87",
+            }).showToast();    
+            
+            // $('button[type="submit"]').attr('disabled' , false);
+            $('#employeeSummaryModal').modal('hide');
+            goal_record();
+            // window.location = "{{ url('goals')}}";                
+            // $("#goal_data").load("{{url('get_goal_list')}}");               
+        },
+        error: function(response) {
+            // alert(response.responseJSON.errors.business_name_option);
+            // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+        }                                              
+            
+    });
+
+});
+
 function supervisor_filter_reset(){
     $("#team_member_filter").val('').trigger('change');
     team_member_goal_record();

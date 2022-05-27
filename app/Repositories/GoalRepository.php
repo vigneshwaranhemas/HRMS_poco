@@ -146,6 +146,10 @@ class GoalRepository implements IGoalRepository
       $response = Goals::where('goal_unique_code', $id)->value('goal_name');
       return $response;
    }
+   public function goals_consolidate_rate_head( $id ){
+      $response = Goals::where('goal_unique_code', $id)->value('employee_consolidated_rate');
+      return $response;
+   }
    public function fetchGoalIdDelete( $id ){
       $response = Goals::where('goal_unique_code', $id)->delete();
       return $response;
@@ -237,6 +241,28 @@ class GoalRepository implements IGoalRepository
          }
       }
       return $output;
+   }
+   public function addGoalEmployeeSummary($id, $employee_summary){
+        $logined_empID = Auth::user()->empID;        
+        $response = Goals::where('goal_unique_code', $id)
+                  ->where('created_by', $logined_empID)
+                  ->update([
+                        'employee_summary' => $employee_summary
+                  ]);
+      return $response;
+   }
+   public function check_goals_employee_summary($id){
+      $result = Goals::where('goal_unique_code', $id)->value('employee_summary');
+      if(!empty($result)){
+         $response = "Yes";
+      }else{
+         $response = "No";
+      }
+      return $response;
+   }
+   public function fetch_goals_employee_summary($id){
+      $response = Goals::where('goal_unique_code', $id)->value('employee_summary');   
+      return $response;
    }
 
 }

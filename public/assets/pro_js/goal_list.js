@@ -218,3 +218,69 @@ $("#formGoalDelete").submit(function(e) {
     });
 
 });
+
+//Employee Summary
+$('#goal_data').on('click','#employee_summary',function(){
+    var id = $(this).data('id');
+    $('#goal_sheet_id').val(id); 
+    $('#employeeSummaryModal').modal('show');
+      
+});
+
+$('#goal_data').on('click','#employee_summary_show',function(){
+    var id = $(this).data('id');
+    
+    $.ajax({                   
+        url:"fetch_goals_employee_summary",
+        type:"GET",
+        data:{id: id},
+        dataType : "JSON",
+        success:function(data)
+        {            
+            $('#goal_employee_summary_show').html(data); 
+            $('#employeeSummaryShowModal').modal('show');            
+        },
+        error: function(response) {
+            // alert(response.responseJSON.errors.business_name_option);
+            // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+        }                                              
+            
+    });
+      
+});
+
+$("#employeeSummaryForm").submit(function(e) {
+    e.preventDefault();
+
+    // $('button[type="submit"]').attr('disabled' , true);
+
+    $.ajax({                   
+        url:"goals_employee_summary",
+        type:"POST",
+        data:$('#employeeSummaryForm').serialize(),
+        dataType : "JSON",
+        success:function(data)
+        {
+            Toastify({
+                text: "Send Sucessfully..!",
+                duration: 3000,
+                close:true,
+                backgroundColor: "#4fbe87",
+            }).showToast();    
+            
+            // $('button[type="submit"]').attr('disabled' , false);
+            $('#employeeSummaryModal').modal('hide');
+            goal_record();
+            // window.location = "{{ url('goals')}}";                
+            // $("#goal_data").load("{{url('get_goal_list')}}");               
+        },
+        error: function(response) {
+            // alert(response.responseJSON.errors.business_name_option);
+            // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+        }                                              
+            
+    });
+
+});

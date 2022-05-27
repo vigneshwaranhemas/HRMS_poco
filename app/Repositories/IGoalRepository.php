@@ -19,9 +19,13 @@ interface IGoalRepository {
     public function checkReviewerIDOrNot($id);
     public function checkSupervisorIDOrNot($id);
     public function fetchGoalIdHead($id);
+    public function goals_consolidate_rate_head($id);
     public function fetchGoalIdDelete($id);
+    public function addGoalEmployeeSummary($id, $employee_summary);
     public function goals_status_update($data);
     public function fetch_supervisor_filter($supervisor_filter);
     public function fetch_reviewer_filter($reviewer_filter);
     public function fetch_team_leader_filter($team_leader_filter);
+    public function check_goals_employee_summary($id);
+    public function fetch_goals_employee_summary($id);
 }

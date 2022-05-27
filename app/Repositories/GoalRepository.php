@@ -128,12 +128,13 @@ class GoalRepository implements IGoalRepository
    }
    public function fetchGoalIdDetails( $id ){
       $response = Goals::where('goal_unique_code', $id)->value('goal_process');
+      // echo "1<pre>";print_r($response);die;
       return $response;
    }
    public function checkSupervisorIDOrNot( $id ){
       $empID = Goals::where('goal_unique_code', $id)->value('created_by');
       $logined_empID = Auth::user()->empID;        
-      $response = DB::table('customusers')->where('sup_emp_code', $logined_empID)->where('empID', $empID)->value('empID');      
+      $response = DB::table('customusers')->where('sup_emp_code', $logined_empID)->where('empID', $empID)->value('empID');   
       return $response;
    }
    public function checkReviewerIDOrNot( $id ){
@@ -209,6 +210,11 @@ class GoalRepository implements IGoalRepository
       $response = DB::table('customusers')->where('sup_emp_code', $logined_empID)->where('reviewer_emp_code', "900531")->get();      
       return $response;
    }
+  /* public function fetchHrList(){
+      $logined_empID = Auth::user()->empID;        
+      $response = DB::table('customusers')->where('sup_emp_code', $logined_empID)->where('reviewer_emp_code', "900380")->get();      
+      return $response;
+   }*/
    public function fetch_supervisor_filter($supervisor_filter){
       if($supervisor_filter != ''){
          $customusers = DB::table('customusers')->where('sup_emp_code', $supervisor_filter)->get(); 

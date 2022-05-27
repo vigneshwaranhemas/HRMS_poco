@@ -3,7 +3,7 @@
     employeeid_valid();
 });
 function employeeid_valid(){
-				
+
     var textInput = document.getElementById("employee_id").value;
     textInput = textInput.replace(/[&\/\-_=|\][;\#,+()$~%.'":*?<>{}@^!`]/g, "");
     document.getElementById("employee_id").value = textInput;
@@ -21,7 +21,7 @@ function employeeid_valid(){
 }*/
 
 function password_valid(){
-				
+
     var textInput = document.getElementById("login_password").value;
     if(textInput ==''){
         $("#login_password").removeClass("is-valid");
@@ -36,7 +36,7 @@ function password_valid(){
 
         $("#login_password").addClass("is-valid");
         $("#btnLogin").attr("disabled", false);
-        
+
 
     }
 }
@@ -46,9 +46,9 @@ function getEmpemail(data){
     var data = $("#employee_id").val();
     // alert(data)
 
-    $.ajax({  
-            url:getemail_process_link, 
-            method:"POST",  
+    $.ajax({
+            url:getemail_process_link,
+            method:"POST",
             data: {"data": data,},
             dataType:"json",
 
@@ -57,9 +57,9 @@ function getEmpemail(data){
                 if (data !="") {
                     $('#emp_email').val(data.email);
                 }
-            }  
+            }
         });
-    } 
+    }
 
 $(()=>{
 $('#loginForm').submit(function(e) {
@@ -67,9 +67,9 @@ $('#loginForm').submit(function(e) {
     var formData = new FormData(this);
     e.preventDefault();
 
-       $.ajax({  
-            url:login_check_process_link, 
-            method:"POST",  
+       $.ajax({
+            url:login_check_process_link,
+            method:"POST",
             data: formData,
             cache:false,
             contentType: false,
@@ -103,12 +103,12 @@ $('#loginForm').submit(function(e) {
                         function() {
                             // window.location = data.url;
                         }, 1000);
-                    
+
 
                 }
-                
-            }  
-        });    
+
+            }
+        });
     });
 })
 
@@ -118,16 +118,16 @@ $('#forgot_pass').submit(function(e) {
     var formData = new FormData(this);
     e.preventDefault();
 
-       $.ajax({  
-            url:forgot_pass_process_link, 
-            method:"POST",  
+       $.ajax({
+            url:forgot_pass_process_link,
+            method:"POST",
             data: formData,
             cache:false,
             contentType: false,
             processData: false,
             dataType:"json",
              beforeSend:function(data){
-                 $(this).attr('disabled','disabled'); 
+                 $(this).attr('disabled','disabled');
                     $("#forgot_pass_but").text('Sending Email...');
             },
 
@@ -140,7 +140,7 @@ $('#forgot_pass').submit(function(e) {
                     $("#"+key+'_error').text(value)
                     $("#"+key+'_error').show();
                     });
-                    $(this).removeAttr('disabled'); 
+                    $(this).removeAttr('disabled');
                     $("#forgot_pass_but").text('Save');
                }
                 if(data.response =='Updated'){
@@ -169,24 +169,26 @@ $('#forgot_pass').submit(function(e) {
                        }, 1000);
 
                    }
-                
-            }  
-        });    
+
+            }
+        });
     });
 })
 
 $('#con_pass').submit(function(e) {
     var params = new window.URLSearchParams(window.location.search);
     var token  = params.get('token')
+
+    // var token=$("#hidden_id").val();
     // alert(token)
     var formData = new FormData(this);
     formData.append( 'token', token );
     e.preventDefault();
 
 
-       $.ajax({  
-            url:con_pass_process_link, 
-            method:"POST",  
+       $.ajax({
+            url:con_pass_process_link,
+            method:"POST",
             data: formData,
             cache:false,
             contentType: false,
@@ -229,7 +231,7 @@ $('#con_pass').submit(function(e) {
                        }, 2000);
 
                    }
-                
-            }  
-        });    
+
+            }
+        });
     });

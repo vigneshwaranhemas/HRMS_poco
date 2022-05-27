@@ -22,10 +22,13 @@ class GoalsController extends Controller
         $team_member_list = $this->goal->fetchSupervisorList();
         $supervisor_list = $this->goal->fetchSupervisorList();
         $reviewer_list = $this->goal->fetchReviewerList();
+        // $fetchHr_List = $this->goal->fetchHrList();
         $logined_empID = Auth::user()->empID;        
 
         if($logined_empID == "900531"){ //business head
             return view('goals.bh_goal_index')->with("reviewer_list", $reviewer_list);
+        }elseif($logined_empID == "900380"){ //HR head
+            return view('goals.hr_goal_index')->with("reviewer_list", $reviewer_list);
         }elseif($result == "Reviewer"){
             return view('goals.reviewer_goal_index')->with("reviewer_list", $reviewer_list);
         }elseif($result == "Supervisor"){
@@ -81,6 +84,17 @@ class GoalsController extends Controller
     {
         $id = $request->id;        
         $head = $this->goal->goals_consolidate_rate_head($id);
+        return json_encode($head);
+    }
+    public function goals_sup_th_check(Request $request)
+    {
+        $id = $request->id;        
+        $result = $this->goal->checkSupervisorIDOrNot($id);
+        if(!empty($result)){
+            $head = "Yes";
+        }else{
+            $head = "No";
+        }
         return json_encode($head);
     }
     public function fetch_goals_setting_id_details(Request $request)
@@ -734,24 +748,23 @@ class GoalsController extends Controller
         $datas = json_decode($json);
 
         $html = '';
-
         foreach($datas as $key=>$data){
             $cell1 = $key+1;
             $row_values = json_decode($data);
             $cell2 = "key_bus_drivers_".$cell1;
             $cell3 = "key_res_areas_".$cell1;
-            $cell4 = "sub_indicators_".$cell1;
-            $cell5 = "measurement_criteria_".$cell1;
-            $cell6 = "weightage_".$cell1;
-            $cell7 = "reference_".$cell1;
-            $cell8 = "rate_".$cell1;
-            $cell9 = "actuals_".$cell1;
-            $cell10 = "self_remarks_".$cell1;
-            $cell11 = "self_assessment_rate_".$cell1;
-            $cell12 = "sup_remarks_".$cell1;
+            $cell4 = "measurement_criteria_".$cell1;
+            $cell5 = "self_assessment_remark_".$cell1;
+            $cell6 = "rating_by_employee_".$cell1;
+            $cell7 = "sup_remarks_".$cell1;
+            $cell8 = "sup_final_output_".$cell1;
+            $cell9 = "reviewer_remarks_".$cell1;
+            $cell10 = "hr_remarks_".$cell1;
+            $cell11 = "bh_sign_off_".$cell1;
+            /*$cell12 = "sup_remarks_".$cell1;
             $cell13 = "sup_rating_".$cell1;
             $cell14 = "reviewer_remarks_".$cell1;
-            $cell15 = "bh_sign_off_".$cell1;
+            $cell15 = "bh_sign_off_".$cell1;*/
 
             $html .= '<tr  class="border-bottom-primary">';
             /*cell 1*/
@@ -848,18 +861,13 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 6*/
             if($row_values->$cell6 != null){
-                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
                     foreach($row_values->$cell6 as $cell6_value){
-                        // dd($cell3_value);
                         if($cell6_value != null){
                             
                             $html .= '<p>'.$cell6_value.'</p>';
@@ -871,18 +879,13 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 7*/
             if($row_values->$cell7 != null){
-                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
                     foreach($row_values->$cell7 as $cell7_value){
-                        // dd($cell3_value);
                         if($cell7_value != null){
                             
                             $html .= '<p>'.$cell7_value.'</p>';
@@ -894,18 +897,13 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 8*/
             if($row_values->$cell8 != null){
-                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
                     foreach($row_values->$cell8 as $cell8_value){
-                        // dd($cell3_value);
                         if($cell8_value != null){
                             
                             $html .= '<p>'.$cell8_value.'</p>';
@@ -917,7 +915,6 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
@@ -925,10 +922,7 @@ class GoalsController extends Controller
             if($row_values->$cell9 != null){
                 //    dd(count($row_values->$cell3));
                 $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
                     foreach($row_values->$cell9 as $cell9_value){
-                        // dd($cell3_value);
                         if($cell9_value != null){
                             
                             $html .= '<p>'.$cell9_value.'</p>';
@@ -940,18 +934,13 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 10*/
             if($row_values->$cell10 != null){
-                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
                     foreach($row_values->$cell10 as $cell10_value){
-                        // dd($cell3_value);
                         if($cell10_value != null){
                             
                             $html .= '<p>'.$cell10_value.'</p>';
@@ -963,22 +952,16 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 11*/
             if($row_values->$cell11 != null){
-                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
                     foreach($row_values->$cell11 as $cell11_value){
                         // dd($cell3_value);
                         if($cell11_value != null){
-                            
                             $html .= '<p>'.$cell11_value.'</p>';
-
                         }
                     }
 
@@ -986,99 +969,6 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
-                $html .= '</td>';
-            }
-
-            /*cell 12*/
-            if($row_values->$cell12 != null){
-                //    dd(count($row_values->$cell3));
-                $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
-                    foreach($row_values->$cell12 as $cell12_value){
-                        // dd($cell3_value);
-                        if($cell12_value != null){
-                            
-                            $html .= '<p>'.$cell12_value.'</p>';
-
-                        }
-                    }
-
-                $html .= '</td>';
-
-            }else{
-                $html .= '<td>';
-                // $html .= '<p></p>';
-                $html .= '</td>';
-            }
-            
-            /*cell 13*/
-            if($row_values->$cell13 != null){
-                //    dd(count($row_values->$cell3));
-                $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
-                    foreach($row_values->$cell13 as $cell13_value){
-                        // dd($cell3_value);
-                        if($cell13_value != null){
-                            
-                            $html .= '<p>'.$cell13_value.'</p>';
-
-                        }
-                    }
-
-                $html .= '</td>';
-
-            }else{
-                $html .= '<td>';
-                // $html .= '<p></p>';
-                $html .= '</td>';
-            }
-
-            /*cell 14*/
-            if($row_values->$cell14 != null){
-                //    dd(count($row_values->$cell3));
-                $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
-                    foreach($row_values->$cell14 as $cell14_value){
-                        // dd($cell3_value);
-                        if($cell14_value != null){
-                            
-                            $html .= '<p>'.$cell14_value.'</p>';
-
-                        }
-                    }
-
-                $html .= '</td>';
-
-            }else{
-                $html .= '<td>';
-                // $html .= '<p></p>';
-                $html .= '</td>';
-            }
-            
-            /*cell 15*/
-            if($row_values->$cell15 != null){
-                //    dd(count($row_values->$cell3));
-                $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
-                    foreach($row_values->$cell15 as $cell15_value){
-                        // dd($cell3_value);
-                        if($cell15_value != null){
-                            
-                            $html .= '<p>'.$cell15_value.'</p>';
-
-                        }
-                    }
-
-                $html .= '</td>';
-
-            }else{
-                $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
@@ -1251,41 +1141,21 @@ class GoalsController extends Controller
             }                                             
             $html .= '</td>';
 
-            // if($row_values->$cell8 != null){
-            //     //    dd(count($row_values->$cell3));
-            //     $html .= '<td>';
-            //         // $html .= '<p>HR Shared Services : </p>';
 
-            //         foreach($row_values->$cell8 as $cell8_value){
-            //             // dd($cell3_value);
-            //             if($cell8_value != null){
-                            
-            //                 $html .= '<p>'.$cell8_value.'</p>';
-
-            //             }
-            //         }
-
-            //     $html .= '</td>';
-
-            // }else{
-            //     $html .= '<td>';
-            //     // $html .= '<p></p>';
-            //     $html .= '</td>';
-            // }
 
             $html .= '</tr>';
             
         }
 
-        // dd($html);
+        // echo "<pre>";print_r($html);die;
 
         return json_encode($html);
     }
     public function fetch_goals_reviewer_edit(Request $request)
     {                
+        // dd($request->all());
         $id = $request->id;        
         $supvisor = $this->goal->checkSupervisorIDOrNot($id);  
-
         if(!empty($supvisor)){
             //supervisor reviewer edit concept
 
@@ -1299,17 +1169,14 @@ class GoalsController extends Controller
                 $row_values = json_decode($data);
                 $cell2 = "key_bus_drivers_".$cell1;
                 $cell3 = "key_res_areas_".$cell1;
-                $cell4 = "sub_indicators_".$cell1;
-                $cell5 = "measurement_criteria_".$cell1;
-                $cell6 = "weightage_".$cell1;
-                $cell7 = "reference_".$cell1;
-                $cell8 = "rate_".$cell1;
-                $cell9 = "actuals_".$cell1;
-                $cell10 = "self_remarks_".$cell1;
-                $cell11 = "self_assessment_rate_".$cell1;
-                $cell12 = "sup_remarks_".$cell1;
-                $cell13 = "sup_rating_".$cell1;
-                $cell14 = "reviewer_remarks_".$cell1;
+                $cell4 = "measurement_criteria_".$cell1;
+                $cell5 = "self_assessment_remark_".$cell1;
+                $cell6 = "rating_by_employee_".$cell1;
+                $cell7 = "sup_remarks_".$cell1;
+                $cell8 = "sup_final_output_".$cell1;
+                $cell9 = "reviewer_remarks_".$cell1;
+                $cell10 = "hr_remarks_".$cell1;
+                $cell11 = "bh_sign_off_".$cell1;
 
                 $html .= '<tr  class="border-bottom-primary">';
                 
@@ -1341,12 +1208,8 @@ class GoalsController extends Controller
                         
                 /*Cell 3*/
                 if($row_values->$cell3 != null){
-                    //    dd(count($row_values->$cell3));
                     $html .= '<td>';
-                        // $html .= '<p>HR Shared Services : </p>';
-
                         foreach($row_values->$cell3 as $cell3_value){
-                            // dd($cell3_value);
                             if($cell3_value != null){
                                 
                                 $html .= '<p>'.$cell3_value.'</p>';
@@ -1361,7 +1224,6 @@ class GoalsController extends Controller
 
                 }else{
                     $html .= '<td>';
-                    // $html .= '<p></p>';
                     $html .= '</td>';
                 }
 
@@ -1435,114 +1297,24 @@ class GoalsController extends Controller
                 }
 
                 /*Cell 7*/
-                if($row_values->$cell7 != null){
-                    //    dd(count($row_values->$cell3));
-                    $html .= '<td>';
-                        // $html .= '<p>HR Shared Services : </p>';
-
-                        foreach($row_values->$cell7 as $cell7_value){
-                            // dd($cell3_value);
-                            if($cell7_value != null){
-                                
-                                $html .= '<p>'.$cell7_value.'</p>';
-
-                            }
-                        }
-
-                    $html .= '</td>';
-
-                }else{
-                    $html .= '<td>';
-                    // $html .= '<p></p>';
-                    $html .= '</td>';
-                }
-
-                /*Cell 8*/
-                if($row_values->$cell8 != null){
-                    //    dd(count($row_values->$cell3));
-                    $html .= '<td>';
-                        // $html .= '<p>HR Shared Services : </p>';
-
-                        foreach($row_values->$cell8 as $cell8_value){
-                            // dd($cell3_value);
-                            if($cell8_value != null){
-                                
-                                $html .= '<p>'.$cell8_value.'</p>';
-
-                            }
-                        }
-
-                    $html .= '</td>';
-
-                }else{
-                    $html .= '<td>';
-                    // $html .= '<p></p>';
-                    $html .= '</td>';
-                }
-
-                /*Cell 9*/
-                if($row_values->$cell9 != null){
-                    //    dd(count($row_values->$cell3));
-                    $html .= '<td>';
-                        // $html .= '<p>HR Shared Services : </p>';
-
-                        foreach($row_values->$cell9 as $cell9_value){
-                            // dd($cell3_value);
-                            if($cell9_value != null){
-                                
-                                $html .= '<p>'.$cell9_value.'</p>';
-
-                            }
-                        }
-
-                    $html .= '</td>';
-
-                }else{
-                    $html .= '<td>';
-                    // $html .= '<p></p>';
-                    $html .= '</td>';
-                }
-
-                /*Cell 10*/
                 $html .= '<td>';                
-                if($row_values->$cell8 != null){                    
-                $html .= '<p>'.$row_values->$cell8[0].'</p>';
-                }                                            
-                $html .= '</td>';
-
-                /*Cell 11*/
-                $html .= '<td>';                
-                if($row_values->$cell9 != null){                    
-                    $html .= '<p>'.$row_values->$cell9[0].'</p>';
-                }                                            
-                $html .= '</td>';
-
-                /*Cell 12*/
-                $html .= '<td>';                
-                if($row_values->$cell12 != null){                    
-                    $html .= '<textarea type="text" name="sup_review_'.$cell1.'[]" class="form-control">'.$row_values->$cell12[0].'</textarea>';
+                if($row_values->$cell7 != null){                    
+                    $html .= '<textarea type="text" name="sup_review_'.$cell1.'[]" class="form-control">'.$row_values->$cell7[0].'</textarea>';
                 }else{
                     $html .= '<textarea type="text" name="sup_review_'.$cell1.'[]" class="form-control"></textarea>';
                 }                                             
                 $html .= '</td>';
 
-                /*Cell 13*/
-                $html .= '<td>';                
-                if($row_values->$cell13 != null){                    
-                    $html .= '<input type="text" name="sup_remarks_'.$cell1.'[]" value="'.$row_values->$cell13[0].'" class="form-control">';
+                /*Cell 8*/
+                 $html .= '<td>';                
+                if($row_values->$cell8 != null){                    
+                    $html .= '<textarea type="text" name="sup_review_'.$cell1.'[]" class="form-control">'.$row_values->$cell8[0].'</textarea>';
                 }else{
-                    $html .= '<input type="text" name="sup_remarks_'.$cell1.'[]" class="form-control">';
+                    $html .= '<textarea type="text" name="sup_review_'.$cell1.'[]" class="form-control"></textarea>';
                 }                                             
                 $html .= '</td>';
+
                 
-                /*Cell 14*/
-                $html .= '<td>';                
-                if($row_values->$cell14 != null){                    
-                    $html .= '<textarea type="text" name="sup_rating_'.$cell1.'[]" class="form-control">'.$row_values->$cell14[0].'</textarea>';
-                }else{
-                    $html .= '<textarea type="text" name="sup_rating_'.$cell1.'[]" class="form-control"></textarea>';
-                }                                             
-                $html .= '</td>';
 
                 $html .= '</tr>';
                 
@@ -1561,17 +1333,12 @@ class GoalsController extends Controller
                 $row_values = json_decode($data);
                 $cell2 = "key_bus_drivers_".$cell1;
                 $cell3 = "key_res_areas_".$cell1;
-                $cell4 = "sub_indicators_".$cell1;
-                $cell5 = "measurement_criteria_".$cell1;
-                $cell6 = "weightage_".$cell1;
-                $cell7 = "reference_".$cell1;
-                $cell8 = "rate_".$cell1;
-                $cell9 = "actuals_".$cell1;
-                $cell10 = "self_remarks_".$cell1;
-                $cell11 = "self_assessment_rate_".$cell1;
-                $cell12 = "sup_remarks_".$cell1;
-                $cell13 = "sup_rating_".$cell1;
-                $cell14 = "reviewer_remarks_".$cell1;
+                $cell4 = "measurement_criteria_".$cell1;
+                $cell5 = "self_assessment_remark_".$cell1;
+                $cell6 = "rating_by_employee_".$cell1;
+                $cell7 = "sup_remarks_".$cell1;
+                $cell8 = "sup_final_output_".$cell1;
+                $cell9 = "reviewer_remarks_".$cell1;
 
                 $html .= '<tr  class="border-bottom-primary">';
                 
@@ -1697,109 +1464,29 @@ class GoalsController extends Controller
                 }
 
                 /*Cell 7*/
-                if($row_values->$cell7 != null){
-                    //    dd(count($row_values->$cell3));
-                    $html .= '<td>';
-                        // $html .= '<p>HR Shared Services : </p>';
-
-                        foreach($row_values->$cell7 as $cell7_value){
-                            // dd($cell3_value);
-                            if($cell7_value != null){
-                                
-                                $html .= '<p>'.$cell7_value.'</p>';
-
-                            }
-                        }
-
-                    $html .= '</td>';
-
-                }else{
-                    $html .= '<td>';
-                    // $html .= '<p></p>';
-                    $html .= '</td>';
-                }
+                $html .= '<td>';                
+                if($row_values->$cell7 != null){                    
+                $html .= '<p>'.$row_values->$cell7[0].'</p>';
+                }                                            
+                $html .= '</td>';
 
                 /*Cell 8*/
-                if($row_values->$cell8 != null){
-                    //    dd(count($row_values->$cell3));
-                    $html .= '<td>';
-                        // $html .= '<p>HR Shared Services : </p>';
-
-                        foreach($row_values->$cell8 as $cell8_value){
-                            // dd($cell3_value);
-                            if($cell8_value != null){
-                                
-                                $html .= '<p>'.$cell8_value.'</p>';
-
-                            }
-                        }
-
-                    $html .= '</td>';
-
-                }else{
-                    $html .= '<td>';
-                    // $html .= '<p></p>';
-                    $html .= '</td>';
-                }
-
-                /*Cell 9*/
-                if($row_values->$cell9 != null){
-                    //    dd(count($row_values->$cell3));
-                    $html .= '<td>';
-                        // $html .= '<p>HR Shared Services : </p>';
-
-                        foreach($row_values->$cell9 as $cell9_value){
-                            // dd($cell3_value);
-                            if($cell9_value != null){
-                                
-                                $html .= '<p>'.$cell9_value.'</p>';
-
-                            }
-                        }
-
-                    $html .= '</td>';
-
-                }else{
-                    $html .= '<td>';
-                    // $html .= '<p></p>';
-                    $html .= '</td>';
-                }
-
-                /*Cell 10*/
                 $html .= '<td>';                
                 if($row_values->$cell8 != null){                    
-                $html .= '<p>'.$row_values->$cell8[0].'</p>';
+                    $html .= '<p>'.$row_values->$cell8[0].'</p>';
                 }                                            
                 $html .= '</td>';
 
-                /*Cell 11*/
+                /*Cell 9*/
                 $html .= '<td>';                
                 if($row_values->$cell9 != null){                    
-                    $html .= '<p>'.$row_values->$cell9[0].'</p>';
-                }                                            
+                     $html .= '<textarea type="text" name="sup_remarks_'.$cell1.'[]" class="form-control">'.$row_values->$cell9[0].'</textarea>';
+                 }else{
+                     $html .= '<textarea type="text" name="sup_remarks_'.$cell1.'[]" class="form-control"></textarea>';
+                 }                                           
                 $html .= '</td>';
 
-                /*Cell 12*/
-                $html .= '<td>';                
-                if($row_values->$cell12 != null){                    
-                $html .= '<p>'.$row_values->$cell12[0].'</p>';
-                }                                            
-                $html .= '</td>';
-
-                /*Cell 13*/
-                $html .= '<td>';                
-                if($row_values->$cell13 != null){                    
-                    $html .= '<p>'.$row_values->$cell13[0].'</p>';
-                }                                            
-                $html .= '</td>';
-
-                /*Cell 14*/
-                $html .= '<td>';                
-                if($row_values->$cell14 != null){                    
-                    $html .= '<textarea type="text" name="reviewer_remarks_'.$cell1.'[]" class="form-control">'.$row_values->$cell14[0].'</textarea>';
-                }else{
-                    $html .= '<textarea type="text" name="reviewer_remarks_'.$cell1.'[]" class="form-control"></textarea>';
-                }                                             
+                                                
                 $html .= '</td>';
 
                 $html .= '</tr>';
@@ -2935,6 +2622,7 @@ class GoalsController extends Controller
         $result = $this->goal->fetch_team_leader_filter($team_leader_filter); 
         return json_encode($result); 
     }
+
     public function fetch_goals_employee_summary(Request $request){
         $id = $request->id;        
         $result = $this->goal->fetch_goals_employee_summary($id);
@@ -2945,5 +2633,54 @@ class GoalsController extends Controller
         $employee_summary = $request->employee_summary;        
         $result = $this->goal->goals_supervisor_summary($id, $employee_summary);
         return response($result);
+    }
+
+/*hr goal list*/
+     public function get_hr_goal_list(Request $request){ 
+
+        if ($request !="") {
+            $input_details = array(
+            'team_leader_filter'=>$request->input('team_leader_filter'),
+            );
+        }
+
+        if ($request->ajax()) {
+            
+            $get_goal_list_result = $this->goal->get_reviewer_goal_list($input_details);
+
+            return DataTables::of($get_goal_list_result)
+            ->addIndexColumn()
+            ->addColumn('status', function($row) {
+                // echo "<pre>";print_r($row);die;   
+                if($row->goal_status == "Pending"){
+                    $btn = '<button class="btn btn-danger btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;                                   
+    
+                }elseif($row->goal_status == "Revert"){
+                    $btn = '<button class="btn btn-primary btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;                                   
+    
+                }elseif($row->goal_status == "Approved"){
+                    $btn = '<button class="btn btn-success btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;                                   
+                    
+                }
+    
+                return $btn;
+            })
+            ->addColumn('action', function($row) {
+                    // echo "<pre>";print_r($row);die;                
+                    $btn = '<div class="dropup">
+                    <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                    <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                        <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                        <a href="goal_setting_reviewer_edit?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs goals_btn" type="button"><i class="fa fa-pencil"></i></button></a>
+                    </div>
+                    </div>' ;                                   
+    
+                return $btn;
+            })
+    
+            ->rawColumns(['status', 'action'])
+            ->make(true);
+        }
+        
     }
 }

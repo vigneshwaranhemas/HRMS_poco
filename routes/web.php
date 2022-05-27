@@ -448,7 +448,7 @@ Route::post( 'process_policy_information_delete', 'AdminController@process_polic
 /*forgot password*/
 Route::get('forgetPassword', 'LoginController@showForgetPasswordForm');
 Route::post('forgot_pass_process','LoginController@submitForgetPasswordForm');
-Route::get('email_pass','LoginController@email_pass');
+Route::get('/email_pass/{token}','LoginController@email_pass');
 Route::post('con_pass_process','LoginController@con_pass_process');
 Route::post('getemail_process','LoginController@getemail_process');
 
@@ -495,4 +495,8 @@ Route::post('medical_details', 'HrController@medical_details')->name('medical_de
 
 // Leave Balance for Candidate
 Route::get('leave_balance', 'CandidateController@leave_balance')->name('leave_balance');
+
+//goals
+Route::get('get_hr_goal_list','GoalsController@get_hr_goal_list');
+Route::get('goals_sup_th_check','GoalsController@goals_sup_th_check');
 

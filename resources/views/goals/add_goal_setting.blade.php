@@ -90,6 +90,10 @@
                                     <th scope="col">Measurement Criteria (UOM)</th>
                                     <th scope="col">Weightage</th>
                                     <th scope="col">Reference </th>
+                                    <th scope="col">Target </th>
+                                    <th scope="col">Actuals </th>
+                                    <th scope="col">Self - Remarks on Target vs Actuals</th>
+                                    <th scope="col">Self-Assessment Rating </th>
                                     <th scope="col"></th>
                                     <th scope="col">
                                         <i class="fa fa-plus txt-primary"
@@ -213,6 +217,22 @@
                         html +='</td>';
 
                         html +='<td>';
+                            html +='<textarea name="rate_1[]" id="" class="form-control"></textarea>';
+                        html +='</td>';
+
+                        html +='<td>';
+                            html +='<textarea name="actuals_1[]" id="" class="form-control"></textarea>';
+                        html +='</td>';
+
+                        html +='<td>';
+                            html +='<textarea name="self_remarks_1[]" id="" class="form-control"></textarea>';
+                        html +='</td>';
+
+                        html +='<td>';
+                            html +='<input type="text" name="self_assessment_rate_1[]" id="" class="form-control">';
+                        html +='</td>';
+
+                        html +='<td>';
                             html +='<div style="margin-top: 80px;"></div>';
                         html +='</td>';
 
@@ -261,19 +281,27 @@
         var html3 = '<textarea id="" class="form-control m-t-5 '+code+'" name="sub_indicators_'+cur_rowCount+'[]"></textarea>';
         var html4 = '<textarea id="" class="form-control m-t-5 '+code+'" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
         var html6 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
+        var html7 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
+        var html8 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
+        // var html9 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
+        // var html10 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
         
-        var html7 = '';
+        var html11 = '';
 
-        html7 +='<div class="dropup m-t-35">';
-            html7 +='<button type="button" class="btn btn-xs btn-danger '+code+'" onclick="removeRow(this,'+code+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
+        html11 +='<div class="dropup m-t-35">';
+            html11 +='<button type="button" class="btn btn-xs btn-danger '+code+'" onclick="removeRow(this,'+code+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
             // html7 +='<button type="button" class="btn btn-xs btn-danger sub_row_'+cur_rowCount+'" onclick="removeRow(this,'+class_sub+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
-        html7 +='</div>';
+        html11 +='</div>';
         
         $(x).closest("tr").find("td:eq(2)").append(html2);
         $(x).closest("tr").find("td:eq(3)").append(html3);
         $(x).closest("tr").find("td:eq(4)").append(html4);
         $(x).closest("tr").find("td:eq(6)").append(html6);
         $(x).closest("tr").find("td:eq(7)").append(html7);
+        $(x).closest("tr").find("td:eq(8)").append(html8);
+        // $(x).closest("tr").find("td:eq(9)").append(html9);
+        // $(x).closest("tr").find("td:eq(10)").append(html10);
+        $(x).closest("tr").find("td:eq(11)").append(html11);
 
     }
 
@@ -320,6 +348,22 @@
 
                 html +='<td>';
                     html +='<textarea name="reference_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                html +='</td>';
+
+                html +='<td>';
+                    html +='<textarea name="rate_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                html +='</td>';
+
+                html +='<td>';
+                    html +='<textarea name="actuals_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                html +='</td>';
+
+                html +='<td>';
+                    html +='<textarea name="self_remarks_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                html +='</td>';
+
+                html +='<td>';
+                    html +='<input type="text" name="self_assessment_rate_'+cur_rowCount+'[]" id="" class="form-control">';
                 html +='</td>';
 
                 html +='<td>';

@@ -53,6 +53,8 @@
 										<th scope="col">Self-Assessment Rating </th>
 										<th scope="col">Supervisor Reamrks </th>
 										<th scope="col">Supervisor Rating </th>
+										<th scope="col">Reviewer Reamrks </th>
+										<th scope="col">Business Head</th>
 									</tr>
 								</thead>
 								<tbody id="goals_record">									

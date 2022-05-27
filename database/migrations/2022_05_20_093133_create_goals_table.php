@@ -20,6 +20,7 @@ class CreateGoalsTable extends Migration
             $table->string('goal_status');
             $table->string('goal_unique_code');
             $table->string('created_by');
+            $table->string('created_by_name');
             $table->timestamps();
         });
     }

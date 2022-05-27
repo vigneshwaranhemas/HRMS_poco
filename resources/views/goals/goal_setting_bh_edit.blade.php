@@ -9,6 +9,11 @@
 @endsection
 
 @section('style')
+<style>
+	#remark_div{
+		display: none;
+	}
+</style>
 @endsection
 
 @section('breadcrumb-title')
@@ -36,7 +41,7 @@
 					</div>
 					<div class="card-body">
 
-						<div class="table-responsive">
+						<div class="table-responsive m-b-15 ">
 							<table class="table  table-border-vertical table-border-horizontal" id="goal-tb">
 								<thead>
 									<tr>
@@ -51,13 +56,36 @@
 										<th scope="col">Actuals </th>
 										<th scope="col">Self - Remarks on Target vs Actuals</th>
 										<th scope="col">Self-Assessment Rating </th>
-										<th scope="col">Supervisor Reamrks </th>
-										<th scope="col">Supervisor Rating </th>
+										<th scope="col">Supervisor Remarks</th>
+										<th scope="col">Supervisor Rating</th>
+										<th scope="col">Reviewer Remarks</th>
+										<th scope="col">BH Sign-Off</th>
 									</tr>
 								</thead>
-								<tbody id="goals_record">									
+								<tbody id="goals_record">
+									
 								</tbody>
 							</table>
+							<div class="m-t-40 m-b-30">
+								<div class="row">									
+									<div class="col-lg-2">
+										<label>Goal Status</label><br>
+										<select class="js-example-basic-single" style="width:250px;margin-top:30px !important;" id="goals_status" name="goals_status">
+											<option value="" selected>...Select...</option>
+											<option value="Approved">Approved</option>
+											<option value="Revert">Revert</option>
+										</select>
+									</div>
+									<div class="col-lg-2" id="remark_div">
+										<label>Remark</label><br>
+										<textarea type="text" name="sup_review_'.$cell1.'[]" class="form-control"></textarea>
+									</div>
+									<div class="col-lg-2">
+										<button onclick="goals_status();" class="btn btn-success m-t-30 m-l-5"><i class="ti-save"></i> Save</button>                                            
+									</div>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 
@@ -94,26 +122,70 @@
 	<!-- login js-->
 	<!-- Plugin used-->
 	<script>
-		// $( document ).ready(function() {
-		// 	goals_record();
-		// });
-
 		var params = new window.URLSearchParams(window.location.search);
 		var id=params.get('id')
 		$('#goals_setting_id').val(id);
-		// function goals_record(){
 			
-			var id = $('#goals_setting_id').val();
+		var id = $('#goals_setting_id').val();
+
+		$.ajax({                   
+			url:"{{ url('goals_sheet_head') }}",
+			type:"GET",
+			data:{id:id},
+			dataType : "JSON",
+			success:function(response)
+			{
+				$('#goals_sheet_head').append('');
+				$('#goals_sheet_head').append(response);
+			},
+			error: function(error) {
+				console.log(error);
+
+			}                                              
+				
+		});
+
+		$.ajax({                   
+			url:"{{ url('fetch_goals_bh_edit') }}",
+			type:"GET",
+			data:{id:id},
+			dataType : "JSON",
+			success:function(response)
+			{
+				$('#goals_record').append('');
+				$('#goals_record').append(response);
+			},
+			error: function(error) {
+				console.log(error);
+
+			}                                              
+				
+		});
+		
+		$('#goals_status').change(function() {
+			var goals_status = $('#goals_status').val();
+			if(goals_status == "Revert"){
+				$('#remark_div').css('display', 'block');
+			}
+			
+		});
+
+		function goals_status(){
+			var goals_status = $('#goals_status').val();
+			var params = new window.URLSearchParams(window.location.search);
+			var id=params.get('id')
 
 			$.ajax({                   
-				url:"{{ url('goals_sheet_head') }}",
-				type:"GET",
-				data:{id:id},
+				url:"{{ url('goals_status') }}",
+				type:"POST",
+				data:{
+					goals_status:goals_status,
+					id:id
+				},
 				dataType : "JSON",
 				success:function(response)
 				{
-					$('#goals_sheet_head').append('');
-					$('#goals_sheet_head').append(response);
+					window.location = "{{ url('goals')}}";                				
 				},
 				error: function(error) {
 					console.log(error);
@@ -121,25 +193,7 @@
 				}                                              
 					
 			});
-
-			$.ajax({                   
-				url:"{{ url('fetch_goals_setting_id_details') }}",
-				type:"GET",
-				data:{id:id},
-				dataType : "JSON",
-				success:function(response)
-				{
-					$('#goals_record').append('');
-					$('#goals_record').append(response);
-				},
-				error: function(error) {
-					console.log(error);
-
-				}                                              
-					
-			});
-		// }
-
+		}
 	</script>
 
 @endsection

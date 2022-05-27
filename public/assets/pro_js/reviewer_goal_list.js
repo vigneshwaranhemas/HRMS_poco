@@ -107,11 +107,11 @@ function team_member_goal_record(){
         //     { 'visible': false, 'targets': [3] }
         // ],
         ajax: {
-            url: "get_team_member_goal_list",
+            url: "get_reviewer_goal_list",
             type: 'GET',
             dataType: "json",
             data: function (d) {
-                d.team_member_filter = $('#team_member_filter').val();
+                d.team_leader_filter = $('#team_leader_filter').val();
             }
         },
         createdRow: function( row, data, dataIndex ) {
@@ -132,18 +132,38 @@ function team_member_goal_record(){
     });
 }
 
-function supervisor_filter_reset(){
-    $("#team_member_filter").val('').trigger('change');
+function clearFunction() {
+    $('#team_member_filter').val('');
     team_member_goal_record();
 }
 
-function supervisor_filter_apply(){
-    team_member_goal_record();
-}
+$('#team_member_filter').change(function() {
+    team_member_goal_record();    
+});
 
-// $('#team_member_filter').change(function() {
-//     team_member_goal_record();    
-// });
+$('#team_leader_filter').change(function() {
+    var team_leader_filter = $('#team_leader_filter').val();
+
+    if(team_leader_filter != ''){        
+        $.ajax({                   
+            url:"fetch_team_leader_filter",
+            type:"GET",
+            data:{team_leader_filter:team_leader_filter},
+            dataType : "JSON",
+            success:function(response)
+            {
+                // console.log(response)
+                $('#team_member_filter').html(response);
+            },
+            error: function(error) {
+                console.log(error);
+
+            }                                              
+                
+        });
+    }
+    
+});
 
 function goal_record(){
 
@@ -331,3 +351,12 @@ $("#formGoalDelete").submit(function(e) {
     });
 
 });
+
+function reviewer_filter_apply(){
+    team_member_goal_record();
+}
+
+function reviewer_filter_reset(){
+    $("#team_leader_filter").val('').trigger('change');
+    team_member_goal_record();
+}

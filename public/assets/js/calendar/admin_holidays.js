@@ -396,6 +396,7 @@ $('#holidays-form-insert').on('submit',function(event){
     event.preventDefault();
     
     $('#occassion_error').html("");
+    $('#description_error').html("");
     $('#occassion_file_error').html("");
     $('#state_error').html("");
     
@@ -435,6 +436,7 @@ $('#holidays-form-insert').on('submit',function(event){
         error: function(response) {
             console.log(response.responseJSON.errors);
             $('#occassion_error').text(response.responseJSON.errors.occassion);
+            $('#description_error').text(response.responseJSON.errors.description);
             $('#occassion_file_error').text(response.responseJSON.errors.occassion_file);
             $('#state_error').text(response.responseJSON.errors.state);
         }        
@@ -456,6 +458,11 @@ $('#updateHolidaysForm').on('submit',function(event){
     // fd.append('id',$('#holidays_edit_id').val());
     // fd.append('occassion_file',files[0]);
     // console.log(fd)
+
+    $('#occassion_edit_error').html("");
+    $('#state_edit_error').html("");
+    // $('#occassion_file_error').html("");
+    $('#description_edit_error').html("");
 
     let formData = new FormData(this);
 
@@ -487,6 +494,7 @@ $('#updateHolidaysForm').on('submit',function(event){
             console.log(response.responseJSON.errors);                   
             $('#occassion_edit_error').text(response.responseJSON.errors.occassion);
             $('#state_edit_error').text(response.responseJSON.errors.state);
+            $('#description_edit_error').text(response.responseJSON.errors.description);
         }
         
     }); 

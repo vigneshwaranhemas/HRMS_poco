@@ -186,7 +186,7 @@ body
                   </div>
                   <div class="form-group">
                      <label class="col-form-label" for="description_edit">Description:</label>
-                     <textarea class="form-control" name="description" id="description_edit"></textarea>
+                     <textarea class="form-control" name="description" id="description_edit_error"></textarea>
                   </div>                            
                   <div class="form-row mb-3">
                      <div class="col-md-3">

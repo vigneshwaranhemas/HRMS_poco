@@ -239,7 +239,7 @@ class DocumentsController extends Controller
         return response()->json( $education_result );
         
     }
-    /*account info */
+    /*education info */
     public function education_information_add(Request $request){
 
       
@@ -248,12 +248,14 @@ class DocumentsController extends Controller
                     'institute' => 'required',
                     'begin_on' => 'required',
                     'end_on' => 'required',
+                    'skill' => 'required',
                     'edu_certificate' => 'required|mimes:csv,txt,pdf|max:2048',
                     ], [
                     'qualification.required' => 'Qualification is required',
                     'institute.required' => 'Institute is required',
                     'begin_on.required' => 'Begin On is required',
                     'end_on.required' => 'End On is required',
+                    'skill.required' => 'Skill set is required',
                     'edu_certificate.required' => 'file is required',
                     ]);
 
@@ -269,7 +271,11 @@ class DocumentsController extends Controller
                    $files->move($destinationPath, $profileImage);
                    $edu_certificate = "$profileImage";
 
-                    // echo "<pre>";print_r($path);die;
+
+                   $data = $request->input('skill');
+                   $skill= implode(',', $data);
+                   // echo "<pre>";print_r($skill);die;
+
                     $begin_on = explode('-', $request->input('begin_on'));
                     $edu_start_month = $begin_on[1];
                     $edu_start_year = $begin_on[0];
@@ -288,6 +294,7 @@ class DocumentsController extends Controller
                         'edu_end_year'=>$edu_end_year,
                         'edu_certificate'=>$edu_certificate,
                         'created_on'=>$created_on,
+                        'skill'=>$skill,
                         );
 
                     $insert_education_info_result = $this->profrpy->insert_education_info( $data );

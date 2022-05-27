@@ -29,7 +29,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Supervisor Goal Setting<span>Process</span></h2>
+	<h2>Reviewer Goal Setting<span>Process</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -56,19 +56,20 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Member</label>                                        
-                                        <select class="js-example-basic-single float-right" style="width:250px;" id="team_member_filter" name="team_member_filter">
-                                            <option value="">Select Team Member...</option>
-                                            @foreach($team_member_list as $team_member)
-                                                <option value="{{ $team_member->empID }}">{{ $team_member->username }}</option>
+                                        <label for="Leader">Select Team Leader</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter" name="team_leader_filter">
+                                            <option value="">...Select...</option>
+                                            @foreach($reviewer_list as $reviewer)
+                                                <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col-lg-8 m-t-35">
-                                        <button type="button" id="supervisor_filter_apply" onclick="supervisor_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
-                                        <button type="button" id="reset" onclick="supervisor_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
+                                        <button type="button" id="reviewer_filter_apply" onclick="reviewer_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                        <button type="button" id="reset" onclick="reviewer_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
                                     </div>
                                 </div>
+
                                 <div class="table-responsive m-t-40">
                                     <table class="table" id="team_member_goal_data">
                                         <thead>
@@ -167,6 +168,6 @@
 <script src="../assets/js/select2/select2.full.min.js"></script>
 <script src="../assets/js/select2/select2-custom.js"></script>
 
-<script src="../assets/pro_js/sup_goal_list.js"></script>
+<script src="../assets/pro_js/reviewer_goal_list.js"></script>
 @endsection
 

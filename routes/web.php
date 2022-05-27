@@ -115,8 +115,18 @@ Route::post('/Admin_Request_update',"AdminController@Seating_Status_update");
 //Goals Controller
 Route::get('goals', 'GoalsController@goals')->name('goals');
 Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
+Route::get('goal_setting_supervisor_view', 'GoalsController@goal_setting_supervisor_view')->name('goal_setting_supervisor_view');
+Route::get('goal_setting_reviewer_view', 'GoalsController@goal_setting_reviewer_view')->name('goal_setting_reviewer_view');
+Route::get('goal_setting_supervisor_edit', 'GoalsController@goal_setting_supervisor_edit')->name('goal_setting_supervisor_edit');
+Route::get('fetch_goals_reviewer_edit', 'GoalsController@fetch_goals_reviewer_edit')->name('fetch_goals_reviewer_edit');
+Route::get('fetch_goals_bh_edit', 'GoalsController@fetch_goals_bh_edit')->name('fetch_goals_bh_edit');
+Route::get('goal_setting_reviewer_edit', 'GoalsController@goal_setting_reviewer_edit')->name('goal_setting_reviewer_edit');
+Route::get('goal_setting_bh_edit', 'GoalsController@goal_setting_bh_edit')->name('goal_setting_bh_edit');
 Route::get('edit_goal', 'GoalsController@edit_goal')->name('edit_goal');
 Route::get('fetch_goals_setting_id_details', 'GoalsController@fetch_goals_setting_id_details')->name('fetch_goals_setting_id_details');
+Route::get('fetch_goals_sup_details', 'GoalsController@fetch_goals_sup_details')->name('fetch_goals_sup_details');
+Route::get('fetch_goals_reviewer_details', 'GoalsController@fetch_goals_reviewer_details')->name('fetch_goals_reviewer_details');
+Route::get('fetch_goals_supervisor_edit', 'GoalsController@fetch_goals_supervisor_edit')->name('fetch_goals_supervisor_edit');
 Route::get('fetch_goals_setting_id_edit', 'GoalsController@fetch_goals_setting_id_edit')->name('fetch_goals_setting_id_edit');
 Route::get('goals_sheet_head', 'GoalsController@goals_sheet_head')->name('goals_sheet_head');
 Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
@@ -125,10 +135,16 @@ Route::post('update_goals_data', 'GoalsController@update_goals_data');
 Route::post('goals_delete', 'GoalsController@goals_delete');
 Route::get('get_goal_list', 'GoalsController@get_goal_list' );
 Route::get('get_team_member_goal_list', 'GoalsController@get_team_member_goal_list' );
+Route::get('get_reviewer_goal_list', 'GoalsController@get_reviewer_goal_list' );
 Route::get('calendar', 'GoalsController@calendar' );
 Route::get('add_goal_btn', 'GoalsController@add_goal_btn' );
+Route::post('goals_status', 'GoalsController@goals_status' );
+Route::get('fetch_supervisor_filter', 'GoalsController@fetch_supervisor_filter' );
+Route::get('fetch_reviewer_filter', 'GoalsController@fetch_reviewer_filter' );
+Route::get('fetch_team_leader_filter', 'GoalsController@fetch_team_leader_filter' );
+Route::get('get_bh_goal_list', 'GoalsController@get_bh_goal_list' );
 
-//Birthday controller
+//Birthday controller 
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');
 Route::get('fetch_birthdays_list', 'BirthdayController@fetch_birthdays_list')->name('fetch_birthdays_list');
 Route::get('fetch_birthdays_list_date', 'BirthdayController@fetch_birthdays_list_date')->name('fetch_birthdays_list_date');

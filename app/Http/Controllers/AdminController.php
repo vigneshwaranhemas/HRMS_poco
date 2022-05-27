@@ -853,8 +853,6 @@ class AdminController extends Controller
 
     public function get_employee_list(Request $request){
 
-
-
         if ($request !="") {
         $input_details = array(
         'status'=>$request->input('status'),

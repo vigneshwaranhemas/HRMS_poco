@@ -36,7 +36,7 @@
 					</div>
 					<div class="card-body">
 
-						<div class="table-responsive">
+						<div class="table-responsive m-b-15 ">
 							<table class="table  table-border-vertical table-border-horizontal" id="goal-tb">
 								<thead>
 									<tr>
@@ -53,11 +53,15 @@
 										<th scope="col">Self-Assessment Rating </th>
 										<th scope="col">Supervisor Reamrks </th>
 										<th scope="col">Supervisor Rating </th>
+										<th scope="col">Reviewer Reamrks </th>
+										<!-- <th scope="col">Business Head</th> -->
 									</tr>
 								</thead>
-								<tbody id="goals_record">									
+								<tbody id="goals_record">
+									
 								</tbody>
 							</table>
+							
 						</div>
 					</div>
 
@@ -94,52 +98,46 @@
 	<!-- login js-->
 	<!-- Plugin used-->
 	<script>
-		// $( document ).ready(function() {
-		// 	goals_record();
-		// });
-
 		var params = new window.URLSearchParams(window.location.search);
 		var id=params.get('id')
 		$('#goals_setting_id').val(id);
-		// function goals_record(){
 			
-			var id = $('#goals_setting_id').val();
+		var id = $('#goals_setting_id').val();
 
-			$.ajax({                   
-				url:"{{ url('goals_sheet_head') }}",
-				type:"GET",
-				data:{id:id},
-				dataType : "JSON",
-				success:function(response)
-				{
-					$('#goals_sheet_head').append('');
-					$('#goals_sheet_head').append(response);
-				},
-				error: function(error) {
-					console.log(error);
+		$.ajax({                   
+			url:"{{ url('goals_sheet_head') }}",
+			type:"GET",
+			data:{id:id},
+			dataType : "JSON",
+			success:function(response)
+			{
+				$('#goals_sheet_head').append('');
+				$('#goals_sheet_head').append(response);
+			},
+			error: function(error) {
+				console.log(error);
 
-				}                                              
-					
-			});
+			}                                              
+				
+		});
 
-			$.ajax({                   
-				url:"{{ url('fetch_goals_setting_id_details') }}",
-				type:"GET",
-				data:{id:id},
-				dataType : "JSON",
-				success:function(response)
-				{
-					$('#goals_record').append('');
-					$('#goals_record').append(response);
-				},
-				error: function(error) {
-					console.log(error);
+		$.ajax({                   
+			url:"{{ url('fetch_goals_sup_details') }}",
+			type:"GET",
+			data:{id:id},
+			dataType : "JSON",
+			success:function(response)
+			{
+				$('#goals_record').append('');
+				$('#goals_record').append(response);
+			},
+			error: function(error) {
+				console.log(error);
 
-				}                                              
-					
-			});
-		// }
-
+			}                                              
+				
+		});
+		
 	</script>
 
 @endsection

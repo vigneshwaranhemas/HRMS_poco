@@ -34,11 +34,13 @@ class HolidayController extends Controller
             if($request->occassion_file != "undefined"){
                 $result = $request->validate([
                     'occassion' => 'required', 
+                    'description' => 'required', 
                     'occassion_file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
                 ]);
             }else{
                 $result = $request->validate([
                     'occassion' => 'required', 
+                    'description' => 'required', 
                 ]);
             }
         }else{
@@ -46,11 +48,13 @@ class HolidayController extends Controller
                 $result = $request->validate([
                     'occassion' => 'required', 
                     'occassion_file' => 'mimes:png,jpg,jpeg,csv,txt,pdf|max:2048',
+                    'description' => 'required', 
                     'state' => 'required', 
                 ]);
             }else{
                 $result = $request->validate([
                     'occassion' => 'required', 
+                    'description' => 'required', 
                     'state' => 'required', 
                 ]);
             }
@@ -206,10 +210,12 @@ class HolidayController extends Controller
         if($request->all_state){
             $result = $request->validate([
                 'occassion' => 'required', 
+                'description' => 'required', 
             ]);
         }else{
             $result = $request->validate([
                 'occassion' => 'required', 
+                'description' => 'required', 
                 'state' => 'required', 
             ]);
         }       

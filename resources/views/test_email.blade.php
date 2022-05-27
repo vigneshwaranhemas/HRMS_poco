@@ -1,3 +1,4 @@
+
 @extends('layouts.app.master')
  @section('title', 'Login')
 
@@ -70,7 +71,7 @@
               </div>
             </div>
             </center>
-            
+
           </div>
         </div>
       </div>
@@ -99,7 +100,7 @@
     var login_check_process_link = "{{url('login_check_process')}}";
     var con_pass_process_link = "{{url('con_pass_process')}}";
 
-    
+
 </script>
 
  @endsection

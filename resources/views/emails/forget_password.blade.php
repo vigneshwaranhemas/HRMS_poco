@@ -11,14 +11,16 @@
 </head>
 <body>
 
-      
-                <p><b>Dear {{$candidate_name}},</b></p>
 
-                <p> Click the Below link to Change Password </p><a href="{{ url('/email_pass?token='.$passcode_token.'') }}">Change your Password Link</a>
+                <p><b>Dear {{$candidate_name}},</b></p>
+                <p> Click the Below link to Change Password </p><a href="{{ url('email_pass',$passcode_token) }}">Change your Password Link</a>
+
+
+                {{-- <p> Click the Below link to Change Password </p><a href="{{ url('/email_pass?token='.$passcode_token.'') }}">Change your Password Link</a> --}}
 
                 <p><b>Thank you,</b></p>
                 <p>HR Team- HEPL</p>
-      
+
 
 
 </body>

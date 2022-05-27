@@ -15,10 +15,17 @@ function idcard_info_tvalue(){
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data[0])
+            console.log(data[0])
                 if (data !="") {
+                   if(data[0].hr_action==0){
+                       $("#pro_img_up").show();
+                   }
+                   else{
+                       $('#pro_img_up').hide();
+                   }
+
                     // $("#pro_img").attr('src',"../ID_card_photo/"+data[0].img_path+".jpg");
-                    $("#pro_img").attr('src',"../ID_card_photo/"+data[0].img_path+".png");
+                    $("#pro_img").attr('src',"../ID_card_photo/"+data[0].img_path+".png ");
                     $('#f_name').val(data[0].username);
                     $('#m_name').val(data[0].m_name);/**/
                     $('#l_name').val(data[0].l_name);/**/

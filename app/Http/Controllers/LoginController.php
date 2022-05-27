@@ -132,8 +132,9 @@ class LoginController extends Controller
 
 
     }
-     public function email_pass(){
-        return view('test_email');
+     public function email_pass($test){
+        //  $test="one";
+        return view('test_email')->with('test',$test);
     }
 
 

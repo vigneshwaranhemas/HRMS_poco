@@ -202,6 +202,7 @@ max-width: 1000px !important;
                   <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                      <nav class="navbar navbar-light bg-primary rounded">
                        <span class="navbar-brand mb-0 h1">Profile</span>
+                       <button class="btn btn-success" type="button" data-toggle="modal" data-original-title="test" data-target="#skillModal">+ Add Skill</button>
                      </nav>
                      <br>
                      <div class="container-fluid">
@@ -223,7 +224,8 @@ max-width: 1000px !important;
                                        <div class="col-md-6">
                                           <div> <strong>Name : </strong>  <a id="can_name"></a></div><hr>
                                           <div> <strong>Gender : </strong><a id="gender"></a></div><hr>
-                                          <div> <strong>Marital Status : </strong> Single</div><hr>
+                                          <div> <strong>Marital Status : </strong> - </div><hr>
+                                          <div> <strong>skill : </strong> <a id="skill"></a></div><hr>
                                        </div>
                                        <div class="col-md-6">
                                           <div> <strong>Blood Group : </strong> <a id="blood_grp"></a>
@@ -232,10 +234,40 @@ max-width: 1000px !important;
                                           </div><hr>
                                           <div> <strong>Roll of Intake : </strong> <a id="payroll_status"></a>
                                           </div><hr>
+                                          
                                        </div>
                                     </div>
 
                                  </div>
+                                 <!-- Pop-up div starts-->
+                                    <div class="modal fade" id="skillModal" tabindex="-1" role="dialog" aria-labelledby="skillModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <h5 class="modal-title" id="skillModalLabel">Add Skill Set</h5>
+                                                  <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                              </div>
+                                                <form method="POST" action="javascript:void(0)" id="add_skill_set" class="ajax-form" enctype="multipart/form-data">
+                                                  <div class="modal-body">
+                                                      <div class="col-md-12 mb-3">
+                                                              <label for="Skill">Skill</label>
+                                                              <select class="form-control dynamic-option-create-multiple" name="skill[]" id="skill" placeholder="Enter Your Skills" >
+                                                                  <!-- <option value="a">apple</option>
+                                                                  <option value="b">banana</option>
+                                                                  <option value="c">cherry</option> -->
+                                                              </select>
+                                                               <span class="text-danger color-hider" id="skill_error"  style="display:none;color: red;"></span>
+                                                            </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                      <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
+                                                      <button class="btn btn-secondary" type="submit" id="skill_Submit">Save</button>
+                                                  </div>
+                                                </form>
+                                          </div>
+                                        </div>
+                                    </div>
+                  <!-- Pop-up div Ends-->
                               </div>
                            </div>
                         </div>
@@ -547,7 +579,7 @@ max-width: 1000px !important;
                                         <th>University</th>
                                         <th>Begin On</th>
                                         <th>End On</th>
-                                        <th>Skill Set</th>
+                                        <!-- <th>Skill Set</th> -->
                                         <th>Certificate</th>
                                     </tr>
                                 </thead>
@@ -589,15 +621,6 @@ max-width: 1000px !important;
                                             <input class="form-control" name="end_on" id="end_on" type="month" placeholder="" >
                                             <span class="text-danger color-hider" id="end_on_error"  style="display:none;color: red;"></span>
                                         </div>
-                                         <div class="col-md-12 mb-3">
-                                            <label for="Skill">Skill</label>
-                                            <select class="form-control dynamic-option-create-multiple" name="skill[]" id="skill" placeholder="Enter Your Skills" >
-                                                <!-- <option value="a">apple</option>
-                                                <option value="b">banana</option>
-                                                <option value="c">cherry</option> -->
-                                            </select>
-                                             <span class="text-danger color-hider" id="skill_error"  style="display:none;color: red;"></span>
-                                          </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="edu_certificate">Education Certificate</label>
                                             <input class="form-control" name="edu_certificate" id="edu_certificate" type="file" accept=".doc,.docx,.xls,.xlsx,.ppt,.pdf" placeholder="" >
@@ -963,6 +986,7 @@ max-width: 1000px !important;
 
   
    /*state list*/
+   var add_skill_set_link = "{{url('add_skill_set')}}";
    var state_get_link = "{{url('state_get')}}";
    var get_district_link = "{{url('get_district')}}";
    var get_district_cur_link = "{{url('get_district_cur')}}";

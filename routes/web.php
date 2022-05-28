@@ -119,6 +119,7 @@ Route::get('goal_setting_supervisor_view', 'GoalsController@goal_setting_supervi
 Route::get('goal_setting_reviewer_view', 'GoalsController@goal_setting_reviewer_view')->name('goal_setting_reviewer_view');
 Route::get('goal_setting_supervisor_edit', 'GoalsController@goal_setting_supervisor_edit')->name('goal_setting_supervisor_edit');
 Route::get('fetch_goals_reviewer_edit', 'GoalsController@fetch_goals_reviewer_edit')->name('fetch_goals_reviewer_edit');
+Route::get('fetch_goals_hr_edit', 'GoalsController@fetch_goals_hr_edit')->name('fetch_goals_hr_edit');
 Route::get('fetch_goals_bh_edit', 'GoalsController@fetch_goals_bh_edit')->name('fetch_goals_bh_edit');
 Route::get('goal_setting_reviewer_edit', 'GoalsController@goal_setting_reviewer_edit')->name('goal_setting_reviewer_edit');
 Route::get('goal_setting_bh_edit', 'GoalsController@goal_setting_bh_edit')->name('goal_setting_bh_edit');
@@ -146,8 +147,9 @@ Route::get('fetch_reviewer_filter', 'GoalsController@fetch_reviewer_filter' );
 Route::get('fetch_team_leader_filter', 'GoalsController@fetch_team_leader_filter' );
 Route::get('get_bh_goal_list', 'GoalsController@get_bh_goal_list' );
 Route::get('check_goals_employee_summary', 'GoalsController@check_goals_employee_summary' );
-Route::get('fetch_goals_employee_summary', 'GoalsController@fetch_goals_employee_summary' );
+Route::get('get_hr_goal_list_record', 'GoalsController@get_hr_goal_list_record' );
 Route::post('goals_supervisor_summary', 'GoalsController@goals_supervisor_summary' );
+Route::get('goal_setting_hr_edit', 'GoalsController@goal_setting_hr_edit')->name('goal_setting_hr_edit');
 
 //Birthday controller 
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');

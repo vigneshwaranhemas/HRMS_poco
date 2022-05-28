@@ -128,23 +128,23 @@
                                     </div>
                                     <div class="col-lg-2 m-t-5">
                                         <label for="Leader">Select Team Leader</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter" name="team_leader_filter">
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter_hr" name="team_leader_filter_hr">
                                             <option value="">...Select...</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-2 m-t-5">
                                         <label for="Leader">Select Team Member</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter" name="team_member_filter">
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter_hr" name="team_member_filter_hr">
                                             <option value="">...Select...</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-6 m-t-35">
-                                        <button type="submit" id="bh_apply" onclick="bh_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
-                                        <button type="submit" id="bh_reset" onclick="bh_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
+                                        <button type="submit" id="hr_apply" onclick="hr_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                        <button type="submit" id="hr_reset" onclick="hr_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
                                     </div>
                                 </div>
                                 <div class="table-responsive m-t-40">
-                                    <table class="table" id="team_member_goal_data">
+                                    <table class="table" id="goal_tb_hr_overall">
                                         <thead>
                                             <tr>
                                             <th scope="col">No</th>

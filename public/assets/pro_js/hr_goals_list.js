@@ -8,7 +8,9 @@ $( document ).ready(function() {
 
 $(document).ready(function(){
     team_member_goal_record();
+    get_hr_goal_list_record();
     add_goal_btn();
+    goal_record();
 });
 
 function add_goal_btn(){
@@ -30,6 +32,105 @@ function add_goal_btn(){
 
         }                                              
             
+    });
+}
+
+function goal_record(){
+
+    table_cot = $('#goal_data').DataTable({
+
+        dom: 'lBfrtip',
+        lengthChange: true,
+        "buttons": [
+            {
+                "extend": 'copy',
+                "text": '<i class="bi bi-clipboard" ></i>  Copy',
+                "titleAttr": 'Copy',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'excel',
+                "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
+                "titleAttr": 'Excel',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'csv',
+                "text": '<i class="bi bi-file-text" ></i>  CSV',
+                "titleAttr": 'CSV',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'pdf',
+                "text": '<i class="bi bi-file-break" ></i>  PDF',
+                "titleAttr": 'PDF',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'print',
+                "text": '<i class="bi bi-printer"></i>  Print',
+                "titleAttr": 'Print',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'colvis',
+                "text": '<i class="bi bi-eye" ></i>  Colvis',
+                "titleAttr": 'Colvis',
+                // "action": newexportaction
+            },
+
+        ],
+        lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
+        processing: true,
+        serverSide: true,
+        serverMethod: 'post',
+        bDestroy: true,
+        scrollCollapse: true,
+        drawCallback: function() {
+
+        },
+        // aoColumnDefs: [
+        //     { 'visible': false, 'targets': [3] }
+        // ],
+        ajax: {
+            url: "get_goal_list",
+            type: 'GET',
+            dataType: "json",
+            data: function (d) {
+                // d.status = $('#status').val();
+                // d.af_from_date = $('#af_from_date').val();
+                // d.af_to_date = $('#af_to_date').val();
+                // d.af_position_title = $('#af_position_title').val();
+            }
+        },
+        createdRow: function( row, data, dataIndex ) {
+            // $( row ).find('td:eq(0)').attr('data-label', 'Sno');
+            // $( row ).find('td:eq(1)').attr('data-label', 'Business Name');
+            // $( row ).find('td:eq(2)').attr('data-label', 'action');
+        },
+        columns: [
+            {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
+            {   data: 'goal_name', name: 'goal_name'    },
+            {   data: 'action', name: 'action'  },
+
+            // {   data: 'Info', name: 'Info'  },
+
+        ],
     });
 }
 
@@ -154,7 +255,7 @@ $('#reviewer_filter').change(function() {
             success:function(response)
             {
                 // console.log(response)
-                $('#team_leader_filter').html(response);
+                $('#team_leader_filter_hr').html(response);
             },
             error: function(error) {
                 console.log(error);
@@ -166,19 +267,120 @@ $('#reviewer_filter').change(function() {
     
 });
 
-$('#team_leader_filter').change(function() {
-    var team_leader_filter = $('#team_leader_filter').val();
 
-    if(team_leader_filter != ''){        
+function get_hr_goal_list_record(){
+
+    table_cot = $('#goal_tb_hr_overall').DataTable({
+
+        dom: 'lBfrtip',
+        lengthChange: true,
+        "buttons": [
+            {
+                "extend": 'copy',
+                "text": '<i class="bi bi-clipboard" ></i>  Copy',
+                "titleAttr": 'Copy',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'excel',
+                "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
+                "titleAttr": 'Excel',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'csv',
+                "text": '<i class="bi bi-file-text" ></i>  CSV',
+                "titleAttr": 'CSV',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'pdf',
+                "text": '<i class="bi bi-file-break" ></i>  PDF',
+                "titleAttr": 'PDF',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'print',
+                "text": '<i class="bi bi-printer"></i>  Print',
+                "titleAttr": 'Print',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'colvis',
+                "text": '<i class="bi bi-eye" ></i>  Colvis',
+                "titleAttr": 'Colvis',
+                // "action": newexportaction
+            },
+
+        ],
+        lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
+        processing: true,
+        serverSide: true,
+        serverMethod: 'post',
+        bDestroy: true,
+        scrollCollapse: true,
+        drawCallback: function() {
+
+        },
+        // aoColumnDefs: [
+        //     { 'visible': false, 'targets': [3] }
+        // ],
+        ajax: {
+            url: "get_hr_goal_list_record",
+            type: 'GET',
+            dataType: "json",
+            data: function (d) {
+                d.reviewer_filter = $('#reviewer_filter').val();
+                d.team_leader_filter = $('#team_leader_filter_hr').val();
+                d.team_member_filter = $('#team_member_filter_hr').val();
+            }
+        },
+        createdRow: function( row, data, dataIndex ) {
+            // $( row ).find('td:eq(0)').attr('data-label', 'Sno');
+            // $( row ).find('td:eq(1)').attr('data-label', 'Business Name');
+            // $( row ).find('td:eq(2)').attr('data-label', 'action');
+        },
+        columns: [
+            {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
+            {   data: 'created_by_name', name: 'created_by_name'    },
+            {   data: 'goal_name', name: 'goal_name'    },
+            {   data: 'status', name: 'status'    },
+            {   data: 'action', name: 'action'  },
+
+            // {   data: 'Info', name: 'Info'  },
+
+        ],
+    });
+}
+
+$('#team_leader_filter_hr').change(function() {
+    var team_leader_filter_hr = $('#team_leader_filter_hr').val();
+
+    if(team_leader_filter_hr != ''){        
         $.ajax({                   
             url:"fetch_team_leader_filter",
             type:"GET",
-            data:{team_leader_filter:team_leader_filter},
+            data:{team_leader_filter:team_leader_filter_hr},
             dataType : "JSON",
             success:function(response)
             {
                 // console.log(response)
-                $('#team_member_filter').html(response);
+                $('#team_member_filter_hr').html(response);
             },
             error: function(error) {
                 console.log(error);
@@ -278,13 +480,13 @@ $("#formGoalDelete").submit(function(e) {
 
 });
 
-function bh_filter_apply(){
-    team_member_goal_record();
+function hr_filter_apply(){
+    get_hr_goal_list_record();
 }
 
-function bh_filter_reset(){
+function hr_filter_reset(){
     $("#reviewer_filter").val('').trigger('change');
-    $("#team_leader_filter").val('').trigger('change');
-    $("#team_member_filter").val('').trigger('change');
-    team_member_goal_record();
+    $("#team_leader_filter_hr").val('').trigger('change');
+    $("#team_member_filter_hr").val('').trigger('change');
+    get_hr_goal_list_record();
 }

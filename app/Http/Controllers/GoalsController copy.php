@@ -1528,8 +1528,7 @@ class GoalsController extends Controller
             $cell8 = "sup_final_output_".$cell1;
             $cell9 = "reviewer_remarks_".$cell1;
             $cell9 = "reviewer_remarks_".$cell1;
-            $cell10 = "hr_remarks_".$cell1;
-            
+
             $html .= '<tr  class="border-bottom-primary">';
                 
                 /*Cell 1*/
@@ -1670,19 +1669,12 @@ class GoalsController extends Controller
                 /*Cell 9*/
                 $html .= '<td>';                
                 if($row_values->$cell9 != null){                    
-                    $html .= '<p>'.$row_values->$cell9[0].'</p>';
-                }                                            
-                $html .= '</td>';
-
-
-                /*Cell 10*/
-                $html .= '<td>';                
-                if($row_values->$cell10 != null){                    
-                        $html .= '<textarea type="text" name="hr_remarks_'.$cell1.'[]" class="form-control">'.$row_values->$cell10[0].'</textarea>';
+                        $html .= '<textarea type="text" name="sup_remarks_'.$cell1.'[]" class="form-control">'.$row_values->$cell9[0].'</textarea>';
                     }else{
-                        $html .= '<textarea type="text" name="hr_remarks_'.$cell1.'[]" class="form-control"></textarea>';
+                        $html .= '<textarea type="text" name="sup_remarks_'.$cell1.'[]" class="form-control"></textarea>';
                     }                                           
                 $html .= '</td>';
+
                                                 
                 $html .= '</td>';
 

@@ -116,7 +116,8 @@ class GoalRepository implements IGoalRepository
                         ->distinct()         
                         ->select('g.*')         
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
-                        ->where('cs.sup_emp_code', $logined_empID)
+                        ->where('cs.sup_emp_code', "900531")
+                        // ->where('cs.sup_emp_code', $logined_empID)
                         ->where('cs.reviewer_emp_code', "900531")
                         ->get();
          // $response = DB::table('goals')
@@ -207,7 +208,7 @@ class GoalRepository implements IGoalRepository
    }
    public function fetchReviewerList(){
       $logined_empID = Auth::user()->empID;        
-      $response = DB::table('customusers')->where('sup_emp_code', $logined_empID)->where('reviewer_emp_code', "900531")->get();      
+      $response = DB::table('customusers')->where('sup_emp_code', "900531")->where('reviewer_emp_code', "900531")->get();      
       return $response;
    }
   /* public function fetchHrList(){

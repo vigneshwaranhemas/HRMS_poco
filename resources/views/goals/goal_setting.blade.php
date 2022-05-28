@@ -48,9 +48,9 @@
 										<th scope="col">No</th>
 										<th scope="col">Key Business Drivers</th>
 										<th scope="col">Key Result Areas </th>
-										<th scope="col">Measurement Criteria (UOM)</th>
-										<th scope="col">Self Assessment</th>
-										<th scope="col">Rating</th>
+										<th scope="col">Measurement Criteria (Quantified Measures)</th>
+										<th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
+										<th scope="col">Rating by Employee</th>
 									</tr>
 								</thead>
 								<tbody id="goals_record">									

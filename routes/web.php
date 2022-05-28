@@ -129,10 +129,12 @@ Route::get('fetch_goals_reviewer_details', 'GoalsController@fetch_goals_reviewer
 Route::get('fetch_goals_supervisor_edit', 'GoalsController@fetch_goals_supervisor_edit')->name('fetch_goals_supervisor_edit');
 Route::get('fetch_goals_setting_id_edit', 'GoalsController@fetch_goals_setting_id_edit')->name('fetch_goals_setting_id_edit');
 Route::get('goals_sheet_head', 'GoalsController@goals_sheet_head')->name('goals_sheet_head');
+Route::get('goals_consolidate_rate_head', 'GoalsController@goals_consolidate_rate_head')->name('goals_consolidate_rate_head');
 Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
 Route::post('add_goals_data', 'GoalsController@add_goals_data');
 Route::post('update_goals_data', 'GoalsController@update_goals_data');
 Route::post('goals_delete', 'GoalsController@goals_delete');
+Route::post('goals_employee_summary', 'GoalsController@goals_employee_summary');
 Route::get('get_goal_list', 'GoalsController@get_goal_list' );
 Route::get('get_team_member_goal_list', 'GoalsController@get_team_member_goal_list' );
 Route::get('get_reviewer_goal_list', 'GoalsController@get_reviewer_goal_list' );
@@ -143,6 +145,9 @@ Route::get('fetch_supervisor_filter', 'GoalsController@fetch_supervisor_filter' 
 Route::get('fetch_reviewer_filter', 'GoalsController@fetch_reviewer_filter' );
 Route::get('fetch_team_leader_filter', 'GoalsController@fetch_team_leader_filter' );
 Route::get('get_bh_goal_list', 'GoalsController@get_bh_goal_list' );
+Route::get('check_goals_employee_summary', 'GoalsController@check_goals_employee_summary' );
+Route::get('fetch_goals_employee_summary', 'GoalsController@fetch_goals_employee_summary' );
+Route::post('goals_supervisor_summary', 'GoalsController@goals_supervisor_summary' );
 
 //Birthday controller 
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');
@@ -464,6 +469,9 @@ Route::get('Get_Notes_info','CommonController@Fetch_notes_info');
 Route::post('Get_Notes_info_id_wise','CommonController@Get_Notes_info_id_wise');
 Route::post('Edit_Sticky_Notes','CommonController@Edit_Sticky_Notes');
 Route::post('Delete_Sticky_note','CommonController@Destroy_Sticky_note');
+Route::post('Wrf_user_sigin','CommonController@User_Activity_signin');
+Route::post('Wrf_user_signout','CommonController@User_Activity_signout');
+
 
 // epf by Durga
 Route::get('epf', 'CandidateController@epf')->name('epf');
@@ -488,7 +496,7 @@ Route::post('medical_details', 'HrController@medical_details')->name('medical_de
 // Leave Balance for Candidate
 Route::get('leave_balance', 'CandidateController@leave_balance')->name('leave_balance');
 
-
-Route::post('Wrf_user_sigin','CommonController@User_Activity_signin');
-Route::post('Wrf_user_signout','CommonController@User_Activity_signout');
+//goals
+Route::get('get_hr_goal_list','GoalsController@get_hr_goal_list');
+Route::get('goals_sup_th_check','GoalsController@goals_sup_th_check');
 

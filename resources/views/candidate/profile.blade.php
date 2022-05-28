@@ -48,6 +48,10 @@ max-width: 1000px !important;
 /*.banner_ji{
    margin-top: 70px;
 }*/
+.select2
+{
+       width: 100% !important;
+}
 </style>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection

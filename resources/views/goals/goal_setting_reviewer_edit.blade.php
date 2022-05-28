@@ -48,17 +48,15 @@
 										<th scope="col">No</th>
 										<th scope="col">Key Business Drivers</th>
 										<th scope="col">Key Result Areas </th>
-										<th scope="col">Sub Indicators</th>
-										<th scope="col">Measurement Criteria (UOM)</th>
-										<th scope="col">Self Weightage</th>
-										<th scope="col">Reference </th>
-										<th scope="col">Target </th>
-										<th scope="col">Actuals </th>
-										<th scope="col">Self - Remarks on Target vs Actuals</th>
-										<th scope="col">Self-Assessment Rating </th>
-										<th scope="col">Supervisor Remarks</th>
-										<th scope="col">Supervisor Rating</th>
-										<th scope="col">Reviewer Remarks</th>
+										<th scope="col">Measurement Criteria (Quantified Measures)</th>
+										<th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
+										<th scope="col">Rating by Employee</th>
+										<th scope="col">Supervisors Assessment (Qualitative Remarks by Reporting Manager)</th>
+										<th scope="col">Rating by Supervisor </th>
+										<th scope="col" id="reviewer_th_show" style="display:none;">Reviewer Remarks </th>
+										<!-- <th scope="col">Reviewer Remarks </th>
+										<th scope="col">HR Remarks</th>
+										<th scope="col">business Head assessment and Approval for Release</th> -->
 									</tr>
 								</thead>
 								<tbody id="goals_record">
@@ -107,7 +105,7 @@
 		$('#goals_setting_id').val(id);
 			
 		var id = $('#goals_setting_id').val();
-
+		// alert(id)
 		$.ajax({                   
 			url:"{{ url('goals_sheet_head') }}",
 			type:"GET",
@@ -123,6 +121,27 @@
 			}                                              
 				
 		});
+
+		$.ajax({                   
+			url:"{{ url('goals_sup_th_check') }}",
+			type:"GET",
+			data:{id:id},
+			dataType : "JSON",
+			success:function(response)
+			{
+				if(response == "Yes"){
+					$('#reviewer_th_show').css('display', 'none');
+
+				}else{
+					$('#reviewer_th_show').css('display', 'block');
+				}
+			},
+			error: function(error) {
+				console.log(error);
+			}                                              
+				
+		});
+
 
 		$.ajax({                   
 			url:"{{ url('fetch_goals_reviewer_edit') }}",

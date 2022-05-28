@@ -43,14 +43,14 @@
 										<th scope="col">No</th>
 										<th scope="col">Key Business Drivers</th>
 										<th scope="col">Key Result Areas </th>
-										<th scope="col">Measurement Criteria (UOM)</th>
-										<th scope="col">Self Assessment  by Employee </th>
-										<th scope="col">Rating by Employee </th>
-                                        <th scope="col">Supervisors Assessment</th>
+										<th scope="col">Measurement Criteria (Quantified Measures)</th>
+										<th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
+										<th scope="col">Rating by Employee</th>
+										<th scope="col">Supervisors Assessment (Qualitative Remarks by Reporting Manager)</th>
 										<th scope="col">Rating by Supervisor </th>
-										<th scope="col">Reviewer Remarks</th>
+										<th scope="col">Reviewer Remarks </th>
 										<th scope="col">HR Remarks</th>
-										<th scope="col">BH Sign-Off</th>
+										<th scope="col">business Head assessment and Approval for Release</th>
 									</tr>
 								</thead>
 								<tbody id="goals_record">

@@ -132,6 +132,7 @@ class GoalRepository implements IGoalRepository
    }
    public function fetchGoalIdDetails( $id ){
       $response = Goals::where('goal_unique_code', $id)->value('goal_process');
+      // echo "1<pre>";print_r($response);die;
       return $response;
    }
    public function checkSupervisorIDOrNot( $id ){
@@ -157,6 +158,10 @@ class GoalRepository implements IGoalRepository
    }
    public function fetchGoalIdHead( $id ){
       $response = Goals::where('goal_unique_code', $id)->value('goal_name');
+      return $response;
+   }
+   public function goals_consolidate_rate_head( $id ){
+      $response = Goals::where('goal_unique_code', $id)->value('employee_consolidated_rate');
       return $response;
    }
    public function fetchGoalIdDelete( $id ){
@@ -218,6 +223,11 @@ class GoalRepository implements IGoalRepository
       $response = DB::table('customusers')->where('sup_emp_code', $logined_empID)->where('reviewer_emp_code', "900531")->get();
       return $response;
    }
+  /* public function fetchHrList(){
+      $logined_empID = Auth::user()->empID;
+      $response = DB::table('customusers')->where('sup_emp_code', $logined_empID)->where('reviewer_emp_code', "900380")->get();
+      return $response;
+   }*/
    public function fetch_supervisor_filter($supervisor_filter){
       if($supervisor_filter != ''){
          $customusers = DB::table('customusers')->where('sup_emp_code', $supervisor_filter)->get();
@@ -250,6 +260,28 @@ class GoalRepository implements IGoalRepository
          }
       }
       return $output;
+   }
+   public function addGoalEmployeeSummary($id, $employee_summary){
+        $logined_empID = Auth::user()->empID;
+        $response = Goals::where('goal_unique_code', $id)
+                  ->where('created_by', $logined_empID)
+                  ->update([
+                        'employee_summary' => $employee_summary
+                  ]);
+      return $response;
+   }
+   public function check_goals_employee_summary($id){
+      $result = Goals::where('goal_unique_code', $id)->value('employee_summary');
+      if(!empty($result)){
+         $response = "Yes";
+      }else{
+         $response = "No";
+      }
+      return $response;
+   }
+   public function fetch_goals_employee_summary($id){
+      $response = Goals::where('goal_unique_code', $id)->value('employee_summary');
+      return $response;
    }
 
 }

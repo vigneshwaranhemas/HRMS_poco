@@ -18,6 +18,12 @@ class CreateGoalsTable extends Migration
             $table->string('goal_name');
             $table->text('goal_process');
             $table->string('goal_status');
+            $table->string('supervisor_status');
+            $table->string('reviewer_status');
+            $table->string('hr_status');
+            $table->string('bh_status');
+            $table->text('employee_summary');
+            $table->text('supervisor_summary');
             $table->string('goal_unique_code');
             $table->string('created_by');
             $table->string('created_by_name');

@@ -43,17 +43,11 @@
 										<th scope="col">No</th>
 										<th scope="col">Key Business Drivers</th>
 										<th scope="col">Key Result Areas </th>
-										<th scope="col">Sub Indicators</th>
 										<th scope="col">Measurement Criteria (UOM)</th>
-										<th scope="col">Self Weightage</th>
-										<th scope="col">Reference</th>
-										<th scope="col">Target</th>
-										<th scope="col">Actuals</th>
-										<th scope="col">Self - Remarks on Target vs Actuals</th>
-										<th scope="col">Self-Assessment Rating</th>
-										<th scope="col">Supervisor Remarks</th>
-										<th scope="col">Supervisor Rating</th>
-									</tr>
+										<th scope="col">Self Assessment</th>
+										<th scope="col">Rating </th>
+										<th scope="col">Supervisor Reamrks </th>
+										<th scope="col">Supervisor Rating </th>									</tr>
 								</thead>
 								<tbody id="goals_record">
 									

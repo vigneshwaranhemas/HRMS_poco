@@ -29,7 +29,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Supervisor Goal Setting<span>Process</span></h2>
+    <h2>HR Goal <span>Setting Process</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -46,6 +46,9 @@
                     <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>Team Member</a>
                     <div class="material-border"></div>
                     </li>
+                    <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-overall" role="tab" aria-controls="info-overall" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Over All</a>
+                    <div class="material-border"></div>
+                    </li>
                     <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>MySelf</a>
                     <div class="material-border"></div>
                     </li>
@@ -56,19 +59,20 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Member</label>                                        
-                                        <select class="js-example-basic-single float-right" style="width:250px;" id="team_member_filter" name="team_member_filter">
-                                            <option value="">Select Team Member...</option>
-                                            @foreach($team_member_list as $team_member)
-                                                <option value="{{ $team_member->empID }}">{{ $team_member->username }}</option>
+                                        <label for="Leader">Select Team Leader</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter" name="team_leader_filter">
+                                            <option value="">...Select...</option>
+                                            @foreach($reviewer_list as $reviewer)
+                                                <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col-lg-8 m-t-35">
-                                        <button type="button" id="supervisor_filter_apply" onclick="supervisor_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
-                                        <button type="button" id="reset" onclick="supervisor_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
+                                        <button type="button" id="reviewer_filter_apply" onclick="reviewer_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                        <button type="button" id="reset" onclick="reviewer_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
                                     </div>
                                 </div>
+
                                 <div class="table-responsive m-t-40">
                                     <table class="table" id="team_member_goal_data">
                                         <thead>
@@ -108,6 +112,55 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="tab-pane fade" id="info-overall" role="tabpanel" aria-labelledby="profile-info-tab">                        
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Supervisor">Select Supervisor</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="reviewer_filter" name="reviewer_filter">
+                                            <option value="">...Select...</option>
+                                            @foreach($reviewer_list as $reviewer)
+                                                <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Team Leader</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter" name="team_leader_filter">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Team Member</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter" name="team_member_filter">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6 m-t-35">
+                                        <button type="submit" id="bh_apply" onclick="bh_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                        <button type="submit" id="bh_reset" onclick="bh_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
+                                    </div>
+                                </div>
+                                <div class="table-responsive m-t-40">
+                                    <table class="table" id="team_member_goal_data">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Employee Name</th>
+                                            <th scope="col">Goal Name</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -133,31 +186,6 @@
                     </div>
                 </form>
             </div>
-            </div>
-        </div>
-
-        <!-- Modal Fade -->
-        <div class="modal fade" id="employeeSummaryShowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <form  id="supervisorSummaryForm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="myLargeModalLabel">Summary</h4>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        </div>
-                        <div class="modal-body">
-                            <h6>Employee Summary :</h6>
-                            <p id="goal_employee_summary_show"></p>
-                            <h6>Supervisor Summary :</h6>
-                            <textarea name="supervisor_summary" id="supervisor_summary" class="form-control m-t-5"></textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="hidden" name="id" id="goal_supervisor_sum_id" class="form-control">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-                            <button class="btn btn-primary" type="submit">Save</button>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
         
@@ -192,6 +220,6 @@
 <script src="../assets/js/select2/select2.full.min.js"></script>
 <script src="../assets/js/select2/select2-custom.js"></script>
 
-<script src="../assets/pro_js/sup_goal_list.js"></script>
+<script src="../assets/pro_js/hr_goals_list.js"></script>
 @endsection
 

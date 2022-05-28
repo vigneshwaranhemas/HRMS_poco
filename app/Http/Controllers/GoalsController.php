@@ -904,22 +904,22 @@ class GoalsController extends Controller
                 $html .= '</td>';
 
             /*cell 6*/
-            if($row_values->$cell6 != null){
-                $html .= '<td>';
-                    foreach($row_values->$cell6 as $cell6_value){
-                        if($cell6_value != null){
+            // if($row_values->$cell6 != null){
+            //     $html .= '<td>';
+            //         foreach($row_values->$cell6 as $cell6_value){
+            //             if($cell6_value != null){
 
-                            $html .= '<p>'.$cell6_value.'</p>';
+            //                 $html .= '<p>'.$cell6_value.'</p>';
 
-                        }
-                    }
+            //             }
+            //         }
 
-                $html .= '</td>';
+            //     $html .= '</td>';
 
-                /*Cell 9*/
-                $html .= '<td>';
-                $html .= '</td>';
-
+            //     /*Cell 9*/
+            //     $html .= '<td>';
+            //     $html .= '</td>';
+            // }
             /*cell 7*/
             if($row_values->$cell7 != null){
                 $html .= '<td>';
@@ -1017,6 +1017,7 @@ class GoalsController extends Controller
 
         return json_encode($html);
     }
+
     public function fetch_goals_supervisor_edit(Request $request)
     {
         $id = $request->id;
@@ -2719,6 +2720,6 @@ class GoalsController extends Controller
             ->rawColumns(['status', 'action'])
             ->make(true);
         }
-
     }
+// de($result);
 }

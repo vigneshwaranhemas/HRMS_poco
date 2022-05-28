@@ -9,6 +9,11 @@
 @endsection
 
 @section('style')
+	<style>
+		#remark_div{
+			display: none;
+		}
+	</style>
 @endsection
 
 @section('breadcrumb-title')
@@ -30,7 +35,7 @@
 				<input type="hidden" id="goals_setting_id">
 
 				<div class="card  card-absolute">
-
+					
 					<div class="card-header  bg-primary">
 						<h5 class="text-white" id="goals_sheet_head"></h5>
 					</div>
@@ -49,15 +54,17 @@
 										<th scope="col">Supervisors Assessment (Qualitative Remarks by Reporting Manager)</th>
 										<th scope="col">Rating by Supervisor </th>
 										<th scope="col">Reviewer Remarks </th>
+										<th scope="col">HR Remarks </th>
+										<!-- <th scope="col">Reviewer Remarks </th>
 										<th scope="col">HR Remarks</th>
-										<th scope="col">business Head assessment and Approval for Release</th>
+										<th scope="col">business Head assessment and Approval for Release</th> -->
 									</tr>
 								</thead>
 								<tbody id="goals_record">
-
+									
 								</tbody>
 							</table>
-
+							
 						</div>
 					</div>
 
@@ -97,10 +104,10 @@
 		var params = new window.URLSearchParams(window.location.search);
 		var id=params.get('id')
 		$('#goals_setting_id').val(id);
-
+			
 		var id = $('#goals_setting_id').val();
-
-		$.ajax({
+		// alert(id)
+		$.ajax({                   
 			url:"{{ url('goals_sheet_head') }}",
 			type:"GET",
 			data:{id:id},
@@ -112,13 +119,12 @@
 			},
 			error: function(error) {
 				console.log(error);
-
-			}
-
+			}                                              
+				
 		});
 
-		$.ajax({
-			url:"{{ url('fetch_goals_reviewer_details') }}",
+		$.ajax({                   
+			url:"{{ url('fetch_goals_hr_edit') }}",
 			type:"GET",
 			data:{id:id},
 			dataType : "JSON",
@@ -130,10 +136,42 @@
 			error: function(error) {
 				console.log(error);
 
+			}                                              
+				
+		});
+		
+		$('#goals_status').change(function() {
+			var goals_status = $('#goals_status').val();
+			if(goals_status == "Revert"){
+				$('#remark_div').css('display', 'block');
 			}
-
+			
 		});
 
+		function goals_status(){
+			var goals_status = $('#goals_status').val();
+			var params = new window.URLSearchParams(window.location.search);
+			var id=params.get('id')
+
+			$.ajax({                   
+				url:"{{ url('goals_status') }}",
+				type:"POST",
+				data:{
+					goals_status:goals_status,
+					id:id
+				},
+				dataType : "JSON",
+				success:function(response)
+				{
+					window.location = "{{ url('goals')}}";                				
+				},
+				error: function(error) {
+					console.log(error);
+
+				}                                              
+					
+			});
+		}
 	</script>
 
 @endsection

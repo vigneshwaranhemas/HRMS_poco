@@ -135,6 +135,31 @@
             </div>
             </div>
         </div>
+
+        <!-- Modal Fade -->
+        <div class="modal fade" id="employeeSummaryShowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form  id="supervisorSummaryForm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myLargeModalLabel">Summary</h4>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <h6>Employee Summary :</h6>
+                            <p id="goal_employee_summary_show"></p>
+                            <h6>Supervisor Summary :</h6>
+                            <textarea name="supervisor_summary" id="supervisor_summary" class="form-control m-t-5"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="hidden" name="id" id="goal_supervisor_sum_id" class="form-control">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         
     </div>
 </div>

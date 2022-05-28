@@ -37,23 +37,25 @@
 					<div class="card-body">
 
 						<div class="table-responsive m-b-15 ">
-							<table class="table  table-border-vertical table-border-horizontal" id="goal-tb">
+							<div class="row">
+								<div class="col-lg-12 m-b-35">
+									<h5>CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
+								</div>
+							</div>
+							<table class="table  table-border-vertical table-border-horizontal" id="goals_record_tb">
 								<thead>
 									<tr>
 										<th scope="col">No</th>
 										<th scope="col">Key Business Drivers</th>
 										<th scope="col">Key Result Areas </th>
-										<th scope="col">Sub Indicators</th>
 										<th scope="col">Measurement Criteria (UOM)</th>
-										<th scope="col">Self Weightage</th>
-										<th scope="col">Reference </th>
-										<th scope="col">Target </th>
-										<th scope="col">Actuals </th>
-										<th scope="col">Self - Remarks on Target vs Actuals</th>
-										<th scope="col">Self-Assessment Rating </th>
+										<th scope="col">Self Assessment</th>
+										<th scope="col">Rating </th>
 										<th scope="col">Supervisor Reamrks </th>
 										<th scope="col">Supervisor Rating </th>
 										<th scope="col">Reviewer Reamrks </th>
+										<th scope="col">HR Reamrks </th>
+										<th scope="col">BH Reamrks </th>
 										<!-- <th scope="col">Business Head</th> -->
 									</tr>
 								</thead>
@@ -66,8 +68,8 @@
 					</div>
 
 				</div>
-			</div>
-
+			</div>			
+			
 		</div>
 	</div>
 	<!-- Container-fluid Ends-->
@@ -98,6 +100,19 @@
 	<!-- login js-->
 	<!-- Plugin used-->
 	<script>
+		$( document ).ready(function() {
+			// goal_record();
+			$('#goals_record_tb').DataTable( {
+				dom: 'Bfrtip',
+				buttons: [
+					'copyHtml5',
+					'excelHtml5',
+					'csvHtml5',
+					'pdfHtml5'
+				]
+			} );
+		});
+
 		var params = new window.URLSearchParams(window.location.search);
 		var id=params.get('id')
 		$('#goals_setting_id').val(id);
@@ -121,15 +136,16 @@
 				
 		});
 
+		/**********Consolidary rate Head**************/			
 		$.ajax({                   
-			url:"{{ url('fetch_goals_sup_details') }}",
+			url:"{{ url('goals_consolidate_rate_head') }}",
 			type:"GET",
 			data:{id:id},
 			dataType : "JSON",
 			success:function(response)
 			{
-				$('#goals_record').append('');
-				$('#goals_record').append(response);
+				$('#employee_consolidate_rate_show').append('');
+				$('#employee_consolidate_rate_show').append(response);
 			},
 			error: function(error) {
 				console.log(error);
@@ -137,6 +153,78 @@
 			}                                              
 				
 		});
+		
+		$.ajax({                   
+			url:"{{ url('fetch_goals_sup_details') }}",
+			type:"GET",
+			data:{id:id},
+			dataType : "JSON",
+			success:function(response)
+			{
+				$('#goals_record_tb').DataTable().clear().destroy();
+				$('#goals_record').empty();
+				$('#goals_record').append(response);
+				$('#goals_record_tb').DataTable( {
+					dom: 'Bfrtip',
+					buttons: [
+						'copyHtml5',
+						'excelHtml5',
+						'csvHtml5',
+						'pdfHtml5'
+					]
+				} );
+				
+			},
+			error: function(error) {
+				console.log(error);
+
+			}                                              
+				
+		});		
+
+		// for export all data
+		function newexportaction(e, dt, button, config) {
+			var self = this;
+			var oldStart = dt.settings()[0]._iDisplayStart;
+			dt.one('preXhr', function (e, s, data) {
+				// Just this once, load all data from the server...
+				data.start = 0;
+				data.length = 2147483647;
+				dt.one('preDraw', function (e, settings) {
+					// Call the original action function
+					if (button[0].className.indexOf('buttons-copy') >= 0) {
+						$.fn.dataTable.ext.buttons.copyHtml5.action.call(self, e, dt, button, config);
+					} else if (button[0].className.indexOf('buttons-excel') >= 0) {
+						$.fn.dataTable.ext.buttons.excelHtml5.available(dt, config) ?
+							$.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button, config) :
+							$.fn.dataTable.ext.buttons.excelFlash.action.call(self, e, dt, button, config);
+					} else if (button[0].className.indexOf('buttons-csv') >= 0) {
+						$.fn.dataTable.ext.buttons.csvHtml5.available(dt, config) ?
+							$.fn.dataTable.ext.buttons.csvHtml5.action.call(self, e, dt, button, config) :
+							$.fn.dataTable.ext.buttons.csvFlash.action.call(self, e, dt, button, config);
+					} else if (button[0].className.indexOf('buttons-pdf') >= 0) {
+						$.fn.dataTable.ext.buttons.pdfHtml5.available(dt, config) ?
+							$.fn.dataTable.ext.buttons.pdfHtml5.action.call(self, e, dt, button, config) :
+							$.fn.dataTable.ext.buttons.pdfFlash.action.call(self, e, dt, button, config);
+					} else if (button[0].className.indexOf('buttons-print') >= 0) {
+						$.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
+					}
+					dt.one('preXhr', function (e, s, data) {
+						// DataTables thinks the first item displayed is index 0, but we're not drawing that.
+						// Set the property to what it was before exporting.
+						settings._iDisplayStart = oldStart;
+						data.start = oldStart;
+					});
+					// Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
+					setTimeout(dt.ajax.reload, 0);
+					// Prevent rendering of the full data to the DOM
+					return false;
+				});
+			});
+			// Requery the server with the new one-time export settings
+			dt.ajax.reload();
+		}
+
 		
 	</script>
 

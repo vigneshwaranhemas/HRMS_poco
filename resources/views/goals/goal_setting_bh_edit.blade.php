@@ -35,7 +35,7 @@
 				<input type="hidden" id="goals_setting_id">
 
 				<div class="card  card-absolute">
-					
+
 					<div class="card-header  bg-primary">
 						<h5 class="text-white" id="goals_sheet_head"></h5>
 					</div>
@@ -48,26 +48,22 @@
 										<th scope="col">No</th>
 										<th scope="col">Key Business Drivers</th>
 										<th scope="col">Key Result Areas </th>
-										<th scope="col">Sub Indicators</th>
 										<th scope="col">Measurement Criteria (UOM)</th>
-										<th scope="col">Self Weightage</th>
-										<th scope="col">Reference </th>
-										<th scope="col">Target </th>
-										<th scope="col">Actuals </th>
-										<th scope="col">Self - Remarks on Target vs Actuals</th>
-										<th scope="col">Self-Assessment Rating </th>
-										<th scope="col">Supervisor Remarks</th>
-										<th scope="col">Supervisor Rating</th>
+										<th scope="col">Self Assessment  by Employee </th>
+										<th scope="col">Rating by Employee </th>
+                                        <th scope="col">Supervisors Assessment</th>
+										<th scope="col">Rating by Supervisor </th>
 										<th scope="col">Reviewer Remarks</th>
+										{{-- <th scope="col">HR Remarks</th> --}}
 										<th scope="col">BH Sign-Off</th>
 									</tr>
 								</thead>
 								<tbody id="goals_record">
-									
+
 								</tbody>
 							</table>
 							<div class="m-t-40 m-b-30">
-								<div class="row">									
+								<div class="row">
 									<div class="col-lg-2">
 										<label>Goal Status</label><br>
 										<select class="js-example-basic-single" style="width:250px;margin-top:30px !important;" id="goals_status" name="goals_status">
@@ -81,11 +77,11 @@
 										<textarea type="text" name="sup_review_'.$cell1.'[]" class="form-control"></textarea>
 									</div>
 									<div class="col-lg-2">
-										<button onclick="goals_status();" class="btn btn-success m-t-30 m-l-5"><i class="ti-save"></i> Save</button>                                            
+										<button onclick="goals_status();" class="btn btn-success m-t-30 m-l-5"><i class="ti-save"></i> Save</button>
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 
@@ -125,10 +121,10 @@
 		var params = new window.URLSearchParams(window.location.search);
 		var id=params.get('id')
 		$('#goals_setting_id').val(id);
-			
+
 		var id = $('#goals_setting_id').val();
 
-		$.ajax({                   
+		$.ajax({
 			url:"{{ url('goals_sheet_head') }}",
 			type:"GET",
 			data:{id:id},
@@ -141,11 +137,11 @@
 			error: function(error) {
 				console.log(error);
 
-			}                                              
-				
+			}
+
 		});
 
-		$.ajax({                   
+		$.ajax({
 			url:"{{ url('fetch_goals_bh_edit') }}",
 			type:"GET",
 			data:{id:id},
@@ -158,16 +154,16 @@
 			error: function(error) {
 				console.log(error);
 
-			}                                              
-				
+			}
+
 		});
-		
+
 		$('#goals_status').change(function() {
 			var goals_status = $('#goals_status').val();
 			if(goals_status == "Revert"){
 				$('#remark_div').css('display', 'block');
 			}
-			
+
 		});
 
 		function goals_status(){
@@ -175,7 +171,7 @@
 			var params = new window.URLSearchParams(window.location.search);
 			var id=params.get('id')
 
-			$.ajax({                   
+			$.ajax({
 				url:"{{ url('goals_status') }}",
 				type:"POST",
 				data:{
@@ -185,13 +181,13 @@
 				dataType : "JSON",
 				success:function(response)
 				{
-					window.location = "{{ url('goals')}}";                				
+					window.location = "{{ url('goals')}}";
 				},
 				error: function(error) {
 					console.log(error);
 
-				}                                              
-					
+				}
+
 			});
 		}
 	</script>

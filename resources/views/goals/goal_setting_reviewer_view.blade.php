@@ -30,7 +30,7 @@
 				<input type="hidden" id="goals_setting_id">
 
 				<div class="card  card-absolute">
-					
+
 					<div class="card-header  bg-primary">
 						<h5 class="text-white" id="goals_sheet_head"></h5>
 					</div>
@@ -54,10 +54,10 @@
 									</tr>
 								</thead>
 								<tbody id="goals_record">
-									
+
 								</tbody>
 							</table>
-							
+
 						</div>
 					</div>
 
@@ -97,10 +97,10 @@
 		var params = new window.URLSearchParams(window.location.search);
 		var id=params.get('id')
 		$('#goals_setting_id').val(id);
-			
+
 		var id = $('#goals_setting_id').val();
 
-		$.ajax({                   
+		$.ajax({
 			url:"{{ url('goals_sheet_head') }}",
 			type:"GET",
 			data:{id:id},
@@ -113,11 +113,11 @@
 			error: function(error) {
 				console.log(error);
 
-			}                                              
-				
+			}
+
 		});
 
-		$.ajax({                   
+		$.ajax({
 			url:"{{ url('fetch_goals_reviewer_details') }}",
 			type:"GET",
 			data:{id:id},
@@ -130,10 +130,10 @@
 			error: function(error) {
 				console.log(error);
 
-			}                                              
-				
+			}
+
 		});
-		
+
 	</script>
 
 @endsection

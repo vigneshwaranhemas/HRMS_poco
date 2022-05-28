@@ -239,34 +239,31 @@ max-width: 1000px !important;
                                     </div>
 
                                  </div>
-                                 <!-- Pop-up div starts-->
-                                    <div class="modal fade" id="skillModal" tabindex="-1" role="dialog" aria-labelledby="skillModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                  <h5 class="modal-title" id="skillModalLabel">Add Skill Set</h5>
-                                                  <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                              </div>
-                                                <form method="POST" action="javascript:void(0)" id="add_skill_set" class="ajax-form" enctype="multipart/form-data">
-                                                  <div class="modal-body">
-                                                      <div class="col-md-12 mb-3">
-                                                              <label for="Skill">Skill</label>
-                                                              <select class="form-control dynamic-option-create-multiple" name="skill[]" id="skill" placeholder="Enter Your Skills" >
-                                                                  <!-- <option value="a">apple</option>
-                                                                  <option value="b">banana</option>
-                                                                  <option value="c">cherry</option> -->
-                                                              </select>
-                                                               <span class="text-danger color-hider" id="skill_error"  style="display:none;color: red;"></span>
-                                                            </div>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                      <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
-                                                      <button class="btn btn-secondary" type="submit" id="skill_Submit">Save</button>
-                                                  </div>
-                                                </form>
-                                          </div>
-                                        </div>
-                                    </div>
+                              <!-- Pop-up div starts-->
+                                 <div class="modal fade" id="skillModal" tabindex="-1" role="dialog" aria-labelledby="skillModalLabel" aria-hidden="true">
+                                     <div class="modal-dialog" role="document">
+                                       <div class="modal-content">
+                                           <div class="modal-header">
+                                               <h5 class="modal-title" id="skillModalLabel">Add Skill Set</h5>
+                                               <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                           </div>
+                                             <form method="POST" action="javascript:void(0)" id="add_skill_set" class="ajax-form" enctype="multipart/form-data">
+                                               <div class="modal-body">
+                                                   <div class="col-md-12 mb-3">
+                                                           <label for="Skill">Skill</label>
+                                                           <select class="form-control dynamic-option-create-multiple" name="skill[]" id="skill" placeholder="Enter Your Skills" >
+                                                           </select>
+                                                            <span class="text-danger color-hider" id="skill_error"  style="display:none;color: red;"></span>
+                                                         </div>
+                                               </div>
+                                               <div class="modal-footer">
+                                                   <button class="btn btn-primary" type="button" id="closebutton" data-dismiss="modal">Close</button>
+                                                   <button class="btn btn-secondary" type="submit" id="skill_Submit">Save</button>
+                                               </div>
+                                             </form>
+                                       </div>
+                                     </div>
+                                 </div>
                   <!-- Pop-up div Ends-->
                               </div>
                            </div>

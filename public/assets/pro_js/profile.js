@@ -720,11 +720,10 @@ function profile_info_process(id){
              $('#email').html(data['profile'].email);
              $('#blood_grp').html(data['profile'].blood_grp);
              $('#dob').html(dob);
-            console.log(skill)
-            
-               /* for (let i = 0; i < skill.length; i++) {
-                      console.log(skill[i]+ "<br>"); // here i represents index
-                    }*/
+
+                var skill_var=JSON.parse(data['profile'].skill);
+                $('#skill').html(String(skill_var)); // here i represents index
+
              $('#contact_no').html(data['profile'].contact_no);
              $('#worklocation').html(data['profile'].worklocation);
              $('#designation').html(data['profile'].designation);

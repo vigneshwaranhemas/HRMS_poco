@@ -118,7 +118,7 @@
                   <div class="form-row">
                       <div class="col-md-12 mb-3">
                         <label for="division_name">Division Name </label>
-                        <input type="text" id="division_name" class="form-control" placeholder="Division Name" name="division_name" />
+                        <input type="text" id="division_name" class="form-control" placeholder="Division Name" name="division_name" oninput="check_division_name_edit();" />
                         <span class="text-danger color-hider-edit" id="division_name_error_edit" style="display:none;color: red;"></span>
                       </div>
                       <input type="hidden" name="ed_id" id="ed_id">

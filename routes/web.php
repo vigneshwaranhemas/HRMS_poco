@@ -462,4 +462,8 @@ Route::post('medical_details', 'HrController@medical_details')->name('medical_de
 
 // Leave Balance for Candidate
 Route::get('leave_balance', 'CandidateController@leave_balance')->name('leave_balance');
+Route::post('get_leave_masters_details', 'CandidateController@get_leave_masters_details');
+
+// Leave Apply for Candidate
+Route::get('leave_apply', 'CandidateController@leave_apply')->name('leave_apply');
 

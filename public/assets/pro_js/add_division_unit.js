@@ -220,6 +220,30 @@ function division_edit_process(id){
     });
 }
 
+//Edit check dublicate data
+function division_edit_process(){
+
+    var ed_division_name = $('#division_name').val();
+    var ed_id = $('#ed_id').val();
+
+    $.ajax({
+        url: get_division_unit_details_link,
+        method: "POST",
+        data:{
+            "id":ed_id,
+            "division_name":ed_division_name,
+        },
+        dataType: "json",
+        success: function(data) {
+
+            if(data.length !=0){
+                $('#division_name').val(data[0].division_name);
+                $('#ed_id').val(id);
+            }
+        }
+    });
+}
+
 //Edit function
 $(()=>{
 

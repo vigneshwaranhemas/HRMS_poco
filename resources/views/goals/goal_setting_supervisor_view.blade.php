@@ -53,9 +53,9 @@
 										<th scope="col">Rating </th>
 										<th scope="col">Supervisor Reamrks </th>
 										<th scope="col">Supervisor Rating </th>
-										<th scope="col">Reviewer Reamrks </th>
-										<th scope="col">HR Reamrks </th>
-										<th scope="col">BH Reamrks </th>
+										<th scope="col">Reviewer Remarks </th>
+										<th scope="col">HR Remarks </th>
+										<th scope="col">BH Remarks </th>
 										<!-- <th scope="col">Business Head</th> -->
 									</tr>
 								</thead>

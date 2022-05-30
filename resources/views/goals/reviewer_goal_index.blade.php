@@ -59,8 +59,8 @@
                                         <label for="Leader">Select Team Leader</label>
                                         <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter" name="team_leader_filter">
                                             <option value="">...Select...</option>
-                                            @foreach($reviewer_list as $reviewer)
-                                                <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
+                                            @foreach($supervisor_list as $supervisor)
+                                                <option value="{{ $supervisor->empID }}">{{ $supervisor->username }}</option>
                                             @endforeach
                                         </select>
                                     </div>

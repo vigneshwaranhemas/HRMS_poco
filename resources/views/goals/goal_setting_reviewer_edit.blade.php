@@ -63,7 +63,24 @@
 									
 								</tbody>
 							</table>
-							
+							<div class="m-t-40 m-b-30">
+								<div class="row">									
+									<div class="col-lg-2" id="reviewer_th_show_select"  style="display:none;">
+										<label>Consolidated Rating</label><br>
+										<select class="js-example-basic-single" style="width:250px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
+											<option value="" selected>...Select...</option>
+											<option value="EE - Exceeded Expectations">EE - Exceeded Expectations</option>
+											<option value="AE - Achieved Expectations">AE - Achieved Expectations</option>
+											<option value="ME - Met Expectations">ME - Met Expectations</option>
+											<option value="ME - Met Expectations">ME - Met Expectations</option>
+											<option value="ND - Needs Development">ND - Needs Development</option>
+										</select>
+									</div>
+									<div class="col-lg-2">
+										<button onclick="goals_status();" class="btn btn-success m-t-30 m-l-5"><i class="ti-save"></i> Save</button>                                            
+									</div>
+								</div>
+							</div>		
 						</div>
 					</div>
 
@@ -131,9 +148,11 @@
 			{
 				if(response == "Yes"){
 					$('#reviewer_th_show').css('display', 'none');
+					$('#reviewer_th_show_select').css('display', 'block');
 
 				}else{
 					$('#reviewer_th_show').css('display', 'block');
+					$('#reviewer_th_show_select').css('display', 'none');
 				}
 			},
 			error: function(error) {

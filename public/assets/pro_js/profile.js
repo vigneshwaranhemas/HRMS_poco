@@ -723,7 +723,7 @@ function profile_info_process(id){
 
                 var skill_var=JSON.parse(data['profile'].skill);
                 $('#skill').html(String(skill_var)); // here i represents index
-
+                
              $('#contact_no').html(data['profile'].contact_no);
              $('#worklocation').html(data['profile'].worklocation);
              $('#designation').html(data['profile'].designation);

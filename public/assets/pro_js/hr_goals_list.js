@@ -7,34 +7,40 @@ $( document ).ready(function() {
 });
 
 $(document).ready(function(){
+    get_supervisor();
     team_member_goal_record();
     get_hr_goal_list_record();
-    add_goal_btn();
+    // add_goal_btn();
+    get_hr_goal_list();
     goal_record();
 });
 
-function add_goal_btn(){
+function get_supervisor(){
+
     $.ajax({                   
-        url:"add_goal_btn",
+        url:"get_supervisor",
         type:"GET",
         dataType : "JSON",
-        success:function(response)
-        {
-            // alert(response)
-            if(response == "Yes"){
-                $('#add_goal_btn').css('display', 'none');
-            }else{
-                $('#add_goal_btn').css('display', 'block');
+        success: function(data) {
+            // console.log(data)
+            var html = '<option value="">Select</option>';
+            for (let index = 0; index < data.length; index++) {
+                html += "<option value='" + data[index].empID + "'>" + data[index].username + "</option>";
             }
+            $('#supervisor_list').html(html);
+            $('#supervisor_list_1').html(html);
+
         },
         error: function(error) {
             console.log(error);
-
         }                                              
             
     });
 }
-
+    $('#reviewer_filter_apply').on('click',function() {
+        goal_record();
+        });
+// as supervisor 
 function goal_record(){
 
     table_cot = $('#goal_data').DataTable({
@@ -109,11 +115,11 @@ function goal_record(){
         // ],
         ajax: {
             url: "get_goal_list",
-            type: 'GET',
+            type: 'POST',
             dataType: "json",
             data: function (d) {
                 // d.status = $('#status').val();
-                // d.af_from_date = $('#af_from_date').val();
+                d.supervisor_list = $('#supervisor_list').val();
                 // d.af_to_date = $('#af_to_date').val();
                 // d.af_position_title = $('#af_position_title').val();
             }
@@ -134,6 +140,232 @@ function goal_record(){
     });
 }
 
+$('#hr_apply').on('click',function() {
+    // var reviewer_filter = $('#supervisor_list_1').val();
+    // alert(reviewer_filter)
+    get_hr_goal_list_record();
+    });
+/*as reviewer*/
+function get_hr_goal_list_record(){
+    table_cot = $('#goal_tb_hr_overall').DataTable({
+
+        dom: 'lBfrtip',
+        lengthChange: true,
+        "buttons": [
+            {
+                "extend": 'copy',
+                "text": '<i class="bi bi-clipboard" ></i>  Copy',
+                "titleAttr": 'Copy',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'excel',
+                "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
+                "titleAttr": 'Excel',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'csv',
+                "text": '<i class="bi bi-file-text" ></i>  CSV',
+                "titleAttr": 'CSV',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'pdf',
+                "text": '<i class="bi bi-file-break" ></i>  PDF',
+                "titleAttr": 'PDF',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'print',
+                "text": '<i class="bi bi-printer"></i>  Print',
+                "titleAttr": 'Print',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'colvis',
+                "text": '<i class="bi bi-eye" ></i>  Colvis',
+                "titleAttr": 'Colvis',
+                // "action": newexportaction
+            },
+
+        ],
+        lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
+        processing: true,
+        serverSide: true,
+        serverMethod: 'post',
+        bDestroy: true,
+        scrollCollapse: true,
+        drawCallback: function() {
+
+        },
+        // aoColumnDefs: [
+        //     { 'visible': false, 'targets': [3] }
+        // ],
+        ajax: {
+            url: "get_reviewer_list",
+            type: 'POST',
+            dataType: "json",
+            data: function (d) {
+                d.supervisor_list_1 = $('#supervisor_list_1').val();
+                d.team_member_filter = $('#team_member_filter').val();
+            }
+        },
+        createdRow: function( row, data, dataIndex ) {
+            // $( row ).find('td:eq(0)').attr('data-label', 'Sno');
+            // $( row ).find('td:eq(1)').attr('data-label', 'Business Name');
+            // $( row ).find('td:eq(2)').attr('data-label', 'action');
+        },
+        columns: [
+            {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
+            {   data: 'goal_name', name: 'goal_name'    },
+            {   data: 'action', name: 'action'  },
+
+            // {   data: 'Info', name: 'Info'  },
+
+        ],
+    });
+}
+$('#supervisor_list_1').change(function() {
+    var reviewer_filter = $('#supervisor_list_1').val();
+    // alert(reviewer_filter)
+    if(reviewer_filter != ''){        
+        $.ajax({                   
+            url:"fetch_reviewer_res",
+            type:"POST",
+            data:{reviewer_filter:reviewer_filter},
+            dataType : "JSON",
+            success: function(data) {
+                var html = '<option value="">Select</option>';
+                for (let index = 0; index < data.length; index++) {
+                    html += "<option value='" + data[index].empID + "'>" + data[index].username + "</option>";
+            }
+            $('#team_member_filter').html(html);
+        },
+            error: function(error) {
+                console.log(error);
+
+            }                                              
+                
+        });
+    }
+    
+});
+/*as HR */
+function get_hr_goal_list(){
+
+    table_cot = $('#get_hr_goal').DataTable({
+
+        dom: 'lBfrtip',
+        lengthChange: true,
+        "buttons": [
+            {
+                "extend": 'copy',
+                "text": '<i class="bi bi-clipboard" ></i>  Copy',
+                "titleAttr": 'Copy',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'excel',
+                "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
+                "titleAttr": 'Excel',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'csv',
+                "text": '<i class="bi bi-file-text" ></i>  CSV',
+                "titleAttr": 'CSV',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'pdf',
+                "text": '<i class="bi bi-file-break" ></i>  PDF',
+                "titleAttr": 'PDF',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'print',
+                "text": '<i class="bi bi-printer"></i>  Print',
+                "titleAttr": 'Print',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'colvis',
+                "text": '<i class="bi bi-eye" ></i>  Colvis',
+                "titleAttr": 'Colvis',
+                // "action": newexportaction
+            },
+
+        ],
+        lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
+        processing: true,
+        serverSide: true,
+        serverMethod: 'post',
+        bDestroy: true,
+        scrollCollapse: true,
+        drawCallback: function() {
+
+        },
+        // aoColumnDefs: [
+        //     { 'visible': false, 'targets': [3] }
+        // ],
+        ajax: {
+            url: "get_hr_goal_list_record",
+            type: 'GET',
+            dataType: "json",
+            data: function (d) {
+                d.reviewer_filter = $('#reviewer_filter').val();
+                d.team_leader_filter = $('#team_leader_filter_hr').val();
+                d.team_member_filter = $('#team_member_filter_hr').val();
+            }
+        },
+        createdRow: function( row, data, dataIndex ) {
+            // $( row ).find('td:eq(0)').attr('data-label', 'Sno');
+            // $( row ).find('td:eq(1)').attr('data-label', 'Business Name');
+            // $( row ).find('td:eq(2)').attr('data-label', 'action');
+        },
+        columns: [
+            {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
+            {   data: 'created_by_name', name: 'created_by_name'    },
+            {   data: 'goal_name', name: 'goal_name'    },
+            {   data: 'status', name: 'status'    },
+            {   data: 'action', name: 'action'  },
+
+            // {   data: 'Info', name: 'Info'  },
+
+        ],
+    });
+}
 function team_member_goal_record(){
 
     table_cot = $('#team_member_goal_data').DataTable({
@@ -268,105 +500,7 @@ $('#reviewer_filter').change(function() {
 });
 
 
-function get_hr_goal_list_record(){
 
-    table_cot = $('#goal_tb_hr_overall').DataTable({
-
-        dom: 'lBfrtip',
-        lengthChange: true,
-        "buttons": [
-            {
-                "extend": 'copy',
-                "text": '<i class="bi bi-clipboard" ></i>  Copy',
-                "titleAttr": 'Copy',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'excel',
-                "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
-                "titleAttr": 'Excel',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'csv',
-                "text": '<i class="bi bi-file-text" ></i>  CSV',
-                "titleAttr": 'CSV',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'pdf',
-                "text": '<i class="bi bi-file-break" ></i>  PDF',
-                "titleAttr": 'PDF',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'print',
-                "text": '<i class="bi bi-printer"></i>  Print',
-                "titleAttr": 'Print',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'colvis',
-                "text": '<i class="bi bi-eye" ></i>  Colvis',
-                "titleAttr": 'Colvis',
-                // "action": newexportaction
-            },
-
-        ],
-        lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
-        processing: true,
-        serverSide: true,
-        serverMethod: 'post',
-        bDestroy: true,
-        scrollCollapse: true,
-        drawCallback: function() {
-
-        },
-        // aoColumnDefs: [
-        //     { 'visible': false, 'targets': [3] }
-        // ],
-        ajax: {
-            url: "get_hr_goal_list_record",
-            type: 'GET',
-            dataType: "json",
-            data: function (d) {
-                d.reviewer_filter = $('#reviewer_filter').val();
-                d.team_leader_filter = $('#team_leader_filter_hr').val();
-                d.team_member_filter = $('#team_member_filter_hr').val();
-            }
-        },
-        createdRow: function( row, data, dataIndex ) {
-            // $( row ).find('td:eq(0)').attr('data-label', 'Sno');
-            // $( row ).find('td:eq(1)').attr('data-label', 'Business Name');
-            // $( row ).find('td:eq(2)').attr('data-label', 'action');
-        },
-        columns: [
-            {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
-            {   data: 'created_by_name', name: 'created_by_name'    },
-            {   data: 'goal_name', name: 'goal_name'    },
-            {   data: 'status', name: 'status'    },
-            {   data: 'action', name: 'action'  },
-
-            // {   data: 'Info', name: 'Info'  },
-
-        ],
-    });
-}
 
 $('#team_leader_filter_hr').change(function() {
     var team_leader_filter_hr = $('#team_leader_filter_hr').val();
@@ -479,14 +613,3 @@ $("#formGoalDelete").submit(function(e) {
     });
 
 });
-
-function hr_filter_apply(){
-    get_hr_goal_list_record();
-}
-
-function hr_filter_reset(){
-    $("#reviewer_filter").val('').trigger('change');
-    $("#team_leader_filter_hr").val('').trigger('change');
-    $("#team_member_filter_hr").val('').trigger('change');
-    get_hr_goal_list_record();
-}

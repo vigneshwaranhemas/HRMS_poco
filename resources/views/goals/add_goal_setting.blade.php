@@ -14,7 +14,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Add Goal Setting<span>Process</span></h2>
+	<h2>Performance Assessment <span></span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -32,17 +32,70 @@
                     <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 107px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> Goals</span></div>
                     <div class="row">
                         <div class="col-md-4">
-
-                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Name</h6>
-                        <p>{{ Auth::user()->username }}</p>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Name :</h6>
+                                </div>
+                                <div class="col-md-7">
+                                    <p>{{ Auth::user()->username }}</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Emp ID :</h6>
+                                </div>
+                                <div class="col-md-7 m-t-10">
+                                    <p>{{ Auth::user()->empID }}</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Supervisor :</h6>
+                                </div>
+                                <div class="col-md-47 m-t-10">
+                                    <p>{{ Auth::user()->sup_name }}</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-4">
-                        <h6 class="mb-0 f-w-700"><i class="fa fa-sitemap"> </i> Function</h6>
-                        <p>{{ Auth::user()->designation }}</p>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Supervisor ID :</h6>
+                                </div>
+                                <div class="col-md-7">
+                                    <p>{{ Auth::user()->sup_emp_code }}</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> HRBP :</h6>
+                                </div>
+                                <div class="col-md-7 m-t-10">
+                                    <p>Rajesh M S</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> HRBP ID :</h6>
+                                </div>
+                                <div class="col-md-7 m-t-10">
+                                    <p>900380</p>
+                                </div>
+                            </div>
+                        </div>                        
                         <div class="col-md-4">
-                        <h6 class="mb-0 f-w-700"><i class="fa fa-ticket"> </i> Emp ID</h6>
-                        <p>{{ Auth::user()->empID }}</p>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Department :</h6>
+                                </div>
+                                <div class="col-md-7">
+                                    <p>{{ Auth::user()->department }}</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Reviewer :</h6>
+                                </div>
+                                <div class="col-md-7 m-t-10">
+                                    <p>{{ Auth::user()->reviewer_name }}</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Reviewer ID :</h6>
+                                </div>
+                                <div class="col-md-7 m-t-10">
+                                    <p>{{ Auth::user()->reviewer_emp_code }}</p>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -144,13 +197,13 @@
                             <div class="row">									
                                 <div class="col-lg-2">
                                     <label>Consolidated Rating</label><br>
-                                    <select class="js-example-basic-single" style="width:250px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
+                                    <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
                                         <option value="" selected>...Select...</option>
-                                        <option value="EE - Exceeded Expectations">EE - Exceeded Expectations</option>
-                                        <option value="AE - Achieved Expectations">AE - Achieved Expectations</option>
-                                        <option value="ME - Met Expectations">ME - Met Expectations</option>
-                                        <option value="ME - Met Expectations">ME - Met Expectations</option>
-                                        <option value="ND - Needs Development">ND - Needs Development</option>
+                                        <option value="EE">EE</option>
+                                        <option value="AE">AE</option>
+                                        <option value="ME">ME</option>
+                                        <option value="PE">PE</option>
+                                        <option value="ND">ND</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-2">
@@ -244,11 +297,11 @@
 
                         html +='<td>';                            
                             html +='<select class="form-control js-example-basic-single key_bus_drivers" name="rating_by_employee_1[]">';
-                                html +='<option value="EE - Exceeded Expectations">EE - Exceeded Expectations</option>';
-                                html +='<option value="AE - Achieved Expectations">AE - Achieved Expectations</option>';
-                                html +='<option value="ME - Met Expectations">ME - Met Expectations</option>';
-                                html +='<option value="ME - Met Expectations">ME - Met Expectations</option>';
-                                html +='<option value="ND - Needs Development">ND - Needs Development</option>';
+                                html +='<option value="EE">EE</option>';
+                                html +='<option value="AE">AE</option>';
+                                html +='<option value="ME">ME</option>';
+                                html +='<option value="PE">PE</option>';
+                                html +='<option value="ND">ND</option>';
                             html +='</select>';
                         html +='</td>';                        
 
@@ -313,11 +366,11 @@
         
         var html5 ='';
             html5 +='<select class="form-control js-example-basic-single key_bus_drivers m-t-35 '+code+'" name="rating_by_employee_'+cur_rowCount+'[]">';
-                html5 +='<option value="EE - Exceeded Expectations">EE - Exceeded Expectations</option>';
-                html5 +='<option value="AE - Achieved Expectations">AE - Achieved Expectations</option>';
-                html5 +='<option value="ME - Met Expectations">ME - Met Expectations</option>';
-                html5 +='<option value="ME - Met Expectations">ME - Met Expectations</option>';
-                html5 +='<option value="ND - Needs Development">ND - Needs Development</option>';
+                        html5 +='<option value="EE">EE</option>';
+                        html5 +='<option value="AE">AE</option>';
+                        html5 +='<option value="ME">ME</option>';
+                        html5 +='<option value="PE">PE</option>';
+                        html5 +='<option value="ND">ND</option>';
             html5 +='</select>';
 
         var html11 = '';
@@ -410,11 +463,11 @@
                 
                 html +='<td>';                            
                     html +='<select class="form-control js-example-basic-single key_bus_drivers" name="rating_by_employee_'+cur_rowCount+'[]">';
-                        html +='<option value="EE - Exceeded Expectations">EE - Exceeded Expectations</option>';
-                        html +='<option value="AE - Achieved Expectations">AE - Achieved Expectations</option>';
-                        html +='<option value="ME - Met Expectations">ME - Met Expectations</option>';
-                        html +='<option value="ME - Met Expectations">ME - Met Expectations</option>';
-                        html +='<option value="ND - Needs Development">ND - Needs Development</option>';
+                        html +='<option value="EE">EE</option>';
+                        html +='<option value="AE">AE</option>';
+                        html +='<option value="ME">ME</option>';
+                        html +='<option value="PE">PE</option>';
+                        html +='<option value="ND">ND</option>';
                     html +='</select>';
                 html +='</td>';     
                 

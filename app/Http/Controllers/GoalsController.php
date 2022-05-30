@@ -29,7 +29,7 @@ class GoalsController extends Controller
         }elseif($logined_empID == "900380"){ //HR head
             return view('goals.hr_goal_index')->with("reviewer_list", $reviewer_list);
         }elseif($result == "Reviewer"){
-            return view('goals.reviewer_goal_index')->with("reviewer_list", $reviewer_list);
+            return view('goals.reviewer_goal_index')->with("supervisor_list", $supervisor_list);
         }elseif($result == "Supervisor"){
             return view('goals.sup_goal_index')->with("team_member_list", $team_member_list);
         }else{
@@ -1169,14 +1169,20 @@ class GoalsController extends Controller
                  $html .= '<textarea type="text" name="sup_remarks_'.$cell1.'[]" class="form-control"></textarea>';
              }
              $html .= '</td>';
-
+                          
             /*Cell 8*/
             $html .= '<td>';
-            if($row_values->$cell8 != null){
-                $html .= '<input type="text" name="sup_rating_'.$cell1.'[]" value="'.$row_values->$cell8[0].'" class="form-control">';
-            }else{
-                $html .= '<input type="text" name="sup_rating_'.$cell1.'[]" class="form-control">';
-            }
+                $html .= '<option value="" selected>...Select...</option>';
+                if($row_values->$cell8 != null){
+                    $html .= '<input type="text" name="sup_rating_'.$cell1.'[]" value="'.$row_values->$cell8[0].'" class="form-control">';
+                    $html .= '<option value="EE">EE - Exceeded Expectations</option>';
+                    $html .= '<option value="AE - Achieved Expectations">AE - Achieved Expectations</option>';
+                    $html .= '<option value="ME - Met Expectations">ME - Met Expectations</option>';
+                    $html .= '<option value="PE - Partially Met Expectations">PE - Partially Met Expectations</option>';
+                    $html .= '<option value="ND - Needs Development">ND - Needs Development</option>';
+                }else{
+                    $html .= '<input type="text" name="sup_rating_'.$cell1.'[]" class="form-control">';
+                }
             $html .= '</td>';
 
 
@@ -2914,7 +2920,7 @@ class GoalsController extends Controller
         return response($result);
     }
 
-/*hr goal list*/
+    /*hr goal list*/
      public function get_hr_goal_list(Request $request){
 
         if ($request !="") {

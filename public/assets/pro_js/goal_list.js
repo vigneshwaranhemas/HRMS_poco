@@ -229,14 +229,15 @@ $('#goal_data').on('click','#employee_summary',function(){
 
 $('#goal_data').on('click','#employee_summary_show',function(){
     var id = $(this).data('id');
-    
+    // alert(id)
     $.ajax({                   
         url:"fetch_goals_employee_summary",
         type:"GET",
         data:{id: id},
         dataType : "JSON",
         success:function(data)
-        {            
+        {      
+            // console.log(data)
             $('#goal_employee_summary_show').html(data); 
             $('#employeeSummaryShowModal').modal('show');            
         },

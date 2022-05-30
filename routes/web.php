@@ -149,6 +149,7 @@ Route::get('get_bh_goal_list', 'GoalsController@get_bh_goal_list' );
 Route::get('check_goals_employee_summary', 'GoalsController@check_goals_employee_summary' );
 Route::get('get_hr_goal_list_record', 'GoalsController@get_hr_goal_list_record' );
 Route::post('goals_supervisor_summary', 'GoalsController@goals_supervisor_summary' );
+Route::get('fetch_goals_employee_summary', 'GoalsController@fetch_goals_employee_summary' );
 Route::get('goal_setting_hr_edit', 'GoalsController@goal_setting_hr_edit')->name('goal_setting_hr_edit');
 
 //Birthday controller 
@@ -498,6 +499,10 @@ Route::post('medical_details', 'HrController@medical_details')->name('medical_de
 
 // Leave Balance for Candidate
 Route::get('leave_balance', 'CandidateController@leave_balance')->name('leave_balance');
+Route::post('get_leave_masters_details', 'CandidateController@get_leave_masters_details');
+
+// Leave Apply for Candidate
+Route::get('leave_apply', 'CandidateController@leave_apply')->name('leave_apply');
 
 //goals
 Route::get('get_hr_goal_list','GoalsController@get_hr_goal_list');

@@ -42,25 +42,25 @@
         <button class="btn btn-secondary" type="button" style="margin-right: 12px;">Apply</button>
         <button class="btn btn-info" type="button" style="margin-right: 12px;"><i class="fa fa-download" aria-hidden="true"></i></button>
         <select class="col-md-1 form-control" name="years" id="years">
-            <option value="2023">2023</option>
             <option value="2022">2022</option>
             <option value="2021">2021</option>
             <option value="2020">2020</option>
+            <option value="2020">2019</option>
         </select>
     </div>
     <div class="row">
 
-        <div class="col-sm-8 col-xl-4">
-            <div class="card b-r-0">
+        <div class="col-sm-8 col-xl-4" id="loss_of_pay" style="display: none">
+            <div class="card">
                <div class="card-header">
                   <h5>Loss Of Pay</h5>
                   <div class="card-header-right">
-                     <span>Granted: 0</span>
+                     <span>Granted: <span id="lop_granted"></span></span>
                   </div>
                </div>
                <div class="card-body" style="margin-top: -45px;">
                 <div class="col-md-12 text-center">
-                    <h5>05</h5>
+                    <h5 id="lop_balance"></h5>
                     <p>Balance</p>
                     <a href="http://127.0.0.1:8000/payslip"><button class="btn btn-primary" type="button">View Details</button></a>
                 </div>
@@ -68,17 +68,17 @@
             </div>
          </div>
 
-         <div class="col-sm-8 col-xl-4">
-            <div class="card b-r-0">
+         <div class="col-sm-8 col-xl-4" id="on_duty" style="display: none">
+            <div class="card ">
                <div class="card-header">
                   <h5>On Duty</h5>
                   <div class="card-header-right">
-                     <span>Granted: 0</span>
+                    <span>Granted: <span id="on_duty_granted"></span></span>
                   </div>
                </div>
                <div class="card-body" style="margin-top: -45px;">
                 <div class="col-md-12 text-center">
-                    <h5>05</h5>
+                    <h5 id="on_duty_balance"></h5>
                     <p>Balance</p>
                     <a href="http://127.0.0.1:8000/payslip"><button class="btn btn-primary" type="button">View Details</button></a>
                 </div>
@@ -86,17 +86,17 @@
             </div>
          </div>
 
-         <div class="col-sm-8 col-xl-4">
-            <div class="card b-r-0">
+         <div class="col-sm-8 col-xl-4" id="probationary_leave" style="display: none">
+            <div class="card ">
                <div class="card-header">
                   <h5>Probationary Leave</h5>
                   <div class="card-header-right">
-                     <span>Granted: 0</span>
+                    <span>Granted: <span id="prob_granted"></span></span>
                   </div>
                </div>
                <div class="card-body" style="margin-top: -45px;">
                 <div class="col-md-12 text-center">
-                    <h5>05</h5>
+                    <h5 id="prob_balance"></h5>
                     <p>Balance</p>
                     <a href="http://127.0.0.1:8000/payslip"><button class="btn btn-primary" type="button">View Details</button></a>
                 </div>
@@ -104,17 +104,17 @@
             </div>
          </div>
 
-         <div class="col-sm-8 col-xl-4">
-            <div class="card b-r-0">
+         <div class="col-sm-8 col-xl-4" id="work_from_home" style="display: none">
+            <div class="card ">
                <div class="card-header">
                   <h5>Work From Home</h5>
                   <div class="card-header-right">
-                     <span>Granted: 0</span>
+                    <span>Granted: <span id="wfh_granted"></span></span>
                   </div>
                </div>
                <div class="card-body" style="margin-top: -45px;">
                 <div class="col-md-12 text-center">
-                    <h5>05</h5>
+                    <h5 id="wfh_balance"></h5>
                     <p>Balance</p>
                     <a href="http://127.0.0.1:8000/payslip"><button class="btn btn-primary" type="button">View Details</button></a>
                 </div>
@@ -122,17 +122,17 @@
             </div>
          </div>
 
-         <div class="col-sm-8 col-xl-4">
-            <div class="card b-r-0">
+         <div class="col-sm-8 col-xl-4" id="privilege_leave" style="display: none">
+            <div class="card ">
                <div class="card-header">
                   <h5>Privilege Leave</h5>
                   <div class="card-header-right">
-                     <span>Granted: 0</span>
+                    <span>Granted: <span id="privilege_granted"></span></span>
                   </div>
                </div>
                <div class="card-body" style="margin-top: -45px;">
                 <div class="col-md-12 text-center">
-                    <h5>05</h5>
+                    <h5 id="privilege_balance"></h5>
                     <p>Balance</p>
                     <a href="http://127.0.0.1:8000/payslip"><button class="btn btn-primary" type="button">View Details</button></a>
                 </div>
@@ -140,17 +140,17 @@
             </div>
          </div>
 
-         <div class="col-sm-8 col-xl-4">
-            <div class="card b-r-0">
+         <div class="col-sm-8 col-xl-4" id="sick_leave" style="display: none">
+            <div class="card ">
                <div class="card-header">
                   <h5>Sick Leave</h5>
                   <div class="card-header-right">
-                     <span>Granted: 0</span>
+                    <span>Granted: <span id="sick_granted"></span></span>
                   </div>
                </div>
                <div class="card-body" style="margin-top: -45px;">
                 <div class="col-md-12 text-center">
-                    <h5>05</h5>
+                    <h5 id="sick_balance"></h5>
                     <p>Balance</p>
                     <a href="http://127.0.0.1:8000/payslip"><button class="btn btn-primary" type="button">View Details</button></a>
                 </div>
@@ -158,17 +158,17 @@
             </div>
          </div>
 
-         <div class="col-sm-8 col-xl-4">
-            <div class="card b-r-0">
+         <div class="col-sm-8 col-xl-4" id="casual_leave" style="display: none">
+            <div class="card ">
                <div class="card-header">
                   <h5>Casual Leave</h5>
                   <div class="card-header-right">
-                     <span>Granted: 0</span>
+                    <span>Granted: <span id="casual_granted"></span></span>
                   </div>
                </div>
                <div class="card-body" style="margin-top: -45px;">
                 <div class="col-md-12 text-center">
-                    <h5>05</h5>
+                    <h5 id="casual_balance"></h5>
                     <p>Balance</p>
                     <a href="http://127.0.0.1:8000/payslip"><button class="btn btn-primary" type="button">View Details</button></a>
                 </div>
@@ -185,10 +185,9 @@
 
 @section('script')
 
-{{-- <script src="../assets/pro_js/view_welcome_aboard.js"></script> --}}
+<script src="../assets/pro_js/leave_balance.js"></script>
 
 <script>
-// var add_welcome_aboard_process_link = "{{url('add_welcome_aboard_process')}}";
-// var get_welcome_aboard_details_link = "{{url('get_welcome_aboard_details')}}";
+var get_leave_masters_details_link = "{{url('get_leave_masters_details')}}";
 </script>
 @endsection

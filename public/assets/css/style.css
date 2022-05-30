@@ -25353,8 +25353,10 @@ body.sidebar-dark .page-body-wrapper .iconsidebar-menu .sidebar .iconMenu-bar li
 }
 
 .page-wrapper .page-body-wrapper .page-header {
-	padding-top: 50px;
-	padding-bottom: 50px
+	/* padding-top: 50px;
+	padding-bottom: 50px */
+	padding-top: 25px;
+	padding-bottom: 15px
 }
 
 .page-wrapper .page-body-wrapper .page-header .row {

@@ -136,7 +136,7 @@ Route::post('add_goals_data', 'GoalsController@add_goals_data');
 Route::post('update_goals_data', 'GoalsController@update_goals_data');
 Route::post('goals_delete', 'GoalsController@goals_delete');
 Route::post('goals_employee_summary', 'GoalsController@goals_employee_summary');
-Route::get('get_goal_list', 'GoalsController@get_goal_list' );
+Route::post('get_goal_list', 'GoalsController@get_goal_list' );
 Route::get('get_team_member_goal_list', 'GoalsController@get_team_member_goal_list' );
 Route::get('get_reviewer_goal_list', 'GoalsController@get_reviewer_goal_list' );
 Route::get('calendar', 'GoalsController@calendar' );
@@ -149,6 +149,7 @@ Route::get('get_bh_goal_list', 'GoalsController@get_bh_goal_list' );
 Route::get('check_goals_employee_summary', 'GoalsController@check_goals_employee_summary' );
 Route::get('get_hr_goal_list_record', 'GoalsController@get_hr_goal_list_record' );
 Route::post('goals_supervisor_summary', 'GoalsController@goals_supervisor_summary' );
+Route::get('fetch_goals_employee_summary', 'GoalsController@fetch_goals_employee_summary' );
 Route::get('goal_setting_hr_edit', 'GoalsController@goal_setting_hr_edit')->name('goal_setting_hr_edit');
 
 //Birthday controller 
@@ -506,4 +507,7 @@ Route::get('leave_apply', 'CandidateController@leave_apply')->name('leave_apply'
 //goals
 Route::get('get_hr_goal_list','GoalsController@get_hr_goal_list');
 Route::get('goals_sup_th_check','GoalsController@goals_sup_th_check');
+Route::get('get_supervisor','GoalsController@get_supervisor');
+Route::post('fetch_reviewer_res','GoalsController@fetch_reviewer_res');
+Route::post('get_reviewer_list','GoalsController@get_reviewer_list');
 

@@ -20,6 +20,11 @@
 @section('breadcrumb-items')
    {{--<li class="breadcrumb-item">Dashboard</li>
 	<li class="breadcrumb-item active">Default</li>--}}
+    <a class="btn btn-success text-white" title="Exceeded Expectations">EE</a>                                            
+	<a class="btn btn-secondary m-l-10 text-white" title="Achieved Expectations">AE</a>                                            
+	<a class="btn btn-info m-l-10 text-white" title="Met Expectations">ME</a>                                            
+	<a class="btn btn-warning m-l-10 text-white" title="Partially Met Expectations">PME</a>                                            
+	<a class="btn btn-dark m-l-10 text-white" title="Needs Development">ND</a>    
 @endsection
 
 @section('content')
@@ -29,68 +34,68 @@
         <div class="col-sm-12">
             <div class="ribbon-vertical-right-wrapper card">
                 <div class="card-body">
-                    <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 107px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> Goals</span></div>
+                    <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 50px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PA</span></div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Name :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Emp ID :</h6>
                                 </div>
                                 <div class="col-md-7">
-                                    <p>{{ Auth::user()->username }}</p>
-                                </div>
-                                <div class="col-md-5 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Emp ID :</h6>
-                                </div>
-                                <div class="col-md-7 m-t-10">
                                     <p>{{ Auth::user()->empID }}</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Supervisor :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id"> </i> Supervisor ID :</h6>
+                                </div>
+                                <div class="col-md-7 m-t-10">
+                                    <p>{{ Auth::user()->sup_emp_code }}</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
                                 </div>
                                 <div class="col-md-47 m-t-10">
-                                    <p>{{ Auth::user()->sup_name }}</p>
+                                    <p>900380</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Supervisor ID :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Name :</h6>
                                 </div>
                                 <div class="col-md-7">
-                                    <p>{{ Auth::user()->sup_emp_code }}</p>
+                                    <p>{{ Auth::user()->username }}</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> HRBP :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Supervisor :</h6>
+                                </div>
+                                <div class="col-md-7 m-t-10">
+                                    <p>{{ Auth::user()->sup_name }}</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP :</h6>
                                 </div>
                                 <div class="col-md-7 m-t-10">
                                     <p>Rajesh M S</p>
-                                </div>
-                                <div class="col-md-5 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> HRBP ID :</h6>
-                                </div>
-                                <div class="col-md-7 m-t-10">
-                                    <p>900380</p>
                                 </div>
                             </div>
                         </div>                        
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Department :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Department :</h6>
                                 </div>
                                 <div class="col-md-7">
                                     <p>{{ Auth::user()->department }}</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Reviewer :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Reviewer :</h6>
                                 </div>
                                 <div class="col-md-7 m-t-10">
                                     <p>{{ Auth::user()->reviewer_name }}</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Reviewer ID :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer ID :</h6>
                                 </div>
                                 <div class="col-md-7 m-t-10">
                                     <p>{{ Auth::user()->reviewer_emp_code }}</p>
@@ -100,7 +105,7 @@
 
                     </div>
                 </div>
-                </div>
+            </div>
 
             <div class="card">
                 <!-- <div class="card-header">
@@ -205,6 +210,7 @@
                                         <option value="PE">PE</option>
                                         <option value="ND">ND</option>
                                     </select>
+                                    <div class="text-danger employee_consolidated_rate_error" id=""></div>
                                 </div>
                                 <div class="col-lg-2">
                                     <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Save</button>                                            
@@ -258,17 +264,20 @@
                 var html = '<tr>';
                         html +='<td scope="row">1</td>';
                         html +='<td>';
-                            html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_1[]">';
+                            html +='<select class="form-control js-example-basic-single key_bus_drivers key_bus_drivers_1" id="key_bus_drivers_1" name="key_bus_drivers_1[]">';
+                                html +='<option value="">...Select...</option>';
                                 html +='<option value="Revenue">Revenue</option>';
                                 html +='<option value="Customer">Customer</option>';
                                 html +='<option value="Process">Process</option>';
                                 html +='<option value="People">People</option>';
                                 html +='<option value="Projects">Projects</option>';
                             html +='</select>';
+                            html += '<div class="text-danger key_bus_drivers_1_error" id=""></div>';
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<textarea name="key_res_areas_1[]" id="" class="form-control"></textarea>';
+                            html +='<textarea name="key_res_areas_1[]" id="key_res_areas_1" class="form-control key_res_areas_1"></textarea>';
+                            html += '<div class="text-danger key_res_areas_1_error" id=""></div>';
                         html +='</td>';
 
                         html +='<td>';
@@ -276,40 +285,21 @@
                         html +='</td>';
                         
                         html +='<td>';
-                            html +='<textarea type="text" name="self_assessment_remark_1[]" id="" class="form-control"></textarea>';
+                            html +='<textarea type="text" name="self_assessment_remark_1[]" id="self_assessment_remark_1" class="form-control self_assessment_remark_1"></textarea>';
+                            html += '<div class="text-danger self_assessment_remark_1_error" id=""></div>';
                         html +='</td>';
 
-                        // html +='<td>';
-                        //     html +='<textarea name="sub_provided_1[]" id="" class="form-control"></textarea>';
-                        // html +='</td>';
-
-                        // html +='<td>';
-                        //     html +='<input type="text" name="weightage_1[]" id="" class="form-control">';
-                        // html +='</td>';
-
-                        // html +='<td>';
-                        //     html +='<textarea name="target_1[]" id="" class="form-control"></textarea>';
-                        // html +='</td>';
-
-                        // html +='<td>';
-                        //     html +='<textarea name="rate_1[]" id="" class="form-control"></textarea>';
-                        // html +='</td>';
-
                         html +='<td>';                            
-                            html +='<select class="form-control js-example-basic-single key_bus_drivers" name="rating_by_employee_1[]">';
+                            html +='<select id="rating_by_employee_1" class="form-control js-example-basic-single key_bus_drivers rating_by_employee_1" name="rating_by_employee_1[]">';
+                                html +='<option value="">...Select...</option>';
                                 html +='<option value="EE">EE</option>';
                                 html +='<option value="AE">AE</option>';
                                 html +='<option value="ME">ME</option>';
                                 html +='<option value="PE">PE</option>';
                                 html +='<option value="ND">ND</option>';
                             html +='</select>';
-                        html +='</td>';                        
-
-                        // html +='<td>';
-                        //     html +='<textarea name="self_remarks_1[]" id="" class="form-control"></textarea>';
-                        // html +='</td>';
-
-                        
+                            html += '<div class="text-danger rating_by_employee_1_error" id=""></div>';
+                        html +='</td>';    
 
                         html +='<td>';
                             html +='<div style="margin-top: 80px;"></div>';
@@ -324,6 +314,7 @@
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button"  id="btnDelete" data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
                                 html +='</div>';
                             html +='</div>';
+
                             // html +='<div class="dropup m-t-5">';
                             //     html +='<button type="button" class="btn btn-xs btn-info" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button>';
                             // html +='</div>';
@@ -356,22 +347,22 @@
         var rand_no = Math.floor(Math.random()*90000) + 10000;
         var code = cur_rowCount+'_'+rand_no;
         
-        var html2 = '<textarea id="" class="form-control m-t-5 '+code+'" name="key_res_areas_'+cur_rowCount+'[]"></textarea>';
-        var html3 = '<textarea id="" class="form-control m-t-5 '+code+'" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
-        var html4 = '<textarea id="" class="form-control m-t-5 '+code+'" name="self_assessment_remark_'+cur_rowCount+'[]"></textarea>';
-        // var html5 = '<textarea id="" class="form-control m-t-5 '+code+'" name="rating_by_employee_'+cur_rowCount+'[]"></textarea>';
-        // var html6 = '<textarea id="" class="form-control m-t-5 '+code+'" name="actuals_'+cur_rowCount+'[]"></textarea>';
-        // var html9 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
-        // var html10 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
-        
+        var html2 = '<textarea class="form-control m-t-5 key_res_areas_'+cur_rowCount+' '+code+'" id="key_res_areas_'+code+'" name="key_res_areas_'+cur_rowCount+'[]"></textarea>';
+            html2 += '<div class="text-danger key_res_areas_'+code+'_error" id=""></div>';
+        var html3 = '<textarea class="form-control m-t-5 measurement_criteria_'+cur_rowCount+' '+code+'" id="measurement_criteria_'+code+'" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
+        var html4 = '<textarea class="form-control m-t-5 self_assessment_remark_'+cur_rowCount+' '+code+'"  id="self_assessment_remark_'+code+'" name="self_assessment_remark_'+cur_rowCount+'[]"></textarea>';
+            html4 += '<div class="text-danger self_assessment_remark_'+code+'_error" id=""></div>';
+       
         var html5 ='';
-            html5 +='<select class="form-control js-example-basic-single key_bus_drivers m-t-35 '+code+'" name="rating_by_employee_'+cur_rowCount+'[]">';
+            html5 +='<select class="form-control js-example-basic-single key_bus_drivers m-t-35 rating_by_employee_'+cur_rowCount+' '+code+'"  id="rating_by_employee_'+code+'" name="rating_by_employee_'+cur_rowCount+'[]">';
+                        html5 +='<option value="">...Select...</option>';
                         html5 +='<option value="EE">EE</option>';
                         html5 +='<option value="AE">AE</option>';
                         html5 +='<option value="ME">ME</option>';
                         html5 +='<option value="PE">PE</option>';
                         html5 +='<option value="ND">ND</option>';
             html5 +='</select>';
+            html5 += '<div class="text-danger rating_by_employee_'+code+'_error" id=""></div>';
 
         var html11 = '';
 
@@ -384,10 +375,6 @@
         $(x).closest("tr").find("td:eq(3)").append(html3);
         $(x).closest("tr").find("td:eq(4)").append(html4);
         $(x).closest("tr").find("td:eq(5)").append(html5);
-        // $(x).closest("tr").find("td:eq(6)").append(html6);
-        // $(x).closest("tr").find("td:eq(8)").append(html8);
-        // $(x).closest("tr").find("td:eq(9)").append(html9);
-        // $(x).closest("tr").find("td:eq(10)").append(html10);
         $(x).closest("tr").find("td:eq(6)").append(html11);
 
     }
@@ -408,45 +395,20 @@
         var html = '<tr>';
                 html +='<td scope="row">1</td>';
                 html +='<td>';
-                    html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_'+cur_rowCount+'[]">';
+                    html +='<select class="form-control js-example-basic-single key_bus_drivers key_bus_drivers_'+cur_rowCount+'" id="key_bus_drivers_'+cur_rowCount+'" name="key_bus_drivers_'+cur_rowCount+'[]">';
+                        html +='<option value="">...Select...</option>';
                         html +='<option value="Revenue">Revenue</option>';
                         html +='<option value="Customer">Customer</option>';
                         html +='<option value="Process">Process</option>';
                         html +='<option value="People">People</option>';
                         html +='<option value="Projects">Projects</option>';
                     html +='</select>';
+                    html += '<div class="text-danger key_bus_drivers_'+cur_rowCount+'_error" id=""></div>';
                 html +='</td>';
-
-                // html +='<td>';
-                //     html +='<textarea name="key_res_areas_1[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<textarea name="measurement_criteria_1[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
                 
-                // html +='<td>';
-                //     html +='<textarea name="sub_provided_1[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // // html +='<td>';
-                // //     html +='<input type="text" name="weightage_1[]" id="" class="form-control">';
-                // // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<textarea name="target_1[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // // html +='<td>';
-                // //     html +='<textarea name="rate_1[]" id="" class="form-control"></textarea>';
-                // // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<textarea name="actuals_1[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
                 html +='<td>';
-                    html +='<textarea name="key_res_areas_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                    html +='<textarea name="key_res_areas_'+cur_rowCount+'[]" id="key_res_areas_'+cur_rowCount+'" class="form-control key_res_areas_'+cur_rowCount+'"></textarea>';
+                    html += '<div class="text-danger key_res_areas_'+cur_rowCount+'_error" ></div>';
                 html +='</td>';
 
                 html +='<td>';
@@ -454,7 +416,8 @@
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<textarea name="self_assessment_remark_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                    html +='<textarea name="self_assessment_remark_'+cur_rowCount+'[]" id="self_assessment_remark_'+cur_rowCount+'" class="form-control self_assessment_remark_'+cur_rowCount+'"></textarea>';
+                    html += '<div class="text-danger self_assessment_remark_'+cur_rowCount+'_error" id=""></div>';
                 html +='</td>';
 
                 // html +='<td>';
@@ -462,13 +425,15 @@
                 // html +='</td>';
                 
                 html +='<td>';                            
-                    html +='<select class="form-control js-example-basic-single key_bus_drivers" name="rating_by_employee_'+cur_rowCount+'[]">';
+                    html +='<select class="form-control js-example-basic-single key_bus_drivers rating_by_employee_'+cur_rowCount+'" id="rating_by_employee_'+cur_rowCount+'" name="rating_by_employee_'+cur_rowCount+'[]">';
+                        html +='<option value="">...Select...</option>';
                         html +='<option value="EE">EE</option>';
                         html +='<option value="AE">AE</option>';
                         html +='<option value="ME">ME</option>';
                         html +='<option value="PE">PE</option>';
                         html +='<option value="ND">ND</option>';
                     html +='</select>';
+                    html += '<div class="text-danger rating_by_employee_'+cur_rowCount+'_error" id=""></div>';
                 html +='</td>';     
                 
                 // html +='<td>';
@@ -526,105 +491,126 @@
         updatesno();
     }); 
 
-
-    function formTable() {
-
-        var test = [];
-        var error='';
-        
-        $('#goal-tb tr').each(function(index, tr) {
-            $(tr).find('td').each (function (index, td) {
-                console.log(td)
-            });
-        });
-
-        // $('#goal-tb tbody>tr').each(function (element) {
-        //     // var currrow=$(this).closest('tr');
-        //     alert("col4")
-
-        //     var col0=$(this).find("td:eq(0)").text();
-        //     // var col1=$(this).find("td:eq(1) textarea").val();
-        //     //    var col2=$(this).find("td:eq(2) option:selected").val();
-        //     //    var col4_input=$(this).find("td:eq(4) input:checked").val();
-        //     // alert(col0)
-            
-                                                                    
-        // });
-
-        //Sending data to database
-        //    if(error==""){
-        //        // alert("succes")
-        //        data_insert();
-        //    }
-        //    else{
-        //        // alert("test")
-        //        // data_insert();
-        //        scrollUp();
-        //    }
-          
-           // console.log(test);
-           // var formData =  JSON.stringify(test);
-           // alert(formData);
-                    
-        //    function data_insert(){
-        //        // alert("jsd");
-
-        //        var business_name_option=$("#business_name_option").val();
-
-        //        $.ajax({
-                   
-        //            url:"{{ ('business_form') }}",
-        //            type:"POST",
-        //            data:{business_name:business_name_option, serialize_form_value:test},
-        //            dataType : "JSON",
-        //            success:function(data)
-        //            {
-        //                window.location.reload();                         
-        //            },
-        //            error: function(response) {
-        //                // alert(response.responseJSON.errors.business_name_option);
-        //                $('#business_name_option_error').text(response.responseJSON.errors.business_name);
-
-        //            }                                              
-                       
-        //        });
-        //    }            
-       
-
-    }
-
     $("#goalsForm").submit(function(e) {
         e.preventDefault();
-        // $('button[type="submit"]').attr('disabled' , true);
 
-        // console.log($('#goalsForm').serialize());
+        var error='';
 
-        $.ajax({
-                   
-            url:"{{ url('add_goals_data') }}",
-            type:"POST",
-            data:$('#goalsForm').serialize(),
-            dataType : "JSON",
-            success:function(data)
-            {
-                Toastify({
-                    text: "Added Sucessfully..!",
-                    duration: 3000,
-                    close:true,
-                    backgroundColor: "#4fbe87",
-                }).showToast();    
-                
-                $('button[type="submit"]').attr('disabled' , false);
-                
-                window.location = "{{ url('goals')}}";                
-            },
-            error: function(response) {
-                // alert(response.responseJSON.errors.business_name_option);
-                // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+        var rate = $("#employee_consolidated_rate").val();
+        var $errmsg3 = $(".employee_consolidated_rate_error");
+        $errmsg3.hide();
 
-            }                                              
+        if(rate == ""){
+            $errmsg3.html('Employee Consolidated Rate is required').show();                
+            error+="error";
+        }
+        
+        $('#goal-tb tr').each(function() {
+            var col0=$(this).find("td:eq(0)").text();
+            var col1=$(this).find("td:eq(1) option:selected").val();
+            var col2=$(this).find("td:eq(2) textarea").val();
+            var col4=$(this).find("td:eq(4) textarea").val();
+            var col5=$(this).find("td:eq(5) option:selected").val();
+            // console.log(col0)
+            // console.log(col1)
+
+            // Key business drivers
+            var err_div_name = ".key_bus_drivers_"+col0+"_error";            
+            var $errmsg0 = $(err_div_name);
+            $errmsg0.hide();
+            
+            if(col1 == ""){
+                $errmsg0.html('Key business drivers is required').show();                
+                error+="error";
+            }
+            
+            //Key result areas
+            var cass_name = ".key_res_areas_"+col0;
+
+            $(cass_name).each(function () {                
+                var sub_value = $(this).val();
+                var sub_class_id = $(this).get(0).id;
+                var err_div_name = "."+sub_class_id+"_error";
+                var $errmsg = $(err_div_name);
+                $errmsg.hide();
                 
+                if(sub_value == ""){
+                    $errmsg.html('Key result areas is required').show();                
+                    error+="error";
+                }
+                     
+            });
+
+            //Self Assessment (Qualitative Remarks) by Employee
+            var cass_name1 = ".self_assessment_remark_"+col0;
+
+            $(cass_name1).each(function () {          
+                var sub_value1 = $(this).val();
+                var sub_class_id1 = $(this).get(0).id;
+                var err_div_name1 = "."+sub_class_id1+"_error";
+                var $errmsg1 = $(err_div_name1);
+                $errmsg1.hide();
+                console.log(err_div_name1)
+                
+                if(sub_value1 == ""){
+                    $errmsg1.html('Self assessment is required').show();                
+                    error+="error";
+                }
+                     
+            });
+
+            //Rating by Employee
+            var cass_name2 = ".rating_by_employee_"+col0;
+
+            $(cass_name2).each(function () {                
+                var sub_value2 = $(this).val();
+                var sub_class_id2 = $(this).get(0).id;
+                var err_div_name2 = "."+sub_class_id2+"_error";
+                var $errmsg2 = $(err_div_name2);
+                $errmsg2.hide();
+                
+                if(sub_value2 == ""){
+                    $errmsg2.html('Rating by employee is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
         });
+
+        //Sending data to database
+        if(error==""){
+            // alert("succes")
+            data_insert();
+        }
+        
+        function data_insert(){
+            $.ajax({
+                   
+                url:"{{ url('add_goals_data') }}",
+                type:"POST",
+                data:$('#goalsForm').serialize(),
+                dataType : "JSON",
+                success:function(data)
+                {
+                    Toastify({
+                        text: "Added Sucessfully..!",
+                        duration: 3000,
+                        close:true,
+                        backgroundColor: "#4fbe87",
+                    }).showToast();    
+                    
+                    $('button[type="submit"]').attr('disabled' , false);
+                    
+                    window.location = "{{ url('goals')}}";                
+                },
+                error: function(response) {
+                    // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+    
+                }                                              
+                    
+            });
+        }        
 
     });
 

@@ -2481,10 +2481,11 @@ class GoalsController extends Controller
     }
     public function add_goals_data(Request $request)
     {
+        
         // dd(count($request->all()));die();
         $count = count($request->all())-1;
         $row_count = $count/5;
-        // $row_count = count($request->all())/10;
+        // $row_count = count($request->all())/10;   
 
         for ($i=1; $i <= $row_count; $i++) {
 

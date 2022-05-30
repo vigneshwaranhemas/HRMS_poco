@@ -149,6 +149,7 @@ Route::get('get_bh_goal_list', 'GoalsController@get_bh_goal_list' );
 Route::get('check_goals_employee_summary', 'GoalsController@check_goals_employee_summary' );
 Route::get('get_hr_goal_list_record', 'GoalsController@get_hr_goal_list_record' );
 Route::post('goals_supervisor_summary', 'GoalsController@goals_supervisor_summary' );
+Route::get('fetch_goals_employee_summary', 'GoalsController@fetch_goals_employee_summary' );
 Route::get('goal_setting_hr_edit', 'GoalsController@goal_setting_hr_edit')->name('goal_setting_hr_edit');
 
 //Birthday controller 

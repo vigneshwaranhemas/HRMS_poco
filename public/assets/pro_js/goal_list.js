@@ -229,11 +229,11 @@ $('#goal_data').on('click','#employee_summary',function(){
 
 $('#goal_data').on('click','#employee_summary_show',function(){
     var id = $(this).data('id');
-    // alert(id)
+
     $.ajax({                   
         url:"fetch_goals_employee_summary",
         type:"GET",
-        data:{id: id},
+        data:{id: id}, 
         dataType : "JSON",
         success:function(data)
         {      
@@ -242,7 +242,8 @@ $('#goal_data').on('click','#employee_summary_show',function(){
             $('#employeeSummaryShowModal').modal('show');            
         },
         error: function(response) {
-            // alert(response.responseJSON.errors.business_name_option);
+            
+            console.log(response);
             // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
 
         }                                              

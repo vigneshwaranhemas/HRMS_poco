@@ -1067,7 +1067,7 @@ class AdminController extends Controller
     public function update_division_details(Request $req){
 
         $data = Validator::make($req->all(),[
-            'division_name' => 'required|unique:divisions',
+            'division_name' => 'required',
             ]);
 
         if($data->passes()){

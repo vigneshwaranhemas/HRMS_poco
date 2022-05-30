@@ -799,7 +799,7 @@ public function my_team_tl_info(Request $request){
                 }
                 $response=array('success'=>1,'message'=>$emp_data);
             }else{
-                $response=array('success'=>2,'message'=>"<h3>No Employee Under Your Supervising</h3>");
+                $response=array('success'=>2,'message'=>"<h3>No Employee Under Your Supervising...</h3>");
 
             }
     echo json_encode($response);

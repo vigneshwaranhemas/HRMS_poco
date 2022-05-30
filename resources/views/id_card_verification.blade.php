@@ -51,6 +51,14 @@
                   </div>
                </div>
                <form class="" enctype="multipart/form-data" id= "idcard_info" novalidate="">
+                <div class="text-center">
+                    <div class="col-sm-4 form-group" >
+                      <input type="file" accept=".png" name="file" class="form-control readone_1" onchange="previewFile(this);" id="pro_img_up"  style="display: none;">
+                      <span class="text-danger color-hider" id="pro_img_up_error"  style="display:none;color: red;"></span>
+                      <span class="text-danger color-hider" id="file_error"  style="display:none;color: red;"></span>
+                       <input type="hidden" name="img_path_hide" id="img_path_hide">
+                   </div>
+                </div>
                   <div class="form-row">
                      <div class="col-md-4 mb-3">
                         <label for="f_name">First Name *</label>
@@ -212,10 +220,10 @@
           $(".alpha").keydown(function(event){
               var inputValue = event.which;
               if(!(inputValue >= 65 && inputValue <= 123) &&/*letters,white space,tab*/
-               (inputValue != 32 && inputValue != 0) && 
+               (inputValue != 32 && inputValue != 0) &&
                (inputValue != 48 && inputValue != 8)/*backspace*/
-               && (inputValue != 9)/*tab*/) { 
-                  event.preventDefault(); 
+               && (inputValue != 9)/*tab*/) {
+                  event.preventDefault();
               }
           });
       });

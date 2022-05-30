@@ -191,7 +191,7 @@ col-xs-9 {
                                     Updated: {{ $Time->diffForHumans($note->updated_at,true) ." ".'ago'}}
                                 </div>
                                 <div class="col-xs-3" style="margin-left: 38px;">
-                                    <a href="javascript:;"  onclick="showEditNoteModal({{$note->id}})"><i class="fa fa-pencil text-white""></i></a>
+                                    <a href="javascript:;"  onclick="showEditNoteModal({{$note->id}})"><i class="fa fa-pencil text-white"></i></a>
                                     <a href="javascript:;" class="m-l-5" onclick="deleteSticky({{$note->id}})" ><i class="fa fa-trash text-white"></i></a>
                                 </div>
                             </div>

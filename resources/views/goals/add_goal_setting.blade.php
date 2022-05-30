@@ -7,13 +7,14 @@
     <!-- Plugins css start-->
 <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
 @endsection
 
 @section('style')
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Goal Setting<span>Process</span></h2>
+	<h2>Performance Assessment <span></span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -31,17 +32,70 @@
                     <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 107px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> Goals</span></div>
                     <div class="row">
                         <div class="col-md-4">
-
-                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Name</h6>
-                        <p>{{ Auth::user()->username }}</p>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Name :</h6>
+                                </div>
+                                <div class="col-md-7">
+                                    <p>{{ Auth::user()->username }}</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Emp ID :</h6>
+                                </div>
+                                <div class="col-md-7 m-t-10">
+                                    <p>{{ Auth::user()->empID }}</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Supervisor :</h6>
+                                </div>
+                                <div class="col-md-47 m-t-10">
+                                    <p>{{ Auth::user()->sup_name }}</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-4">
-                        <h6 class="mb-0 f-w-700"><i class="fa fa-sitemap"> </i> Function</h6>
-                        <p>{{ Auth::user()->designation }}</p>
-                        </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Supervisor ID :</h6>
+                                </div>
+                                <div class="col-md-7">
+                                    <p>{{ Auth::user()->sup_emp_code }}</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> HRBP :</h6>
+                                </div>
+                                <div class="col-md-7 m-t-10">
+                                    <p>Rajesh M S</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> HRBP ID :</h6>
+                                </div>
+                                <div class="col-md-7 m-t-10">
+                                    <p>900380</p>
+                                </div>
+                            </div>
+                        </div>                        
                         <div class="col-md-4">
-                        <h6 class="mb-0 f-w-700"><i class="fa fa-ticket"> </i> Emp ID</h6>
-                        <p>{{ Auth::user()->empID }}</p>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Department :</h6>
+                                </div>
+                                <div class="col-md-7">
+                                    <p>{{ Auth::user()->department }}</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Reviewer :</h6>
+                                </div>
+                                <div class="col-md-7 m-t-10">
+                                    <p>{{ Auth::user()->reviewer_name }}</p>
+                                </div>
+                                <div class="col-md-5 m-t-10">
+                                    <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Reviewer ID :</h6>
+                                </div>
+                                <div class="col-md-7 m-t-10">
+                                    <p>{{ Auth::user()->reviewer_emp_code }}</p>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -86,10 +140,10 @@
                                     <th scope="col">No</th>
                                     <th scope="col">Key Business Drivers</th>
                                     <th scope="col">Key Result Areas </th>
-                                    <th scope="col">Sub Indicators</th>
-                                    <th scope="col">Measurement Criteria (UOM)</th>
-                                    <th scope="col">Weightage</th>
-                                    <th scope="col">Reference </th>
+                                    <th scope="col">Measurement Criteria (Quantified Measures)</th>
+                                    <th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
+                                    <th scope="col">Rating by Employee</th>
+                                    <!-- <th scope="col">Actuals </th> -->
                                     <th scope="col"></th>
                                     <th scope="col">
                                         <i class="fa fa-plus txt-primary"
@@ -139,7 +193,25 @@
 
                             </tbody>
                         </table>
-                        <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Save</button>                                            
+                        <div class="m-t-40 m-b-30">
+                            <div class="row">									
+                                <div class="col-lg-2">
+                                    <label>Consolidated Rating</label><br>
+                                    <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
+                                        <option value="" selected>...Select...</option>
+                                        <option value="EE">EE</option>
+                                        <option value="AE">AE</option>
+                                        <option value="ME">ME</option>
+                                        <option value="PE">PE</option>
+                                        <option value="ND">ND</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Save</button>                                            
+                                </div>
+                            </div>
+                        </div>
+                        
                         </form>
                     </div>
                 </div>
@@ -174,6 +246,9 @@
 <script src="../assets/js/datepicker/date-picker/datepicker.js"></script>
 <script src="../assets/js/datepicker/date-picker/datepicker.en.js"></script>
 <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
+<!-- Plugins JS start-->
+<script src="../assets/js/select2/select2.full.min.js"></script>
+<script src="../assets/js/select2/select2-custom.js"></script>
 
 <script>
 
@@ -197,20 +272,44 @@
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<textarea name="sub_indicators_1[]" id="" class="form-control"></textarea>';
-                        html +='</td>';
-
-                        html +='<td>';
                             html +='<textarea name="measurement_criteria_1[]" id="" class="form-control"></textarea>';
                         html +='</td>';
-
+                        
                         html +='<td>';
-                            html +='<input type="text" name="weightage_1[]" id="" class="form-control">';
+                            html +='<textarea type="text" name="self_assessment_remark_1[]" id="" class="form-control"></textarea>';
                         html +='</td>';
 
-                        html +='<td>';
-                            html +='<textarea name="reference_1[]" id="" class="form-control"></textarea>';
-                        html +='</td>';
+                        // html +='<td>';
+                        //     html +='<textarea name="sub_provided_1[]" id="" class="form-control"></textarea>';
+                        // html +='</td>';
+
+                        // html +='<td>';
+                        //     html +='<input type="text" name="weightage_1[]" id="" class="form-control">';
+                        // html +='</td>';
+
+                        // html +='<td>';
+                        //     html +='<textarea name="target_1[]" id="" class="form-control"></textarea>';
+                        // html +='</td>';
+
+                        // html +='<td>';
+                        //     html +='<textarea name="rate_1[]" id="" class="form-control"></textarea>';
+                        // html +='</td>';
+
+                        html +='<td>';                            
+                            html +='<select class="form-control js-example-basic-single key_bus_drivers" name="rating_by_employee_1[]">';
+                                html +='<option value="EE">EE</option>';
+                                html +='<option value="AE">AE</option>';
+                                html +='<option value="ME">ME</option>';
+                                html +='<option value="PE">PE</option>';
+                                html +='<option value="ND">ND</option>';
+                            html +='</select>';
+                        html +='</td>';                        
+
+                        // html +='<td>';
+                        //     html +='<textarea name="self_remarks_1[]" id="" class="form-control"></textarea>';
+                        // html +='</td>';
+
+                        
 
                         html +='<td>';
                             html +='<div style="margin-top: 80px;"></div>';
@@ -258,22 +357,38 @@
         var code = cur_rowCount+'_'+rand_no;
         
         var html2 = '<textarea id="" class="form-control m-t-5 '+code+'" name="key_res_areas_'+cur_rowCount+'[]"></textarea>';
-        var html3 = '<textarea id="" class="form-control m-t-5 '+code+'" name="sub_indicators_'+cur_rowCount+'[]"></textarea>';
-        var html4 = '<textarea id="" class="form-control m-t-5 '+code+'" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
-        var html6 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
+        var html3 = '<textarea id="" class="form-control m-t-5 '+code+'" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
+        var html4 = '<textarea id="" class="form-control m-t-5 '+code+'" name="self_assessment_remark_'+cur_rowCount+'[]"></textarea>';
+        // var html5 = '<textarea id="" class="form-control m-t-5 '+code+'" name="rating_by_employee_'+cur_rowCount+'[]"></textarea>';
+        // var html6 = '<textarea id="" class="form-control m-t-5 '+code+'" name="actuals_'+cur_rowCount+'[]"></textarea>';
+        // var html9 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
+        // var html10 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
         
-        var html7 = '';
+        var html5 ='';
+            html5 +='<select class="form-control js-example-basic-single key_bus_drivers m-t-35 '+code+'" name="rating_by_employee_'+cur_rowCount+'[]">';
+                        html5 +='<option value="EE">EE</option>';
+                        html5 +='<option value="AE">AE</option>';
+                        html5 +='<option value="ME">ME</option>';
+                        html5 +='<option value="PE">PE</option>';
+                        html5 +='<option value="ND">ND</option>';
+            html5 +='</select>';
 
-        html7 +='<div class="dropup m-t-35">';
-            html7 +='<button type="button" class="btn btn-xs btn-danger '+code+'" onclick="removeRow(this,'+code+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
+        var html11 = '';
+
+        html11 +='<div class="dropup m-t-35">';
+            html11 +='<button type="button" class="btn btn-xs btn-danger '+code+'" onclick="removeRow(this,'+code+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
             // html7 +='<button type="button" class="btn btn-xs btn-danger sub_row_'+cur_rowCount+'" onclick="removeRow(this,'+class_sub+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
-        html7 +='</div>';
+        html11 +='</div>';
         
         $(x).closest("tr").find("td:eq(2)").append(html2);
         $(x).closest("tr").find("td:eq(3)").append(html3);
         $(x).closest("tr").find("td:eq(4)").append(html4);
-        $(x).closest("tr").find("td:eq(6)").append(html6);
-        $(x).closest("tr").find("td:eq(7)").append(html7);
+        $(x).closest("tr").find("td:eq(5)").append(html5);
+        // $(x).closest("tr").find("td:eq(6)").append(html6);
+        // $(x).closest("tr").find("td:eq(8)").append(html8);
+        // $(x).closest("tr").find("td:eq(9)").append(html9);
+        // $(x).closest("tr").find("td:eq(10)").append(html10);
+        $(x).closest("tr").find("td:eq(6)").append(html11);
 
     }
 
@@ -302,12 +417,36 @@
                     html +='</select>';
                 html +='</td>';
 
-                html +='<td>';
-                    html +='<textarea name="key_res_areas_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                html +='</td>';
+                // html +='<td>';
+                //     html +='<textarea name="key_res_areas_1[]" id="" class="form-control"></textarea>';
+                // html +='</td>';
+
+                // html +='<td>';
+                //     html +='<textarea name="measurement_criteria_1[]" id="" class="form-control"></textarea>';
+                // html +='</td>';
+                
+                // html +='<td>';
+                //     html +='<textarea name="sub_provided_1[]" id="" class="form-control"></textarea>';
+                // html +='</td>';
+
+                // // html +='<td>';
+                // //     html +='<input type="text" name="weightage_1[]" id="" class="form-control">';
+                // // html +='</td>';
+
+                // html +='<td>';
+                //     html +='<textarea name="target_1[]" id="" class="form-control"></textarea>';
+                // html +='</td>';
+
+                // // html +='<td>';
+                // //     html +='<textarea name="rate_1[]" id="" class="form-control"></textarea>';
+                // // html +='</td>';
+
+                // html +='<td>';
+                //     html +='<textarea name="actuals_1[]" id="" class="form-control"></textarea>';
+                // html +='</td>';
 
                 html +='<td>';
-                    html +='<textarea name="sub_indicators_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                    html +='<textarea name="key_res_areas_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
                 html +='</td>';
 
                 html +='<td>';
@@ -315,12 +454,38 @@
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<input type="text" name="weightage_'+cur_rowCount+'[]" id="" class="form-control">';
+                    html +='<textarea name="self_assessment_remark_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
                 html +='</td>';
 
-                html +='<td>';
-                    html +='<textarea name="reference_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                html +='</td>';
+                // html +='<td>';
+                //     html +='<input type="text" name="weightage_'+cur_rowCount+'[]" id="" class="form-control">';
+                // html +='</td>';
+                
+                html +='<td>';                            
+                    html +='<select class="form-control js-example-basic-single key_bus_drivers" name="rating_by_employee_'+cur_rowCount+'[]">';
+                        html +='<option value="EE">EE</option>';
+                        html +='<option value="AE">AE</option>';
+                        html +='<option value="ME">ME</option>';
+                        html +='<option value="PE">PE</option>';
+                        html +='<option value="ND">ND</option>';
+                    html +='</select>';
+                html +='</td>';     
+                
+                // html +='<td>';
+                //     html +='<textarea name="rate_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                // html +='</td>';
+
+                // html +='<td>';
+                //     html +='<textarea name="actuals_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                // html +='</td>';
+
+                // html +='<td>';
+                //     html +='<textarea name="self_remarks_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                // html +='</td>';
+
+                // html +='<td>';
+                //     html +='<input type="text" name="self_assessment_rate_'+cur_rowCount+'[]" id="" class="form-control">';
+                // html +='</td>';
 
                 html +='<td>';
                         html +='<div style="margin-top: 80px;"></div>';
@@ -430,13 +595,13 @@
 
     $("#goalsForm").submit(function(e) {
         e.preventDefault();
-        $('button[type="submit"]').attr('disabled' , true);
+        // $('button[type="submit"]').attr('disabled' , true);
 
         // console.log($('#goalsForm').serialize());
 
         $.ajax({
                    
-            url:"{{ ('add_goals_data') }}",
+            url:"{{ url('add_goals_data') }}",
             type:"POST",
             data:$('#goalsForm').serialize(),
             dataType : "JSON",

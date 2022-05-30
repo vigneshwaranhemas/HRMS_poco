@@ -15,9 +15,17 @@ function idcard_info_tvalue(){
         data:{},
         dataType: "json",
         success: function(data) {
-            // console.log(data[0])            
+            console.log(data[0])
                 if (data !="") {
-                    $("#pro_img").attr('src',"../ID_card_photo/"+data[0].img_path+".jpg");
+                   if(data[0].hr_action==0){
+                       $("#pro_img_up").show();
+                   }
+                   else{
+                       $('#pro_img_up').hide();
+                   }
+
+                    // $("#pro_img").attr('src',"../ID_card_photo/"+data[0].img_path+".jpg");
+                    $("#pro_img").attr('src',"../ID_card_photo/"+data[0].img_path+".png ");
                     $('#f_name').val(data[0].username);
                     $('#m_name').val(data[0].m_name);/**/
                     $('#l_name').val(data[0].l_name);/**/
@@ -49,26 +57,26 @@ function idcard_info_tvalue(){
     }
 
 
-    $('#idcard_info').submit(function(e) { 
-    // getElementById("btndis").disabled=true; 
-     
+    $('#idcard_info').submit(function(e) {
+    // getElementById("btndis").disabled=true;
+
 
         e.preventDefault();
           var formData = new FormData(this);
-        $.ajax({  
-            url:idcard_info_link, 
-            method:"POST",  
+        $.ajax({
+            url:idcard_info_link,
+            method:"POST",
             data:formData,
             processData:false,
             cache:false,
             contentType:false,
             dataType:"json",
             beforeSend:function(data){
-                 $(this).attr('disabled','disabled'); 
+                 $(this).attr('disabled','disabled');
                     $("#btndis").text('Processing...');
             },
             success:function(data) {
-                
+
                 // console.log(data)
             if(data.error)
                {
@@ -78,9 +86,9 @@ function idcard_info_tvalue(){
                     $("#"+key+'_error').text(value)
                     $("#"+key+'_error').show();
                     });
-                    $(this).removeAttr('disabled'); 
+                    $(this).removeAttr('disabled');
                     $("#btndis").text('Submit For Approval');
-                    
+
                }
                 if(data.response =='insert'){
                    Toastify({
@@ -121,7 +129,20 @@ function idcard_info_tvalue(){
                        }, 2000);
 
                    }
-                
+
             },
-        }); 
+        });
     });
+    function previewFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+
+        if(file){
+            var reader = new FileReader();
+
+            reader.onload = function(){
+                $("#pro_img").attr("src", reader.result);
+            }
+
+            reader.readAsDataURL(file);
+        }
+    }

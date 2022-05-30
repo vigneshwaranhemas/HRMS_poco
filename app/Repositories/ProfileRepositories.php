@@ -39,6 +39,16 @@ class ProfileRepositories implements IProfileRepositories
         return $bandtbl;
     }
 
+    public function update_skill_set( $input_details ){
+        // DB::enableQueryLog();
+        $update_roletbl = DB::table('customusers')->where( 'empID', '=', $input_details['emp_id'] );
+        $update_roletbl->update( [
+            'empID' => $input_details['emp_id'],
+            'skill' => $input_details['skill'],
+        ] );
+        // dd(DB::getQueryLog());
+    }
+
     public function update_account_info( $input_details ){
         
         if ($input_details['emp_id'] !="") {

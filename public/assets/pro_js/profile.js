@@ -193,6 +193,63 @@ function profile_banner_image(){
         }
     });
 }
+/*skill*/
+$('#add_skill_set').submit(function(e) {
+
+        $(this).attr('disabled','disabled');
+        $("#doc_Submit").text('Processing...');
+
+   e.preventDefault();
+      var formData = new FormData(document.getElementById("add_skill_set"));
+   $.ajax({
+       url:add_skill_set_link,
+       method:"POST",
+        data:formData,
+        processData:false,
+        cache:false,
+        contentType:false,
+        dataType:"json",
+
+       success:function(data) {
+         if(data.error)
+           {
+            $(".color-hider").hide();
+                var keys=Object.keys(data.error);
+                $.each( data.error, function( key, value ) {
+                $("#"+key+'_error').text(value)
+                $("#"+key+'_error').show();
+                });
+           }
+           // console.log(data);
+           if(data.response =='Update'){
+               Toastify({
+                   text: "Added Sucessfully..!",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                    location.reload();
+                   }, 2000);
+           }
+           else{
+               Toastify({
+                   text: "Request Failed..! Try Again",
+                   duration: 3000,
+                   close:true,
+                   backgroundColor: "#f3616d",
+               }).showToast();
+
+               setTimeout(
+                   function() {
+                   }, 2000);
+
+               }
+           },
+       });
+    })
 
 
 
@@ -656,13 +713,17 @@ function profile_info_process(id){
           if (data['profile'] != ""){
               var dob = moment(data['profile'].dob).format('DD-MM-YYYY');
               var doj = moment(data['profile'].doj).format('DD-MM-YYYY');
-              // var
-
+              let skill = data['profile'].skill;
+              // alert(skill)
              $('#pro_name').html(data['profile'].username);
              $('#can_name').html(data['profile'].username);
              $('#email').html(data['profile'].email);
              $('#blood_grp').html(data['profile'].blood_grp);
              $('#dob').html(dob);
+
+                var skill_var=JSON.parse(data['profile'].skill);
+                $('#skill').html(String(skill_var)); // here i represents index
+
              $('#contact_no').html(data['profile'].contact_no);
              $('#worklocation').html(data['profile'].worklocation);
              $('#designation').html(data['profile'].designation);
@@ -904,9 +965,9 @@ function education_information(){
                         html +='<td data-label="allcount">'+val.university+'</td>';
                         html +='<td data-label="allcount">'+val.edu_start_month+"-"+val.edu_start_year+'</td>';
                         html +='<td data-label="allcount">'+val.edu_end_month+"-"+val.edu_end_year+'</td>';
-                        for(var i = 0; i < val.skill.split(",").length; i++){
+                        /*for(var i = 0; i < val.skill.split(",").length; i++){
                                 html +='<td data-label="allcount">'+ val.skill.split(",")[i] + '</td>';
-                            }
+                            }*/
                         html +='<td data-label="allcount"><a href="../education/'+ val.edu_certificate +'" target =_blank><img class="rounded-circle" src="../assets/images/user/1.jpg"  alt=""></a></td>';
 
                     });

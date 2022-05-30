@@ -60,6 +60,31 @@ class DocumentsController extends Controller
 
         }
     }
+     public function add_skill_set(Request $request){
+        
+        $session_val = Session::get('session_info');
+        $emp_ID = $session_val['empID'];
+        $cdID = $session_val['cdID'];
+
+        $validator=Validator::make($request->all(),[
+                     'skill' => 'required',
+                    ], [
+                    'skill.required' => 'Skill Set is required',                    
+                    ]);
+
+        if($validator->passes()){
+                    $data =array(
+                            'emp_id'=>$emp_ID,
+                            'cdID'=>$cdID,
+                            'skill'=>$request->input('skill') );
+
+                    $skill_result = $this->profrpy->update_skill_set( $data );
+                    return response()->json(['response'=>'Update']);
+        }else{
+            return response()->json(['error'=>$validator->errors()->toArray()]);
+
+        }
+    }
     /*banner image */
     public function profile_banner(Request $request){
 
@@ -248,14 +273,14 @@ class DocumentsController extends Controller
                     'institute' => 'required',
                     'begin_on' => 'required',
                     'end_on' => 'required',
-                    'skill' => 'required',
+                    // 'skill' => 'required',
                     'edu_certificate' => 'required|mimes:csv,txt,pdf|max:2048',
                     ], [
                     'qualification.required' => 'Qualification is required',
                     'institute.required' => 'Institute is required',
                     'begin_on.required' => 'Begin On is required',
                     'end_on.required' => 'End On is required',
-                    'skill.required' => 'Skill set is required',
+                    // 'skill.required' => 'Skill set is required',
                     'edu_certificate.required' => 'file is required',
                     ]);
 
@@ -272,8 +297,8 @@ class DocumentsController extends Controller
                    $edu_certificate = "$profileImage";
 
 
-                   $data = $request->input('skill');
-                   $skill= implode(',', $data);
+                   // $data = $request->input('skill');
+                   // $skill= implode(',', $data);
                    // echo "<pre>";print_r($skill);die;
 
                     $begin_on = explode('-', $request->input('begin_on'));
@@ -294,9 +319,9 @@ class DocumentsController extends Controller
                         'edu_end_year'=>$edu_end_year,
                         'edu_certificate'=>$edu_certificate,
                         'created_on'=>$created_on,
-                        'skill'=>$skill,
+                        // 'skill'=>$skill,
                         );
-
+                    // echo"<pre>";print_r($data);die;
                     $insert_education_info_result = $this->profrpy->insert_education_info( $data );
                     return response()->json(['response'=>'insert']);
             }else{

@@ -344,6 +344,7 @@ Route::post( 'get_role_details_pop', 'AdminController@get_role_details_pop' );
 Route::post( 'update_role_unit_details', 'AdminController@update_role_unit_details' );
 
 /*profile document*/
+Route::post('add_skill_set','DocumentsController@add_skill_set');
 Route::post('documents_insert','DocumentsController@store')->name('Documents');
 Route::post('documents_info_pro', 'DocumentsController@doc_information');
 Route::post('profile_account_info_add', 'DocumentsController@profile_account_add');

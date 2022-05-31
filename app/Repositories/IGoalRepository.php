@@ -17,6 +17,7 @@ interface IGoalRepository {
     public function checkCustomUserList();
     public function fetchGoalIdDetails($id);
     public function checkReviewerIDOrNot($id);
+    public function checkHrReviewerIDOrNot($id);
     public function checkSupervisorIDOrNot($id);
     public function fetchGoalIdHead($id);
     public function goals_consolidate_rate_head($id);

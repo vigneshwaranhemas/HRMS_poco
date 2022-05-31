@@ -16,7 +16,8 @@ interface ICommonRepositories {
     public function Update_Notes_id_wise($data,$id);
     public function Delete_Notes_id_wise($coloumn,$id);
     public function my_team_tl_info($id);
-    
+    public function Fetch_goals_user_info($id);
+
 
 
 

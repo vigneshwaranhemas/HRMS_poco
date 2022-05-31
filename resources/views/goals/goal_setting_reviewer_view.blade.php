@@ -9,6 +9,18 @@
 @endsection
 
 @section('style')
+<style>
+    #goal_sheet_edit{
+        position: relative;
+        margin-left: 1258px;
+        margin-bottom: 24px;
+    }
+    #goal_sheet_add{
+        position: relative;
+        margin-left: 1258px;
+        margin-bottom: 24px;
+    }
+</style>
 @endsection
 
 @section('breadcrumb-title')
@@ -25,17 +37,101 @@
     <div class="container-fluid">
 		<div class="row">
 
+            <div class="card-header  bg-primary">
+                <h5 class="text-white" id="goals_sheet_head"></h5>
+            </div>
 			<div class="col-sm-12">
+
+
+
+                <div class="ribbon-vertical-right-wrapper card">
+                    <div class="card-body">
+                        <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 107px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> Goals</span></div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Name :</h6>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p>{{$user_info->username }}</p>
+                                    </div>
+                                    <div class="col-md-5 m-t-10">
+                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Emp ID :</h6>
+                                    </div>
+                                    <div class="col-md-7 m-t-10">
+                                        <p>{{ $user_info->empID }}</p>
+                                    </div>
+                                    <div class="col-md-5 m-t-10">
+                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Supervisor :</h6>
+                                    </div>
+                                    <div class="col-md-47 m-t-10">
+                                        <p>{{ $user_info->sup_name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Supervisor ID :</h6>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p>{{ $user_info->sup_emp_code }}</p>
+                                    </div>
+                                    <div class="col-md-5 m-t-10">
+                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> HRBP :</h6>
+                                    </div>
+                                    <div class="col-md-7 m-t-10">
+                                        <p>Rajesh M S</p>
+                                    </div>
+                                    <div class="col-md-5 m-t-10">
+                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> HRBP ID :</h6>
+                                    </div>
+                                    <div class="col-md-7 m-t-10">
+                                        <p>900380</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Department :</h6>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <p>{{ $user_info->department }}</p>
+                                    </div>
+                                    <div class="col-md-5 m-t-10">
+                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Reviewer :</h6>
+                                    </div>
+                                    <div class="col-md-7 m-t-10">
+                                        <p>{{$user_info->reviewer_name }}</p>
+                                    </div>
+                                    <div class="col-md-5 m-t-10">
+                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Reviewer ID :</h6>
+                                    </div>
+                                    <div class="col-md-7 m-t-10">
+                                        <p>{{$user_info->reviewer_emp_code }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    </div>
+
+
+
 
 				<input type="hidden" id="goals_setting_id">
 
 				<div class="card  card-absolute">
 
-					<div class="card-header  bg-primary">
-						<h5 class="text-white" id="goals_sheet_head"></h5>
-					</div>
+
 					<div class="card-body">
 
+                        <input type="hidden" id="user_type" >
+                        <button type="button" class="btn btn-warning" id="goal_sheet_edit">Edit</button>
+                        <button type="button" class="btn btn-primary" id="goal_sheet_add" style="display:none;">Save</button>
 						<div class="table-responsive m-b-15 ">
 							<table class="table  table-border-vertical table-border-horizontal" id="goal-tb">
 								<thead>
@@ -46,17 +142,39 @@
 										<th scope="col">Measurement Criteria (Quantified Measures)</th>
 										<th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
 										<th scope="col">Rating by Employee</th>
-										<th scope="col">Supervisors Assessment (Qualitative Remarks by Reporting Manager)</th>
-										<th scope="col">Rating by Supervisor </th>
-										<th scope="col">Reviewer Remarks </th>
+										<th scope="col" class="supervisor_remarks">Supervisors Assessment (Qualitative Remarks by Reporting Manager)</th>
+										<th scope="col" class="supervisor_rating">Rating by Supervisor </th>
+										<th scope="col" class="reviewer_remarks">Reviewer Remarks </th>
 										<th scope="col">HR Remarks</th>
-										<th scope="col">business Head assessment and Approval for Release</th>
+										<th scope="col" class="business_head">Business Head assessment and Approval for Release</th>
 									</tr>
 								</thead>
 								<tbody id="goals_record">
 
 								</tbody>
 							</table>
+                            <div class="m-t-20 m-b-30 row float-right" id="save_div">
+                                <div class="col-lg-8">
+                                <label>Consolidated Rating</label><br>
+                                <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_consolidated_rate" name="employee_consolidated_rate">
+                                <option value="" selected>...Select...</option>
+                                <option value="EE">EE</option>
+                                <option value="AE">AE</option>
+                                <option value="ME">ME</option>
+                                <option value="PE">PE</option>
+                                <option value="ND">ND</option>
+                                </select>
+                                <div class="text-danger supervisor_consolidated_rate_error" id=""></div>
+                                </div>
+                                <div class="col-lg-4">
+                                <a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>
+                                </div>
+
+
+
+
+
+                                </div>
 
 						</div>
 					</div>
@@ -94,6 +212,18 @@
 	<!-- login js-->
 	<!-- Plugin used-->
 	<script>
+        $( document ).ready(function() {
+			// goal_record();
+			$('#goal-tb').DataTable( {
+				dom: 'Bfrtip',
+				buttons: [
+					'copyHtml5',
+					'excelHtml5',
+					'csvHtml5',
+					'pdfHtml5'
+				]
+			} );
+		});
 		var params = new window.URLSearchParams(window.location.search);
 		var id=params.get('id')
 		$('#goals_setting_id').val(id);
@@ -116,7 +246,6 @@
 			}
 
 		});
-
 		$.ajax({
 			url:"{{ url('fetch_goals_reviewer_details') }}",
 			type:"GET",
@@ -124,8 +253,42 @@
 			dataType : "JSON",
 			success:function(response)
 			{
+                $('#goal-tb').DataTable().clear().destroy();
+
+
+                //   for(var i=0;i<response.hidden_rows.length;i++){
+                //        $("."+response.hidden_rows[i]).hide();
+                //   }
 				$('#goals_record').append('');
-				$('#goals_record').append(response);
+				$('#goals_record').append(response.html);
+                     $('#goal-tb').DataTable( {
+                    	dom: 'Bfrtip',
+                    	buttons: [
+                    		'copyHtml5',
+                    		'excelHtml5',
+                    		'csvHtml5',
+                    		'pdfHtml5'
+                    	]
+                    } );
+                    if(response.reviewer==1){
+                    //  alert("one")
+                     $(".supervisor_remarks").hide();
+                     $(".reviewer_remarks").hide();
+                     $(".supervisor_rating").show();
+                 }
+                 else if(response.reviewer==2){
+                     $(".supervisor_remarks").show();
+                     $(".reviewer_remarks").hide();
+                     $(".supervisor_rating").show();
+
+                 }
+                 else{
+                     $(".supervisor_remarks").show();
+                     $(".reviewer_remarks").show();
+                     $(".supervisor_rating").show();
+
+                 }
+                 $("#user_type").val(response.reviewer);
 			},
 			error: function(error) {
 				console.log(error);
@@ -133,6 +296,66 @@
 			}
 
 		});
+
+
+      $(()=>{
+          $("#goal_sheet_edit").on('click',()=>{
+              var i=1;
+              var user_type=$("#user_type").val();
+              $("#goal_sheet_edit").hide();
+              $("#goal_sheet_add").show();
+              if(user_type==1 || user_type==2 || user_type==0)
+              {
+                   var defined_class="business_head";
+              }
+              $("#goal-tb tbody tr td."+defined_class+"").each(function(){
+                        if ($(this).text() != ""){
+                              var text_data=$(this).text();
+                               $(".removable_p").remove();
+                              $(this).append('<textarea id="business_head_edit'+i+'" class="form-control">'+text_data+'</textarea>')
+                        }
+                        else{
+                            $(this).append('<textarea id="business_head_edit'+i+'" class="form-control"></textarea>')
+                        }
+                         i++;
+                            }
+                        );
+
+                        $("#goal-tb tbody tr td.supervisor_rating").each(function(){
+                        if ($(this).text() != ""){
+                              var text_data=$(this).text();
+                               $(".removable_p").remove();
+                               $(this).append('<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_[]">\
+                                <option value="">Choose</option>\
+                                <option value="EE">EE</option>\
+                                <option value="AE">AE</option>\
+                                <option value="ME">ME</option>\
+                                <option value="PE >PE</option>\
+                                <option value="ND">ND</option>\
+                                </select>')
+
+                        }
+                        else{
+                            $(this).append('<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_[]">\
+                                <option value="">Choose</option>\
+                                <option value="EE">EE</option>\
+                                <option value="AE">AE</option>\
+                                <option value="ME">ME</option>\
+                                <option value="PE >PE</option>\
+                                <option value="ND">ND</option>\
+                                </select>')
+                        }
+                         i++;
+                            }
+                        );
+
+                 })
+
+
+
+      })
+
+
 
 	</script>
 

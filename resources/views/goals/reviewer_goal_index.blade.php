@@ -43,7 +43,10 @@
             <div class="card">
                 <div class="card-body">
                 <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist">
-                    <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>Team Member</a>
+                    <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>Supervisor</a>
+                    <div class="material-border"></div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" id="info-reviewer-tab" data-toggle="tab" href="#info-reviewer" role="tab" aria-controls="info-reviewer" aria-selected="true"><i class="fa fa-user" aria-hidden="true"></i>Reviewer</a>
                     <div class="material-border"></div>
                     </li>
                     <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>MySelf</a>
@@ -65,8 +68,8 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-8 m-t-35">
-                                        <button type="button" id="reviewer_filter_apply" onclick="reviewer_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
-                                        <button type="button" id="reset" onclick="reviewer_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                        <button type="button" id="reviewer_filter_apply" onclick="supervisor_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
+                                        <button type="button" id="reset" onclick="supervisor_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
                                     </div>
                                 </div>
 
@@ -89,6 +92,52 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="tab-pane fade" id="info-reviewer" role="tabpanel" aria-labelledby="info-reviewer-tab">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Team Leader</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter_for_reviewer" name="team_leader_filter_for_reviewer">
+                                            <option value="">...Select...</option>
+                                            @foreach($supervisor_list as $supervisor)
+                                                <option value="{{ $supervisor->empID }}">{{ $supervisor->username }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Team Member</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter" name="team_member_filter">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-8 m-t-35">
+                                        <button type="button" id="reviewer_filter_apply" onclick="reviewer_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
+                                        <button type="button" id="reset" onclick="reviewer_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive m-t-40">
+                                    <table class="table" id="team_member_goal_data_for_reviewer">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Employee Name</th>
+                                            <th scope="col">Goal Name</th>
+                                            <th scope="col">Status</th>
+                                            <!-- <th scope="col">Date</th> -->
+                                            <th scope="col">Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
                         <div class="card">
                             <div class="card-body">

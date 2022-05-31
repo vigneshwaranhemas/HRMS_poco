@@ -12,7 +12,7 @@ $(document).ready(function(){
 });
 
 function add_goal_btn(){
-    $.ajax({                   
+    $.ajax({
         url:"add_goal_btn",
         type:"GET",
         dataType : "JSON",
@@ -28,8 +28,8 @@ function add_goal_btn(){
         error: function(error) {
             console.log(error);
 
-        }                                              
-            
+        }
+
     });
 }
 
@@ -139,14 +139,14 @@ function clearFunction() {
 }
 
 $('#team_member_filter').change(function() {
-    team_member_goal_record();    
+    team_member_goal_record();
 });
 
 $('#reviewer_filter').change(function() {
     var reviewer_filter = $('#reviewer_filter').val();
 
-    if(reviewer_filter != ''){        
-        $.ajax({                   
+    if(reviewer_filter != ''){
+        $.ajax({
             url:"fetch_reviewer_filter",
             type:"GET",
             data:{reviewer_filter:reviewer_filter},
@@ -159,18 +159,18 @@ $('#reviewer_filter').change(function() {
             error: function(error) {
                 console.log(error);
 
-            }                                              
-                
+            }
+
         });
     }
-    
+
 });
 
 $('#team_leader_filter').change(function() {
     var team_leader_filter = $('#team_leader_filter').val();
 
-    if(team_leader_filter != ''){        
-        $.ajax({                   
+    if(team_leader_filter != ''){
+        $.ajax({
             url:"fetch_team_leader_filter",
             type:"GET",
             data:{team_leader_filter:team_leader_filter},
@@ -183,11 +183,11 @@ $('#team_leader_filter').change(function() {
             error: function(error) {
                 console.log(error);
 
-            }                                              
-                
+            }
+
         });
     }
-    
+
 });
 
 // for export all data
@@ -236,8 +236,8 @@ function newexportaction(e, dt, button, config) {
 //Delete Record
 $('#goal_data').on('click','.deleteRecord',function(){
     // alert("delete");
-    var id = $(this).data('id'); 
-    // alert(id) 
+    var id = $(this).data('id');
+    // alert(id)
     $('#goalsDeleteModal').modal('show');
     $('#goals_id_delete').val(id);
 
@@ -248,7 +248,7 @@ $("#formGoalDelete").submit(function(e) {
 
     $('button[type="submit"]').attr('disabled' , true);
 
-    $.ajax({                   
+    $.ajax({
         url:"goals_delete",
         type:"POST",
         data:$('#formGoalDelete').serialize(),
@@ -260,20 +260,20 @@ $("#formGoalDelete").submit(function(e) {
                 duration: 3000,
                 close:true,
                 backgroundColor: "#4fbe87",
-            }).showToast();    
-            
+            }).showToast();
+
             $('button[type="submit"]').attr('disabled' , false);
             $('#goalsDeleteModal').modal('hide');
             goal_record();
-            // window.location = "{{ url('goals')}}";                
-            // $("#goal_data").load("{{url('get_goal_list')}}");               
+            // window.location = "{{ url('goals')}}";
+            // $("#goal_data").load("{{url('get_goal_list')}}");
         },
         error: function(response) {
             // alert(response.responseJSON.errors.business_name_option);
             // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
 
-        }                                              
-            
+        }
+
     });
 
 });

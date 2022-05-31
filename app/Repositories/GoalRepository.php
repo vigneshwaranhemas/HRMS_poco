@@ -344,7 +344,8 @@ class GoalRepository implements IGoalRepository
                         ->where('cs.reviewer_emp_code', $input_details['supervisor_list_1'])
                         ->where('cs.empID', $input_details['team_member_filter'])
                         ->get();
-      }else{
+      }
+      else{
       // DB::enableQueryLog();
          $logined_empID = Auth::user()->empID;
          $response = DB::table('customusers as cs')

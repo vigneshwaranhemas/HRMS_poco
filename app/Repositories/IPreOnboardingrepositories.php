@@ -28,6 +28,7 @@ interface IPreOnboardingrepositories{
        public function insert_medical_form($data);
        public function check_medical_details($cdID);
        public function update_medical_form($data);
+       public function get_leave_masters_details();
 
 }
 

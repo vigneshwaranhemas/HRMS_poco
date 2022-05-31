@@ -9,6 +9,7 @@ use App\Models\UsersInfoModel;
 use App\welcome_aboard;
 use App\Models\Epf_Forms;
 use App\Models\Medical_insurance;
+use Session;
 
 class PreOnboardingrepositories implements IPreOnboardingrepositories {
      public function Check_onBoard($table,$test)
@@ -194,6 +195,20 @@ class PreOnboardingrepositories implements IPreOnboardingrepositories {
         return $reqtbl;
 
 
+    }
+
+    public function get_leave_masters_details(){
+
+        $sess_info = Session::get("session_info");
+        $empID = $sess_info['empID'];
+
+        $leave_master_tbl = DB::table('leave_masters as lm')
+        ->select('lm.*')
+        ->where('empID', '=', $empID)
+        ->orderBy('lm.created_at', 'desc')
+        ->get();
+
+        return $leave_master_tbl;
     }
 
 

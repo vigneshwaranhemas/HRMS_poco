@@ -680,9 +680,21 @@ public function get_policy_information_candidate_details(Request $req){
      }
 
     public function leave_balance()
-{
-    return view('candidate.leave_balance');
-}
+    {
+        return view('candidate.leave_balance');
+    }
+
+    public function get_leave_masters_details()
+    {
+        $get_leave_masters_details_result = $this->preon->get_leave_masters_details();
+
+        return response()->json( $get_leave_masters_details_result );
+    }
+
+    public function leave_apply()
+    {
+        return view('candidate.leave_apply');
+    }
 
 
 

@@ -177,9 +177,15 @@ class GoalsController extends Controller
     public function fetch_goals_setting_id_details(Request $request)
     {
         $id = $request->id;
-        $json = $this->goal->fetchGoalIdDetails($id);
-        $datas = json_decode($json);
 
+        $reviewer=$this->goal->checkSupervisorOrNot($id);
+        echo json_encode($reviewer);die();
+        
+        $json = $this->goal->fetchGoalIdDetails($id);
+
+
+        
+        $datas = json_decode($json);
         $html = '';
 
         foreach($datas as $key=>$data){

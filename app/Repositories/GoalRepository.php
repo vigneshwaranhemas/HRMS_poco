@@ -184,6 +184,10 @@ class GoalRepository implements IGoalRepository
       $response = Goals::where('goal_unique_code', $id)->value('employee_consolidated_rate');
       return $response;
    }
+   public function goals_sup_consolidate_rate_head( $id ){
+      $response = Goals::where('goal_unique_code', $id)->value('supervisor_consolidated_rate');
+      return $response;
+   }
    public function fetchGoalIdDelete( $id ){
       $response = Goals::where('goal_unique_code', $id)->delete();
       return $response;

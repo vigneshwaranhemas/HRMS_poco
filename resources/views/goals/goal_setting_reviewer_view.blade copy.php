@@ -9,13 +9,6 @@
 @endsection
 
 @section('style')
-<style>
-    #goal_sheet_edit{
-        position: relative;
-        margin-left: 1258px;
-        margin-bottom: 24px;
-    }
-</style>
 @endsection
 
 @section('breadcrumb-title')
@@ -43,8 +36,6 @@
 					</div>
 					<div class="card-body">
 
-                        <input type="hidden" id="user_type" >
-                        <button type="button" class="btn btn-warning" id="goal_sheet_edit">Edit</button>
 						<div class="table-responsive m-b-15 ">
 							<table class="table  table-border-vertical table-border-horizontal" id="goal-tb">
 								<thead>
@@ -55,15 +46,14 @@
 										<th scope="col">Measurement Criteria (Quantified Measures)</th>
 										<th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
 										<th scope="col">Rating by Employee</th>
-										<th scope="col" class="supervisor_remarks">Supervisors Assessment (Qualitative Remarks by Reporting Manager)</th>
-										<th scope="col" class="supervisor_rating">Rating by Supervisor </th>
-										<th scope="col" class="reviewer_remarks">Reviewer Remarks </th>
+										<th scope="col">Supervisors Assessment (Qualitative Remarks by Reporting Manager)</th>
+										<th scope="col">Rating by Supervisor </th>
+										<th scope="col">Reviewer Remarks </th>
 										<th scope="col">HR Remarks</th>
-										<th scope="col" class="business_head">Business Head assessment and Approval for Release</th>
+										<th scope="col">business Head assessment and Approval for Release</th>
 									</tr>
 								</thead>
 								<tbody id="goals_record">
-
 								</tbody>
 							</table>
 
@@ -103,18 +93,6 @@
 	<!-- login js-->
 	<!-- Plugin used-->
 	<script>
-        $( document ).ready(function() {
-			// goal_record();
-			$('#goal-tb').DataTable( {
-				dom: 'Bfrtip',
-				buttons: [
-					'copyHtml5',
-					'excelHtml5',
-					'csvHtml5',
-					'pdfHtml5'
-				]
-			} );
-		});
 		var params = new window.URLSearchParams(window.location.search);
 		var id=params.get('id')
 		$('#goals_setting_id').val(id);
@@ -145,42 +123,8 @@
 			dataType : "JSON",
 			success:function(response)
 			{
-                $('#goal-tb').DataTable().clear().destroy();
-
-
-                //   for(var i=0;i<response.hidden_rows.length;i++){
-                //        $("."+response.hidden_rows[i]).hide();
-                //   }
 				$('#goals_record').append('');
-				$('#goals_record').append(response.html);
-                     $('#goal-tb').DataTable( {
-                    	dom: 'Bfrtip',
-                    	buttons: [
-                    		'copyHtml5',
-                    		'excelHtml5',
-                    		'csvHtml5',
-                    		'pdfHtml5'
-                    	]
-                    } );
-                    if(response.reviewer==1){
-                    //  alert("one")
-					$(".supervisor_remarks").hide();
-					$(".reviewer_remarks").hide();
-					$(".supervisor_rating").hide();
-                 }
-                 else if(response.reviewer==2){
-                     $(".supervisor_remarks").show();
-                     $(".reviewer_remarks").hide();
-                     $(".supervisor_rating").show();
-
-                 }
-                 else{
-                     $(".supervisor_remarks").show();
-                     $(".reviewer_remarks").show();
-                     $(".supervisor_rating").show();
-
-                 }
-                 $("#user_type").val(response.reviewer);
+				$('#goals_record').append(response);
 			},
 			error: function(error) {
 				console.log(error);
@@ -188,34 +132,6 @@
 			}
 
 		});
-
-
-      $(()=>{
-          $("#goal_sheet_edit").on('click',()=>{
-              var i=1;
-              var user_type=$("#user_type").val();
-              if(user_type==1 || user_type==2 || user_type==0)
-              {
-                   var defined_class="business_head";
-              }
-              $("#goal-tb tbody tr td."+defined_class+"").each(
-                    function(){
-
-                        console.log("data")
-                        if ($(this).text() != ""){
-                             alert("one")
-                        }
-                        else{
-                            $(this).append('<textarea id="business_head_edit'+i+'" class="form-control"></textarea>')
-                            // alert("two")
-                        }
-                         i++;
-                            }
-                        );
-          })
-      })
-
-
 
 	</script>
 

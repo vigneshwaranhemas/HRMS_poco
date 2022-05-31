@@ -145,6 +145,9 @@ class GoalRepository implements IGoalRepository
    public function checkReviewerIDOrNot( $id ){
       $empID = Goals::where('goal_unique_code', $id)->value('created_by');
       $logined_empID = Auth::user()->empID;
+   
+      
+
       $supervisor = DB::table('customusers')->where('reviewer_emp_code', $logined_empID)->where('sup_emp_code', $logined_empID)->where('empID', $empID)->value('empID');
       $teamleader=CustomUser::where('sup_emp_code','!=',$logined_empID)->where('reviewer_emp_code',$logined_empID)->where('empID',$empID)->value('empID');
       $result=0;
@@ -157,6 +160,29 @@ class GoalRepository implements IGoalRepository
     //   echo json_encode($empID);die();
       return $result;
    }
+
+   public function checkSupervisorOrNot($id)
+   {
+      $empID = Goals::where('goal_unique_code', $id)->value('created_by');
+      $logined_empID = Auth::user()->empID;
+      echo json_encode($logined_empID);die();
+      $team_leader = DB::table('customusers')->where('reviewer_emp_code','!=', $logined_empID)->where('sup_emp_code', $logined_empID)->where('empID', $empID)->value('empID');
+      $employee=CustomUser::where('sup_emp_code','!=',$logined_empID)->where('reviewer_emp_code',$logined_empID)->where('empID',$empID)->value('empID');
+      if($team_leader){
+           $result=1;
+      }
+      if($employee){
+          $result=2;
+      }
+      $result=0;
+
+    //   echo json_encode($empID);die();
+      return $result;die();
+   }
+
+
+
+
    public function fetchGoalIdHead( $id ){
       $response = Goals::where('goal_unique_code', $id)->value('goal_name');
       return $response;

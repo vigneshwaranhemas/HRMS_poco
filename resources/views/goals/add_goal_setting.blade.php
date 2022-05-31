@@ -157,6 +157,45 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- <tr>
+                                    <th scope="row">1</th>
+                                    <td>
+                                        <select class="form-control js-example-basic-single">
+                                            <option value="Revenue">Revenue</option>
+                                            <option value="Customer">Customer</option>
+                                            <option value="Process">Process</option>
+                                            <option value="People">People</option>
+                                            <option value="Projects">Projects</option>
+
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="" id="" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="" id="" class="form-control">
+
+                                    </td>
+                                    <td>
+                                        <input type="text" name="" id="" class="form-control">
+
+                                    </td>
+                                    <td>
+                                        <input type="text" name="" id="" class="form-control">
+
+                                    </td>
+                                    <td>
+                                        <input type="text" name="" id="" class="form-control">
+
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-edit txt-info" style="font-size: x-large;"></i>
+                                        <i class="fa fa-trash-o txt-danger"
+                                            style="font-size: x-large;"></i>
+                                    </td>
+                                </tr>
+                                    -->
+
                             </tbody>
                         </table>
                         <div class="m-t-40 m-b-30">
@@ -216,8 +255,6 @@
 <!-- Plugins JS start-->
 <script src="../assets/js/select2/select2.full.min.js"></script>
 <script src="../assets/js/select2/select2-custom.js"></script>
-<script src="../assets/js/button-tooltip-custom.js"></script>
-
 
 <script>
 
@@ -464,7 +501,7 @@
         $errmsg3.hide();
 
         if(rate == ""){
-            $errmsg3.html('Consolidated rate is required').show();                
+            $errmsg3.html('Employee Consolidated Rate is required').show();                
             error+="error";
         }
         

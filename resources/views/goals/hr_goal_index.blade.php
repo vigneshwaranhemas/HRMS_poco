@@ -68,20 +68,17 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-8 m-t-35">
-                                        <button type="button" id="reviewer_filter_apply" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
-                                        <button type="button" id="reset" onclick="reviewer_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
+                                        <button type="button" id="supervisor_filter" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                        <button type="button" id="reset" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
                                     </div>
                                 </div>
-
                                 <div class="table-responsive m-t-40">
-                                    <table class="table" id="team_member_goal_data">
+                                    <table class="table" id="supervisor_goal_data">
                                         <thead>
                                             <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Employee Name</th>
                                             <th scope="col">Goal Name</th>
-                                            <th scope="col">Status</th>
-                                            <!-- <th scope="col">Date</th> -->
                                             <th scope="col">Action </th>
                                             </tr>
                                         </thead>
@@ -110,16 +107,17 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-6 m-t-35">
-                                        <button type="submit" id="hr_apply" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                        <button type="submit" id="reviewer_apply" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
                                         <button type="submit" id="hr_reset" onclick="hr_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
                                     </div>
                                 </div>
                                 <div class="table-responsive m-t-40">
-                                    <table class="table" id="goal_tb_hr_overall">
+                                    <table class="table" id="reviewer_tbl">
                                         <thead>
                                             <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Employee Name</th>
+                                            <th scope="col">Goal Name</th>
                                             <th scope="col">Action </th>
                                             </tr>
                                         </thead>

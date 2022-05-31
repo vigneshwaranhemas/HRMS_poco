@@ -510,4 +510,5 @@ Route::get('goals_sup_th_check','GoalsController@goals_sup_th_check');
 Route::get('get_supervisor','GoalsController@get_supervisor');
 Route::post('fetch_reviewer_res','GoalsController@fetch_reviewer_res');
 Route::post('get_reviewer_list','GoalsController@get_reviewer_list');
+Route::post('get_team_member_list','GoalsController@get_team_member_list');
 

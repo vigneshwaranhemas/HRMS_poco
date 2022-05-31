@@ -31,4 +31,5 @@ interface IGoalRepository {
     public function get_supervisor_data($id);
      public function fetch_reviewer_res_data($empid);
      public function fetch_reviewer_tab_data($data);
+     public function fetch_team_member_list($data);
 }

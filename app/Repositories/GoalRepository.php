@@ -20,12 +20,29 @@ class GoalRepository implements IGoalRepository
                   ]);
       return $response;
    }
-   public function get_goal_list($a){
-      // echo "xc<pre>";print_r($a);die;
-      $logined_empID = Auth::user()->empID;
-      $response = Goals::select('*')
-               ->where('created_by', $logined_empID)
-               ->get();
+   public function get_goal_list($input_details){
+       // DB::enableQueryLog();
+      if($input_details['supervisor_list'] != ''){
+         // $logined_empID = Auth::user()->empID;
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        // ->where('cs.reviewer_emp_code', $logined_empID)
+                        ->where('cs.empID', $input_details['supervisor_list'])
+                        ->get();
+      }else{
+         $logined_empID = Auth::user()->empID;
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.sup_emp_code', $logined_empID)
+                        ->where('cs.reviewer_emp_code', "900531")
+                        ->get();
+         
+      }      
+      // dd(DB::getQueryLog());
       return $response;
    }
    public function get_team_member_goal_list($input_details){
@@ -288,16 +305,22 @@ class GoalRepository implements IGoalRepository
    }
 
     public function get_supervisor_data( $id ){
-      // echo "1kjh<pre>";print_r($id);die;
-      // DB::enableQueryLog();
-
        $bandtbl = DB::table('customusers')
         ->select('*')
         ->where('sup_emp_code', '=', $id)
         ->get();
         return $bandtbl;
 
+   }
+   public function fetch_team_member_list( $id ){
+       // echo "<pre>w";print_r($id);die;
+      // DB::enableQueryLog();
+       $bandtbl = DB::table('customusers')
+           ->select('*')
+           ->where('reviewer_emp_code', $id)
+           ->get();
       // dd(DB::getQueryLog());
+           return $bandtbl;
 
    }
    public function fetch_reviewer_res_data( $id ){
@@ -309,16 +332,33 @@ class GoalRepository implements IGoalRepository
       // dd(DB::getQueryLog());
         return $bandtbl;
    }
-   public function fetch_reviewer_tab_data( $id ){
-      // echo "<pre>";print_r($id);die;
+   public function fetch_reviewer_tab_data( $input_details ){
+      // echo "<pre>";print_r($input_details);die; 
       // DB::enableQueryLog();
-       $bandtbl = DB::table('goals')
-        ->select('*')
-        // ->where('sup_emp_code', '=', $id['supervisor_list_1'])
-        ->where('created_by', '=', $id['team_member_filter'])
-        ->get();
+       if($input_details['supervisor_list_1'] != ''  || $input_details['team_member_filter'] != '' ){
+         // echo "<pre>";print_r("222");die; 
+         // $logined_empID = Auth::user()->empID;
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['team_member_filter'])
+                        ->where('cs.sup_emp_code', $input_details['supervisor_list_1'])
+                        ->get();
+      }else{
+         // echo "<pre>";print_r("sd");die; 
+         $logined_empID = Auth::user()->empID;
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.sup_emp_code', $logined_empID)
+                        ->get();
+        
+      }
+
       // dd(DB::getQueryLog());
-        return $bandtbl;
+      return $response;
    }
 
 

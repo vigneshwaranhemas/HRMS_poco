@@ -43,10 +43,13 @@
             <div class="card">
                 <div class="card-body">
                 <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist">
-                    <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>Team Member</a>
+                    <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>AS Supervisor</a>
                     <div class="material-border"></div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-overall" role="tab" aria-controls="info-overall" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Over All</a>
+                    <li class="nav-item"><a class="nav-link" id="reviewer-info-tab" data-toggle="tab" href="#info-reviewer" role="tab" aria-controls="info-overall" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>AS Reviewer</a>
+                    <div class="material-border"></div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-overall" role="tab" aria-controls="info-overall" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>AS HR</a>
                     <div class="material-border"></div>
                     </li>
                     <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>MySelf</a>
@@ -54,34 +57,28 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="info-tabContent">
+                    <!-- as supervisor -->
                     <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">                        
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-2 m-t-5">
                                         <label for="Leader">Select Team Leader</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter" name="team_leader_filter">
-                                            <option value="">...Select...</option>
-                                            @foreach($reviewer_list as $reviewer)
-                                                <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
-                                            @endforeach
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_list" name="supervisor_list">
                                         </select>
                                     </div>
                                     <div class="col-lg-8 m-t-35">
-                                        <button type="button" id="reviewer_filter_apply" onclick="reviewer_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
-                                        <button type="button" id="reset" onclick="reviewer_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
+                                        <button type="button" id="supervisor_filter" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                        <button type="button" id="reset" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
                                     </div>
                                 </div>
-
                                 <div class="table-responsive m-t-40">
-                                    <table class="table" id="team_member_goal_data">
+                                    <table class="table" id="supervisor_goal_data">
                                         <thead>
                                             <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Employee Name</th>
                                             <th scope="col">Goal Name</th>
-                                            <th scope="col">Status</th>
-                                            <!-- <th scope="col">Date</th> -->
                                             <th scope="col">Action </th>
                                             </tr>
                                         </thead>
@@ -92,8 +89,92 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">                        
+                    <!-- as reviewer -->
+                    <div class="tab-pane fade" id="info-reviewer" role="tabpanel" aria-labelledby="reviewer-info-tab">                        
                         <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Team Leader</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_list_1" name="supervisor_list_1">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Team Member</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter" name="team_member_filter">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6 m-t-35">
+                                        <button type="submit" id="reviewer_apply" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                        <button type="submit" id="hr_reset" onclick="hr_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
+                                    </div>
+                                </div>
+                                <div class="table-responsive m-t-40">
+                                    <table class="table" id="reviewer_tbl">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Employee Name</th>
+                                            <th scope="col">Goal Name</th>
+                                            <th scope="col">Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- as hr -->
+                    <div class="tab-pane fade" id="info-overall" role="tabpanel" aria-labelledby="reviewer-info-tab">                        
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Supervisor">Select Supervisor</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="reviewer_filter" name="reviewer_filter">
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Team Leader</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter_hr" name="team_leader_filter_hr">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Team Member</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter_hr" name="team_member_filter_hr">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6 m-t-35">
+                                        <button type="submit" id="hr_apply" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                        <button type="submit" id="hr_reset" onclick="hr_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
+                                    </div>
+                                </div>
+                                <div class="table-responsive m-t-40">
+                                    <table class="table" id="get_hr_goal">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Employee Name</th>
+                                            <th scope="col">Goal Name</th>
+                                            <th scope="col">Action </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>      
+                    <!--myself -->
+                    <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">                        
+                         <div class="card">
                             <div class="card-body">
                                 <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn  float-right btn-primary-gradien" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
                                 <div class="table-responsive">
@@ -112,55 +193,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="tab-pane fade" id="info-overall" role="tabpanel" aria-labelledby="profile-info-tab">                        
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Supervisor">Select Supervisor</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="reviewer_filter" name="reviewer_filter">
-                                            <option value="">...Select...</option>
-                                            @foreach($reviewer_list as $reviewer)
-                                                <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Leader</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter_hr" name="team_leader_filter_hr">
-                                            <option value="">...Select...</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Member</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter_hr" name="team_member_filter_hr">
-                                            <option value="">...Select...</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-6 m-t-35">
-                                        <button type="submit" id="hr_apply" onclick="hr_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
-                                        <button type="submit" id="hr_reset" onclick="hr_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
-                                    </div>
-                                </div>
-                                <div class="table-responsive m-t-40">
-                                    <table class="table" id="goal_tb_hr_overall">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Employee Name</th>
-                                            <th scope="col">Goal Name</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Action </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 </div>
             </div>
@@ -221,5 +254,6 @@
 <script src="../assets/js/select2/select2-custom.js"></script>
 
 <script src="../assets/pro_js/hr_goals_list.js"></script>
+
 @endsection
 

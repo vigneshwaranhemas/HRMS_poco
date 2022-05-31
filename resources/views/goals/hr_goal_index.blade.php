@@ -136,10 +136,6 @@
                                     <div class="col-lg-2 m-t-5">
                                         <label for="Supervisor">Select Supervisor</label>
                                         <select class="js-example-basic-single float-right" style="width:300px;" id="reviewer_filter" name="reviewer_filter">
-                                            <option value="">...Select...</option>
-                                            @foreach($reviewer_list as $reviewer)
-                                                <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
-                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-lg-2 m-t-5">
@@ -155,7 +151,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-6 m-t-35">
-                                        <button type="submit" id="hr_apply" onclick="hr_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                        <button type="submit" id="hr_apply" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
                                         <button type="submit" id="hr_reset" onclick="hr_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
                                     </div>
                                 </div>
@@ -166,7 +162,6 @@
                                             <th scope="col">No</th>
                                             <th scope="col">Employee Name</th>
                                             <th scope="col">Goal Name</th>
-                                            <th scope="col">Status</th>
                                             <th scope="col">Action </th>
                                             </tr>
                                         </thead>

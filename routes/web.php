@@ -511,4 +511,8 @@ Route::get('get_supervisor','GoalsController@get_supervisor');
 Route::post('fetch_reviewer_res','GoalsController@fetch_reviewer_res');
 Route::post('get_reviewer_list','GoalsController@get_reviewer_list');
 Route::post('get_team_member_list','GoalsController@get_team_member_list');
+Route::get('get_hr_supervisor','GoalsController@get_hr_supervisor');
+Route::post('get_hr_goal_list_tbl','GoalsController@get_hr_goal_list_tbl');
+Route::post('get_manager_lsit_drop','GoalsController@get_manager_lsit_drop');
+Route::post('get_team_member_drop','GoalsController@get_team_member_drop');
 

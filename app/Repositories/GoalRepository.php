@@ -310,7 +310,6 @@ class GoalRepository implements IGoalRepository
         ->where('sup_emp_code', '=', $id)
         ->get();
         return $bandtbl;
-
    }
    public function fetch_team_member_list( $id ){
        // echo "<pre>w";print_r($id);die;
@@ -334,25 +333,25 @@ class GoalRepository implements IGoalRepository
    }
    public function fetch_reviewer_tab_data( $input_details ){
       // echo "<pre>";print_r($input_details);die; 
-      // DB::enableQueryLog();
        if($input_details['supervisor_list_1'] != ''  || $input_details['team_member_filter'] != '' ){
          // echo "<pre>";print_r("222");die; 
          // $logined_empID = Auth::user()->empID;
-         $response = DB::table('customusers as cs')
+          $response = DB::table('customusers as cs')
                         ->distinct()
                         ->select('g.*')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
-                        ->where('cs.reviewer_emp_code', $input_details['team_member_filter'])
-                        ->where('cs.sup_emp_code', $input_details['supervisor_list_1'])
+                        // ->where('cs.reviewer_emp_code', $logined_empID)
+                        ->where('cs.reviewer_emp_code', $input_details['supervisor_list_1'])
+                        ->where('cs.empID', $input_details['team_member_filter'])
                         ->get();
       }else{
-         // echo "<pre>";print_r("sd");die; 
+      // DB::enableQueryLog();
          $logined_empID = Auth::user()->empID;
          $response = DB::table('customusers as cs')
                         ->distinct()
-                        ->select('g.*')
+                        ->select('*')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
-                        ->where('cs.sup_emp_code', $logined_empID)
+                        ->where('cs.reviewer_emp_code', $logined_empID)
                         ->get();
         
       }
@@ -361,5 +360,83 @@ class GoalRepository implements IGoalRepository
       return $response;
    }
 
+ public function get_supervisor_hr( $id ){
+   // DB::enableQueryLog();
+       $bandtbl = DB::table('customusers')
+        ->select('*')
+        ->where('reviewer_emp_code', '=', $id)
+        ->where('sup_emp_code', '=', $id)
+        ->get();
+   // dd(DB::getQueryLog());
+        return $bandtbl;
+   }
+   public function get_manager_lsit( $id ){
+   // DB::enableQueryLog();
+       $bandtbl = DB::table('customusers')
+        ->select('*')
+        ->where('sup_emp_code', '=', $id)
+        ->get();
+   // dd(DB::getQueryLog());
+        return $bandtbl;
+   }
+   public function get_team_member_drop_list( $id ){
+   // DB::enableQueryLog();
+       $bandtbl = DB::table('customusers')
+        ->select('*')
+        ->where('sup_emp_code', '=', $id)
+        ->get();
+   // dd(DB::getQueryLog());
+        return $bandtbl;
+   }
+/*after cick in hr submit button*/
+   public function get_hr_goal_list_for_tbl($input_details){
 
+      $logined_empID = Auth::user()->empID;
+
+      if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] != ''){
+
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.empID', $input_details['team_member_filter_hr'])
+                        ->get();
+
+      }elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] == ''){
+
+
+
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->get();
+
+      }elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == ''){
+
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.sup_emp_code', $input_details['reviewer_filter'])
+                        ->get();
+
+      }elseif($input_details['reviewer_filter'] == '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == ''){
+
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.sup_emp_code', "900531")
+                        // ->where('cs.sup_emp_code', $logined_empID)
+                        ->where('cs.reviewer_emp_code', "900531")
+                        ->get();
+       
+      }
+
+      return $response;
+   }
 }

@@ -6,7 +6,6 @@ $( document ).ready(function() {
     });
 });
 $(document).ready(function() {
-
     get_supervisor();
     supervisor_goal_record();
 });
@@ -55,7 +54,6 @@ function newexportaction(e, dt, button, config) {
     dt.ajax.reload();
 }
 
-
 function get_supervisor(){
 
     $.ajax({                   
@@ -79,9 +77,28 @@ function get_supervisor(){
     });
 }
 
-$('#supervisor_list_1').on('change',function() {
-    get_team_member_list();
+function get_hr_supervisor(){
+
+    $.ajax({                   
+        url:"get_hr_supervisor",
+        type:"GET",
+        dataType : "JSON",
+        success: function(data) {
+            // console.log(data)
+            var html = '<option value="">Select</option>';
+            for (let index = 0; index < data.length; index++) {
+                html += "<option value='" + data[index].empID + "'>" + data[index].username + "</option>";
+            }
+            /*$('#supervisor_list').html(html);*/
+            $('#reviewer_filter').html(html);
+
+        },
+        error: function(error) {
+            console.log(error);
+        }                                              
+            
     });
+}
 
 function get_team_member_list(){
     var supervisor_list_1 = $('#supervisor_list_1').val();
@@ -106,21 +123,81 @@ function get_team_member_list(){
                 
         });
 }
-/*search click */
+/*all search click */
+$('#supervisor_list_1').on('change',function() {
+    get_team_member_list();
+    });
+$('#reviewer_filter').on('change',function() {
+    get_manager_lsit_drop();
+    });
+$('#team_leader_filter_hr').on('change',function() {
+    get_team_member_drop();
+    });
 $('#supervisor_filter').on('click',function() {
     supervisor_goal_record();
     });
 $('#reviewer_apply').on('click',function() {
     reviewer_goal_record();
     });
-/*end search*/
+$('#profile-info-tab').on('click',function() {
+    get_hr_supervisor();
+    hr_dttable_record();
+    });
+$('#hr_apply').on('click',function() {
+    hr_dttable_record();
+    });
 $('#reviewer-info-tab').on('click',function() {
     reviewer_goal_record();
     });
+/*end search*/
 
-function supervisor_goal_record(){
+function get_manager_lsit_drop(){
+    var reviewer_filter = $('#reviewer_filter').val();
+// alert(reviewer_filter)
+    $.ajax({                   
+        url:"get_manager_lsit_drop",
+        type:"POST",
+        data:{ reviewer_filter : reviewer_filter},
+        dataType : "JSON",
+        success: function(data) {
+            // console.log(data)
+            var html = '<option value="">Select</option>';
+            for (let index = 0; index < data.length; index++) {
+                html += "<option value='" + data[index].empID + "'>" + data[index].username + "</option>";
+            }
+            $('#team_leader_filter_hr').html(html);
+        },
+        error: function(error) {
+            console.log(error);
+        }                                              
+            
+    });
+}
+function get_team_member_drop(){
+    var team_leader_filter_hr = $('#team_leader_filter_hr').val();
+// alert(team_leader_filter_hr)
+    $.ajax({                   
+        url:"get_team_member_drop",
+        type:"POST",
+        data:{ team_leader_filter_hr : team_leader_filter_hr },
+        dataType : "JSON",
+        success: function(data) {
+            // console.log(data)
+            var html = '<option value="">Select</option>';
+            for (let index = 0; index < data.length; index++) {
+                html += "<option value='" + data[index].empID + "'>" + data[index].username + "</option>";
+            }
+            $('#team_member_filter_hr').html(html);
+        },
+        error: function(error) {
+            console.log(error);
+        }                                              
+            
+    });
+}
 
-    
+
+function supervisor_goal_record(){    
     table_cot = $('#supervisor_goal_data').DataTable({
         
         dom: 'lBfrtip',
@@ -307,3 +384,99 @@ function reviewer_goal_record(){
         ],
     });
 }
+
+function hr_dttable_record(){
+
+    
+    table_cot = $('#get_hr_goal').DataTable({
+        
+        dom: 'lBfrtip',
+        lengthChange: true,
+        "buttons": [
+            {
+                "extend": 'copy',
+                "text": '<i class="bi bi-clipboard" ></i>  Copy',
+                "titleAttr": 'Copy',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'excel',
+                "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
+                "titleAttr": 'Excel',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'csv',
+                "text": '<i class="bi bi-file-text" ></i>  CSV',
+                "titleAttr": 'CSV',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'pdf',
+                "text": '<i class="bi bi-file-break" ></i>  PDF',
+                "titleAttr": 'PDF',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'print',
+                "text": '<i class="bi bi-printer"></i>  Print',
+                "titleAttr": 'Print',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'colvis',
+                "text": '<i class="bi bi-eye" ></i>  Colvis',
+                "titleAttr": 'Colvis',
+                // "action": newexportaction
+            },
+            
+        ],  
+        lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
+        processing: true,
+        serverSide: true,
+        serverMethod: 'post',
+        bDestroy: true,
+        scrollCollapse: true,
+        drawCallback: function() {
+        },
+        ajax: {
+            url: "get_hr_goal_list_tbl",
+            type: 'POST',
+            dataType: "json",
+            data: function (d) {
+                d.reviewer_filter = $('#reviewer_filter').val();
+                d.team_leader_filter_hr = $('#team_leader_filter_hr').val();
+                d.team_member_filter_hr = $('#team_member_filter_hr').val();
+            }
+        },
+        createdRow: function( row, data, dataIndex ) {
+            $( row ).find('td:eq(0)').attr('data-label', 'Sno');
+            $( row ).find('td:eq(1)').attr('data-label', 'Candidate Name');
+            $( row ).find('td:eq(2)').attr('data-label', 'Position');           
+        },
+        columns: [
+            {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
+            {   data: 'created_by_name', name: 'created_by_name'  },
+            {   data: 'goal_name', name: 'goal_name'  },
+            {   data: 'action', name: 'action'  },            
+        ],
+    });
+}
+
+
+

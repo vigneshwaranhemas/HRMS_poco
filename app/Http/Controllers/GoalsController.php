@@ -3044,4 +3044,78 @@ class GoalsController extends Controller
         return json_encode($result);
     }
 
+    public function get_hr_supervisor(){
+        $hr_supervisor ="900531";
+        $result = $this->goal->get_supervisor_hr($hr_supervisor);
+        return json_encode($result);
+    }
+    public function get_manager_lsit_drop(Request $request){
+        $id = $request->reviewer_filter;
+        // echo "<pre>";print_r($id);die;
+        $result = $this->goal->get_manager_lsit($id);
+        return json_encode($result);
+    }
+    public function get_team_member_drop(Request $request){
+        $id = $request->team_leader_filter_hr;
+        // echo "<pre>";print_r($id);die;
+        $result = $this->goal->get_team_member_drop_list($id);
+        return json_encode($result);
+    }
+/*after cick in hr submit button*/
+     public function get_hr_goal_list_tbl(Request $request){
+
+        if ($request !="") {
+            $input_details = array(
+                'reviewer_filter'=>$request->input('reviewer_filter'),
+                'team_leader_filter_hr'=>$request->input('team_leader_filter_hr'),
+                'team_member_filter_hr'=>$request->input('team_member_filter_hr'),
+            );
+        }
+
+        if ($request->ajax()) {
+
+            $get_goal_list_result = $this->goal->get_hr_goal_list_for_tbl($input_details);
+
+            //   echo json_encode($get_goal_list_result);die();
+
+
+            return DataTables::of($get_goal_list_result)
+            ->addIndexColumn()
+            ->addColumn('status', function($row) {
+                if($row->goal_status == "Pending"){
+                    $btn = '<button class="btn btn-danger btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+
+
+                }elseif($row->goal_status == "Revert"){
+                    $btn = '<button class="btn btn-primary btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }elseif($row->goal_status == "Approved"){
+                    $btn = '<button class="btn btn-success btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }else{
+                    $btn = '';
+                }
+                //  echo "<pre>";print_r($btn);die;
+                return $btn;
+            })
+            ->addColumn('action', function($row) {
+                    $btn1 = '<div class="dropup">
+                    <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                    <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                        <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                        <a href="goal_setting_bh_edit?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs goals_btn" type="button"><i class="fa fa-pencil"></i></button></a>
+                    </div>
+                    </div>' ;
+
+
+                return $btn1;
+            })
+
+            ->rawColumns(['status', 'action'])
+            ->make(true);
+        }
+
+    }
+
 }

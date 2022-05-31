@@ -70,8 +70,6 @@
                                     <div class="col-lg-8 m-t-35">
                                         <button type="button" id="reviewer_filter_apply" onclick="supervisor_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
                                         <button type="button" id="reset" onclick="supervisor_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
-                                        <button type="button" id="reviewer_filter_apply" onclick="reviewer_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
-                                        <button type="button" id="reset" onclick="reviewer_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
                                     </div>
                                 </div>
 

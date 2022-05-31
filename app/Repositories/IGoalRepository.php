@@ -7,7 +7,7 @@ interface IGoalRepository {
     public function add_goals_insert($data);
     public function add_goals_update($data);
     public function insertGoalsCode($goal_unique_code, $last_inserted_id);
-    public function get_goal_list();
+    public function get_goal_list($input_details);
     public function get_team_member_goal_list($input_details);
     public function get_reviewer_goal_list($input_details);
     public function get_bh_goal_list($input_details);

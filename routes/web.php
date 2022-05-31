@@ -116,6 +116,7 @@ Route::post('/Admin_Request_update',"AdminController@Seating_Status_update");
 Route::get('goals', 'GoalsController@goals')->name('goals');
 Route::get('goal_setting', 'GoalsController@goal_setting')->name('goal_setting');
 Route::get('goal_setting_supervisor_view', 'GoalsController@goal_setting_supervisor_view')->name('goal_setting_supervisor_view');
+Route::get('goal_setting_hr_view', 'GoalsController@goal_setting_hr_view')->name('goal_setting_hr_view');
 Route::get('goal_setting_reviewer_view', 'GoalsController@goal_setting_reviewer_view')->name('goal_setting_reviewer_view');
 Route::get('goal_setting_supervisor_edit', 'GoalsController@goal_setting_supervisor_edit')->name('goal_setting_supervisor_edit');
 Route::get('fetch_goals_reviewer_edit', 'GoalsController@fetch_goals_reviewer_edit')->name('fetch_goals_reviewer_edit');
@@ -126,6 +127,7 @@ Route::get('goal_setting_bh_edit', 'GoalsController@goal_setting_bh_edit')->name
 Route::get('edit_goal', 'GoalsController@edit_goal')->name('edit_goal');
 Route::get('fetch_goals_setting_id_details', 'GoalsController@fetch_goals_setting_id_details')->name('fetch_goals_setting_id_details');
 Route::get('fetch_goals_sup_details', 'GoalsController@fetch_goals_sup_details')->name('fetch_goals_sup_details');
+Route::get('fetch_goals_hr_details', 'GoalsController@fetch_goals_hr_details')->name('fetch_goals_hr_details');
 Route::get('fetch_goals_reviewer_details', 'GoalsController@fetch_goals_reviewer_details')->name('fetch_goals_reviewer_details');
 Route::get('fetch_goals_supervisor_edit', 'GoalsController@fetch_goals_supervisor_edit')->name('fetch_goals_supervisor_edit');
 Route::get('fetch_goals_setting_id_edit', 'GoalsController@fetch_goals_setting_id_edit')->name('fetch_goals_setting_id_edit');
@@ -153,6 +155,7 @@ Route::post('goals_supervisor_summary', 'GoalsController@goals_supervisor_summar
 Route::get('fetch_goals_employee_summary', 'GoalsController@fetch_goals_employee_summary' );
 Route::get('goal_setting_hr_edit', 'GoalsController@goal_setting_hr_edit')->name('goal_setting_hr_edit');
 Route::get('goals_sup_consolidate_rate_head', 'GoalsController@goals_sup_consolidate_rate_head')->name('goals_sup_consolidate_rate_head');
+Route::get('check_goal_sheet_role_type_hr', 'GoalsController@check_goal_sheet_role_type_hr')->name('check_goal_sheet_role_type_hr');
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');

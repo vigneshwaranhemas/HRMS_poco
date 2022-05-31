@@ -20,6 +20,7 @@ interface IGoalRepository {
     public function checkSupervisorIDOrNot($id);
     public function fetchGoalIdHead($id);
     public function goals_consolidate_rate_head($id);
+    public function goals_sup_consolidate_rate_head($id);
     public function fetchGoalIdDelete($id);
     public function addGoalEmployeeSummary($id, $employee_summary);
     public function goals_status_update($data);

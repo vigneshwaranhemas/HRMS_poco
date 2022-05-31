@@ -51,7 +51,7 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="info-tabContent">
-                    <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
+                    <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">                        
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -65,8 +65,8 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-8 m-t-35">
-                                        <button type="button" id="reviewer_filter_apply" onclick="reviewer_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
-                                        <button type="button" id="reset" onclick="reviewer_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                        <button type="button" id="reviewer_filter_apply" onclick="reviewer_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                        <button type="button" id="reset" onclick="reviewer_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
                                     </div>
                                 </div>
 
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
+                    <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">                        
                         <div class="card">
                             <div class="card-body">
                                 <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn  float-right btn-primary-gradien" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
@@ -136,7 +136,7 @@
             </div>
             </div>
         </div>
-
+        
     </div>
 </div>
 <!-- Container-fluid Ends-->

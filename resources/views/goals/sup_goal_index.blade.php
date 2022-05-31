@@ -43,10 +43,7 @@
             <div class="card">
                 <div class="card-body">
                 <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist">
-                    <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>Supervisor</a>
-                    <div class="material-border"></div>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" id="info-reviewer-tab" data-toggle="tab" href="#info-reviewer" role="tab" aria-controls="info-reviewer" aria-selected="true"><i class="icofont icofont-user-suited"></i>Reviewer</a>
+                    <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>Team Member</a>
                     <div class="material-border"></div>
                     </li>
                     <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>MySelf</a>
@@ -54,59 +51,12 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="info-tabContent">
-                    <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
+                    <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">                        
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Leader</label>
-                                        <select class="js-example-basic-single float-right" style="width:250px;" id="team_member_filter" name="team_member_filter">
-                                            <option value="">Select Team Leader...</option>
-                                            @foreach($team_member_list as $team_member)
-                                                <option value="{{ $team_member->empID }}">{{ $team_member->username }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-8 m-t-35">
-                                        <button type="button" id="supervisor_filter_apply" onclick="supervisor_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
-                                        <button type="button" id="reset" onclick="supervisor_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
-                                    </div>
-                                </div>
-                                <div class="table-responsive m-t-40">
-                                    <table class="table" id="team_member_goal_data">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Employee Name</th>
-                                            <th scope="col">Goal Name</th>
-                                            <th scope="col">Status</th>
-                                            <!-- <th scope="col">Date</th> -->
-                                            <th scope="col">Action </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade show active" id="info-reviewer" role="tabpanel" aria-labelledby="info-reviewer-tab">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Leader</label>
-                                        <select class="js-example-basic-single float-right" style="width:250px;" id="team_member_filter" name="team_member_filter">
-                                            <option value="">Select Team Leader...</option>
-                                            @foreach($team_member_list as $team_member)
-                                                <option value="{{ $team_member->empID }}">{{ $team_member->username }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Member</label>
+                                        <label for="Leader">Select Team Member</label>                                        
                                         <select class="js-example-basic-single float-right" style="width:250px;" id="team_member_filter" name="team_member_filter">
                                             <option value="">Select Team Member...</option>
                                             @foreach($team_member_list as $team_member)
@@ -115,8 +65,8 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-8 m-t-35">
-                                        <button type="button" id="supervisor_filter_apply" onclick="supervisor_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
-                                        <button type="button" id="reset" onclick="supervisor_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                        <button type="button" id="supervisor_filter_apply" onclick="supervisor_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                        <button type="button" id="reset" onclick="supervisor_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
                                     </div>
                                 </div>
                                 <div class="table-responsive m-t-40">
@@ -138,8 +88,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
+                    <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">                        
                         <div class="card">
                             <div class="card-body">
                                 <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn  float-right btn-primary-gradien" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
@@ -211,7 +160,7 @@
                 </form>
             </div>
         </div>
-
+        
     </div>
 </div>
 <!-- Container-fluid Ends-->

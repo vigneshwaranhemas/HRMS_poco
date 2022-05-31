@@ -425,5 +425,20 @@ class GoalRepository implements IGoalRepository
 
       return $response;
    }
+   public function checkHrReviewerIDOrNot( $id ){
+      $empID = Goals::where('goal_unique_code', $id)->value('created_by');
+      $logined_empID = Auth::user()->empID;
+      $supervisor = DB::table('customusers')->where('sup_emp_code', $logined_empID)->where('empID', $empID)->value('empID');
+      $teamleader=CustomUser::where('sup_emp_code','!=',$logined_empID)->where('reviewer_emp_code',$logined_empID)->where('empID',$empID)->value('empID');
+      $result=0; //others
+      if($supervisor){
+           $result=1;
+      }
+      if($teamleader){
+          $result=2;
+      }
+    //   echo json_encode($empID);die();
+      return $result;
+   }
 
 }

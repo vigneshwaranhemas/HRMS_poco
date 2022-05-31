@@ -152,6 +152,7 @@ Route::get('get_hr_goal_list_record', 'GoalsController@get_hr_goal_list_record' 
 Route::post('goals_supervisor_summary', 'GoalsController@goals_supervisor_summary' );
 Route::get('fetch_goals_employee_summary', 'GoalsController@fetch_goals_employee_summary' );
 Route::get('goal_setting_hr_edit', 'GoalsController@goal_setting_hr_edit')->name('goal_setting_hr_edit');
+Route::get('goals_sup_consolidate_rate_head', 'GoalsController@goals_sup_consolidate_rate_head')->name('goals_sup_consolidate_rate_head');
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');
@@ -508,8 +509,4 @@ Route::get('leave_apply', 'CandidateController@leave_apply')->name('leave_apply'
 //goals
 Route::get('get_hr_goal_list','GoalsController@get_hr_goal_list');
 Route::get('goals_sup_th_check','GoalsController@goals_sup_th_check');
-Route::get('get_supervisor','GoalsController@get_supervisor');
-Route::post('fetch_reviewer_res','GoalsController@fetch_reviewer_res');
-Route::post('get_reviewer_list','GoalsController@get_reviewer_list');
-Route::post('get_team_member_list','GoalsController@get_team_member_list');
 

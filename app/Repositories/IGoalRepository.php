@@ -7,7 +7,7 @@ interface IGoalRepository {
     public function add_goals_insert($data);
     public function add_goals_update($data);
     public function insertGoalsCode($goal_unique_code, $last_inserted_id);
-    public function get_goal_list($data);
+    public function get_goal_list();
     public function get_team_member_goal_list($input_details);
     public function get_reviewer_goal_list($input_details);
     public function get_bh_goal_list($input_details);
@@ -20,6 +20,7 @@ interface IGoalRepository {
     public function checkSupervisorIDOrNot($id);
     public function fetchGoalIdHead($id);
     public function goals_consolidate_rate_head($id);
+    public function goals_sup_consolidate_rate_head($id);
     public function fetchGoalIdDelete($id);
     public function addGoalEmployeeSummary($id, $employee_summary);
     public function goals_status_update($data);

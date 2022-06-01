@@ -3170,6 +3170,35 @@ class GoalsController extends Controller
         $employee_summary = $request->employee_summary;
         $result = $this->goal->goals_supervisor_summary($id, $employee_summary);
         return response($result);
+    }    
+    public function update_goals_sup(Request $request){
+        // dd($request->all());
+        $id = $request->goals_setting_id;
+        $json = $this->goal->fetchGoalIdDetails($id);   
+        $datas = json_decode($json);
+        // dd(count($datas));
+
+        $dd = array();
+
+        $html = '';
+
+        foreach($datas as $key=>$data){
+            $cell1 = $key+1;
+            $row_values = json_decode($data);
+            // dd($row_values);
+            array_push($dd, $data);
+            // $json[] = json_encode($row_values);
+
+            // $cell2 = "key_bus_drivers_".$cell1;
+            // $cell3 = "key_res_areas_".$cell1;
+            // $cell4 = "measurement_criteria_".$cell1;
+            // $cell5 = "self_assessment_remark_".$cell1;
+            // $cell6 = "rating_by_employee_".$cell1;
+            
+        }
+        dd($dd);
+
+        return response($result);
     }
 
     /*hr goal list*/

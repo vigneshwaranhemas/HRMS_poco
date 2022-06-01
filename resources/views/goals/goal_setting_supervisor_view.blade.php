@@ -38,7 +38,6 @@
     <div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<input type="hidden" id="goals_setting_id">								
 				<div class="ribbon-vertical-right-wrapper card">
 					<div class="card-body">
 						<div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 50px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PA</span>
@@ -128,45 +127,49 @@
 									<h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
 								</div>
 							</div>
-							<table class="table table-border-vertical table-border-horizontal" id="goals_record_tb">
-								<thead>
-									<tr>
-										<th scope="col">No</th>
-										<th scope="col">Key Business Drivers</th>
-										<th scope="col">Key Result Areas </th>
-										<th scope="col">Measurement Criteria (UOM)</th>
-										<th scope="col">Self Assessment</th>
-										<th scope="col">Rating </th>
-										<th scope="col">Supervisor Reamrks </th>
-										<th scope="col">Supervisor Rating </th>
-										<th scope="col">Reviewer Remarks </th>
-										<th scope="col">HR Remarks </th>
-										<th scope="col">BH Remarks </th>
-										<!-- <th scope="col">Business Head</th> -->
-									</tr>
-								</thead>
-								<tbody id="goals_record">									
-								</tbody>
-							</table>
-							<!-- <div class="m-t-20 m-b-30 float-right"> -->
-								<div class="m-t-20 m-b-30 row float-right" id="save_div">									
-									<div class="col-lg-8">
-										<label>Consolidated Rating</label><br>
-										<select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_consolidated_rate" name="employee_consolidated_rate">
-											<option value="" selected>...Select...</option>
-											<option value="EE">EE</option>
-											<option value="AE">AE</option>
-											<option value="ME">ME</option>
-											<option value="PE">PE</option>
-											<option value="ND">ND</option>
-										</select>
-										<div class="text-danger supervisor_consolidated_rate_error" id=""></div>
+							<form id="supGoalsForm">
+								<table class="table table-border-vertical table-border-horizontal" id="goals_record_tb">
+									<thead>
+										<tr>
+											<th scope="col">No</th>
+											<th scope="col">Key Business Drivers</th>
+											<th scope="col">Key Result Areas </th>
+											<th scope="col">Measurement Criteria (UOM)</th>
+											<th scope="col">Self Assessment</th>
+											<th scope="col">Rating </th>
+											<th scope="col">Supervisor Reamrks </th>
+											<th scope="col">Supervisor Rating </th>
+											<th scope="col">Reviewer Remarks </th>
+											<th scope="col">HR Remarks </th>
+											<th scope="col">BH Remarks </th>
+											<!-- <th scope="col">Business Head</th> -->
+										</tr>
+									</thead>
+									<tbody id="goals_record">									
+									</tbody>
+								</table>
+								<input type="hidden" name="goals_setting_id" id="goals_setting_id">								
+
+								<!-- <div class="m-t-20 m-b-30 float-right"> -->
+									<div class="m-t-20 m-b-30 row float-right" id="save_div">									
+										<div class="col-lg-8">
+											<label>Consolidated Rating</label><br>
+											<select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_consolidated_rate" name="employee_consolidated_rate">
+												<option value="" selected>...Select...</option>
+												<option value="EE">EE</option>
+												<option value="AE">AE</option>
+												<option value="ME">ME</option>
+												<option value="PE">PE</option>
+												<option value="ND">ND</option>
+											</select>
+											<div class="text-danger supervisor_consolidated_rate_error" id=""></div>
+										</div>
+										<div class="col-lg-4">
+											<a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>                                            
+										</div>
 									</div>
-									<div class="col-lg-4">
-										<a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>                                            
-									</div>
-								</div>
-							<!-- </div> -->
+								<!-- </div> -->
+							</form>
 						</div>
 					</div>
 
@@ -226,8 +229,9 @@
 
 		var params = new window.URLSearchParams(window.location.search);
 		var id=params.get('id')
-		$('#goals_setting_id').val(id);
-			
+		$('#goals_setting_id').val(id);			
+		// $("#goal_sheet_sup_id").val(id);
+
 		var id = $('#goals_setting_id').val();
 
 		$.ajax({                   
@@ -340,7 +344,7 @@
 							alert("one")
 						}
 						else{
-							var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control"></textarea>';
+							var tx = '<textarea id="business_head_edit'+i+'" name="sup_remark[]" style="width:200px;" class="form-control"></textarea>';
 								tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
 							$(this).append(tx)
 							// alert("two")
@@ -356,7 +360,7 @@
 							alert("one")
 						}
 						else{
-							var op = '<select class="js-example-basic-single" style="width:150px;" id="employee_consolidated_rate" name="employee_consolidated_rate">';
+							var op = '<select class="js-example-basic-single" name="sup_rating[]" style="width:150px;" id="employee_consolidated_rate" name="employee_consolidated_rate">';
 								op += '<option value="" selected>...Select...</option>';
 								op += '<option value="EE">EE</option>';
 								op += '<option value="AE">AE</option>';
@@ -434,33 +438,33 @@
 				data_insert();
 			}
 			
-			function data_insert(){
+			function data_insert(){				
 
-				// $.ajax({
+				$.ajax({
 					
-				// 	url:"{{ url('add_goals_data') }}",
-				// 	type:"POST",
-				// 	data:$('#goalsForm').serialize(),
-				// 	dataType : "JSON",
-				// 	success:function(data)
-				// 	{
-				// 		Toastify({
-				// 			text: "Added Sucessfully..!",
-				// 			duration: 3000,
-				// 			close:true,
-				// 			backgroundColor: "#4fbe87",
-				// 		}).showToast();    
+					url:"{{ url('update_goals_sup') }}",
+					type:"POST",
+					data:$('#supGoalsForm').serialize(),
+					dataType : "JSON",
+					success:function(data)
+					{
+						Toastify({
+							text: "Added Sucessfully..!",
+							duration: 3000,
+							close:true,
+							backgroundColor: "#4fbe87",
+						}).showToast();    
 						
-				// 		$('button[type="submit"]').attr('disabled' , false);
+						$('button[type="submit"]').attr('disabled' , false);
 						
-				// 		window.location = "{{ url('goals')}}";                
-				// 	},
-				// 	error: function(response) {
-				// 		// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+						window.location = "{{ url('goals')}}";                
+					},
+					error: function(response) {
+						// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
 		
-				// 	}                                              
+					}                                              
 						
-				// });
+				});
 			}      
 		}
 		

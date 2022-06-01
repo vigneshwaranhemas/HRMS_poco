@@ -4019,5 +4019,28 @@ class GoalsController extends Controller
 
     }
 
+    public function goals_sup_consolidate_rate_head(Request $request)
+
+    {
+
+        $id = $request->id;
+
+        $head = $this->goal->goals_sup_consolidate_rate_head($id);
+
+        return json_encode($head);
+
+    }
+
+    public function get_goal_setting_reviewer_details_tl(Request $req){
+        $input_details = array(
+            'id'=>$req->input('id'),
+        );
+        // echo 'test<pre>';print_r($input_details);die();
+
+        $get_reviewer_details_tl_result = $this->goal->get_goal_setting_reviewer_details_tl( $input_details );
+
+        return response()->json( $get_reviewer_details_tl_result );
+    }
+
 
 }

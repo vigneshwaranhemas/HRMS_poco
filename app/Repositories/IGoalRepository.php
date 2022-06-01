@@ -37,4 +37,6 @@ interface IGoalRepository {
      public function get_supervisor_hr($data);
      public function get_hr_goal_list_for_tbl($data);
      public function get_manager_lsit($data);
+     public function get_goal_setting_reviewer_details_tl($input_details);
+     public function goals_sup_consolidate_rate_head($id);
 }

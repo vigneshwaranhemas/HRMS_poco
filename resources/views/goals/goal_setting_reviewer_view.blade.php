@@ -46,22 +46,22 @@
 						<div class="row">
 							<div class="col-md-4">
 								<div class="row">
-									<div class="col-md-5">
+									<div class="col-md-6">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Emp ID :</h6>
 									</div>
-									<div class="col-md-7">
-										<p>{{ Auth::user()->empID }}</p>
+									<div class="col-md-6">
+										<p id="empID"></p>
 									</div>
-									<div class="col-md-5 m-t-10">
+									<div class="col-md-6 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ebook"> </i> Supervisor ID :</h6>
 									</div>
-									<div class="col-md-7 m-t-10">
-										<p>{{ Auth::user()->sup_emp_code }}</p>
+									<div class="col-md-6 m-t-10">
+										<p id="sup_emp_code"></p>
 									</div>
-									<div class="col-md-5 m-t-10">
+									<div class="col-md-6 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
 									</div>
-									<div class="col-md-47 m-t-10">
+									<div class="col-md-6 m-t-10">
 										<p>900380</p>
 									</div>
 								</div>
@@ -72,13 +72,13 @@
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Name :</h6>
 									</div>
 									<div class="col-md-7">
-										<p>{{ Auth::user()->username }}</p>
+										<p id="username"></p>
 									</div>
 									<div class="col-md-5 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Supervisor :</h6>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<p>{{ Auth::user()->sup_name }}</p>
+										<p id="sup_name"></p>
 									</div>
 									<div class="col-md-5 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP :</h6>
@@ -94,19 +94,19 @@
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Department :</h6>
 									</div>
 									<div class="col-md-7">
-										<p>{{ Auth::user()->department }}</p>
+										<p id="department"></p>
 									</div>
 									<div class="col-md-5 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Reviewer :</h6>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<p>{{ Auth::user()->reviewer_name }}</p>
+										<p id="reviewer_name"></p>
 									</div>
 									<div class="col-md-5 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer ID :</h6>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<p>{{ Auth::user()->reviewer_emp_code }}</p>
+										<p id="reviewer_emp_code"></p>
 									</div>
 								</div>
 							</div>
@@ -217,6 +217,19 @@
 	<!-- login js-->
 	<!-- Plugin used-->
 	<script>
+
+        $( document ).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        });
+
+        $(document).ready(function(){
+            get_goal_setting_reviewer_tl();
+        });
+
 		$( document ).ready(function() {
 			// goal_record();
 			$("#save_div").hide();
@@ -539,6 +552,36 @@
 				// });
 			}
 		}
+
+
+        //Edit pop-up model and data show
+        function get_goal_setting_reviewer_tl(){
+
+            var params = new window.URLSearchParams(window.location.search);
+            var id=params.get('id')
+            // alert(id)
+
+
+        $.ajax({
+            url: "get_goal_setting_reviewer_details_tl",
+            method: "POST",
+            data:{"id":id,},
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+
+                if(data.length !=0){
+                    $('#empID').html(data[0].empID);
+                    $('#username').html(data[0].username);
+                    $('#sup_emp_code').html(data[0].sup_emp_code);
+                    $('#sup_name').html(data[0].sup_name);
+                    $('#department').html(data[0].department);
+                    $('#reviewer_name').html(data[0].reviewer_name);
+                    $('#reviewer_emp_code').html(data[0].reviewer_emp_code);
+                }
+            }
+        });
+        }
 
 	</script>
 

@@ -487,6 +487,7 @@ class GoalRepository implements IGoalRepository
                     //   ->where('cs.reviewer_emp_code', $logined_empID)
                       ->where('cs.sup_emp_code', $input_details['team_leader_filter_for_reviewer'])
                       ->where('cs.empID', $input_details['team_member_filter'])
+                      ->where('g.supervisor_status', "1")
                       ->get();
     }elseif($input_details['team_leader_filter_for_reviewer'] != ''  && $input_details['team_member_filter'] == '')
     {
@@ -496,6 +497,7 @@ class GoalRepository implements IGoalRepository
                       ->select('g.*')
                       ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                       ->where('cs.sup_emp_code', $input_details['team_leader_filter_for_reviewer'])
+                      ->where('g.supervisor_status', "1")
                       ->get();
     }
     else{
@@ -507,6 +509,7 @@ class GoalRepository implements IGoalRepository
                       ->where('cs.reviewer_emp_code', $logined_empID)
                     //   ->where('cs.sup_emp_code', $logined_empID)
                     //   ->where('cs.reviewer_emp_code', "900531")
+                    ->where('g.supervisor_status', "1")
                       ->get();
     }
 
@@ -528,5 +531,31 @@ class GoalRepository implements IGoalRepository
     //   echo json_encode($empID);die();
       return $result;
    }
+
+   public function goals_sup_consolidate_rate_head( $id ){
+
+    $response = Goals::where('goal_unique_code', $id)->value('supervisor_consolidated_rate');
+
+    return $response;
+
+ }
+
+   public function get_goal_setting_reviewer_details_tl( $input_details ){
+
+    $id = $input_details['id'];
+    // echo '<pre>';print_r($id);die();
+
+    // DB::enableQueryLog();
+
+    $reviewer_details_tl = DB::table('goals as gl')
+                        // ->distinct()
+                        // ->select('gl.*')
+                        ->join('customusers as cu', 'gl.created_by', '=', 'cu.empID')
+                        ->where('gl.goal_unique_code', $input_details['id'])
+                        ->get();
+    // dd(DB::getQueryLog());
+
+    return $reviewer_details_tl;
+}
 
 }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use App\Goals;
 use Auth;
+use Session;
 
 class GoalsController extends Controller
 {
@@ -23,6 +24,7 @@ class GoalsController extends Controller
         $supervisor_list = $this->goal->fetchSupervisorList();
         $reviewer_list = $this->goal->fetchReviewerList();
         $logined_empID = Auth::user()->empID;
+        // echo json_encode($logined_empID);die();
 
         if($logined_empID == "900531"){ //business head
             return view('goals.bh_goal_index')->with("reviewer_list", $reviewer_list);
@@ -67,7 +69,9 @@ class GoalsController extends Controller
     }
     public function goal_setting_reviewer_view()
     {
-        return view('goals.goal_setting_reviewer_view');
+        $id=$_GET['id'];
+        $data=$this->goal->Fetch_goals_user_info($id);
+        return view('goals.goal_setting_reviewer_view')->with('user_info',$data);
     }
     public function goal_setting_hr_view()
     {
@@ -87,12 +91,6 @@ class GoalsController extends Controller
     {
         $id = $request->id;
         $head = $this->goal->goals_consolidate_rate_head($id);
-        return json_encode($head);
-    }
-    public function goals_sup_consolidate_rate_head(Request $request)
-    {
-        $id = $request->id;
-        $head = $this->goal->goals_sup_consolidate_rate_head($id);
         return json_encode($head);
     }
     public function goals_sup_th_check(Request $request)
@@ -129,7 +127,6 @@ class GoalsController extends Controller
                 'team_member_filter'=>$request->input('team_member_filter'),
             );
         }
-
         // echo "11<pre>";print_r($input_details);die;
         $result = $this->goal->fetch_reviewer_tab_data($input_details);
 
@@ -143,7 +140,7 @@ class GoalsController extends Controller
                     $btn = '<div class="dropup">
                             <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
                             <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                                <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
                             </div>
                         </div>' ;
 
@@ -156,7 +153,7 @@ class GoalsController extends Controller
                         $btn = '<div class="dropup">
                                 <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
                                 <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                    <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                                    <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
                                     <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary_show" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-file-text-o"></i></button></a>
                                 </div>
                             </div>' ;
@@ -164,7 +161,7 @@ class GoalsController extends Controller
                         $btn = '<div class="dropup">
                                 <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
                                 <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                    <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                                    <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
                                     <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-edit"></i></button></a>
                                 </div>
                             </div>' ;
@@ -181,15 +178,9 @@ class GoalsController extends Controller
     public function fetch_goals_setting_id_details(Request $request)
     {
         $id = $request->id;
-
-        $reviewer=$this->goal->checkSupervisorOrNot($id);
-        echo json_encode($reviewer);die();
-
         $json = $this->goal->fetchGoalIdDetails($id);
-
-
-
         $datas = json_decode($json);
+
         $html = '';
 
         foreach($datas as $key=>$data){
@@ -538,6 +529,7 @@ class GoalsController extends Controller
                 $html .= '<td>';
 
                     foreach($row_values->$cell2 as $cell2_value){
+                        // dd($cell3_value);
                         if($cell2_value != null){
 
                             $html .= '<p>'.$cell2_value.'</p>';
@@ -551,19 +543,25 @@ class GoalsController extends Controller
                     $html .= '</td>';
             }else{
                 $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 3*/
             if($row_values->$cell3 != null){
+                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell3 as $cell3_value){
+                        // dd($cell3_value);
                         if($cell3_value != null){
 
                             $html .= '<p>'.$cell3_value.'</p>';
 
                         }else{
                             $html .= '<p></p>';
+
                         }
                     }
 
@@ -571,15 +569,22 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 4*/
             if($row_values->$cell4 != null){
+                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell4 as $cell4_value){
+                        // dd($cell3_value);
                         if($cell4_value != null){
+
                             $html .= '<p>'.$cell4_value.'</p>';
+
                         }
                     }
 
@@ -587,15 +592,22 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 5*/
             if($row_values->$cell5 != null){
+                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell5 as $cell5_value){
+                        // dd($cell3_value);
                         if($cell5_value != null){
+
                             $html .= '<p>'.$cell5_value.'</p>';
+
                         }
                     }
 
@@ -603,15 +615,22 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 6*/
             if($row_values->$cell6 != null){
+                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell6 as $cell6_value){
+                        // dd($cell3_value);
                         if($cell6_value != null){
+
                             $html .= '<p>'.$cell6_value.'</p>';
+
                         }
                     }
 
@@ -619,49 +638,68 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 7*/
             if($row_values->$cell7 != null){
-                $html .= '<td class="sup_remark">';
+                //    dd(count($row_values->$cell3));
+                $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
 
                     foreach($row_values->$cell7 as $cell7_value){
+                        // dd($cell3_value);
                         if($cell7_value != null){
 
                             $html .= '<p>'.$cell7_value.'</p>';
 
                         }
                     }
+
                 $html .= '</td>';
 
             }else{
-                $html .= '<td class="sup_remark">';
+                $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 8*/
             if($row_values->$cell8 != null){
-                $html .= '<td class="sup_rating">';
+                //    dd(count($row_values->$cell3));
+                $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell8 as $cell8_value){
+                        // dd($cell3_value);
                         if($cell8_value != null){
+
                             $html .= '<p>'.$cell8_value.'</p>';
+
                         }
                     }
+
                 $html .= '</td>';
 
             }else{
-                $html .= '<td class="sup_rating">';
+                $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
-
             /*cell 9*/
             if($row_values->$cell9 != null){
+                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell9 as $cell9_value){
+                        // dd($cell3_value);
                         if($cell9_value != null){
+
                             $html .= '<p>'.$cell9_value.'</p>';
+
                         }
                     }
 
@@ -698,10 +736,16 @@ class GoalsController extends Controller
 
              /*cell 11*/
              if($row_values->$cell11 != null){
+                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell11 as $cell11_value){
+                        // dd($cell3_value);
                         if($cell11_value != null){
+
                             $html .= '<p>'.$cell11_value.'</p>';
+
                         }
                     }
 
@@ -709,6 +753,7 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
@@ -1090,13 +1135,579 @@ class GoalsController extends Controller
     public function fetch_goals_reviewer_details(Request $request)
     {
         $id = $request->id;
+        // echo json_encode($id);die();
         $json = $this->goal->fetchGoalIdDetails($id);
+        $reviewer = $this->goal->checkReviewerIDOrNot($id);
+
+    //    echo json_encode($reviewer);die();
+
+    //    if($reviewer==1){
+
+
+    //     //supervisor reviewer edit concept
+
+    //     $json = $this->goal->fetchGoalIdDetails($id);
+    //     $datas = json_decode($json);
+
+    //     $html = '';
+
+    //     foreach($datas as $key=>$data){
+    //         $cell1 = $key+1;
+    //         $row_values = json_decode($data);
+    //         $cell2 = "key_bus_drivers_".$cell1;
+    //         $cell3 = "key_res_areas_".$cell1;
+    //         $cell4 = "measurement_criteria_".$cell1;
+    //         $cell5 = "self_assessment_remark_".$cell1;
+    //         $cell6 = "rating_by_employee_".$cell1;
+    //         // $cell7 = "sup_remarks_".$cell1;
+    //         // $cell8 = "sup_final_output_".$cell1;
+    //         // $cell9 = "reviewer_remarks_".$cell1;
+    //         $cell10 =  "hr_remarks_".$cell1;
+    //         $cell11 = "bh_sign_off_".$cell1;
+
+    //         $hidden_rows=array('0'=>'supervisor_remarks','1'=>'reviewer_remarks');
+
+
+    //         // echo json_encode($cell7);die();
+
+    //         $html .= '<tr  class="border-bottom-primary">';
+
+    //             /*Cell 1*/
+    //             $html .= '<th scope="row">'.$cell1.'</th>';
+
+    //             /*Cell 2*/
+    //             if($row_values->$cell2 != null){
+    //                 $html .= '<td>';
+    //                     foreach($row_values->$cell2 as $cell2_value){
+    //                         if($cell2_value != null){
+
+    //                             $html .= '<p>'.$cell2_value.'</p>';
+
+    //                         }else{
+    //                             $html .= '<p></p>';
+
+    //                         }
+    //                     }
+
+    //                     $html .= '</td>';
+    //             }else{
+    //                 $html .= '<td>';
+    //                 $html .= '</td>';
+    //             }
+
+    //             /*Cell 3*/
+    //             if($row_values->$cell3 != null){
+    //                 $html .= '<td>';
+    //                     foreach($row_values->$cell3 as $cell3_value){
+    //                         // dd($cell3_value);
+    //                         if($cell3_value != null){
+
+    //                             $html .= '<p>'.$cell3_value.'</p>';
+
+    //                         }else{
+    //                             $html .= '<p></p>';
+
+    //                         }
+    //                     }
+
+    //                 $html .= '</td>';
+
+    //             }else{
+    //                 $html .= '<td>';
+    //                 $html .= '</td>';
+    //             }
+
+    //             /*Cell 4*/
+    //             if($row_values->$cell4 != null){
+    //                 $html .= '<td>';
+    //                     foreach($row_values->$cell4 as $cell4_value){
+    //                         // dd($cell3_value);
+    //                         if($cell4_value != null){
+
+    //                             $html .= '<p>'.$cell4_value.'</p>';
+
+    //                         }
+    //                     }
+
+    //                 $html .= '</td>';
+
+    //             }else{
+    //                 $html .= '<td>';
+    //                 $html .= '</td>';
+    //             }
+
+    //             /*Cell 5*/
+    //             if($row_values->$cell5 != null){
+    //                 $html .= '<td>';
+    //                     foreach($row_values->$cell5 as $cell5_value){
+    //                         // dd($cell3_value);
+    //                         if($cell5_value != null){
+
+    //                             $html .= '<p>'.$cell5_value.'</p>';
+
+    //                         }
+    //                     }
+
+    //                 $html .= '</td>';
+
+    //             }else{
+    //                 $html .= '<td>';
+    //                 // $html .= '<p></p>';
+    //                 $html .= '</td>';
+    //             }
+
+    //             /*Cell 6*/
+    //             if($row_values->$cell6 != null){
+    //                 $html .= '<td>';
+    //                     foreach($row_values->$cell6 as $cell6_value){
+    //                         // dd($cell3_value);
+    //                         if($cell6_value != null){
+
+    //                             $html .= '<p>'.$cell6_value.'</p>';
+
+    //                         }
+    //                     }
+
+    //                 $html .= '</td>';
+
+    //             }else{
+    //                 $html .= '<td>';
+    //                 // $html .= '<p></p>';
+    //                 $html .= '</td>';
+    //             }
+    //             // die();
+
+
+
+
+
+
+
+    //             //    /*Cell 7*/
+    //             //    $html .= '<td>';
+    //             //    if($row_values->$cell8 != null){
+    //             //     $html .= '<p name="sup_final_output_'.$cell1.'[]">'.nl2br($row_values->$cell8[0]).'</p>';
+    //             //     }else{
+    //             //     $html .= '<p name="sup_final_output_'.$cell1.'[]"></p>';
+    //             //     }
+    //             //    $html .= '</td>';
+
+
+    //                 /* cell8 */
+    //                $html .= '<td>';
+    //                if($row_values->$cell10 != null){
+    //                 $html .= '<p name="reviewer_remarks_'.$cell1.'[]">'.nl2br($row_values->$cell10[0]).'</p>';
+    //             }else{
+    //                 $html .= '<p name="reviewer_remarks_'.$cell1.'[]"></p>';
+    //             }
+    //                $html .= '</td>';
+
+
+    //                   $html .= '<td>';
+
+
+    //                if($row_values->$cell11 != null){
+    //                 $html .= '<p name="bh_sign_off_'.$cell1.'[]">'.nl2br($row_values->$cell11[0]).'</p>';
+    //                }else{
+    //                 $html .= '<p name="bh_sign_off_'.$cell1.'[]"></p>';
+
+    //                }
+    //                 $html .= '</td>';
+
+    //                $html .= '</tr>';
+    //                /*Cell 11*/
+
+
+
+
+    //         }
+    // }
+    // if($reviewer==2){
+    // // echo json_encode('one');die();
+
+    //     //teamleader reviewer edit concept
+
+    //     $json = $this->goal->fetchGoalIdDetails($id);
+    //     $datas = json_decode($json);
+
+    //     $html = '';
+
+    //     foreach($datas as $key=>$data){
+    //         $cell1 = $key+1;
+    //         $row_values = json_decode($data);
+    //         $cell2 = "key_bus_drivers_".$cell1;
+    //         $cell3 = "key_res_areas_".$cell1;
+    //         $cell4 = "measurement_criteria_".$cell1;
+    //         $cell5 = "self_assessment_remark_".$cell1;
+    //         $cell6 = "rating_by_employee_".$cell1;
+    //         $cell7 = "sup_remarks_".$cell1;
+    //         $cell8 = "sup_final_output_".$cell1;
+    //         // $cell9 = "reviewer_remarks_".$cell1;
+    //         $cell10 =  "hr_remarks_".$cell1;
+    //         $cell11 = "bh_sign_off_".$cell1;
+    //         $html .= '<tr  class="border-bottom-primary">';
+
+    //             /*Cell 1*/
+    //             $html .= '<th scope="row">'.$cell1.'</th>';
+
+    //            /*Cell 2*/
+    //            if($row_values->$cell2 != null){
+    //             $html .= '<td>';
+    //                 foreach($row_values->$cell2 as $cell2_value){
+    //                     if($cell2_value != null){
+
+    //                         $html .= '<p>'.$cell2_value.'</p>';
+
+    //                     }else{
+    //                         $html .= '<p></p>';
+
+    //                     }
+    //                 }
+
+    //                 $html .= '</td>';
+    //         }else{
+    //             $html .= '<td>';
+    //             $html .= '</td>';
+    //         }
+
+    //         /*Cell 3*/
+    //         if($row_values->$cell3 != null){
+    //             $html .= '<td>';
+    //                 foreach($row_values->$cell3 as $cell3_value){
+    //                     // dd($cell3_value);
+    //                     if($cell3_value != null){
+
+    //                         $html .= '<p>'.$cell3_value.'</p>';
+
+    //                     }else{
+    //                         $html .= '<p></p>';
+
+    //                     }
+    //                 }
+
+    //             $html .= '</td>';
+
+    //         }else{
+    //             $html .= '<td>';
+    //             $html .= '</td>';
+    //         }
+
+
+
+    //         /*Cell 4*/
+    //         if($row_values->$cell4 != null){
+    //             $html .= '<td>';
+    //                 foreach($row_values->$cell4 as $cell4_value){
+    //                     // dd($cell3_value);
+    //                     if($cell4_value != null){
+
+    //                         $html .= '<p>'.$cell4_value.'</p>';
+
+    //                     }
+    //                 }
+
+    //             $html .= '</td>';
+
+    //         }else{
+    //             $html .= '<td>';
+    //             $html .= '</td>';
+    //         }
+
+    //          /*Cell 5*/
+    //         if($row_values->$cell5 != null){
+    //             $html .= '<td>';
+    //                 foreach($row_values->$cell5 as $cell5_value){
+    //                     // dd($cell3_value);
+    //                     if($cell5_value != null){
+
+    //                         $html .= '<p>'.$cell5_value.'</p>';
+
+    //                     }
+    //                 }
+
+    //             $html .= '</td>';
+
+    //         }else{
+    //             $html .= '<td>';
+    //             // $html .= '<p></p>';
+    //             $html .= '</td>';
+    //         }
+    //           /*Cell 6*/
+    //           if($row_values->$cell6 != null){
+    //             $html .= '<td>';
+    //                 foreach($row_values->$cell6 as $cell6_value){
+    //                     // dd($cell3_value);
+    //                     if($cell6_value != null){
+
+    //                         $html .= '<p>'.$cell6_value.'</p>';
+
+    //                     }
+    //                 }
+
+    //             $html .= '</td>';
+
+    //         }else{
+    //             $html .= '<td>';
+    //             // $html .= '<p></p>';
+    //             $html .= '</td>';
+    //         }
+
+    //            /*Cell 7*/
+    //            $html .= '<td>';
+    //            if($row_values->$cell7 != null){
+    //            $html .= '<p>'.nl2br($row_values->$cell7[0]).'</p>';
+    //            }
+    //            $html .= '</td>';
+
+    //            /*Cell 8*/
+    //            $html .= '<td>';
+    //            if($row_values->$cell8 != null){
+    //                $html .= '<p>'.$row_values->$cell8[0].'</p>';
+    //            }
+    //            $html .= '</td>';
+
+    //            /*Cell 9*/
+    //         //    $html .= '<td>';
+    //         //    if($row_values->$cell9 != null){
+    //         //     $html .= '<textarea type="text" name="bh_sign_off_'.$cell1.'[]" class="form-control">'.$row_values->$cell9[0].'</textarea>';
+    //         // }else{
+    //         //     $html .= '<textarea type="text" name="bh_sign_off_'.$cell1.'[]" class="form-control"></textarea>';
+    //         // }
+    //         //    $html .= '</td>';
+
+    //            //  cell 10
+    //            $html .= '<td>';
+    //            if($row_values->$cell10 != null){
+    //            $html .= '<p>'.$row_values->$cell10[0].'</p>';
+    //            }
+    //            $html .= '</td>';
+
+    //            /*Cell 15*/
+    //            $html .= '<td>';
+    //            if($row_values->$cell11 != null){
+    //             $html .= '<p name="bh_sign_off_'.$cell1.'[]">'.nl2br($row_values->$cell11[0]).'</p>';
+    //            }else{
+    //             $html .= '<p name="bh_sign_off_'.$cell1.'[]"></p>';
+
+
+    //            }
+    //             $html .= '</td>';
+
+    //         $html .= '</tr>';
+
+    //     }
+
+    // }
+    // if($reviewer==0){
+
+    //         //    echo json_encode("one");die();
+    //     //employee reviewer edit concept
+
+    //     $json = $this->goal->fetchGoalIdDetails($id);
+    //     $datas = json_decode($json);
+    //     // dd($datas);
+
+    //     $html = '';
+
+    //     foreach($datas as $key=>$data){
+    //         $cell1 = $key+1;
+    //         $row_values = json_decode($data);
+    //         $cell2 = "key_bus_drivers_".$cell1;
+    //         $cell3 = "key_res_areas_".$cell1;
+    //         $cell4 = "measurement_criteria_".$cell1;
+    //         $cell5 = "self_assessment_remark_".$cell1;
+    //         $cell6 = "rating_by_employee_".$cell1;
+    //         $cell7 = "sup_remarks_".$cell1;
+    //         $cell8 = "sup_final_output_".$cell1;
+    //         $cell9 = "reviewer_remarks_".$cell1;
+    //         $cell10 =  "hr_remarks_".$cell1;
+    //         $cell11 = "bh_sign_off_".$cell1;
+
+    //         $html .= '<tr  class="border-bottom-primary">';
+
+    //             /*Cell 1*/
+    //             $html .= '<th scope="row">'.$cell1.'</th>';
+
+    //             /*Cell 2*/
+    //             if($row_values->$cell2 != null){
+    //                 $html .= '<td>';
+    //                     foreach($row_values->$cell2 as $cell2_value){
+    //                         if($cell2_value != null){
+
+    //                             $html .= '<p>'.$cell2_value.'</p>';
+
+    //                         }else{
+    //                             $html .= '<p></p>';
+
+    //                         }
+    //                     }
+
+    //                     $html .= '</td>';
+    //             }else{
+    //                 $html .= '<td>';
+    //                 $html .= '</td>';
+    //             }
+
+    //             /*Cell 3*/
+    //             if($row_values->$cell3 != null){
+    //                 $html .= '<td>';
+    //                     foreach($row_values->$cell3 as $cell3_value){
+    //                         // dd($cell3_value);
+    //                         if($cell3_value != null){
+
+    //                             $html .= '<p>'.$cell3_value.'</p>';
+
+    //                         }else{
+    //                             $html .= '<p></p>';
+
+    //                         }
+    //                     }
+
+    //                 $html .= '</td>';
+
+    //             }else{
+    //                 $html .= '<td>';
+    //                 $html .= '</td>';
+    //             }
+
+
+
+    //             /*Cell 4*/
+    //             if($row_values->$cell4 != null){
+    //                 $html .= '<td>';
+    //                     foreach($row_values->$cell4 as $cell4_value){
+    //                         // dd($cell3_value);
+    //                         if($cell4_value != null){
+
+    //                             $html .= '<p>'.$cell4_value.'</p>';
+
+    //                         }
+    //                     }
+
+    //                 $html .= '</td>';
+
+    //             }else{
+    //                 $html .= '<td>';
+    //                 $html .= '</td>';
+    //             }
+
+    //              /*Cell 5*/
+    //             if($row_values->$cell5 != null){
+    //                 $html .= '<td>';
+    //                     foreach($row_values->$cell5 as $cell5_value){
+    //                         // dd($cell3_value);
+    //                         if($cell5_value != null){
+
+    //                             $html .= '<p>'.$cell5_value.'</p>';
+
+    //                         }
+    //                     }
+
+    //                 $html .= '</td>';
+
+    //             }else{
+    //                 $html .= '<td>';
+    //                 // $html .= '<p></p>';
+    //                 $html .= '</td>';
+    //             }
+    //               /*Cell 6*/
+    //               if($row_values->$cell6 != null){
+    //                 $html .= '<td>';
+    //                     foreach($row_values->$cell6 as $cell6_value){
+    //                         // dd($cell3_value);
+    //                         if($cell6_value != null){
+
+    //                             $html .= '<p>'.$cell6_value.'</p>';
+
+    //                         }
+    //                     }
+
+    //                 $html .= '</td>';
+
+    //             }else{
+    //                 $html .= '<td>';
+    //                 $html .= '<p></p>';
+    //                 $html .= '</td>';
+    //             }
+
+    //             /*Cell 7*/
+    //             $html .= '<td>';
+    //             if($row_values->$cell7 != null){
+    //             $html .= '<p>'.$row_values->$cell7[0].'</p>';
+    //             }
+    //             $html .= '</td>';
+
+    //             /*Cell 8*/
+    //             $html .= '<td>';
+    //             if($row_values->$cell8 != null){
+    //                 $html .= '<p>'.$row_values->$cell8[0].'</p>';
+    //             }
+    //             $html .= '</td>';
+
+    //             /*Cell 9*/
+    //             $html .= '<td>';
+    //             if($row_values->$cell9 != null){
+    //                 $html .= '<p>'.$row_values->$cell9[0].'</p>';
+    //             }
+    //             $html .= '</td>';
+
+    //             // //  cell 10
+    //             $html .= '<td>';
+    //             if($row_values->$cell10 != null){
+    //             $html .= '<p>'.$row_values->$cell10[0].'</p>';
+    //             }
+    //             $html .= '</td>';
+
+    //             /*Cell 15*/
+    //             $html .= '<td>';
+    //             if($row_values->$cell11 != null){
+    //                 $html .= '<p name="bh_sign_off_'.$cell1.'[]">'.nl2br($row_values->$cell11[0]).'</p>';
+    //                 // $html .= '<textarea type="text" name="bh_sign_off_'.$cell1.'[]" class="form-control">'.$row_values->$cell11[0].'</textarea>';
+    //             }else{
+    //                 $html .= '<p name="bh_sign_off_'.$cell1.'[]"></p>';
+    //                 // $html .= '<textarea type="text" name="bh_sign_off_'.$cell1.'[]" class="form-control"></textarea>';
+    //             }
+    //             $html .= '</td>';
+
+    //         $html .= '</tr>';
+
+    //     }
+
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         $datas = json_decode($json);
+
 
         $html = '';
         foreach($datas as $key=>$data){
             $cell1 = $key+1;
             $row_values = json_decode($data);
+
+            // echo json_encode($row_values);die();
             $cell2 = "key_bus_drivers_".$cell1;
             $cell3 = "key_res_areas_".$cell1;
             $cell4 = "measurement_criteria_".$cell1;
@@ -1105,15 +1716,11 @@ class GoalsController extends Controller
             $cell7 = "sup_remarks_".$cell1;
             $cell8 = "sup_final_output_".$cell1;
             $cell9 = "reviewer_remarks_".$cell1;
-
             $cell10 = "hr_remarks_".$cell1;
             $cell11 = "bh_sign_off_".$cell1;
-            /*$cell12 = "sup_remarks_".$cell1;
-            $cell13 = "sup_rating_".$cell1;
-            $cell14 = "reviewer_remarks_".$cell1;
-            $cell15 = "bh_sign_off_".$cell1;*/
-
             $html .= '<tr  class="border-bottom-primary">';
+
+
 
                 /*Cell 1*/
                 $html .= '<th scope="row">'.$cell1.'</th>';
@@ -1221,29 +1828,11 @@ class GoalsController extends Controller
                 }
 
                 /*Cell 7*/
-                $html .= '<td>';
+                $html .= '<td class="supervisor_remarks">';
                 if($row_values->$cell7 != null){
                 $html .= '<p>'.$row_values->$cell7[0].'</p>';
                 }
                 $html .= '</td>';
-
-            /*cell 6*/
-            // if($row_values->$cell6 != null){
-            //     $html .= '<td>';
-            //         foreach($row_values->$cell6 as $cell6_value){
-            //             if($cell6_value != null){
-
-            //                 $html .= '<p>'.$cell6_value.'</p>';
-
-            //             }
-            //         }
-
-            //     $html .= '</td>';
-
-            //     /*Cell 9*/
-            //     $html .= '<td>';
-            //     $html .= '</td>';
-            // }
             /*cell 7*/
             if($row_values->$cell7 != null){
                 $html .= '<td>';
@@ -1264,11 +1853,11 @@ class GoalsController extends Controller
 
             /*cell 8*/
             if($row_values->$cell8 != null){
-                $html .= '<td>';
+                $html .= '<td class="supervisor_rating">';
                     foreach($row_values->$cell8 as $cell8_value){
                         if($cell8_value != null){
 
-                            $html .= '<p>'.$cell8_value.'</p>';
+                            $html .= '<p class="removable_p">'.$cell8_value.'</p>';
 
                         }
                     }
@@ -1276,14 +1865,14 @@ class GoalsController extends Controller
                 $html .= '</td>';
 
             }else{
-                $html .= '<td>';
+                $html .= '<td class="supervisor_rating">';
                 $html .= '</td>';
             }
 
             /*cell 9*/
             if($row_values->$cell9 != null){
                 //    dd(count($row_values->$cell3));
-                $html .= '<td>';
+                $html .= '<td class="reviewer_remarks">';
                     foreach($row_values->$cell9 as $cell9_value){
                         if($cell9_value != null){
 
@@ -1295,7 +1884,7 @@ class GoalsController extends Controller
                 $html .= '</td>';
 
             }else{
-                $html .= '<td>';
+                $html .= '<td class="reviewer_remarks">';
                 $html .= '</td>';
             }
 
@@ -1318,19 +1907,22 @@ class GoalsController extends Controller
             }
 
             /*cell 11*/
+
+
+
             if($row_values->$cell11 != null){
-                $html .= '<td>';
+                $html .= '<td class="business_head">';
                     foreach($row_values->$cell11 as $cell11_value){
                         // dd($cell3_value);
                         if($cell11_value != null){
-                            $html .= '<p>'.$cell11_value.'</p>';
+                            $html .= '<p class="removable_p">'.$cell11_value.'</p>';
                         }
                     }
 
                 $html .= '</td>';
 
             }else{
-                $html .= '<td>';
+                $html .= '<td class="business_head ">';
                 $html .= '</td>';
             }
 
@@ -1338,8 +1930,13 @@ class GoalsController extends Controller
 
         }
         // dd($html);
+        // return json_encode($html);
 
-        return json_encode($html);
+        $new_data['html']=$html;
+        $new_data['reviewer']=$reviewer;
+        // $new_data['hidden_rows']=$hidden_rows;
+
+    return response()->json($new_data);
     }
 
     public function fetch_goals_supervisor_edit(Request $request)
@@ -2881,37 +3478,30 @@ class GoalsController extends Controller
         // }
 
     }
-    public function get_goal_list(){
+    public function get_goal_list(Request $request){
+         if ($request !="") {
+                $input_details = array(
+                'supervisor_list'=>$request->input('supervisor_list'),
+                );
+            }
+            // echo "<pre>";print_r($input_details);die;
 
-        $get_goal_list_result = $this->goal->get_goal_list();
+        $get_goal_list_result = $this->goal->get_goal_list($input_details);
 
         return DataTables::of($get_goal_list_result)
         ->addIndexColumn()
         ->addColumn('action', function($row) {
-                // echo "<pre>";print_r($row);die;
                 if($row->goal_status == "Pending" || $row->goal_status == "Revert"){
-                    // $btn = '<div class="dropup">
-                    // <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                    // <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                    //     <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                    //     <a href="edit_goal?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs goals_btn" type="button"><i class="fa fa-pencil"></i></button></a>
-                    // </div>
-                    // </div>' ;
-
+                // echo "<pre>";print_r("1");die;
                     $btn = '<div class="dropup">
                             <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
                             <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                                <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
                             </div>
                         </div>' ;
 
                 }elseif($row->goal_status == "Approved"){
-                    // $btn = '<div class="dropup">
-                    // <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                    // <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                    //     <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                    // </div>
-                    // </div>' ;
+                    // echo "<pre>";print_r("2s");die;
                     $id = $row->goal_unique_code;
                     $result = $this->goal->check_goals_employee_summary($id);
 
@@ -2919,15 +3509,16 @@ class GoalsController extends Controller
                         $btn = '<div class="dropup">
                                 <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
                                 <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                    <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                                    <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
                                     <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary_show" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-file-text-o"></i></button></a>
                                 </div>
                             </div>' ;
                     }else{
+                        // echo "<pre>";print_r("3s");die;
                         $btn = '<div class="dropup">
                                 <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
                                 <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                    <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                                    <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
                                     <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-edit"></i></button></a>
                                 </div>
                             </div>' ;
@@ -2942,8 +3533,8 @@ class GoalsController extends Controller
 
         ->rawColumns(['action'])
         ->make(true);
-
     }
+
     public function get_team_member_goal_list(Request $request){
 
         if ($request !="") {
@@ -3233,9 +3824,11 @@ class GoalsController extends Controller
 
     public function fetch_goals_employee_summary(Request $request){
         $id = $request->id;
+        // echo "<pre>as";print_r($id);die;
         $result = $this->goal->fetch_goals_employee_summary($id);
         return json_encode($result);
     }
+
     public function goals_supervisor_summary(Request $request){
         $id = $request->id;
         $employee_summary = $request->employee_summary;
@@ -3297,6 +3890,86 @@ class GoalsController extends Controller
         return json_encode($result);
     }
 
+    public function get_hr_supervisor(){
+        $hr_supervisor ="900531";
+        $result = $this->goal->get_supervisor_hr($hr_supervisor);
+        return json_encode($result);
+    }
+    public function get_manager_lsit_drop(Request $request){
+        $id = $request->reviewer_filter;
+        // echo "<pre>";print_r($id);die;
+        $result = $this->goal->get_manager_lsit($id);
+        return json_encode($result);
+    }
+    public function get_team_member_drop(Request $request){
+        $id = $request->team_leader_filter_hr;
+        // echo "<pre>";print_r($id);die;
+        $result = $this->goal->get_team_member_drop_list($id);
+        return json_encode($result);
+    }
+/*after cick in hr submit button*/
+     public function get_hr_goal_list_tbl(Request $request){
+
+        if ($request !="") {
+            $input_details = array(
+                'reviewer_filter'=>$request->input('reviewer_filter'),
+                'team_leader_filter_hr'=>$request->input('team_leader_filter_hr'),
+                'team_member_filter_hr'=>$request->input('team_member_filter_hr'),
+            );
+        }
+
+        if ($request->ajax()) {
+
+            $get_goal_list_result = $this->goal->get_hr_goal_list_for_tbl($input_details);
+
+            //   echo json_encode($get_goal_list_result);die();
+
+
+            return DataTables::of($get_goal_list_result)
+            ->addIndexColumn()
+            ->addColumn('status', function($row) {
+                if($row->goal_status == "Pending"){
+                    $btn = '<button class="btn btn-danger btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+
+
+                }elseif($row->goal_status == "Revert"){
+                    $btn = '<button class="btn btn-primary btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }elseif($row->goal_status == "Approved"){
+                    $btn = '<button class="btn btn-success btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }else{
+                    $btn = '';
+                }
+                //  echo "<pre>";print_r($btn);die;
+                return $btn;
+            })
+            ->addColumn('action', function($row) {
+                    $btn1 = '<div class="dropup">
+                    <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                    <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                        <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                    </div>
+                    </div>' ;
+
+
+                return $btn1;
+            })
+
+            ->rawColumns(['status', 'action'])
+            ->make(true);
+        }
+
+    }
+
+    public function check_goal_sheet_role_type_hr(Request $request)
+    {
+        $id = $request->id;
+        $result = $this->goal->checkHrReviewerIDOrNot($id);
+        return json_encode($result);
+    }
+
     public function get_reviewer_goal_list_for_reviewer(Request $request){
 
         if ($request !="") {
@@ -3344,13 +4017,6 @@ class GoalsController extends Controller
             ->make(true);
         }
 
-    }
-
-    public function check_goal_sheet_role_type_hr(Request $request)
-    {
-        $id = $request->id;
-        $result = $this->goal->checkHrReviewerIDOrNot($id);
-        return json_encode($result);
     }
 
 

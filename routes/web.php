@@ -158,6 +158,7 @@ Route::get('goal_setting_hr_edit', 'GoalsController@goal_setting_hr_edit')->name
 
 Route::get('goals_sup_consolidate_rate_head', 'GoalsController@goals_sup_consolidate_rate_head')->name('goals_sup_consolidate_rate_head');
 Route::get('check_goal_sheet_role_type_hr', 'GoalsController@check_goal_sheet_role_type_hr')->name('check_goal_sheet_role_type_hr');
+Route::post('update_goals_sup', 'GoalsController@update_goals_sup');
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');

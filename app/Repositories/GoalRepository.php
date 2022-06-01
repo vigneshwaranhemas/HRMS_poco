@@ -20,31 +20,31 @@ class GoalRepository implements IGoalRepository
                   ]);
       return $response;
    }
-//    public function get_goal_list($input_details){
-//        // DB::enableQueryLog();
-//       if($input_details['supervisor_list'] != ''){
-//          // $logined_empID = Auth::user()->empID;
-//          $response = DB::table('customusers as cs')
-//                         ->distinct()
-//                         ->select('g.*')
-//                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
-//                         // ->where('cs.reviewer_emp_code', $logined_empID)
-//                         ->where('cs.empID', $input_details['supervisor_list'])
-//                         ->get();
-//       }else{
-//          $logined_empID = Auth::user()->empID;
-//          $response = DB::table('customusers as cs')
-//                         ->distinct()
-//                         ->select('g.*')
-//                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
-//                         ->where('cs.sup_emp_code', $logined_empID)
-//                         ->where('cs.reviewer_emp_code', "900531")
-//                         ->get();
+   public function get_hr_goal_list_tb($input_details){
+       // DB::enableQueryLog();
+      if($input_details['supervisor_list'] != ''){
+         // $logined_empID = Auth::user()->empID;
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        // ->where('cs.reviewer_emp_code', $logined_empID)
+                        ->where('cs.empID', $input_details['supervisor_list'])
+                        ->get();
+      }else{
+         $logined_empID = Auth::user()->empID;
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.sup_emp_code', $logined_empID)
+                        ->where('cs.reviewer_emp_code', "900531")
+                        ->get();
 
-//       }
-//       // dd(DB::getQueryLog());
-//       return $response;
-//    }
+      }
+      // dd(DB::getQueryLog());
+      return $response;
+   }
     public function get_goal_list(){
 
         $logined_empID = Auth::user()->empID;
@@ -110,6 +110,15 @@ class GoalRepository implements IGoalRepository
       }
 
       return $response;
+   }
+   public function get_team_member_drop_list( $id ){
+      // DB::enableQueryLog();
+      $bandtbl = DB::table('customusers')
+      ->select('*')
+      ->where('sup_emp_code', '=', $id)
+      ->get();
+      // dd(DB::getQueryLog());
+      return $bandtbl;
    }
    public function get_bh_goal_list($input_details){
 
@@ -207,6 +216,10 @@ class GoalRepository implements IGoalRepository
       $response = Goals::where('goal_unique_code', $id)->value('employee_consolidated_rate');
       return $response;
    }
+   public function goals_sup_consolidate_rate_head( $id ){
+      $response = Goals::where('goal_unique_code', $id)->value('supervisor_consolidated_rate');
+      return $response;
+   }
    public function fetchGoalIdDelete( $id ){
       $response = Goals::where('goal_unique_code', $id)->delete();
       return $response;
@@ -220,6 +233,14 @@ class GoalRepository implements IGoalRepository
                   ]);
       return $response;
    }
+   public function update_goals_sup($data){
+      $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                        ->update([
+                              'goal_process' => $data['goal_process'],
+                              'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate']
+                        ]);
+    return $response;
+ }
    public function goals_status_update($data){
         $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                   ->update([

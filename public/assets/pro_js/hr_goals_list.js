@@ -265,7 +265,7 @@ function supervisor_goal_record(){
         drawCallback: function() {
         },
         ajax: {
-            url: "get_goal_list",
+            url: "get_hr_goal_list_tb",
             type: 'POST',
             dataType: "json",
             data: function (d) {

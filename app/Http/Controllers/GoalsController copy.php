@@ -93,12 +93,6 @@ class GoalsController extends Controller
         $head = $this->goal->goals_consolidate_rate_head($id);
         return json_encode($head);
     }
-    public function goals_sup_consolidate_rate_head(Request $request)
-    {
-        $id = $request->id;
-        $head = $this->goal->goals_sup_consolidate_rate_head($id);
-        return json_encode($head);
-    }
     public function goals_sup_th_check(Request $request)
     {
         $id = $request->id;
@@ -535,6 +529,7 @@ class GoalsController extends Controller
                 $html .= '<td>';
 
                     foreach($row_values->$cell2 as $cell2_value){
+                        // dd($cell3_value);
                         if($cell2_value != null){
 
                             $html .= '<p>'.$cell2_value.'</p>';
@@ -548,19 +543,25 @@ class GoalsController extends Controller
                     $html .= '</td>';
             }else{
                 $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 3*/
             if($row_values->$cell3 != null){
+                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell3 as $cell3_value){
+                        // dd($cell3_value);
                         if($cell3_value != null){
 
                             $html .= '<p>'.$cell3_value.'</p>';
 
                         }else{
                             $html .= '<p></p>';
+
                         }
                     }
 
@@ -568,15 +569,22 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 4*/
             if($row_values->$cell4 != null){
+                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell4 as $cell4_value){
+                        // dd($cell3_value);
                         if($cell4_value != null){
+
                             $html .= '<p>'.$cell4_value.'</p>';
+
                         }
                     }
 
@@ -584,15 +592,22 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 5*/
             if($row_values->$cell5 != null){
+                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell5 as $cell5_value){
+                        // dd($cell3_value);
                         if($cell5_value != null){
+
                             $html .= '<p>'.$cell5_value.'</p>';
+
                         }
                     }
 
@@ -600,15 +615,22 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 6*/
             if($row_values->$cell6 != null){
+                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell6 as $cell6_value){
+                        // dd($cell3_value);
                         if($cell6_value != null){
+
                             $html .= '<p>'.$cell6_value.'</p>';
+
                         }
                     }
 
@@ -616,49 +638,68 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 7*/
             if($row_values->$cell7 != null){
-                $html .= '<td class="sup_remark">';
+                //    dd(count($row_values->$cell3));
+                $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
 
                     foreach($row_values->$cell7 as $cell7_value){
+                        // dd($cell3_value);
                         if($cell7_value != null){
 
                             $html .= '<p>'.$cell7_value.'</p>';
 
                         }
                     }
+
                 $html .= '</td>';
 
             }else{
-                $html .= '<td class="sup_remark">';
+                $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 8*/
             if($row_values->$cell8 != null){
-                $html .= '<td class="sup_rating">';
+                //    dd(count($row_values->$cell3));
+                $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell8 as $cell8_value){
+                        // dd($cell3_value);
                         if($cell8_value != null){
+
                             $html .= '<p>'.$cell8_value.'</p>';
+
                         }
                     }
+
                 $html .= '</td>';
 
             }else{
-                $html .= '<td class="sup_rating">';
+                $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
-
             /*cell 9*/
             if($row_values->$cell9 != null){
+                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell9 as $cell9_value){
+                        // dd($cell3_value);
                         if($cell9_value != null){
+
                             $html .= '<p>'.$cell9_value.'</p>';
+
                         }
                     }
 
@@ -695,10 +736,16 @@ class GoalsController extends Controller
 
              /*cell 11*/
              if($row_values->$cell11 != null){
+                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
+                    // $html .= '<p>HR Shared Services : </p>';
+
                     foreach($row_values->$cell11 as $cell11_value){
+                        // dd($cell3_value);
                         if($cell11_value != null){
+
                             $html .= '<p>'.$cell11_value.'</p>';
+
                         }
                     }
 
@@ -706,6 +753,7 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
+                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
@@ -3853,41 +3901,29 @@ class GoalsController extends Controller
     public function update_goals_sup(Request $request){
         // dd($request->all());
         $id = $request->goals_setting_id;
-        $json_value = $this->goal->fetchGoalIdDetails($id);   
-        $datas = json_decode($json_value);
+        $json = $this->goal->fetchGoalIdDetails($id);   
+        $datas = json_decode($json);
+        // dd(count($datas));
 
-        $json = array();
+        $dd = array();
 
         $html = '';
 
         foreach($datas as $key=>$data){
             $cell1 = $key+1;
             $row_values = json_decode($data);
+            // dd($row_values);
+            array_push($dd, $data);
+            // $json[] = json_encode($row_values);
 
-            //Supervisor remark add
-            $sup_remark_value = array($request->sup_remark[$key]);
-            $sup_rem = "sup_remarks_".$cell1;
-            $row_values->$sup_rem = $sup_remark_value;
-
-            //Supervisor rating add                       
-            $sup_rating_value = array($request->sup_rating[$key]);
-            $sup_final_op = "sup_final_output_".$cell1;
-            $row_values->$sup_final_op = $sup_rating_value;
-
-            $json_format = json_encode($row_values);
-            array_push($json, $json_format);            
+            // $cell2 = "key_bus_drivers_".$cell1;
+            // $cell3 = "key_res_areas_".$cell1;
+            // $cell4 = "measurement_criteria_".$cell1;
+            // $cell5 = "self_assessment_remark_".$cell1;
+            // $cell6 = "rating_by_employee_".$cell1;
             
         }
-        $goal_process = json_encode($json);
-
-        //Data upload to server
-        $data = array(
-            'goal_process' => $goal_process,
-            'goal_unique_code' => $id,
-            'supervisor_consolidated_rate' => $request->employee_consolidated_rate,
-        );
-        // dd($data);
-        $result = $this->goal->update_goals_sup($data);
+        dd($dd);
 
         return response($result);
     }

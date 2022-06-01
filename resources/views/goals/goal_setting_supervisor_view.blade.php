@@ -9,16 +9,6 @@
 @endsection
 
 @section('style')
-<style>
-    #goal_sheet_edit{
-        position: relative;
-        display: block;
-    }
-	#goal_sheet_submit{
-        position: relative;
-        display: none;
-    }
-</style>
 @endsection
 
 @section('breadcrumb-title')
@@ -26,11 +16,8 @@
 @endsection
 
 @section('breadcrumb-items')
-	<a class="btn btn-success text-white" title="Exceeded Expectations">EE</a>                                            
-	<a class="btn btn-secondary m-l-10 text-white" title="Achieved Expectations">AE</a>                                            
-	<a class="btn btn-info m-l-10 text-white" title="Met Expectations">ME</a>                                            
-	<a class="btn btn-warning m-l-10 text-white" title="Partially Met Expectations">PME</a>                                            
-	<a class="btn btn-dark m-l-10 text-white" title="Needs Development">ND</a> 
+   {{--<li class="breadcrumb-item">Dashboard</li>
+	<li class="breadcrumb-item active">Default</li>--}}
 @endsection
 
 @section('content')
@@ -112,19 +99,17 @@
 						</div>
 					</div>
 				</div>				
-				<div class="card  card-absolute">					
+				<div class="card  card-absolute">
+					
 					<div class="card-header  bg-primary">
 						<h5 class="text-white" id="goals_sheet_head"></h5>
 					</div>
 					<div class="card-body">
+
 						<div class="table-responsive m-b-15 ">
 							<div class="row">
 								<div class="col-lg-12 m-b-35">
-									<a id="goal_sheet_edit" class="btn btn-warning text-white float-right" title="Edit Sheet">Edit</a>                                            
-									<a id="goal_sheet_submit" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit</a>                                            
-									<!-- <button type="button" class="btn btn-warning "  >Edit</button> -->
-									<h5>EMPLOYEE CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
-									<h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
+									<h5>CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
 								</div>
 							</div>
 							<form id="supGoalsForm">
@@ -174,8 +159,7 @@
 					</div>
 
 				</div>
-			</div>			
-			
+			</div>						
 		</div>
 	</div>
 	<!-- Container-fluid Ends-->
@@ -208,22 +192,14 @@
 	<script>
 		$( document ).ready(function() {
 			// goal_record();
-			$("#save_div").hide();
-
 			$('#goals_record_tb').DataTable( {
-				"searching": false,
-				"paging": false,
-				"info": false,
-				"fixedColumns":   {
-						left: 6
-					}
-				// dom: 'Bfrtip',
-				// buttons: [
-				// 	'copyHtml5',
-				// 	'excelHtml5',
-				// 	'csvHtml5',
-				// 	'pdfHtml5'
-				// ]
+				dom: 'Bfrtip',
+				buttons: [
+					'copyHtml5',
+					'excelHtml5',
+					'csvHtml5',
+					'pdfHtml5'
+				]
 			} );
 		});
 
@@ -251,7 +227,7 @@
 				
 		});
 
-		/********** Employee Consolidary Rate Head **************/			
+		/**********Consolidary rate Head**************/			
 		$.ajax({                   
 			url:"{{ url('goals_consolidate_rate_head') }}",
 			type:"GET",
@@ -269,24 +245,6 @@
 				
 		});
 		
-		/********** Supervisor Consolidary Rate Head **************/			
-		$.ajax({                   
-			url:"{{ url('goals_sup_consolidate_rate_head') }}",
-			type:"GET",
-			data:{id:id},
-			dataType : "JSON",
-			success:function(response)
-			{
-				$('#supervisor_consolidate_rate_show').append('');
-				$('#supervisor_consolidate_rate_show').append(response);
-			},
-			error: function(error) {
-				console.log(error);
-
-			}                                              
-				
-		});
-
 		$.ajax({                   
 			url:"{{ url('fetch_goals_sup_details') }}",
 			type:"GET",
@@ -298,19 +256,13 @@
 				$('#goals_record').empty();
 				$('#goals_record').append(response);
 				$('#goals_record_tb').DataTable( {
-					"searching": false,
-					"paging": false,
-					"info":     false,
-					"fixedColumns":   {
-							left: 6
-						}
-					// dom: 'Bfrtip',
-					// buttons: [
-					// 	'copyHtml5',
-					// 	'excelHtml5',
-					// 	'csvHtml5',
-					// 	'pdfHtml5'
-					// ]
+					dom: 'Bfrtip',
+					buttons: [
+						'copyHtml5',
+						'excelHtml5',
+						'csvHtml5',
+						'pdfHtml5'
+					]
 				} );
 				
 			},
@@ -466,7 +418,50 @@
 						
 				});
 			}      
+
+		// for export all data
+		function newexportaction(e, dt, button, config) {
+			var self = this;
+			var oldStart = dt.settings()[0]._iDisplayStart;
+			dt.one('preXhr', function (e, s, data) {
+				// Just this once, load all data from the server...
+				data.start = 0;
+				data.length = 2147483647;
+				dt.one('preDraw', function (e, settings) {
+					// Call the original action function
+					if (button[0].className.indexOf('buttons-copy') >= 0) {
+						$.fn.dataTable.ext.buttons.copyHtml5.action.call(self, e, dt, button, config);
+					} else if (button[0].className.indexOf('buttons-excel') >= 0) {
+						$.fn.dataTable.ext.buttons.excelHtml5.available(dt, config) ?
+							$.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button, config) :
+							$.fn.dataTable.ext.buttons.excelFlash.action.call(self, e, dt, button, config);
+					} else if (button[0].className.indexOf('buttons-csv') >= 0) {
+						$.fn.dataTable.ext.buttons.csvHtml5.available(dt, config) ?
+							$.fn.dataTable.ext.buttons.csvHtml5.action.call(self, e, dt, button, config) :
+							$.fn.dataTable.ext.buttons.csvFlash.action.call(self, e, dt, button, config);
+					} else if (button[0].className.indexOf('buttons-pdf') >= 0) {
+						$.fn.dataTable.ext.buttons.pdfHtml5.available(dt, config) ?
+							$.fn.dataTable.ext.buttons.pdfHtml5.action.call(self, e, dt, button, config) :
+							$.fn.dataTable.ext.buttons.pdfFlash.action.call(self, e, dt, button, config);
+					} else if (button[0].className.indexOf('buttons-print') >= 0) {
+						$.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
+					}
+					dt.one('preXhr', function (e, s, data) {
+						// DataTables thinks the first item displayed is index 0, but we're not drawing that.
+						// Set the property to what it was before exporting.
+						settings._iDisplayStart = oldStart;
+						data.start = oldStart;
+					});
+					// Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
+					setTimeout(dt.ajax.reload, 0);
+					// Prevent rendering of the full data to the DOM
+					return false;
+				});
+			});
+			// Requery the server with the new one-time export settings
+			dt.ajax.reload();
 		}
+
 		
 	</script>
 

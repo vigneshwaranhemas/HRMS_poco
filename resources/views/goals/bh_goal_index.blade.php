@@ -1,4 +1,4 @@
-{{-- Divya --}}
+
 @extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
 @section('title', 'Goals')
 
@@ -42,32 +42,102 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-2 m-t-5">
-                            <label for="Supervisor">Select Supervisor</label>
-                            <select class="js-example-basic-single float-right" style="width:300px;" id="reviewer_filter" name="reviewer_filter">
-                                <option value="">...Select...</option>
-                                @foreach($reviewer_list as $reviewer)
-                                    <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
-                                @endforeach
-                            </select>
+                    <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>As Supervisor</a>
+                        <div class="material-border"></div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="info-reviewer-tab" data-toggle="tab" href="#info-reviewer" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>As Reviewer</a>
+                        <div class="material-border"></div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Business Head</a>
+                        <div class="material-border"></div>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="info-tabContent">
+                        <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-2 m-t-5">
+                                            <label for="Supervisor">Select Supervisor</label>
+                                            <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_filter1" name="reviewer_filter">
+                                                <option value="">...Select...</option>
+                                                @foreach($reviewer_list as $reviewer)
+                                                    <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-lg-6 m-t-35">
+                                            <button type="submit" id="bh_apply" onclick="bh_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
+                                            <button type="submit" id="bh_reset" onclick="bh_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-2 m-t-5">
-                            <label for="Leader">Select Team Leader</label>
-                            <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter" name="team_leader_filter">
-                                <option value="">...Select...</option>
-                            </select>
+
+                        <div class="tab-pane fade" id="info-reviewer" role="tabpanel" aria-labelledby="info-reviewer-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-2 m-t-5">
+                                            <label for="Supervisor">Select Supervisor</label>
+                                            <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_filter" name="reviewer_filter">
+                                                <option value="">...Select...</option>
+                                                @foreach($reviewer_list as $reviewer)
+                                                    <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2 m-t-5">
+                                            <label for="Leader">Select Team Leader</label>
+                                            <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter1" name="team_leader_filter">
+                                                <option value="">...Select...</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6 m-t-35">
+                                            <button type="submit" id="bh_apply" onclick="bh_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
+                                            <button type="submit" id="bh_reset" onclick="bh_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-2 m-t-5">
-                            <label for="Leader">Select Team Member</label>
-                            <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter" name="team_member_filter">
-                                <option value="">...Select...</option>
-                            </select>
+                        <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="info-profile-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-2 m-t-5">
+                                            <label for="Supervisor">Select Supervisor</label>
+                                            <select class="js-example-basic-single float-right" style="width:300px;" id="reviewer_filter" name="reviewer_filter">
+                                                <option value="">...Select...</option>
+                                                @foreach($reviewer_list as $reviewer)
+                                                    <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2 m-t-5">
+                                            <label for="Leader">Select Team Leader</label>
+                                            <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter" name="team_leader_filter">
+                                                <option value="">...Select...</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2 m-t-5">
+                                            <label for="Leader">Select Team Member</label>
+                                            <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter" name="team_member_filter">
+                                                <option value="">...Select...</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6 m-t-35">
+                                            <button type="submit" id="bh_apply" onclick="bh_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
+                                            <button type="submit" id="bh_reset" onclick="bh_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-6 m-t-35">
-                            <button type="submit" id="bh_apply" onclick="bh_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
-                            <button type="submit" id="bh_reset" onclick="bh_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
-                        </div>
+
                     </div>
 
                     <div class="table-responsive m-t-40">
@@ -112,7 +182,7 @@
             </div>
             </div>
         </div>
-        
+
     </div>
 </div>
 <!-- Container-fluid Ends-->

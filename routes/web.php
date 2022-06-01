@@ -138,6 +138,7 @@ Route::post('add_goals_data', 'GoalsController@add_goals_data');
 Route::post('update_goals_data', 'GoalsController@update_goals_data');
 Route::post('goals_delete', 'GoalsController@goals_delete');
 Route::post('goals_employee_summary', 'GoalsController@goals_employee_summary');
+Route::get('get_goal_list', 'GoalsController@get_goal_list' );
 Route::post('get_goal_list', 'GoalsController@get_goal_list' );
 Route::get('get_team_member_goal_list', 'GoalsController@get_team_member_goal_list' );
 Route::get('get_reviewer_goal_list', 'GoalsController@get_reviewer_goal_list' );

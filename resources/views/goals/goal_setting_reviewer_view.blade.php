@@ -18,11 +18,6 @@
         position: relative;
         display: none;
     }
-    #goal_sheet_add{
-        position: relative;
-        margin-left: 1258px;
-        margin-bottom: 24px;
-    }
 </style>
 @endsection
 
@@ -43,86 +38,81 @@
     <div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-            <div class="card-header  bg-primary">
-                <h5 class="text-white" id="goals_sheet_head"></h5>
-            </div>
-			<div class="col-sm-12">
-                <input type="hidden" id="goals_setting_id">
-                <div class="ribbon-vertical-right-wrapper card">
-                    <div class="card-body">
-                        <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 107px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> Goals</span></div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Name :</h6>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <p>{{$user_info->username }}</p>
-                                    </div>
-                                    <div class="col-md-5 m-t-10">
-                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Emp ID :</h6>
-                                    </div>
-                                    <div class="col-md-7 m-t-10">
-                                        <p>{{ $user_info->empID }}</p>
-                                    </div>
-                                    <div class="col-md-5 m-t-10">
-                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Supervisor :</h6>
-                                    </div>
-                                    <div class="col-md-47 m-t-10">
-                                        <p>{{ $user_info->sup_name }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Supervisor ID :</h6>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <p>{{ $user_info->sup_emp_code }}</p>
-                                    </div>
-                                    <div class="col-md-5 m-t-10">
-                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> HRBP :</h6>
-                                    </div>
-                                    <div class="col-md-7 m-t-10">
-                                        <p>Rajesh M S</p>
-                                    </div>
-                                    <div class="col-md-5 m-t-10">
-                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> HRBP ID :</h6>
-                                    </div>
-                                    <div class="col-md-7 m-t-10">
-                                        <p>900380</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Department :</h6>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <p>{{ $user_info->department }}</p>
-                                    </div>
-                                    <div class="col-md-5 m-t-10">
-                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Reviewer :</h6>
-                                    </div>
-                                    <div class="col-md-7 m-t-10">
-                                        <p>{{$user_info->reviewer_name }}</p>
-                                    </div>
-                                    <div class="col-md-5 m-t-10">
-                                        <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Reviewer ID :</h6>
-                                    </div>
-                                    <div class="col-md-7 m-t-10">
-                                        <p>{{$user_info->reviewer_emp_code }}</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    </div>
-
+				<input type="hidden" id="goals_setting_id">
+				<div class="ribbon-vertical-right-wrapper card">
+					<div class="card-body">
+						<div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 50px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PA</span>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="row">
+									<div class="col-md-5">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Emp ID :</h6>
+									</div>
+									<div class="col-md-7">
+										<p>{{ Auth::user()->empID }}</p>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ebook"> </i> Supervisor ID :</h6>
+									</div>
+									<div class="col-md-7 m-t-10">
+										<p>{{ Auth::user()->sup_emp_code }}</p>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
+									</div>
+									<div class="col-md-47 m-t-10">
+										<p>900380</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="row">
+									<div class="col-md-5">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Name :</h6>
+									</div>
+									<div class="col-md-7">
+										<p>{{ Auth::user()->username }}</p>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Supervisor :</h6>
+									</div>
+									<div class="col-md-7 m-t-10">
+										<p>{{ Auth::user()->sup_name }}</p>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP :</h6>
+									</div>
+									<div class="col-md-7 m-t-10">
+										<p>Rajesh M S</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="row">
+									<div class="col-md-5">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Department :</h6>
+									</div>
+									<div class="col-md-7">
+										<p>{{ Auth::user()->department }}</p>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Reviewer :</h6>
+									</div>
+									<div class="col-md-7 m-t-10">
+										<p>{{ Auth::user()->reviewer_name }}</p>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer ID :</h6>
+									</div>
+									<div class="col-md-7 m-t-10">
+										<p>{{ Auth::user()->reviewer_emp_code }}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="card  card-absolute">
 					<div class="card-header  bg-primary">
 						<h5 class="text-white" id="goals_sheet_head"></h5>
@@ -371,7 +361,6 @@
 							// {
 								var defined_class1="sup_remark";
 								var defined_class2="sup_rating";
-								// var defined_class3="hr_remarks";
 							// }
 
 							$("#goals_record_tb tbody tr td."+defined_class1+"").each(
@@ -415,23 +404,6 @@
 								}
 							);
 
-							// $("#goals_record_tb tbody tr td."+defined_class3+"").each(
-							// 	function(index){
-
-							// 		// console.log("data")
-							// 		if ($(this).text() != ""){
-							// 			alert("one")
-							// 		}
-							// 		else{
-							// 			var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control"></textarea>';
-							// 				tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
-							// 			$(this).append(tx)
-							// 			// alert("two")
-							// 		}
-							// 		i++;
-							// 	}
-							// );
-
 						}
 						if(response == 2){
 							//As reviewer
@@ -447,7 +419,6 @@
 							// if(user_type==1 || user_type==2 || user_type==0)
 							// {
 								var defined_class1="reviewer_remarks";
-								// var defined_class2="hr_remarks";
 							// }
 
 							$("#goals_record_tb tbody tr td."+defined_class1+"").each(
@@ -466,23 +437,6 @@
 									i++;
 								}
 							);
-
-							// $("#goals_record_tb tbody tr td."+defined_class2+"").each(
-							// 	function(index){
-
-							// 		// console.log("data")
-							// 		if ($(this).text() != ""){
-							// 			alert("one")
-							// 		}
-							// 		else{
-							// 			var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control"></textarea>';
-							// 				tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
-							// 			$(this).append(tx)
-							// 			// alert("two")
-							// 		}
-							// 		i++;
-							// 	}
-							// );
 
 						}
 

@@ -523,3 +523,5 @@ Route::post('get_hr_goal_list_tbl','GoalsController@get_hr_goal_list_tbl');
 Route::post('get_manager_lsit_drop','GoalsController@get_manager_lsit_drop');
 Route::post('get_team_member_drop','GoalsController@get_team_member_drop');
 
+Route::post('get_goal_setting_reviewer_details_tl', 'GoalsController@get_goal_setting_reviewer_details_tl');
+

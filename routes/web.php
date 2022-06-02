@@ -155,7 +155,7 @@ Route::post('goals_supervisor_summary', 'GoalsController@goals_supervisor_summar
 Route::get('fetch_goals_employee_summary', 'GoalsController@fetch_goals_employee_summary' );
 Route::get('goal_setting_hr_edit', 'GoalsController@goal_setting_hr_edit')->name('goal_setting_hr_edit');
 Route::post('get_hr_goal_list_tb', 'GoalsController@get_hr_goal_list_tb')->name('get_hr_goal_list_tb');
-Route::get('goals_sup_consolidate_rate_head', 'GoalsController@goals_sup_consolidate_rate_head')->name('goals_sup_consolidate_rate_head');
+Route::post('goals_sup_consolidate_rate_head', 'GoalsController@goals_sup_consolidate_rate_head')->name('goals_sup_consolidate_rate_head');
 Route::get('check_goal_sheet_role_type_hr', 'GoalsController@check_goal_sheet_role_type_hr')->name('check_goal_sheet_role_type_hr');
 Route::post('update_goals_sup', 'GoalsController@update_goals_sup');
 
@@ -525,6 +525,7 @@ Route::post('get_team_member_drop','GoalsController@get_team_member_drop');
 Route::post('hr_list_tab_record','GoalsController@hr_list_tab_record');
 Route::get('get_grade','GoalsController@get_grade');
 Route::get('get_department','GoalsController@get_department');
+Route::post('get_goal_myself_listing','GoalsController@get_goal_myself_listing');
 
 Route::post('get_goal_setting_reviewer_details_tl', 'GoalsController@get_goal_setting_reviewer_details_tl');
 

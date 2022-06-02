@@ -40,8 +40,8 @@ class GoalRepository implements IGoalRepository
                         ->where('cs.sup_emp_code', $logined_empID)
                         ->where('cs.reviewer_emp_code', "900531")
                         ->get();
-         
-      }      
+
+      }
       // dd(DB::getQueryLog());
       return $response;
    }
@@ -108,6 +108,8 @@ class GoalRepository implements IGoalRepository
                         ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
                         ->where('cs.sup_emp_code', $input_details['team_leader_filter'])
                         ->where('cs.empID', $input_details['team_member_filter'])
+                        ->where('g.supervisor_status','1')
+                        ->where('g.reviewer_status','1')
                         ->get();
 
       }elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter'] != '' && $input_details['team_member_filter'] == ''){
@@ -119,18 +121,25 @@ class GoalRepository implements IGoalRepository
                         ->select('g.*')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                         ->where('cs.sup_emp_code', $input_details['team_leader_filter'])
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('g.supervisor_status','1')
+                        ->where('g.reviewer_status','1')
                         ->get();
         //   echo json_encode($response);die();
 
 
       }elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter'] == '' && $input_details['team_member_filter'] == ''){
 
+
          $response = DB::table('customusers as cs')
                         ->distinct()
                         ->select('g.*')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
-                        ->where('cs.sup_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('g.supervisor_status','1')
+                        ->where('g.reviewer_status','1')
                         ->get();
+
 
       }elseif($input_details['reviewer_filter'] == '' && $input_details['team_leader_filter'] == '' && $input_details['team_member_filter'] == ''){
 
@@ -339,9 +348,9 @@ class GoalRepository implements IGoalRepository
         return $bandtbl;
    }
    public function fetch_reviewer_tab_data( $input_details ){
-      // echo "<pre>";print_r($input_details);die; 
+      // echo "<pre>";print_r($input_details);die;
        if($input_details['supervisor_list_1'] != ''  || $input_details['team_member_filter'] != '' ){
-         // echo "<pre>";print_r("222");die; 
+         // echo "<pre>";print_r("222");die;
          // $logined_empID = Auth::user()->empID;
           $response = DB::table('customusers as cs')
                         ->distinct()
@@ -360,7 +369,7 @@ class GoalRepository implements IGoalRepository
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                         ->where('cs.reviewer_emp_code', $logined_empID)
                         ->get();
-        
+
       }
 
       // dd(DB::getQueryLog());
@@ -441,7 +450,7 @@ class GoalRepository implements IGoalRepository
                         // ->where('cs.sup_emp_code', $logined_empID)
                         ->where('cs.reviewer_emp_code', "900531")
                         ->get();
-       
+
       }
 
       return $response;

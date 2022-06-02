@@ -20,6 +20,10 @@
         margin-left: 1258px;
         margin-bottom: 24px;
     }
+    .goals-header
+    {
+        padding: 0.55rem 1.15rem 0.1rem;
+    }
 </style>
 @endsection
 
@@ -28,8 +32,11 @@
 @endsection
 
 @section('breadcrumb-items')
-   {{--<li class="breadcrumb-item">Dashboard</li>
-	<li class="breadcrumb-item active">Default</li>--}}
+<a class="btn btn-success text-white" title="Exceeded Expectations">EE</a>
+<a class="btn btn-secondary m-l-10 text-white" title="Achieved Expectations">AE</a>
+<a class="btn btn-info m-l-10 text-white" title="Met Expectations">ME</a>
+<a class="btn btn-warning m-l-10 text-white" title="Partially Met Expectations">PME</a>
+<a class="btn btn-dark m-l-10 text-white" title="Needs Development">ND</a>
 @endsection
 
 @section('content')
@@ -37,18 +44,16 @@
     <div class="container-fluid">
 		<div class="row">
 
-            <div class="card-header  bg-primary">
+            <div class="card-header bg-primary goals-header">
                 <h5 class="text-white" id="goals_sheet_head"></h5>
             </div>
 			<div class="col-sm-12">
-
-
-
                 <div class="ribbon-vertical-right-wrapper card">
                     <div class="card-body">
                         <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 107px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> Goals</span></div>
                         <div class="row">
                             <div class="col-md-4">
+
                                 <div class="row">
                                     <div class="col-md-5">
                                         <h6 class="mb-0 f-w-700"><i class="fa fa-user"> </i> Name :</h6>
@@ -130,8 +135,8 @@
 					<div class="card-body">
 
                         <input type="hidden" id="user_type" >
-                        <button type="button" class="btn btn-warning" id="goal_sheet_edit">Edit</button>
-                        <button type="button" class="btn btn-primary" id="goal_sheet_add" style="display:none;">Save</button>
+                        <button type="button" class="btn btn-warning" id="goal_sheet_edit"  title="Edit">Edit</button>
+                        <button type="button" class="btn btn-primary" id="goal_sheet_add" style="display:none;">Submit</button>
 						<div class="table-responsive m-b-15 ">
 							<table class="table  table-border-vertical table-border-horizontal" id="goal-tb">
 								<thead>
@@ -154,26 +159,32 @@
 								</tbody>
 							</table>
                             <div class="m-t-20 m-b-30 row float-right" id="save_div">
-                                <div class="col-lg-8">
-                                <label>Consolidated Rating</label><br>
-                                <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_consolidated_rate" name="employee_consolidated_rate">
-                                <option value="" selected>...Select...</option>
-                                <option value="EE">EE</option>
-                                <option value="AE">AE</option>
-                                <option value="ME">ME</option>
-                                <option value="PE">PE</option>
-                                <option value="ND">ND</option>
-                                </select>
-                                <div class="text-danger supervisor_consolidated_rate_error" id=""></div>
+                                <div class="col-lg-4" id="consolidated_rating_id" style="display: none">
+                                    <label>Consolidated Rating</label><br>
+                                    <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_consolidated_rate" name="employee_consolidated_rate">
+                                        <option value="" selected>...Select...</option>
+                                        <option value="EE">EE</option>
+                                        <option value="AE">AE</option>
+                                        <option value="ME">ME</option>
+                                        <option value="PE">PE</option>
+                                        <option value="ND">ND</option>
+                                    </select>
+
+                                    <div class="text-danger supervisor_consolidated_rate_error" id=""></div>
                                 </div>
                                 <div class="col-lg-4">
-                                <a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>
+                                    <label>Status</label><br>
+                                    <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="Bh_status" name="Bh_status">
+                                        <option value="" selected>...Select...</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Reverted">Reverted</option>
+                                    </select>
+
+                                    <div class="text-danger supervisor_consolidated_rate_error" id=""></div>
                                 </div>
-
-
-
-
-
+                                <div class="col-lg-4">
+                                <a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Overall Submit">Save</a>
+                                </div>
                                 </div>
 
 						</div>
@@ -275,17 +286,20 @@
                      $(".supervisor_remarks").hide();
                      $(".reviewer_remarks").hide();
                      $(".supervisor_rating").show();
+                     $("#consolidated_rating_id").show();
                  }
                  else if(response.reviewer==2){
                      $(".supervisor_remarks").show();
                      $(".reviewer_remarks").hide();
                      $(".supervisor_rating").show();
+                     $("#consolidated_rating_id").hide();
 
                  }
                  else{
                      $(".supervisor_remarks").show();
                      $(".reviewer_remarks").show();
                      $(".supervisor_rating").show();
+                     $("#consolidated_rating_id").hide();
 
                  }
                  $("#user_type").val(response.reviewer);
@@ -301,6 +315,7 @@
       $(()=>{
           $("#goal_sheet_edit").on('click',()=>{
               var i=1;
+              var j=1;
               var user_type=$("#user_type").val();
               $("#goal_sheet_edit").hide();
               $("#goal_sheet_add").show();
@@ -308,14 +323,16 @@
               {
                    var defined_class="business_head";
               }
+            //   alert(defined_class)
               $("#goal-tb tbody tr td."+defined_class+"").each(function(){
+
                         if ($(this).text() != ""){
                               var text_data=$(this).text();
-                               $(".removable_p").remove();
-                              $(this).append('<textarea id="business_head_edit'+i+'" class="form-control">'+text_data+'</textarea>')
+                               $(".removable_p_"+i+"").remove();
+                              $(this).append('<textarea id="business_head_edit'+i+'" class="form-control" name="bh_sign_off_[]">'+text_data+'</textarea>')
                         }
                         else{
-                            $(this).append('<textarea id="business_head_edit'+i+'" class="form-control"></textarea>')
+                            $(this).append('<textarea id="business_head_edit'+i+'" class="form-control"  name="bh_sign_off_[]"></textarea>')
                         }
                          i++;
                             }
@@ -324,19 +341,19 @@
                         $("#goal-tb tbody tr td.supervisor_rating").each(function(){
                         if ($(this).text() != ""){
                               var text_data=$(this).text();
-                               $(".removable_p").remove();
-                               $(this).append('<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_[]">\
+                               $(".removable_p_"+j+"").remove();
+                               $(this).append('<select class="form-control js-example-basic-single key_bus_drivers" name="sup_final_output_[]">\
                                 <option value="">Choose</option>\
-                                <option value="EE">EE</option>\
-                                <option value="AE">AE</option>\
-                                <option value="ME">ME</option>\
-                                <option value="PE >PE</option>\
-                                <option value="ND">ND</option>\
+                                <option value="EE" '+(text_data=="EE" ? "selected" : "")+'>EE</option>\
+                                <option value="AE" '+(text_data=="AE" ? "selected" : "")+'>AE</option>\
+                                <option value="ME" '+(text_data=="ME" ? "selected" : "")+'>ME</option>\
+                                <option value="PE  '+(text_data=="PE" ? "selected" : "")+'>PE</option>\
+                                <option value="ND" '+(text_data=="ND" ? "selected" : "")+'>ND</option>\
                                 </select>')
 
                         }
                         else{
-                            $(this).append('<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_[]">\
+                            $(this).append('<select class="form-control js-example-basic-single key_bus_drivers" name="sup_final_output_[]">\
                                 <option value="">Choose</option>\
                                 <option value="EE">EE</option>\
                                 <option value="AE">AE</option>\
@@ -345,7 +362,7 @@
                                 <option value="ND">ND</option>\
                                 </select>')
                         }
-                         i++;
+                         j++;
                             }
                         );
 

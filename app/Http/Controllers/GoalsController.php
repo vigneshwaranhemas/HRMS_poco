@@ -9,6 +9,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Goals;
 use Auth;
 use Session;
+use App\Models\CustomUser;
 
 class GoalsController extends Controller
 {
@@ -24,14 +25,6 @@ class GoalsController extends Controller
         $supervisor_list = $this->goal->fetchSupervisorList();
         $reviewer_list = $this->goal->fetchReviewerList();
         $logined_empID = Auth::user()->empID;
-
-
-        // echo json_encode($logined_empID);die();
-
-
-
-
-
         if($logined_empID == "900531"){ //business head
             return view('goals.bh_goal_index')->with("reviewer_list", $reviewer_list);
         }elseif($logined_empID == "900380"){ //HR head
@@ -121,7 +114,7 @@ class GoalsController extends Controller
     public function fetch_reviewer_res(Request $request){
 
         $emp_ID =  $request->input('reviewer_filter');
-        // echo "11<pre>";print_r($request->input('reviewer_filter'));die;       
+        // echo "11<pre>";print_r($request->input('reviewer_filter'));die;
         $result = $this->goal->fetch_reviewer_res_data($emp_ID);
         return json_encode($result);
     }
@@ -134,7 +127,7 @@ class GoalsController extends Controller
             );
         }
 
-        // echo "11<pre>";print_r($input_details);die;       
+        // echo "11<pre>";print_r($input_details);die;
         $result = $this->goal->fetch_reviewer_tab_data($input_details);
 
 
@@ -143,7 +136,7 @@ class GoalsController extends Controller
         ->addColumn('action', function($row) {
                 // echo "<pre>";print_r($row);die;
                 if($row->goal_status == "Pending" || $row->goal_status == "Revert"){
-                   
+
                     $btn = '<div class="dropup">
                             <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
                             <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
@@ -152,7 +145,7 @@ class GoalsController extends Controller
                         </div>' ;
 
                 }elseif($row->goal_status == "Approved"){
-                    
+
                     $id = $row->goal_unique_code;
                     $result = $this->goal->check_goals_employee_summary($id);
 
@@ -1683,29 +1676,6 @@ class GoalsController extends Controller
     // }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         $datas = json_decode($json);
 
 
@@ -1864,7 +1834,7 @@ class GoalsController extends Controller
                     foreach($row_values->$cell8 as $cell8_value){
                         if($cell8_value != null){
 
-                            $html .= '<p class="removable_p">'.$cell8_value.'</p>';
+                            $html .= '<p class="removable_p_'.$cell1.'">'.$cell8_value.'</p>';
 
                         }
                     }
@@ -1922,7 +1892,7 @@ class GoalsController extends Controller
                     foreach($row_values->$cell11 as $cell11_value){
                         // dd($cell3_value);
                         if($cell11_value != null){
-                            $html .= '<p class="removable_p">'.$cell11_value.'</p>';
+                            $html .= '<p class="removable_p_'.$cell1.'">'.$cell11_value.'</p>';
                         }
                     }
 
@@ -3409,11 +3379,11 @@ class GoalsController extends Controller
     }
     public function add_goals_data(Request $request)
     {
-        
+
         // dd(count($request->all()));die();
         $count = count($request->all())-1;
         $row_count = $count/5;
-        // $row_count = count($request->all())/10;   
+        // $row_count = count($request->all())/10;
 
         for ($i=1; $i <= $row_count; $i++) {
 
@@ -3662,10 +3632,6 @@ class GoalsController extends Controller
         if ($request->ajax()) {
 
             $get_goal_list_result = $this->goal->get_bh_goal_list($input_details);
-
-            //   echo json_encode($get_goal_list_result);die();
-
-
             return DataTables::of($get_goal_list_result)
             ->addIndexColumn()
             ->addColumn('status', function($row) {
@@ -3687,14 +3653,9 @@ class GoalsController extends Controller
                 return $btn;
             })
             ->addColumn('action', function($row) {
-                    $btn1 = '<div class="dropup">
-                    <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                    <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                        <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                        <a href="goal_setting_bh_edit?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs goals_btn" type="button"><i class="fa fa-pencil"></i></button></a>
-                    </div>
-                    </div>' ;
-
+                        $btn1 = '<div class="dropup">
+                        <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
+                        </div>' ;
 
                 return $btn1;
             })
@@ -3973,8 +3934,136 @@ class GoalsController extends Controller
     public function check_goal_sheet_role_type_hr(Request $request)
     {
         $id = $request->id;
-        $result = $this->goal->checkHrReviewerIDOrNot($id);        
+        $result = $this->goal->checkHrReviewerIDOrNot($id);
         return json_encode($result);
     }
+
+
+
+//vignesh code for supervisor wise check data
+
+
+
+//for get filter supervisor data
+ public function select_supervisor_data_bh(Request $request)
+ {
+       $id=$request->id;
+       $logined_empID = Auth::user()->empID;
+       if(is_null($id)) {
+                $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+                ->where('customusers.sup_emp_code',$logined_empID)
+                ->select('goals.*')->get();
+      }
+      else {
+        $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+                            ->where('customusers.empID',$id)
+                            ->select('goals.*')->get();
+
+      }
+      $result=json_decode($result);
+   echo json_encode($result);
+
+ }
+
+//get user_goals info under reviewer by vignesh
+
+ public function select_reviewer_data_bh()
+ {
+    $logined_empID = Auth::user()->empID;
+    $users_under_reviewer=CustomUser::where('sup_emp_code',$logined_empID)
+                                      ->select('customusers.username','customusers.empID')->get();
+    $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+    ->where('customusers.reviewer_emp_code',$logined_empID)
+    ->where('customusers.sup_emp_code','!=',$logined_empID)
+    ->where('goals.supervisor_status','1')
+    ->select('goals.*')->get();
+    $result=json_decode($result);
+    $data['result']=$result;
+    $data['user_info_unser_reviewer']=$users_under_reviewer;
+    echo json_encode($data);
+
+ }
+ //get user_goals reviewer filter
+ public function select_reviewer_filter_bh(Request $request)
+ {
+        $data=$request->data;
+        // echo json_encode($data[0]['sup_id']);
+        $id=$data[0]['id'];
+        if($id==1){
+               $user_info=CustomUser::where('sup_emp_code',$data['0']['sup_id'])->get();
+               $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+               ->where('customusers.sup_emp_code',$data['0']['sup_id'])
+               ->where('customusers.empID',$data['0']['emp_id'])
+               ->where('goals.supervisor_status','1')
+               ->select('goals.*')->get();
+               $result=json_decode($result);
+               $final['status']='1';
+               $final['result']=$result;
+               $final['user_info']=$user_info;
+        }
+        if($id==2){
+               $user_info=CustomUser::where('sup_emp_code',$data['0']['sup_id'])->get();
+               $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+               ->where('customusers.sup_emp_code',$data['0']['sup_id'])
+               ->where('goals.supervisor_status','1')
+               ->select('goals.*')->get();
+               $result=json_decode($result);
+               $final['status']='2';
+               $final['result']=$result;
+               $final['user_info']=$user_info;
+        }
+
+        echo json_encode($final);
+ }
+ //get all user details
+
+ public function select_all_member_info()
+ {
+    $logined_empID = Auth::user()->empID;
+    $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+    ->where('customusers.sup_emp_code','!=',$logined_empID)
+    ->where('customusers.reviewer_emp_code','!=',$logined_empID)
+    ->where('goals.supervisor_status','1')
+    ->where('goals.reviewer_status','1')
+    ->select('goals.*')->get();
+
+    $result=json_decode($result);
+    echo json_encode($result);
+
+
+ }
+
+
+
+
+function get_all_memer_filter_url(Request $request){
+    if ($request !="") {
+        $input_details = array(
+            'reviewer_filter'=>$request->input('reviewer_filter'),
+            'team_leader_filter'=>$request->input('team_leader_filter'),
+            'team_member_filter'=>$request->input('team_member_filter'),
+        );
+    }
+}
+
+
+public function get_all_supervisors_info_bh()
+{
+
+    $logined_empID = Auth::user()->empID;
+    $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+    ->where('customusers.sup_emp_code',$logined_empID)
+    ->select('goals.*')->get();
+    $result=json_decode($result);
+    echo json_encode($result);
+}
+
+
+
+
+
+
+
+
 
 }

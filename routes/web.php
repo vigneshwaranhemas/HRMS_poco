@@ -157,7 +157,7 @@ Route::get('goal_setting_hr_edit', 'GoalsController@goal_setting_hr_edit')->name
 Route::get('goals_sup_consolidate_rate_head', 'GoalsController@goals_sup_consolidate_rate_head')->name('goals_sup_consolidate_rate_head');
 Route::get('check_goal_sheet_role_type_hr', 'GoalsController@check_goal_sheet_role_type_hr')->name('check_goal_sheet_role_type_hr');
 
-//Birthday controller 
+//Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');
 Route::get('fetch_birthdays_list', 'BirthdayController@fetch_birthdays_list')->name('fetch_birthdays_list');
 Route::get('fetch_birthdays_list_date', 'BirthdayController@fetch_birthdays_list_date')->name('fetch_birthdays_list_date');
@@ -521,3 +521,13 @@ Route::post('get_hr_goal_list_tbl','GoalsController@get_hr_goal_list_tbl');
 Route::post('get_manager_lsit_drop','GoalsController@get_manager_lsit_drop');
 Route::post('get_team_member_drop','GoalsController@get_team_member_drop');
 
+
+
+
+//vignesh code for supervisor filter business head wise
+Route::post('get_supervisor_data_bh','GoalsController@select_supervisor_data_bh');
+Route::get('get_reviewer_data_bh','GoalsController@select_reviewer_data_bh');
+Route::post('get_reviewer_filter_url','GoalsController@select_reviewer_filter_bh');
+Route::get('get_all_member_info','GoalsController@select_all_member_info');
+Route::post('get_all_memer_filter_url','GoalsController@get_all_memer_filter_url');
+Route::get('get_all_supervisors_info_bh','GoalsController@get_all_supervisors_info_bh');

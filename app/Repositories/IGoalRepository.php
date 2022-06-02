@@ -35,5 +35,6 @@ interface IGoalRepository {
      public function fetch_team_member_list($data);
      public function get_supervisor_hr($data);
      public function get_hr_goal_list_for_tbl($data);
+     public function gethr_list_tab_record($data);
      public function get_manager_lsit($data);
 }

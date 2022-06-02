@@ -216,6 +216,22 @@ class GoalRepository implements IGoalRepository
       $response = Goals::where('goal_unique_code', $id)->value('employee_consolidated_rate');
       return $response;
    }
+   public function goals_sup_submit_status( $id ){
+      $tb1 = Goals::where('goal_unique_code', $id)->where('supervisor_tb_status', "1")->value('supervisor_tb_status');
+      $tb2 = Goals::where('goal_unique_code', $id)->where('supervisor_tb_status', "1")->where('supervisor_status', "1")->value('supervisor_status');
+      if(!empty($tb1)){
+         if($tb2 == 1){
+            $response = "2";
+         }else{
+            $response = "1";
+
+         }  
+
+      }else{
+         $response = "0";
+      }
+      return $response;
+   }
    public function goals_sup_consolidate_rate_head( $id ){
       $response = Goals::where('goal_unique_code', $id)->value('supervisor_consolidated_rate');
       return $response;
@@ -237,10 +253,31 @@ class GoalRepository implements IGoalRepository
       $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                         ->update([
                               'goal_process' => $data['goal_process'],
-                              'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate']
+                              'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate'],
+                              'supervisor_tb_status' => "1",
                         ]);
-    return $response;
- }
+      return $response;
+   } 
+   public function update_emp_goals_data($data){
+      $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                        ->update([
+                              'goal_process' => $data['goal_process'],
+                              'employee_consolidated_rate' => $data['employee_consolidated_rate'],
+                              'employee_tb_status' => "1",
+                        ]);
+      return $response;
+   }    
+   public function update_emp_goals_data_submit($data){
+      $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                        ->update([
+                              'goal_process' => $data['goal_process'],
+                              'employee_consolidated_rate' => $data['employee_consolidated_rate'],
+                              'employee_tb_status' => "1",
+                              'employee_status' => "1",
+                        ]);
+      dd($response);
+      return $response;
+   }
    public function goals_status_update($data){
         $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                   ->update([
@@ -552,15 +589,6 @@ class GoalRepository implements IGoalRepository
     //   echo json_encode($empID);die();
       return $result;
    }
-
-   public function goals_sup_consolidate_rate_head( $id ){
-
-    $response = Goals::where('goal_unique_code', $id)->value('supervisor_consolidated_rate');
-
-    return $response;
-
- }
-
    public function get_goal_setting_reviewer_details_tl( $input_details ){
 
     $id = $input_details['id'];

@@ -16,7 +16,7 @@
 	<h2 id="goals_sheet_head"></h2>
 @endsection
 
-@section('breadcrumb-items')
+@section('breadcrumb-items')   
     <a class="btn btn-success text-white" title="Exceeded Expectations">EE</a>                                            
 	<a class="btn btn-secondary m-l-10 text-white" title="Achieved Expectations">AE</a>                                            
 	<a class="btn btn-info m-l-10 text-white" title="Met Expectations">ME</a>                                            
@@ -28,7 +28,7 @@
 <!-- Container-fluid starts-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12">            
             <div class="ribbon-vertical-right-wrapper card">
                 <div class="card-body">
                     <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 50px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PA</span></div>
@@ -164,8 +164,12 @@
 <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
 
 <script>
+    $( document ).ready(function() {
+    });
+
     var params = new window.URLSearchParams(window.location.search);
-    var id=params.get('id')
+    var id=params.get('id');
+
     $("#edit_goals_setting_id").val(id);
 
     $(".use-address").click(function() {
@@ -174,143 +178,7 @@
         var id = $(this).closest("tr").find("td:eq(2)").html(html);
         // $("#resultas").append(id);
     });
-
-    function additionalKRA(x,cur_rowCount) {
-        // alert($(x).closest('td').parent()[0].sectionRowIndex);
-        // alert(cur_rowCount)
-
-        var rand_no = Math.floor(Math.random()*90000) + 10000;
-        var code = cur_rowCount+'_'+rand_no;
-        
-        var html2 = '<textarea class="form-control m-t-5 key_res_areas_'+cur_rowCount+' '+code+'" id="key_res_areas_'+code+'" name="key_res_areas_'+cur_rowCount+'[]"></textarea>';
-            html2 += '<div class="text-danger key_res_areas_'+code+'_error" id=""></div>';
-        var html3 = '<textarea class="form-control m-t-5 measurement_criteria_'+cur_rowCount+' '+code+'" id="measurement_criteria_'+code+'" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
-        var html4 = '<textarea class="form-control m-t-5 self_assessment_remark_'+cur_rowCount+' '+code+'"  id="self_assessment_remark_'+code+'" name="self_assessment_remark_'+cur_rowCount+'[]"></textarea>';
-            html4 += '<div class="text-danger self_assessment_remark_'+code+'_error" id=""></div>';
-       
-        var html5 ='';
-            html5 +='<select class="form-control js-example-basic-single key_bus_drivers m-t-35 rating_by_employee_'+cur_rowCount+' '+code+'"  id="rating_by_employee_'+code+'" name="rating_by_employee_'+cur_rowCount+'[]">';
-                        html5 +='<option value="">...Select...</option>';
-                        html5 +='<option value="EE">EE</option>';
-                        html5 +='<option value="AE">AE</option>';
-                        html5 +='<option value="ME">ME</option>';
-                        html5 +='<option value="PE">PE</option>';
-                        html5 +='<option value="ND">ND</option>';
-            html5 +='</select>';
-            html5 += '<div class="text-danger rating_by_employee_'+code+'_error" id=""></div>';
-
-        var html11 = '';
-
-        html11 +='<div class="dropup m-t-35">';
-            html11 +='<button type="button" class="btn btn-xs btn-danger '+code+'" onclick="removeRow(this,'+code+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
-            // html7 +='<button type="button" class="btn btn-xs btn-danger sub_row_'+cur_rowCount+'" onclick="removeRow(this,'+class_sub+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
-        html11 +='</div>';
-        
-        $(x).closest("tr").find("td:eq(2)").append(html2);
-        $(x).closest("tr").find("td:eq(3)").append(html3);
-        $(x).closest("tr").find("td:eq(4)").append(html4);
-        $(x).closest("tr").find("td:eq(5)").append(html5);
-        $(x).closest("tr").find("td:eq(6)").append(html11);
-
-    }
-
-    function removeRow(html_ui, class_name){
-        const string = ''+class_name+'';
-        var first = string.slice(0, 1);
-        var last = string.slice(-5);
-        var code = first+'_'+last;
-        $('.'+code+'').remove();
-    }
-
-    function additionalKBD(){
-        var rowCount = $('#goal-tb tr').length;
-        // var cur_rowCount = rowCount + 1;
-        var cur_rowCount = rowCount;
-
-        var html = '<tr>';
-                html +='<td scope="row">1</td>';
-                html +='<td>';
-                    html +='<select class="form-control js-example-basic-single key_bus_drivers key_bus_drivers_'+cur_rowCount+'" id="key_bus_drivers_'+cur_rowCount+'" name="key_bus_drivers_'+cur_rowCount+'[]">';
-                        html +='<option value="">...Select...</option>';
-                        html +='<option value="Revenue">Revenue</option>';
-                        html +='<option value="Customer">Customer</option>';
-                        html +='<option value="Process">Process</option>';
-                        html +='<option value="People">People</option>';
-                        html +='<option value="Projects">Projects</option>';
-                    html +='</select>';
-                    html += '<div class="text-danger key_bus_drivers_'+cur_rowCount+'_error" id=""></div>';
-                html +='</td>';
-                
-                html +='<td>';
-                    html +='<textarea name="key_res_areas_'+cur_rowCount+'[]" id="key_res_areas_'+cur_rowCount+'" class="form-control key_res_areas_'+cur_rowCount+'"></textarea>';
-                    html += '<div class="text-danger key_res_areas_'+cur_rowCount+'_error" ></div>';
-                html +='</td>';
-
-                html +='<td>';
-                    html +='<textarea name="measurement_criteria_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                html +='</td>';
-
-                html +='<td>';
-                    html +='<textarea name="self_assessment_remark_'+cur_rowCount+'[]" id="self_assessment_remark_'+cur_rowCount+'" class="form-control self_assessment_remark_'+cur_rowCount+'"></textarea>';
-                    html += '<div class="text-danger self_assessment_remark_'+cur_rowCount+'_error" id=""></div>';
-                html +='</td>';
-
-                // html +='<td>';
-                //     html +='<input type="text" name="weightage_'+cur_rowCount+'[]" id="" class="form-control">';
-                // html +='</td>';
-                
-                html +='<td>';                            
-                    html +='<select class="form-control js-example-basic-single key_bus_drivers rating_by_employee_'+cur_rowCount+'" id="rating_by_employee_'+cur_rowCount+'" name="rating_by_employee_'+cur_rowCount+'[]">';
-                        html +='<option value="">...Select...</option>';
-                        html +='<option value="EE">EE</option>';
-                        html +='<option value="AE">AE</option>';
-                        html +='<option value="ME">ME</option>';
-                        html +='<option value="PE">PE</option>';
-                        html +='<option value="ND">ND</option>';
-                    html +='</select>';
-                    html += '<div class="text-danger rating_by_employee_'+cur_rowCount+'_error" id=""></div>';
-                html +='</td>';     
-                
-                // html +='<td>';
-                //     html +='<textarea name="rate_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<textarea name="actuals_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<textarea name="self_remarks_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<input type="text" name="self_assessment_rate_'+cur_rowCount+'[]" id="" class="form-control">';
-                // html +='</td>';
-
-                html +='<td>';
-                        html +='<div style="margin-top: 80px;"></div>';
-                html +='</td>';
-
-                html +='<td>';
-                    html +='<div class="dropup">';
-                        html +='<button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>';
-                        html +='<div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">';
-                                    html +='<a class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs" type="button" data-original-title="Add KRA" title="Add KRA"><i class="fa fa-plus" onclick="additionalKRA(this,'+cur_rowCount+');"></i></button></a>';
-                                    // html +='<a class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs" type="button" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-pencil"></i></button></a>';
-                                    html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button" id="btnDelete"  data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
-                        html +='</div>';
-                    html +='</div>';
-                    // html +='<div class="dropup m-t-5">';
-                    //     html +='<button type="button" class="btn btn-xs btn-danger" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
-                    // html +='</div>';
-                html +='</td>';
-
-            html +='</tr>';
-        $('#goal-tb tr:last').after(html);
-        updatesno();
-    }
-
-
+    
     function updatesno(){
 
         $.each($("#goal-tb tr:not(:first)"), function (i, el) {
@@ -326,73 +194,6 @@
         $(this).closest('tr').remove();
         updatesno();
     }); 
-
-
-    function formTable() {
-
-        var test = [];
-        var error='';
-        
-        $('#goal-tb tr').each(function(index, tr) {
-            $(tr).find('td').each (function (index, td) {
-                console.log(td)
-            });
-        });
-
-        // $('#goal-tb tbody>tr').each(function (element) {
-        //     // var currrow=$(this).closest('tr');
-        //     alert("col4")
-
-        //     var col0=$(this).find("td:eq(0)").text();
-        //     // var col1=$(this).find("td:eq(1) textarea").val();
-        //     //    var col2=$(this).find("td:eq(2) option:selected").val();
-        //     //    var col4_input=$(this).find("td:eq(4) input:checked").val();
-        //     // alert(col0)
-            
-                                                                    
-        // });
-
-        //Sending data to database
-        //    if(error==""){
-        //        // alert("succes")
-        //        data_insert();
-        //    }
-        //    else{
-        //        // alert("test")
-        //        // data_insert();
-        //        scrollUp();
-        //    }
-          
-           // console.log(test);
-           // var formData =  JSON.stringify(test);
-           // alert(formData);
-                    
-        //    function data_insert(){
-        //        // alert("jsd");
-
-        //        var business_name_option=$("#business_name_option").val();
-
-        //        $.ajax({
-                   
-        //            url:"{{ ('business_form') }}",
-        //            type:"POST",
-        //            data:{business_name:business_name_option, serialize_form_value:test},
-        //            dataType : "JSON",
-        //            success:function(data)
-        //            {
-        //                window.location.reload();                         
-        //            },
-        //            error: function(response) {
-        //                // alert(response.responseJSON.errors.business_name_option);
-        //                $('#business_name_option_error').text(response.responseJSON.errors.business_name);
-
-        //            }                                              
-                       
-        //        });
-        //    }            
-       
-
-    }
 
     $("#goalsFormUpdate").submit(function(e) {
         e.preventDefault();
@@ -456,6 +257,7 @@
         }                                              
             
     });
+    
     // Edit Goal Setting<span>Process</span>
     $.ajax({                   
         url:"{{ url('fetch_goals_setting_id_edit') }}",

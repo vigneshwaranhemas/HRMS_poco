@@ -32,14 +32,17 @@ interface IGoalRepository {
     public function check_goals_employee_summary($id);
     public function fetch_goals_employee_summary($id);
     public function get_supervisor_data($id);
-     public function fetch_reviewer_res_data($empid);
-     public function fetch_reviewer_tab_data($data);
-     public function fetch_team_member_list($data);
-     public function get_reviewer_goal_list_for_reviewer($input_details);
-     public function get_supervisor_hr($data);
-     public function get_hr_goal_list_for_tbl($data);
-     public function get_manager_lsit($data);
-     public function update_goals_sup($data);
-     public function get_goal_setting_reviewer_details_tl($input_details);
+    public function fetch_reviewer_res_data($empid);
+    public function fetch_reviewer_tab_data($data);
+    public function fetch_team_member_list($data);
+    public function get_reviewer_goal_list_for_reviewer($input_details);
+    public function get_supervisor_hr($data);
+    public function get_hr_goal_list_for_tbl($data);
+    public function get_manager_lsit($data);
+    public function update_goals_sup($data);
+    public function update_emp_goals_data_submit($data);
+    public function update_emp_goals_data($data);
+    public function get_goal_setting_reviewer_details_tl($input_details);
+    public function goals_sup_submit_status($id);
 
 }

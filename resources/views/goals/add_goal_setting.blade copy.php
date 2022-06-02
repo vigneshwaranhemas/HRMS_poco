@@ -121,12 +121,9 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        
+                        <a id="goal_sheet_submit" class="btn btn-success text-white float-right m-b-30" title="Overall Sheet Submit">Submit For Approval</a>                                            
+                        <a id="goal_sheet_submit_update" class="btn btn-success text-white float-right m-b-30" title="Overall Sheet Submit">Submit For Approval</a>                                            
                         <form id="goalsForm">
-                            <button type="submit" id="goal_sheet_submit" class="btn btn-success  float-right m-b-30"><i class="ti-save"></i> Submit For Approval</button>                                            
-                            <button id="goal_sheet_submit_update" class="btn btn-success  float-right m-b-30"><i class="ti-save"></i> Submit For Approval</button>                                            
-                            <!-- <a id="goal_sheet_submit" type="submit" class="btn btn-success text-white float-right m-b-30" title="Overall Sheet Submit"></a>                                            
-                            <a id="goal_sheet_submit_update" type="submit" class="btn btn-success text-white float-right m-b-30" title="Overall Sheet Submit">Submit For Approval</a>                                             -->
                             <table class="table" id="goal-tb">
                                 <thead>
                                     <tr>
@@ -147,7 +144,7 @@
                                 <tbody id="goals_record">                              
                                 </tbody>
                             </table>
-                            <input type="text" name="goals_setting_id" id="goals_setting_id">								
+                            <input type="hidden" name="goals_setting_id" id="goals_setting_id">								
                             <div class="m-t-40 m-b-30">
                                 <div class="row">									
                                     <div class="col-lg-2">
@@ -164,7 +161,7 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Save</button>                                            
-                                        <button id="datatable_form_update" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
+                                        <buttonid="datatable_form_update" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
                                     </div>
                                 </div>
                             </div>                        
@@ -434,14 +431,16 @@
     }
 
     $("#goal-tb").on('click','#btnDelete',function(){
-        // alert("sdf")
         $(this).closest('tr').remove();
         updatesno();
     }); 
 
-    //New entry    
-    $("#datatable_form_save").on('click',()=>{
+    //New entry
+    $("#goalsForm").submit(function(e) {
+        e.preventDefault();
+
         var error='';
+
         var rate = $("#employee_consolidated_rate").val();
         var $errmsg3 = $(".employee_consolidated_rate_error");
         $errmsg3.hide();
@@ -450,7 +449,7 @@
             $errmsg3.html('Employee Consolidated Rate is required').show();                
             error+="error";
         }
-
+        
         $('#goal-tb tr').each(function() {
             var col0=$(this).find("td:eq(0)").text();
             var col1=$(this).find("td:eq(1) option:selected").val();
@@ -484,7 +483,7 @@
                     $errmsg.html('Key result areas is required').show();                
                     error+="error";
                 }
-                    
+                     
             });
 
             //Self Assessment (Qualitative Remarks) by Employee
@@ -502,7 +501,7 @@
                     $errmsg1.html('Self assessment is required').show();                
                     error+="error";
                 }
-                    
+                     
             });
 
             //Rating by Employee
@@ -560,11 +559,11 @@
             });
                     
         }
-        return false;        
-    });    
+    });
 
-    //New Submit entry
-    $("#goal_sheet_submit").on('click',()=>{        
+    //Submit new entry
+    $("#newGoalFormSubmit").submit(function(e) {
+        e.preventDefault();
 
         var error='';
 
@@ -653,10 +652,10 @@
         //Sending data to database
         if(error==""){
             // alert("succes")
-            new_sub_goal_data_insert();
+            new_goal_data_insert();
         }
 
-        function new_sub_goal_data_insert(){
+        function new_goal_data_insert(){
             $.ajax({            
                 url:"{{ url('add_goals_data_submit') }}",
                 type:"POST",
@@ -681,11 +680,11 @@
                     
         }        
 
-        return false;        
     });
-    
-    //update entry
-    $("#datatable_form_update").on('click',()=>{   
+
+    //update goal
+    $("#updateGoalForm").submit(function(e) {
+        e.preventDefault();
         
         var error='';
 
@@ -787,7 +786,7 @@
                 {
 
                     Toastify({
-                        text: "Updated Sucessfully..!",
+                        text: "Added Sucessfully..!",
                         duration: 3000,
                         close:true,
                         backgroundColor: "#4fbe87",
@@ -806,13 +805,14 @@
                     
         }        
 
-        return false;        
     });
 
-    //update Submit entry
-    $("#goal_sheet_submit_update").on('click',()=>{
+    //update submit goals
+    $("#updateGoalFormSubmit").submit(function(e) {
+        e.preventDefault();
 
         var error='';
+
         var rate = $("#employee_consolidated_rate").val();
         var $errmsg3 = $(".employee_consolidated_rate_error");
         $errmsg3.hide();
@@ -902,10 +902,8 @@
         }
 
         function update_submit_data_insert(){
-            var employee_consolidated_rate = $(#employee_consolidated_rate).val();
-
             $.ajax({            
-                url:"{{ url('update_emp_goals_data_submit?employee_consolidated_rate="+employee_consolidated_rate+"') }}",
+                url:"{{ url('update_emp_goals_data_submit') }}",
                 type:"POST",
                 data:$('#goalsForm').serialize(),
                 dataType : "JSON",
@@ -919,17 +917,20 @@
                         backgroundColor: "#4fbe87",
                     }).showToast();    
                     
-                    $('button[type="submit"]').attr('disabled' , false);                    
+                    $('button[type="submit"]').attr('disabled' , false);
 
-                    location = "goals";                
+                    $("#goals_setting_id").val(data);
+                    $("#datatable_form_save").css('display', 'none');
+                    $("#datatable_form_update").css('display', 'block');
+
+                    // location = "goal_setting_edit?id="+data+"";                
 
                 }
             });
                     
         }        
 
-        return false;        
-    });
+    }
 
 </script>
 @endsection

@@ -182,35 +182,23 @@
         var rand_no = Math.floor(Math.random()*90000) + 10000;
         var code = cur_rowCount+'_'+rand_no;
         
-        var html2 = '<textarea class="form-control m-t-5 key_res_areas_'+cur_rowCount+' '+code+'" id="key_res_areas_'+code+'" name="key_res_areas_'+cur_rowCount+'[]"></textarea>';
-            html2 += '<div class="text-danger key_res_areas_'+code+'_error" id=""></div>';
-        var html3 = '<textarea class="form-control m-t-5 measurement_criteria_'+cur_rowCount+' '+code+'" id="measurement_criteria_'+code+'" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
-        var html4 = '<textarea class="form-control m-t-5 self_assessment_remark_'+cur_rowCount+' '+code+'"  id="self_assessment_remark_'+code+'" name="self_assessment_remark_'+cur_rowCount+'[]"></textarea>';
-            html4 += '<div class="text-danger self_assessment_remark_'+code+'_error" id=""></div>';
-       
-        var html5 ='';
-            html5 +='<select class="form-control js-example-basic-single key_bus_drivers m-t-35 rating_by_employee_'+cur_rowCount+' '+code+'"  id="rating_by_employee_'+code+'" name="rating_by_employee_'+cur_rowCount+'[]">';
-                        html5 +='<option value="">...Select...</option>';
-                        html5 +='<option value="EE">EE</option>';
-                        html5 +='<option value="AE">AE</option>';
-                        html5 +='<option value="ME">ME</option>';
-                        html5 +='<option value="PE">PE</option>';
-                        html5 +='<option value="ND">ND</option>';
-            html5 +='</select>';
-            html5 += '<div class="text-danger rating_by_employee_'+code+'_error" id=""></div>';
+        var html2 = '<textarea id="" class="form-control m-t-5 '+code+'" name="key_res_areas_'+cur_rowCount+'[]"></textarea>';
+        var html3 = '<textarea id="" class="form-control m-t-5 '+code+'" name="sub_indicators_'+cur_rowCount+'[]"></textarea>';
+        var html4 = '<textarea id="" class="form-control m-t-5 '+code+'" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
+        var html6 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
+        
+        var html7 = '';
 
-        var html11 = '';
-
-        html11 +='<div class="dropup m-t-35">';
-            html11 +='<button type="button" class="btn btn-xs btn-danger '+code+'" onclick="removeRow(this,'+code+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
+        html7 +='<div class="dropup m-t-35">';
+            html7 +='<button type="button" class="btn btn-xs btn-danger '+code+'" onclick="removeRow(this,'+code+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
             // html7 +='<button type="button" class="btn btn-xs btn-danger sub_row_'+cur_rowCount+'" onclick="removeRow(this,'+class_sub+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
-        html11 +='</div>';
+        html7 +='</div>';
         
         $(x).closest("tr").find("td:eq(2)").append(html2);
         $(x).closest("tr").find("td:eq(3)").append(html3);
         $(x).closest("tr").find("td:eq(4)").append(html4);
-        $(x).closest("tr").find("td:eq(5)").append(html5);
-        $(x).closest("tr").find("td:eq(6)").append(html11);
+        $(x).closest("tr").find("td:eq(6)").append(html6);
+        $(x).closest("tr").find("td:eq(7)").append(html7);
 
     }
 
@@ -230,20 +218,21 @@
         var html = '<tr>';
                 html +='<td scope="row">1</td>';
                 html +='<td>';
-                    html +='<select class="form-control js-example-basic-single key_bus_drivers key_bus_drivers_'+cur_rowCount+'" id="key_bus_drivers_'+cur_rowCount+'" name="key_bus_drivers_'+cur_rowCount+'[]">';
-                        html +='<option value="">...Select...</option>';
+                    html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_'+cur_rowCount+'[]">';
                         html +='<option value="Revenue">Revenue</option>';
                         html +='<option value="Customer">Customer</option>';
                         html +='<option value="Process">Process</option>';
                         html +='<option value="People">People</option>';
                         html +='<option value="Projects">Projects</option>';
                     html +='</select>';
-                    html += '<div class="text-danger key_bus_drivers_'+cur_rowCount+'_error" id=""></div>';
                 html +='</td>';
-                
+
                 html +='<td>';
-                    html +='<textarea name="key_res_areas_'+cur_rowCount+'[]" id="key_res_areas_'+cur_rowCount+'" class="form-control key_res_areas_'+cur_rowCount+'"></textarea>';
-                    html += '<div class="text-danger key_res_areas_'+cur_rowCount+'_error" ></div>';
+                    html +='<textarea name="key_res_areas_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                html +='</td>';
+
+                html +='<td>';
+                    html +='<textarea name="sub_indicators_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
                 html +='</td>';
 
                 html +='<td>';
@@ -251,41 +240,12 @@
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<textarea name="self_assessment_remark_'+cur_rowCount+'[]" id="self_assessment_remark_'+cur_rowCount+'" class="form-control self_assessment_remark_'+cur_rowCount+'"></textarea>';
-                    html += '<div class="text-danger self_assessment_remark_'+cur_rowCount+'_error" id=""></div>';
+                    html +='<input type="text" name="weightage_'+cur_rowCount+'[]" id="" class="form-control">';
                 html +='</td>';
 
-                // html +='<td>';
-                //     html +='<input type="text" name="weightage_'+cur_rowCount+'[]" id="" class="form-control">';
-                // html +='</td>';
-                
-                html +='<td>';                            
-                    html +='<select class="form-control js-example-basic-single key_bus_drivers rating_by_employee_'+cur_rowCount+'" id="rating_by_employee_'+cur_rowCount+'" name="rating_by_employee_'+cur_rowCount+'[]">';
-                        html +='<option value="">...Select...</option>';
-                        html +='<option value="EE">EE</option>';
-                        html +='<option value="AE">AE</option>';
-                        html +='<option value="ME">ME</option>';
-                        html +='<option value="PE">PE</option>';
-                        html +='<option value="ND">ND</option>';
-                    html +='</select>';
-                    html += '<div class="text-danger rating_by_employee_'+cur_rowCount+'_error" id=""></div>';
-                html +='</td>';     
-                
-                // html +='<td>';
-                //     html +='<textarea name="rate_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<textarea name="actuals_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<textarea name="self_remarks_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<input type="text" name="self_assessment_rate_'+cur_rowCount+'[]" id="" class="form-control">';
-                // html +='</td>';
+                html +='<td>';
+                    html +='<textarea name="reference_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                html +='</td>';
 
                 html +='<td>';
                         html +='<div style="margin-top: 80px;"></div>';
@@ -309,7 +269,6 @@
         $('#goal-tb tr:last').after(html);
         updatesno();
     }
-
 
     function updatesno(){
 

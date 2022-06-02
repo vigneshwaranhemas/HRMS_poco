@@ -523,6 +523,9 @@ Route::get('get_hr_supervisor','GoalsController@get_hr_supervisor');
 Route::post('get_hr_goal_list_tbl','GoalsController@get_hr_goal_list_tbl');
 Route::post('get_manager_lsit_drop','GoalsController@get_manager_lsit_drop');
 Route::post('get_team_member_drop','GoalsController@get_team_member_drop');
+Route::post('hr_list_tab_record','GoalsController@hr_list_tab_record');
+Route::get('get_grade','GoalsController@get_grade');
+Route::get('get_department','GoalsController@get_department');
 
 Route::post('get_goal_setting_reviewer_details_tl', 'GoalsController@get_goal_setting_reviewer_details_tl');
 

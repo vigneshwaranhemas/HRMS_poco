@@ -3962,9 +3962,29 @@ class GoalsController extends Controller
     }
     public function get_team_member_drop(Request $request){
         $id = $request->team_leader_filter_hr;
-        // echo "<pre>";print_r($id);die;
         $result = $this->goal->get_team_member_drop_list($id);
         return json_encode($result);
+    }
+    public function hr_list_tab_record(Request $request){
+         if ($request !="") {
+            $input_details = array(
+                'reviewer_filter_1'=>$request->input('reviewer_filter_1'),
+                'team_leader_filter_hr_1'=>$request->input('team_leader_filter_hr_1'),
+                'team_member_filter_hr_1'=>$request->input('team_member_filter_hr_1'),
+                'gender_hr_1'=>$request->input('gender_hr_1'),
+                'grade_hr_1'=>$request->input('grade_hr_1'),
+                'department_hr_1'=>$request->input('department_hr_1'),
+            );
+        }
+
+        if ($request->ajax()) {
+        $result = $this->goal->gethr_list_tab_record($input_details);
+        // echo "<pre>";print_r($result);die;
+
+        return DataTables::of($result)
+            ->addIndexColumn()
+            ->make(true);
+        }
     }
 /*after cick in hr submit button*/
      public function get_hr_goal_list_tbl(Request $request){
@@ -4026,6 +4046,16 @@ class GoalsController extends Controller
     {
         $id = $request->id;
         $result = $this->goal->checkHrReviewerIDOrNot($id);
+        return json_encode($result);
+    }
+    public function get_grade()
+    {
+        $result = DB::select("SELECT grade FROM customusers GROUP by grade");        
+        return json_encode($result);
+    }
+    public function get_department()
+    {
+        $result = DB::select("SELECT department FROM customusers GROUP by department");        
         return json_encode($result);
     }
 

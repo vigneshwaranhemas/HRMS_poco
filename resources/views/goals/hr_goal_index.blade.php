@@ -55,6 +55,9 @@
                     <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>MySelf</a>
                     <div class="material-border"></div>
                     </li>
+                    <li class="nav-item"><a class="nav-link" id="listing-info-tab" data-toggle="tab" href="#info-listing" role="tab" aria-controls="info-listing" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Listing</a>
+                    <div class="material-border"></div>
+                    </li>
                 </ul>
                 <div class="tab-content" id="info-tabContent">
                     <!-- as supervisor -->
@@ -188,6 +191,77 @@
                                         </thead>
                                         <tbody>
                                         </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--listing -->
+                    <div class="tab-pane fade" id="info-listing" role="tabpanel" aria-labelledby="listing-info-tab">                        
+                         <div class="card">
+                             <div class="row">
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Supervisor">Select Supervisor</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="reviewer_filter_1" name="reviewer_filter_1">
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Team Leader</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter_hr_1" name="team_leader_filter_hr_1">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Team Member</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter_hr_1" name="team_member_filter_hr_1">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Gender</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="gender_hr_1" name="gender_hr_1">
+                                            <option value="">...Select...</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Grade</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="grade_hr_1" name="grade_hr_1">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Department</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="department_hr_1" name="department_hr_1">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6 m-t-35 float-left">
+                                        <button type="submit" id="list_apply" class="btn btn-success "><i class="ti-save"></i> Apply</button>
+                                        <button type="submit" id="hr_reset" class="btn btn-dark "><i class="ti-save"></i> Clear</button>           
+                                    </div>
+                                </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="listing_table" class="table table-striped table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <!-- <th><input type="checkbox" name="select_all" id="select_all"></th> -->
+                                                <th scope="col">Sno</th>
+                                                <th scope="col">Employee Name</th>
+                                                <th scope="col">Employee ID</th>
+                                                <th scope="col">Goal Name</th>
+                                                <th scope="col">Gender</th>
+                                                <th scope="col">Grade</th>
+                                                <th scope="col">Department</th>
+                                                <th scope="col">Employee Consolidated Rate</th>
+                                                <th scope="col">Supervisor Consolidated rate</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        
                                     </table>
                                 </div>
                             </div>

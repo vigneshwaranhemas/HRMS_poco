@@ -51,11 +51,11 @@
 										<th scope="col">Measurement Criteria (UOM)</th>
 										<th scope="col">Self Assessment  by Employee </th>
 										<th scope="col">Rating by Employee </th>
-                                        <th scope="col">Supervisors Assessment</th>
-										<th scope="col">Rating by Supervisor </th>
-										<th scope="col">Reviewer Remarks</th>
+                                        <th scope="col" class="supervisor_assetment">Supervisors Assessment</th>
+										<th scope="col" class="supervisor_rating">Rating by Supervisor </th>
+										<th scope="col" class="reviewer_remarks">Reviewer Remarks</th>
 										{{-- <th scope="col">HR Remarks</th> --}}
-										<th scope="col">BH Sign-Off</th>
+										<th scope="col" class="bh_sign_off">BH Sign-Off</th>
 									</tr>
 								</thead>
 								<tbody id="goals_record">

@@ -38,7 +38,6 @@
     <div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-				<input type="hidden" id="goals_setting_id">
 				<div class="ribbon-vertical-right-wrapper card">
 					<div class="card-body">
 						<div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 50px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PA</span>
@@ -128,6 +127,7 @@
 									<h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
 								</div>
 							</div>
+                        <form id="goalsForm">
 							<table class="table table-border-vertical table-border-horizontal" id="goals_record_tb">
 								<thead>
 									<tr>
@@ -148,6 +148,7 @@
 								<tbody id="goals_record">
 								</tbody>
 							</table>
+                            <input type="hidden" name="goals_setting_id" id="goals_setting_id">
 							<!-- <div class="m-t-20 m-b-30 float-right"> -->
 								<div class="m-t-20 m-b-30 row float-right" id="save_div">
 									<div class="col-lg-8">
@@ -167,17 +168,8 @@
 									</div>
 								</div>
 								<div class="m-t-20 m-b-30 row float-right" id="save_div_rev">
-									<div class="col-lg-8">
-									</div>
-									<div class="col-lg-4">
-										<a onclick="revFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>
-									</div>
-								</div>
-								<div class="m-t-20 m-b-30 row float-right" id="save_div_hr">
-									<div class="col-lg-8">
-									</div>
-									<div class="col-lg-4">
-										<a onclick="hrFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>
+									<div class="col-lg-12 m-b-35">
+										<a onclick="revFormSubmit()" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>
 									</div>
 								</div>
 							<!-- </div> -->
@@ -381,10 +373,10 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										alert("one")
+										// alert("one")
 									}
 									else{
-										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control"></textarea>';
+										var tx = '<textarea id="business_head_edit'+i+'" name="sup_remark[]" style="width:200px;" class="form-control"></textarea>';
 											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
 										$(this).append(tx)
 										// alert("two")
@@ -397,10 +389,10 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										alert("one")
+										// alert("one")
 									}
 									else{
-										var op = '<select class="js-example-basic-single" style="width:150px;" id="employee_consolidated_rate" name="employee_consolidated_rate">';
+										var op = '<select class="js-example-basic-single" name="sup_rating[]" style="width:150px;" id="employee_consolidated_rate" name="employee_consolidated_rate">';
 											op += '<option value="" selected>...Select...</option>';
 											op += '<option value="EE">EE</option>';
 											op += '<option value="AE">AE</option>';
@@ -439,11 +431,11 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										alert("one")
+										// alert("one")
 									}
 									else{
-										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control"></textarea>';
-											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
+										var tx = '<textarea id="business_head_edit'+i+'" name="reviewer_remarks[]" style="width:200px;" class="form-control"></textarea>';
+											tx += '<div class="text-danger reviewer_remark_'+index+'_error" id="reviewer_remark_'+index+'_error"></div>';
 										$(this).append(tx)
 										// alert("two")
 									}
@@ -517,41 +509,48 @@
 
 			});
 
+            // function revFormSubmit(){
+
+
+            // }
+
 			//Sending data to database
 			if(error==""){
 				// alert("succes")
 				data_insert();
 			}
 
+
 			function data_insert(){
 
-				// $.ajax({
+				$.ajax({
 
-				// 	url:"{{ url('add_goals_data') }}",
-				// 	type:"POST",
-				// 	data:$('#goalsForm').serialize(),
-				// 	dataType : "JSON",
-				// 	success:function(data)
-				// 	{
-				// 		Toastify({
-				// 			text: "Added Sucessfully..!",
-				// 			duration: 3000,
-				// 			close:true,
-				// 			backgroundColor: "#4fbe87",
-				// 		}).showToast();
+					url:"{{ url('update_goals_sup') }}",
+					type:"POST",
+					data:$('#goalsForm').serialize(),
+					dataType : "JSON",
+					success:function(data)
+					{
+						Toastify({
+							text: "Added Sucessfully..!",
+							duration: 3000,
+							close:true,
+							backgroundColor: "#4fbe87",
+						}).showToast();
 
-				// 		$('button[type="submit"]').attr('disabled' , false);
+						// $('button[type="submit"]').attr('disabled' , false);
 
-				// 		window.location = "{{ url('goals')}}";
-				// 	},
-				// 	error: function(response) {
-				// 		// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+						window.location = "{{ url('goals')}}";
+					},
+					error: function(response) {
+						// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
 
-				// 	}
+					}
 
-				// });
+				});
 			}
-		}
+         }
+
 
 
         //Edit pop-up model and data show
@@ -568,7 +567,7 @@
             data:{"id":id,},
             dataType: "json",
             success: function(data) {
-                console.log(data)
+                // console.log(data)
 
                 if(data.length !=0){
                     $('#empID').html(data[0].empID);
@@ -581,7 +580,70 @@
                 }
             }
         });
-        }
+
+    }
+
+    function revFormSubmit(){
+        var error='';
+                var i=1;
+
+                $('#goals_record_tb > tbody  > tr').each(function(index) {
+                    var col0=$(this).find("td:eq(0)").text();
+                    // var col6=$(this).find("td:eq(5) textarea").val();
+                    var col8=$(this).find("td:eq(7) textarea").val();
+
+
+                    // Supervisor Rate
+                    var err_div_name1 = ".reviewer_remark_"+index+"_error";
+                    var $errmsg1 = $(err_div_name1);
+                    $errmsg1.hide();
+
+                    if(col8 == "" || col8 == undefined){
+                        // console.log($errmsg0)
+                        $errmsg1.html('Reviewer Remarks is required').show();
+                        error+="error";
+                    }
+
+                    i++;
+
+
+                });
+                //Sending data to database
+                if(error==""){
+                    // alert("succes")
+                    data_insert_reviewer();
+                }
+                function data_insert_reviewer(){
+
+                    $.ajax({
+
+                        url:"{{ url('update_goals_sup_reviewer_tm') }}",
+                        type:"POST",
+                        data:$('#goalsForm').serialize(),
+                        dataType : "JSON",
+                        success:function(data)
+                        {
+                            Toastify({
+                                text: "Added Sucessfully..!",
+                                duration: 3000,
+                                close:true,
+                                backgroundColor: "#4fbe87",
+                            }).showToast();
+
+                            // $('button[type="submit"]').attr('disabled' , false);
+
+                            window.location = "{{ url('goals')}}";
+                        },
+                        error: function(response) {
+                            // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+                        }
+
+                    });
+                }
+
+            }
+
 
 	</script>
 

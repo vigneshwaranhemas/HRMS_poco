@@ -4218,6 +4218,7 @@ class GoalsController extends Controller
 
         ->rawColumns(['action','status'])
         ->make(true);
+          }
 
     public function update_goals_sup_reviewer_tm(Request $request){
         // dd($request->all());

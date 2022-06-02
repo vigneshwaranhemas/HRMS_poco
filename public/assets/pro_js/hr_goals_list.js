@@ -8,7 +8,30 @@ $( document ).ready(function() {
 $(document).ready(function() {
     get_supervisor();
     supervisor_goal_record();
+    goal_record_tab();
    
+});
+/*clear function*/
+$("#reset").on('click', function() {
+        $("#supervisor_list").val("").trigger('change'); 
+        supervisor_goal_record();      
+});$("#rev_reset").on('click', function() {
+        $("#supervisor_list_1").val("").trigger('change');       
+        $("#team_member_filter").val("").trigger('change');
+        reviewer_goal_record();       
+});$("#hr_reset").on('click', function() {
+        $("#reviewer_filter").val("").trigger('change');       
+        $("#team_leader_filter_hr").val("").trigger('change');       
+        $("#team_member_filter_hr").val("").trigger('change');  
+        hr_dttable_record();     
+});$("#myself_reset").on('click', function() {
+        $("#reviewer_filter_1").val("").trigger('change');       
+        $("#team_leader_filter_hr_1").val("").trigger('change');       
+        $("#team_member_filter_hr_1").val("").trigger('change');       
+        $("#gender_hr_1").val("").trigger('change');       
+        $("#grade_hr_1").val("").trigger('change');       
+        $("#department_hr_1").val("").trigger('change');  
+        hr_listing_tab_record();     
 });
 /*all search click */
 $('#supervisor_list_1').on('change',function() {
@@ -51,6 +74,10 @@ $('#team_leader_filter_hr_1').on('change',function() {
 $('#list_apply').on('click',function() {
     hr_listing_tab_record();
     });
+$('#profile-info-tab').on('click',function() {
+    goal_record_tab();
+    });
+
 /*end search*/
 
 /*grade*/
@@ -392,6 +419,7 @@ function supervisor_goal_record(){
             {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
             {   data: 'created_by_name', name: 'created_by_name'  },
             {   data: 'goal_name', name: 'goal_name'  },
+            {   data: 'status', name: 'status'  },
             {   data: 'action', name: 'action'  },            
         ],
     });
@@ -483,6 +511,7 @@ function reviewer_goal_record(){
             {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
             {   data: 'created_by_name', name: 'created_by_name'  },
             {   data: 'goal_name', name: 'goal_name'  },
+            {   data: 'status', name: 'status'  },
             {   data: 'action', name: 'action'  },            
         ],
     });
@@ -575,7 +604,104 @@ function hr_dttable_record(){
             {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
             {   data: 'created_by_name', name: 'created_by_name'  },
             {   data: 'goal_name', name: 'goal_name'  },
+            {   data: 'status', name: 'status'  },
             {   data: 'action', name: 'action'  },            
+        ],
+    });
+}
+function goal_record_tab(){
+
+    table_cot = $('#myself_tbl').DataTable({
+
+        dom: 'lBfrtip',
+        lengthChange: true,
+        "buttons": [
+            {
+                "extend": 'copy',
+                "text": '<i class="bi bi-clipboard" ></i>  Copy',
+                "titleAttr": 'Copy',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'excel',
+                "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
+                "titleAttr": 'Excel',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'csv',
+                "text": '<i class="bi bi-file-text" ></i>  CSV',
+                "titleAttr": 'CSV',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'pdf',
+                "text": '<i class="bi bi-file-break" ></i>  PDF',
+                "titleAttr": 'PDF',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'print',
+                "text": '<i class="bi bi-printer"></i>  Print',
+                "titleAttr": 'Print',
+                "exportOptions": {
+                    'columns': ':visible'
+                },
+                "action": newexportaction
+            },
+            {
+                "extend": 'colvis',
+                "text": '<i class="bi bi-eye" ></i>  Colvis',
+                "titleAttr": 'Colvis',
+                // "action": newexportaction
+            },
+
+        ],
+        lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
+        processing: true,
+        serverSide: true,
+        serverMethod: 'post',
+        bDestroy: true,
+        scrollCollapse: true,
+        drawCallback: function() {
+
+        },
+        // aoColumnDefs: [
+        //     { 'visible': false, 'targets': [3] }
+        // ],
+        ajax: {
+            url: "get_goal_myself_listing",
+            type: 'POST',
+            dataType: "json",
+            data: function (d) {
+                // d.status = $('#status').val();
+                // d.af_from_date = $('#af_from_date').val();
+                // d.af_to_date = $('#af_to_date').val();
+                // d.af_position_title = $('#af_position_title').val();
+            }
+        },
+        createdRow: function( row, data, dataIndex ) {
+            $( row ).find('td:eq(0)').attr('data-label', 'Sno');
+            $( row ).find('td:eq(1)').attr('data-label', 'Business Name');
+            $( row ).find('td:eq(2)').attr('data-label', 'action');
+        },
+        columns: [
+            {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
+            {   data: 'goal_name', name: 'goal_name'    },
+            {   data: 'status', name: 'status'  },
+            {   data: 'action', name: 'action'  },
         ],
     });
 }
@@ -677,6 +803,7 @@ function hr_listing_tab_record(){
             {   data: 'created_by_name', name: 'created_by_name'  },
             {   data: 'created_by', name: 'created_by'  },
             {   data: 'goal_name', name: 'goal_name'  },
+            {   data: 'status', name: 'status'  },
             {   data: 'gender', name: 'gender'  },
             {   data: 'grade', name: 'grade'  },
             {   data: 'department', name: 'department'  },

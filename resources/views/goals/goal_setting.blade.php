@@ -99,15 +99,21 @@
 	<!-- Plugin used-->
 	<script>
 		$( document ).ready(function() {
-			// goal_record();
+			get_tb_record();
 			$('#goals_record_tb').DataTable( {
-				dom: 'Bfrtip',
-				buttons: [
-					'copyHtml5',
-					'excelHtml5',
-					'csvHtml5',
-					'pdfHtml5'
-				]
+				"searching": false,
+				"paging": false,
+				"info":     false,
+				"fixedColumns":   {
+						left: 6
+					}
+				// dom: 'Bfrtip',
+				// buttons: [
+				// 	'copyHtml5',
+				// 	'excelHtml5',
+				// 	'csvHtml5',
+				// 	'pdfHtml5'
+				// ]
 			} );
 		});
 
@@ -154,38 +160,45 @@
 					
 			});
 
-			$.ajax({                   
-				url:"{{ url('fetch_goals_setting_id_details') }}",
-				type:"GET",
-				data:{id:id},
-				dataType : "JSON",
-				success:function(response)
-				{
-					$('#goals_record_tb').DataTable().clear().destroy();
-					$('#goals_record').empty();
-					$('#goals_record').append(response);
-					$('#goals_record_tb').DataTable( {
-						dom: 'Bfrtip',
-						buttons: [
-							'copyHtml5',
-							'excelHtml5',
-							'csvHtml5',
-							'pdfHtml5'
-						]
-					} );
-					
-				},
-				error: function(error) {
-					console.log(error);
+			function get_tb_record(){
+				$.ajax({                   
+					url:"{{ url('fetch_goals_setting_id_details') }}",
+					type:"GET",
+					data:{id:id},
+					dataType : "JSON",
+					success:function(response)
+					{
+						$('#goals_record_tb').DataTable().clear().destroy();
+						$('#goals_record').empty();
+						$('#goals_record').append(response);
+						$('#goals_record_tb').DataTable( {
+							"searching": false,
+							"paging": false,
+							"info":     false,
+							"fixedColumns":   {
+									left: 6
+								}
+							// dom: 'Bfrtip',
+							// buttons: [
+							// 	'copyHtml5',
+							// 	'excelHtml5',
+							// 	'csvHtml5',
+							// 	'pdfHtml5'
+							// ]
+						} );
+						
+					},
+					error: function(error) {
+						console.log(error);
 
-				}                                              
-					
-			});
+					}                                              
+						
+				});
+			}
+			
 		// }
 
-
 		/**********Data Table**************/
-
 
 		// for export all data
 		function newexportaction(e, dt, button, config) {

@@ -689,6 +689,30 @@ class GoalRepository implements IGoalRepository
                         ->where('cs.grade', $input_details['grade_hr_1'])
                         ->get();
 
+      }elseif($input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] == ''&& $input_details['gender_hr_1'] == ''&& $input_details['grade_hr_1'] == '' && $input_details['department_hr_1'] != ''){
+         // echo "<pre>";print_r("expression2");die;
+
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter_1'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr_1'])
+                        ->where('cs.department', $input_details['department_hr_1'])
+                        ->get();
+
+      }elseif($input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] == ''&& $input_details['gender_hr_1'] == ''&& $input_details['grade_hr_1'] != '' && $input_details['department_hr_1'] == ''){
+         // echo "<pre>";print_r("expression2");die;
+
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter_1'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr_1'])
+                        ->where('cs.gender', $input_details['gender_hr_1'])
+                        ->get();
+
       }elseif( $input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] != '' && $input_details['grade_hr_1'] == ''&& $input_details['department_hr_1'] == ''){
          // DB::enableQueryLog();
          $response = DB::table('customusers as cs')

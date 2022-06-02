@@ -69,8 +69,8 @@
                                         </div>
 
                                         <div class="col-lg-6 m-t-35">
-                                            <button type="submit" id="bh_apply" onclick="bh_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
-                                            <button type="submit" id="bh_reset" onclick="bh_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                            <button type="submit" id="bh_apply" onclick="bh_supervisor_filter();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
+                                            <button type="submit" id="bh_reset_1" onclick="bh_supervisor_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
                                         </div>
                                     </div>
                                 </div>
@@ -97,8 +97,8 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-6 m-t-35">
-                                            <button type="submit" id="bh_apply" onclick="bh_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
-                                            <button type="submit" id="bh_reset" onclick="bh_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                            <button type="submit" id="bh_reviewer_id" onclick="bh_reviewer_filter();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
+                                            <button type="submit" id="bh_reset_2" onclick="reviewer_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
                                         </div>
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@
                                         </div>
                                         <div class="col-lg-6 m-t-35">
                                             <button type="submit" id="bh_apply" onclick="bh_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
-                                            <button type="submit" id="bh_reset" onclick="bh_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                            <button type="button" id="testing_one"  class="btn btn-dark"><i class="ti-save"></i> Clear</button>
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@
                                 <th scope="col">Action </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="bh_table_data_id">
                             </tbody>
                         </table>
                     </div>
@@ -213,7 +213,20 @@
 <!-- Select2 -->
 <script src="../assets/js/select2/select2.full.min.js"></script>
 <script src="../assets/js/select2/select2-custom.js"></script>
+<script>
+    var supervisor_filter_url="get_supervisor_data_bh";
+    var get_reviewer_tab_url="get_reviewer_data_bh";
+    var get_reviewer_filter_url="get_reviewer_filter_url";
+    var get_all_member_info_url="get_all_member_info";
+    var get_all_memer_filter_url="get_all_member_filter_url";
+</script>
+
 
 <script src="../assets/pro_js/bh_goal_list.js"></script>
+
+
+
 @endsection
+
+
 

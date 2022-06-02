@@ -9,6 +9,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Goals;
 use Auth;
 use Session;
+use App\Models\CustomUser;
 
 class GoalsController extends Controller
 {
@@ -17,6 +18,17 @@ class GoalsController extends Controller
         $this->middleware('is_admin');
         $this->goal = $goal;
     }
+
+
+   public function goal_setting_bh_reviewer_view()
+   {
+            $id=$_GET['id'];
+            $data=$this->goal->Fetch_goals_user_info($id);
+            // return view('goals.goal_setting_reviewer_view')->with('user_info',$data);
+         return view('goals.goal_setting_bh_reviewer_view')->with('user_info',$data);
+   }
+
+
     public function goals()
     {
         $result = $this->goal->checkCustomUserList();
@@ -24,8 +36,6 @@ class GoalsController extends Controller
         $supervisor_list = $this->goal->fetchSupervisorList();
         $reviewer_list = $this->goal->fetchReviewerList();
         $logined_empID = Auth::user()->empID;
-        // echo json_encode($logined_empID);die();
-
         if($logined_empID == "900531"){ //business head
             return view('goals.bh_goal_index')->with("reviewer_list", $reviewer_list);
         }elseif($logined_empID == "900380"){ //HR head
@@ -54,6 +64,10 @@ class GoalsController extends Controller
     public function goal_setting_supervisor_edit()
     {
         return view('goals.goal_setting_supervisor_edit');
+    }
+    public function goal_setting_edit()
+    {
+        return view('goals.edit_goal');
     }
     public function goal_setting_reviewer_edit()
     {
@@ -91,6 +105,12 @@ class GoalsController extends Controller
     {
         $id = $request->id;
         $head = $this->goal->goals_consolidate_rate_head($id);
+        return json_encode($head);
+    }
+    public function goals_sup_submit_status(Request $request)
+    {
+        $id = $request->id;
+        $head = $this->goal->goals_sup_submit_status($id);
         return json_encode($head);
     }
     public function goals_sup_consolidate_rate_head(Request $request)
@@ -158,9 +178,11 @@ class GoalsController extends Controller
                 // echo "<pre>";print_r($row);die;
                 if($row->goal_status == "Pending" || $row->goal_status == "Revert"){
 
+
                         $btn = '<div class="dropup">
                                 <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
                                 </div>' ;
+
 
                 }elseif($row->goal_status == "Approved"){
 
@@ -630,7 +652,7 @@ class GoalsController extends Controller
                     foreach($row_values->$cell7 as $cell7_value){
                         if($cell7_value != null){
 
-                            $html .= '<p>'.$cell7_value.'</p>';
+                            $html .= '<p class="sup_remark_p_'.$cell1.'">'.$cell7_value.'</p>';
 
                         }
                     }
@@ -646,7 +668,7 @@ class GoalsController extends Controller
                 $html .= '<td class="sup_rating">';
                     foreach($row_values->$cell8 as $cell8_value){
                         if($cell8_value != null){
-                            $html .= '<p>'.$cell8_value.'</p>';
+                            $html .= '<p class="sup_rating_p_'.$cell1.'">'.$cell8_value.'</p>';
                         }
                     }
                 $html .= '</td>';
@@ -1632,29 +1654,6 @@ class GoalsController extends Controller
     // }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         $datas = json_decode($json);
 
 
@@ -1813,7 +1812,7 @@ class GoalsController extends Controller
                     foreach($row_values->$cell8 as $cell8_value){
                         if($cell8_value != null){
 
-                            $html .= '<p class="removable_p">'.$cell8_value.'</p>';
+                            $html .= '<p class="removable_p_'.$cell1.'">'.$cell8_value.'</p>';
 
                         }
                     }
@@ -1871,7 +1870,7 @@ class GoalsController extends Controller
                     foreach($row_values->$cell11 as $cell11_value){
                         // dd($cell3_value);
                         if($cell11_value != null){
-                            $html .= '<p class="removable_p">'.$cell11_value.'</p>';
+                            $html .= '<p class="removable_p_'.$cell1.'">'.$cell11_value.'</p>';
                         }
                     }
 
@@ -3171,10 +3170,9 @@ class GoalsController extends Controller
             $row_values = json_decode($data);
             $cell2 = "key_bus_drivers_".$cell1;
             $cell3 = "key_res_areas_".$cell1;
-            $cell4 = "sub_indicators_".$cell1;
-            $cell5 = "measurement_criteria_".$cell1;
-            $cell6 = "weightage_".$cell1;
-            $cell7 = "reference_".$cell1;
+            $cell4 = "measurement_criteria_".$cell1;
+            $cell5 = "self_assessment_remark_".$cell1;
+            $cell6 = "rating_by_employee_".$cell1;
             $sub_row_count = count($row_values->$cell3);
 
             $html .= '<tr>';
@@ -3182,10 +3180,12 @@ class GoalsController extends Controller
             /*Cell 1*/
             $html .= '<td scope="row">'.$cell1.'</td>';
 
-            /*Cell 2*/
+            /*cell 2*/
             if($row_values->$cell2 != null){
                 $html .= '<td>';
                     $html .= '<select class="form-control js-example-basic-single key_bus_drivers  m-t-5" name="key_bus_drivers_'.$cell1.'[]">';
+
+                        $html .= '<option value="">...Select...</option>';
 
                         if($row_values->$cell2[0] == "Revenue"){
                             $html .= '<option value="Revenue" selected>Revenue</option>';
@@ -3222,6 +3222,7 @@ class GoalsController extends Controller
             }else{
                 $html .= '<td>';
                     $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-5" name="key_bus_drivers_'.$cell1.'[]">';
+                        $html .= '<option value="">...Select...</option>';
                         $html .= '<option value="Revenue">Revenue</option>';
                         $html .= '<option value="Customer">Customer</option>';
                         $html .= '<option value="Process">Process</option>';
@@ -3231,8 +3232,7 @@ class GoalsController extends Controller
                 $html .= '</td>';
             }
 
-            /*Cell 3*/
-
+            /*cell 3*/
             $html .= '<td>';
             // $html .= '<p>HR Shared Services : </p>';
 
@@ -3253,7 +3253,7 @@ class GoalsController extends Controller
 
             $html .= '</td>';
 
-            /*Cell 4*/
+            /*cell 4*/
             $html .= '<td>';
             for($i=0; $i < $sub_row_count; $i++){
 
@@ -3271,7 +3271,7 @@ class GoalsController extends Controller
             }
             $html .= '</td>';
 
-            /*Cell 5*/
+            /*cell 5*/
             $html .= '<td>';
             for($i=0; $i < $sub_row_count; $i++){
 
@@ -3289,39 +3289,64 @@ class GoalsController extends Controller
             }
             $html .= '</td>';
 
-            /*Cell 6*/
-            $html .= '<td>';
+            /*cell 6*/            
+            if($row_values->$cell6 != null){
+                $html .= '<td>';
+                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers  m-t-5" name="key_bus_drivers_'.$cell1.'[]">';
 
-            if($row_values->$cell6[0] != null){
-                $html .= '<input type="text" name="weightage_'.$cell1.'[]" value="'.$row_values->$cell6[0].'" class="form-control">';
+                        $html .= '<option value="">...Select...</option>';
+
+                        if($row_values->$cell6[0] == "EE"){
+                            $html .= '<option value="EE" selected>EE</option>';
+                        }else{
+                            $html .= '<option value="EE">EE</option>';
+                        }
+
+                        if($row_values->$cell6[0] == "AE"){
+                            $html .= '<option value="AE" selected>AE</option>';
+                        }else{
+                            $html .= '<option value="AE">AE</option>';
+                        }
+                        
+                        if($row_values->$cell6[0] == "ME"){
+                            $html .= '<option value="ME" selected>ME</option>';
+                        }else{
+                            $html .= '<option value="ME">ME</option>';
+                        }
+                        
+                        if($row_values->$cell6[0] == "PE"){
+                            $html .= '<option value="PE" selected>PE</option>';
+                        }else{
+                            $html .= '<option value="PE">PE</option>';
+                        }
+                        
+                        if($row_values->$cell6[0] == "ND"){
+                            $html .= '<option value="ND" selected>ND</option>';
+                        }else{
+                            $html .= '<option value="ND">ND</option>';
+                        }
+
+                    $html .= '</select>';
+                    
+                $html .= '</td>';
             }else{
-                $html .= '<input type="text" name="weightage_'.$cell1.'[]" class="form-control">';
+                $html .= '<td>';
+                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-5" name="key_bus_drivers_'.$cell1.'[]">';
+                        $html .= '<option value="">...Select...</option>';
+                        $html .= '<option value="EE">EE</option>';
+                        $html .= '<option value="AE">AE</option>';
+                        $html .= '<option value="ME">ME</option>';
+                        $html .= '<option value="PE">PE</option>';
+                        $html .= '<option value="ND">ND</option>';
+                    $html .= '</select>';
+                $html .= '</td>';
             }
-            $html .= '</td>';
-
-            /*Cell 7*/
-            $html .= '<td>';
-            for($i=0; $i < $sub_row_count; $i++){
-
-                $code = $cell1.'_'.$i.$i.$i.$i.$i;
-
-                if($row_values->$cell7[$i] != null){
-
-                    $html .= '<textarea name="reference_'.$cell1.'[] " id="" class="form-control '.$code.' m-t-5">'.$row_values->$cell7[$i].'</textarea>';
-
-                }else{
-                    $html .= '<textarea name="reference_'.$cell1.'[]" id="" class="form-control '.$code.' m-t-5"></textarea>';
-
-                }
-
-            }
-            $html .= '</td>';
 
             /*Cell 8*/
             $html .= '<td>';
             for($i=0; $i < $sub_row_count; $i++){
                 $code = $cell1.'_'.$i.$i.$i.$i.$i;
-                $html .='<div class="dropup m-t-35">';
+                $html .='<div class="dropup m-t-20">';
                     $html .='<button type="button" class="btn btn-xs btn-danger '.$code.'" onclick="removeRow(this,'.$code.');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
                 $html .='</div>';
             }
@@ -3405,6 +3430,7 @@ class GoalsController extends Controller
             'goal_process' => $goal_process,
             'goal_status' => "Pending",
             'supervisor_status' => "0",
+            'employee_tb_status' => "1",
             'reviewer_status' => "0",
             'hr_status' => "0",
             'bh_status' => "0",
@@ -3422,8 +3448,10 @@ class GoalsController extends Controller
             $goal_unique_code = $goal_code."".$last_inserted_id; //T00.13 =T0013
             $result = $this->goal->insertGoalsCode($goal_unique_code, $last_inserted_id);
         }
-
-        return response($result);
+        if($result){
+            return json_encode($goal_unique_code);
+        }
+        // return response($result);
 
         // $result_1 = json_decode($result); //convert to json
 
@@ -3432,6 +3460,75 @@ class GoalsController extends Controller
         //    dd(json_decode($refetch_goals_sup_detailssult_1[$i]));
 
         // }
+
+    }
+    
+    public function add_goals_data_submit(Request $request)
+    {
+        // dd(count($request->all()));die();
+        $count = count($request->all())-1;
+        $row_count = $count/5;
+        // $row_count = count($request->all())/10;
+
+        for ($i=1; $i <= $row_count; $i++) {
+
+            $json[] = json_encode([
+                "key_bus_drivers_$i" => $request->input('key_bus_drivers_'.$i.''),
+                "key_res_areas_$i" => $request->input('key_res_areas_'.$i.''),
+                "measurement_criteria_$i" => $request->input('measurement_criteria_'.$i.''),
+                "self_assessment_remark_$i" => $request->input('self_assessment_remark_'.$i.''),
+                "rating_by_employee_$i" => $request->input('rating_by_employee_'.$i.''),
+                "sup_remarks_$i" => "",
+                "sup_final_output_$i" => "",
+                "reviewer_remarks_$i" => "",
+                "hr_remarks_$i" => "",
+                "bh_sign_off_$i" => "",
+            ]);
+
+        }
+
+        $goal_process = json_encode($json); //convert to json
+        // $json_stripslashes = stripslashes(json_encode($json)); //convert to json
+        // dd($goal_process);
+
+        $logined_empID = Auth::user()->empID;
+        $logined_username = Auth::user()->username;
+        $current_year = date("Y");
+        $year = substr( $current_year, -2);
+        $goal_data_count = Goals::where('created_by', $logined_empID)->get()->count();
+        $total_count = $goal_data_count+1;
+        $goal_name = 'Goal-'.$year.' '.$total_count;
+        $rating_option_list_arr =  array("");
+
+        //Data upload to server
+        $data = array(
+            'goal_name' => $goal_name,
+            'goal_process' => $goal_process,
+            'goal_status' => "Pending",
+            'supervisor_status' => "0",
+            'employee_tb_status' => "1",
+            'employee_status' => "1",
+            'reviewer_status' => "0",
+            'hr_status' => "0",
+            'bh_status' => "0",
+            'goal_unique_code' => "",
+            'created_by' => $logined_empID,
+            'created_by_name' => $logined_username,
+            'employee_consolidated_rate' => $request->employee_consolidated_rate,
+        );
+
+        $last_inserted_id = $this->goal->add_goals_insert($data);
+
+        //Goals Unique code
+        if(!empty($last_inserted_id)){
+            $goal_code="G";
+            $goal_unique_code = $goal_code."".$last_inserted_id; //T00.13 =T0013
+            $result = $this->goal->insertGoalsCode($goal_unique_code, $last_inserted_id);
+        }
+        // if($result){
+        //     // return json_encode($goal_unique_code);
+        // }
+        return response($result);
 
     }
     public function get_hr_goal_list_tb(Request $request){
@@ -3522,21 +3619,33 @@ class GoalsController extends Controller
         ->addIndexColumn()
         ->addColumn('action', function($row) {
                 // echo "<pre>";print_r($row);die;
-                if($row->goal_status == "Pending" || $row->goal_status == "Revert"){
-                    // $btn = '<div class="dropup">
-                    // <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                    // <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                    //     <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                    //     <a href="edit_goal?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs goals_btn" type="button"><i class="fa fa-pencil"></i></button></a>
-                    // </div>
-                    // </div>' ;
-
-                    $btn = '<div class="dropup">
+                if($row->goal_status == "Pending"){
+                    
+                    if($row->employee_status == "0" || $row->employee_status == null){
+                        $btn = '<div class="dropup">
+                            <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                            <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                                <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                                <a href="goal_setting_edit?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs goals_btn" type="button"><i class="fa fa-pencil"></i></button></a>
+                            </div>
+                        </div>' ;
+                    }else{
+                        $btn = '<div class="dropup">
                             <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
                             <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
                                 <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
                             </div>
                         </div>' ;
+                    }                    
+
+                }elseif($row->goal_status == "Revert"){
+                                    
+                    $btn = '<div class="dropup">
+                        <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                        <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                            <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                        </div>
+                    </div>' ;                                      
 
                 }elseif($row->goal_status == "Approved"){
                     // $btn = '<div class="dropup">
@@ -3700,10 +3809,6 @@ class GoalsController extends Controller
         if ($request->ajax()) {
 
             $get_goal_list_result = $this->goal->get_bh_goal_list($input_details);
-
-            //   echo json_encode($get_goal_list_result);die();
-
-
             return DataTables::of($get_goal_list_result)
             ->addIndexColumn()
             ->addColumn('status', function($row) {
@@ -3725,14 +3830,9 @@ class GoalsController extends Controller
                 return $btn;
             })
             ->addColumn('action', function($row) {
-                    $btn1 = '<div class="dropup">
-                    <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                    <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                        <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                        <a href="goal_setting_bh_edit?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs goals_btn" type="button"><i class="fa fa-pencil"></i></button></a>
-                    </div>
-                    </div>' ;
-
+                        $btn1 = '<div class="dropup">
+                        <a href="goal_setting_bh_reviewer_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
+                        </div>' ;
 
                 return $btn1;
             })
@@ -3922,7 +4022,6 @@ class GoalsController extends Controller
 
         return response($result);
     }
-
     /*hr goal list*/
     public function get_hr_goal_list(Request $request){
 
@@ -4087,16 +4186,139 @@ class GoalsController extends Controller
     {
         $id = $request->id;
         $result = $this->goal->checkHrReviewerIDOrNot($id);
+
         return json_encode($result);
     }
+
+
+
+//vignesh code for supervisor wise check data
+
+
+
+//for get filter supervisor data
+ public function select_supervisor_data_bh(Request $request)
+ {
+       $id=$request->id;
+       $logined_empID = Auth::user()->empID;
+       if(is_null($id)) {
+                $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+                ->where('customusers.sup_emp_code',$logined_empID)
+                ->select('goals.*')->get();
+      }
+      else {
+        $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+                            ->where('customusers.empID',$id)
+                            ->select('goals.*')->get();
+
+      }
+      $result=json_decode($result);
+   echo json_encode($result);
+
+ }
+
+//get user_goals info under reviewer by vignesh
+
+ public function select_reviewer_data_bh()
+ {
+    $logined_empID = Auth::user()->empID;
+    $users_under_reviewer=CustomUser::where('sup_emp_code',$logined_empID)
+                                      ->select('customusers.username','customusers.empID')->get();
+    $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+    ->where('customusers.reviewer_emp_code',$logined_empID)
+    ->where('customusers.sup_emp_code','!=',$logined_empID)
+    ->where('goals.supervisor_status','1')
+    ->select('goals.*')->get();
+    $result=json_decode($result);
+    $data['result']=$result;
+    $data['user_info_unser_reviewer']=$users_under_reviewer;
+    echo json_encode($data);
+
+ }
+ //get user_goals reviewer filter
+ public function select_reviewer_filter_bh(Request $request)
+ {
+        $data=$request->data;
+        // echo json_encode($data[0]['sup_id']);
+        $id=$data[0]['id'];
+        if($id==1){
+               $user_info=CustomUser::where('sup_emp_code',$data['0']['sup_id'])->get();
+               $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+               ->where('customusers.sup_emp_code',$data['0']['sup_id'])
+               ->where('customusers.empID',$data['0']['emp_id'])
+               ->where('goals.supervisor_status','1')
+               ->select('goals.*')->get();
+               $result=json_decode($result);
+               $final['status']='1';
+               $final['result']=$result;
+               $final['user_info']=$user_info;
+        }
+        if($id==2){
+               $user_info=CustomUser::where('sup_emp_code',$data['0']['sup_id'])->get();
+               $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+               ->where('customusers.sup_emp_code',$data['0']['sup_id'])
+               ->where('goals.supervisor_status','1')
+               ->select('goals.*')->get();
+               $result=json_decode($result);
+               $final['status']='2';
+               $final['result']=$result;
+               $final['user_info']=$user_info;
+        }
+
+        echo json_encode($final);
+ }
+ //get all user details
+
+ public function select_all_member_info()
+ {
+    $logined_empID = Auth::user()->empID;
+    $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+    ->where('customusers.sup_emp_code','!=',$logined_empID)
+    ->where('customusers.reviewer_emp_code','!=',$logined_empID)
+    ->where('goals.supervisor_status','1')
+    ->where('goals.reviewer_status','1')
+    ->select('goals.*')->get();
+
+    $result=json_decode($result);
+    echo json_encode($result);
+
+
+ }
+
+
+
+
+function get_all_memer_filter_url(Request $request){
+    if ($request !="") {
+        $input_details = array(
+            'reviewer_filter'=>$request->input('reviewer_filter'),
+            'team_leader_filter'=>$request->input('team_leader_filter'),
+            'team_member_filter'=>$request->input('team_member_filter'),
+        );
+    }
+}
+
+
+public function get_all_supervisors_info_bh()
+{
+
+    $logined_empID = Auth::user()->empID;
+    $result=CustomUser::join('goals','customusers.empID','=','goals.created_by')
+    ->where('customusers.sup_emp_code',$logined_empID)
+    ->select('goals.*')->get();
+    $result=json_decode($result);
+    echo json_encode($result);
+}
+
+
     public function get_grade()
     {
-        $result = DB::select("SELECT grade FROM customusers GROUP by grade");        
+        $result = DB::select("SELECT grade FROM customusers GROUP by grade");
         return json_encode($result);
     }
     public function get_department()
     {
-        $result = DB::select("SELECT department FROM customusers GROUP by department");        
+        $result = DB::select("SELECT department FROM customusers GROUP by department");
         return json_encode($result);
     }
 
@@ -4155,6 +4377,87 @@ class GoalsController extends Controller
         $get_reviewer_details_tl_result = $this->goal->get_goal_setting_reviewer_details_tl( $input_details );
 
         return response()->json( $get_reviewer_details_tl_result );
+    }    
+    public function update_emp_goals_data(Request $request){
+        // dd(count($request->all()));die();
+        
+        $id = $request->goals_setting_id;
+
+        $count = count($request->all())-2;
+        $row_count = $count/5;
+        // $row_count = count($request->all())/10;
+
+        for ($i=1; $i <= $row_count; $i++) {
+
+            $json[] = json_encode([
+                "key_bus_drivers_$i" => $request->input('key_bus_drivers_'.$i.''),
+                "key_res_areas_$i" => $request->input('key_res_areas_'.$i.''),
+                "measurement_criteria_$i" => $request->input('measurement_criteria_'.$i.''),
+                "self_assessment_remark_$i" => $request->input('self_assessment_remark_'.$i.''),
+                // "weightage_$i" => $request->input('weightage_'.$i.''),
+                "rating_by_employee_$i" => $request->input('rating_by_employee_'.$i.''),
+                "sup_remarks_$i" => "",
+                "sup_final_output_$i" => "",
+                "reviewer_remarks_$i" => "",
+                "hr_remarks_$i" => "",
+                "bh_sign_off_$i" => "",
+            ]);
+
+        }
+
+        $goal_process = json_encode($json); //convert to json
+
+        //Data upload to server
+        $data = array(
+            'goal_process' => $goal_process,
+            'goal_unique_code' => $id,
+            'employee_consolidated_rate' => $request->employee_consolidated_rate,
+        );
+       
+        $result = $this->goal->update_emp_goals_data($data);
+
+        return response($result);
+    }
+  
+    public function update_emp_goals_data_submit(Request $request){
+        dd(($request->all()));die();
+        
+        $id = $request->goals_setting_id;
+
+        $count = count($request->all())-2;
+        $row_count = $count/5;
+        // $row_count = count($request->all())/10;
+
+        for ($i=1; $i <= $row_count; $i++) {
+
+            $json[] = json_encode([
+                "key_bus_drivers_$i" => $request->input('key_bus_drivers_'.$i.''),
+                "key_res_areas_$i" => $request->input('key_res_areas_'.$i.''),
+                "measurement_criteria_$i" => $request->input('measurement_criteria_'.$i.''),
+                "self_assessment_remark_$i" => $request->input('self_assessment_remark_'.$i.''),
+                // "weightage_$i" => $request->input('weightage_'.$i.''),
+                "rating_by_employee_$i" => $request->input('rating_by_employee_'.$i.''),
+                "sup_remarks_$i" => "",
+                "sup_final_output_$i" => "",
+                "reviewer_remarks_$i" => "",
+                "hr_remarks_$i" => "",
+                "bh_sign_off_$i" => "",
+            ]);
+
+        }
+
+        $goal_process = json_encode($json); //convert to json
+
+        //Data upload to server
+        $data = array(
+            'goal_process' => $goal_process,
+            'goal_unique_code' => $id,
+            'employee_consolidated_rate' => $request->employee_consolidated_rate,
+        );
+       
+        $result = $this->goal->update_emp_goals_data_submit($data);
+
+        return response($result);
     }
 
      public function get_goal_myself_listing(){
@@ -4189,7 +4492,7 @@ class GoalsController extends Controller
                         </div>' ;
 
                 }elseif($row->goal_status == "Approved"){
-                   
+
                     $id = $row->goal_unique_code;
                     $result = $this->goal->check_goals_employee_summary($id);
 

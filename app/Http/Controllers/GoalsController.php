@@ -18,6 +18,17 @@ class GoalsController extends Controller
         $this->middleware('is_admin');
         $this->goal = $goal;
     }
+
+
+   public function goal_setting_bh_reviewer_view()
+   {
+            $id=$_GET['id'];
+            $data=$this->goal->Fetch_goals_user_info($id);
+            // return view('goals.goal_setting_reviewer_view')->with('user_info',$data);
+         return view('goals.goal_setting_bh_reviewer_view')->with('user_info',$data);
+   }
+
+
     public function goals()
     {
         $result = $this->goal->checkCustomUserList();
@@ -92,6 +103,12 @@ class GoalsController extends Controller
         $head = $this->goal->goals_consolidate_rate_head($id);
         return json_encode($head);
     }
+    public function goals_sup_consolidate_rate_head(Request $request)
+    {
+        $id = $request->id;
+        $head = $this->goal->goals_sup_consolidate_rate_head($id);
+        return json_encode($head);
+    }
     public function goals_sup_th_check(Request $request)
     {
         $id = $request->id;
@@ -126,23 +143,36 @@ class GoalsController extends Controller
                 'team_member_filter'=>$request->input('team_member_filter'),
             );
         }
-
         // echo "11<pre>";print_r($input_details);die;
         $result = $this->goal->fetch_reviewer_tab_data($input_details);
 
 
         return DataTables::of($result)
         ->addIndexColumn()
+        ->addColumn('status', function($row) {
+                // echo "<pre>";print_r($row);die;
+                if($row->goal_status == "Pending"){
+                    $btn = '<button class="btn btn-danger btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }elseif($row->goal_status == "Revert"){
+                    $btn = '<button class="btn btn-primary btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }elseif($row->goal_status == "Approved"){
+                    $btn = '<button class="btn btn-success btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }
+
+                return $btn;
+            })
         ->addColumn('action', function($row) {
                 // echo "<pre>";print_r($row);die;
                 if($row->goal_status == "Pending" || $row->goal_status == "Revert"){
 
-                    $btn = '<div class="dropup">
-                            <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                            <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                            </div>
-                        </div>' ;
+
+                        $btn = '<div class="dropup">
+                                <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
+                                </div>' ;
+
 
                 }elseif($row->goal_status == "Approved"){
 
@@ -151,27 +181,19 @@ class GoalsController extends Controller
 
                     if($result == "Yes"){
                         $btn = '<div class="dropup">
-                                <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                                <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                    <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                                    <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary_show" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-file-text-o"></i></button></a>
-                                </div>
-                            </div>' ;
+                                <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
+                                </div>' ;
                     }else{
                         $btn = '<div class="dropup">
-                                <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                                <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                    <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                                    <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-edit"></i></button></a>
-                                </div>
-                            </div>' ;
+                                <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
+                                </div>' ;
                     }
 
                 }
             return $btn;
         })
 
-        ->rawColumns(['action'])
+        ->rawColumns(['action','status'])
         ->make(true);
 
     }
@@ -529,7 +551,6 @@ class GoalsController extends Controller
                 $html .= '<td>';
 
                     foreach($row_values->$cell2 as $cell2_value){
-                        // dd($cell3_value);
                         if($cell2_value != null){
 
                             $html .= '<p>'.$cell2_value.'</p>';
@@ -543,25 +564,19 @@ class GoalsController extends Controller
                     $html .= '</td>';
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 3*/
             if($row_values->$cell3 != null){
-                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
                     foreach($row_values->$cell3 as $cell3_value){
-                        // dd($cell3_value);
                         if($cell3_value != null){
 
                             $html .= '<p>'.$cell3_value.'</p>';
 
                         }else{
                             $html .= '<p></p>';
-
                         }
                     }
 
@@ -569,22 +584,15 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 4*/
             if($row_values->$cell4 != null){
-                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
                     foreach($row_values->$cell4 as $cell4_value){
-                        // dd($cell3_value);
                         if($cell4_value != null){
-
                             $html .= '<p>'.$cell4_value.'</p>';
-
                         }
                     }
 
@@ -592,22 +600,15 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 5*/
             if($row_values->$cell5 != null){
-                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
                     foreach($row_values->$cell5 as $cell5_value){
-                        // dd($cell3_value);
                         if($cell5_value != null){
-
                             $html .= '<p>'.$cell5_value.'</p>';
-
                         }
                     }
 
@@ -615,22 +616,15 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 6*/
             if($row_values->$cell6 != null){
-                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
                     foreach($row_values->$cell6 as $cell6_value){
-                        // dd($cell3_value);
                         if($cell6_value != null){
-
                             $html .= '<p>'.$cell6_value.'</p>';
-
                         }
                     }
 
@@ -638,68 +632,49 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
             /*cell 7*/
             if($row_values->$cell7 != null){
-                //    dd(count($row_values->$cell3));
-                $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
+                $html .= '<td class="sup_remark">';
 
                     foreach($row_values->$cell7 as $cell7_value){
-                        // dd($cell3_value);
                         if($cell7_value != null){
 
                             $html .= '<p>'.$cell7_value.'</p>';
 
                         }
                     }
-
                 $html .= '</td>';
 
             }else{
-                $html .= '<td>';
-                // $html .= '<p></p>';
+                $html .= '<td class="sup_remark">';
                 $html .= '</td>';
             }
 
             /*cell 8*/
             if($row_values->$cell8 != null){
-                //    dd(count($row_values->$cell3));
-                $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
+                $html .= '<td class="sup_rating">';
                     foreach($row_values->$cell8 as $cell8_value){
-                        // dd($cell3_value);
                         if($cell8_value != null){
-
                             $html .= '<p>'.$cell8_value.'</p>';
-
                         }
                     }
-
                 $html .= '</td>';
 
             }else{
-                $html .= '<td>';
-                // $html .= '<p></p>';
+                $html .= '<td class="sup_rating">';
                 $html .= '</td>';
             }
 
+
             /*cell 9*/
             if($row_values->$cell9 != null){
-                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
                     foreach($row_values->$cell9 as $cell9_value){
-                        // dd($cell3_value);
                         if($cell9_value != null){
-
                             $html .= '<p>'.$cell9_value.'</p>';
-
                         }
                     }
 
@@ -736,16 +711,10 @@ class GoalsController extends Controller
 
              /*cell 11*/
              if($row_values->$cell11 != null){
-                //    dd(count($row_values->$cell3));
                 $html .= '<td>';
-                    // $html .= '<p>HR Shared Services : </p>';
-
                     foreach($row_values->$cell11 as $cell11_value){
-                        // dd($cell3_value);
                         if($cell11_value != null){
-
                             $html .= '<p>'.$cell11_value.'</p>';
-
                         }
                     }
 
@@ -753,7 +722,6 @@ class GoalsController extends Controller
 
             }else{
                 $html .= '<td>';
-                // $html .= '<p></p>';
                 $html .= '</td>';
             }
 
@@ -3450,12 +3418,12 @@ class GoalsController extends Controller
 
         // for ($i=0; $i < count($result_1); $i++) {
 
-        //    dd(json_decode($result_1[$i]));
+        //    dd(json_decode($refetch_goals_sup_detailssult_1[$i]));
 
         // }
 
     }
-    public function get_goal_list(Request $request){
+    public function get_hr_goal_list_tb(Request $request){
          if ($request !="") {
                 $input_details = array(
                 'supervisor_list'=>$request->input('supervisor_list'),
@@ -3463,19 +3431,38 @@ class GoalsController extends Controller
             }
             // echo "<pre>";print_r($input_details);die;
 
-        $get_goal_list_result = $this->goal->get_goal_list($input_details);
+        $get_goal_list_result = $this->goal->get_hr_goal_list_tb($input_details);
 
         return DataTables::of($get_goal_list_result)
         ->addIndexColumn()
+        ->addColumn('status', function($row) {
+                // echo "<pre>";print_r($row);die;
+                if($row->goal_status == "Pending"){
+                    $btn = '<button class="btn btn-danger btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }elseif($row->goal_status == "Revert"){
+                    $btn = '<button class="btn btn-primary btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }elseif($row->goal_status == "Approved"){
+                    $btn = '<button class="btn btn-success btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }
+
+                return $btn;
+            })
         ->addColumn('action', function($row) {
                 if($row->goal_status == "Pending" || $row->goal_status == "Revert"){
-                // echo "<pre>";print_r("1");die;
-                    $btn = '<div class="dropup">
-                            <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                            <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                            </div>
-                        </div>' ;
+                    // $btn = '<div class="dropup">
+                    //         <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                    //         <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                    //             <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                    //         </div>
+                    //     </div>' ;
+                 $btn = '<div class="dropup">
+
+                    <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
+
+                    </div>' ;
 
                 }elseif($row->goal_status == "Approved"){
                     // echo "<pre>";print_r("2s");die;
@@ -3483,19 +3470,86 @@ class GoalsController extends Controller
                     $result = $this->goal->check_goals_employee_summary($id);
 
                     if($result == "Yes"){
-                        $btn = '<div class="dropup">
+                        /*$btn = '<div class="dropup">
                                 <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
                                 <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
                                     <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
                                     <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary_show" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-file-text-o"></i></button></a>
                                 </div>
-                            </div>' ;
+                            </div>' ;*/
+                            $btn = '<div class="dropup">
+
+                                <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
+
+                                </div>' ;
                     }else{
-                        // echo "<pre>";print_r("3s");die;
+                        /*echo "<pre>";print_r("3s");die;
                         $btn = '<div class="dropup">
                                 <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
                                 <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
                                     <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                                    <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-edit"></i></button></a>
+                                </div>
+                            </div>' ;*/
+                        $btn = '<div class="dropup">
+                                <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
+                                </div>' ;
+                    }
+
+                }
+            return $btn;
+        })
+
+        ->rawColumns(['action','status'])
+        ->make(true);
+    }
+    public function get_goal_list(){
+
+        $get_goal_list_result = $this->goal->get_goal_list();
+
+        return DataTables::of($get_goal_list_result)
+        ->addIndexColumn()
+        ->addColumn('action', function($row) {
+                // echo "<pre>";print_r($row);die;
+                if($row->goal_status == "Pending" || $row->goal_status == "Revert"){
+                    // $btn = '<div class="dropup">
+                    // <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                    // <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                    //     <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                    //     <a href="edit_goal?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs goals_btn" type="button"><i class="fa fa-pencil"></i></button></a>
+                    // </div>
+                    // </div>' ;
+
+                    $btn = '<div class="dropup">
+                            <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                            <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                                <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                            </div>
+                        </div>' ;
+
+                }elseif($row->goal_status == "Approved"){
+                    // $btn = '<div class="dropup">
+                    // <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                    // <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                    //     <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                    // </div>
+                    // </div>' ;
+                    $id = $row->goal_unique_code;
+                    $result = $this->goal->check_goals_employee_summary($id);
+
+                    if($result == "Yes"){
+                        $btn = '<div class="dropup">
+                                <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                                <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                                    <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                                    <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary_show" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-file-text-o"></i></button></a>
+                                </div>
+                            </div>' ;
+                    }else{
+                        $btn = '<div class="dropup">
+                                <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                                <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                                    <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
                                     <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-edit"></i></button></a>
                                 </div>
                             </div>' ;
@@ -3510,6 +3564,7 @@ class GoalsController extends Controller
 
         ->rawColumns(['action'])
         ->make(true);
+
     }
 
     public function get_team_member_goal_list(Request $request){
@@ -3603,12 +3658,14 @@ class GoalsController extends Controller
             })
             ->addColumn('action', function($row) {
                     // echo "<pre>";print_r($row);die;
+                    // $btn = '<div class="dropup">
+                    // <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                    // <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                    //     <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                    // </div>
+                    // </div>' ;
                     $btn = '<div class="dropup">
-                    <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                    <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                        <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                        <a href="goal_setting_reviewer_edit?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-info btn-xs goals_btn" type="button"><i class="fa fa-pencil"></i></button></a>
-                    </div>
+                    <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
                     </div>' ;
 
                 return $btn;
@@ -3654,7 +3711,7 @@ class GoalsController extends Controller
             })
             ->addColumn('action', function($row) {
                         $btn1 = '<div class="dropup">
-                        <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
+                        <a href="goal_setting_bh_reviewer_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
                         </div>' ;
 
                 return $btn1;
@@ -3804,6 +3861,47 @@ class GoalsController extends Controller
         $result = $this->goal->goals_supervisor_summary($id, $employee_summary);
         return response($result);
     }
+    public function update_goals_sup(Request $request){
+        // dd($request->all());
+        $id = $request->goals_setting_id;
+        $json_value = $this->goal->fetchGoalIdDetails($id);
+        $datas = json_decode($json_value);
+
+        $json = array();
+
+        $html = '';
+
+        foreach($datas as $key=>$data){
+            $cell1 = $key+1;
+            $row_values = json_decode($data);
+
+            //Supervisor remark add
+            $sup_remark_value = array($request->sup_remark[$key]);
+            $sup_rem = "sup_remarks_".$cell1;
+            $row_values->$sup_rem = $sup_remark_value;
+
+            //Supervisor rating add
+            $sup_rating_value = array($request->sup_rating[$key]);
+            $sup_final_op = "sup_final_output_".$cell1;
+            $row_values->$sup_final_op = $sup_rating_value;
+
+            $json_format = json_encode($row_values);
+            array_push($json, $json_format);
+
+        }
+        $goal_process = json_encode($json);
+
+        //Data upload to server
+        $data = array(
+            'goal_process' => $goal_process,
+            'goal_unique_code' => $id,
+            'supervisor_consolidated_rate' => $request->employee_consolidated_rate,
+        );
+        // dd($data);
+        $result = $this->goal->update_goals_sup($data);
+
+        return response($result);
+    }
 
     /*hr goal list*/
     public function get_hr_goal_list(Request $request){
@@ -3852,6 +3950,7 @@ class GoalsController extends Controller
             ->make(true);
         }
     }
+
     public function get_team_member_list(Request $request){
         $id = $request->supervisor_list_1;
         $result = $this->goal->fetch_team_member_list($id);
@@ -3871,9 +3970,45 @@ class GoalsController extends Controller
     }
     public function get_team_member_drop(Request $request){
         $id = $request->team_leader_filter_hr;
-        // echo "<pre>";print_r($id);die;
         $result = $this->goal->get_team_member_drop_list($id);
         return json_encode($result);
+    }
+    public function hr_list_tab_record(Request $request){
+         if ($request !="") {
+            $input_details = array(
+                'reviewer_filter_1'=>$request->input('reviewer_filter_1'),
+                'team_leader_filter_hr_1'=>$request->input('team_leader_filter_hr_1'),
+                'team_member_filter_hr_1'=>$request->input('team_member_filter_hr_1'),
+                'gender_hr_1'=>$request->input('gender_hr_1'),
+                'grade_hr_1'=>$request->input('grade_hr_1'),
+                'department_hr_1'=>$request->input('department_hr_1'),
+            );
+        }
+
+        if ($request->ajax()) {
+        $result = $this->goal->gethr_list_tab_record($input_details);
+        // echo "<pre>";print_r($result);die;
+
+        return DataTables::of($result)
+            ->addIndexColumn()
+            ->addColumn('status', function($row) {
+                // echo "<pre>";print_r($row);die;
+                if($row->goal_status == "Pending"){
+                    $btn = '<button class="btn btn-danger btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }elseif($row->goal_status == "Revert"){
+                    $btn = '<button class="btn btn-primary btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }elseif($row->goal_status == "Approved"){
+                    $btn = '<button class="btn btn-success btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }
+
+                return $btn;
+            })
+            ->rawColumns(['status'])
+            ->make(true);
+        }
     }
 /*after cick in hr submit button*/
      public function get_hr_goal_list_tbl(Request $request){
@@ -3898,9 +4033,6 @@ class GoalsController extends Controller
             ->addColumn('status', function($row) {
                 if($row->goal_status == "Pending"){
                     $btn = '<button class="btn btn-danger btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
-
-
-
                 }elseif($row->goal_status == "Revert"){
                     $btn = '<button class="btn btn-primary btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
 
@@ -3935,6 +4067,7 @@ class GoalsController extends Controller
     {
         $id = $request->id;
         $result = $this->goal->checkHrReviewerIDOrNot($id);
+
         return json_encode($result);
     }
 
@@ -4059,10 +4192,172 @@ public function get_all_supervisors_info_bh()
 }
 
 
+    public function get_grade()
+    {
+        $result = DB::select("SELECT grade FROM customusers GROUP by grade");
+        return json_encode($result);
+    }
+    public function get_department()
+    {
+        $result = DB::select("SELECT department FROM customusers GROUP by department");
+        return json_encode($result);
+    }
 
+    public function get_reviewer_goal_list_for_reviewer(Request $request){
 
+        if ($request !="") {
+            $input_details = array(
+            'team_leader_filter_for_reviewer'=>$request->input('team_leader_filter_for_reviewer'),
+            'team_member_filter'=>$request->input('team_member_filter'),
+            );
+        }
+        // echo '<pre>';print_r($input_details);die();
 
+        if ($request->ajax()) {
 
+            $get_goal_list_result = $this->goal->get_reviewer_goal_list_for_reviewer($input_details);
+
+            return DataTables::of($get_goal_list_result)
+            ->addIndexColumn()
+            ->addColumn('status', function($row) {
+                // echo "<pre>";print_r($row);die;
+                if($row->goal_status == "Pending"){
+                    $btn = '<button class="btn btn-danger btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }elseif($row->goal_status == "Revert"){
+                    $btn = '<button class="btn btn-primary btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }elseif($row->goal_status == "Approved"){
+                    $btn = '<button class="btn btn-success btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }
+
+                return $btn;
+            })
+            ->addColumn('action', function($row) {
+                    // echo "<pre>";print_r($row);die;
+                    $btn = '<div class="dropup">
+                    <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
+                    </div>' ;
+
+                return $btn;
+            })
+
+            ->rawColumns(['status', 'action'])
+            ->make(true);
+        }
+
+    }
+
+    public function get_goal_setting_reviewer_details_tl(Request $req){
+        $input_details = array(
+            'id'=>$req->input('id'),
+        );
+        // echo 'test<pre>';print_r($input_details);die();
+
+        $get_reviewer_details_tl_result = $this->goal->get_goal_setting_reviewer_details_tl( $input_details );
+
+        return response()->json( $get_reviewer_details_tl_result );
+    }
+
+     public function get_goal_myself_listing(){
+
+        $get_goal_list_result = $this->goal->get_goal_myself_list();
+
+        return DataTables::of($get_goal_list_result)
+        ->addIndexColumn()
+        ->addColumn('status', function($row) {
+                // echo "<pre>";print_r($row);die;
+                if($row->goal_status == "Pending"){
+                    $btn = '<button class="btn btn-danger btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }elseif($row->goal_status == "Revert"){
+                    $btn = '<button class="btn btn-primary btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }elseif($row->goal_status == "Approved"){
+                    $btn = '<button class="btn btn-success btn-xs goal_btn_status" type="button">'.$row->goal_status.'</button>' ;
+
+                }
+
+                return $btn;
+            })
+        ->addColumn('action', function($row) {
+                // echo "<pre>";print_r($row);die;
+                if($row->goal_status == "Pending" || $row->goal_status == "Revert"){
+                    $btn = '<div class="dropup">
+                            <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                            <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                                <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                            </div>
+                        </div>' ;
+
+                }elseif($row->goal_status == "Approved"){
+
+                    $id = $row->goal_unique_code;
+                    $result = $this->goal->check_goals_employee_summary($id);
+
+                    if($result == "Yes"){
+                        $btn = '<div class="dropup">
+                                <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                                <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                                    <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                                    <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary_show" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-file-text-o"></i></button></a>
+                                </div>
+                            </div>' ;
+                    }else{
+                        $btn = '<div class="dropup">
+                                <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                                <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                                    <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                                    <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-edit"></i></button></a>
+                                </div>
+                            </div>' ;
+                    }
+
+                }
+
+            return $btn;
+        })
+
+        ->rawColumns(['action','status'])
+        ->make(true);
+          }
+
+    public function update_goals_sup_reviewer_tm(Request $request){
+        // dd($request->all());
+        $id = $request->goals_setting_id;
+        $json_value = $this->goal->fetchGoalIdDetails($id);
+        $datas = json_decode($json_value);
+
+        $json = array();
+
+        $html = '';
+
+        foreach($datas as $key=>$data){
+            $cell1 = $key+1;
+            $row_values = json_decode($data);
+
+            //Reviewer remarks add
+            $reviewer_remarks_value = array($request->reviewer_remarks[$key]);
+            $sup_final_op = "reviewer_remark_".$cell1;
+            $row_values->$sup_final_op = $reviewer_remarks_value;
+
+            $json_format = json_encode($row_values);
+            array_push($json, $json_format);
+
+        }
+        $goal_process = json_encode($json);
+
+        //Data upload to server
+        $data = array(
+            'goal_process' => $goal_process,
+            'goal_unique_code' => $id,
+        );
+        // dd($data);
+        $result = $this->goal->update_goals_sup_reviewer_tm($data);
+
+        return response($result);
+    }
 
 
 

@@ -7,10 +7,11 @@ interface IGoalRepository {
     public function add_goals_insert($data);
     public function add_goals_update($data);
     public function insertGoalsCode($goal_unique_code, $last_inserted_id);
-    public function get_goal_list($data);
+    public function get_goal_list();
     public function get_team_member_goal_list($input_details);
     public function get_reviewer_goal_list($input_details);
     public function get_bh_goal_list($input_details);
+    public function get_hr_goal_list_tb($input_details);
     public function add_goal_btn();
     public function fetchSupervisorList();
     public function fetchReviewerList();
@@ -21,6 +22,7 @@ interface IGoalRepository {
     public function checkSupervisorIDOrNot($id);
     public function fetchGoalIdHead($id);
     public function goals_consolidate_rate_head($id);
+    public function goals_sup_consolidate_rate_head($id);
     public function fetchGoalIdDelete($id);
     public function addGoalEmployeeSummary($id, $employee_summary);
     public function goals_status_update($data);
@@ -33,7 +35,14 @@ interface IGoalRepository {
      public function fetch_reviewer_res_data($empid);
      public function fetch_reviewer_tab_data($data);
      public function fetch_team_member_list($data);
+     public function get_reviewer_goal_list_for_reviewer($input_details);
      public function get_supervisor_hr($data);
      public function get_hr_goal_list_for_tbl($data);
+     public function gethr_list_tab_record($data);
      public function get_manager_lsit($data);
+     public function update_goals_sup($data);
+     public function get_goal_setting_reviewer_details_tl($input_details);
+     public function get_goal_myself_list();
+     public function update_goals_sup_reviewer_tm($data);
+
 }

@@ -56,7 +56,7 @@ $(()=>{
                 var td3="<td><button class='"+color_class+" btn-xs goal_btn_status' type='button'>"+res[i].goal_status+"</button></td>"
 
                 var td4="<td><div class='dropup'>\
-                        <a href='goal_setting_reviewer_view?id="+res[i].goal_unique_code+"' ><button type='button' class='btn btn-secondary' style='padding:0.37rem 0.8rem !important;' id='dropdownMenuButton'><i class='fa fa-eye'></i></button></a>\
+                        <a href='goal_setting_bh_reviewer_view?id="+res[i].goal_unique_code+"' ><button type='button' class='btn btn-secondary' style='padding:0.37rem 0.8rem !important;' id='dropdownMenuButton'><i class='fa fa-eye'></i></button></a>\
                                 </div>'</td></tr>";
 
                 $('#team_member_goal_data').append(tr+td+td1+td2+td3+td4);
@@ -113,7 +113,7 @@ $(()=>{
               var td3="<td><button class='"+color_class+" btn-xs goal_btn_status' type='button'>"+res[i].goal_status+"</button></td>"
 
                 var td4="<td><div class='dropup'>\
-                        <a href='goal_setting_reviewer_view?id="+res[i].goal_unique_code+"' ><button type='button' class='btn btn-secondary' style='padding:0.37rem 0.8rem !important;' id='dropdownMenuButton'><i class='fa fa-eye'></i></button></a>\
+                        <a href='goal_setting_bh_reviewer_view?id="+res[i].goal_unique_code+"' ><button type='button' class='btn btn-secondary' style='padding:0.37rem 0.8rem !important;' id='dropdownMenuButton'><i class='fa fa-eye'></i></button></a>\
                                 </div>'</td></tr>";
               $('#team_member_goal_data').append(tr+td+td1+td2+td3+td4);
 
@@ -418,12 +418,7 @@ $(()=>{
         Get_all_team_member_data();
     })
 })
-// function bh_filter_reset(){
-//     $("#reviewer_filter").val('').trigger('change');
-//     $("#team_leader_filter").val('').trigger('change');
-//     $("#team_member_filter").val('').trigger('change');
-//     Get_all_team_member_data();
-// }
+
 function reviewer_filter_reset(){
     $("#supervisor_filter").val('').trigger('change');
     $("#team_leader_filter1").val('').trigger('change');
@@ -441,16 +436,12 @@ $(()=>{
     })
 })
 
-
-
 //get overall user data under reviewer created by vignesh
 $(()=>{
     $('#info-reviewer-tab').on('click',(e)=>{
         get_reviewer_data_bh();
     })
 })
-
-
 
 //get userdata with reviewer drop down filter
 function get_reviewer_data_bh(){
@@ -491,7 +482,7 @@ function get_reviewer_data_bh(){
               var td3="<td><button class='"+color_class+" btn-xs goal_btn_status' type='button'>"+user_data[i].goal_status+"</button></td>"
 
               var td4="<td><div class='dropup'>\
-              <a href='goal_setting_reviewer_view?id="+user_data[i].goal_unique_code+"' ><button type='button' class='btn btn-secondary' style='padding:0.37rem 0.8rem !important;' id='dropdownMenuButton'><i class='fa fa-eye'></i></button></a>\
+              <a href='goal_setting_bh_reviewer_view?id="+user_data[i].goal_unique_code+"' ><button type='button' class='btn btn-secondary' style='padding:0.37rem 0.8rem !important;' id='dropdownMenuButton'><i class='fa fa-eye'></i></button></a>\
                       </div>'</td></tr>";
 
               $('#team_member_goal_data').append(tr+td+td1+td2+td3+td4);
@@ -560,11 +551,6 @@ function bh_reviewer_filter(){
 }
 
 
-
-
-
-
-
 function  get_filtered_reviewer_data(one){
 
     // console.log(one[0].emp_id)
@@ -608,7 +594,7 @@ function  get_filtered_reviewer_data(one){
                 var td3="<td><button class='"+color_class+" btn-xs goal_btn_status' type='button'>"+result[i].goal_status+"</button></td>"
 
                 var td4="<td><div class='dropup'>\
-                <a href='goal_setting_reviewer_view?id="+result[i].goal_unique_code+"' ><button type='button' class='btn btn-secondary' style='padding:0.37rem 0.8rem !important;' id='dropdownMenuButton'><i class='fa fa-eye'></i></button></a>\
+                <a href='goal_setting_bh_reviewer_view?id="+result[i].goal_unique_code+"' ><button type='button' class='btn btn-secondary' style='padding:0.37rem 0.8rem !important;' id='dropdownMenuButton'><i class='fa fa-eye'></i></button></a>\
                         </div>'</td></tr>";
 
                 $('#team_member_goal_data').append(tr+td+td1+td2+td3+td4);
@@ -664,7 +650,7 @@ function bh_all_member_filter(){
 
 
                 var td4="<td><div class='dropup'>\
-                        <a href='goal_setting_reviewer_view?id="+result[i].goal_unique_code+"' ><button type='button' class='btn btn-secondary' style='padding:0.37rem 0.8rem !important;' id='dropdownMenuButton'><i class='fa fa-eye'></i></button></a>\
+                        <a href='goal_setting_bh_reviewer_view?id="+result[i].goal_unique_code+"' ><button type='button' class='btn btn-secondary' style='padding:0.37rem 0.8rem !important;' id='dropdownMenuButton'><i class='fa fa-eye'></i></button></a>\
                                 </div>'</td></tr>";
 
                 $('#team_member_goal_data').append(tr+td+td1+td2+td3+td4);

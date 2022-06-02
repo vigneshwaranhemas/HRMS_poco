@@ -553,14 +553,6 @@ class GoalRepository implements IGoalRepository
       return $result;
    }
 
-   public function goals_sup_consolidate_rate_head( $id ){
-
-    $response = Goals::where('goal_unique_code', $id)->value('supervisor_consolidated_rate');
-
-    return $response;
-
- }
-
    public function get_goal_setting_reviewer_details_tl( $input_details ){
 
     $id = $input_details['id'];
@@ -577,6 +569,14 @@ class GoalRepository implements IGoalRepository
     // dd(DB::getQueryLog());
 
     return $reviewer_details_tl;
+}
+
+public function update_goals_sup_reviewer_tm($data){
+    $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                      ->update([
+                            'goal_process' => $data['goal_process'],
+                      ]);
+  return $response;
 }
 
 }

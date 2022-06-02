@@ -3669,11 +3669,14 @@ class GoalsController extends Controller
             })
             ->addColumn('action', function($row) {
                     // echo "<pre>";print_r($row);die;
+                    // $btn = '<div class="dropup">
+                    // <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                    // <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                    //     <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                    // </div>
+                    // </div>' ;
                     $btn = '<div class="dropup">
-                    <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                    <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                        <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                    </div>
+                    <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
                     </div>' ;
 
                 return $btn;
@@ -3877,11 +3880,11 @@ class GoalsController extends Controller
         $employee_summary = $request->employee_summary;
         $result = $this->goal->goals_supervisor_summary($id, $employee_summary);
         return response($result);
-    }    
+    }
     public function update_goals_sup(Request $request){
         // dd($request->all());
         $id = $request->goals_setting_id;
-        $json_value = $this->goal->fetchGoalIdDetails($id);   
+        $json_value = $this->goal->fetchGoalIdDetails($id);
         $datas = json_decode($json_value);
 
         $json = array();
@@ -3897,14 +3900,14 @@ class GoalsController extends Controller
             $sup_rem = "sup_remarks_".$cell1;
             $row_values->$sup_rem = $sup_remark_value;
 
-            //Supervisor rating add                       
+            //Supervisor rating add
             $sup_rating_value = array($request->sup_rating[$key]);
             $sup_final_op = "sup_final_output_".$cell1;
             $row_values->$sup_final_op = $sup_rating_value;
 
             $json_format = json_encode($row_values);
-            array_push($json, $json_format);            
-            
+            array_push($json, $json_format);
+
         }
         $goal_process = json_encode($json);
 
@@ -4131,10 +4134,7 @@ class GoalsController extends Controller
             ->addColumn('action', function($row) {
                     // echo "<pre>";print_r($row);die;
                     $btn = '<div class="dropup">
-                    <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                    <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                        <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                    </div>
+                    <a href="goal_setting_reviewer_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
                     </div>' ;
 
                 return $btn;
@@ -4145,18 +4145,6 @@ class GoalsController extends Controller
         }
 
     }
-
-    /*public function goals_sup_consolidate_rate_head(Request $request)
-
-    {
-
-        $id = $request->id;
-
-        $head = $this->goal->goals_sup_consolidate_rate_head($id);
-
-        return json_encode($head);
-
-    }*/
 
     public function get_goal_setting_reviewer_details_tl(Request $req){
         $input_details = array(
@@ -4231,6 +4219,40 @@ class GoalsController extends Controller
         ->rawColumns(['action','status'])
         ->make(true);
 
+    public function update_goals_sup_reviewer_tm(Request $request){
+        // dd($request->all());
+        $id = $request->goals_setting_id;
+        $json_value = $this->goal->fetchGoalIdDetails($id);
+        $datas = json_decode($json_value);
+
+        $json = array();
+
+        $html = '';
+
+        foreach($datas as $key=>$data){
+            $cell1 = $key+1;
+            $row_values = json_decode($data);
+
+            //Reviewer remarks add
+            $reviewer_remarks_value = array($request->reviewer_remarks[$key]);
+            $sup_final_op = "reviewer_remark_".$cell1;
+            $row_values->$sup_final_op = $reviewer_remarks_value;
+
+            $json_format = json_encode($row_values);
+            array_push($json, $json_format);
+
+        }
+        $goal_process = json_encode($json);
+
+        //Data upload to server
+        $data = array(
+            'goal_process' => $goal_process,
+            'goal_unique_code' => $id,
+        );
+        // dd($data);
+        $result = $this->goal->update_goals_sup_reviewer_tm($data);
+
+        return response($result);
     }
 
 

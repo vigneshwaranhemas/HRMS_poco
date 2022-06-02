@@ -859,4 +859,12 @@ class GoalRepository implements IGoalRepository
     return $reviewer_details_tl;
 }
 
+public function update_goals_sup_reviewer_tm($data){
+    $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                      ->update([
+                            'goal_process' => $data['goal_process'],
+                      ]);
+  return $response;
+}
+
 }

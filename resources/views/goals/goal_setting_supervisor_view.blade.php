@@ -26,11 +26,11 @@
 @endsection
 
 @section('breadcrumb-items')
-	<a class="btn btn-success text-white" title="Exceeded Expectations">EE</a>                                            
-	<a class="btn btn-secondary m-l-10 text-white" title="Achieved Expectations">AE</a>                                            
-	<a class="btn btn-info m-l-10 text-white" title="Met Expectations">ME</a>                                            
-	<a class="btn btn-warning m-l-10 text-white" title="Partially Met Expectations">PME</a>                                            
-	<a class="btn btn-dark m-l-10 text-white" title="Needs Development">ND</a> 
+	<a class="btn btn-success text-white" title="Exceeded Expectations">EE</a>
+	<a class="btn btn-secondary m-l-10 text-white" title="Achieved Expectations">AE</a>
+	<a class="btn btn-info m-l-10 text-white" title="Met Expectations">ME</a>
+	<a class="btn btn-warning m-l-10 text-white" title="Partially Met Expectations">PME</a>
+	<a class="btn btn-dark m-l-10 text-white" title="Needs Development">ND</a>
 @endsection
 
 @section('content')
@@ -86,7 +86,7 @@
 										<p>Rajesh M S</p>
 									</div>
 								</div>
-							</div>                        
+							</div>
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-5">
@@ -111,8 +111,8 @@
 							</div>
 						</div>
 					</div>
-				</div>				
-				<div class="card  card-absolute">					
+				</div>
+				<div class="card  card-absolute">
 					<div class="card-header  bg-primary">
 						<h5 class="text-white" id="goals_sheet_head"></h5>
 					</div>
@@ -120,8 +120,8 @@
 						<div class="table-responsive m-b-15 ">
 							<div class="row">
 								<div class="col-lg-12 m-b-35">
-									<a id="goal_sheet_edit" class="btn btn-warning text-white float-right" title="Edit Sheet">Edit</a>                                            
-									<a id="goal_sheet_submit" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit</a>                                            
+									<a id="goal_sheet_edit" class="btn btn-warning text-white float-right" title="Edit Sheet">Edit</a>
+									<a id="goal_sheet_submit" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit</a>
 									<!-- <button type="button" class="btn btn-warning "  >Edit</button> -->
 									<h5>EMPLOYEE CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
 									<h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
@@ -145,13 +145,13 @@
 											<!-- <th scope="col">Business Head</th> -->
 										</tr>
 									</thead>
-									<tbody id="goals_record">									
+									<tbody id="goals_record">
 									</tbody>
 								</table>
-								<input type="hidden" name="goals_setting_id" id="goals_setting_id">								
+								<input type="hidden" name="goals_setting_id" id="goals_setting_id">
 
 								<!-- <div class="m-t-20 m-b-30 float-right"> -->
-									<div class="m-t-20 m-b-30 row float-right" id="save_div">									
+									<div class="m-t-20 m-b-30 row float-right" id="save_div">
 										<div class="col-lg-8">
 											<label>Consolidated Rating</label><br>
 											<select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_consolidated_rate" name="employee_consolidated_rate">
@@ -165,7 +165,7 @@
 											<div class="text-danger supervisor_consolidated_rate_error" id=""></div>
 										</div>
 										<div class="col-lg-4">
-											<a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>                                            
+											<a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>
 										</div>
 									</div>
 								<!-- </div> -->
@@ -174,8 +174,8 @@
 					</div>
 
 				</div>
-			</div>			
-			
+			</div>
+
 		</div>
 	</div>
 	<!-- Container-fluid Ends-->
@@ -229,12 +229,12 @@
 
 		var params = new window.URLSearchParams(window.location.search);
 		var id=params.get('id')
-		$('#goals_setting_id').val(id);			
+		$('#goals_setting_id').val(id);
 		// $("#goal_sheet_sup_id").val(id);
 
 		var id = $('#goals_setting_id').val();
 
-		$.ajax({                   
+		$.ajax({
 			url:"{{ url('goals_sheet_head') }}",
 			type:"GET",
 			data:{id:id},
@@ -247,12 +247,12 @@
 			error: function(error) {
 				console.log(error);
 
-			}                                              
-				
+			}
+
 		});
 
-		/********** Employee Consolidary Rate Head **************/			
-		$.ajax({                   
+		/********** Employee Consolidary Rate Head **************/
+		$.ajax({
 			url:"{{ url('goals_consolidate_rate_head') }}",
 			type:"GET",
 			data:{id:id},
@@ -265,12 +265,12 @@
 			error: function(error) {
 				console.log(error);
 
-			}                                              
-				
+			}
+
 		});
-		
-		/********** Supervisor Consolidary Rate Head **************/			
-		$.ajax({                   
+
+		/********** Supervisor Consolidary Rate Head **************/
+		$.ajax({
 			url:"{{ url('goals_sup_consolidate_rate_head') }}",
 			type:"GET",
 			data:{id:id},
@@ -283,11 +283,11 @@
 			error: function(error) {
 				console.log(error);
 
-			}                                              
-				
+			}
+
 		});
 
-		$.ajax({                   
+		$.ajax({
 			url:"{{ url('fetch_goals_sup_details') }}",
 			type:"GET",
 			data:{id:id},
@@ -312,18 +312,18 @@
 					// 	'pdfHtml5'
 					// ]
 				} );
-				
+
 			},
 			error: function(error) {
 				console.log(error);
 
-			}                                              
-				
-		});		
+			}
+
+		});
 
 		$(()=>{
 			$("#goal_sheet_edit").on('click',()=>{
-				
+
 				$("#goal_sheet_edit").css("display","none");
 				$("#goal_sheet_submit").css("display","block");
 				$("#save_div").show();
@@ -335,13 +335,13 @@
 					var defined_class1="sup_remark";
 					var defined_class2="sup_rating";
 				// }
-				
+
 				$("#goals_record_tb tbody tr td."+defined_class1+"").each(
 					function(index){
 
 						// console.log("data")
 						if ($(this).text() != ""){
-							alert("one")
+							// alert("one")
 						}
 						else{
 							var tx = '<textarea id="business_head_edit'+i+'" name="sup_remark[]" style="width:200px;" class="form-control"></textarea>';
@@ -357,7 +357,7 @@
 
 						// console.log("data")
 						if ($(this).text() != ""){
-							alert("one")
+							// alert("one")
 						}
 						else{
 							var op = '<select class="js-example-basic-single" name="sup_rating[]" style="width:150px;" id="employee_consolidated_rate" name="employee_consolidated_rate">';
@@ -376,12 +376,12 @@
 						i++;
 					}
 				);
-				
+
 			})
 		})
 
 		function supFormSubmit(){
-			 
+
 			var error='';
 
 			var rate = $("#supervisor_consolidated_rate").val();
@@ -389,7 +389,7 @@
 			$errmsg3.hide();
 
 			if(rate == ""){
-				$errmsg3.html('Consolidated rate is required').show();                
+				$errmsg3.html('Consolidated rate is required').show();
 				error+="error";
 			}
 
@@ -405,30 +405,30 @@
 				// console.log(index)
 
 				// Supervisor Remarks
-				var err_div_name = "#sup_remark_"+index+"_error";            
+				var err_div_name = "#sup_remark_"+index+"_error";
 				var $errmsg0 = $(err_div_name);
 				$errmsg0.hide();
-				
+
 				if(col6 == "" || col6 == undefined){
 					// console.log($errmsg0)
-					$errmsg0.html('Supervisor remarks is required').show();                
+					$errmsg0.html('Supervisor remarks is required').show();
 					error+="error";
 				}
-				
 
-				// Supervisor Rate				
-				var err_div_name1 = ".sup_rating_"+index+"_error";            
+
+				// Supervisor Rate
+				var err_div_name1 = ".sup_rating_"+index+"_error";
 				var $errmsg1 = $(err_div_name1);
 				$errmsg1.hide();
-				
+
 				if(col7 == "" || col7 == undefined){
 					// console.log($errmsg0)
-					$errmsg1.html('Supervisor rating is required').show();                
+					$errmsg1.html('Supervisor rating is required').show();
 					error+="error";
 				}
-				
+
 				i++;
-				
+
 
 			});
 
@@ -437,11 +437,11 @@
 				// alert("succes")
 				data_insert();
 			}
-			
-			function data_insert(){				
+
+			function data_insert(){
 
 				$.ajax({
-					
+
 					url:"{{ url('update_goals_sup') }}",
 					type:"POST",
 					data:$('#supGoalsForm').serialize(),
@@ -453,21 +453,21 @@
 							duration: 3000,
 							close:true,
 							backgroundColor: "#4fbe87",
-						}).showToast();    
-						
+						}).showToast();
+
 						// $('button[type="submit"]').attr('disabled' , false);
-						
-						window.location = "{{ url('goals')}}";                
+
+						window.location = "{{ url('goals')}}";
 					},
 					error: function(response) {
 						// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
-		
-					}                                              
-						
+
+					}
+
 				});
-			}      
+			}
 		}
-		
+
 	</script>
 
 @endsection

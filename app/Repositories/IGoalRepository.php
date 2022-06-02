@@ -43,5 +43,6 @@ interface IGoalRepository {
      public function update_goals_sup($data);
      public function get_goal_setting_reviewer_details_tl($input_details);
      public function get_goal_myself_list();
+     public function update_goals_sup_reviewer_tm($data);
 
 }

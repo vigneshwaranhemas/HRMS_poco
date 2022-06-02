@@ -496,17 +496,9 @@ class GoalRepository implements IGoalRepository
         // dd(DB::getQueryLog());
         return $bandtbl;
    }
-   public function get_team_member_drop_list( $id ){
-   // DB::enableQueryLog();
-       $bandtbl = DB::table('customusers')
-        ->select('*')
-        ->where('sup_emp_code', '=', $id)
-        ->get();
-   // dd(DB::getQueryLog());
-        return $bandtbl;
-   }
+
    public function gethr_list_tab_record($input_details){
-   
+
       $logined_empID = Auth::user()->empID;
 
       if($input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] != '' && $input_details['gender_hr_1'] != ''&& $input_details['grade_hr_1'] != '' && $input_details['department_hr_1'] != ''){

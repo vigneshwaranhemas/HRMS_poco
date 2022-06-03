@@ -18,6 +18,10 @@
         position: relative;
         display: none;
     }
+	#goal_sheet_submit_no_tb{
+        position: relative;
+        display: none;
+    }
 </style>
 @endsection
 
@@ -121,7 +125,8 @@
 							<div class="row">
 								<div class="col-lg-12 m-b-35">
 									<a id="goal_sheet_edit" class="btn btn-warning text-white float-right m-l-10" title="Edit Sheet">Edit</a>                                            
-									<a id="goal_sheet_submit" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit For Approval</a>                                            
+									<a id="goal_sheet_submit"  onclick="supFormSubmit();" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit For Approval</a>                                            
+									<a id="goal_sheet_submit_no_tb"  onclick="supSubmitDirect();" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit For Approval</a>                                            
 									<!-- <button type="button" class="btn btn-warning "  >Edit</button> -->
 									<h5>EMPLOYEE CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
 									<h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
@@ -165,7 +170,8 @@
 											<div class="text-danger supervisor_consolidated_rate_error" id=""></div>
 										</div>
 										<div class="col-lg-4">
-											<a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>
+											<a onclick="supFormSave();" id="sup_save_table" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>
+											<a onclick="supFormSave();" id="sup_update_table" class="btn btn-primary text-white m-t-30" title="Save Table Value">Update</a>
 										</div>
 									</div>
 								<!-- </div> -->
@@ -282,7 +288,6 @@
 
 		});
 
-<<<<<<< HEAD
 		/********** Employee Sumbit **************/			
 		$.ajax({                   
 			url:"{{ url('goals_sup_submit_status') }}",
@@ -292,12 +297,16 @@
 			success:function(response)
 			{
 				if(response == "1"){
-					$("#goal_sheet_submit").css("display","block");
+					// alert("1")
+					$("#goal_sheet_submit").css("display","none");
+					$("#goal_sheet_submit_no_tb").css("display","block");
 					$("#goal_sheet_edit").css("display","block");
 				}else if(response == "2"){
+					// alert("2")
 					$("#goal_sheet_edit").css("display","none");
 					$("#goal_sheet_submit").css("display","none");
 				}else{
+					// alert("0")
 					$("#goal_sheet_submit").css("display","none");
 					$("#goal_sheet_edit").css("display","block");
 				}
@@ -311,10 +320,6 @@
 		
 		/********** Supervisor Consolidary Rate Head **************/			
 		$.ajax({                   
-=======
-		/********** Supervisor Consolidary Rate Head **************/
-		$.ajax({
->>>>>>> 6961bb3044e3a0f85ff8f5d8a5e7aad8508b347a
 			url:"{{ url('goals_sup_consolidate_rate_head') }}",
 			type:"GET",
 			data:{id:id},
@@ -331,9 +336,8 @@
 
 		});
 
-<<<<<<< HEAD
 		function tb_data(){
-
+			
 			$.ajax({                   
 				url:"{{ url('fetch_goals_sup_details') }}",
 				type:"GET",
@@ -367,86 +371,33 @@
 				}                                              
 					
 			});		
-		}
-
-		$(()=>{
-			$("#goal_sheet_edit").on('click',()=>{
-				
-						
-=======
-		$.ajax({
-			url:"{{ url('fetch_goals_sup_details') }}",
-			type:"GET",
-			data:{id:id},
-			dataType : "JSON",
-			success:function(response)
-			{
-				$('#goals_record_tb').DataTable().clear().destroy();
-				$('#goals_record').empty();
-				$('#goals_record').append(response);
-				$('#goals_record_tb').DataTable( {
-					"searching": false,
-					"paging": false,
-					"info":     false,
-					"fixedColumns":   {
-							left: 6
-						}
-					// dom: 'Bfrtip',
-					// buttons: [
-					// 	'copyHtml5',
-					// 	'excelHtml5',
-					// 	'csvHtml5',
-					// 	'pdfHtml5'
-					// ]
-				} );
-
-			},
-			error: function(error) {
-				console.log(error);
-
-			}
-
-		});
+		}		
 
 		$(()=>{
 			$("#goal_sheet_edit").on('click',()=>{
 
->>>>>>> 6961bb3044e3a0f85ff8f5d8a5e7aad8508b347a
+				$("#sup_update_table").css("display","none");
+				$("#goal_sheet_submit_no_tb").css("display","none");
 				$("#goal_sheet_edit").css("display","none");
 				$("#goal_sheet_submit").css("display","block");
 				$("#save_div").show();
 
 				var i=1;
-				// var user_type=$("#user_type").val();
-				// if(user_type==1 || user_type==2 || user_type==0)
-				// {
-					var defined_class1="sup_remark";
-					var defined_class2="sup_rating";
-				// }
-<<<<<<< HEAD
-				
-				//supervisor remarks
-=======
-
->>>>>>> 6961bb3044e3a0f85ff8f5d8a5e7aad8508b347a
+				var defined_class1="sup_remark";
+				var defined_class2="sup_rating";
+		
 				$("#goals_record_tb tbody tr td."+defined_class1+"").each(
 					function(index){
 
 						// console.log($(this).text())
 						if ($(this).text() != ""){
-<<<<<<< HEAD
-							var text_data=$(this).text();
+							
+							var text_data=$(this).text();					
 							$(".sup_remark_p_"+i+"").remove();
-							var tx = '<textarea id="sup_remark'+i+'" name="sup_remark[]" style="width:200px;" class="form-control">'+text_data+'</textarea>';
-=======
-							// alert("one")
-						}
-						else{
-							var tx = '<textarea id="business_head_edit'+i+'" name="sup_remark[]" style="width:200px;" class="form-control"></textarea>';
->>>>>>> 6961bb3044e3a0f85ff8f5d8a5e7aad8508b347a
+							var tx = '<textarea id="sup_remark'+i+'" name="sup_remark[]" style="width:250px;" class="form-control">'+text_data+'</textarea>';
 								tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
 							$(this).append(tx);
-							// $(this).append('<textarea id="sup_remark'+i+'" class="form-control" name="sup_remark[]">'+text_data+'</textarea>')
+							// alert("one")
 						}
 						else{				
 							var tx = '<textarea id="sup_remark'+i+'" name="sup_remark[]" style="width:200px;" class="form-control"></textarea>';
@@ -466,21 +417,18 @@
 
 						// console.log("data")
 						if ($(this).text() != ""){
-<<<<<<< HEAD
 						
 							var text_data=$(this).text();								
 							$(".sup_rating_p_"+j+"").remove();
-							$(this).append('<select class="form-control js-example-basic-single key_bus_drivers" name="sup_final_output_[]">\
+							$(this).append('<select class="form-control js-example-basic-single key_bus_drivers" name="sup_rating[]">\
 											<option value="">Choose</option>\
 											<option value="EE" '+(text_data=="EE" ? "selected" : "")+'>EE</option>\
 											<option value="AE" '+(text_data=="AE" ? "selected" : "")+'>AE</option>\
 											<option value="ME" '+(text_data=="ME" ? "selected" : "")+'>ME</option>\
 											<option value="PE  '+(text_data=="PE" ? "selected" : "")+'>PE</option>\
 											<option value="ND" '+(text_data=="ND" ? "selected" : "")+'>ND</option>\
-											</select>')
-=======
-							// alert("one")
->>>>>>> 6961bb3044e3a0f85ff8f5d8a5e7aad8508b347a
+											</select>\
+											<div class="text-danger sup_rating_'+index+'_error"></div>')
 						}
 						else{				
 							var op = '<select class="js-example-basic-single" name="sup_rating[]" style="width:150px;" id="employee_consolidated_rate" name="employee_consolidated_rate">';
@@ -501,7 +449,6 @@
 					}
 				);
 
-<<<<<<< HEAD
 				//supervisor consolidate rate
 				$.ajax({                   
 					url:"{{ url('goals_sup_consolidate_rate_head') }}",
@@ -522,13 +469,10 @@
 						
 				});
 		
-				
-=======
->>>>>>> 6961bb3044e3a0f85ff8f5d8a5e7aad8508b347a
 			})
 		})
 
-		function supFormSubmit(){
+		function supFormSave(){
 
 			var error='';
 
@@ -585,7 +529,6 @@
 			function data_insert(){
 
 				$.ajax({
-
 					url:"{{ url('update_goals_sup') }}",
 					type:"POST",
 					data:$('#supGoalsForm').serialize(),
@@ -597,23 +540,20 @@
 							duration: 3000,
 							close:true,
 							backgroundColor: "#4fbe87",
-<<<<<<< HEAD
 						}).showToast();    
-						
-						tb_data();
-						$("#save_div").hide();
-						$("#goal_sheet_edit").css("display","block");
+												
+						// $("#save_div").hide();
+						$("#sup_save_table").css("display","none");
+						// $("#goal_sheet_submit").css("display","block");
+						$("#sup_update_table").css("display","block");
 
 						// $('button[type="submit"]').attr('disabled' , false);
 						
 						// window.location = "{{ url('goals')}}";                
-=======
-						}).showToast();
-
+						
 						// $('button[type="submit"]').attr('disabled' , false);
 
-						window.location = "{{ url('goals')}}";
->>>>>>> 6961bb3044e3a0f85ff8f5d8a5e7aad8508b347a
+						// window.location = "{{ url('goals')}}";
 					},
 					error: function(response) {
 						// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
@@ -624,7 +564,135 @@
 			}
 		}
 
-<<<<<<< HEAD
+		function supFormSubmit(){
+			
+			var error='';
+
+			var rate = $("#supervisor_consolidated_rate").val();
+			var $errmsg3 = $(".supervisor_consolidated_rate_error");
+			$errmsg3.hide();
+
+			if(rate == ""){
+				$errmsg3.html('Consolidated rate is required').show();
+				error+="error";
+			}
+
+			var i=1;
+
+			$('#goals_record_tb > tbody  > tr').each(function(index) {
+				var col0=$(this).find("td:eq(0)").text();
+				var col6=$(this).find("td:eq(5) textarea").val();
+				var col7=$(this).find("td:eq(6) option:selected").val();
+				
+				// Supervisor Remarks
+				var err_div_name = "#sup_remark_"+index+"_error";
+				var $errmsg0 = $(err_div_name);
+				$errmsg0.hide();
+
+				if(col6 == "" || col6 == undefined){
+					// console.log($errmsg0)
+					$errmsg0.html('Supervisor remarks is required').show();
+					error+="error";
+				}
+
+				// Supervisor Rate
+				var err_div_name1 = ".sup_rating_"+index+"_error";
+				var $errmsg1 = $(err_div_name1);
+				$errmsg1.hide();
+
+				if(col7 == "" || col7 == undefined){
+					// console.log($errmsg0)
+					$errmsg1.html('Supervisor rating is required').show();
+					error+="error";
+				}
+
+				i++;
+
+
+			});
+
+			//Sending data to database
+			if(error==""){
+				alert("hi")				
+				// data_insert_submit();
+			}
+
+			function data_insert_submit(){
+
+				$.ajax({
+					url:"{{ url('update_goals_sup_submit') }}",
+					type:"POST",
+					data:$('#supGoalsForm').serialize(),
+					dataType : "JSON",
+					success:function(data)
+					{
+						Toastify({
+							text: "Added Sucessfully..!",
+							duration: 3000,
+							close:true,
+							backgroundColor: "#4fbe87",
+						}).showToast();    
+						
+						tb_data();
+						$("#save_div").hide();
+						$("#goal_sheet_edit").css("display","block");
+
+						// $('button[type="submit"]').attr('disabled' , false);
+						
+						// window.location = "{{ url('goals')}}";                
+						
+						// $('button[type="submit"]').attr('disabled' , false);
+
+						window.location = "{{ url('goals')}}";
+					},
+					error: function(response) {
+						// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+					}
+
+				});
+			}
+		}
+
+		//Supervisor Direct Submit
+		function supSubmitDirect(){
+
+			var id = $('#goals_setting_id').val();
+
+			$.ajax({
+				url:"{{ url('update_goals_sup_submit_direct') }}",
+				type:"POST",
+				data:{id:id},
+				dataType : "JSON",
+				success:function(data)
+				{
+					Toastify({
+						text: "Added Sucessfully..!",
+						duration: 3000,
+						close:true,
+						backgroundColor: "#4fbe87",
+					}).showToast();    
+					
+					// tb_data();
+					// $("#save_div").hide();
+					// $("#goal_sheet_edit").css("display","block");
+
+					// $('button[type="submit"]').attr('disabled' , false);
+					
+					// window.location = "{{ url('goals')}}";                
+					
+					// $('button[type="submit"]').attr('disabled' , false);
+
+					window.location = "{{ url('goals')}}";
+				},
+				error: function(response) {
+					// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+				}
+
+			});
+		}
+
 		//Edit pop-up model and data show
         function get_goal_setting_reviewer_tl(){
 
@@ -653,8 +721,6 @@
 			});
 		}
 		
-=======
->>>>>>> 6961bb3044e3a0f85ff8f5d8a5e7aad8508b347a
 	</script>
 
 @endsection

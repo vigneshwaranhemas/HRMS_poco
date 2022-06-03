@@ -80,6 +80,7 @@ class GoalRepository implements IGoalRepository
                         ->distinct()
                         ->select('g.*')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('g.employee_status', "1")
                         ->where('cs.sup_emp_code', $logined_empID)
                         ->where('cs.empID', $input_details['team_member_filter'])
                         ->get();
@@ -89,6 +90,7 @@ class GoalRepository implements IGoalRepository
                         ->distinct()
                         ->select('g.*')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('g.employee_status', "1")
                         ->where('cs.sup_emp_code', $logined_empID)
                         ->get();
       }
@@ -197,7 +199,7 @@ class GoalRepository implements IGoalRepository
    }
    public function fetchGoalIdDetails( $id ){
       $response = Goals::where('goal_unique_code', $id)->value('goal_process');
-      // echo "1<pre>";print_r($response);die;
+    //   echo "1<pre>";print_r($response);die;
       return $response;
    }
    public function Fetch_goals_user_info($id)
@@ -279,7 +281,18 @@ class GoalRepository implements IGoalRepository
                               'supervisor_tb_status' => "1",
                         ]);
       return $response;
-   }
+   } 
+   public function update_goals_sup_submit($data){
+      $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                        ->update([
+                              'goal_process' => $data['goal_process'],
+                              'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate'],
+                              'supervisor_tb_status' => "1",
+                              'supervisor_status' => "1",
+                        ]);
+      return $response;
+   } 
+   
    public function update_emp_goals_data($data){
       $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                         ->update([
@@ -297,7 +310,7 @@ class GoalRepository implements IGoalRepository
                               'employee_tb_status' => "1",
                               'employee_status' => "1",
                         ]);
-      dd($response);
+      
       return $response;
    }
    public function goals_status_update($data){
@@ -1172,28 +1185,36 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
 
    public function get_goal_setting_reviewer_details_tl( $input_details ){
 
-    $id = $input_details['id'];
-    // echo '<pre>';print_r($id);die();
+      $id = $input_details['id'];
+      // echo '<pre>';print_r($id);die();
 
-    // DB::enableQueryLog();
+      // DB::enableQueryLog();
 
-    $reviewer_details_tl = DB::table('goals as gl')
-                        // ->distinct()
-                        // ->select('gl.*')
-                        ->join('customusers as cu', 'gl.created_by', '=', 'cu.empID')
-                        ->where('gl.goal_unique_code', $input_details['id'])
-                        ->get();
-    // dd(DB::getQueryLog());
+      $reviewer_details_tl = DB::table('goals as gl')
+                           // ->distinct()
+                           // ->select('gl.*')
+                           ->join('customusers as cu', 'gl.created_by', '=', 'cu.empID')
+                           ->where('gl.goal_unique_code', $input_details['id'])
+                           ->get();
+      // dd(DB::getQueryLog());
 
-    return $reviewer_details_tl;
-}
+      return $reviewer_details_tl;
+   }
 
-public function update_goals_sup_reviewer_tm($data){
-    $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
-                      ->update([
-                            'goal_process' => $data['goal_process'],
-                      ]);
-  return $response;
-}
+   public function update_goals_sup_reviewer_tm($data){
+      $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                        ->update([
+                              'goal_process' => $data['goal_process'],
+                        ]);
+      return $response;
+   }   
+   public function update_goals_sup_submit_direct($id){
+      $response = Goals::where('goal_unique_code', $id)
+                ->update([
+                     'supervisor_status' => "1",
+                     'supervisor_tb_status' => "1",                      
+                ]);
+    return $response;
+ }
 
 }

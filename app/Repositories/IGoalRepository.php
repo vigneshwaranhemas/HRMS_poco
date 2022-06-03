@@ -40,12 +40,14 @@ interface IGoalRepository {
     public function get_hr_goal_list_for_tbl($data);
     public function get_manager_lsit($data);
     public function update_goals_sup($data);
+    public function update_goals_sup_submit($data);
     public function update_emp_goals_data_submit($data);
     public function update_emp_goals_data($data);
     public function get_goal_setting_reviewer_details_tl($input_details);
     public function goals_sup_submit_status($id);
-     public function gethr_list_tab_record($data);
-     public function get_goal_myself_list();
-     public function update_goals_sup_reviewer_tm($data);
+    public function update_goals_sup_submit_direct($id);
+    public function gethr_list_tab_record($data);
+    public function get_goal_myself_list();
+    public function update_goals_sup_reviewer_tm($data);
 
 }

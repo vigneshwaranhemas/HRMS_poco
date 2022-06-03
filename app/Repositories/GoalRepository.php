@@ -480,66 +480,306 @@ class GoalRepository implements IGoalRepository
 
         $logined_empID = Auth::user()->empID;
 
+if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] != '' && $input_details['gender_hr_2'] != ''&& $input_details['grade_hr_2'] != '' && $input_details['department_hr_2'] != ''){
+         // echo "<pre>";print_r("expression0");die;
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.empID', $input_details['team_member_filter_hr'])
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->where('cs.grade', $input_details['grade_hr_2'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
 
+      }elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == ''&& $input_details['gender_hr_2'] != ''&& $input_details['grade_hr_2'] != '' && $input_details['department_hr_2'] != ''){
+         // echo "<pre>";print_r("expression3");die;
 
-        if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] != ''){
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.sup_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->where('cs.grade', $input_details['grade_hr_2'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
 
+      }elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == '' &&$input_details['gender_hr_2'] != ''  && $input_details['grade_hr_2'] == '' && $input_details['department_hr_2'] != ''){
 
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.sup_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
 
-        $response = DB::table('customusers as cs')
-        ->distinct()
-        ->select('g.*')
-        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
-        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
-        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
-        ->where('cs.empID', $input_details['team_member_filter_hr'])
-        ->get();
+      }elseif( $input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] == '' && $input_details['grade_hr_2'] != '' && $input_details['department_hr_2'] != ''){
 
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.grade', $input_details['grade_hr_2'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
 
+      }elseif( $input_details['reviewer_filter'] == '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] != '' && $input_details['grade_hr_2'] != '' && $input_details['department_hr_2'] != ''){
 
-        }elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] == ''){
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->where('cs.grade', $input_details['grade_hr_2'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
 
+      }
+      /*single textbox notempty*/
+      elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == ''&& $input_details['gender_hr_2'] == ''&& $input_details['grade_hr_2'] == '' && $input_details['department_hr_2'] == ''){
+         // echo "<pre>";print_r($input_details['reviewer_filter']);die;
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.sup_emp_code', $input_details['reviewer_filter'])
+                        ->get();
 
+      }elseif( $input_details['reviewer_filter'] == '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] != '' && $input_details['grade_hr_2'] == ''&& $input_details['department_hr_2'] == ''){
 
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                       ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->get();
 
+      }elseif( $input_details['reviewer_filter'] == '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] == '' && $input_details['grade_hr_2'] != ''&& $input_details['department_hr_2'] == ''){
 
-        $response = DB::table('customusers as cs')
-        ->distinct()
-        ->select('g.*')
-        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
-        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
-        ->get();
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                       ->where('cs.grade', $input_details['grade_hr_2'])
+                        ->get();
 
+      }elseif( $input_details['reviewer_filter'] == '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] == '' && $input_details['grade_hr_2'] == ''&& $input_details['department_hr_2'] != ''){
 
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
 
-        }elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == ''){
+      }
+      /*only 2 notempty*/
+      elseif( $input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] == '' && $input_details['grade_hr_2'] == ''&& $input_details['department_hr_2'] != ''){
 
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.sup_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
 
+      }elseif( $input_details['reviewer_filter'] == '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] != '' && $input_details['grade_hr_2'] == '' && $input_details['department_hr_2'] != ''){
 
-        $response = DB::table('customusers as cs')
-        ->distinct()
-        ->select('g.*')
-        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
-        ->where('cs.sup_emp_code', $input_details['reviewer_filter'])
-        ->get();
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
 
+      }elseif( $input_details['reviewer_filter'] == '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] == '' && $input_details['grade_hr_2'] != ''&& $input_details['department_hr_2'] != ''){
 
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.grade', $input_details['grade_hr_2'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
 
-        }elseif($input_details['reviewer_filter'] == '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == ''){
+      }elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] == ''&& $input_details['gender_hr_2'] == ''&& $input_details['grade_hr_2'] == '' && $input_details['department_hr_2'] == ''){
+         // echo "<pre>";print_r("expression2");die;
 
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->get();
 
+      }elseif($input_details['reviewer_filter'] == '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == ''&& $input_details['gender_hr_2'] != ''&& $input_details['grade_hr_2'] != '' && $input_details['department_hr_2'] == ''){
+         // echo "<pre>";print_r("expression2");die;
 
-        $response = DB::table('customusers as cs')
-        ->distinct()
-        ->select('g.*')
-        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
-        ->where('cs.sup_emp_code', "900531")
-        // ->where('cs.sup_emp_code', $logined_empID)
-        ->where('cs.reviewer_emp_code', "900531")
-        ->get();
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->where('cs.grade', $input_details['grade_hr_2'])
+                        ->get();
 
-        }
+      }elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == ''&& $input_details['gender_hr_2'] != ''&& $input_details['grade_hr_2'] == '' && $input_details['department_hr_2'] == ''){
+         // echo "<pre>";print_r("expression2");die;
 
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->get();
+
+      }
+
+      /*only 3notempty*/
+      elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == ''&& $input_details['gender_hr_2'] != ''&& $input_details['grade_hr_2'] != '' && $input_details['department_hr_2'] == ''){
+         // echo "<pre>";print_r("expression2");die;
+
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->where('cs.grade', $input_details['grade_hr_2'])
+                        ->get();
+
+      }elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] == ''&& $input_details['gender_hr_2'] == ''&& $input_details['grade_hr_2'] == '' && $input_details['department_hr_2'] != ''){
+         // echo "<pre>";print_r("expression2");die;
+
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
+
+      }elseif($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] == ''&& $input_details['gender_hr_2'] == ''&& $input_details['grade_hr_2'] != '' && $input_details['department_hr_2'] == ''){
+         // echo "<pre>";print_r("expression2");die;
+
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->get();
+
+      }elseif( $input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] != '' && $input_details['grade_hr_2'] == ''&& $input_details['department_hr_2'] == ''){
+         // DB::enableQueryLog();
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->get();
+      }elseif( $input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] != '' && $input_details['gender_hr_2'] == '' && $input_details['grade_hr_2'] == ''&& $input_details['department_hr_2'] == ''){
+         // DB::enableQueryLog();
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.empID', $input_details['team_member_filter_hr'])
+                        ->get();
+         // dd(DB::getQueryLog());
+      }
+      /*only 4 notempty*/
+      elseif( $input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] != '' && $input_details['gender_hr_2'] != '' && $input_details['grade_hr_2'] == ''&& $input_details['department_hr_2'] == ''){
+         // DB::enableQueryLog();
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.empID', $input_details['team_member_filter_hr'])
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->get();
+      }elseif( $input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] != '' && $input_details['gender_hr_2'] == '' && $input_details['grade_hr_2'] != ''&& $input_details['department_hr_2'] == ''){
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.empID', $input_details['team_member_filter_hr'])
+                        ->where('cs.grade', $input_details['grade_hr_2'])
+                        ->get();
+      }elseif( $input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] != '' && $input_details['gender_hr_2'] == '' && $input_details['grade_hr_2'] == ''&& $input_details['department_hr_2'] != ''){
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.empID', $input_details['team_member_filter_hr'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
+      }elseif( $input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] != '' && $input_details['grade_hr_2'] == ''&& $input_details['department_hr_2'] != ''){
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
+      }
+      /*only 5notempty*/
+      elseif( $input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] != '' && $input_details['grade_hr_2'] != ''&& $input_details['department_hr_2'] != ''){
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->where('cs.grade', $input_details['grade_hr_2'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
+         }elseif( $input_details['reviewer_filter'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] != '' && $input_details['gender_hr_2'] != '' && $input_details['grade_hr_2'] != ''&& $input_details['department_hr_2'] == ''){
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.empID', $input_details['team_member_filter_hr'])
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->where('cs.grade', $input_details['grade_hr_2'])
+                        ->get();
+         }elseif($input_details['reviewer_filter'] == '' && $input_details['team_leader_filter_hr'] == '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] == '' && $input_details['grade_hr_2'] == '' && $input_details['department_hr_2'] == ''){
+         $val = '1';
+         // DB::enableQueryLog();
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.sup_emp_code', "900531")
+                        // ->where('cs.sup_emp_code', $logined_empID)
+                        ->where('cs.reviewer_emp_code', "900531")
+                        ->get();
+      }
 
 
         return $response;
@@ -812,6 +1052,16 @@ class GoalRepository implements IGoalRepository
                         ->where('cs.empID', $input_details['team_member_filter_hr_1'])
                         ->where('cs.department', $input_details['department_hr_1'])
                         ->get();
+      }elseif( $input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] != '' && $input_details['grade_hr_2'] == '' && $input_details['department_hr_2'] != ''){
+         $response = DB::table('customusers as cs')
+                        ->distinct()
+                        ->select('g.*','cs.grade','cs.gender','cs.department')
+                        ->join('goals as g', 'g.created_by', '=', 'cs.empID')
+                        ->where('cs.reviewer_emp_code', $input_details['reviewer_filter'])
+                        ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
+                        ->where('cs.gender', $input_details['gender_hr_2'])
+                        ->where('cs.department', $input_details['department_hr_2'])
+                        ->get();
       }
       /*only 5notempty*/
       elseif( $input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] != '' && $input_details['grade_hr_1'] != ''&& $input_details['department_hr_1'] != ''){
@@ -836,7 +1086,10 @@ class GoalRepository implements IGoalRepository
                         ->where('cs.gender', $input_details['gender_hr_1'])
                         ->where('cs.grade', $input_details['grade_hr_1'])
                         ->get();
-         }elseif($input_details['reviewer_filter_1'] == '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] == '' && $input_details['grade_hr_1'] == '' && $input_details['department_hr_1'] == ''){
+         }
+
+         elseif($input_details['reviewer_filter_1'] == '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] == '' && $input_details['grade_hr_1'] == '' && $input_details['department_hr_1'] == ''){
+         // echo "<pre>";print_r($input_details);die;
          $val = '1';
          // DB::enableQueryLog();
          $response = DB::table('customusers as cs')
@@ -847,6 +1100,7 @@ class GoalRepository implements IGoalRepository
                         // ->where('cs.sup_emp_code', $logined_empID)
                         ->where('cs.reviewer_emp_code', "900531")
                         ->get();
+
       }
 
       return $response;

@@ -988,16 +988,16 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->get();
 
       }elseif($input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] == ''&& $input_details['gender_hr_1'] == ''&& $input_details['grade_hr_1'] != '' && $input_details['department_hr_1'] == ''){
-         // echo "<pre>";print_r("expression2");die;
-
+         // DB::enableQueryLog();
          $response = DB::table('customusers as cs')
                         ->distinct()
                         ->select('g.*','cs.grade','cs.gender','cs.department')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                         ->where('cs.reviewer_emp_code', $input_details['reviewer_filter_1'])
                         ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr_1'])
-                        ->where('cs.gender', $input_details['gender_hr_1'])
+                        ->where('cs.grade', $input_details['grade_hr_1'])
                         ->get();
+         // dd(DB::getQueryLog());
 
       }elseif( $input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] != '' && $input_details['grade_hr_1'] == ''&& $input_details['department_hr_1'] == ''){
          // DB::enableQueryLog();
@@ -1097,10 +1097,16 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->distinct()
                         ->select('g.*','cs.grade','cs.gender','cs.department')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
-                        ->where('cs.sup_emp_code', "900531")
-                        // ->where('cs.sup_emp_code', $logined_empID)
-                        ->where('cs.reviewer_emp_code', "900531")
+                        // ->where('cs.sup_emp_code', "900531")
+                        ->where('g.goal_status', "Approved")
+                        ->where('g.supervisor_status',  $val)
+                        ->where('g.reviewer_status',  $val)
+                        ->where('g.hr_status',  $val)
+                        ->where('g.bh_status',  $val)
+                        // ->where('cs.reviewer_emp_code', "900531")
                         ->get();
+
+         // dd(DB::getQueryLog());
 
       }
 

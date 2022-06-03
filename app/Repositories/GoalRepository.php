@@ -247,7 +247,7 @@ class GoalRepository implements IGoalRepository
          }else{
             $response = "1";
 
-         }  
+         }
 
       }else{
          $response = "0";
@@ -279,7 +279,7 @@ class GoalRepository implements IGoalRepository
                               'supervisor_tb_status' => "1",
                         ]);
       return $response;
-   } 
+   }
    public function update_emp_goals_data($data){
       $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                         ->update([
@@ -288,7 +288,7 @@ class GoalRepository implements IGoalRepository
                               'employee_tb_status' => "1",
                         ]);
       return $response;
-   }    
+   }
    public function update_emp_goals_data_submit($data){
       $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                         ->update([
@@ -794,6 +794,7 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
         // dd(DB::getQueryLog());
         return $bandtbl;
    }
+
    public function gethr_list_tab_record($input_details){
 
       $logined_empID = Auth::user()->empID;

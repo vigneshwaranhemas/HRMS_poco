@@ -146,7 +146,7 @@
                                 <tbody id="goals_record">                              
                                 </tbody>
                             </table>
-                            <input type="text" name="goals_setting_id" id="goals_setting_id">								
+                            <input type="hidden" name="goals_setting_id" id="goals_setting_id">								
                             <div class="m-t-40 m-b-30">
                                 <div class="row">									
                                     <div class="col-lg-2">
@@ -775,18 +775,10 @@
             // alert("succes")
             update_data_insert();
         }
-<<<<<<< HEAD
         
         function update_data_insert(){
             $.ajax({            
                 url:"{{ url('update_emp_goals_data') }}",
-=======
-
-        function data_insert(){
-            $.ajax({
-
-                url:"{{ url('add_goals_data') }}",
->>>>>>> 6961bb3044e3a0f85ff8f5d8a5e7aad8508b347a
                 type:"POST",
                 data:$('#goalsForm').serialize(),
                 dataType : "JSON",
@@ -802,7 +794,6 @@
                     
                     $('button[type="submit"]').attr('disabled' , false);
 
-                    $("#goals_setting_id").val(data);
 					$("#datatable_form_save").css('display', 'none');
 					$("#datatable_form_update").css('display', 'block');
 
@@ -909,22 +900,20 @@
         }
 
         function update_submit_data_insert(){
-            var employee_consolidated_rate = $(#employee_consolidated_rate).val();
+            var employee_consolidated_rate = $("#employee_consolidated_rate").val();
 
             $.ajax({            
-                url:"{{ url('update_emp_goals_data_submit?employee_consolidated_rate="+employee_consolidated_rate+"') }}",
+                url:"{{ url('update_emp_goals_data_submit') }}",
                 type:"POST",
                 data:$('#goalsForm').serialize(),
                 dataType : "JSON",
                 success:function(data)
-                {
-
+                {                    
                     Toastify({
                         text: "Added Sucessfully..!",
                         duration: 3000,
                         close:true,
                         backgroundColor: "#4fbe87",
-<<<<<<< HEAD
                     }).showToast();    
                     
                     $('button[type="submit"]').attr('disabled' , false);                    
@@ -935,22 +924,6 @@
             });
                     
         }        
-=======
-                    }).showToast();
-
-                    $('button[type="submit"]').attr('disabled' , false);
-
-                    window.location = "{{ url('goals')}}";
-                },
-                error: function(response) {
-                    // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
-
-                }
-
-            });
-        }
->>>>>>> 6961bb3044e3a0f85ff8f5d8a5e7aad8508b347a
-
         return false;        
     });
 

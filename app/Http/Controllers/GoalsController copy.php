@@ -19,7 +19,6 @@ class GoalsController extends Controller
         $this->goal = $goal;
     }
 
-
    public function goal_setting_bh_reviewer_view()
    {
             $id=$_GET['id'];
@@ -117,12 +116,6 @@ class GoalsController extends Controller
     {
         $id = $request->id;
         $head = $this->goal->goals_sup_consolidate_rate_head($id);
-        return json_encode($head);
-    }
-    public function update_goals_sup_submit_direct(Request $request)
-    {
-        $id = $request->id;
-        $head = $this->goal->update_goals_sup_submit_direct($id);
         return json_encode($head);
     }
     public function goals_sup_th_check(Request $request)
@@ -3267,10 +3260,10 @@ class GoalsController extends Controller
 
                 if($row_values->$cell4[$i] != null){
 
-                    $html .= '<textarea name="measurement_criteria_'.$cell1.'[] " id="" class="form-control '.$code.' m-t-5">'.$row_values->$cell4[$i].'</textarea>';
+                    $html .= '<textarea name="sub_indicators_'.$cell1.'[] " id="" class="form-control '.$code.' m-t-5">'.$row_values->$cell4[$i].'</textarea>';
 
                 }else{
-                    $html .= '<textarea name="measurement_criteria_'.$cell1.'[]" id="" class="form-control '.$code.' m-t-5"></textarea>';
+                    $html .= '<textarea name="sub_indicators_'.$cell1.'[]" id="" class="form-control '.$code.' m-t-5"></textarea>';
 
                 }
 
@@ -3285,10 +3278,10 @@ class GoalsController extends Controller
 
                 if($row_values->$cell5[$i] != null){
 
-                    $html .= '<textarea name="self_assessment_remark_'.$cell1.'[] " id="" class="form-control '.$code.' m-t-5">'.$row_values->$cell5[$i].'</textarea>';
+                    $html .= '<textarea name="measurement_criteria_'.$cell1.'[] " id="" class="form-control '.$code.' m-t-5">'.$row_values->$cell5[$i].'</textarea>';
 
                 }else{
-                    $html .= '<textarea name="self_assessment_remark_'.$cell1.'[]" id="" class="form-control '.$code.' m-t-5"></textarea>';
+                    $html .= '<textarea name="measurement_criteria_'.$cell1.'[]" id="" class="form-control '.$code.' m-t-5"></textarea>';
 
                 }
 
@@ -3298,7 +3291,7 @@ class GoalsController extends Controller
             /*cell 6*/            
             if($row_values->$cell6 != null){
                 $html .= '<td>';
-                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers  m-t-5" name="rating_by_employee_'.$cell1.'[]">';
+                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers  m-t-5" name="key_bus_drivers_'.$cell1.'[]">';
 
                         $html .= '<option value="">...Select...</option>';
 
@@ -3337,7 +3330,7 @@ class GoalsController extends Controller
                 $html .= '</td>';
             }else{
                 $html .= '<td>';
-                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-5" name="rating_by_employee_'.$cell1.'[]">';
+                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-5" name="key_bus_drivers_'.$cell1.'[]">';
                         $html .= '<option value="">...Select...</option>';
                         $html .= '<option value="EE">EE</option>';
                         $html .= '<option value="AE">AE</option>';
@@ -4028,49 +4021,6 @@ class GoalsController extends Controller
 
         return response($result);
     }
-    public function update_goals_sup_submit(Request $request){
-        // dd($request->all());
-        $id = $request->goals_setting_id;
-        $json_value = $this->goal->fetchGoalIdDetails($id);
-        $datas = json_decode($json_value);
-
-        $json = array();
-
-        $html = '';
-
-        foreach($datas as $key=>$data){
-            $cell1 = $key+1;
-            $row_values = json_decode($data);
-
-            //Supervisor remark add
-            $sup_remark_value = array($request->sup_remark[$key]);
-            $sup_rem = "sup_remarks_".$cell1;
-            $row_values->$sup_rem = $sup_remark_value;
-
-            //Supervisor rating add
-            $sup_rating_value = array($request->sup_rating[$key]);
-            $sup_final_op = "sup_final_output_".$cell1;
-            $row_values->$sup_final_op = $sup_rating_value;            
-
-            $json_format = json_encode($row_values);
-            array_push($json, $json_format);
-
-        }
-        // dd($json);
-
-        $goal_process = json_encode($json);
-        
-        //Data upload to server
-        $data = array(
-            'goal_process' => $goal_process,
-            'goal_unique_code' => $id,
-            'supervisor_consolidated_rate' => $request->employee_consolidated_rate,
-        );
-        // dd($data);
-        $result = $this->goal->update_goals_sup_submit($data);
-
-        return response($result);
-    }
     /*hr goal list*/
     public function get_hr_goal_list(Request $request){
 
@@ -4428,14 +4378,13 @@ public function get_all_supervisors_info_bh()
         return response()->json( $get_reviewer_details_tl_result );
     }    
     public function update_emp_goals_data(Request $request){
-        // dd(($request->all()));die();
+        // dd(count($request->all()));die();
         
         $id = $request->goals_setting_id;
 
-        $count = count($request->all())-1;
+        $count = count($request->all())-2;
         $row_count = $count/5;
         // $row_count = count($request->all())/10;
-        // dd($row_count);die();
 
         for ($i=1; $i <= $row_count; $i++) {
 
@@ -4454,7 +4403,7 @@ public function get_all_supervisors_info_bh()
             ]);
 
         }
-        // dd($json);
+
         $goal_process = json_encode($json); //convert to json
 
         //Data upload to server
@@ -4474,7 +4423,7 @@ public function get_all_supervisors_info_bh()
         
         $id = $request->goals_setting_id;
 
-        $count = count($request->all())-1;
+        $count = count($request->all())-2;
         $row_count = $count/5;
         // $row_count = count($request->all())/10;
 
@@ -4495,7 +4444,6 @@ public function get_all_supervisors_info_bh()
             ]);
 
         }
-        // dd($json);
 
         $goal_process = json_encode($json); //convert to json
 
@@ -4598,7 +4546,7 @@ public function get_all_supervisors_info_bh()
 
         }
         $goal_process = json_encode($json);
-       
+
         //Data upload to server
         $data = array(
             'goal_process' => $goal_process,

@@ -197,7 +197,7 @@ class GoalRepository implements IGoalRepository
    }
    public function fetchGoalIdDetails( $id ){
       $response = Goals::where('goal_unique_code', $id)->value('goal_process');
-      // echo "1<pre>";print_r($response);die;
+    //   echo "1<pre>";print_r($response);die;
       return $response;
    }
    public function Fetch_goals_user_info($id)

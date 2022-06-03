@@ -160,10 +160,12 @@ Route::get('goals_sup_consolidate_rate_head', 'GoalsController@goals_sup_consoli
 Route::get('check_goal_sheet_role_type_hr', 'GoalsController@check_goal_sheet_role_type_hr')->name('check_goal_sheet_role_type_hr');
 Route::get('goals_sup_submit_status', 'GoalsController@goals_sup_submit_status')->name('goals_sup_submit_status');
 Route::post('update_goals_sup', 'GoalsController@update_goals_sup');
+Route::post('update_goals_sup_submit', 'GoalsController@update_goals_sup_submit');
 Route::post('update_emp_goals_data', 'GoalsController@update_emp_goals_data');
 Route::post('update_emp_goals_data_submit', 'GoalsController@update_emp_goals_data_submit');
 Route::get('goal_setting_edit', 'GoalsController@goal_setting_edit' );
 Route::post('update_goals_sup_reviewer_tm', 'GoalsController@update_goals_sup_reviewer_tm');
+Route::post('update_goals_sup_submit_direct', 'GoalsController@update_goals_sup_submit_direct');
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');

@@ -106,7 +106,7 @@
             <div class="card">  
                 <div class="card-body">
                     <div class="table-responsive">
-                        <a id="goal_sheet_submit" class="btn btn-success text-white float-right m-b-30" title="Overall Sheet Submit">Submit For Approval</a>                                            
+                        <button id="goal_sheet_submit_update" class="btn btn-success  float-right m-b-30"><i class="ti-save"></i> Submit For Approval</button>                                            
                         <form id="goalsFormUpdate">
                             <table class="table" id="goal-tb">
                                 <thead>
@@ -128,8 +128,8 @@
                                 <tbody>
                                 </tbody>
                             </table>
-                            <input type="hidden" id="edit_goals_setting_id" name="edit_id">
-                            <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
+                            <input type="hidden" id="edit_goals_setting_id" name="goals_setting_id">
+                            <button id="datatable_form_update" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
                         </form>
                     </div>
                 </div>
@@ -254,10 +254,6 @@
                     html +='<textarea name="self_assessment_remark_'+cur_rowCount+'[]" id="self_assessment_remark_'+cur_rowCount+'" class="form-control self_assessment_remark_'+cur_rowCount+'"></textarea>';
                     html += '<div class="text-danger self_assessment_remark_'+cur_rowCount+'_error" id=""></div>';
                 html +='</td>';
-
-                // html +='<td>';
-                //     html +='<input type="text" name="weightage_'+cur_rowCount+'[]" id="" class="form-control">';
-                // html +='</td>';
                 
                 html +='<td>';                            
                     html +='<select class="form-control js-example-basic-single key_bus_drivers rating_by_employee_'+cur_rowCount+'" id="rating_by_employee_'+cur_rowCount+'" name="rating_by_employee_'+cur_rowCount+'[]">';
@@ -270,22 +266,6 @@
                     html +='</select>';
                     html += '<div class="text-danger rating_by_employee_'+cur_rowCount+'_error" id=""></div>';
                 html +='</td>';     
-                
-                // html +='<td>';
-                //     html +='<textarea name="rate_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<textarea name="actuals_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<textarea name="self_remarks_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<input type="text" name="self_assessment_rate_'+cur_rowCount+'[]" id="" class="form-control">';
-                // html +='</td>';
 
                 html +='<td>';
                         html +='<div style="margin-top: 80px;"></div>';
@@ -300,9 +280,7 @@
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button" id="btnDelete"  data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
                         html +='</div>';
                     html +='</div>';
-                    // html +='<div class="dropup m-t-5">';
-                    //     html +='<button type="button" class="btn btn-xs btn-danger" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
-                    // html +='</div>';
+                    
                 html +='</td>';
 
             html +='</tr>';
@@ -328,111 +306,249 @@
     }); 
 
 
-    function formTable() {
-
-        var test = [];
-        var error='';
+     //update entry
+     $("#datatable_form_update").on('click',()=>{   
         
-        $('#goal-tb tr').each(function(index, tr) {
-            $(tr).find('td').each (function (index, td) {
-                console.log(td)
+        var error='';
+
+        var rate = $("#employee_consolidated_rate").val();
+        var $errmsg3 = $(".employee_consolidated_rate_error");
+        $errmsg3.hide();
+
+        if(rate == ""){
+            $errmsg3.html('Employee Consolidated Rate is required').show();
+            error+="error";
+        }
+
+        $('#goal-tb tr').each(function() {
+            var col0=$(this).find("td:eq(0)").text();
+            var col1=$(this).find("td:eq(1) option:selected").val();
+            var col2=$(this).find("td:eq(2) textarea").val();
+            var col4=$(this).find("td:eq(4) textarea").val();
+            var col5=$(this).find("td:eq(5) option:selected").val();
+            // console.log(col0)
+            // console.log(col1)
+
+            // Key business drivers
+            var err_div_name = ".key_bus_drivers_"+col0+"_error";
+            var $errmsg0 = $(err_div_name);
+            $errmsg0.hide();
+
+            if(col1 == ""){
+                $errmsg0.html('Key business drivers is required').show();
+                error+="error";
+            }
+
+            //Key result areas
+            var cass_name = ".key_res_areas_"+col0;
+
+            $(cass_name).each(function () {
+                var sub_value = $(this).val();
+                var sub_class_id = $(this).get(0).id;
+                var err_div_name = "."+sub_class_id+"_error";
+                var $errmsg = $(err_div_name);
+                $errmsg.hide();
+
+                if(sub_value == ""){
+                    $errmsg.html('Key result areas is required').show();
+                    error+="error";
+                }
+
             });
+
+            //Self Assessment (Qualitative Remarks) by Employee
+            var cass_name1 = ".self_assessment_remark_"+col0;
+
+            $(cass_name1).each(function () {
+                var sub_value1 = $(this).val();
+                var sub_class_id1 = $(this).get(0).id;
+                var err_div_name1 = "."+sub_class_id1+"_error";
+                var $errmsg1 = $(err_div_name1);
+                $errmsg1.hide();
+                console.log(err_div_name1)
+
+                if(sub_value1 == ""){
+                    $errmsg1.html('Self assessment is required').show();
+                    error+="error";
+                }
+
+            });
+
+            //Rating by Employee
+            var cass_name2 = ".rating_by_employee_"+col0;
+
+            $(cass_name2).each(function () {
+                var sub_value2 = $(this).val();
+                var sub_class_id2 = $(this).get(0).id;
+                var err_div_name2 = "."+sub_class_id2+"_error";
+                var $errmsg2 = $(err_div_name2);
+                $errmsg2.hide();
+
+                if(sub_value2 == ""){
+                    $errmsg2.html('Rating by employee is required').show();
+                    error+="error";
+                }
+
+            });
+
         });
-
-        // $('#goal-tb tbody>tr').each(function (element) {
-        //     // var currrow=$(this).closest('tr');
-        //     alert("col4")
-
-        //     var col0=$(this).find("td:eq(0)").text();
-        //     // var col1=$(this).find("td:eq(1) textarea").val();
-        //     //    var col2=$(this).find("td:eq(2) option:selected").val();
-        //     //    var col4_input=$(this).find("td:eq(4) input:checked").val();
-        //     // alert(col0)
-            
-                                                                    
-        // });
 
         //Sending data to database
-        //    if(error==""){
-        //        // alert("succes")
-        //        data_insert();
-        //    }
-        //    else{
-        //        // alert("test")
-        //        // data_insert();
-        //        scrollUp();
-        //    }
-          
-           // console.log(test);
-           // var formData =  JSON.stringify(test);
-           // alert(formData);
+        if(error==""){
+            // alert("succes")
+            update_data_insert();
+        }
+        
+        function update_data_insert(){
+            $.ajax({            
+                url:"{{ url('update_emp_goals_data') }}",
+                type:"POST",
+                data:$('#goalsFormUpdate').serialize(),
+                dataType : "JSON",
+                success:function(data)
+                {
+
+                    Toastify({
+                        text: "Updated Sucessfully..!",
+                        duration: 3000,
+                        close:true,
+                        backgroundColor: "#4fbe87",
+                    }).showToast();    
                     
-        //    function data_insert(){
-        //        // alert("jsd");
+                    $('button[type="submit"]').attr('disabled' , false);
 
-        //        var business_name_option=$("#business_name_option").val();
+					$("#datatable_form_save").css('display', 'none');
+					$("#datatable_form_update").css('display', 'block');
 
-        //        $.ajax({
-                   
-        //            url:"{{ ('business_form') }}",
-        //            type:"POST",
-        //            data:{business_name:business_name_option, serialize_form_value:test},
-        //            dataType : "JSON",
-        //            success:function(data)
-        //            {
-        //                window.location.reload();                         
-        //            },
-        //            error: function(response) {
-        //                // alert(response.responseJSON.errors.business_name_option);
-        //                $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+                    // location = "goal_setting_edit?id="+data+"";                
 
-        //            }                                              
-                       
-        //        });
-        //    }            
-       
+                }
+            });
+                    
+        }        
 
-    }
-
-    $("#goalsFormUpdate").submit(function(e) {
-        e.preventDefault();
-        // $('button[type="submit"]').attr('disabled' , true);
-
-        // console.log($('#goalsFormUpdate').serialize());
-
-        var edit_id = $('#edit_goals_setting_id').val();
-        var path = "update_goals_data/"+edit_id;
-        var url = "{{ url('update_goals_data') }}";
-        $.ajax({
-                   
-            url: "{{ url('update_goals_data') }}",
-            type:"POST",
-            data:$('#goalsFormUpdate').serialize(),
-            dataType : "JSON",
-            success:function(data)
-            {
-                Toastify({
-                    text: "Updated Sucessfully..!",
-                    duration: 3000,
-                    close:true,
-                    backgroundColor: "#4fbe87",
-                }).showToast();    
-                
-                // $('button[type="submit"]').attr('disabled' , false);
-                
-                window.location = "{{ url('goals')}}";                
-            },
-            error: function(response) {
-                // alert(response.responseJSON.errors.business_name_option);
-                // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
-
-            }                                              
-                
-        });
-
+        return false;        
     });
 
+    //update Submit entry
+    $("#goal_sheet_submit_update").on('click',()=>{
 
+        var error='';
+        var rate = $("#employee_consolidated_rate").val();
+        var $errmsg3 = $(".employee_consolidated_rate_error");
+        $errmsg3.hide();
+
+        if(rate == ""){
+            $errmsg3.html('Employee Consolidated Rate is required').show();                
+            error+="error";
+        }
+
+        $('#goal-tb tr').each(function() {
+            var col0=$(this).find("td:eq(0)").text();
+            var col1=$(this).find("td:eq(1) option:selected").val();
+            var col2=$(this).find("td:eq(2) textarea").val();
+            var col4=$(this).find("td:eq(4) textarea").val();
+            var col5=$(this).find("td:eq(5) option:selected").val();
+            // console.log(col0)
+            // console.log(col1)
+
+            // Key business drivers
+            var err_div_name = ".key_bus_drivers_"+col0+"_error";            
+            var $errmsg0 = $(err_div_name);
+            $errmsg0.hide();
+            
+            if(col1 == ""){
+                $errmsg0.html('Key business drivers is required').show();                
+                error+="error";
+            }
+            
+            //Key result areas
+            var cass_name = ".key_res_areas_"+col0;
+
+            $(cass_name).each(function () {                
+                var sub_value = $(this).val();
+                var sub_class_id = $(this).get(0).id;
+                var err_div_name = "."+sub_class_id+"_error";
+                var $errmsg = $(err_div_name);
+                $errmsg.hide();
+                
+                if(sub_value == ""){
+                    $errmsg.html('Key result areas is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
+            //Self Assessment (Qualitative Remarks) by Employee
+            var cass_name1 = ".self_assessment_remark_"+col0;
+
+            $(cass_name1).each(function () {          
+                var sub_value1 = $(this).val();
+                var sub_class_id1 = $(this).get(0).id;
+                var err_div_name1 = "."+sub_class_id1+"_error";
+                var $errmsg1 = $(err_div_name1);
+                $errmsg1.hide();
+                console.log(err_div_name1)
+                
+                if(sub_value1 == ""){
+                    $errmsg1.html('Self assessment is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
+            //Rating by Employee
+            var cass_name2 = ".rating_by_employee_"+col0;
+
+            $(cass_name2).each(function () {                
+                var sub_value2 = $(this).val();
+                var sub_class_id2 = $(this).get(0).id;
+                var err_div_name2 = "."+sub_class_id2+"_error";
+                var $errmsg2 = $(err_div_name2);
+                $errmsg2.hide();
+                
+                if(sub_value2 == ""){
+                    $errmsg2.html('Rating by employee is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
+        });
+
+        //Sending data to database
+        if(error==""){
+            // alert("succes")
+            update_submit_data_insert();
+        }
+
+        function update_submit_data_insert(){
+            var employee_consolidated_rate = $("#employee_consolidated_rate").val();
+
+            $.ajax({            
+                url:"{{ url('update_emp_goals_data_submit') }}",
+                type:"POST",
+                data:$('#goalsFormUpdate').serialize(),
+                dataType : "JSON",
+                success:function(data)
+                {                    
+                    Toastify({
+                        text: "Added Sucessfully..!",
+                        duration: 3000,
+                        close:true,
+                        backgroundColor: "#4fbe87",
+                    }).showToast();    
+                    
+                    $('button[type="submit"]').attr('disabled' , false);                    
+
+                    location = "goals";                
+
+                }
+            });
+                    
+        }        
+        return false;        
+    });
 
 </script>
 

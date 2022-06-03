@@ -4186,6 +4186,9 @@ class GoalsController extends Controller
                 'reviewer_filter'=>$request->input('reviewer_filter'),
                 'team_leader_filter_hr'=>$request->input('team_leader_filter_hr'),
                 'team_member_filter_hr'=>$request->input('team_member_filter_hr'),
+                'gender_hr_2'=>$request->input('gender_hr_2'),
+                'grade_hr_2'=>$request->input('grade_hr_2'),
+                'department_hr_2'=>$request->input('department_hr_2'),
             );
         }
 

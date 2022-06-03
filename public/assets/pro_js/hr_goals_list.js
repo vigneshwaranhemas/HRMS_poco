@@ -22,7 +22,10 @@ $("#reset").on('click', function() {
 });$("#hr_reset").on('click', function() {
         $("#reviewer_filter").val("").trigger('change');       
         $("#team_leader_filter_hr").val("").trigger('change');       
-        $("#team_member_filter_hr").val("").trigger('change');  
+        $("#team_member_filter_hr").val("").trigger('change'); 
+         $("#gender_hr_2").val("").trigger('change');       
+        $("#grade_hr_2").val("").trigger('change');       
+        $("#department_hr_2").val("").trigger('change');  
         hr_dttable_record();     
 });$("#myself_reset").on('click', function() {
         $("#reviewer_filter_1").val("").trigger('change');       
@@ -52,6 +55,8 @@ $('#reviewer_apply').on('click',function() {
 $('#profile-info-tab').on('click',function() {
     get_hr_supervisor();
     hr_dttable_record();
+    get_grade();
+    get_department();
     });
 $('#hr_apply').on('click',function() {
     hr_dttable_record();
@@ -94,6 +99,7 @@ function get_grade(){
             }
             // console.log(data)
             $('#grade_hr_1').html(html);
+            $('#grade_hr_2').html(html);
 
         },
         error: function(error) {
@@ -116,6 +122,7 @@ function get_department(){
                 html += "<option value='" + data[i].department + "'>" + data[i].department + "</option>";
             }
             $('#department_hr_1').html(html);
+            $('#department_hr_2').html(html);
 
         },
         error: function(error) {
@@ -593,6 +600,9 @@ function hr_dttable_record(){
                 d.reviewer_filter = $('#reviewer_filter').val();
                 d.team_leader_filter_hr = $('#team_leader_filter_hr').val();
                 d.team_member_filter_hr = $('#team_member_filter_hr').val();
+                d.gender_hr_2 = $('#gender_hr_2').val();
+                d.grade_hr_2 = $('#grade_hr_2').val();
+                d.department_hr_2 = $('#department_hr_2').val();
             }
         },
         createdRow: function( row, data, dataIndex ) {

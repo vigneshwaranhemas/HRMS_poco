@@ -155,6 +155,27 @@
                                             <option value="">...Select...</option>
                                         </select>
                                     </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Gender</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="gender_hr_2" name="gender_hr_2">
+                                            <option value="">...Select...</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Grade</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="grade_hr_2" name="grade_hr_2">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Department</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="department_hr_2" name="department_hr_2">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
                                     <div class="col-lg-6 m-t-35">
                                         <button type="submit" id="hr_apply" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
                                         <button type="submit" id="hr_reset" onclick="hr_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            

@@ -541,3 +541,5 @@ Route::get('get_all_member_info','GoalsController@select_all_member_info');
 Route::post('get_all_memer_filter_url','GoalsController@get_all_memer_filter_url');
 Route::get('get_all_supervisors_info_bh','GoalsController@get_all_supervisors_info_bh');
 Route::get('goal_setting_bh_reviewer_view','GoalsController@goal_setting_bh_reviewer_view');
+Route::post('update_bh_goals','GoalsController@update_bh_goals');
+Route::post('Update_bh_status','GoalsController@Change_Bh_status');

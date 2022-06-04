@@ -1103,550 +1103,13 @@ class GoalsController extends Controller
     public function fetch_goals_reviewer_details(Request $request)
     {
         $id = $request->id;
-        // echo json_encode($id);die();
         $json = $this->goal->fetchGoalIdDetails($id);
         $reviewer = $this->goal->checkReviewerIDOrNot($id);
-
-    //    echo json_encode($reviewer);die();
-
-    //    if($reviewer==1){
-
-
-    //     //supervisor reviewer edit concept
-
-    //     $json = $this->goal->fetchGoalIdDetails($id);
-    //     $datas = json_decode($json);
-
-    //     $html = '';
-
-    //     foreach($datas as $key=>$data){
-    //         $cell1 = $key+1;
-    //         $row_values = json_decode($data);
-    //         $cell2 = "key_bus_drivers_".$cell1;
-    //         $cell3 = "key_res_areas_".$cell1;
-    //         $cell4 = "measurement_criteria_".$cell1;
-    //         $cell5 = "self_assessment_remark_".$cell1;
-    //         $cell6 = "rating_by_employee_".$cell1;
-    //         // $cell7 = "sup_remarks_".$cell1;
-    //         // $cell8 = "sup_final_output_".$cell1;
-    //         // $cell9 = "reviewer_remarks_".$cell1;
-    //         $cell10 =  "hr_remarks_".$cell1;
-    //         $cell11 = "bh_sign_off_".$cell1;
-
-    //         $hidden_rows=array('0'=>'supervisor_remarks','1'=>'reviewer_remarks');
-
-
-    //         // echo json_encode($cell7);die();
-
-    //         $html .= '<tr  class="border-bottom-primary">';
-
-    //             /*Cell 1*/
-    //             $html .= '<th scope="row">'.$cell1.'</th>';
-
-    //             /*Cell 2*/
-    //             if($row_values->$cell2 != null){
-    //                 $html .= '<td>';
-    //                     foreach($row_values->$cell2 as $cell2_value){
-    //                         if($cell2_value != null){
-
-    //                             $html .= '<p>'.$cell2_value.'</p>';
-
-    //                         }else{
-    //                             $html .= '<p></p>';
-
-    //                         }
-    //                     }
-
-    //                     $html .= '</td>';
-    //             }else{
-    //                 $html .= '<td>';
-    //                 $html .= '</td>';
-    //             }
-
-    //             /*Cell 3*/
-    //             if($row_values->$cell3 != null){
-    //                 $html .= '<td>';
-    //                     foreach($row_values->$cell3 as $cell3_value){
-    //                         // dd($cell3_value);
-    //                         if($cell3_value != null){
-
-    //                             $html .= '<p>'.$cell3_value.'</p>';
-
-    //                         }else{
-    //                             $html .= '<p></p>';
-
-    //                         }
-    //                     }
-
-    //                 $html .= '</td>';
-
-    //             }else{
-    //                 $html .= '<td>';
-    //                 $html .= '</td>';
-    //             }
-
-    //             /*Cell 4*/
-    //             if($row_values->$cell4 != null){
-    //                 $html .= '<td>';
-    //                     foreach($row_values->$cell4 as $cell4_value){
-    //                         // dd($cell3_value);
-    //                         if($cell4_value != null){
-
-    //                             $html .= '<p>'.$cell4_value.'</p>';
-
-    //                         }
-    //                     }
-
-    //                 $html .= '</td>';
-
-    //             }else{
-    //                 $html .= '<td>';
-    //                 $html .= '</td>';
-    //             }
-
-    //             /*Cell 5*/
-    //             if($row_values->$cell5 != null){
-    //                 $html .= '<td>';
-    //                     foreach($row_values->$cell5 as $cell5_value){
-    //                         // dd($cell3_value);
-    //                         if($cell5_value != null){
-
-    //                             $html .= '<p>'.$cell5_value.'</p>';
-
-    //                         }
-    //                     }
-
-    //                 $html .= '</td>';
-
-    //             }else{
-    //                 $html .= '<td>';
-    //                 // $html .= '<p></p>';
-    //                 $html .= '</td>';
-    //             }
-
-    //             /*Cell 6*/
-    //             if($row_values->$cell6 != null){
-    //                 $html .= '<td>';
-    //                     foreach($row_values->$cell6 as $cell6_value){
-    //                         // dd($cell3_value);
-    //                         if($cell6_value != null){
-
-    //                             $html .= '<p>'.$cell6_value.'</p>';
-
-    //                         }
-    //                     }
-
-    //                 $html .= '</td>';
-
-    //             }else{
-    //                 $html .= '<td>';
-    //                 // $html .= '<p></p>';
-    //                 $html .= '</td>';
-    //             }
-    //             // die();
-
-
-
-
-
-
-
-    //             //    /*Cell 7*/
-    //             //    $html .= '<td>';
-    //             //    if($row_values->$cell8 != null){
-    //             //     $html .= '<p name="sup_final_output_'.$cell1.'[]">'.nl2br($row_values->$cell8[0]).'</p>';
-    //             //     }else{
-    //             //     $html .= '<p name="sup_final_output_'.$cell1.'[]"></p>';
-    //             //     }
-    //             //    $html .= '</td>';
-
-
-    //                 /* cell8 */
-    //                $html .= '<td>';
-    //                if($row_values->$cell10 != null){
-    //                 $html .= '<p name="reviewer_remarks_'.$cell1.'[]">'.nl2br($row_values->$cell10[0]).'</p>';
-    //             }else{
-    //                 $html .= '<p name="reviewer_remarks_'.$cell1.'[]"></p>';
-    //             }
-    //                $html .= '</td>';
-
-
-    //                   $html .= '<td>';
-
-
-    //                if($row_values->$cell11 != null){
-    //                 $html .= '<p name="bh_sign_off_'.$cell1.'[]">'.nl2br($row_values->$cell11[0]).'</p>';
-    //                }else{
-    //                 $html .= '<p name="bh_sign_off_'.$cell1.'[]"></p>';
-
-    //                }
-    //                 $html .= '</td>';
-
-    //                $html .= '</tr>';
-    //                /*Cell 11*/
-
-
-
-
-    //         }
-    // }
-    // if($reviewer==2){
-    // // echo json_encode('one');die();
-
-    //     //teamleader reviewer edit concept
-
-    //     $json = $this->goal->fetchGoalIdDetails($id);
-    //     $datas = json_decode($json);
-
-    //     $html = '';
-
-    //     foreach($datas as $key=>$data){
-    //         $cell1 = $key+1;
-    //         $row_values = json_decode($data);
-    //         $cell2 = "key_bus_drivers_".$cell1;
-    //         $cell3 = "key_res_areas_".$cell1;
-    //         $cell4 = "measurement_criteria_".$cell1;
-    //         $cell5 = "self_assessment_remark_".$cell1;
-    //         $cell6 = "rating_by_employee_".$cell1;
-    //         $cell7 = "sup_remarks_".$cell1;
-    //         $cell8 = "sup_final_output_".$cell1;
-    //         // $cell9 = "reviewer_remarks_".$cell1;
-    //         $cell10 =  "hr_remarks_".$cell1;
-    //         $cell11 = "bh_sign_off_".$cell1;
-    //         $html .= '<tr  class="border-bottom-primary">';
-
-    //             /*Cell 1*/
-    //             $html .= '<th scope="row">'.$cell1.'</th>';
-
-    //            /*Cell 2*/
-    //            if($row_values->$cell2 != null){
-    //             $html .= '<td>';
-    //                 foreach($row_values->$cell2 as $cell2_value){
-    //                     if($cell2_value != null){
-
-    //                         $html .= '<p>'.$cell2_value.'</p>';
-
-    //                     }else{
-    //                         $html .= '<p></p>';
-
-    //                     }
-    //                 }
-
-    //                 $html .= '</td>';
-    //         }else{
-    //             $html .= '<td>';
-    //             $html .= '</td>';
-    //         }
-
-    //         /*Cell 3*/
-    //         if($row_values->$cell3 != null){
-    //             $html .= '<td>';
-    //                 foreach($row_values->$cell3 as $cell3_value){
-    //                     // dd($cell3_value);
-    //                     if($cell3_value != null){
-
-    //                         $html .= '<p>'.$cell3_value.'</p>';
-
-    //                     }else{
-    //                         $html .= '<p></p>';
-
-    //                     }
-    //                 }
-
-    //             $html .= '</td>';
-
-    //         }else{
-    //             $html .= '<td>';
-    //             $html .= '</td>';
-    //         }
-
-
-
-    //         /*Cell 4*/
-    //         if($row_values->$cell4 != null){
-    //             $html .= '<td>';
-    //                 foreach($row_values->$cell4 as $cell4_value){
-    //                     // dd($cell3_value);
-    //                     if($cell4_value != null){
-
-    //                         $html .= '<p>'.$cell4_value.'</p>';
-
-    //                     }
-    //                 }
-
-    //             $html .= '</td>';
-
-    //         }else{
-    //             $html .= '<td>';
-    //             $html .= '</td>';
-    //         }
-
-    //          /*Cell 5*/
-    //         if($row_values->$cell5 != null){
-    //             $html .= '<td>';
-    //                 foreach($row_values->$cell5 as $cell5_value){
-    //                     // dd($cell3_value);
-    //                     if($cell5_value != null){
-
-    //                         $html .= '<p>'.$cell5_value.'</p>';
-
-    //                     }
-    //                 }
-
-    //             $html .= '</td>';
-
-    //         }else{
-    //             $html .= '<td>';
-    //             // $html .= '<p></p>';
-    //             $html .= '</td>';
-    //         }
-    //           /*Cell 6*/
-    //           if($row_values->$cell6 != null){
-    //             $html .= '<td>';
-    //                 foreach($row_values->$cell6 as $cell6_value){
-    //                     // dd($cell3_value);
-    //                     if($cell6_value != null){
-
-    //                         $html .= '<p>'.$cell6_value.'</p>';
-
-    //                     }
-    //                 }
-
-    //             $html .= '</td>';
-
-    //         }else{
-    //             $html .= '<td>';
-    //             // $html .= '<p></p>';
-    //             $html .= '</td>';
-    //         }
-
-    //            /*Cell 7*/
-    //            $html .= '<td>';
-    //            if($row_values->$cell7 != null){
-    //            $html .= '<p>'.nl2br($row_values->$cell7[0]).'</p>';
-    //            }
-    //            $html .= '</td>';
-
-    //            /*Cell 8*/
-    //            $html .= '<td>';
-    //            if($row_values->$cell8 != null){
-    //                $html .= '<p>'.$row_values->$cell8[0].'</p>';
-    //            }
-    //            $html .= '</td>';
-
-    //            /*Cell 9*/
-    //         //    $html .= '<td>';
-    //         //    if($row_values->$cell9 != null){
-    //         //     $html .= '<textarea type="text" name="bh_sign_off_'.$cell1.'[]" class="form-control">'.$row_values->$cell9[0].'</textarea>';
-    //         // }else{
-    //         //     $html .= '<textarea type="text" name="bh_sign_off_'.$cell1.'[]" class="form-control"></textarea>';
-    //         // }
-    //         //    $html .= '</td>';
-
-    //            //  cell 10
-    //            $html .= '<td>';
-    //            if($row_values->$cell10 != null){
-    //            $html .= '<p>'.$row_values->$cell10[0].'</p>';
-    //            }
-    //            $html .= '</td>';
-
-    //            /*Cell 15*/
-    //            $html .= '<td>';
-    //            if($row_values->$cell11 != null){
-    //             $html .= '<p name="bh_sign_off_'.$cell1.'[]">'.nl2br($row_values->$cell11[0]).'</p>';
-    //            }else{
-    //             $html .= '<p name="bh_sign_off_'.$cell1.'[]"></p>';
-
-
-    //            }
-    //             $html .= '</td>';
-
-    //         $html .= '</tr>';
-
-    //     }
-
-    // }
-    // if($reviewer==0){
-
-    //         //    echo json_encode("one");die();
-    //     //employee reviewer edit concept
-
-    //     $json = $this->goal->fetchGoalIdDetails($id);
-    //     $datas = json_decode($json);
-    //     // dd($datas);
-
-    //     $html = '';
-
-    //     foreach($datas as $key=>$data){
-    //         $cell1 = $key+1;
-    //         $row_values = json_decode($data);
-    //         $cell2 = "key_bus_drivers_".$cell1;
-    //         $cell3 = "key_res_areas_".$cell1;
-    //         $cell4 = "measurement_criteria_".$cell1;
-    //         $cell5 = "self_assessment_remark_".$cell1;
-    //         $cell6 = "rating_by_employee_".$cell1;
-    //         $cell7 = "sup_remarks_".$cell1;
-    //         $cell8 = "sup_final_output_".$cell1;
-    //         $cell9 = "reviewer_remarks_".$cell1;
-    //         $cell10 =  "hr_remarks_".$cell1;
-    //         $cell11 = "bh_sign_off_".$cell1;
-
-    //         $html .= '<tr  class="border-bottom-primary">';
-
-    //             /*Cell 1*/
-    //             $html .= '<th scope="row">'.$cell1.'</th>';
-
-    //             /*Cell 2*/
-    //             if($row_values->$cell2 != null){
-    //                 $html .= '<td>';
-    //                     foreach($row_values->$cell2 as $cell2_value){
-    //                         if($cell2_value != null){
-
-    //                             $html .= '<p>'.$cell2_value.'</p>';
-
-    //                         }else{
-    //                             $html .= '<p></p>';
-
-    //                         }
-    //                     }
-
-    //                     $html .= '</td>';
-    //             }else{
-    //                 $html .= '<td>';
-    //                 $html .= '</td>';
-    //             }
-
-    //             /*Cell 3*/
-    //             if($row_values->$cell3 != null){
-    //                 $html .= '<td>';
-    //                     foreach($row_values->$cell3 as $cell3_value){
-    //                         // dd($cell3_value);
-    //                         if($cell3_value != null){
-
-    //                             $html .= '<p>'.$cell3_value.'</p>';
-
-    //                         }else{
-    //                             $html .= '<p></p>';
-
-    //                         }
-    //                     }
-
-    //                 $html .= '</td>';
-
-    //             }else{
-    //                 $html .= '<td>';
-    //                 $html .= '</td>';
-    //             }
-
-
-
-    //             /*Cell 4*/
-    //             if($row_values->$cell4 != null){
-    //                 $html .= '<td>';
-    //                     foreach($row_values->$cell4 as $cell4_value){
-    //                         // dd($cell3_value);
-    //                         if($cell4_value != null){
-
-    //                             $html .= '<p>'.$cell4_value.'</p>';
-
-    //                         }
-    //                     }
-
-    //                 $html .= '</td>';
-
-    //             }else{
-    //                 $html .= '<td>';
-    //                 $html .= '</td>';
-    //             }
-
-    //              /*Cell 5*/
-    //             if($row_values->$cell5 != null){
-    //                 $html .= '<td>';
-    //                     foreach($row_values->$cell5 as $cell5_value){
-    //                         // dd($cell3_value);
-    //                         if($cell5_value != null){
-
-    //                             $html .= '<p>'.$cell5_value.'</p>';
-
-    //                         }
-    //                     }
-
-    //                 $html .= '</td>';
-
-    //             }else{
-    //                 $html .= '<td>';
-    //                 // $html .= '<p></p>';
-    //                 $html .= '</td>';
-    //             }
-    //               /*Cell 6*/
-    //               if($row_values->$cell6 != null){
-    //                 $html .= '<td>';
-    //                     foreach($row_values->$cell6 as $cell6_value){
-    //                         // dd($cell3_value);
-    //                         if($cell6_value != null){
-
-    //                             $html .= '<p>'.$cell6_value.'</p>';
-
-    //                         }
-    //                     }
-
-    //                 $html .= '</td>';
-
-    //             }else{
-    //                 $html .= '<td>';
-    //                 $html .= '<p></p>';
-    //                 $html .= '</td>';
-    //             }
-
-    //             /*Cell 7*/
-    //             $html .= '<td>';
-    //             if($row_values->$cell7 != null){
-    //             $html .= '<p>'.$row_values->$cell7[0].'</p>';
-    //             }
-    //             $html .= '</td>';
-
-    //             /*Cell 8*/
-    //             $html .= '<td>';
-    //             if($row_values->$cell8 != null){
-    //                 $html .= '<p>'.$row_values->$cell8[0].'</p>';
-    //             }
-    //             $html .= '</td>';
-
-    //             /*Cell 9*/
-    //             $html .= '<td>';
-    //             if($row_values->$cell9 != null){
-    //                 $html .= '<p>'.$row_values->$cell9[0].'</p>';
-    //             }
-    //             $html .= '</td>';
-
-    //             // //  cell 10
-    //             $html .= '<td>';
-    //             if($row_values->$cell10 != null){
-    //             $html .= '<p>'.$row_values->$cell10[0].'</p>';
-    //             }
-    //             $html .= '</td>';
-
-    //             /*Cell 15*/
-    //             $html .= '<td>';
-    //             if($row_values->$cell11 != null){
-    //                 $html .= '<p name="bh_sign_off_'.$cell1.'[]">'.nl2br($row_values->$cell11[0]).'</p>';
-    //                 // $html .= '<textarea type="text" name="bh_sign_off_'.$cell1.'[]" class="form-control">'.$row_values->$cell11[0].'</textarea>';
-    //             }else{
-    //                 $html .= '<p name="bh_sign_off_'.$cell1.'[]"></p>';
-    //                 // $html .= '<textarea type="text" name="bh_sign_off_'.$cell1.'[]" class="form-control"></textarea>';
-    //             }
-    //             $html .= '</td>';
-
-    //         $html .= '</tr>';
-
-    //     }
-
-    // }
-
-
+        $get_sheet_status=Goals::where('goal_unique_code',$id)
+                                 ->select('goal_status',
+                                        'supervisor_consolidated_rate',
+                                        'bh_status','employee_consolidated_rate','supervisor_consolidated_rate')->first();
         $datas = json_decode($json);
-
-
         $html = '';
         foreach($datas as $key=>$data){
             $cell1 = $key+1;
@@ -1802,7 +1265,7 @@ class GoalsController extends Controller
                     foreach($row_values->$cell8 as $cell8_value){
                         if($cell8_value != null){
 
-                            $html .= '<p class="removable_p_'.$cell1.'">'.$cell8_value.'</p>';
+                            $html .= '<p class="supervisor_p_'.$cell1.'">'.$cell8_value.'</p>';
 
                         }
                     }
@@ -1879,6 +1342,7 @@ class GoalsController extends Controller
 
         $new_data['html']=$html;
         $new_data['reviewer']=$reviewer;
+        $new_data['get_sheet_status']=$get_sheet_status;
         // $new_data['hidden_rows']=$hidden_rows;
 
     return response()->json($new_data);
@@ -4348,16 +3812,84 @@ public function get_all_supervisors_info_bh()
         }
         $goal_process = json_encode($json);
 
+
+
         //Data upload to server
         $data = array(
             'goal_process' => $goal_process,
-            'goal_unique_code' => $id,
+            'goal_unique_code' => $id
         );
         // dd($data);
         $result = $this->goal->update_goals_sup_reviewer_tm($data);
 
         return response($result);
     }
+
+
+
+public function update_bh_goals(Request $request)
+{
+    //    echo json_encode($request->all());die();
+     $id = $request->goals_setting_id;
+     $reviewer_id=$request->reviewer_hidden_id;
+     $json_value = $this->goal->fetchGoalIdDetails($id);
+     $datas = json_decode($json_value);
+
+     $json = array();
+
+     $html = '';
+
+     foreach($datas as $key=>$data){
+         $cell1 = $key+1;
+         $row_values = json_decode($data);
+         //Reviewer remarks add
+         $bh_sign_off_value = array($request->bh_sign_off_[$key]);
+         $bh_sign_off = "bh_sign_off_".$cell1;
+         $row_values->$bh_sign_off = $bh_sign_off_value;
+         $supervisor_rating = array($request->sup_final_output_[$key]);
+         $sup_final_op = "sup_final_output_".$cell1;
+         $row_values->$sup_final_op = $supervisor_rating;
+         $json_format = json_encode($row_values);
+         array_push($json, $json_format);
+
+     }
+    //   echo json_encode($json);die();
+     $goal_process = json_encode($json);
+     //Data upload to server
+     $data = array(
+         'goal_process' => $goal_process,
+        //  'goal_unique_code' => $id,
+         'goal_status'=>$request->Bh_sheet_approval
+     );
+     if($request->reviewer_hidden_id ==1 || $request->reviewer_hidden_id==2){
+           $data['supervisor_consolidated_rate']=$request->supervisor_consolidated_rate;
+    }
+     $result=Goals::where('goal_unique_code',$id)->update($data);
+     if($result){
+         $response=array('success'=>1,"message"=>"Data Updated Successfully");
+     }
+     else{
+        $response=array('success'=>1,"message"=>"Problem in Updating Data");
+     }
+
+    //  return response($response);
+    echo json_encode($response);
+}
+
+
+ public function Change_Bh_status(request $request)
+ {
+        $result=Goals::where('goal_unique_code',$request->id)->update(['bh_status'=>'1']);
+        if($result){
+            $response=array('success'=>1,"message"=>"Data Updated Successfully");
+        }
+        else{
+           $response=array('success'=>1,"message"=>"Problem in Updating Data");
+        }
+        echo json_encode($response);
+
+ }
+
 
 
 

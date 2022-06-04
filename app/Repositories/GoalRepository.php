@@ -870,8 +870,14 @@ public function update_goals_sup_reviewer_tm($data){
     $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                       ->update([
                             'goal_process' => $data['goal_process'],
+                            'goal_status'  =>$data['goal_status']
                       ]);
   return $response;
 }
+
+
+
+
+
 
 }

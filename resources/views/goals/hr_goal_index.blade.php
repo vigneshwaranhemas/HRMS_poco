@@ -52,7 +52,7 @@
                     <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-overall" role="tab" aria-controls="info-overall" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>AS HR</a>
                     <div class="material-border"></div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" id="myself-info-tab" data-toggle="tab" href="#info-myself" role="tab" aria-controls="info-myself" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>MySelf</a>
+                    <li class="nav-item"><a class="nav-link" id="MySelf-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>MySelf</a>
                     <div class="material-border"></div>
                     </li>
                     <li class="nav-item"><a class="nav-link" id="listing-info-tab" data-toggle="tab" href="#info-listing" role="tab" aria-controls="info-listing" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Listing</a>
@@ -155,6 +155,27 @@
                                             <option value="">...Select...</option>
                                         </select>
                                     </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Gender</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="gender_hr_2" name="gender_hr_2">
+                                            <option value="">...Select...</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Grade</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="grade_hr_2" name="grade_hr_2">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2 m-t-5">
+                                        <label for="Leader">Select Department</label>
+                                        <select class="js-example-basic-single float-right" style="width:300px;" id="department_hr_2" name="department_hr_2">
+                                            <option value="">...Select...</option>
+                                        </select>
+                                    </div>
                                     <div class="col-lg-6 m-t-35">
                                         <button type="submit" id="hr_apply" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
                                         <button type="submit" id="hr_reset" onclick="hr_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
@@ -179,17 +200,16 @@
                         </div>
                     </div>      
                     <!--myself -->
-                    <div class="tab-pane fade" id="info-myself" role="tabpanel" aria-labelledby="myself-info-tab">
+                    <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
                         <div class="card">
                             <div class="card-body">
                                 <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn  float-right btn-primary-gradien" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
-                                <div class="table-responsive m-t-40">
-                                    <table class="table" id="myself_tbl">
+                                <div class="table-responsive">
+                                    <table class="table" id="goal_data">
                                         <thead>
                                             <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Goal list</th>
-                                            <th scope="col">Status</th>
                                             <th scope="col">Action </th>
                                             </tr>
                                         </thead>

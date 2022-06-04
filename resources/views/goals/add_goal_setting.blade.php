@@ -11,6 +11,17 @@
 @endsection
 
 @section('style')
+<style>
+    #goal_sheet_edit{
+        display: none;
+    }
+    #datatable_form_update{
+        display: none;
+    }
+    #goal_sheet_submit_update{
+        display: none;
+    }
+</style>
 @endsection
 
 @section('breadcrumb-title')
@@ -108,123 +119,59 @@
             </div>
 
             <div class="card">
-                <!-- <div class="card-header">
-                    <div class="table-responsive ">
-                        <table class="table table-border-vertical table-border-horizontal">
-
-                            <tbody class="table-primary">
-                                <tr>
-                                    <th scope="row">Name</th>
-                                    <td>Ganagavathy KGV</td>
-                                    <td rowspan="3" style="vertical-align : middle;text-align:center;">
-                                        Goals 22-23</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Function</th>
-                                    <td>IT</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Emp ID</th>
-                                    <td>900102</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div> -->
                 <div class="card-body">
-
-                    <div class="table-responsive">
+                    <div class="table-responsive">                        
                         <form id="goalsForm">
-                        <table class="table" id="goal-tb">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Key Business Drivers</th>
-                                    <th scope="col">Key Result Areas </th>
-                                    <th scope="col">Measurement Criteria (Quantified Measures)</th>
-                                    <th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
-                                    <th scope="col">Rating by Employee</th>
-                                    <!-- <th scope="col">Actuals </th> -->
-                                    <th scope="col"></th>
-                                    <th scope="col">
-                                        <i class="fa fa-plus txt-primary"
-                                            style="font-size: x-large;" data-original-title="Add KBD" title="Add KBD"  onclick="additionalKBD();"></i>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- <tr>
-                                    <th scope="row">1</th>
-                                    <td>
-                                        <select class="form-control js-example-basic-single">
-                                            <option value="Revenue">Revenue</option>
-                                            <option value="Customer">Customer</option>
-                                            <option value="Process">Process</option>
-                                            <option value="People">People</option>
-                                            <option value="Projects">Projects</option>
-
+                            <button type="submit" id="goal_sheet_submit" class="btn btn-success  float-right m-b-30"><i class="ti-save"></i> Submit For Approval</button>                                            
+                            <button id="goal_sheet_submit_update" class="btn btn-success  float-right m-b-30"><i class="ti-save"></i> Submit For Approval</button>                                            
+                            <!-- <a id="goal_sheet_submit" type="submit" class="btn btn-success text-white float-right m-b-30" title="Overall Sheet Submit"></a>                                            
+                            <a id="goal_sheet_submit_update" type="submit" class="btn btn-success text-white float-right m-b-30" title="Overall Sheet Submit">Submit For Approval</a>                                             -->
+                            <table class="table" id="goal-tb">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Key Business Drivers</th>
+                                        <th scope="col">Key Result Areas </th>
+                                        <th scope="col">Measurement Criteria (Quantified Measures)</th>
+                                        <th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
+                                        <th scope="col">Rating by Employee</th>
+                                        <!-- <th scope="col">Actuals </th> -->
+                                        <th scope="col"></th>
+                                        <th scope="col">
+                                            <i class="fa fa-plus txt-primary"
+                                                style="font-size: x-large;" data-original-title="Add KBD" title="Add KBD"  onclick="additionalKBD();"></i>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="goals_record">                              
+                                </tbody>
+                            </table>
+                            <input type="hidden" name="goals_setting_id" id="goals_setting_id">								
+                            <div class="m-t-40 m-b-30">
+                                <div class="row">									
+                                    <div class="col-lg-2">
+                                        <label>Consolidated Rating</label><br>
+                                        <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
+                                            <option value="" selected>...Select...</option>
+                                            <option value="EE">EE</option>
+                                            <option value="AE">AE</option>
+                                            <option value="ME">ME</option>
+                                            <option value="PE">PE</option>
+                                            <option value="ND">ND</option>
                                         </select>
-                                    </td>
-                                    <td>
-                                        <input type="text" name="" id="" class="form-control">
-                                    </td>
-                                    <td>
-                                        <input type="text" name="" id="" class="form-control">
-
-                                    </td>
-                                    <td>
-                                        <input type="text" name="" id="" class="form-control">
-
-                                    </td>
-                                    <td>
-                                        <input type="text" name="" id="" class="form-control">
-
-                                    </td>
-                                    <td>
-                                        <input type="text" name="" id="" class="form-control">
-
-                                    </td>
-                                    <td>
-                                        <i class="fa fa-edit txt-info" style="font-size: x-large;"></i>
-                                        <i class="fa fa-trash-o txt-danger"
-                                            style="font-size: x-large;"></i>
-                                    </td>
-                                </tr>
-                                    -->
-
-                            </tbody>
-                        </table>
-                        <div class="m-t-40 m-b-30">
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <label>Consolidated Rating</label><br>
-                                    <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
-                                        <option value="" selected>...Select...</option>
-                                        <option value="EE">EE</option>
-                                        <option value="AE">AE</option>
-                                        <option value="ME">ME</option>
-                                        <option value="PE">PE</option>
-                                        <option value="ND">ND</option>
-                                    </select>
-                                    <div class="text-danger employee_consolidated_rate_error" id=""></div>
+                                        <div class="text-danger employee_consolidated_rate_error" id=""></div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Save</button>                                            
+                                        <button id="datatable_form_update" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
+                                    </div>
                                 </div>
-                                <div class="col-lg-2">
-                                    <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Save</button>
-                                </div>
-                            </div>
-                        </div>
-
+                            </div>                                                
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
 </div>
 <!-- Container-fluid Ends-->
@@ -491,9 +438,254 @@
         updatesno();
     });
 
-    $("#goalsForm").submit(function(e) {
-        e.preventDefault();
+    //New entry    
+    $("#datatable_form_save").on('click',()=>{
+        var error='';
+        var rate = $("#employee_consolidated_rate").val();
+        var $errmsg3 = $(".employee_consolidated_rate_error");
+        $errmsg3.hide();
 
+        if(rate == ""){
+            $errmsg3.html('Employee Consolidated Rate is required').show();                
+            error+="error";
+        }
+
+        $('#goal-tb tr').each(function() {
+            var col0=$(this).find("td:eq(0)").text();
+            var col1=$(this).find("td:eq(1) option:selected").val();
+            var col2=$(this).find("td:eq(2) textarea").val();
+            var col4=$(this).find("td:eq(4) textarea").val();
+            var col5=$(this).find("td:eq(5) option:selected").val();
+            // console.log(col0)
+            // console.log(col1)
+
+            // Key business drivers
+            var err_div_name = ".key_bus_drivers_"+col0+"_error";            
+            var $errmsg0 = $(err_div_name);
+            $errmsg0.hide();
+            
+            if(col1 == ""){
+                $errmsg0.html('Key business drivers is required').show();                
+                error+="error";
+            }
+            
+            //Key result areas
+            var cass_name = ".key_res_areas_"+col0;
+
+            $(cass_name).each(function () {                
+                var sub_value = $(this).val();
+                var sub_class_id = $(this).get(0).id;
+                var err_div_name = "."+sub_class_id+"_error";
+                var $errmsg = $(err_div_name);
+                $errmsg.hide();
+                
+                if(sub_value == ""){
+                    $errmsg.html('Key result areas is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
+            //Self Assessment (Qualitative Remarks) by Employee
+            var cass_name1 = ".self_assessment_remark_"+col0;
+
+            $(cass_name1).each(function () {          
+                var sub_value1 = $(this).val();
+                var sub_class_id1 = $(this).get(0).id;
+                var err_div_name1 = "."+sub_class_id1+"_error";
+                var $errmsg1 = $(err_div_name1);
+                $errmsg1.hide();
+                console.log(err_div_name1)
+                
+                if(sub_value1 == ""){
+                    $errmsg1.html('Self assessment is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
+            //Rating by Employee
+            var cass_name2 = ".rating_by_employee_"+col0;
+
+            $(cass_name2).each(function () {                
+                var sub_value2 = $(this).val();
+                var sub_class_id2 = $(this).get(0).id;
+                var err_div_name2 = "."+sub_class_id2+"_error";
+                var $errmsg2 = $(err_div_name2);
+                $errmsg2.hide();
+                
+                if(sub_value2 == ""){
+                    $errmsg2.html('Rating by employee is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
+        });
+
+        //Sending data to database
+        if(error==""){
+            // alert("succes")
+            new_data_insert();
+        }             
+
+        function new_data_insert(){
+            $.ajax({            
+                url:"{{ url('add_goals_data') }}",
+                type:"POST",
+                data:$('#goalsForm').serialize(),
+                dataType : "JSON",
+                success:function(data)
+                {
+                    
+                    Toastify({
+                        text: "Added Sucessfully..!",
+                        duration: 3000,
+                        close:true,
+                        backgroundColor: "#4fbe87",
+                    }).showToast();    
+                    
+                    $('button[type="submit"]').attr('disabled' , false);
+
+                    $("#goals_setting_id").val(data);
+                    $("#datatable_form_save").css('display', 'none');
+                    $("#datatable_form_update").css('display', 'block');
+                    $("#goal_sheet_submit").css('display', 'none');
+                    $("#goal_sheet_submit_update").css('display', 'block');
+
+                    // location = "goal_setting_edit?id="+data+"";                
+
+                }
+            });
+                    
+        }
+        return false;        
+    });    
+
+    //New Submit entry
+    $("#goal_sheet_submit").on('click',()=>{        
+
+        var error='';
+
+        var rate = $("#employee_consolidated_rate").val();
+        var $errmsg3 = $(".employee_consolidated_rate_error");
+        $errmsg3.hide();
+
+        if(rate == ""){
+            $errmsg3.html('Employee Consolidated Rate is required').show();                
+            error+="error";
+        }
+
+        $('#goal-tb tr').each(function() {
+            var col0=$(this).find("td:eq(0)").text();
+            var col1=$(this).find("td:eq(1) option:selected").val();
+            var col2=$(this).find("td:eq(2) textarea").val();
+            var col4=$(this).find("td:eq(4) textarea").val();
+            var col5=$(this).find("td:eq(5) option:selected").val();
+            // console.log(col0)
+            // console.log(col1)
+
+            // Key business drivers
+            var err_div_name = ".key_bus_drivers_"+col0+"_error";            
+            var $errmsg0 = $(err_div_name);
+            $errmsg0.hide();
+            
+            if(col1 == ""){
+                $errmsg0.html('Key business drivers is required').show();                
+                error+="error";
+            }
+            
+            //Key result areas
+            var cass_name = ".key_res_areas_"+col0;
+
+            $(cass_name).each(function () {                
+                var sub_value = $(this).val();
+                var sub_class_id = $(this).get(0).id;
+                var err_div_name = "."+sub_class_id+"_error";
+                var $errmsg = $(err_div_name);
+                $errmsg.hide();
+                
+                if(sub_value == ""){
+                    $errmsg.html('Key result areas is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
+            //Self Assessment (Qualitative Remarks) by Employee
+            var cass_name1 = ".self_assessment_remark_"+col0;
+
+            $(cass_name1).each(function () {          
+                var sub_value1 = $(this).val();
+                var sub_class_id1 = $(this).get(0).id;
+                var err_div_name1 = "."+sub_class_id1+"_error";
+                var $errmsg1 = $(err_div_name1);
+                $errmsg1.hide();
+                console.log(err_div_name1)
+                
+                if(sub_value1 == ""){
+                    $errmsg1.html('Self assessment is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
+            //Rating by Employee
+            var cass_name2 = ".rating_by_employee_"+col0;
+
+            $(cass_name2).each(function () {                
+                var sub_value2 = $(this).val();
+                var sub_class_id2 = $(this).get(0).id;
+                var err_div_name2 = "."+sub_class_id2+"_error";
+                var $errmsg2 = $(err_div_name2);
+                $errmsg2.hide();
+                
+                if(sub_value2 == ""){
+                    $errmsg2.html('Rating by employee is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
+        });
+
+        //Sending data to database
+        if(error==""){
+            // alert("succes")
+            new_sub_goal_data_insert();
+        }
+
+        function new_sub_goal_data_insert(){
+            $.ajax({            
+                url:"{{ url('add_goals_data_submit') }}",
+                type:"POST",
+                data:$('#goalsForm').serialize(),
+                dataType : "JSON",
+                success:function(data)
+                {
+                    
+                    Toastify({
+                        text: "Added Sucessfully..!",
+                        duration: 3000,
+                        close:true,
+                        backgroundColor: "#4fbe87",
+                    }).showToast();    
+                    
+                    $('button[type="submit"]').attr('disabled' , false);
+
+                    location = "goals";                
+
+                }
+            });
+                    
+        }        
+
+        return false;        
+    });
+    
+    //update entry
+    $("#datatable_form_update").on('click',()=>{   
+        
         var error='';
 
         var rate = $("#employee_consolidated_rate").val();
@@ -581,37 +773,158 @@
         //Sending data to database
         if(error==""){
             // alert("succes")
-            data_insert();
+            update_data_insert();
         }
-
-        function data_insert(){
-            $.ajax({
-
-                url:"{{ url('add_goals_data') }}",
+        
+        function update_data_insert(){
+            $.ajax({            
+                url:"{{ url('update_emp_goals_data') }}",
                 type:"POST",
                 data:$('#goalsForm').serialize(),
                 dataType : "JSON",
                 success:function(data)
                 {
+
+                    Toastify({
+                        text: "Updated Sucessfully..!",
+                        duration: 3000,
+                        close:true,
+                        backgroundColor: "#4fbe87",
+                    }).showToast();    
+                    
+                    $('button[type="submit"]').attr('disabled' , false);
+
+					$("#datatable_form_save").css('display', 'none');
+					$("#datatable_form_update").css('display', 'block');
+
+                    // location = "goal_setting_edit?id="+data+"";                
+
+                }
+            });
+                    
+        }        
+
+        return false;        
+    });
+
+    //update Submit entry
+    $("#goal_sheet_submit_update").on('click',()=>{
+
+        var error='';
+        var rate = $("#employee_consolidated_rate").val();
+        var $errmsg3 = $(".employee_consolidated_rate_error");
+        $errmsg3.hide();
+
+        if(rate == ""){
+            $errmsg3.html('Employee Consolidated Rate is required').show();                
+            error+="error";
+        }
+
+        $('#goal-tb tr').each(function() {
+            var col0=$(this).find("td:eq(0)").text();
+            var col1=$(this).find("td:eq(1) option:selected").val();
+            var col2=$(this).find("td:eq(2) textarea").val();
+            var col4=$(this).find("td:eq(4) textarea").val();
+            var col5=$(this).find("td:eq(5) option:selected").val();
+            // console.log(col0)
+            // console.log(col1)
+
+            // Key business drivers
+            var err_div_name = ".key_bus_drivers_"+col0+"_error";            
+            var $errmsg0 = $(err_div_name);
+            $errmsg0.hide();
+            
+            if(col1 == ""){
+                $errmsg0.html('Key business drivers is required').show();                
+                error+="error";
+            }
+            
+            //Key result areas
+            var cass_name = ".key_res_areas_"+col0;
+
+            $(cass_name).each(function () {                
+                var sub_value = $(this).val();
+                var sub_class_id = $(this).get(0).id;
+                var err_div_name = "."+sub_class_id+"_error";
+                var $errmsg = $(err_div_name);
+                $errmsg.hide();
+                
+                if(sub_value == ""){
+                    $errmsg.html('Key result areas is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
+            //Self Assessment (Qualitative Remarks) by Employee
+            var cass_name1 = ".self_assessment_remark_"+col0;
+
+            $(cass_name1).each(function () {          
+                var sub_value1 = $(this).val();
+                var sub_class_id1 = $(this).get(0).id;
+                var err_div_name1 = "."+sub_class_id1+"_error";
+                var $errmsg1 = $(err_div_name1);
+                $errmsg1.hide();
+                console.log(err_div_name1)
+                
+                if(sub_value1 == ""){
+                    $errmsg1.html('Self assessment is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
+            //Rating by Employee
+            var cass_name2 = ".rating_by_employee_"+col0;
+
+            $(cass_name2).each(function () {                
+                var sub_value2 = $(this).val();
+                var sub_class_id2 = $(this).get(0).id;
+                var err_div_name2 = "."+sub_class_id2+"_error";
+                var $errmsg2 = $(err_div_name2);
+                $errmsg2.hide();
+                
+                if(sub_value2 == ""){
+                    $errmsg2.html('Rating by employee is required').show();                
+                    error+="error";
+                }
+                    
+            });
+
+        });
+
+        //Sending data to database
+        if(error==""){
+            // alert("succes")
+            update_submit_data_insert();
+        }
+
+        function update_submit_data_insert(){
+            var employee_consolidated_rate = $("#employee_consolidated_rate").val();
+
+            $.ajax({            
+                url:"{{ url('update_emp_goals_data_submit') }}",
+                type:"POST",
+                data:$('#goalsForm').serialize(),
+                dataType : "JSON",
+                success:function(data)
+                {                    
                     Toastify({
                         text: "Added Sucessfully..!",
                         duration: 3000,
                         close:true,
                         backgroundColor: "#4fbe87",
-                    }).showToast();
+                    }).showToast();    
+                    
+                    $('button[type="submit"]').attr('disabled' , false);                    
 
-                    $('button[type="submit"]').attr('disabled' , false);
-
-                    window.location = "{{ url('goals')}}";
-                },
-                error: function(response) {
-                    // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+                    location = "goals";                
 
                 }
-
             });
-        }
-
+                    
+        }        
+        return false;        
     });
 
 </script>

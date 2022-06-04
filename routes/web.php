@@ -135,6 +135,7 @@ Route::get('goals_sheet_head', 'GoalsController@goals_sheet_head')->name('goals_
 Route::get('goals_consolidate_rate_head', 'GoalsController@goals_consolidate_rate_head')->name('goals_consolidate_rate_head');
 Route::get('add_goal_setting', 'GoalsController@add_goal_setting')->name('add_goal_setting');
 Route::post('add_goals_data', 'GoalsController@add_goals_data');
+Route::post('add_goals_data_submit', 'GoalsController@add_goals_data_submit');
 Route::post('update_goals_data', 'GoalsController@update_goals_data');
 Route::post('goals_delete', 'GoalsController@goals_delete');
 Route::post('goals_employee_summary', 'GoalsController@goals_employee_summary');
@@ -155,10 +156,16 @@ Route::post('goals_supervisor_summary', 'GoalsController@goals_supervisor_summar
 Route::get('fetch_goals_employee_summary', 'GoalsController@fetch_goals_employee_summary' );
 Route::get('goal_setting_hr_edit', 'GoalsController@goal_setting_hr_edit')->name('goal_setting_hr_edit');
 Route::post('get_hr_goal_list_tb', 'GoalsController@get_hr_goal_list_tb')->name('get_hr_goal_list_tb');
-Route::post('goals_sup_consolidate_rate_head', 'GoalsController@goals_sup_consolidate_rate_head')->name('goals_sup_consolidate_rate_head');
-Route::get('check_goal_sheet_role_type_hr', 'GoalsController@check_goal_sheet_role_type_hr')->name('check_goal_sheet_role_type_hr');
+Route::get('goals_sup_consolidate_rate_head', 'GoalsController@goals_sup_consolidate_rate_head')->name('goals_sup_consolidate_rate_head');
+Route::post('check_goal_sheet_role_type_hr', 'GoalsController@check_goal_sheet_role_type_hr')->name('check_goal_sheet_role_type_hr');
+Route::get('goals_sup_submit_status', 'GoalsController@goals_sup_submit_status')->name('goals_sup_submit_status');
 Route::post('update_goals_sup', 'GoalsController@update_goals_sup');
+Route::post('update_goals_sup_submit', 'GoalsController@update_goals_sup_submit');
+Route::post('update_emp_goals_data', 'GoalsController@update_emp_goals_data');
+Route::post('update_emp_goals_data_submit', 'GoalsController@update_emp_goals_data_submit');
+Route::get('goal_setting_edit', 'GoalsController@goal_setting_edit' );
 Route::post('update_goals_sup_reviewer_tm', 'GoalsController@update_goals_sup_reviewer_tm');
+Route::post('update_goals_sup_submit_direct', 'GoalsController@update_goals_sup_submit_direct');
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');
@@ -526,12 +533,9 @@ Route::post('get_team_member_drop','GoalsController@get_team_member_drop');
 Route::post('hr_list_tab_record','GoalsController@hr_list_tab_record');
 Route::get('get_grade','GoalsController@get_grade');
 Route::get('get_department','GoalsController@get_department');
-Route::post('get_goal_myself_listing','GoalsController@get_goal_myself_listing');
+// Route::post('get_goal_myself_listing','GoalsController@get_goal_myself_listing');
 
 Route::post('get_goal_setting_reviewer_details_tl', 'GoalsController@get_goal_setting_reviewer_details_tl');
-
-
-
 
 //vignesh code for supervisor filter business head wise
 Route::post('get_supervisor_data_bh','GoalsController@select_supervisor_data_bh');
@@ -543,3 +547,5 @@ Route::get('get_all_supervisors_info_bh','GoalsController@get_all_supervisors_in
 Route::get('goal_setting_bh_reviewer_view','GoalsController@goal_setting_bh_reviewer_view');
 Route::post('update_bh_goals','GoalsController@update_bh_goals');
 Route::post('Update_bh_status','GoalsController@Change_Bh_status');
+Route::post('add_goals_data_hr_sup', 'GoalsController@add_goals_data_hr_sup');
+

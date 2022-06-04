@@ -106,7 +106,7 @@
             <div class="card">  
                 <div class="card-body">
                     <div class="table-responsive">
-                        <button id="goal_sheet_submit_update" class="btn btn-success  float-right m-b-30"><i class="ti-save"></i> Submit For Approval</button>                                            
+                        <a id="goal_sheet_submit" class="btn btn-success text-white float-right m-b-30" title="Overall Sheet Submit">Submit For Approval</a>                                            
                         <form id="goalsFormUpdate">
                             <table class="table" id="goal-tb">
                                 <thead>
@@ -128,8 +128,8 @@
                                 <tbody>
                                 </tbody>
                             </table>
-                            <input type="hidden" id="edit_goals_setting_id" name="goals_setting_id">
-                            <button id="datatable_form_update" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
+                            <input type="hidden" id="edit_goals_setting_id" name="edit_id">
+                            <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
                         </form>
                     </div>
                 </div>
@@ -182,35 +182,23 @@
         var rand_no = Math.floor(Math.random()*90000) + 10000;
         var code = cur_rowCount+'_'+rand_no;
         
-        var html2 = '<textarea class="form-control m-t-5 key_res_areas_'+cur_rowCount+' '+code+'" id="key_res_areas_'+code+'" name="key_res_areas_'+cur_rowCount+'[]"></textarea>';
-            html2 += '<div class="text-danger key_res_areas_'+code+'_error" id=""></div>';
-        var html3 = '<textarea class="form-control m-t-5 measurement_criteria_'+cur_rowCount+' '+code+'" id="measurement_criteria_'+code+'" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
-        var html4 = '<textarea class="form-control m-t-5 self_assessment_remark_'+cur_rowCount+' '+code+'"  id="self_assessment_remark_'+code+'" name="self_assessment_remark_'+cur_rowCount+'[]"></textarea>';
-            html4 += '<div class="text-danger self_assessment_remark_'+code+'_error" id=""></div>';
-       
-        var html5 ='';
-            html5 +='<select class="form-control js-example-basic-single key_bus_drivers m-t-35 rating_by_employee_'+cur_rowCount+' '+code+'"  id="rating_by_employee_'+code+'" name="rating_by_employee_'+cur_rowCount+'[]">';
-                        html5 +='<option value="">...Select...</option>';
-                        html5 +='<option value="EE">EE</option>';
-                        html5 +='<option value="AE">AE</option>';
-                        html5 +='<option value="ME">ME</option>';
-                        html5 +='<option value="PE">PE</option>';
-                        html5 +='<option value="ND">ND</option>';
-            html5 +='</select>';
-            html5 += '<div class="text-danger rating_by_employee_'+code+'_error" id=""></div>';
+        var html2 = '<textarea id="" class="form-control m-t-5 '+code+'" name="key_res_areas_'+cur_rowCount+'[]"></textarea>';
+        var html3 = '<textarea id="" class="form-control m-t-5 '+code+'" name="sub_indicators_'+cur_rowCount+'[]"></textarea>';
+        var html4 = '<textarea id="" class="form-control m-t-5 '+code+'" name="measurement_criteria_'+cur_rowCount+'[]"></textarea>';
+        var html6 = '<textarea id="" class="form-control m-t-5 '+code+'" name="reference_'+cur_rowCount+'[]"></textarea>';
+        
+        var html7 = '';
 
-        var html11 = '';
-
-        html11 +='<div class="dropup m-t-35">';
-            html11 +='<button type="button" class="btn btn-xs btn-danger '+code+'" onclick="removeRow(this,'+code+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
+        html7 +='<div class="dropup m-t-35">';
+            html7 +='<button type="button" class="btn btn-xs btn-danger '+code+'" onclick="removeRow(this,'+code+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
             // html7 +='<button type="button" class="btn btn-xs btn-danger sub_row_'+cur_rowCount+'" onclick="removeRow(this,'+class_sub+');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
-        html11 +='</div>';
+        html7 +='</div>';
         
         $(x).closest("tr").find("td:eq(2)").append(html2);
         $(x).closest("tr").find("td:eq(3)").append(html3);
         $(x).closest("tr").find("td:eq(4)").append(html4);
-        $(x).closest("tr").find("td:eq(5)").append(html5);
-        $(x).closest("tr").find("td:eq(6)").append(html11);
+        $(x).closest("tr").find("td:eq(6)").append(html6);
+        $(x).closest("tr").find("td:eq(7)").append(html7);
 
     }
 
@@ -230,20 +218,21 @@
         var html = '<tr>';
                 html +='<td scope="row">1</td>';
                 html +='<td>';
-                    html +='<select class="form-control js-example-basic-single key_bus_drivers key_bus_drivers_'+cur_rowCount+'" id="key_bus_drivers_'+cur_rowCount+'" name="key_bus_drivers_'+cur_rowCount+'[]">';
-                        html +='<option value="">...Select...</option>';
+                    html +='<select class="form-control js-example-basic-single key_bus_drivers" name="key_bus_drivers_'+cur_rowCount+'[]">';
                         html +='<option value="Revenue">Revenue</option>';
                         html +='<option value="Customer">Customer</option>';
                         html +='<option value="Process">Process</option>';
                         html +='<option value="People">People</option>';
                         html +='<option value="Projects">Projects</option>';
                     html +='</select>';
-                    html += '<div class="text-danger key_bus_drivers_'+cur_rowCount+'_error" id=""></div>';
                 html +='</td>';
-                
+
                 html +='<td>';
-                    html +='<textarea name="key_res_areas_'+cur_rowCount+'[]" id="key_res_areas_'+cur_rowCount+'" class="form-control key_res_areas_'+cur_rowCount+'"></textarea>';
-                    html += '<div class="text-danger key_res_areas_'+cur_rowCount+'_error" ></div>';
+                    html +='<textarea name="key_res_areas_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                html +='</td>';
+
+                html +='<td>';
+                    html +='<textarea name="sub_indicators_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
                 html +='</td>';
 
                 html +='<td>';
@@ -251,21 +240,12 @@
                 html +='</td>';
 
                 html +='<td>';
-                    html +='<textarea name="self_assessment_remark_'+cur_rowCount+'[]" id="self_assessment_remark_'+cur_rowCount+'" class="form-control self_assessment_remark_'+cur_rowCount+'"></textarea>';
-                    html += '<div class="text-danger self_assessment_remark_'+cur_rowCount+'_error" id=""></div>';
+                    html +='<input type="text" name="weightage_'+cur_rowCount+'[]" id="" class="form-control">';
                 html +='</td>';
-                
-                html +='<td>';                            
-                    html +='<select class="form-control js-example-basic-single key_bus_drivers rating_by_employee_'+cur_rowCount+'" id="rating_by_employee_'+cur_rowCount+'" name="rating_by_employee_'+cur_rowCount+'[]">';
-                        html +='<option value="">...Select...</option>';
-                        html +='<option value="EE">EE</option>';
-                        html +='<option value="AE">AE</option>';
-                        html +='<option value="ME">ME</option>';
-                        html +='<option value="PE">PE</option>';
-                        html +='<option value="ND">ND</option>';
-                    html +='</select>';
-                    html += '<div class="text-danger rating_by_employee_'+cur_rowCount+'_error" id=""></div>';
-                html +='</td>';     
+
+                html +='<td>';
+                    html +='<textarea name="reference_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
+                html +='</td>';
 
                 html +='<td>';
                         html +='<div style="margin-top: 80px;"></div>';
@@ -280,14 +260,15 @@
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button" id="btnDelete"  data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
                         html +='</div>';
                     html +='</div>';
-                    
+                    // html +='<div class="dropup m-t-5">';
+                    //     html +='<button type="button" class="btn btn-xs btn-danger" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
+                    // html +='</div>';
                 html +='</td>';
 
             html +='</tr>';
         $('#goal-tb tr:last').after(html);
         updatesno();
     }
-
 
     function updatesno(){
 
@@ -306,249 +287,111 @@
     }); 
 
 
-     //update entry
-     $("#datatable_form_update").on('click',()=>{   
-        
+    function formTable() {
+
+        var test = [];
         var error='';
-
-        var rate = $("#employee_consolidated_rate").val();
-        var $errmsg3 = $(".employee_consolidated_rate_error");
-        $errmsg3.hide();
-
-        if(rate == ""){
-            $errmsg3.html('Employee Consolidated Rate is required').show();
-            error+="error";
-        }
-
-        $('#goal-tb tr').each(function() {
-            var col0=$(this).find("td:eq(0)").text();
-            var col1=$(this).find("td:eq(1) option:selected").val();
-            var col2=$(this).find("td:eq(2) textarea").val();
-            var col4=$(this).find("td:eq(4) textarea").val();
-            var col5=$(this).find("td:eq(5) option:selected").val();
-            // console.log(col0)
-            // console.log(col1)
-
-            // Key business drivers
-            var err_div_name = ".key_bus_drivers_"+col0+"_error";
-            var $errmsg0 = $(err_div_name);
-            $errmsg0.hide();
-
-            if(col1 == ""){
-                $errmsg0.html('Key business drivers is required').show();
-                error+="error";
-            }
-
-            //Key result areas
-            var cass_name = ".key_res_areas_"+col0;
-
-            $(cass_name).each(function () {
-                var sub_value = $(this).val();
-                var sub_class_id = $(this).get(0).id;
-                var err_div_name = "."+sub_class_id+"_error";
-                var $errmsg = $(err_div_name);
-                $errmsg.hide();
-
-                if(sub_value == ""){
-                    $errmsg.html('Key result areas is required').show();
-                    error+="error";
-                }
-
+        
+        $('#goal-tb tr').each(function(index, tr) {
+            $(tr).find('td').each (function (index, td) {
+                console.log(td)
             });
-
-            //Self Assessment (Qualitative Remarks) by Employee
-            var cass_name1 = ".self_assessment_remark_"+col0;
-
-            $(cass_name1).each(function () {
-                var sub_value1 = $(this).val();
-                var sub_class_id1 = $(this).get(0).id;
-                var err_div_name1 = "."+sub_class_id1+"_error";
-                var $errmsg1 = $(err_div_name1);
-                $errmsg1.hide();
-                console.log(err_div_name1)
-
-                if(sub_value1 == ""){
-                    $errmsg1.html('Self assessment is required').show();
-                    error+="error";
-                }
-
-            });
-
-            //Rating by Employee
-            var cass_name2 = ".rating_by_employee_"+col0;
-
-            $(cass_name2).each(function () {
-                var sub_value2 = $(this).val();
-                var sub_class_id2 = $(this).get(0).id;
-                var err_div_name2 = "."+sub_class_id2+"_error";
-                var $errmsg2 = $(err_div_name2);
-                $errmsg2.hide();
-
-                if(sub_value2 == ""){
-                    $errmsg2.html('Rating by employee is required').show();
-                    error+="error";
-                }
-
-            });
-
         });
 
+        // $('#goal-tb tbody>tr').each(function (element) {
+        //     // var currrow=$(this).closest('tr');
+        //     alert("col4")
+
+        //     var col0=$(this).find("td:eq(0)").text();
+        //     // var col1=$(this).find("td:eq(1) textarea").val();
+        //     //    var col2=$(this).find("td:eq(2) option:selected").val();
+        //     //    var col4_input=$(this).find("td:eq(4) input:checked").val();
+        //     // alert(col0)
+            
+                                                                    
+        // });
+
         //Sending data to database
-        if(error==""){
-            // alert("succes")
-            update_data_insert();
-        }
-        
-        function update_data_insert(){
-            $.ajax({            
-                url:"{{ url('update_emp_goals_data') }}",
-                type:"POST",
-                data:$('#goalsFormUpdate').serialize(),
-                dataType : "JSON",
-                success:function(data)
-                {
-
-                    Toastify({
-                        text: "Updated Sucessfully..!",
-                        duration: 3000,
-                        close:true,
-                        backgroundColor: "#4fbe87",
-                    }).showToast();    
+        //    if(error==""){
+        //        // alert("succes")
+        //        data_insert();
+        //    }
+        //    else{
+        //        // alert("test")
+        //        // data_insert();
+        //        scrollUp();
+        //    }
+          
+           // console.log(test);
+           // var formData =  JSON.stringify(test);
+           // alert(formData);
                     
-                    $('button[type="submit"]').attr('disabled' , false);
+        //    function data_insert(){
+        //        // alert("jsd");
 
-					$("#datatable_form_save").css('display', 'none');
-					$("#datatable_form_update").css('display', 'block');
+        //        var business_name_option=$("#business_name_option").val();
 
-                    // location = "goal_setting_edit?id="+data+"";                
+        //        $.ajax({
+                   
+        //            url:"{{ ('business_form') }}",
+        //            type:"POST",
+        //            data:{business_name:business_name_option, serialize_form_value:test},
+        //            dataType : "JSON",
+        //            success:function(data)
+        //            {
+        //                window.location.reload();                         
+        //            },
+        //            error: function(response) {
+        //                // alert(response.responseJSON.errors.business_name_option);
+        //                $('#business_name_option_error').text(response.responseJSON.errors.business_name);
 
-                }
-            });
-                    
-        }        
+        //            }                                              
+                       
+        //        });
+        //    }            
+       
 
-        return false;        
-    });
+    }
 
-    //update Submit entry
-    $("#goal_sheet_submit_update").on('click',()=>{
+    $("#goalsFormUpdate").submit(function(e) {
+        e.preventDefault();
+        // $('button[type="submit"]').attr('disabled' , true);
 
-        var error='';
-        var rate = $("#employee_consolidated_rate").val();
-        var $errmsg3 = $(".employee_consolidated_rate_error");
-        $errmsg3.hide();
+        // console.log($('#goalsFormUpdate').serialize());
 
-        if(rate == ""){
-            $errmsg3.html('Employee Consolidated Rate is required').show();                
-            error+="error";
-        }
-
-        $('#goal-tb tr').each(function() {
-            var col0=$(this).find("td:eq(0)").text();
-            var col1=$(this).find("td:eq(1) option:selected").val();
-            var col2=$(this).find("td:eq(2) textarea").val();
-            var col4=$(this).find("td:eq(4) textarea").val();
-            var col5=$(this).find("td:eq(5) option:selected").val();
-            // console.log(col0)
-            // console.log(col1)
-
-            // Key business drivers
-            var err_div_name = ".key_bus_drivers_"+col0+"_error";            
-            var $errmsg0 = $(err_div_name);
-            $errmsg0.hide();
-            
-            if(col1 == ""){
-                $errmsg0.html('Key business drivers is required').show();                
-                error+="error";
-            }
-            
-            //Key result areas
-            var cass_name = ".key_res_areas_"+col0;
-
-            $(cass_name).each(function () {                
-                var sub_value = $(this).val();
-                var sub_class_id = $(this).get(0).id;
-                var err_div_name = "."+sub_class_id+"_error";
-                var $errmsg = $(err_div_name);
-                $errmsg.hide();
+        var edit_id = $('#edit_goals_setting_id').val();
+        var path = "update_goals_data/"+edit_id;
+        var url = "{{ url('update_goals_data') }}";
+        $.ajax({
+                   
+            url: "{{ url('update_goals_data') }}",
+            type:"POST",
+            data:$('#goalsFormUpdate').serialize(),
+            dataType : "JSON",
+            success:function(data)
+            {
+                Toastify({
+                    text: "Updated Sucessfully..!",
+                    duration: 3000,
+                    close:true,
+                    backgroundColor: "#4fbe87",
+                }).showToast();    
                 
-                if(sub_value == ""){
-                    $errmsg.html('Key result areas is required').show();                
-                    error+="error";
-                }
-                    
-            });
-
-            //Self Assessment (Qualitative Remarks) by Employee
-            var cass_name1 = ".self_assessment_remark_"+col0;
-
-            $(cass_name1).each(function () {          
-                var sub_value1 = $(this).val();
-                var sub_class_id1 = $(this).get(0).id;
-                var err_div_name1 = "."+sub_class_id1+"_error";
-                var $errmsg1 = $(err_div_name1);
-                $errmsg1.hide();
-                console.log(err_div_name1)
+                // $('button[type="submit"]').attr('disabled' , false);
                 
-                if(sub_value1 == ""){
-                    $errmsg1.html('Self assessment is required').show();                
-                    error+="error";
-                }
-                    
-            });
+                window.location = "{{ url('goals')}}";                
+            },
+            error: function(response) {
+                // alert(response.responseJSON.errors.business_name_option);
+                // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
 
-            //Rating by Employee
-            var cass_name2 = ".rating_by_employee_"+col0;
-
-            $(cass_name2).each(function () {                
-                var sub_value2 = $(this).val();
-                var sub_class_id2 = $(this).get(0).id;
-                var err_div_name2 = "."+sub_class_id2+"_error";
-                var $errmsg2 = $(err_div_name2);
-                $errmsg2.hide();
+            }                                              
                 
-                if(sub_value2 == ""){
-                    $errmsg2.html('Rating by employee is required').show();                
-                    error+="error";
-                }
-                    
-            });
-
         });
 
-        //Sending data to database
-        if(error==""){
-            // alert("succes")
-            update_submit_data_insert();
-        }
-
-        function update_submit_data_insert(){
-            var employee_consolidated_rate = $("#employee_consolidated_rate").val();
-
-            $.ajax({            
-                url:"{{ url('update_emp_goals_data_submit') }}",
-                type:"POST",
-                data:$('#goalsFormUpdate').serialize(),
-                dataType : "JSON",
-                success:function(data)
-                {                    
-                    Toastify({
-                        text: "Added Sucessfully..!",
-                        duration: 3000,
-                        close:true,
-                        backgroundColor: "#4fbe87",
-                    }).showToast();    
-                    
-                    $('button[type="submit"]').attr('disabled' , false);                    
-
-                    location = "goals";                
-
-                }
-            });
-                    
-        }        
-        return false;        
     });
+
+
 
 </script>
 

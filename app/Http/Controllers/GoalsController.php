@@ -3477,6 +3477,57 @@ class GoalsController extends Controller
 
     }
 
+    public function add_goals_data_hr_sup(Request $request)
+    {
+          // echo json_encode($request->all());die();
+         
+
+        // dd($request->all());
+        $id = $request->goals_setting_id;
+        $json_value = $this->goal->fetchGoalIdDetails($id);
+        $datas = json_decode($json_value);
+        $json = array();
+
+        $html = '';
+
+
+        foreach($datas as $key=>$data){
+            $cell1 = $key+1;
+            $row_values=json_decode($data);
+            // echo json_encode($row_values);die();
+
+            //Supervisor remark add
+            $sup_remark_value = array($request->sup_remark_[$key]);
+            $sup_rem = "sup_remarks_".$cell1;
+            $row_values->$sup_rem = $sup_remark_value;
+
+            $sup_rating_value = array($request->sup_final_output_[$key]);
+            $sup_final_op = "sup_final_output_".$cell1;
+            $row_values->$sup_final_op = $sup_rating_value;
+
+            $sup_remarks_value = array($request->hr_remarks_[$key]);
+            $sup_remarks = "hr_remarks_".$cell1;
+            $row_values->$sup_remarks = $sup_remarks_value;
+
+            $json_format = json_encode($row_values);
+            array_push($json, $json_format);
+
+        }
+        $goal_process = json_encode($json);
+
+        //Data upload to server
+        $data = array(
+            'goal_process' => $goal_process,
+            'goal_unique_code' => $id,
+            'supervisor_consolidated_rate' => $request->employee_consolidated_rate,
+        );
+        // dd($data);
+        // echo '11<pre>';print_r($data);die();
+        $result = $this->goal->update_goals_sup($data);
+
+        return response($result);
+    }
+
     public function add_goals_data_submit(Request $request)
     {
         // dd(count($request->all()));die();
@@ -4024,6 +4075,7 @@ class GoalsController extends Controller
 
         }
         $goal_process = json_encode($json);
+        // dd($goal_process);
 
         //Data upload to server
         $data = array(
@@ -4031,7 +4083,6 @@ class GoalsController extends Controller
             'goal_unique_code' => $id,
             'supervisor_consolidated_rate' => $request->employee_consolidated_rate,
         );
-        // dd($data);
         $result = $this->goal->update_goals_sup($data);
 
         return response($result);
@@ -4586,9 +4637,9 @@ public function get_all_supervisors_info_bh()
           }
 
     public function update_goals_sup_reviewer_tm(Request $request){
-        // dd($request->all());
         $id = $request->goals_setting_id;
         $json_value = $this->goal->fetchGoalIdDetails($id);
+        // echo "<pre>";print_r($json_value);die;
         $datas = json_decode($json_value);
 
         $json = array();
@@ -4600,9 +4651,13 @@ public function get_all_supervisors_info_bh()
             $row_values = json_decode($data);
 
             //Reviewer remarks add
-            $reviewer_remarks_value = array($request->reviewer_remarks[$key]);
-            $sup_final_op = "reviewer_remarks_".$cell1;
-            $row_values->$sup_final_op = $reviewer_remarks_value;
+            $revi_remarks_value = array($request->revi_remarks_[$key]);
+            $sup_final_op = "revi_remarks_".$cell1;
+            $row_values->$sup_final_op = $revi_remarks_value;
+
+            $hr_remarks_value = array($request->hr_remarks_[$key]);
+            $sup_final_hr = "hr_remarks_".$cell1;
+            $row_values->$sup_final_hr = $hr_remarks_value;
 
             $json_format = json_encode($row_values);
             array_push($json, $json_format);

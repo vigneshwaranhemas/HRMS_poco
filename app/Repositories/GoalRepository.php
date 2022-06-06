@@ -420,8 +420,11 @@ class GoalRepository implements IGoalRepository
       $response = Goals::where('goal_unique_code', $id)->value('employee_summary');
       return $response;
    }
-
-    public function get_supervisor_data( $id ){
+   public function fetch_goals_supervisor_summary($id){
+      $response = Goals::where('goal_unique_code', $id)->value('supervisor_summary');
+      return $response;
+   }
+   public function get_supervisor_data( $id ){
        $bandtbl = DB::table('customusers')
         ->select('*')
         ->where('sup_emp_code', '=', $id)
@@ -1208,7 +1211,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                      'supervisor_status' => "1",
                      'supervisor_tb_status' => "1",                      
                 ]);
-    return $response;
- }
+      return $response;
+   }   
+   public function fetchCustomUserList(){
+      $response = DB::table('customusers')     
+                     ->get();
+      return $response;
+   }
 
 }

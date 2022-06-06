@@ -239,7 +239,6 @@ $('#goal_data').on('click','#employee_summary_show',function(){
         {      
             // console.log(data)
             $('#goal_employee_summary_show').html(data); 
-            $('#employeeSummaryShowModal').modal('show');            
         },
         error: function(response) {
             
@@ -249,6 +248,23 @@ $('#goal_data').on('click','#employee_summary_show',function(){
         }                                              
             
     });
+
+    $.ajax({                   
+        url:"fetch_goals_supervisor_summary",
+        type:"GET",
+        data:{id: id}, 
+        dataType : "JSON",
+        success:function(data)
+        {      
+            $('#goal_supervisor_summary_show').html(data); 
+        },
+        error: function(response) {            
+            console.log(response);
+        }                                              
+            
+    });
+
+    $('#employeeSummaryShowModal').modal('show');            
       
 });
 

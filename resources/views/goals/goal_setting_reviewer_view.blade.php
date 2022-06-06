@@ -173,6 +173,7 @@
 									</div>
 								</div>
 							<!-- </div> -->
+						</form>
 						</div>
 					</div>
 
@@ -435,7 +436,7 @@
 									}
 									else{
 										var tx = '<textarea id="business_head_edit'+i+'" name="reviewer_remarks[]" style="width:200px;" class="form-control"></textarea>';
-											tx += '<div class="text-danger reviewer_remark_'+index+'_error" id="reviewer_remark_'+index+'_error"></div>';
+											tx += '<div class="text-danger reviewer_remarks_'+index+'_error" id="reviewer_remarks_'+index+'_error"></div>';
 										$(this).append(tx)
 										// alert("two")
 									}
@@ -508,11 +509,6 @@
 
 
 			});
-
-            // function revFormSubmit(){
-
-
-            // }
 
 			//Sending data to database
 			if(error==""){
@@ -594,7 +590,7 @@
 
 
                     // Supervisor Rate
-                    var err_div_name1 = ".reviewer_remark_"+index+"_error";
+                    var err_div_name1 = ".reviewer_remarks_"+index+"_error";
                     var $errmsg1 = $(err_div_name1);
                     $errmsg1.hide();
 

@@ -37,8 +37,7 @@
 	<!-- Container-fluid starts-->
     <div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-12">
-				<input type="hidden" id="goals_setting_id">								
+			<div class="col-sm-12">			
 				<div class="ribbon-vertical-right-wrapper card">
 					<div class="card-body">
 						<div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 50px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PA</span>
@@ -128,6 +127,7 @@
 									<h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
 								</div>
 							</div>
+						<form id="goalsForm">
 							<table class="table table-border-vertical table-border-horizontal" id="goals_record_tb">
 								<thead>
 									<tr>
@@ -148,6 +148,7 @@
 								<tbody id="goals_record">									
 								</tbody>
 							</table>
+							<input type="hidden" name="goals_setting_id" id="goals_setting_id">
 							<!-- <div class="m-t-20 m-b-30 float-right"> -->
 								<div class="m-t-20 m-b-30 row float-right" id="save_div">									
 									<div class="col-lg-8">
@@ -166,7 +167,8 @@
 										<a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>                                            
 									</div>
 								</div>
-								<div class="m-t-20 m-b-30 row float-right" id="save_div_rev">									
+								
+								<div class="m-t-20 m-b-30 row float-right" id="save_div_rev">
 									<div class="col-lg-8">										
 									</div>
 									<div class="col-lg-4">
@@ -180,7 +182,9 @@
 										<a onclick="hrFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>                                            
 									</div>
 								</div>
+								
 							<!-- </div> -->
+						</form>
 						</div>
 					</div>
 
@@ -341,7 +345,7 @@
 
 				$.ajax({                   
 					url:"{{ url('check_goal_sheet_role_type_hr') }}",
-					type:"GET",
+					type:"POST",
 					data:{id:id},
 					dataType : "JSON",
 					success:function(response)
@@ -369,10 +373,10 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										alert("one")
+										//alert("one")
 									}
 									else{
-										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control"></textarea>';
+										var tx = '<textarea id="business_head_edit'+i+'" name="sup_remark_[]" style="width:200px;" class="form-control"></textarea>';
 											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
 										$(this).append(tx)
 										// alert("two")
@@ -385,10 +389,10 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										alert("one")
+										// alert("one")
 									}
 									else{
-										var op = '<select class="js-example-basic-single" style="width:150px;" id="employee_consolidated_rate" name="employee_consolidated_rate">';
+										var op = '<select class="js-example-basic-single" style="width:150px;" id="employee_consolidated_rate" name="sup_final_output_[]">';
 											op += '<option value="" selected>...Select...</option>';
 											op += '<option value="EE">EE</option>';
 											op += '<option value="AE">AE</option>';
@@ -410,11 +414,11 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										alert("one")
+										
 									}
 									else{
-										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control"></textarea>';
-											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
+										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control" name="hr_remarks_[]"></textarea>';
+											tx += '<div class="text-danger hr_remark_'+index+'_error" id="hr_remark_'+index+'_error"></div>';
 										$(this).append(tx)
 										// alert("two")
 									}
@@ -436,7 +440,7 @@
 							// var user_type=$("#user_type").val();
 							// if(user_type==1 || user_type==2 || user_type==0)
 							// {
-								var defined_class1="reviewer_remarks";
+								var defined_class1="revi_remarks";
 								var defined_class2="hr_remarks";
 							// }
 							
@@ -445,10 +449,10 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										alert("one")
+										
 									}
 									else{
-										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control"></textarea>';
+										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" name="revi_remarks_[]" class="form-control"></textarea>';
 											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
 										$(this).append(tx)
 										// alert("two")
@@ -462,10 +466,10 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										alert("one")
+										//alert("one")
 									}
 									else{
-										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control"></textarea>';
+										var tx = '<textarea id="business_head_edit'+i+'" name="hr_remarks_[]" style="width:200px;" class="form-control"></textarea>';
 											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
 										$(this).append(tx)
 										// alert("two")
@@ -498,7 +502,7 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										alert("one")
+										//alert("one")
 									}
 									else{
 										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control"></textarea>';
@@ -524,10 +528,10 @@
 		})
 
 		function supFormSubmit(){
-			 
 			var error='';
 
 			var rate = $("#supervisor_consolidated_rate").val();
+			// alert(rate)
 			var $errmsg3 = $(".supervisor_consolidated_rate_error");
 			$errmsg3.hide();
 
@@ -542,10 +546,7 @@
 				var col0=$(this).find("td:eq(0)").text();
 				var col6=$(this).find("td:eq(5) textarea").val();
 				var col7=$(this).find("td:eq(6) option:selected").val();
-				// console.log(col0)
-				// console.log(col6)
-				// console.log(col7)
-				// console.log(index)
+				var col8=$(this).find("td:eq(8) textarea").val();
 
 				// Supervisor Remarks
 				var err_div_name = "#sup_remark_"+index+"_error";            
@@ -569,6 +570,16 @@
 					$errmsg1.html('Supervisor rating is required').show();                
 					error+="error";
 				}
+
+				var err_div_name = "#hr_remark_"+index+"_error";            
+				var $errmsg0 = $(err_div_name);
+				$errmsg0.hide();
+				
+				if(col8 == "" || col8 == undefined){
+					// console.log($errmsg0)
+					$errmsg0.html('HR remarks is required').show();                
+					error+="error";
+				}
 				
 				i++;
 				
@@ -583,33 +594,100 @@
 			
 			function data_insert(){
 
-				// $.ajax({
+				$.ajax({
 					
-				// 	url:"{{ url('add_goals_data') }}",
-				// 	type:"POST",
-				// 	data:$('#goalsForm').serialize(),
-				// 	dataType : "JSON",
-				// 	success:function(data)
-				// 	{
-				// 		Toastify({
-				// 			text: "Added Sucessfully..!",
-				// 			duration: 3000,
-				// 			close:true,
-				// 			backgroundColor: "#4fbe87",
-				// 		}).showToast();    
+					url:"{{ url('add_goals_data_hr_sup') }}",
+					type:"POST",
+					data:$('#goalsForm').serialize(),
+					dataType : "JSON",
+					success:function(data)
+					{
+						console.log(data)
+						Toastify({
+							text: "Added Sucessfully..!",
+							duration: 3000,
+							close:true,
+							backgroundColor: "#4fbe87",
+						}).showToast();    
 						
-				// 		$('button[type="submit"]').attr('disabled' , false);
+						$('button[type="submit"]').attr('disabled' , false);
 						
-				// 		window.location = "{{ url('goals')}}";                
-				// 	},
-				// 	error: function(response) {
-				// 		// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
-		
-				// 	}                                              
-						
-				// });
+						window.location = "{{ url('goals')}}";                
+					},
+					error: function(response) {
+						$('#business_name_option_error').text(response.responseJSON.errors.business_name);
+					}                                              
+				});
 			}      
 		}
+
+		 function revFormSubmit(){
+        var error='';
+                var i=1;
+
+                $('#goals_record_tb > tbody  > tr').each(function(index) {
+                    var col0=$(this).find("td:eq(0)").text();
+                    // var col6=$(this).find("td:eq(5) textarea").val();
+                    var col8=$(this).find("td:eq(7) textarea").val();
+                    var col9=$(this).find("td:eq(8) textarea").val();
+
+                    // Supervisor Rate
+                    var err_div_name1 = "#revi_remarks_"+index+"_error";
+                    var $errmsg1 = $(err_div_name1);
+                    $errmsg1.hide();
+                    // alert(err_div_name1)
+
+                    if(col8 == "" || col8 == undefined){
+                        // console.log($errmsg0)
+                        $errmsg1.html('Reviewer Remarks is required').show();
+                        error+="error";
+                    }
+                     if(col9 == "" || col9 == undefined){
+                        // console.log($errmsg0)
+                        $errmsg1.html('HR Remarks is required').show();
+                        error+="error";
+                    }
+
+                    i++;
+
+
+                });
+                //Sending data to database
+                if(error==""){
+                    // alert("succes")
+                    data_insert_reviewer();
+                }
+                function data_insert_reviewer(){
+
+                    $.ajax({
+
+                        url:"{{ url('update_goals_sup_reviewer_tm') }}",
+                        type:"POST",
+                        data:$('#goalsForm').serialize(),
+                        dataType : "JSON",
+                        success:function(data)
+                        {
+                            Toastify({
+                                text: "Added Sucessfully..!",
+                                duration: 3000,
+                                close:true,
+                                backgroundColor: "#4fbe87",
+                            }).showToast();
+
+                            // $('button[type="submit"]').attr('disabled' , false);
+
+                            window.location = "{{ url('goals')}}";
+                        },
+                        error: function(response) {
+                            // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+                        }
+
+                    });
+                }
+
+            }
+
 		
 	</script>
 

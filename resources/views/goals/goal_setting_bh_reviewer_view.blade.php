@@ -43,10 +43,6 @@
 	<!-- Container-fluid starts-->
     <div class="container-fluid">
 		<div class="row">
-
-            <div class="card-header bg-primary goals-header">
-                <h5 class="text-white" id="goals_sheet_head"></h5>
-            </div>
 			<div class="col-sm-12">
                 <div class="ribbon-vertical-right-wrapper card">
                     <div class="card-body">
@@ -124,20 +120,26 @@
                     </div>
                     </div>
 
-
-
-
-				<input type="hidden" id="goals_setting_id">
-
 				<div class="card  card-absolute">
-
-
+                    <div class="card-header bg-primary goals-header">
+                        <h5 class="text-white" id="goals_sheet_head"></h5>
+                    </div>
 					<div class="card-body">
-
                         <input type="hidden" id="user_type" >
-                        <button type="button" class="btn btn-warning" id="goal_sheet_edit"  title="Edit">Edit</button>
-                        <button type="button" class="btn btn-primary" id="goal_sheet_add" style="display:none;">Submit</button>
-						<div class="table-responsive m-b-15 ">
+					<div class="table-responsive m-b-15 ">
+                        <div class="row">
+
+                            <div class="col-lg-12 m-b-35">
+                                <button type="button" class="btn btn-warning text-white float-right m-l-10" id="goal_sheet_edit"  title="Edit" style="display: none;">Edit</button>
+                                <a id="overall_submit" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit For Approval</a>
+                                <h5>EMPLOYEE CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
+
+                                <h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
+
+                            </div>
+
+                        </div>
+                        <form id="Bh_form_insert">
 							<table class="table  table-border-vertical table-border-horizontal" id="goal-tb">
 								<thead>
 									<tr>
@@ -158,10 +160,12 @@
 
 								</tbody>
 							</table>
+				            <input type="hidden" id="goals_setting_id" name="goals_setting_id">
+                             <input type="hidden" id="reviewer_hidden_id" name="reviewer_hidden_id">
                             <div class="m-t-20 m-b-30 row float-right" id="save_div">
                                 <div class="col-lg-4" id="consolidated_rating_id" style="display: none">
                                     <label>Consolidated Rating</label><br>
-                                    <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_consolidated_rate" name="employee_consolidated_rate">
+                                    <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_consolidated_rate" name="supervisor_consolidated_rate">
                                         <option value="" selected>...Select...</option>
                                         <option value="EE">EE</option>
                                         <option value="AE">AE</option>
@@ -169,26 +173,32 @@
                                         <option value="PE">PE</option>
                                         <option value="ND">ND</option>
                                     </select>
-
                                     <div class="text-danger supervisor_consolidated_rate_error" id=""></div>
                                 </div>
                                 <div class="col-lg-4">
                                     <label>Status</label><br>
-                                    <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="Bh_status" name="Bh_status">
+                                    <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="Bh_sheet_approval" name="Bh_sheet_approval">
                                         <option value="" selected>...Select...</option>
                                         <option value="Approved">Approved</option>
                                         <option value="Reverted">Reverted</option>
                                     </select>
 
-                                    <div class="text-danger supervisor_consolidated_rate_error" id=""></div>
+                                    <div class="text-danger bh_sheet_approval_error" id=""></div>
                                 </div>
                                 <div class="col-lg-4">
-                                <a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Overall Submit">Save</a>
+                                {{-- <a class="btn btn-primary text-white m-t-30" title="Overall Submit" id="overall_submit" style="display: none;">Save</a> --}}
+                               <button type="button" class="btn btn-primary text-white float-right m-l-30" id="goal_sheet_add" style="display:none;" onclick="data_insert()">Submit</button>
+
+
+                                {{-- <a class="btn btn-primary text-white m-t-30" id="goal_sheet_add"  onclick="data_insert()" style="display:none" title="Save">Save</a> --}}
                                 </div>
                                 </div>
 
-						</div>
-					</div>
+
+
+                            </div>
+                        </form>
+                    </div>
 
 				</div>
 			</div>
@@ -226,13 +236,31 @@
         $( document ).ready(function() {
 			// goal_record();
 			$('#goal-tb').DataTable( {
-				dom: 'Bfrtip',
-				buttons: [
-					'copyHtml5',
-					'excelHtml5',
-					'csvHtml5',
-					'pdfHtml5'
-				]
+				"searching": false,
+
+                "paging": false,
+
+                "info":     false,
+
+                "fixedColumns":   {
+
+                        left: 6
+
+                    }
+
+                // dom: 'Bfrtip',
+
+                // buttons: [
+
+                //  'copyHtml5',
+
+                //  'excelHtml5',
+
+                //  'csvHtml5',
+
+                //  'pdfHtml5'
+
+                // ]
 			} );
 		});
 		var params = new window.URLSearchParams(window.location.search);
@@ -264,36 +292,32 @@
 			dataType : "JSON",
 			success:function(response)
 			{
+                $("#Bh_sheet_approval").val(response.get_sheet_status.goal_status).trigger('change');
                 $('#goal-tb').DataTable().clear().destroy();
-
-
-                //   for(var i=0;i<response.hidden_rows.length;i++){
-                //        $("."+response.hidden_rows[i]).hide();
-                //   }
 				$('#goals_record').append('');
 				$('#goals_record').append(response.html);
                      $('#goal-tb').DataTable( {
-                    	dom: 'Bfrtip',
-                    	buttons: [
-                    		'copyHtml5',
-                    		'excelHtml5',
-                    		'csvHtml5',
-                    		'pdfHtml5'
-                    	]
+                    	"searching": false,
+                        "paging": false,
+                        "info":     false,
+                        "fixedColumns":   {
+                                left: 6
+                            }
                     } );
+                    $("#reviewer_hidden_id").val(response.reviewer)
                     if(response.reviewer==1){
-                    //  alert("one")
                      $(".supervisor_remarks").hide();
                      $(".reviewer_remarks").hide();
                      $(".supervisor_rating").show();
                      $("#consolidated_rating_id").show();
+                     $("#supervisor_consolidated_rate").val(response.get_sheet_status.supervisor_consolidated_rate).trigger('change')
                  }
                  else if(response.reviewer==2){
                      $(".supervisor_remarks").show();
                      $(".reviewer_remarks").hide();
                      $(".supervisor_rating").show();
-                     $("#consolidated_rating_id").hide();
-
+                     $("#consolidated_rating_id").show();
+                     $("#supervisor_consolidated_rate").val(response.get_sheet_status.supervisor_consolidated_rate).trigger('change')
                  }
                  else{
                      $(".supervisor_remarks").show();
@@ -303,6 +327,16 @@
 
                  }
                  $("#user_type").val(response.reviewer);
+                 $("#employee_consolidate_rate_show").text(response.get_sheet_status.employee_consolidated_rate);
+                 $("#supervisor_consolidate_rate_show").text(response.get_sheet_status.supervisor_consolidated_rate);
+                 if(response.get_sheet_status.bh_status==1){
+                     $("#goal_sheet_edit").hide();
+                     $('#overall_submit').hide();
+                 }
+                 else{
+                    $("#goal_sheet_edit").show();
+                    $('#overall_submit').show();
+                 }
 			},
 			error: function(error) {
 				console.log(error);
@@ -323,45 +357,42 @@
               {
                    var defined_class="business_head";
               }
-            //   alert(defined_class)
               $("#goal-tb tbody tr td."+defined_class+"").each(function(){
-
                         if ($(this).text() != ""){
                               var text_data=$(this).text();
                                $(".removable_p_"+i+"").remove();
-                              $(this).append('<textarea id="business_head_edit'+i+'" class="form-control" name="bh_sign_off_[]">'+text_data+'</textarea>')
+                              $(this).append('<textarea id="business_head_edit'+i+'" class="form-control" name="bh_sign_off_[]">'+text_data+'</textarea><div class="text-danger bh_sign_off_'+i+'_error color-hider" id="bh_sign_off_'+i+'_error" style="display:none"></div>')
                         }
                         else{
-                            $(this).append('<textarea id="business_head_edit'+i+'" class="form-control"  name="bh_sign_off_[]"></textarea>')
-                        }
+                            $(this).append('<textarea id="business_head_edit'+i+'" class="form-control"  name="bh_sign_off_[]"></textarea><div class="text-danger bh_sign_off_'+i+'_error color-hider" id="bh_sign_off_'+i+'_error" style="display:none"></div>')
+                         }
                          i++;
                             }
                         );
 
                         $("#goal-tb tbody tr td.supervisor_rating").each(function(){
-                        if ($(this).text() != ""){
-                              var text_data=$(this).text();
-                               $(".removable_p_"+j+"").remove();
-                               $(this).append('<select class="form-control js-example-basic-single key_bus_drivers" name="sup_final_output_[]">\
-                                <option value="">Choose</option>\
-                                <option value="EE" '+(text_data=="EE" ? "selected" : "")+'>EE</option>\
-                                <option value="AE" '+(text_data=="AE" ? "selected" : "")+'>AE</option>\
-                                <option value="ME" '+(text_data=="ME" ? "selected" : "")+'>ME</option>\
-                                <option value="PE  '+(text_data=="PE" ? "selected" : "")+'>PE</option>\
-                                <option value="ND" '+(text_data=="ND" ? "selected" : "")+'>ND</option>\
-                                </select>')
-
-                        }
-                        else{
-                            $(this).append('<select class="form-control js-example-basic-single key_bus_drivers" name="sup_final_output_[]">\
-                                <option value="">Choose</option>\
-                                <option value="EE">EE</option>\
-                                <option value="AE">AE</option>\
-                                <option value="ME">ME</option>\
-                                <option value="PE >PE</option>\
-                                <option value="ND">ND</option>\
-                                </select>')
-                        }
+                            if ($(this).text() != ""){
+                                var text_data=$(this).text();
+                                $(".supervisor_p_"+j+"").remove();
+                                $(this).append('<select class="form-control js-example-basic-single key_bus_drivers" id="sup_final_output_'+j+'" name="sup_final_output_[]">\
+                                    <option value="">Choose</option>\
+                                    <option value="EE" '+(text_data=="EE" ? "selected" : "")+'>EE</option>\
+                                    <option value="AE" '+(text_data=="AE" ? "selected" : "")+'>AE</option>\
+                                    <option value="ME" '+(text_data=="ME" ? "selected" : "")+'>ME</option>\
+                                    <option value="PE" '+(text_data=="PE" ? "selected" : "")+'>PE</option>\
+                                    <option value="ND" '+(text_data=="ND" ? "selected" : "")+'>ND</option>\
+                                    </select><div class="text-danger sup_final_output_'+j+'_error color-hider"  style="display:none"></div>')
+                            }
+                            else{
+                                $(this).append('<select class="form-control js-example-basic-single key_bus_drivers"  id="sup_final_output_'+j+'"  name="sup_final_output_[]">\
+                                    <option value="">Choose</option>\
+                                    <option value="EE">EE</option>\
+                                    <option value="AE">AE</option>\
+                                    <option value="ME">ME</option>\
+                                    <option value="PE">PE</option>\
+                                    <option value="ND">ND</option>\
+                                    </select><div class="text-danger sup_final_output_'+j+'_error color-hider"  style="display:none"></div>')
+                            }
                          j++;
                             }
                         );
@@ -371,6 +402,114 @@
 
 
       })
+
+function data_insert(){
+   $('.color-hider').hide();
+     var i=1;
+     var j=1;
+     var error="";
+     var defined_class="business_head";
+    $("#goal-tb tbody tr td."+defined_class+"").each(function(){
+                if ($("#business_head_edit"+i+"").val() != ""){
+                }
+                else{
+                    $("#bh_sign_off_"+i+"_error").html("Business Head Assesment Required!....");
+                    error+="error";
+                    $("#bh_sign_off_"+i+"_error").show();
+                }
+                i++;
+        });
+        $("#goal-tb tbody tr td.supervisor_rating").each(function(){
+                        if ($('#sup_final_output_'+j+'').find(":selected").val() != ""){
+                        }
+                        else{
+                             $(".sup_final_output_"+j+"_error").html("Supervisor Rating Required!....");
+                             $(".sup_final_output_"+j+"_error").show();
+                             error+="error";
+                        }
+                    j++;
+
+                    });
+         if($("#Bh_sheet_approval").val()==""){
+             $(".bh_sheet_approval_error").html("Goal Sheet Approval Status Is Required");
+             error+="error";
+         }
+         if($("#reviewer_hidden_id").val()==1 || $("#reviewer_hidden_id").val()==2){
+              if($('#supervisor_consolidated_rate').val()==""){
+                  $('.supervisor_consolidated_rate_error').html("Supervisor Consolidated Rate Required!...");
+                  error+="error";
+              }
+         }
+
+        if(error==""){
+            $.ajax({
+            url:"{{ url('update_bh_goals') }}",
+            type:"POST",
+            data:$('#Bh_form_insert').serialize(),
+            dataType : "JSON",
+            success:function(data)
+            {
+                 console.log(data)
+                if(data.success==1){
+                     Toastify({
+                    text: data.message,
+                    duration: 3000,
+                    close:true,
+                    backgroundColor: "#4fbe87",
+                }).showToast();
+                 window.location.reload(true);
+                }
+                else{
+                    Toastify({
+                    text: data.message,
+                    duration: 3000,
+                    close:true,
+                    backgroundColor: "#4fbe87",
+                    }).showToast();
+                   window.location.reload(true);
+                }
+
+            }
+            });
+        }
+ }
+
+
+   $(()=>{
+       $("#overall_submit").on('click',(e)=>{
+           e.preventDefault();
+            $.ajax({
+                url:"Update_bh_status",
+                type:"POST",
+                data:{id:$("#goals_setting_id").val()},
+                beforeSend:function(data){
+                    console.log("loading!...")
+                },
+                success:function(response){
+                    var data=JSON.parse(response);
+                    if(data.success==1){
+                     Toastify({
+                    text: data.message,
+                    duration: 3000,
+                    close:true,
+                    backgroundColor: "#4fbe87",
+                }).showToast();
+                 window.location.reload(true);
+                }
+                else{
+                    Toastify({
+                    text: data.message,
+                    duration: 3000,
+                    close:true,
+                    backgroundColor: "#4fbe87",
+                    }).showToast();
+                   window.location.reload(true);
+                }
+                }
+            })
+       })
+   })
+
 
 
 

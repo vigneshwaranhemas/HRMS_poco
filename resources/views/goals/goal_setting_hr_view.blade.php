@@ -360,6 +360,9 @@
 							$("#save_div_hr").hide();
 
 							var i=1;
+							var j=1;
+							var k=1;
+
 							// var user_type=$("#user_type").val();
 							// if(user_type==1 || user_type==2 || user_type==0)
 							// {
@@ -369,11 +372,14 @@
 							// }
 							
 							$("#goals_record_tb tbody tr td."+defined_class1+"").each(
-								function(index){
 
-									// console.log("data")
+							       	function(index){
+									var text_data=$(this).text();
 									if ($(this).text() != ""){
-										//alert("one")
+										$(".super_p"+i+"").remove();
+										var tx = '<textarea id="business_head_edit'+i+'" name="sup_remark_[]" style="width:200px;" class="form-control">'+text_data+'</textarea>';
+											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
+										$(this).append(tx)
 									}
 									else{
 										var tx = '<textarea id="business_head_edit'+i+'" name="sup_remark_[]" style="width:200px;" class="form-control"></textarea>';
@@ -389,7 +395,19 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										// alert("one")
+										var text_data=$(this).text();
+										$('.sup_rating'+j+'').remove();
+										var op = '<select class="js-example-basic-single" style="width:150px;" id="employee_consolidated_rate" name="sup_final_output_[]">';
+											op += '<option value="" selected>...Select...</option>';
+											op += '<option value="EE" '+(text_data=="EE" ? "selected" :"")+'>EE</option>';
+											op += '<option value="AE" '+(text_data=="AE" ? "selected" :"")+'>AE</option>';
+											op += '<option value="ME" '+(text_data=="ME" ? "selected" :"")+'>ME</option>';
+											op += '<option value="PE" '+(text_data=="PE" ? "selected" :"")+'>PE</option>';
+											op += '<option value="ND" '+(text_data=="ND" ? "selected" :"")+'>ND</option>';
+											op += '</select>';
+											op += '<div class="text-danger sup_rating_'+j+'_error"></div>';
+										// $(this).append('<textarea id="business_head_edit'+i+'" class="form-control"></textarea>')
+										$(this).append(op);
 									}
 									else{
 										var op = '<select class="js-example-basic-single" style="width:150px;" id="employee_consolidated_rate" name="sup_final_output_[]">';
@@ -400,12 +418,12 @@
 											op += '<option value="PE">PE</option>';
 											op += '<option value="ND">ND</option>';
 											op += '</select>';
-											op += '<div class="text-danger sup_rating_'+index+'_error"></div>';
+											op += '<div class="text-danger sup_rating_'+j+'_error"></div>';
 										// $(this).append('<textarea id="business_head_edit'+i+'" class="form-control"></textarea>')
 										$(this).append(op);
 										// alert("two")
 									}
-									i++;
+									j++;
 								}
 							);
 
@@ -414,15 +432,20 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
+										var text_data=$(this).text();
+										$('.hr_remark_p'+k+'').remove();
+											var tx = '<textarea id="business_head_edit'+k+'" style="width:200px;" class="form-control" name="hr_remarks_[]">'+text_data+'</textarea>';
+											tx += '<div class="text-danger hr_remark_'+k+'_error" id="hr_remark_'+k+'_error"></div>';
+										$(this).append(tx)
 										
 									}
 									else{
-										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control" name="hr_remarks_[]"></textarea>';
-											tx += '<div class="text-danger hr_remark_'+index+'_error" id="hr_remark_'+index+'_error"></div>';
+										var tx = '<textarea id="business_head_edit'+k+'" style="width:200px;" class="form-control" name="hr_remarks_[]"></textarea>';
+											tx += '<div class="text-danger hr_remark_'+k+'_error" id="hr_remark_'+k+'_error"></div>';
 										$(this).append(tx)
 										// alert("two")
 									}
-									i++;
+									k++;
 								}
 							);
 							

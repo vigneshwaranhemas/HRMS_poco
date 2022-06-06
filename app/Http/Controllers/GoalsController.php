@@ -952,7 +952,7 @@ class GoalsController extends Controller
                     foreach($row_values->$cell7 as $cell7_value){
                         if($cell7_value != null){
 
-                            $html .= '<p>'.$cell7_value.'</p>';
+                            $html .= '<p class="super_p'.$cell1.'">'.$cell7_value.'</p>';
 
                         }
                     }
@@ -968,7 +968,7 @@ class GoalsController extends Controller
                 $html .= '<td class="sup_rating">';
                     foreach($row_values->$cell8 as $cell8_value){
                         if($cell8_value != null){
-                            $html .= '<p>'.$cell8_value.'</p>';
+                            $html .= '<p class="sup_rating'.$cell1.'">'.$cell8_value.'</p>';
                         }
                     }
                 $html .= '</td>';
@@ -1007,7 +1007,7 @@ class GoalsController extends Controller
                         // dd($cell3_value);
                         if($cell10_value != null){
 
-                            $html .= '<p>'.$cell10_value.'</p>';
+                            $html .= '<p class="hr_remark_p'.$cell1.'">'.$cell10_value.'</p>';
 
                         }
                     }

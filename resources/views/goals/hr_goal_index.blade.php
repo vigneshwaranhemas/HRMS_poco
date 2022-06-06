@@ -223,6 +223,7 @@
                     <!--listing -->
                     <div class="tab-pane fade" id="info-listing" role="tabpanel" aria-labelledby="listing-info-tab">                        
                          <div class="card">
+                            <div class="card-body">
                              <div class="row">
                                     <div class="col-lg-2 m-t-5">
                                         <label for="Supervisor">Select Supervisor</label>
@@ -267,7 +268,6 @@
                                         <button type="submit" id="myself_reset" class="btn btn-dark "><i class="ti-save"></i> Clear</button>           
                                     </div>
                                 </div>
-                            <div class="card-body">
                                 <div class="table-responsive">
                                     <table id="listing_table" class="table table-striped table-bordered nowrap">
                                         <thead>

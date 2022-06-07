@@ -952,9 +952,7 @@ class GoalsController extends Controller
 
                     foreach($row_values->$cell7 as $cell7_value){
                         if($cell7_value != null){
-
-                            $html .= '<p class="super_p'.$cell1.'">'.$cell7_value.'</p>';
-
+                            $html .= '<p class="sup_remark_p_rev_'.$cell1.'">'.$cell7_value.'</p>';
                         }
                     }
                 $html .= '</td>';
@@ -969,7 +967,7 @@ class GoalsController extends Controller
                 $html .= '<td class="sup_rating">';
                     foreach($row_values->$cell8 as $cell8_value){
                         if($cell8_value != null){
-                            $html .= '<p class="sup_rating'.$cell1.'">'.$cell8_value.'</p>';
+                            $html .= '<p class="sup_rating_p_rev_'.$cell1.'">'.$cell8_value.'</p>';
                         }
                     }
                 $html .= '</td>';
@@ -986,7 +984,7 @@ class GoalsController extends Controller
                 $html .= '<td class="reviewer_remarks">';
                     foreach($row_values->$cell9 as $cell9_value){
                         if($cell9_value != null){
-                            $html .= '<p class="reviewer_p'.$cell1.'">'.$cell9_value.'</p>';
+                            $html .= '<p class="reviewer_remarks_p_rev_'.$cell1.'">'.$cell9_value.'</p>';
                         }
                     }
 
@@ -2770,50 +2768,50 @@ class GoalsController extends Controller
             }
             $html .= '</td>';
 
-            /*cell 6*/       
+            /*cell 6*/
             $html .= '<td>';
-            
+
             for($i=0; $i < $sub_row_count; $i++){
-                
+
                 $code = $cell1.'_'.$i.$i.$i.$i.$i;
 
                 if($row_values->$cell6[$i] != null){
                         $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-20 '.$code.'" name="rating_by_employee_'.$cell1.'[]">';
-    
+
                             $html .= '<option value="">...Select...</option>';
-    
+
                             if($row_values->$cell6[$i] == "EE"){
                                 $html .= '<option value="EE" selected>EE</option>';
                             }else{
                                 $html .= '<option value="EE">EE</option>';
                             }
-    
+
                             if($row_values->$cell6[$i] == "AE"){
                                 $html .= '<option value="AE" selected>AE</option>';
                             }else{
                                 $html .= '<option value="AE">AE</option>';
                             }
-                            
+
                             if($row_values->$cell6[$i] == "ME"){
                                 $html .= '<option value="ME" selected>ME</option>';
                             }else{
                                 $html .= '<option value="ME">ME</option>';
                             }
-                            
+
                             if($row_values->$cell6[$i] == "PE"){
                                 $html .= '<option value="PE" selected>PE</option>';
                             }else{
                                 $html .= '<option value="PE">PE</option>';
                             }
-                            
+
                             if($row_values->$cell6[$i] == "ND"){
                                 $html .= '<option value="ND" selected>ND</option>';
                             }else{
                                 $html .= '<option value="ND">ND</option>';
                             }
-    
+
                         $html .= '</select>';
-                        
+
                 }else{
                 $html .= '<td>';
                     $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-5" name="rating_by_employee_'.$cell1.'[]">';
@@ -2825,7 +2823,7 @@ class GoalsController extends Controller
                         $html .= '<option value="ND">ND</option>';
                     $html .= '</select>';
                 }
-            }                
+            }
 
             /*Cell 8*/
             $html .= '<td>';
@@ -3308,7 +3306,7 @@ class GoalsController extends Controller
                                         <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary_show_fn" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-file-text-o"></i></button></a>
                                     </div>
                                 </div>' ;
-                    }else{                        
+                    }else{
                         $btn = '<div class="dropup">
                                     <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
                                     <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
@@ -4238,7 +4236,7 @@ public function get_all_supervisors_info_bh()
 
     public function update_goals_hr_reviewer_tm(Request $request){
 
-        // echo "<pre>";print_r($json_value);die;    
+        // echo "<pre>";print_r($json_value);die;
 
         $id = $request->goals_setting_id;
         $json_value = $this->goal->fetchGoalIdDetails($id);
@@ -4276,7 +4274,7 @@ public function get_all_supervisors_info_bh()
     }
     public function save_hr_reviewer(Request $request){
 
-        // echo "<pre>";print_r($json_value);die;    
+        // echo "<pre>";print_r($json_value);die;
 
         $id = $request->goals_setting_id;
         $json_value = $this->goal->fetchGoalIdDetails($id);
@@ -4312,6 +4310,55 @@ public function get_all_supervisors_info_bh()
 
         return response($result);
     }
+
+    public function update_goals_sup_submit_overall(Request $request){
+       // dd($request->all());
+       $id = $request->goals_setting_id;
+       $json_value = $this->goal->fetchGoalIdDetails($id);
+       $datas = json_decode($json_value);
+
+       $json = array();
+
+       $html = '';
+
+       foreach($datas as $key=>$data){
+           $cell1 = $key+1;
+           $row_values = json_decode($data);
+
+           //Supervisor remark add
+           $sup_remark_value = array($request->sup_remark[$key]);
+           $sup_rem = "sup_remarks_".$cell1;
+           $row_values->$sup_rem = $sup_remark_value;
+
+           //Supervisor rating add
+           $sup_rating_value = array($request->sup_rating[$key]);
+           $sup_final_op = "sup_final_output_".$cell1;
+           $row_values->$sup_final_op = $sup_rating_value;
+
+           $json_format = json_encode($row_values);
+           array_push($json, $json_format);
+
+       }
+       $goal_process = json_encode($json);
+
+       //Data upload to server
+       $data = array(
+           'goal_process' => $goal_process,
+           'goal_unique_code' => $id,
+           'supervisor_consolidated_rate' => $request->employee_consolidated_rate,
+       );
+        // dd($data);
+        $result = $this->goal->update_goals_sup_submit_overall($data);
+
+        return response($result);
+    }
+
+    // public function goals_sup_submit_status_for_rev(Request $request)
+    // {
+    //     $id = $request->id;
+    //     $head = $this->goal->goals_sup_submit_status_for_rev($id);
+    //     return json_encode($head);
+    // }
 
 
 
@@ -4470,7 +4517,7 @@ if($request->reviewer_hidden_id==0){
 
 public function pms_employeee_mail(request $request)
 {
-      
+
       $i=0;
       foreach($request->gid as $data){
         // DB::enableQueryLog();
@@ -4482,7 +4529,7 @@ public function pms_employeee_mail(request $request)
 
                     // $Mail['email']='vigneshb@hemas.in';
                     $Mail['subject']="Thank you for submitting the details.";
-                
+
                     Mail::send('emails.pms_emp_mail', $Mail, function ($message) use ($Mail) {
                     $message->from("hr@hemas.in", 'HEPL - HR Team');
                     $message->to($Mail['email'])->subject($Mail['subject']);

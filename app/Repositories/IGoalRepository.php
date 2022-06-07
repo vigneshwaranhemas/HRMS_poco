@@ -51,5 +51,6 @@ interface IGoalRepository {
     public function get_goal_myself_list();
     public function update_goals_sup_reviewer_tm($data);
     public function fetchCustomUserList();
+    public function update_goals_hr_reviewer_tm($data);
     
 }

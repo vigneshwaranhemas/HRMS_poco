@@ -268,11 +268,12 @@
                                         <button type="submit" id="myself_reset" class="btn btn-dark "><i class="ti-save"></i> Clear</button>           
                                     </div>
                                 </div>
+                                <button id="send_mail" name="send_mail" class="btn btn-primary">Send Mail</button>
                                 <div class="table-responsive">
                                     <table id="listing_table" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                                <!-- <th><input type="checkbox" name="select_all" id="select_all"></th> -->
+                                                <th><input class="mail_class" type="checkbox" name="select_all" value="1" id="example-select-all"></th>
                                                 <th scope="col">Sno</th>
                                                 <th scope="col">Employee Name</th>
                                                 <th scope="col">Employee ID</th>

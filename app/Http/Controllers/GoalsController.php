@@ -9,6 +9,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Goals;
 use Auth;
 use Session;
+use Mail;
 use App\Models\CustomUser;
 
 class GoalsController extends Controller
@@ -985,7 +986,7 @@ class GoalsController extends Controller
                 $html .= '<td class="reviewer_remarks">';
                     foreach($row_values->$cell9 as $cell9_value){
                         if($cell9_value != null){
-                            $html .= '<p>'.$cell9_value.'</p>';
+                            $html .= '<p class="reviewer_p'.$cell1.'">'.$cell9_value.'</p>';
                         }
                     }
 
@@ -2987,8 +2988,51 @@ class GoalsController extends Controller
             'supervisor_consolidated_rate' => $request->employee_consolidated_rate,
         );
         // dd($data);
-        // echo '11<pre>';print_r($data);die();
         $result = $this->goal->update_goals_sup($data);
+
+        return response($result);
+    }
+    public function add_goals_data_hr_save(Request $request){
+        $id = $request->goals_setting_id;
+        $json_value = $this->goal->fetchGoalIdDetails($id);
+        $datas = json_decode($json_value);
+        $json = array();
+
+        $html = '';
+
+
+        foreach($datas as $key=>$data){
+            $cell1 = $key+1;
+            $row_values=json_decode($data);
+
+            //Supervisor remark add
+            $sup_remark_value = array($request->sup_remark_[$key]);
+            $sup_rem = "sup_remarks_".$cell1;
+            $row_values->$sup_rem = $sup_remark_value;
+
+            $sup_rating_value = array($request->sup_final_output_[$key]);
+            $sup_final_op = "sup_final_output_".$cell1;
+            $row_values->$sup_final_op = $sup_rating_value;
+
+            $sup_remarks_value = array($request->hr_remarks_[$key]);
+            $sup_remarks = "hr_remarks_".$cell1;
+            $row_values->$sup_remarks = $sup_remarks_value;
+
+            $json_format = json_encode($row_values);
+            array_push($json, $json_format);
+
+        }
+        $goal_process = json_encode($json);
+
+        //Data upload to server
+        $data = array(
+            'goal_process' => $goal_process,
+            'goal_unique_code' => $id,
+            'supervisor_consolidated_rate' => $request->employee_consolidated_rate,
+        );
+        // dd($data);
+        // echo '11<pre>';print_r($data);die();
+        $result = $this->goal->update_goals_sup_save($data);
 
         return response($result);
     }
@@ -3683,7 +3727,7 @@ class GoalsController extends Controller
 
         if ($request->ajax()) {
         $result = $this->goal->gethr_list_tab_record($input_details);
-        // echo "<pre>";print_r($result);die;
+        // echo "<pre>";print_r($result['textbox']);die;
 
         return DataTables::of($result)
             ->addIndexColumn()
@@ -4120,9 +4164,49 @@ public function get_all_supervisors_info_bh()
             $row_values = json_decode($data);
 
             //Reviewer remarks add
-            $revi_remarks_value = array($request->revi_remarks_[$key]);
-            $sup_final_op = "revi_remarks_".$cell1;
-            $row_values->$sup_final_op = $revi_remarks_value;
+            $reviewer_remarks_value = array($request->reviewer_remarks_[$key]);
+            $sup_final_op = "reviewer_remarks_".$cell1;
+            $row_values->$sup_final_op = $reviewer_remarks_value;
+
+            $hr_remarks_value = array($request->hr_remarks_[$key]);
+            $sup_final_hr = "hr_remarks_".$cell1;
+            $row_values->$sup_final_hr = $hr_remarks_value;
+
+            $json_format = json_encode($row_values);
+            array_push($json, $json_format);
+
+        }
+        $goal_process = json_encode($json);
+
+        //Data upload to server
+        $data = array(
+            'goal_process' => $goal_process,
+            'goal_unique_code' => $id
+        );
+        // dd($data);
+        $result = $this->goal->update_goals_sup_reviewer_tm($data);
+
+        return response($result);
+    }
+
+     public function update_goals_sup_reviewer_tm_save(Request $request){
+        $id = $request->goals_setting_id;
+        $json_value = $this->goal->fetchGoalIdDetails($id);
+        // echo "<pre>";print_r($json_value);die;
+        $datas = json_decode($json_value);
+
+        $json = array();
+
+        $html = '';
+
+        foreach($datas as $key=>$data){
+            $cell1 = $key+1;
+            $row_values = json_decode($data);
+
+            //Reviewer remarks add
+            $reviewer_remarks_value = array($request->reviewer_remarks_[$key]);
+            $sup_final_op = "reviewer_remarks_".$cell1;
+            $row_values->$sup_final_op = $reviewer_remarks_value;
 
             $hr_remarks_value = array($request->hr_remarks_[$key]);
             $sup_final_hr = "hr_remarks_".$cell1;
@@ -4142,7 +4226,84 @@ public function get_all_supervisors_info_bh()
             'goal_unique_code' => $id
         );
         // dd($data);
-        $result = $this->goal->update_goals_sup_reviewer_tm($data);
+        $result = $this->goal->update_goals_sup_reviewer_tm_save($data);
+
+        return response($result);
+    }
+
+    public function update_goals_hr_reviewer_tm(Request $request){
+
+        // echo "<pre>";print_r($json_value);die;    
+
+        $id = $request->goals_setting_id;
+        $json_value = $this->goal->fetchGoalIdDetails($id);
+        $datas = json_decode($json_value);
+
+        $json = array();
+
+        $html = '';
+
+        foreach($datas as $key=>$data){
+            $cell1 = $key+1;
+            $row_values = json_decode($data);
+
+            $hr_remarks_value = array($request->hr_remarks_[$key]);
+            $sup_final_hr = "hr_remarks_".$cell1;
+            $row_values->$sup_final_hr = $hr_remarks_value;
+
+            $json_format = json_encode($row_values);
+            array_push($json, $json_format);
+
+        }
+        $goal_process = json_encode($json);
+
+
+
+        //Data upload to server
+        $data = array(
+            'goal_process' => $goal_process,
+            'goal_unique_code' => $id
+        );
+        // dd($data);
+        $result = $this->goal->update_goals_hr_reviewer_tm($data);
+
+        return response($result);
+    }
+    public function save_hr_reviewer(Request $request){
+
+        // echo "<pre>";print_r($json_value);die;    
+
+        $id = $request->goals_setting_id;
+        $json_value = $this->goal->fetchGoalIdDetails($id);
+        $datas = json_decode($json_value);
+
+        $json = array();
+
+        $html = '';
+
+        foreach($datas as $key=>$data){
+            $cell1 = $key+1;
+            $row_values = json_decode($data);
+
+            $hr_remarks_value = array($request->hr_remarks_[$key]);
+            $sup_final_hr = "hr_remarks_".$cell1;
+            $row_values->$sup_final_hr = $hr_remarks_value;
+
+            $json_format = json_encode($row_values);
+            array_push($json, $json_format);
+
+        }
+        $goal_process = json_encode($json);
+
+
+
+        //Data upload to server
+        $data = array(
+            'goal_process' => $goal_process,
+            'goal_unique_code' => $id
+        );
+        // dd($data);
+        $result = $this->goal->save_goals_hr_reviewer_tm($data);
 
         return response($result);
     }
@@ -4213,6 +4374,31 @@ public function update_bh_goals(Request $request)
 
  }
 
+
+public function pms_employeee_mail(request $request)
+{
+      
+      $i=0;
+      foreach($request->gid as $data){
+        // DB::enableQueryLog();
+          $result=Goals::join('customusers','customusers.empID','=','goals.created_by')
+                  ->where('goals.goal_unique_code',$data['checkbox'])->select('email')->get();
+        /*email*/
+           $Mail['email']=$result[$i]['email'];
+                  // echo json_encode($Mail['email']);die;
+
+                    // $Mail['email']='vigneshb@hemas.in';
+                    $Mail['subject']="Thank you for submitting the details.";
+                
+                    Mail::send('emails.pms_emp_mail', $Mail, function ($message) use ($Mail) {
+                    $message->from("hr@hemas.in", 'HEPL - HR Team');
+                    $message->to($Mail['email'])->subject($Mail['subject']);
+                    });
+       $i++;
+      }
+    echo json_encode($myarr);
+
+}
 
 
 

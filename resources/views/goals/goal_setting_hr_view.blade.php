@@ -382,7 +382,7 @@
 							       	function(index){
 									var text_data=$(this).text();
 									if ($(this).text() != ""){
-										$(".super_p"+i+"").remove();
+										$(".sup_remark_p_rev_"+i+"").remove();
 										var tx = '<textarea id="business_head_edit'+i+'" name="sup_remark_[]" style="width:200px;" class="form-control">'+text_data+'</textarea>';
 											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
 										$(this).append(tx)
@@ -402,7 +402,7 @@
 									// console.log("data")
 									if ($(this).text() != ""){
 										var text_data=$(this).text();
-										$('.sup_rating'+j+'').remove();
+										$('.sup_rating_p_rev_'+j+'').remove();
 										var op = '<select class="js-example-basic-single" style="width:150px;" id="employee_consolidated_rate" name="sup_final_output_[]">';
 											op += '<option value="" selected>...Select...</option>';
 											op += '<option value="EE" '+(text_data=="EE" ? "selected" :"")+'>EE</option>';
@@ -573,7 +573,6 @@
 /*save supervisor button*/
 	function supFormSave(){
 			var error='';
-
 			var rate = $("#supervisor_consolidated_rate").val();
 			// alert(rate)
 			var $errmsg3 = $(".supervisor_consolidated_rate_error");
@@ -900,7 +899,7 @@
             }
         }
 
-/* hr submit form*/
+/* hr submit button*/
 	function hrFormSubmit() {
 		  var error = "";
 		  var i = 1;
@@ -947,7 +946,7 @@
 		    });
 		  }
 		}
-/*save hr button*/
+/*hr save button*/
 	function hrFormSave() {
 		  var error = "";
 		  var i = 1;

@@ -4,9 +4,11 @@
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
-    <!-- Plugins css start-->
+<!-- Plugins css start-->
 <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
+
 @endsection
 
 @section('style')
@@ -129,7 +131,25 @@
                                 </tbody>
                             </table>
                             <input type="hidden" id="edit_goals_setting_id" name="goals_setting_id">
-                            <button id="datatable_form_update" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
+                            <div class="m-t-40 m-b-30 float-right">
+                                <div class="row">									
+                                    <div class="col-lg-8">
+                                        <label>Consolidated Rating</label><br>
+                                        <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
+                                            <option value="" selected>...Select...</option>
+                                            <option value="EE">EE</option>
+                                            <option value="AE">AE</option>
+                                            <option value="ME">ME</option>
+                                            <option value="PE">PE</option>
+                                            <option value="ND">ND</option>
+                                        </select>
+                                        <div class="text-danger employee_consolidated_rate_error" id=""></div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <button id="datatable_form_update" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
+                                    </div>
+                                </div>
+                            </div>    
                         </form>
                     </div>
                 </div>
@@ -162,11 +182,40 @@
 <script src="../assets/js/datepicker/date-picker/datepicker.js"></script>
 <script src="../assets/js/datepicker/date-picker/datepicker.en.js"></script>
 <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
+<!-- Plugins JS start-->
+<script src="../assets/js/select2/select2.full.min.js"></script>
+<script src="../assets/js/select2/select2-custom.js"></script>
 
 <script>
     var params = new window.URLSearchParams(window.location.search);
     var id=params.get('id')
     $("#edit_goals_setting_id").val(id);
+
+    $(document).ready(function() {
+        employee_consolidate_rate_show();
+    });
+    
+    /********** Employee Consolidary Rate Head **************/
+    function employee_consolidate_rate_show(){
+        var params = new window.URLSearchParams(window.location.search);
+        var id=params.get('id');
+
+        $.ajax({
+            url:"{{ url('goals_consolidate_rate_head') }}",
+            type:"GET",
+            data:{id:id},
+            dataType : "JSON",
+            success:function(response)
+            {
+                $('#employee_consolidated_rate').val(response).change();							
+            },
+            error: function(error) {
+                console.log(error);
+
+            }
+
+        });
+    }    
 
     $(".use-address").click(function() {
         var html = '<input type="text" name="" id="" class="form-control m-t-5">';
@@ -189,7 +238,7 @@
             html4 += '<div class="text-danger self_assessment_remark_'+code+'_error" id=""></div>';
        
         var html5 ='';
-            html5 +='<select class="form-control js-example-basic-single key_bus_drivers m-t-35 rating_by_employee_'+cur_rowCount+' '+code+'"  id="rating_by_employee_'+code+'" name="rating_by_employee_'+cur_rowCount+'[]">';
+            html5 +='<select class="form-control js-example-basic-single key_bus_drivers m-t-30 rating_by_employee_'+cur_rowCount+' '+code+'"  id="rating_by_employee_'+code+'" name="rating_by_employee_'+cur_rowCount+'[]">';
                         html5 +='<option value="">...Select...</option>';
                         html5 +='<option value="EE">EE</option>';
                         html5 +='<option value="AE">AE</option>';

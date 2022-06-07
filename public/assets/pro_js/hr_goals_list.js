@@ -7,9 +7,8 @@ $( document ).ready(function() {
 });
 $(document).ready(function() {
     get_supervisor();
-    supervisor_goal_record();
-    goal_record_tab();
-   
+    supervisor_goal_record();   
+    add_goal_btn();
 });
 /*clear function*/
 $("#reset").on('click', function() {
@@ -57,12 +56,17 @@ $('#profile-info-tab').on('click',function() {
     hr_dttable_record();
     get_grade();
     get_department();
+    $('#save_div_rev').hide();
+    $('#save_div_hr').show();
     });
 $('#hr_apply').on('click',function() {
     hr_dttable_record();
     });
 $('#reviewer-info-tab').on('click',function() {
+    // alert("ssss")
     reviewer_goal_record();
+    $('#save_div_rev').show();
+    $('#save_div_hr').hide();
     });
 $('#listing-info-tab').on('click',function() {
     hr_listing_tab_record();
@@ -79,10 +83,34 @@ $('#team_leader_filter_hr_1').on('change',function() {
 $('#list_apply').on('click',function() {
     hr_listing_tab_record();
     });
-$('#profile-info-tab').on('click',function() {
-    goal_record_tab();
+$('#MySelf-info-tab').on('click',function() {
+    // alert("sa")
+    $('#save_div_rev').hide();
+    $('#save_div_hr').hide();
+   goal_record();
     });
 
+function add_goal_btn(){
+    $.ajax({
+        url:"add_goal_btn",
+        type:"GET",
+        dataType : "JSON",
+        success:function(response)
+        {
+            // alert(response)
+            if(response == "Yes"){
+                $('#add_goal_btn').css('display', 'none');
+            }else{
+                $('#add_goal_btn').css('display', 'block');
+            }
+        },
+        error: function(error) {
+            console.log(error);
+
+        }
+
+    });
+}
 /*end search*/
 
 /*grade*/
@@ -619,9 +647,9 @@ function hr_dttable_record(){
         ],
     });
 }
-function goal_record_tab(){
+function goal_record(){
 
-    table_cot = $('#myself_tbl').DataTable({
+    table_cot = $('#goal_data').DataTable({
 
         dom: 'lBfrtip',
         lengthChange: true,
@@ -692,8 +720,8 @@ function goal_record_tab(){
         //     { 'visible': false, 'targets': [3] }
         // ],
         ajax: {
-            url: "get_goal_myself_listing",
-            type: 'POST',
+            url: "get_goal_list",
+            type: 'GET',
             dataType: "json",
             data: function (d) {
                 // d.status = $('#status').val();
@@ -703,18 +731,64 @@ function goal_record_tab(){
             }
         },
         createdRow: function( row, data, dataIndex ) {
-            $( row ).find('td:eq(0)').attr('data-label', 'Sno');
-            $( row ).find('td:eq(1)').attr('data-label', 'Business Name');
-            $( row ).find('td:eq(2)').attr('data-label', 'action');
+
         },
         columns: [
             {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
             {   data: 'goal_name', name: 'goal_name'    },
-            {   data: 'status', name: 'status'  },
             {   data: 'action', name: 'action'  },
+
+            // {   data: 'Info', name: 'Info'  },
+
         ],
     });
 }
+   
+
+   $('#send_mail').on('click', function(){
+         var i=0;
+         var j=0;
+         var selected=[];
+         $('#listing_table tbody>tr').each(function () {
+             var currrow=$(this).closest('tr');
+             var col1=currrow.find('td:eq(0) input[type=checkbox]');
+             if (col1.length) {
+                    var status = col1.prop('checked');
+                     if(status)
+                     {
+                      selected.push({
+                            checkbox:col1.val()
+                         })  
+                     }
+                  }
+             });
+         $.ajax({
+            url:"pms_employeee_mail",
+            type:"POST",
+            data:{gid:selected},
+            success:function(data){
+                console.log(data);
+            }
+         })
+                 // console.log(selected)
+         });        
+
+/*select all*/
+// Handle click on "Select all" control
+   $('#example-select-all').on('click', function(){
+      var rows = table_cot.rows({ 'search': 'applied' }).nodes();
+      $('input[type="checkbox"]', rows).prop('checked', this.checked);
+   });
+
+   $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+      if(!this.checked){
+         var el = $('#example-select-all').get(0);
+         if(el && el.checked && ('indeterminate' in el)){
+            el.indeterminate = true;
+         }
+      }
+   });
+
 function hr_listing_tab_record(){
 
     
@@ -782,6 +856,9 @@ function hr_listing_tab_record(){
         serverMethod: 'post',
         bDestroy: true,
         scrollCollapse: true,
+        aoColumnDefs: [
+            { "bSortable": false, "aTargets": [ 0, 6, 7, 8] }, 
+        ],
         drawCallback: function() {
         },
         ajax: {
@@ -798,6 +875,7 @@ function hr_listing_tab_record(){
             }
         },
         createdRow: function( row, data, dataIndex ) {
+            $( row ).find('td:eq(0)').html('<input class="mail_class" type="checkbox" name="id[]" value="'+ data.goal_unique_code +'">');   
             $( row ).find('td:eq(0)').attr('data-label', 'Sno');
             $( row ).find('td:eq(1)').attr('data-label', 'Candidate Name');
             $( row ).find('td:eq(2)').attr('data-label', 'Emp ID');           
@@ -806,9 +884,10 @@ function hr_listing_tab_record(){
             $( row ).find('td:eq(5)').attr('data-label', 'Grade');           
             $( row ).find('td:eq(5)').attr('data-label', 'Department');           
             $( row ).find('td:eq(6)').attr('data-label', 'employee_consolidated_rate');           
-            $( row ).find('td:eq(7)').attr('data-label', 'supervisor_consolidated_rate');           
+            $( row ).find('td:eq(7)').attr('data-label', 'supervisor_consolidated_rate');
         },
         columns: [
+           
             {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
             {   data: 'created_by_name', name: 'created_by_name'  },
             {   data: 'created_by', name: 'created_by'  },
@@ -822,6 +901,3 @@ function hr_listing_tab_record(){
         ],
     });
 }
-
-
-

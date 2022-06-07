@@ -22,7 +22,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>View<span>Goals </span></h2>
+	<h2>Add<span>Performance </span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -44,7 +44,7 @@
 			<div class="col-sm-12">			
 				<div class="ribbon-vertical-right-wrapper card">
 					<div class="card-body">
-						<div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 50px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PA</span>
+						<div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 70px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PSM</span>
 						</div>
 						<div class="row">
 							<div class="col-md-4">

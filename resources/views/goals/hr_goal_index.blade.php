@@ -29,7 +29,7 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h2>HR Goal <span>Setting Process</span></h2>
+    <h2>Performance<span> Management System</span></h2>
 @endsection
 
 @section('breadcrumb-items')

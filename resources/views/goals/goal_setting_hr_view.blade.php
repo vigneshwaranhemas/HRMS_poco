@@ -22,15 +22,19 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>View<span>Goals </span></h2>
+	<h2>Add<span>Performance </span></h2>
 @endsection
 
 @section('breadcrumb-items')
-	<a class="btn btn-success text-white" title="Exceeded Expectations">EE</a>                                            
-	<a class="btn btn-secondary m-l-10 text-white" title="Achieved Expectations">AE</a>                                            
-	<a class="btn btn-info m-l-10 text-white" title="Met Expectations">ME</a>                                            
-	<a class="btn btn-warning m-l-10 text-white" title="Partially Met Expectations">PME</a>                                            
-	<a class="btn btn-dark m-l-10 text-white" title="Needs Development">ND</a> 
+	<a class="btn btn-sm text-white" style="background-color: #FFD700;" title="Significantly Exceeds Expectations">SEE</a>                                            
+
+    <a class="btn btn-sm text-white m-l-10" style="background-color: #008000;" title="Exceeded Expectations">EE</a>                                            
+
+    <a class="btn btn-sm btn-success m-l-10 text-white" title="Met Expectations">ME</a>                                            
+
+    <a class="btn btn-sm m-l-10 text-white" style="background-color: #FFA500" title="Partially Met Expectations">PME</a>                                            
+
+    <a class="btn btn-sm m-l-10 text-white" style="background-color: #FF0000;" title="Needs Development">ND</a>  
 @endsection
 
 @section('content')
@@ -40,7 +44,7 @@
 			<div class="col-sm-12">			
 				<div class="ribbon-vertical-right-wrapper card">
 					<div class="card-body">
-						<div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 50px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PA</span>
+						<div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 70px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PSM</span>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
@@ -120,9 +124,11 @@
 						<div class="table-responsive m-b-15 ">
 							<div class="row">
 								<div class="col-lg-12 m-b-35">
-									<a id="goal_sheet_edit" class="btn btn-warning text-white float-right" title="Edit Sheet">Edit</a>                                            
-									<a id="goal_sheet_submit" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit</a>                                            
-									<!-- <button type="button" class="btn btn-warning "  >Edit</button> -->
+									<a id="goal_sheet_edit" class="btn btn-warning text-white float-right" title="Edit Sheet">Edit</a>  
+									<!-- Submit buttons -->                                          
+									<a id="goal_sheet_submit" onclick="supFormSubmit()" class="btn btn-success text-white float-right" style="display: none;"  title="Overall Sheet Submit">Submit</a>                                            
+									<a id="goal_sheet_rev_submit" onclick="revFormSubmit()" style="display: none;" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit</a>                                            
+									<a id="hr_sheet_submit"  onclick="hrFormSubmit()" style="display: none;"  class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit</a>                                            
 									<h5>EMPLOYEE CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
 									<h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
 								</div>
@@ -164,22 +170,22 @@
 										<div class="text-danger supervisor_consolidated_rate_error" id=""></div>
 									</div>
 									<div class="col-lg-4">
-										<a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>                                            
+										<a onclick="supFormSave();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>                                            
 									</div>
 								</div>
 								
-								<div class="m-t-20 m-b-30 row float-right" id="save_div_rev">
+								<div class="m-t-20 m-b-30 row float-right" style="display: none;" id="save_div_rev">
 									<div class="col-lg-8">										
 									</div>
 									<div class="col-lg-4">
-										<a onclick="revFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>                                            
+										<a onclick="revFormSave();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>                                            
 									</div>
 								</div>
-								<div class="m-t-20 m-b-30 row float-right" id="save_div_hr">									
+								<div class="m-t-20 m-b-30 row float-right" style="display: none;" id="save_div_hr">									
 									<div class="col-lg-8">									
 									</div>
 									<div class="col-lg-4">
-										<a onclick="hrFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>                                            
+										<a onclick="hrFormSave();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>                                            
 									</div>
 								</div>
 								
@@ -360,6 +366,9 @@
 							$("#save_div_hr").hide();
 
 							var i=1;
+							var j=1;
+							var k=1;
+
 							// var user_type=$("#user_type").val();
 							// if(user_type==1 || user_type==2 || user_type==0)
 							// {
@@ -369,11 +378,14 @@
 							// }
 							
 							$("#goals_record_tb tbody tr td."+defined_class1+"").each(
-								function(index){
 
-									// console.log("data")
+							       	function(index){
+									var text_data=$(this).text();
 									if ($(this).text() != ""){
-										//alert("one")
+										$(".super_p"+i+"").remove();
+										var tx = '<textarea id="business_head_edit'+i+'" name="sup_remark_[]" style="width:200px;" class="form-control">'+text_data+'</textarea>';
+											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
+										$(this).append(tx)
 									}
 									else{
 										var tx = '<textarea id="business_head_edit'+i+'" name="sup_remark_[]" style="width:200px;" class="form-control"></textarea>';
@@ -389,7 +401,19 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										// alert("one")
+										var text_data=$(this).text();
+										$('.sup_rating'+j+'').remove();
+										var op = '<select class="js-example-basic-single" style="width:150px;" id="employee_consolidated_rate" name="sup_final_output_[]">';
+											op += '<option value="" selected>...Select...</option>';
+											op += '<option value="EE" '+(text_data=="EE" ? "selected" :"")+'>EE</option>';
+											op += '<option value="AE" '+(text_data=="AE" ? "selected" :"")+'>AE</option>';
+											op += '<option value="ME" '+(text_data=="ME" ? "selected" :"")+'>ME</option>';
+											op += '<option value="PE" '+(text_data=="PE" ? "selected" :"")+'>PE</option>';
+											op += '<option value="ND" '+(text_data=="ND" ? "selected" :"")+'>ND</option>';
+											op += '</select>';
+											op += '<div class="text-danger sup_rating_'+j+'_error"></div>';
+										// $(this).append('<textarea id="business_head_edit'+i+'" class="form-control"></textarea>')
+										$(this).append(op);
 									}
 									else{
 										var op = '<select class="js-example-basic-single" style="width:150px;" id="employee_consolidated_rate" name="sup_final_output_[]">';
@@ -400,12 +424,12 @@
 											op += '<option value="PE">PE</option>';
 											op += '<option value="ND">ND</option>';
 											op += '</select>';
-											op += '<div class="text-danger sup_rating_'+index+'_error"></div>';
+											op += '<div class="text-danger sup_rating_'+j+'_error"></div>';
 										// $(this).append('<textarea id="business_head_edit'+i+'" class="form-control"></textarea>')
 										$(this).append(op);
 										// alert("two")
 									}
-									i++;
+									j++;
 								}
 							);
 
@@ -414,33 +438,42 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
+										var text_data=$(this).text();
+										$('.hr_remark_p'+k+'').remove();
+											var tx = '<textarea id="business_head_edit'+k+'" style="width:200px;" class="form-control" name="hr_remarks_[]">'+text_data+'</textarea>';
+											tx += '<div class="text-danger hr_remark_'+k+'_error" id="hr_remark_'+k+'_error"></div>';
+										$(this).append(tx)
 										
 									}
 									else{
-										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control" name="hr_remarks_[]"></textarea>';
-											tx += '<div class="text-danger hr_remark_'+index+'_error" id="hr_remark_'+index+'_error"></div>';
+										var tx = '<textarea id="business_head_edit'+k+'" style="width:200px;" class="form-control" name="hr_remarks_[]"></textarea>';
+											tx += '<div class="text-danger hr_remark_'+k+'_error" id="hr_remark_'+k+'_error"></div>';
 										$(this).append(tx)
 										// alert("two")
 									}
-									i++;
+									k++;
 								}
 							);
 							
 						}
 						if(response == 2){
+
 							//As reviewer
 										
 							$("#goal_sheet_edit").css("display","none");
-							$("#goal_sheet_submit").css("display","block");
+							$("#goal_sheet_submit").css("display","none");
+							$("#goal_sheet_rev_submit").css("display","block");
+							$("#hr_sheet_submit").css("display","none");
 							$("#save_div_rev").show();
 							$("#save_div").hide();
 							$("#save_div_hr").hide();
 
 							var i=1;
+							var j=1;
 							// var user_type=$("#user_type").val();
 							// if(user_type==1 || user_type==2 || user_type==0)
 							// {
-								var defined_class1="revi_remarks";
+								var defined_class1="reviewer_remarks";
 								var defined_class2="hr_remarks";
 							// }
 							
@@ -449,11 +482,15 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										
+										var text_data=$(this).text();
+										$('.reviewer_p'+i+'').remove();
+										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" name="reviewer_remarks_[]" class="form-control">'+text_data+'</textarea>';
+											tx += '<div class="text-danger reviewer_remarks_'+index+'_error" id="reviewer_remarks_'+index+'_error"></div>';
+										$(this).append(tx)
 									}
 									else{
-										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" name="revi_remarks_[]" class="form-control"></textarea>';
-											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
+										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" name="reviewer_remarks_[]" class="form-control"></textarea>';
+											tx += '<div class="text-danger reviewer_remarks_'+index+'_error" id="reviewer_remarks_'+index+'_error"></div>';
 										$(this).append(tx)
 										// alert("two")
 									}
@@ -466,11 +503,15 @@
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										//alert("one")
+										var text_data=$(this).text();
+										$('.hr_remark_p'+j+'').remove();
+										var tx = '<textarea id="business_head_edit'+i+'" name="hr_remarks_[]" style="width:200px;" class="form-control">'+text_data+'</textarea>';
+											tx += '<div class="text-danger hr_remarks_'+index+'_error" id="hr_remarks_'+index+'_error"></div>';
+										$(this).append(tx)
 									}
 									else{
 										var tx = '<textarea id="business_head_edit'+i+'" name="hr_remarks_[]" style="width:200px;" class="form-control"></textarea>';
-											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
+											tx += '<div class="text-danger hr_remarks_'+index+'_error" id="hr_remarks_'+index+'_error"></div>';
 										$(this).append(tx)
 										// alert("two")
 									}
@@ -483,30 +524,33 @@
 							//As hr
 							
 							$("#goal_sheet_edit").css("display","none");
-							$("#goal_sheet_submit").css("display","block");
+							$("#goal_sheet_submit").css("display","none");
+							$("#goal_sheet_rev_submit").css("display","none");
+							$("#hr_sheet_submit").css("display","block");
 							$("#save_div").hide();
 							$("#save_div_rev").hide();
 							$("#save_div_hr").show();
 							
 							var i=1;
-							// var user_type=$("#user_type").val();
-							// if(user_type==1 || user_type==2 || user_type==0)
-							// {
+							
 								var defined_class1="sup_remark";
 								var defined_class2="sup_rating";
 								var defined_class3="hr_remarks";
-							// }
 							
 							$("#goals_record_tb tbody tr td."+defined_class3+"").each(
 								function(index){
 
 									// console.log("data")
 									if ($(this).text() != ""){
-										//alert("one")
+										var text_data=$(this).text();
+										$('.hr_remark_p'+i+'').remove();
+										var tx = '<textarea id="business_head_edit'+i+'" name="hr_remarks_[]" style="width:200px;" class="form-control">'+text_data+'</textarea>';
+											tx += '<div class="text-danger hr_remarks_'+index+'_error" id="hr_remarks_'+index+'_error"></div>';
+										$(this).append(tx)
 									}
 									else{
-										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" class="form-control"></textarea>';
-											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
+										var tx = '<textarea id="business_head_edit'+i+'" name="hr_remarks_[]" style="width:200px;" class="form-control"></textarea>';
+											tx += '<div class="text-danger hr_remarks_'+index+'_error" id="hr_remarks_'+index+'_error"></div>';
 										$(this).append(tx)
 										// alert("two")
 									}
@@ -526,8 +570,8 @@
 				
 			})
 		})
-
-		function supFormSubmit(){
+/*save supervisor button*/
+	function supFormSave(){
 			var error='';
 
 			var rate = $("#supervisor_consolidated_rate").val();
@@ -593,6 +637,98 @@
 			}
 			
 			function data_insert(){
+                // console.log($('#goalsForm').serialize());
+				$.ajax({
+					
+					url:"{{ url('add_goals_data_hr_save') }}",
+					type:"POST",
+					data:$('#goalsForm').serialize(),
+					dataType : "JSON",
+					success:function(data)
+					{
+						// console.log(data)
+						Toastify({
+							text: "Added Sucessfully..!",
+							duration: 3000,
+							close:true,
+							backgroundColor: "#4fbe87",
+						}).showToast();    
+						
+						$('button[type="submit"]').attr('disabled' , false);
+						
+						window.location = "{{ url('goals')}}";                
+					},
+					error: function(response) {
+						$('#business_name_option_error').text(response.responseJSON.errors.business_name);
+					}                                              
+				});
+			}      
+		}
+/*submit supervisor button*/
+	function supFormSubmit(){
+			var error='';
+
+			var rate = $("#supervisor_consolidated_rate").val();
+			// alert(rate)
+			var $errmsg3 = $(".supervisor_consolidated_rate_error");
+			$errmsg3.hide();
+
+			if(rate == ""){
+				$errmsg3.html('Consolidated rate is required').show();                
+				error+="error";
+			}
+
+			var i=1;
+
+			$('#goals_record_tb > tbody  > tr').each(function(index) {
+				var col0=$(this).find("td:eq(0)").text();
+				var col6=$(this).find("td:eq(5) textarea").val();
+				var col7=$(this).find("td:eq(6) option:selected").val();
+				var col8=$(this).find("td:eq(8) textarea").val();
+
+				// Supervisor Remarks
+				var err_div_name = "#sup_remark_"+index+"_error";            
+				var $errmsg0 = $(err_div_name);
+				$errmsg0.hide();
+				
+				if(col6 == "" || col6 == undefined){
+					// console.log($errmsg0)
+					$errmsg0.html('Supervisor remarks is required').show();                
+					error+="error";
+				}
+				
+
+				// Supervisor Rate				
+				var err_div_name1 = ".sup_rating_"+index+"_error";            
+				var $errmsg1 = $(err_div_name1);
+				$errmsg1.hide();
+				
+				if(col7 == "" || col7 == undefined){
+					// console.log($errmsg0)
+					$errmsg1.html('Supervisor rating is required').show();                
+					error+="error";
+				}
+
+				var err_div_name = "#hr_remark_"+index+"_error";            
+				var $errmsg0 = $(err_div_name);
+				$errmsg0.hide();
+				
+				if(col8 == "" || col8 == undefined){
+					$errmsg0.html('HR remarks is required').show();                
+					error+="error";
+				}
+				
+				i++;
+				
+
+			});
+
+			//Sending data to database
+			if(error==""){
+				data_insert();
+			}
+			
+			function data_insert(){
 
 				$.ajax({
 					
@@ -602,7 +738,7 @@
 					dataType : "JSON",
 					success:function(data)
 					{
-						console.log(data)
+						// console.log(data)
 						Toastify({
 							text: "Added Sucessfully..!",
 							duration: 3000,
@@ -621,7 +757,8 @@
 			}      
 		}
 
-		 function revFormSubmit(){
+/* reviewer submit button */
+	function revFormSubmit(){
         var error='';
                 var i=1;
 
@@ -632,7 +769,7 @@
                     var col9=$(this).find("td:eq(8) textarea").val();
 
                     // Supervisor Rate
-                    var err_div_name1 = "#revi_remarks_"+index+"_error";
+                    var err_div_name1 = ".reviewer_remarks_"+index+"_error";
                     var $errmsg1 = $(err_div_name1);
                     $errmsg1.hide();
                     // alert(err_div_name1)
@@ -642,9 +779,14 @@
                         $errmsg1.html('Reviewer Remarks is required').show();
                         error+="error";
                     }
+
+                    var err_div_name = ".hr_remarks_"+index+"_error";
+                    var $errmsg0 = $(err_div_name);
+                    $errmsg0.hide();
+                    // alert(err_div_name)
                      if(col9 == "" || col9 == undefined){
                         // console.log($errmsg0)
-                        $errmsg1.html('HR Remarks is required').show();
+                        $errmsg0.html('HR Remarks is required').show();
                         error+="error";
                     }
 
@@ -657,39 +799,206 @@
                     // alert("succes")
                     data_insert_reviewer();
                 }
-                function data_insert_reviewer(){
+            function data_insert_reviewer(){
 
-                    $.ajax({
+                $.ajax({
 
-                        url:"{{ url('update_goals_sup_reviewer_tm') }}",
-                        type:"POST",
-                        data:$('#goalsForm').serialize(),
-                        dataType : "JSON",
-                        success:function(data)
-                        {
-                            Toastify({
-                                text: "Added Sucessfully..!",
-                                duration: 3000,
-                                close:true,
-                                backgroundColor: "#4fbe87",
-                            }).showToast();
+                    url:"{{ url('update_goals_sup_reviewer_tm') }}",
+                    type:"POST",
+                    data:$('#goalsForm').serialize(),
+                    dataType : "JSON",
+                    success:function(data)
+                    {
+                        Toastify({
+                            text: "Added Sucessfully..!",
+                            duration: 3000,
+                            close:true,
+                            backgroundColor: "#4fbe87",
+                        }).showToast();
 
-                            // $('button[type="submit"]').attr('disabled' , false);
+                        // $('button[type="submit"]').attr('disabled' , false);
 
-                            window.location = "{{ url('goals')}}";
-                        },
-                        error: function(response) {
-                            // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+                        window.location = "{{ url('goals')}}";
+                    },
+                    error: function(response) {
+                        // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
 
-                        }
+                    }
 
-                    });
-                }
-
+                });
             }
+        }
+/* reviewer save button*/
+	function revFormSave(){
+        var error='';
+                var i=1;
+
+                $('#goals_record_tb > tbody  > tr').each(function(index) {
+                    var col0=$(this).find("td:eq(0)").text();
+                    // var col6=$(this).find("td:eq(5) textarea").val();
+                    var col8=$(this).find("td:eq(7) textarea").val();
+                    var col9=$(this).find("td:eq(8) textarea").val();
+
+                    // Supervisor Rate
+                    var err_div_name1 = ".reviewer_remarks_"+index+"_error";
+                    var $errmsg1 = $(err_div_name1);
+                    $errmsg1.hide();
+                    // alert(err_div_name1)
+
+                    if(col8 == "" || col8 == undefined){
+                        // console.log($errmsg0)
+                        $errmsg1.html('Reviewer Remarks is required').show();
+                        error+="error";
+                    }
+
+                    var err_div_name = ".hr_remarks_"+index+"_error";
+                    var $errmsg0 = $(err_div_name);
+                    $errmsg0.hide();
+                    // alert(err_div_name)
+                     if(col9 == "" || col9 == undefined){
+                        // console.log($errmsg0)
+                        $errmsg0.html('HR Remarks is required').show();
+                        error+="error";
+                    }
+
+                    i++;
+
+
+                });
+                //Sending data to database
+                if(error==""){
+                    // alert("succes")
+                    data_insert_reviewer();
+                }
+            function data_insert_reviewer(){
+
+                $.ajax({
+
+                    url:"{{ url('update_goals_sup_reviewer_tm_save') }}",
+                    type:"POST",
+                    data:$('#goalsForm').serialize(),
+                    dataType : "JSON",
+                    success:function(data)
+                    {
+                        Toastify({
+                            text: "Added Sucessfully..!",
+                            duration: 3000,
+                            close:true,
+                            backgroundColor: "#4fbe87",
+                        }).showToast();
+
+                        // $('button[type="submit"]').attr('disabled' , false);
+
+                        window.location = "{{ url('goals')}}";
+                    },
+                    error: function(response) {
+                        // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+                    }
+
+                });
+            }
+        }
+
+/* hr submit form*/
+	function hrFormSubmit() {
+		  var error = "";
+		  var i = 1;
+
+		  $("#goals_record_tb > tbody  > tr").each(function (index) {
+		    var col0 = $(this).find("td:eq(0)").text();
+		    var col10 = $(this).find("td:eq(8) textarea").val();
+
+		    // Supervisor Rate
+		    var err_div_name1 = ".hr_remarks_" + index + "_error";
+		    var $errmsg1 = $(err_div_name1);
+		    $errmsg1.hide();
+
+		    if (col10 == "" || col10 == undefined) {
+		      $errmsg1.html("HR Remarks is required").show();
+		      error += "error";
+		    }
+		    i++;
+		  });
+		  if (error == "") {
+		    data_insert_reviewer();
+		  }
+		  function data_insert_reviewer() {
+		    $.ajax({
+		      url: "{{ url('update_goals_hr_reviewer_tm') }}",
+		      type: "POST",
+		      data: $("#goalsForm").serialize(),
+		      dataType: "JSON",
+		      success: function (data) {
+		        Toastify({
+		          text: "Added Sucessfully..!",
+		          duration: 3000,
+		          close: true,
+		          backgroundColor: "#4fbe87",
+		        }).showToast();
+
+		        // $('button[type="submit"]').attr('disabled' , false);
+
+		        window.location = "{{ url('goals')}}";
+		      },
+		      error: function (response) {
+		        // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+		      },
+		    });
+		  }
+		}
+/*save hr button*/
+	function hrFormSave() {
+		  var error = "";
+		  var i = 1;
+
+		  $("#goals_record_tb > tbody  > tr").each(function (index) {
+		    var col0 = $(this).find("td:eq(0)").text();
+		    var col10 = $(this).find("td:eq(8) textarea").val();
+
+		    // Supervisor Rate
+		    var err_div_name1 = ".hr_remarks_" + index + "_error";
+		    var $errmsg1 = $(err_div_name1);
+		    $errmsg1.hide();
+
+		    if (col10 == "" || col10 == undefined) {
+		      $errmsg1.html("HR Remarks is required").show();
+		      error += "error";
+		    }
+		    i++;
+		  });
+		  if (error == "") {
+		    data_insert_reviewer();
+		  }
+		  function data_insert_reviewer() {
+		    $.ajax({
+		      url: "{{ url('save_hr_reviewer') }}",
+		      type: "POST",
+		      data: $("#goalsForm").serialize(),
+		      dataType: "JSON",
+		      success: function (data) {
+		        Toastify({
+		          text: "Added Sucessfully..!",
+		          duration: 3000,
+		          close: true,
+		          backgroundColor: "#4fbe87",
+		        }).showToast();
+
+		        // $('button[type="submit"]').attr('disabled' , false);
+
+		        window.location = "{{ url('goals')}}";
+		      },
+		      error: function (response) {
+		        // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+		      },
+		    });
+		  }
+		}
+
 
 		
 	</script>
+
 
 @endsection
 

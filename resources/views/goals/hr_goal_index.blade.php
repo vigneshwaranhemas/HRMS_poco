@@ -29,7 +29,7 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h2>HR Goal <span>Setting Process</span></h2>
+    <h2>Performance<span> Management System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -223,6 +223,7 @@
                     <!--listing -->
                     <div class="tab-pane fade" id="info-listing" role="tabpanel" aria-labelledby="listing-info-tab">                        
                          <div class="card">
+                            <div class="card-body">
                              <div class="row">
                                     <div class="col-lg-2 m-t-5">
                                         <label for="Supervisor">Select Supervisor</label>
@@ -267,12 +268,12 @@
                                         <button type="submit" id="myself_reset" class="btn btn-dark "><i class="ti-save"></i> Clear</button>           
                                     </div>
                                 </div>
-                            <div class="card-body">
+                                <button id="send_mail" name="send_mail" class="btn btn-primary">Send Mail</button>
                                 <div class="table-responsive">
                                     <table id="listing_table" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
-                                                <!-- <th><input type="checkbox" name="select_all" id="select_all"></th> -->
+                                                <th><input class="mail_class" type="checkbox" name="select_all" value="1" id="example-select-all"></th>
                                                 <th scope="col">Sno</th>
                                                 <th scope="col">Employee Name</th>
                                                 <th scope="col">Employee ID</th>

@@ -41,60 +41,60 @@ function team_member_goal_record(){
 
         // dom: 'lBfrtip',
         lengthChange: true,
-        "buttons": [
-            {
-                "extend": 'copy',
-                "text": '<i class="bi bi-clipboard" ></i>  Copy',
-                "titleAttr": 'Copy',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'excel',
-                "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
-                "titleAttr": 'Excel',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'csv',
-                "text": '<i class="bi bi-file-text" ></i>  CSV',
-                "titleAttr": 'CSV',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'pdf',
-                "text": '<i class="bi bi-file-break" ></i>  PDF',
-                "titleAttr": 'PDF',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'print',
-                "text": '<i class="bi bi-printer"></i>  Print',
-                "titleAttr": 'Print',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'colvis',
-                "text": '<i class="bi bi-eye" ></i>  Colvis',
-                "titleAttr": 'Colvis',
-                // "action": newexportaction
-            },
+        // "buttons": [
+        //     {
+        //         "extend": 'copy',
+        //         "text": '<i class="bi bi-clipboard" ></i>  Copy',
+        //         "titleAttr": 'Copy',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'excel',
+        //         "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
+        //         "titleAttr": 'Excel',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'csv',
+        //         "text": '<i class="bi bi-file-text" ></i>  CSV',
+        //         "titleAttr": 'CSV',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'pdf',
+        //         "text": '<i class="bi bi-file-break" ></i>  PDF',
+        //         "titleAttr": 'PDF',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'print',
+        //         "text": '<i class="bi bi-printer"></i>  Print',
+        //         "titleAttr": 'Print',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'colvis',
+        //         "text": '<i class="bi bi-eye" ></i>  Colvis',
+        //         "titleAttr": 'Colvis',
+        //         // "action": newexportaction
+        //     },
 
-        ],
+        // ],
         lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
         processing: true,
         serverSide: true,
@@ -171,67 +171,69 @@ function goal_record(){
     table_cot = $('#goal_data').DataTable({
 
         // dom: 'lBfrtip',
-        lengthChange: true,
-        "buttons": [
-            {
-                "extend": 'copy',
-                "text": '<i class="bi bi-clipboard" ></i>  Copy',
-                "titleAttr": 'Copy',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'excel',
-                "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
-                "titleAttr": 'Excel',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'csv',
-                "text": '<i class="bi bi-file-text" ></i>  CSV',
-                "titleAttr": 'CSV',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'pdf',
-                "text": '<i class="bi bi-file-break" ></i>  PDF',
-                "titleAttr": 'PDF',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'print',
-                "text": '<i class="bi bi-printer"></i>  Print',
-                "titleAttr": 'Print',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'colvis',
-                "text": '<i class="bi bi-eye" ></i>  Colvis',
-                "titleAttr": 'Colvis',
-                // "action": newexportaction
-            },
+        lengthChange: false,
+        // "buttons": [
+        //     {
+        //         "extend": 'copy',
+        //         "text": '<i class="bi bi-clipboard" ></i>  Copy',
+        //         "titleAttr": 'Copy',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'excel',
+        //         "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
+        //         "titleAttr": 'Excel',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'csv',
+        //         "text": '<i class="bi bi-file-text" ></i>  CSV',
+        //         "titleAttr": 'CSV',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'pdf',
+        //         "text": '<i class="bi bi-file-break" ></i>  PDF',
+        //         "titleAttr": 'PDF',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'print',
+        //         "text": '<i class="bi bi-printer"></i>  Print',
+        //         "titleAttr": 'Print',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'colvis',
+        //         "text": '<i class="bi bi-eye" ></i>  Colvis',
+        //         "titleAttr": 'Colvis',
+        //         // "action": newexportaction
+        //     },
 
-        ],
-        lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
+        // ],
+        // lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
         processing: true,
         serverSide: true,
         serverMethod: 'post',
         bDestroy: true,
         scrollCollapse: true,
+        searching: false,
+        paging: false,
         drawCallback: function() {
 
         },
@@ -368,60 +370,60 @@ function team_member_goal_data_for_reviewer(){
 
         // dom: 'lBfrtip',
         lengthChange: true,
-        "buttons": [
-            {
-                "extend": 'copy',
-                "text": '<i class="bi bi-clipboard" ></i>  Copy',
-                "titleAttr": 'Copy',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'excel',
-                "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
-                "titleAttr": 'Excel',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'csv',
-                "text": '<i class="bi bi-file-text" ></i>  CSV',
-                "titleAttr": 'CSV',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'pdf',
-                "text": '<i class="bi bi-file-break" ></i>  PDF',
-                "titleAttr": 'PDF',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'print',
-                "text": '<i class="bi bi-printer"></i>  Print',
-                "titleAttr": 'Print',
-                "exportOptions": {
-                    'columns': ':visible'
-                },
-                "action": newexportaction
-            },
-            {
-                "extend": 'colvis',
-                "text": '<i class="bi bi-eye" ></i>  Colvis',
-                "titleAttr": 'Colvis',
-                // "action": newexportaction
-            },
+        // "buttons": [
+        //     {
+        //         "extend": 'copy',
+        //         "text": '<i class="bi bi-clipboard" ></i>  Copy',
+        //         "titleAttr": 'Copy',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'excel',
+        //         "text": '<i class="bi bi-file-earmark-spreadsheet" ></i>  Excel',
+        //         "titleAttr": 'Excel',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'csv',
+        //         "text": '<i class="bi bi-file-text" ></i>  CSV',
+        //         "titleAttr": 'CSV',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'pdf',
+        //         "text": '<i class="bi bi-file-break" ></i>  PDF',
+        //         "titleAttr": 'PDF',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'print',
+        //         "text": '<i class="bi bi-printer"></i>  Print',
+        //         "titleAttr": 'Print',
+        //         "exportOptions": {
+        //             'columns': ':visible'
+        //         },
+        //         "action": newexportaction
+        //     },
+        //     {
+        //         "extend": 'colvis',
+        //         "text": '<i class="bi bi-eye" ></i>  Colvis',
+        //         "titleAttr": 'Colvis',
+        //         // "action": newexportaction
+        //     },
 
-        ],
+        // ],
         lengthMenu: [[10, 50, 100, 250, 500, -1], [10, 50, 100, 250, 500, "All"]],
         processing: true,
         serverSide: true,

@@ -171,6 +171,8 @@ Route::get('goals_sup_pip_exit_select_op', 'GoalsController@goals_sup_pip_exit_s
 Route::get('fecth_goals_sup_movement_process', 'GoalsController@fecth_goals_sup_movement_process')->name('fecth_goals_sup_movement_process');
 Route::get('get_goal_login_user_details_sup', 'GoalsController@get_goal_login_user_details_sup')->name('get_goal_login_user_details_sup');
 Route::get('get_goal_login_user_details_rev', 'GoalsController@get_goal_login_user_details_rev')->name('get_goal_login_user_details_rev');
+Route::post('update_goals_sup_submit_overall', 'GoalsController@update_goals_sup_submit_overall');
+// Route::get('goals_sup_submit_status_for_rev', 'GoalsController@goals_sup_submit_status_for_rev')->name('goals_sup_submit_status_for_rev');
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');
@@ -552,5 +554,10 @@ Route::get('get_all_supervisors_info_bh','GoalsController@get_all_supervisors_in
 Route::get('goal_setting_bh_reviewer_view','GoalsController@goal_setting_bh_reviewer_view');
 Route::post('update_bh_goals','GoalsController@update_bh_goals');
 Route::post('Update_bh_status','GoalsController@Change_Bh_status');
-Route::post('add_goals_data_hr_sup', 'GoalsController@add_goals_data_hr_sup');
 
+Route::post('add_goals_data_hr_sup', 'GoalsController@add_goals_data_hr_sup');
+Route::post('add_goals_data_hr_save', 'GoalsController@add_goals_data_hr_save');
+Route::post('pms_employeee_mail','GoalsController@pms_employeee_mail');
+Route::post('update_goals_hr_reviewer_tm', 'GoalsController@update_goals_hr_reviewer_tm');
+Route::post('save_hr_reviewer', 'GoalsController@save_hr_reviewer');
+Route::post('update_goals_sup_reviewer_tm_save', 'GoalsController@update_goals_sup_reviewer_tm_save');

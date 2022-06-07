@@ -246,14 +246,14 @@ class GoalRepository implements IGoalRepository
       $tb2 = Goals::where('goal_unique_code', $id)->where('supervisor_tb_status', "1")->where('supervisor_status', "1")->value('supervisor_status');
       if(!empty($tb1)){
          if($tb2 == 1){
-            $response = "2";
+            $response = "2"; //overall submited
          }else{
-            $response = "1";
+            $response = "1"; //save only not submit
 
          }
 
       }else{
-         $response = "0";
+         $response = "0"; //new entry
       }
       return $response;
    }
@@ -292,10 +292,12 @@ class GoalRepository implements IGoalRepository
                         ]);
       return $response;
    }
-   public function update_goals_sup_movement($movement_json_data){
-      $response = Goals::where('goal_unique_code', $movement_json_data['goal_unique_code'])
+   public function update_goals_sup_save($data){
+      $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                         ->update([
-                           'sup_movement_process' => $movement_json_data['movement_json'],
+                              'goal_process' => $data['goal_process'],
+                              'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate'],
+                              'supervisor_status' => "1",
                         ]);
       return $response;
    }
@@ -867,6 +869,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.gender', $input_details['gender_hr_1'])
                         ->where('cs.grade', $input_details['grade_hr_1'])
                         ->where('cs.department', $input_details['department_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif($input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == ''&& $input_details['gender_hr_1'] != ''&& $input_details['grade_hr_1'] != '' && $input_details['department_hr_1'] != ''){
@@ -880,6 +888,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.gender', $input_details['gender_hr_1'])
                         ->where('cs.grade', $input_details['grade_hr_1'])
                         ->where('cs.department', $input_details['department_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif($input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == '' &&$input_details['gender_hr_1'] != ''  && $input_details['grade_hr_1'] == '' && $input_details['department_hr_1'] != ''){
@@ -891,6 +905,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.sup_emp_code', $input_details['reviewer_filter_1'])
                         ->where('cs.gender', $input_details['gender_hr_1'])
                         ->where('cs.department', $input_details['department_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif( $input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] == '' && $input_details['grade_hr_1'] != '' && $input_details['department_hr_1'] != ''){
@@ -901,6 +921,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                         ->where('cs.grade', $input_details['grade_hr_1'])
                         ->where('cs.department', $input_details['department_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif( $input_details['reviewer_filter_1'] == '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] != '' && $input_details['grade_hr_1'] != '' && $input_details['department_hr_1'] != ''){
@@ -912,6 +938,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.gender', $input_details['gender_hr_1'])
                         ->where('cs.grade', $input_details['grade_hr_1'])
                         ->where('cs.department', $input_details['department_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }
@@ -923,6 +955,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->select('g.*','cs.grade','cs.gender','cs.department')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                         ->where('cs.sup_emp_code', $input_details['reviewer_filter_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif( $input_details['reviewer_filter_1'] == '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] != '' && $input_details['grade_hr_1'] == ''&& $input_details['department_hr_1'] == ''){
@@ -932,6 +970,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->select('g.*','cs.grade','cs.gender','cs.department')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                        ->where('cs.gender', $input_details['gender_hr_1'])
+                       ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif( $input_details['reviewer_filter_1'] == '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] == '' && $input_details['grade_hr_1'] != ''&& $input_details['department_hr_1'] == ''){
@@ -941,6 +985,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->select('g.*','cs.grade','cs.gender','cs.department')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                        ->where('cs.grade', $input_details['grade_hr_1'])
+                       ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif( $input_details['reviewer_filter_1'] == '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] == '' && $input_details['grade_hr_1'] == ''&& $input_details['department_hr_1'] != ''){
@@ -950,6 +1000,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->select('g.*','cs.grade','cs.gender','cs.department')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                         ->where('cs.department', $input_details['department_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }
@@ -962,6 +1018,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                         ->where('cs.sup_emp_code', $input_details['reviewer_filter_1'])
                         ->where('cs.department', $input_details['department_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif( $input_details['reviewer_filter_1'] == '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] != '' && $input_details['grade_hr_1'] == '' && $input_details['department_hr_1'] != ''){
@@ -972,6 +1034,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                         ->where('cs.gender', $input_details['gender_hr_1'])
                         ->where('cs.department', $input_details['department_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif( $input_details['reviewer_filter_1'] == '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] == '' && $input_details['grade_hr_1'] != ''&& $input_details['department_hr_1'] != ''){
@@ -982,6 +1050,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                         ->where('cs.grade', $input_details['grade_hr_1'])
                         ->where('cs.department', $input_details['department_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif($input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] == ''&& $input_details['gender_hr_1'] == ''&& $input_details['grade_hr_1'] == '' && $input_details['department_hr_1'] == ''){
@@ -992,6 +1066,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->select('g.*','cs.grade','cs.gender','cs.department')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                         ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif($input_details['reviewer_filter_1'] == '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == ''&& $input_details['gender_hr_1'] != ''&& $input_details['grade_hr_1'] != '' && $input_details['department_hr_1'] == ''){
@@ -1003,6 +1083,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                         ->where('cs.gender', $input_details['gender_hr_1'])
                         ->where('cs.grade', $input_details['grade_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif($input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == ''&& $input_details['gender_hr_1'] != ''&& $input_details['grade_hr_1'] == '' && $input_details['department_hr_1'] == ''){
@@ -1014,6 +1100,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
                         ->where('cs.reviewer_emp_code', $input_details['reviewer_filter_1'])
                         ->where('cs.gender', $input_details['gender_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }
@@ -1029,6 +1121,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.reviewer_emp_code', $input_details['reviewer_filter_1'])
                         ->where('cs.gender', $input_details['gender_hr_1'])
                         ->where('cs.grade', $input_details['grade_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif($input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] == ''&& $input_details['gender_hr_1'] == ''&& $input_details['grade_hr_1'] == '' && $input_details['department_hr_1'] != ''){
@@ -1041,6 +1139,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.reviewer_emp_code', $input_details['reviewer_filter_1'])
                         ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr_1'])
                         ->where('cs.department', $input_details['department_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
 
       }elseif($input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] == ''&& $input_details['gender_hr_1'] == ''&& $input_details['grade_hr_1'] != '' && $input_details['department_hr_1'] == ''){
@@ -1052,6 +1156,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.reviewer_emp_code', $input_details['reviewer_filter_1'])
                         ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr_1'])
                         ->where('cs.grade', $input_details['grade_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
          // dd(DB::getQueryLog());
 
@@ -1064,6 +1174,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.reviewer_emp_code', $input_details['reviewer_filter_1'])
                         ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr_1'])
                         ->where('cs.gender', $input_details['gender_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
       }elseif( $input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] != '' && $input_details['gender_hr_1'] == '' && $input_details['grade_hr_1'] == ''&& $input_details['department_hr_1'] == ''){
          // DB::enableQueryLog();
@@ -1074,6 +1190,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.reviewer_emp_code', $input_details['reviewer_filter_1'])
                         ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr_1'])
                         ->where('cs.empID', $input_details['team_member_filter_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
          // dd(DB::getQueryLog());
       }
@@ -1088,6 +1210,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr_1'])
                         ->where('cs.empID', $input_details['team_member_filter_hr_1'])
                         ->where('cs.gender', $input_details['gender_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
       }elseif( $input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] != '' && $input_details['gender_hr_1'] == '' && $input_details['grade_hr_1'] != ''&& $input_details['department_hr_1'] == ''){
          $response = DB::table('customusers as cs')
@@ -1098,6 +1226,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr_1'])
                         ->where('cs.empID', $input_details['team_member_filter_hr_1'])
                         ->where('cs.grade', $input_details['grade_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
       }elseif( $input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] != '' && $input_details['gender_hr_1'] == '' && $input_details['grade_hr_1'] == ''&& $input_details['department_hr_1'] != ''){
          $response = DB::table('customusers as cs')
@@ -1108,6 +1242,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr_1'])
                         ->where('cs.empID', $input_details['team_member_filter_hr_1'])
                         ->where('cs.department', $input_details['department_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
       }elseif( $input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr'] != '' && $input_details['team_member_filter_hr'] == '' && $input_details['gender_hr_2'] != '' && $input_details['grade_hr_2'] == '' && $input_details['department_hr_2'] != ''){
          $response = DB::table('customusers as cs')
@@ -1118,6 +1258,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.sup_emp_code', $input_details['team_leader_filter_hr'])
                         ->where('cs.gender', $input_details['gender_hr_2'])
                         ->where('cs.department', $input_details['department_hr_2'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
       }
       /*only 5notempty*/
@@ -1131,6 +1277,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.gender', $input_details['gender_hr_1'])
                         ->where('cs.grade', $input_details['grade_hr_1'])
                         ->where('cs.department', $input_details['department_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
          }elseif( $input_details['reviewer_filter_1'] != '' && $input_details['team_leader_filter_hr_1'] != '' && $input_details['team_member_filter_hr_1'] != '' && $input_details['gender_hr_1'] != '' && $input_details['grade_hr_1'] != ''&& $input_details['department_hr_1'] == ''){
          $response = DB::table('customusers as cs')
@@ -1142,26 +1294,28 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                         ->where('cs.empID', $input_details['team_member_filter_hr_1'])
                         ->where('cs.gender', $input_details['gender_hr_1'])
                         ->where('cs.grade', $input_details['grade_hr_1'])
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
          }
 
          elseif($input_details['reviewer_filter_1'] == '' && $input_details['team_leader_filter_hr_1'] == '' && $input_details['team_member_filter_hr_1'] == '' && $input_details['gender_hr_1'] == '' && $input_details['grade_hr_1'] == '' && $input_details['department_hr_1'] == ''){
          // echo "<pre>";print_r($input_details);die;
-         $val = '1';
-         // DB::enableQueryLog();
+          // DB::enableQueryLog();
          $response = DB::table('customusers as cs')
-                        ->distinct()
                         ->select('g.*','cs.grade','cs.gender','cs.department')
                         ->join('goals as g', 'g.created_by', '=', 'cs.empID')
-                        // ->where('cs.sup_emp_code', "900531")
-                        ->where('g.goal_status', "Approved")
-                        ->where('g.supervisor_status',  $val)
-                        ->where('g.reviewer_status',  $val)
-                        ->where('g.hr_status',  $val)
-                        ->where('g.bh_status',  $val)
-                        // ->where('cs.reviewer_emp_code', "900531")
+                        ->where('g.goal_status' , "Approved")
+                        ->where('g.employee_status',  1)
+                        ->where('g.supervisor_status',  1)
+                        ->where('g.reviewer_status',  1)
+                        ->where('g.bh_status',  1)
+                        ->where('g.hr_status',  1)
                         ->get();
-
          // dd(DB::getQueryLog());
 
       }
@@ -1248,6 +1402,31 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
       $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                         ->update([
                               'goal_process' => $data['goal_process'],
+                              'reviewer_tb_status' => "1",
+                        ]);
+      return $response;
+   }
+   public function update_goals_sup_reviewer_tm_save($data){
+      $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                        ->update([
+                              'goal_process' => $data['goal_process'],
+                              'reviewer_tb_status' => '1',
+                        ]);
+      return $response;
+   }
+   public function update_goals_hr_reviewer_tm($data){
+      $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                        ->update([
+                              'goal_process' => $data['goal_process'],
+                              'hr_status' => '1',
+                        ]);
+      return $response;
+   }
+   public function save_goals_hr_reviewer_tm($data){
+      $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                        ->update([
+                              'goal_process' => $data['goal_process'],
+                              'hr_tb_status' => '1',
                         ]);
       return $response;
    }
@@ -1258,9 +1437,9 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                      'supervisor_tb_status' => "1",
                 ]);
       return $response;
-   }   
+   }
    public function fetchCustomUserList(){
-      $response = DB::table('customusers')     
+      $response = DB::table('customusers')
                      ->get();
       return $response;
    }
@@ -1278,5 +1457,33 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                      ->get();
       return $response;
    }
+
+ public function update_goals_sup_submit_overall($data){
+    $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                      ->update([
+                            'goal_process' => $data['goal_process'],
+                            'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate'],
+                            'supervisor_tb_status' => "1",
+                            'supervisor_status' => "1",
+                      ]);
+    return $response;
+ }
+
+//  public function goals_sup_submit_status_for_rev( $id ){
+//     $tb1 = Goals::where('goal_unique_code', $id)->where('reviewer_tb_status', "1")->value('reviewer_tb_status');
+//     $tb2 = Goals::where('goal_unique_code', $id)->where('reviewer_tb_status', "1")->where('reviewer_status', "1")->value('reviewer_status');
+//     if(!empty($tb1)){
+//        if($tb2 == 1){
+//           $response = "2"; //overall submited
+//        }else{
+//           $response = "1"; //save only not submit
+
+//        }
+
+//     }else{
+//        $response = "0"; //new entry
+//     }
+//     return $response;
+//  }
 
 }

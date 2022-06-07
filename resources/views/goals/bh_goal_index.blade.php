@@ -49,7 +49,7 @@
                         <li class="nav-item"><a class="nav-link" id="info-reviewer-tab" data-toggle="tab" href="#info-reviewer" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>As Reviewer</a>
                         <div class="material-border"></div>
                         </li>
-                        <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>Business Head</a>
+                        <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>As Business Head</a>
                         <div class="material-border"></div>
                         </li>
                     </ul>

@@ -28,15 +28,15 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>View<span>Goals </span></h2>
+	<h2>Performance Management System  View</h2>
 @endsection
 
 @section('breadcrumb-items')
-<a class="btn btn-success text-white" title="Exceeded Expectations">EE</a>
-<a class="btn btn-secondary m-l-10 text-white" title="Achieved Expectations">AE</a>
-<a class="btn btn-info m-l-10 text-white" title="Met Expectations">ME</a>
-<a class="btn btn-warning m-l-10 text-white" title="Partially Met Expectations">PME</a>
-<a class="btn btn-dark m-l-10 text-white" title="Needs Development">ND</a>
+<a class="btn btn-sm text-white" style="background-color: #FFD700;" title="Significantly Exceeds Expectations">SEE</a>
+<a class="btn btn-sm text-white m-l-10" style="background-color: #008000;" title="Exceeded Expectations">EE</a>
+<a class="btn btn-sm btn-success m-l-10 text-white" title="Met Expectations">ME</a>
+<a class="btn btn-sm m-l-10 text-white" style="background-color: #FFA500" title="Partially Met Expectations">PME</a>
+<a class="btn btn-sm m-l-10 text-white" style="background-color: #FF0000;" title="Needs Development">ND</a>
 @endsection
 
 @section('content')
@@ -46,7 +46,7 @@
 			<div class="col-sm-12">
                 <div class="ribbon-vertical-right-wrapper card">
                     <div class="card-body">
-                        <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 107px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> Goals</span></div>
+                        <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 107px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;">PMS</span></div>
                         <div class="row">
                             <div class="col-md-4">
 
@@ -128,13 +128,12 @@
                         <input type="hidden" id="user_type" >
 					<div class="table-responsive m-b-15 ">
                         <div class="row">
-
                             <div class="col-lg-12 m-b-35">
                                 <button type="button" class="btn btn-warning text-white float-right m-l-10" id="goal_sheet_edit"  title="Edit" style="display: none;">Edit</button>
-                                <a id="overall_submit" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit For Approval</a>
+                                <a id="overall_submit" class="btn btn-success text-white float-right" title="Overall Sheet Submit" style="display: none">Submit For Approval</a>
                                 <h5>EMPLOYEE CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
-
                                 <h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
+                                <h5>STATUS : <span id="Sheet_status"></span></h5>
 
                             </div>
 
@@ -175,7 +174,7 @@
                                     </select>
                                     <div class="text-danger supervisor_consolidated_rate_error" id=""></div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-4" id="bh_sheet_approval" style="display: none">
                                     <label>Status</label><br>
                                     <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="Bh_sheet_approval" name="Bh_sheet_approval">
                                         <option value="" selected>...Select...</option>
@@ -190,7 +189,7 @@
                                <button type="button" class="btn btn-primary text-white float-right m-l-30" id="goal_sheet_add" style="display:none;" onclick="data_insert()">Submit</button>
 
 
-                                {{-- <a class="btn btn-primary text-white m-t-30" id="goal_sheet_add"  onclick="data_insert()" style="display:none" title="Save">Save</a> --}}
+                                {{-- <a class="btn btn-primary text-white m-t-30" id="goal_sheet_edit"  onclick="data_insert()" style="display:none" title="Save">Save</a> --}}
                                 </div>
                                 </div>
 
@@ -292,6 +291,7 @@
 			dataType : "JSON",
 			success:function(response)
 			{
+                // alert(response.reviewer)
                 $("#Bh_sheet_approval").val(response.get_sheet_status.goal_status).trigger('change');
                 $('#goal-tb').DataTable().clear().destroy();
 				$('#goals_record').append('');
@@ -305,18 +305,26 @@
                             }
                     } );
                     $("#reviewer_hidden_id").val(response.reviewer)
+                    if(response.get_sheet_status.bh_tb_status==1){
+                        $("#overall_submit").show();
+                        $("#goal_sheet_edit").show();
+                    }
+                    else{
+                        $("#overall_submit").hide();
+                        $("#goal_sheet_edit").show();
+                    }
                     if(response.reviewer==1){
                      $(".supervisor_remarks").hide();
                      $(".reviewer_remarks").hide();
                      $(".supervisor_rating").show();
-                     $("#consolidated_rating_id").show();
+                    //  $("#consolidated_rating_id").show();
                      $("#supervisor_consolidated_rate").val(response.get_sheet_status.supervisor_consolidated_rate).trigger('change')
                  }
                  else if(response.reviewer==2){
                      $(".supervisor_remarks").show();
                      $(".reviewer_remarks").hide();
                      $(".supervisor_rating").show();
-                     $("#consolidated_rating_id").show();
+                    //  $("#consolidated_rating_id").show();
                      $("#supervisor_consolidated_rate").val(response.get_sheet_status.supervisor_consolidated_rate).trigger('change')
                  }
                  else{
@@ -329,14 +337,17 @@
                  $("#user_type").val(response.reviewer);
                  $("#employee_consolidate_rate_show").text(response.get_sheet_status.employee_consolidated_rate);
                  $("#supervisor_consolidate_rate_show").text(response.get_sheet_status.supervisor_consolidated_rate);
+                 $("#Sheet_status").text(response.get_sheet_status.goal_status)
+
                  if(response.get_sheet_status.bh_status==1){
+                    //  alert("one")
                      $("#goal_sheet_edit").hide();
                      $('#overall_submit').hide();
                  }
-                 else{
-                    $("#goal_sheet_edit").show();
-                    $('#overall_submit').show();
-                 }
+                //  else{
+                //     $("#goal_sheet_edit").show();
+                //     $('#overall_submit').show();
+                //  }
 			},
 			error: function(error) {
 				console.log(error);
@@ -351,8 +362,15 @@
               var i=1;
               var j=1;
               var user_type=$("#user_type").val();
-              $("#goal_sheet_edit").hide();
+              if(user_type==1 || user_type==2){
+               $("#consolidated_rating_id").show();
+              }
+              else{
+               $("#consolidated_rating_id").hide();
+              }
               $("#goal_sheet_add").show();
+              $("#overall_submit").show();
+              $("#bh_sheet_approval").show();
               if(user_type==1 || user_type==2 || user_type==0)
               {
                    var defined_class="business_head";
@@ -481,12 +499,14 @@ function data_insert(){
             $.ajax({
                 url:"Update_bh_status",
                 type:"POST",
-                data:{id:$("#goals_setting_id").val()},
+                // data:{id:$("#goals_setting_id").val(),user_type:$("#user_type").val()},
+                data:$('#Bh_form_insert').serialize(),
                 beforeSend:function(data){
                     console.log("loading!...")
                 },
                 success:function(response){
                     var data=JSON.parse(response);
+                    // console.log(data)
                     if(data.success==1){
                      Toastify({
                     text: data.message,

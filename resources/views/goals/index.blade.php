@@ -105,7 +105,20 @@
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body">
-                        <p id="goal_employee_summary_show"></p>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <h6>Employee Summary :</h6>
+                            </div>
+                            <div class="col-lg-7">
+                                <p id="goal_employee_summary_show"></p>
+                            </div>
+                            <div class="col-lg-5">
+                                <h6>Supervisor Summary :</h6>
+                            </div>
+                            <div class="col-lg-7">
+                                <p id="goal_supervisor_summary_show"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -141,4 +154,3 @@
 <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
 <script src="../assets/pro_js/goal_list.js"></script>
 @endsection
-

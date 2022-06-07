@@ -31,6 +31,7 @@ interface IGoalRepository {
     public function fetch_team_leader_filter($team_leader_filter);
     public function check_goals_employee_summary($id);
     public function fetch_goals_employee_summary($id);
+    public function fetch_goals_supervisor_summary($id);
     public function get_supervisor_data($id);
     public function fetch_reviewer_res_data($empid);
     public function fetch_reviewer_tab_data($data);
@@ -49,5 +50,6 @@ interface IGoalRepository {
     public function gethr_list_tab_record($data);
     public function get_goal_myself_list();
     public function update_goals_sup_reviewer_tm($data);
-
+    public function fetchCustomUserList();
+    
 }

@@ -22,6 +22,21 @@
         position: relative;
         display: none;
     }
+	.btn.sup_update_table{
+		padding: 6px;
+	}
+	.select2-container--default{
+		width: 320px !important;
+	}
+	.select2-container--open .select2-dropdown {
+		top: 18px !important;
+	}
+	.select2-container .select2-selection--single{
+		border-radius: 5px !important;
+	}
+	.selection .select2-selection{
+		border-radius: 5px !important;
+	}
 </style>
 @endsection
 
@@ -30,11 +45,11 @@
 @endsection
 
 @section('breadcrumb-items')
-	<a class="btn btn-success text-white" title="Exceeded Expectations">EE</a>
-	<a class="btn btn-secondary m-l-10 text-white" title="Achieved Expectations">AE</a>
-	<a class="btn btn-info m-l-10 text-white" title="Met Expectations">ME</a>
-	<a class="btn btn-warning m-l-10 text-white" title="Partially Met Expectations">PME</a>
-	<a class="btn btn-dark m-l-10 text-white" title="Needs Development">ND</a>
+	<a class="btn btn-sm btn-success text-white" title="Exceeded Expectations">EE</a>
+	<a class="btn btn-sm btn-secondary m-l-10 text-white" title="Achieved Expectations">AE</a>
+	<a class="btn btn-sm btn-info m-l-10 text-white" title="Met Expectations">ME</a>
+	<a class="btn btn-sm btn-warning m-l-10 text-white" title="Partially Met Expectations">PME</a>
+	<a class="btn btn-sm btn-dark m-l-10 text-white" title="Needs Development">ND</a>
 @endsection
 
 @section('content')
@@ -156,8 +171,8 @@
 								<input type="hidden" name="goals_setting_id" id="goals_setting_id">
 
 								<!-- <div class="m-t-20 m-b-30 float-right"> -->
-									<div class="m-t-20 m-b-30 row float-right" id="save_div">
-										<div class="col-lg-8">
+									<div class="row m-t-20 m-b-30" id="save_div">
+										<div class="col-lg-2 m-b-20">
 											<label>Consolidated Rating</label><br>
 											<select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_consolidated_rate" name="employee_consolidated_rate">
 												<option value="" selected>...Select...</option>
@@ -169,9 +184,78 @@
 											</select>
 											<div class="text-danger supervisor_consolidated_rate_error" id=""></div>
 										</div>
-										<div class="col-lg-4">
+										<div class="col-lg-3 m-b-20">
+											<label>PIP</label><br>
+											<select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_pip_exit" name="supervisor_pip_exit">
+												<option value="" selected>...Select...</option>
+												<option value="Place employee in PIP">Place employee in PIP</option>
+												<option value="Employee Exit on performance grounds">Employee Exit on performance grounds</option>
+											</select>
+											<div class="text-danger supervisor_pip_exit_error" id=""></div>
+										</div>
+										<div class="col-lg-1 m-b-20">
+											<label>Movement</label><br>
+											<input class="m-t-10" id="candicate_checkbox" style="font-size:1000px;" name="candicate_checkbox" type="checkbox">
+										</div>
+										<div class="col-lg-6 m-b-20"></div>										
+										<div class="row m-l-5" id="movementProcessDiv">
+											<div class="col-lg-12 m-b-10">
+												<h5>Movement Process :</h5>
+											</div>
+											<div class="col-lg-3 m-b-20">
+												<label>Movement</label><br>
+												<select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_movement" name="supervisor_movement">
+													<option value="" selected>...Select...</option>
+													<option value="Vertical Movement (Promotion)">Vertical Movement (Promotion)</option>
+													<option value="Horizontal Movement (Role Change)">Horizontal Movement (Role Change)</option>										
+												</select>
+												<div class="text-danger" id="supervisor_movement_error"></div>								
+											</div>
+											<div class="col-lg-3 m-b-20">
+												<label>With Effect Date</label><br>
+												<input type="date" name="with_effect_date" id="with_effect_date" class="form-control">
+												<div class="text-danger" id="with_effect_date_error"></div>								
+											</div>
+											<div class="col-lg-3 m-b-20">
+												<label>Team Name</label><br>
+												<select class="js-example-basic-multiple col-sm-12 form-control" placeholder="Select Team Member" id="team_member_list" name="team_member_list[]" style="width:100%" multiple="multiple">
+													@foreach($customusers as $customuser)
+														<option value="{{ $customuser->empID }}">{{ $customuser->username }}</option>
+													@endforeach 
+												</select>
+												<div class="text-danger" id="team_member_list_error"></div>								
+											</div>
+											<div class="col-lg-3 m-b-20">
+												<label>Supervisor Name</label><br>
+												<select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_name_list" name="supervisor_name_list">
+													<option value="" selected>...Select...</option>
+													@foreach($customusers as $customuser)
+														<option value="{{ $customuser->empID }}">{{ $customuser->username }}</option>
+													@endforeach        
+												</select>
+												<div class="text-danger" id="supervisor_name_list_error"></div>								
+											</div>											
+											<div class="col-lg-12">
+												<label>Remark* :</label> <br>												
+												<textarea class="form-control m-t-5 m-b-10 col-lg-12" id="movement_remark"  style="height:50px;" name="movement_remark"></textarea>
+												<div class="text-danger" id="movement_remark_error"></div>								
+											</div>
+											<div class="col-lg-12">
+												<label>Is Recommended for Change in Designation:</label> 
+												<input class="m-t-10" id="candicate_checkbox" style="font-size:200px;" name="candicate_checkbox" type="radio"> Yes
+												<input class="m-t-10" id="candicate_checkbox" style="font-size:200px;" name="candicate_checkbox" type="radio"> No
+												<div class="text-danger" id=""></div>								
+											</div>
+											<div class="col-lg-12">
+												<label>Is Recommended for Progression (Promotion):</label> 
+												<input class="m-t-10" id="candicate_checkbox" style="font-size:200px;" name="candicate_checkbox1" type="radio"> Yes
+												<input class="m-t-10" id="candicate_checkbox" style="font-size:200px;" name="candicate_checkbox1" type="radio"> No
+												<div class="text-danger" id=""></div>								
+											</div>
+										</div>										
+										<div class="col-lg-12">
 											<a onclick="supFormSave();" id="sup_save_table" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>
-											<a onclick="supFormSave();" id="sup_update_table" class="btn btn-primary text-white m-t-30" title="Save Table Value">Update</a>
+											<a onclick="supFormSave();" id="sup_update_table" class="btn btn-primary text-white m-t-30 sup_update_table" title="Save Table Value">Update</a>
 										</div>
 									</div>
 								<!-- </div> -->
@@ -180,7 +264,7 @@
 					</div>
 
 				</div>
-			</div>
+			</div>			     
 
 		</div>
 	</div>
@@ -225,6 +309,7 @@
 			get_goal_setting_reviewer_tl();
 
 			$("#save_div").hide();
+			$('#movementProcessDiv').hide();            				
 
 			$('#goals_record_tb').DataTable( {
 				"searching": false,
@@ -485,6 +570,94 @@
 				error+="error";
 			}
 
+			var pip = $("#supervisor_pip_exit").val();
+			var $errmsg4 = $(".supervisor_pip_exit_error");
+			$errmsg4.hide();
+
+			if(pip == ""){
+				$errmsg4.html('Pip or not is required').show();
+				error+="error";
+			}
+
+			if($("#candicate_checkbox").is(':checked')){
+				alert("1")
+
+				//movement
+				var pip = $("#supervisor_pip_exit").val();
+				var $errmsg4 = $(".supervisor_pip_exit_error");
+				$errmsg4.hide();
+
+				if(pip == ""){
+					$errmsg4.html('Pip or not is required').show();
+					error+="error";
+				}
+
+				//with effect value
+				var pip = $("#supervisor_pip_exit").val();
+				var $errmsg4 = $(".supervisor_pip_exit_error");
+				$errmsg4.hide();
+
+				if(pip == ""){
+					$errmsg4.html('Pip or not is required').show();
+					error+="error";
+				}
+
+				//Team name
+				var pip = $("#supervisor_pip_exit").val();
+				var $errmsg4 = $(".supervisor_pip_exit_error");
+				$errmsg4.hide();
+
+				if(pip == ""){
+					$errmsg4.html('Pip or not is required').show();
+					error+="error";
+				}
+
+				//Superviosr name
+				var pip = $("#supervisor_pip_exit").val();
+				var $errmsg4 = $(".supervisor_pip_exit_error");
+				$errmsg4.hide();
+
+				if(pip == ""){
+					$errmsg4.html('Pip or not is required').show();
+					error+="error";
+				}
+
+				//reamrks
+				var pip = $("#supervisor_pip_exit").val();
+				var $errmsg4 = $(".supervisor_pip_exit_error");
+				$errmsg4.hide();
+
+				if(pip == ""){
+					$errmsg4.html('Pip or not is required').show();
+					error+="error";
+				}
+
+				//Designation
+				var pip = $("#supervisor_pip_exit").val();
+				var $errmsg4 = $(".supervisor_pip_exit_error");
+				$errmsg4.hide();
+
+				if(pip == ""){
+					$errmsg4.html('Pip or not is required').show();
+					error+="error";
+				}
+
+				//Promotiom
+				var pip = $("#supervisor_pip_exit").val();
+				var $errmsg4 = $(".supervisor_pip_exit_error");
+				$errmsg4.hide();
+
+				if(pip == ""){
+					$errmsg4.html('Pip or not is required').show();
+					error+="error";
+				}			
+				
+			}
+			else{
+				alert("2")
+
+			}
+
 			var i=1;
 
 			$('#goals_record_tb > tbody  > tr').each(function(index) {
@@ -613,8 +786,8 @@
 
 			//Sending data to database
 			if(error==""){
-				alert("hi")				
-				// data_insert_submit();
+						
+				data_insert_submit();
 			}
 
 			function data_insert_submit(){
@@ -706,7 +879,7 @@
 				data:{"id":id,},
 				dataType: "json",
 				success: function(data) {
-					console.log(data)
+					// console.log(data)
 
 					if(data.length !=0){
 						$('#empID').html(data[0].empID);
@@ -721,6 +894,16 @@
 			});
 		}
 		
+		
+		$('#candicate_checkbox').change(function () {
+			if($(this).is(':checked')){
+				$('#movementProcessDiv').show();
+			}
+			else{
+				$('#movementProcessDiv').hide();
+			}
+		});
+
 	</script>
 
 @endsection

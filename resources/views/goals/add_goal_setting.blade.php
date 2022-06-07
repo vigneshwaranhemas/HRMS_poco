@@ -4,7 +4,7 @@
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
-    <!-- Plugins css start-->
+<!-- Plugins css start-->
 <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
@@ -147,9 +147,9 @@
                                 </tbody>
                             </table>
                             <input type="hidden" name="goals_setting_id" id="goals_setting_id">								
-                            <div class="m-t-40 m-b-30">
+                            <div class="m-t-40 m-b-30 float-right">
                                 <div class="row">									
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-8">
                                         <label>Consolidated Rating</label><br>
                                         <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
                                             <option value="" selected>...Select...</option>
@@ -161,7 +161,7 @@
                                         </select>
                                         <div class="text-danger employee_consolidated_rate_error" id=""></div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-4">
                                         <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Save</button>                                            
                                         <button id="datatable_form_update" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
                                     </div>
@@ -383,24 +383,8 @@
                     html += '<div class="text-danger rating_by_employee_'+cur_rowCount+'_error" id=""></div>';
                 html +='</td>';
 
-                // html +='<td>';
-                //     html +='<textarea name="rate_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<textarea name="actuals_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<textarea name="self_remarks_'+cur_rowCount+'[]" id="" class="form-control"></textarea>';
-                // html +='</td>';
-
-                // html +='<td>';
-                //     html +='<input type="text" name="self_assessment_rate_'+cur_rowCount+'[]" id="" class="form-control">';
-                // html +='</td>';
-
                 html +='<td>';
-                        html +='<div style="margin-top: 80px;"></div>';
+                    html +='<div style="margin-top: 80px;"></div>';
                 html +='</td>';
 
                 html +='<td>';
@@ -412,12 +396,10 @@
                                     html +='<a class="dropdown-item ditem-gs"><button class="btn btn-danger btn-xs" type="button" id="btnDelete"  data-original-title="Delete KRA" title="Delete KRA"><i class="fa fa-trash-o"></i></button></a>';
                         html +='</div>';
                     html +='</div>';
-                    // html +='<div class="dropup m-t-5">';
-                    //     html +='<button type="button" class="btn btn-xs btn-danger" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
-                    // html +='</div>';
                 html +='</td>';
 
             html +='</tr>';
+
         $('#goal-tb tr:last').after(html);
         updatesno();
     }
@@ -545,15 +527,15 @@
                         backgroundColor: "#4fbe87",
                     }).showToast();    
                     
-                    $('button[type="submit"]').attr('disabled' , false);
+                    // $('button[type="submit"]').attr('disabled' , false);
 
-                    $("#goals_setting_id").val(data);
-                    $("#datatable_form_save").css('display', 'none');
-                    $("#datatable_form_update").css('display', 'block');
-                    $("#goal_sheet_submit").css('display', 'none');
-                    $("#goal_sheet_submit_update").css('display', 'block');
+                    // $("#goals_setting_id").val(data);
+                    // $("#datatable_form_save").css('display', 'none');
+                    // $("#datatable_form_update").css('display', 'block');
+                    // $("#goal_sheet_submit").css('display', 'none');
+                    // $("#goal_sheet_submit_update").css('display', 'block');
 
-                    // location = "goal_setting_edit?id="+data+"";                
+                    location = "goals";                
 
                 }
             });

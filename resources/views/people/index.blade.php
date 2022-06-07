@@ -95,6 +95,9 @@
     #people_list_filter_everyone{
         max-width: 320px !important;
     }
+    .chat-box .chat-right-aside .chat .chat-header .chat-menu-icons{
+        margin-top: unset !important;
+    }
     /* Responsive */
     /* @media only screen and (max-width: 425px){
         .chat-menu.responsive-chat-menu {

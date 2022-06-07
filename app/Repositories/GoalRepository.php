@@ -2,6 +2,7 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Goals;
+use Carbon\Carbon;
 use Auth;
 use App\Models\CustomUser;
 class GoalRepository implements IGoalRepository
@@ -260,6 +261,14 @@ class GoalRepository implements IGoalRepository
       $response = Goals::where('goal_unique_code', $id)->value('supervisor_consolidated_rate');
       return $response;
    }
+   public function goals_sup_pip_exit_select_op( $id ){
+      $response = Goals::where('goal_unique_code', $id)->value('supervisor_pip_exit');
+      return $response;
+   }
+   public function fecth_goals_sup_movement_process( $id ){
+      $response = Goals::where('goal_unique_code', $id)->value('sup_movement_process');
+      return $response;
+   }
    public function fetchGoalIdDelete( $id ){
       $response = Goals::where('goal_unique_code', $id)->delete();
       return $response;
@@ -278,7 +287,15 @@ class GoalRepository implements IGoalRepository
                         ->update([
                               'goal_process' => $data['goal_process'],
                               'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate'],
+                              'supervisor_pip_exit' => $data['supervisor_pip_exit'],
                               'supervisor_tb_status' => "1",
+                        ]);
+      return $response;
+   }
+   public function update_goals_sup_movement($movement_json_data){
+      $response = Goals::where('goal_unique_code', $movement_json_data['goal_unique_code'])
+                        ->update([
+                           'sup_movement_process' => $movement_json_data['movement_json'],
                         ]);
       return $response;
    }
@@ -322,16 +339,39 @@ class GoalRepository implements IGoalRepository
    }
    public function add_goal_btn(){
       $logined_empID = Auth::user()->empID;
-      $response1 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Pending')->value('goal_name');
-      $response2 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Revert')->value('goal_name');
-      // dd($response2);
-      if(!empty($response1) || !empty($response2)){
-         // dd("y");
-         $response = "Yes";
+      // $logined_doj = Auth::user()->doj;
+      $logined_doj = "2021-11-15";
+      $year = Carbon::createFromFormat('Y-m-d', $logined_doj)->format('Y');
+      $current_year = date("Y");
+
+      if($year < $current_year ){
+         // dd($year);
+         $response1 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Pending')->value('goal_name');
+         $response2 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Revert')->value('goal_name');
+         // dd($response2);
+         if(!empty($response1) || !empty($response2)){
+            // dd("y");
+            $response = "Yes";
+         }else{
+            // dd("n");
+            $response3 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Approved')->where('hr_status', "1")->where('bh_status', "1")->value('goal_name');
+
+            if(!empty($response3)){
+               // dd("y");
+               $response = "No";
+            }else{
+               // dd("n");
+      
+               $response = "Yes";
+            }
+         }
+
       }else{
-         // dd("n");
-         $response = "No";
+         $response = "Yes";
+      
+
       }
+            
       return $response;
    }
    public function checkCustomUserList(){
@@ -1224,11 +1264,19 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                      ->get();
       return $response;
    }
-
-
-
-
-
-
+   public function get_goal_login_user_details_sup(){
+      $logined_empID = Auth::user()->sup_emp_code;
+      $response = DB::table('customusers')     
+                     ->where('empID', $logined_empID)
+                     ->get();
+      return $response;
+   }
+   public function get_goal_login_user_details_rev(){
+      $logined_empID = Auth::user()->reviewer_emp_code;
+      $response = DB::table('customusers')     
+                     ->where('empID', $logined_empID)
+                     ->get();
+      return $response;
+   }
 
 }

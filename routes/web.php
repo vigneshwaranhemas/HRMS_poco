@@ -167,6 +167,10 @@ Route::post('update_emp_goals_data_submit', 'GoalsController@update_emp_goals_da
 Route::get('goal_setting_edit', 'GoalsController@goal_setting_edit' );
 Route::post('update_goals_sup_reviewer_tm', 'GoalsController@update_goals_sup_reviewer_tm');
 Route::post('update_goals_sup_submit_direct', 'GoalsController@update_goals_sup_submit_direct');
+Route::get('goals_sup_pip_exit_select_op', 'GoalsController@goals_sup_pip_exit_select_op')->name('goals_sup_pip_exit_select_op');
+Route::get('fecth_goals_sup_movement_process', 'GoalsController@fecth_goals_sup_movement_process')->name('fecth_goals_sup_movement_process');
+Route::get('get_goal_login_user_details_sup', 'GoalsController@get_goal_login_user_details_sup')->name('get_goal_login_user_details_sup');
+Route::get('get_goal_login_user_details_rev', 'GoalsController@get_goal_login_user_details_rev')->name('get_goal_login_user_details_rev');
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');

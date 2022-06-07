@@ -158,10 +158,7 @@
                 <input type="hidden" id="status_id">
                 <button type="button" class="btn {{$btn_color}}" onclick="show_login_popup({{$id}})" >{{$btn_text}}</button>
 
-              <i class="icofont icofont-birthday-cake font-primary"  style="font-size: 18px;"></i>
-
-
-
+              <!-- <i class="icofont icofont-birthday-cake font-primary"  style="font-size: 18px;"></i> -->
 
               </div>
            </div>

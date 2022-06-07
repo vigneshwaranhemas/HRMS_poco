@@ -39,7 +39,7 @@ function team_member_goal_record(){
 
     table_cot = $('#team_member_goal_data').DataTable({
 
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -170,7 +170,7 @@ function goal_record(){
 
     table_cot = $('#goal_data').DataTable({
 
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -366,7 +366,7 @@ function team_member_goal_data_for_reviewer(){
 
     table_cot = $('#team_member_goal_data_for_reviewer').DataTable({
 
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {

@@ -116,6 +116,18 @@ class GoalsController extends Controller
         $head = $this->goal->goals_sup_consolidate_rate_head($id);
         return json_encode($head);
     }
+    public function goals_sup_pip_exit_select_op(Request $request)
+    {
+        $id = $request->id;
+        $head = $this->goal->goals_sup_pip_exit_select_op($id);
+        return json_encode($head);
+    }
+    public function fecth_goals_sup_movement_process(Request $request)
+    {
+        $id = $request->id;
+        $head = $this->goal->fecth_goals_sup_movement_process($id);
+        return json_encode($head);
+    }
     public function update_goals_sup_submit_direct(Request $request)
     {
         $id = $request->id;
@@ -667,19 +679,20 @@ class GoalsController extends Controller
             }
 
             /*cell 8*/
+            $html .= '<td class="sup_rating sup_rating_'.$cell1.'">';
             if($row_values->$cell8 != null){
-                $html .= '<td class="sup_rating">';
-                    foreach($row_values->$cell8 as $cell8_value){
-                        if($cell8_value != null){
-                            $html .= '<p class="sup_rating_p_'.$cell1.'">'.$cell8_value.'</p>';
-                        }
+                foreach($row_values->$cell8 as $cell8_value){
+                    if($cell8_value != null){
+                        $html .= '<div class="sup_rating_div_'.$cell1.'"><p class="sup_rating_p_'.$cell1.'">'.$cell8_value.'</p><div>';
                     }
-                $html .= '</td>';
+                }
 
-            }else{
-                $html .= '<td class="sup_rating">';
-                $html .= '</td>';
             }
+            // else{
+            //     $html .= '<td class="sup_rating_'.$cell1.'">';
+            //     $html .= '</td>';
+            // }
+            $html .= '</td>';
 
 
             /*cell 9*/
@@ -3058,6 +3071,26 @@ class GoalsController extends Controller
         // if($result){
         //     // return json_encode($goal_unique_code);
         // }
+        $logined_email = Auth::user()->email;
+        $logined_sup_email = Auth::user()->email;
+        $logined_username = Auth::user()->username;
+
+        if($result){
+            $data = array(
+                'name'=> $logined_username,
+                'to_email'=> $logined_email,
+                'sup_to_email'=> $logined_email,
+            );
+            Mail::send('mail.goal-emp-mail', $data, function($message) use ($data) {
+                // $message->to($todays_birthday->email)->subject
+                //     ('Birthday Mail');
+                $message->to($data['to_email'])->subject
+                    ('PMS Sheet');
+                $message->cc($data['sup_to_email']);
+                $message->from("hr@hemas.in", 'HEPL - HR Team');
+            });
+        }        
+        
         return response($result);
 
     }
@@ -3516,7 +3549,7 @@ class GoalsController extends Controller
         return response($result);
     }
     public function update_goals_sup(Request $request){
-        dd($request->all());
+        // dd($request->all());
         $id = $request->goals_setting_id;
         $json_value = $this->goal->fetchGoalIdDetails($id);
         $datas = json_decode($json_value);
@@ -3544,14 +3577,51 @@ class GoalsController extends Controller
 
         }
         $goal_process = json_encode($json);
-        // dd($goal_process);
+        // dd($json);
+
+        if(!empty($request->supervisor_movement)){
+
+            // $movement_json = array();           
+
+            //Supervisor remark add
+            $supervisor_movement = $request->supervisor_movement;
+            $with_effect_date = $request->with_effect_date;
+            $team_member_list = $request->team_member_list;
+            $supervisor_name_list = $request->supervisor_name_list;
+            $movement_remark = $request->movement_remark;
+            $mov_designation = $request->mov_designation;
+            $mov_promotion = $request->mov_promotion;
+
+            $movement_json = json_encode([
+                "supervisor_movement" => $request->input('supervisor_movement'),
+                "with_effect_date" => $request->input('with_effect_date'),
+                "team_member_list" => $request->input('team_member_list'),
+                "supervisor_name_list" => $request->input('supervisor_name_list'),
+                "movement_remark" => $request->input('movement_remark'),
+                "mov_designation" => $request->input('mov_designation'),
+                "mov_promotion" => $request->input('mov_promotion'),
+            ]);
+            // dd($movement_json);
+            
+        }else{
+            $movement_json = null;
+        }
+
+        $movement_json_data = array(
+            'movement_json' => $movement_json,
+            'goal_unique_code' => $id,
+        );
+
+        $result = $this->goal->update_goals_sup_movement($movement_json_data);
 
         //Data upload to server
         $data = array(
             'goal_process' => $goal_process,
             'goal_unique_code' => $id,
             'supervisor_consolidated_rate' => $request->employee_consolidated_rate,
+            'supervisor_pip_exit' => $request->supervisor_pip_exit,
         );
+
         $result = $this->goal->update_goals_sup($data);
 
         return response($result);
@@ -4146,74 +4216,76 @@ public function get_all_supervisors_info_bh()
 
         return response($result);
     }
+    public function update_bh_goals(Request $request)
+    {
+        //    echo json_encode($request->all());die();
+        $id = $request->goals_setting_id;
+        $reviewer_id=$request->reviewer_hidden_id;
+        $json_value = $this->goal->fetchGoalIdDetails($id);
+        $datas = json_decode($json_value);
 
+        $json = array();
 
+        $html = '';
 
+        foreach($datas as $key=>$data){
+            $cell1 = $key+1;
+            $row_values = json_decode($data);
+            //Reviewer remarks add
+            $bh_sign_off_value = array($request->bh_sign_off_[$key]);
+            $bh_sign_off = "bh_sign_off_".$cell1;
+            $row_values->$bh_sign_off = $bh_sign_off_value;
+            $supervisor_rating = array($request->sup_final_output_[$key]);
+            $sup_final_op = "sup_final_output_".$cell1;
+            $row_values->$sup_final_op = $supervisor_rating;
+            $json_format = json_encode($row_values);
+            array_push($json, $json_format);
 
-public function update_bh_goals(Request $request)
-{
-    //    echo json_encode($request->all());die();
-     $id = $request->goals_setting_id;
-     $reviewer_id=$request->reviewer_hidden_id;
-     $json_value = $this->goal->fetchGoalIdDetails($id);
-     $datas = json_decode($json_value);
+        }
+        //   echo json_encode($json);die();
+        $goal_process = json_encode($json);
+        //Data upload to server
+        $data = array(
+            'goal_process' => $goal_process,
+            //  'goal_unique_code' => $id,
+            'goal_status'=>$request->Bh_sheet_approval
+        );
+        if($request->reviewer_hidden_id ==1 || $request->reviewer_hidden_id==2){
+            $data['supervisor_consolidated_rate']=$request->supervisor_consolidated_rate;
+        }
+        $result=Goals::where('goal_unique_code',$id)->update($data);
+        if($result){
+            $response=array('success'=>1,"message"=>"Data Updated Successfully");
+        }
+        else{
+            $response=array('success'=>1,"message"=>"Problem in Updating Data");
+        }
 
-     $json = array();
-
-     $html = '';
-
-     foreach($datas as $key=>$data){
-         $cell1 = $key+1;
-         $row_values = json_decode($data);
-         //Reviewer remarks add
-         $bh_sign_off_value = array($request->bh_sign_off_[$key]);
-         $bh_sign_off = "bh_sign_off_".$cell1;
-         $row_values->$bh_sign_off = $bh_sign_off_value;
-         $supervisor_rating = array($request->sup_final_output_[$key]);
-         $sup_final_op = "sup_final_output_".$cell1;
-         $row_values->$sup_final_op = $supervisor_rating;
-         $json_format = json_encode($row_values);
-         array_push($json, $json_format);
-
-     }
-    //   echo json_encode($json);die();
-     $goal_process = json_encode($json);
-     //Data upload to server
-     $data = array(
-         'goal_process' => $goal_process,
-        //  'goal_unique_code' => $id,
-         'goal_status'=>$request->Bh_sheet_approval
-     );
-     if($request->reviewer_hidden_id ==1 || $request->reviewer_hidden_id==2){
-           $data['supervisor_consolidated_rate']=$request->supervisor_consolidated_rate;
+        //  return response($response);
+        echo json_encode($response);
     }
-     $result=Goals::where('goal_unique_code',$id)->update($data);
-     if($result){
-         $response=array('success'=>1,"message"=>"Data Updated Successfully");
-     }
-     else{
-        $response=array('success'=>1,"message"=>"Problem in Updating Data");
-     }
-
-    //  return response($response);
-    echo json_encode($response);
-}
-
-
- public function Change_Bh_status(request $request)
- {
+    public function Change_Bh_status(request $request)
+    {
         $result=Goals::where('goal_unique_code',$request->id)->update(['bh_status'=>'1']);
         if($result){
             $response=array('success'=>1,"message"=>"Data Updated Successfully");
         }
         else{
-           $response=array('success'=>1,"message"=>"Problem in Updating Data");
+            $response=array('success'=>1,"message"=>"Problem in Updating Data");
         }
         echo json_encode($response);
 
- }
-
-
+    }
+    public function get_goal_login_user_details_sup(request $request)
+    {
+        $response = $this->goal->get_goal_login_user_details_sup();
+        return response($response);
+    }
+    public function get_goal_login_user_details_rev(request $request)
+    {
+        $response = $this->goal->get_goal_login_user_details_rev();
+        return response($response);
+    }
 
 
 }

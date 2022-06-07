@@ -359,7 +359,7 @@ function get_team_member_drop_1(){
 function supervisor_goal_record(){    
     table_cot = $('#supervisor_goal_data').DataTable({
         
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -457,7 +457,7 @@ function reviewer_goal_record(){
     
     table_cot = $('#reviewer_tbl').DataTable({
         
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -549,7 +549,7 @@ function hr_dttable_record(){
     
     table_cot = $('#get_hr_goal').DataTable({
         
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -644,7 +644,7 @@ function goal_record(){
 
     table_cot = $('#goal_data').DataTable({
 
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -741,7 +741,7 @@ function hr_listing_tab_record(){
     
     table_cot = $('#listing_table').DataTable({
         
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {

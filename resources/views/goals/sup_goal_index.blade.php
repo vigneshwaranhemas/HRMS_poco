@@ -24,12 +24,31 @@
         border: none;
         padding: revert;
         border-radius: revert;
+    }    
+    .card.goals-card-div{
+        border-radius: unset !important;
+    }
+    .card.goals-card-div-1{
+        border-radius: unset !important;
+        margin-bottom: unset !important;
+    }
+    .nav-primary .nav-link.active{
+        background-color: #80cf00;
+        color: #fff;
+    }
+    .nav-primary .nav-link.nav-link-pms-1{
+        background-color: #80cf00;
+        color: #fff;        
+    }
+    .nav-primary .nav-link.nav-link-pms-2{
+        background-color: #fd517d;
+        color: #fff;        
     }
 </style>
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Supervisor Goal Setting<span>Process</span></h2>
+	<h2>Supervisor Performance Management<span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -42,73 +61,87 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist">
-                    <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>As Supervisor</a>
-                    <div class="material-border"></div>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>MySelf</a>
-                    <div class="material-border"></div>
-                    </li>
-                </ul>
-                <div class="tab-content" id="info-tabContent">
-                    <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">                        
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Member</label>                                        
-                                        <select class="js-example-basic-single float-right" style="width:250px;" id="team_member_filter" name="team_member_filter">
-                                            <option value="">Select Team Member...</option>
-                                            @foreach($team_member_list as $team_member)
-                                                <option value="{{ $team_member->empID }}">{{ $team_member->username }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-8 m-t-35">
-                                        <button type="button" id="supervisor_filter_apply" onclick="supervisor_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
-                                        <button type="button" id="reset" onclick="supervisor_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
-                                    </div>
-                                </div>
-                                <div class="table-responsive m-t-40">
-                                    <table class="table" id="team_member_goal_data">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Employee Name</th>
-                                            <th scope="col">Goal Name</th>
-                                            <th scope="col">Status</th>
-                                            <!-- <th scope="col">Date</th> -->
-                                            <th scope="col">Action </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                    <ul class="nav nav-tabs nav-primary" id="pills-warningtab" role="tablist">
+                        <li class="nav-item"><a class="nav-link nav-link-pms-1" id="pills-warninghome-tab" data-toggle="pill" href="#pills-warninghome" role="tab" aria-controls="pills-warninghome" aria-selected="true"><i class="icofont icofont-ui-home"></i>PMS 2021-2022</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-pms-2 disabled" id="pills-warningprofile-tab" data-toggle="pill" href="#pills-warningprofile" role="tab" aria-controls="pills-warningprofile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>PMS 2022-2023</a></li>
+                    </ul>
+                    <div class="tab-content" id="pills-warningtabContent">
+                        <div class="tab-pane fade show active" id="pills-warninghome" role="tabpanel" aria-labelledby="pills-warninghome-tab">
+                            <div class="card goals-card-div">
+                                <div class="card-body">
+                                    <ul class="nav  m-t-30 nav-tabs nav-material nav-primary" id="info-tab" role="tablist">
+                                        <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>MySelf</a>
+                                        <div class="material-border"></div>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>As Reporting Manager</a>
+                                        <div class="material-border"></div>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="info-tabContent">
+                                        <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">                        
+                                            <div class="goals-card-div-1">
+                                                <div class="">
+                                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none:"><button class="btn float-right btn-primary-gradien m-b-10" type="button" style="margin-top:-30px;" data-original-title="Add Sheet" title="Add Sheet">Add Sheet</button></a>
+                                                    <div class="table-responsive">
+                                                        <table class="table" id="goal_data">
+                                                            <thead>
+                                                                <tr>
+                                                                <th scope="col">No</th>
+                                                                <th scope="col">Goal list</th>
+                                                                <th scope="col">Action </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">                                                
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-2 m-t-5">
+                                                            <label for="Leader">Select Team Member</label>                                        
+                                                            <select class="js-example-basic-single float-right" style="width:250px;" id="team_member_filter" name="team_member_filter">
+                                                                <option value="">Select Team Member...</option>
+                                                                @foreach($team_member_list as $team_member)
+                                                                    <option value="{{ $team_member->empID }}">{{ $team_member->username }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-8 m-t-35">
+                                                            <button type="button" id="supervisor_filter_apply" onclick="supervisor_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                                            <button type="button" id="reset" onclick="supervisor_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="table-responsive m-t-40">
+                                                        <table class="table" id="team_member_goal_data">
+                                                            <thead>
+                                                                <tr>
+                                                                <th scope="col">No</th>
+                                                                <th scope="col">Employee Name</th>
+                                                                <th scope="col">Goal Name</th>
+                                                                <th scope="col">Status</th>
+                                                                <!-- <th scope="col">Date</th> -->
+                                                                <th scope="col">Action </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>  
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">                        
-                        <div class="card">
-                            <div class="card-body">
-                                <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn  float-right btn-primary-gradien" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
-                                <div class="table-responsive">
-                                    <table class="table" id="goal_data">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Goal list</th>
-                                            <th scope="col">Action </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <div class="tab-pane fade" id="pills-warningprofile" role="tabpanel" aria-labelledby="pills-warningprofile-tab">
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>

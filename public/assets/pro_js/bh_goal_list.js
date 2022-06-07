@@ -64,7 +64,7 @@ $(()=>{
             }
 
             $('#team_member_goal_data').DataTable( {
-				dom: 'Bfrtip',
+				// dom: 'Bfrtip',
 				buttons: [
 					'copyHtml5',
 					'excelHtml5',
@@ -120,7 +120,7 @@ $(()=>{
           }
 
           $('#team_member_goal_data').DataTable( {
-              dom: 'Bfrtip',
+            //   dom: 'Bfrtip',
               buttons: [
                   'copyHtml5',
                   'excelHtml5',
@@ -133,7 +133,7 @@ $(()=>{
 
         }
     })
- }
+ }f
 
 
 
@@ -163,7 +163,7 @@ function add_goal_btn(){
 function team_member_goal_record(){
     table_cot = $('#team_member_goal_data').DataTable({
 
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -490,7 +490,7 @@ function get_reviewer_data_bh(){
           }
 
           $('#team_member_goal_data').DataTable( {
-              dom: 'Bfrtip',
+            //   dom: 'Bfrtip',
               buttons: [
                   'copyHtml5',
                   'excelHtml5',
@@ -602,7 +602,7 @@ function  get_filtered_reviewer_data(one){
             }
 
             $('#team_member_goal_data').DataTable( {
-                dom: 'Bfrtip',
+                // dom: 'Bfrtip',
                 buttons: [
                     'copyHtml5',
                     'excelHtml5',
@@ -658,7 +658,7 @@ function bh_all_member_filter(){
             }
 
             $('#team_member_goal_data').DataTable( {
-                dom: 'Bfrtip',
+                // dom: 'Bfrtip',
                 buttons: [
                     'copyHtml5',
                     'excelHtml5',

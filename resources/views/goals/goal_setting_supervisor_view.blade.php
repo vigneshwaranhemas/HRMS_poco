@@ -124,9 +124,9 @@
 						<div class="table-responsive m-b-15 ">
 							<div class="row">
 								<div class="col-lg-12 m-b-35">
-									<a id="goal_sheet_edit" class="btn btn-warning text-white float-right m-l-10" title="Edit Sheet">Edit</a>                                            
-									<a id="goal_sheet_submit"  onclick="supFormSubmit();" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit For Approval</a>                                            
-									<a id="goal_sheet_submit_no_tb"  onclick="supSubmitDirect();" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit For Approval</a>                                            
+									<a id="goal_sheet_edit" class="btn btn-warning text-white float-right m-l-10" title="Edit Sheet">Edit</a>
+									<a id="goal_sheet_submit"  onclick="supFormSubmit();" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit For Approval</a>
+									<a id="goal_sheet_submit_no_tb"  onclick="supSubmitDirect();" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit For Approval</a>
 									<!-- <button type="button" class="btn btn-warning "  >Edit</button> -->
 									<h5>EMPLOYEE CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
 									<h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
@@ -241,7 +241,7 @@
 				// 	'pdfHtml5'
 				// ]
 			} );
-			
+
 			tb_data();
 
 		});
@@ -288,8 +288,8 @@
 
 		});
 
-		/********** Employee Sumbit **************/			
-		$.ajax({                   
+		/********** Employee Sumbit **************/
+		$.ajax({
 			url:"{{ url('goals_sup_submit_status') }}",
 			type:"GET",
 			data:{id:id},
@@ -314,12 +314,12 @@
 			error: function(error) {
 				console.log(error);
 
-			}                                              
-				
+			}
+
 		});
-		
-		/********** Supervisor Consolidary Rate Head **************/			
-		$.ajax({                   
+
+		/********** Supervisor Consolidary Rate Head **************/
+		$.ajax({
 			url:"{{ url('goals_sup_consolidate_rate_head') }}",
 			type:"GET",
 			data:{id:id},
@@ -337,8 +337,8 @@
 		});
 
 		function tb_data(){
-			
-			$.ajax({                   
+
+			$.ajax({
 				url:"{{ url('fetch_goals_sup_details') }}",
 				type:"GET",
 				data:{id:id},
@@ -363,15 +363,15 @@
 						// 	'pdfHtml5'
 						// ]
 					} );
-					
+
 				},
 				error: function(error) {
 					console.log(error);
 
-				}                                              
-					
-			});		
-		}		
+				}
+
+			});
+		}
 
 		$(()=>{
 			$("#goal_sheet_edit").on('click',()=>{
@@ -385,21 +385,21 @@
 				var i=1;
 				var defined_class1="sup_remark";
 				var defined_class2="sup_rating";
-		
+
 				$("#goals_record_tb tbody tr td."+defined_class1+"").each(
 					function(index){
 
 						// console.log($(this).text())
 						if ($(this).text() != ""){
-							
-							var text_data=$(this).text();					
+
+							var text_data=$(this).text();
 							$(".sup_remark_p_"+i+"").remove();
 							var tx = '<textarea id="sup_remark'+i+'" name="sup_remark[]" style="width:250px;" class="form-control">'+text_data+'</textarea>';
 								tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
 							$(this).append(tx);
 							// alert("one")
 						}
-						else{				
+						else{
 							var tx = '<textarea id="sup_remark'+i+'" name="sup_remark[]" style="width:200px;" class="form-control"></textarea>';
 								tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
 							$(this).append(tx);
@@ -417,8 +417,8 @@
 
 						// console.log("data")
 						if ($(this).text() != ""){
-						
-							var text_data=$(this).text();								
+
+							var text_data=$(this).text();
 							$(".sup_rating_p_"+j+"").remove();
 							$(this).append('<select class="form-control js-example-basic-single key_bus_drivers" name="sup_rating[]">\
 											<option value="">Choose</option>\
@@ -430,7 +430,7 @@
 											</select>\
 											<div class="text-danger sup_rating_'+index+'_error"></div>')
 						}
-						else{				
+						else{
 							var op = '<select class="js-example-basic-single" name="sup_rating[]" style="width:150px;" id="employee_consolidated_rate" name="employee_consolidated_rate">';
 								op += '<option value="" selected>...Select...</option>';
 								op += '<option value="EE">EE</option>';
@@ -450,7 +450,7 @@
 				);
 
 				//supervisor consolidate rate
-				$.ajax({                   
+				$.ajax({
 					url:"{{ url('goals_sup_consolidate_rate_head') }}",
 					type:"GET",
 					data:{id:id},
@@ -458,17 +458,17 @@
 					success:function(response)
 					{
 						if(response != ""){
-							$('#supervisor_consolidated_rate').val(response).change();							
+							$('#supervisor_consolidated_rate').val(response).change();
 						}
 
 					},
 					error: function(error) {
 						console.log(error);
 
-					}                                              
-						
+					}
+
 				});
-		
+
 			})
 		})
 
@@ -540,17 +540,17 @@
 							duration: 3000,
 							close:true,
 							backgroundColor: "#4fbe87",
-						}).showToast();    
-												
+						}).showToast();
+
 						// $("#save_div").hide();
 						$("#sup_save_table").css("display","none");
 						// $("#goal_sheet_submit").css("display","block");
 						$("#sup_update_table").css("display","block");
 
 						// $('button[type="submit"]').attr('disabled' , false);
-						
-						// window.location = "{{ url('goals')}}";                
-						
+
+						// window.location = "{{ url('goals')}}";
+
 						// $('button[type="submit"]').attr('disabled' , false);
 
 						// window.location = "{{ url('goals')}}";
@@ -565,7 +565,7 @@
 		}
 
 		function supFormSubmit(){
-			
+
 			var error='';
 
 			var rate = $("#supervisor_consolidated_rate").val();
@@ -583,7 +583,7 @@
 				var col0=$(this).find("td:eq(0)").text();
 				var col6=$(this).find("td:eq(5) textarea").val();
 				var col7=$(this).find("td:eq(6) option:selected").val();
-				
+
 				// Supervisor Remarks
 				var err_div_name = "#sup_remark_"+index+"_error";
 				var $errmsg0 = $(err_div_name);
@@ -613,8 +613,8 @@
 
 			//Sending data to database
 			if(error==""){
-				alert("hi")				
-				// data_insert_submit();
+				// alert("hi")
+				data_insert_submit();
 			}
 
 			function data_insert_submit(){
@@ -631,16 +631,16 @@
 							duration: 3000,
 							close:true,
 							backgroundColor: "#4fbe87",
-						}).showToast();    
-						
+						}).showToast();
+
 						tb_data();
 						$("#save_div").hide();
 						$("#goal_sheet_edit").css("display","block");
 
 						// $('button[type="submit"]').attr('disabled' , false);
-						
-						// window.location = "{{ url('goals')}}";                
-						
+
+						// window.location = "{{ url('goals')}}";
+
 						// $('button[type="submit"]').attr('disabled' , false);
 
 						window.location = "{{ url('goals')}}";
@@ -671,16 +671,16 @@
 						duration: 3000,
 						close:true,
 						backgroundColor: "#4fbe87",
-					}).showToast();    
-					
+					}).showToast();
+
 					// tb_data();
 					// $("#save_div").hide();
 					// $("#goal_sheet_edit").css("display","block");
 
 					// $('button[type="submit"]').attr('disabled' , false);
-					
-					// window.location = "{{ url('goals')}}";                
-					
+
+					// window.location = "{{ url('goals')}}";
+
 					// $('button[type="submit"]').attr('disabled' , false);
 
 					window.location = "{{ url('goals')}}";
@@ -720,7 +720,7 @@
 				}
 			});
 		}
-		
+
 	</script>
 
 @endsection

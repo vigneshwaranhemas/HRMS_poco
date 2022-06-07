@@ -955,7 +955,7 @@ class GoalsController extends Controller
                     foreach($row_values->$cell7 as $cell7_value){
                         if($cell7_value != null){
 
-                            $html .= '<p>'.$cell7_value.'</p>';
+                            $html .= '<p class="sup_remark_p_rev_'.$cell1.'">'.$cell7_value.'</p>';
 
                         }
                     }
@@ -971,7 +971,7 @@ class GoalsController extends Controller
                 $html .= '<td class="sup_rating">';
                     foreach($row_values->$cell8 as $cell8_value){
                         if($cell8_value != null){
-                            $html .= '<p>'.$cell8_value.'</p>';
+                            $html .= '<p class="sup_rating_p_rev_'.$cell1.'">'.$cell8_value.'</p>';
                         }
                     }
                 $html .= '</td>';
@@ -988,7 +988,7 @@ class GoalsController extends Controller
                 $html .= '<td class="reviewer_remarks">';
                     foreach($row_values->$cell9 as $cell9_value){
                         if($cell9_value != null){
-                            $html .= '<p>'.$cell9_value.'</p>';
+                            $html .= '<p class="reviewer_remarks_p_rev_'.$cell1.'">'.$cell9_value.'</p>';
                         }
                     }
 
@@ -4620,6 +4620,55 @@ public function get_all_supervisors_info_bh()
 
         return response($result);
     }
+
+    public function update_goals_sup_submit_overall(Request $request){
+       // dd($request->all());
+       $id = $request->goals_setting_id;
+       $json_value = $this->goal->fetchGoalIdDetails($id);
+       $datas = json_decode($json_value);
+
+       $json = array();
+
+       $html = '';
+
+       foreach($datas as $key=>$data){
+           $cell1 = $key+1;
+           $row_values = json_decode($data);
+
+           //Supervisor remark add
+           $sup_remark_value = array($request->sup_remark[$key]);
+           $sup_rem = "sup_remarks_".$cell1;
+           $row_values->$sup_rem = $sup_remark_value;
+
+           //Supervisor rating add
+           $sup_rating_value = array($request->sup_rating[$key]);
+           $sup_final_op = "sup_final_output_".$cell1;
+           $row_values->$sup_final_op = $sup_rating_value;
+
+           $json_format = json_encode($row_values);
+           array_push($json, $json_format);
+
+       }
+       $goal_process = json_encode($json);
+
+       //Data upload to server
+       $data = array(
+           'goal_process' => $goal_process,
+           'goal_unique_code' => $id,
+           'supervisor_consolidated_rate' => $request->employee_consolidated_rate,
+       );
+        // dd($data);
+        $result = $this->goal->update_goals_sup_submit_overall($data);
+
+        return response($result);
+    }
+
+    // public function goals_sup_submit_status_for_rev(Request $request)
+    // {
+    //     $id = $request->id;
+    //     $head = $this->goal->goals_sup_submit_status_for_rev($id);
+    //     return json_encode($head);
+    // }
 
 
 }

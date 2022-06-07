@@ -166,6 +166,8 @@ Route::post('update_emp_goals_data_submit', 'GoalsController@update_emp_goals_da
 Route::get('goal_setting_edit', 'GoalsController@goal_setting_edit' );
 Route::post('update_goals_sup_reviewer_tm', 'GoalsController@update_goals_sup_reviewer_tm');
 Route::post('update_goals_sup_submit_direct', 'GoalsController@update_goals_sup_submit_direct');
+Route::post('update_goals_sup_submit_overall', 'GoalsController@update_goals_sup_submit_overall');
+// Route::get('goals_sup_submit_status_for_rev', 'GoalsController@goals_sup_submit_status_for_rev')->name('goals_sup_submit_status_for_rev');
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');

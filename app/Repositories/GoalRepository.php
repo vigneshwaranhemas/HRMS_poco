@@ -245,14 +245,14 @@ class GoalRepository implements IGoalRepository
       $tb2 = Goals::where('goal_unique_code', $id)->where('supervisor_tb_status', "1")->where('supervisor_status', "1")->value('supervisor_status');
       if(!empty($tb1)){
          if($tb2 == 1){
-            $response = "2";
+            $response = "2"; //overall submited
          }else{
-            $response = "1";
+            $response = "1"; //save only not submit
 
          }
 
       }else{
-         $response = "0";
+         $response = "0"; //new entry
       }
       return $response;
    }
@@ -281,7 +281,7 @@ class GoalRepository implements IGoalRepository
                               'supervisor_tb_status' => "1",
                         ]);
       return $response;
-   } 
+   }
    public function update_goals_sup_submit($data){
       $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                         ->update([
@@ -291,8 +291,8 @@ class GoalRepository implements IGoalRepository
                               'supervisor_status' => "1",
                         ]);
       return $response;
-   } 
-   
+   }
+
    public function update_emp_goals_data($data){
       $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                         ->update([
@@ -310,7 +310,7 @@ class GoalRepository implements IGoalRepository
                               'employee_tb_status' => "1",
                               'employee_status' => "1",
                         ]);
-      
+
       return $response;
    }
    public function goals_status_update($data){
@@ -1199,16 +1199,45 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
       $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                         ->update([
                               'goal_process' => $data['goal_process'],
+                              'reviewer_tb_status' => "1",
                         ]);
       return $response;
-   }   
+   }
    public function update_goals_sup_submit_direct($id){
       $response = Goals::where('goal_unique_code', $id)
                 ->update([
                      'supervisor_status' => "1",
-                     'supervisor_tb_status' => "1",                      
+                     'supervisor_tb_status' => "1",
                 ]);
     return $response;
  }
+
+ public function update_goals_sup_submit_overall($data){
+    $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                      ->update([
+                            'goal_process' => $data['goal_process'],
+                            'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate'],
+                            'supervisor_tb_status' => "1",
+                            'supervisor_status' => "1",
+                      ]);
+    return $response;
+ }
+
+//  public function goals_sup_submit_status_for_rev( $id ){
+//     $tb1 = Goals::where('goal_unique_code', $id)->where('reviewer_tb_status', "1")->value('reviewer_tb_status');
+//     $tb2 = Goals::where('goal_unique_code', $id)->where('reviewer_tb_status', "1")->where('reviewer_status', "1")->value('reviewer_status');
+//     if(!empty($tb1)){
+//        if($tb2 == 1){
+//           $response = "2"; //overall submited
+//        }else{
+//           $response = "1"; //save only not submit
+
+//        }
+
+//     }else{
+//        $response = "0"; //new entry
+//     }
+//     return $response;
+//  }
 
 }

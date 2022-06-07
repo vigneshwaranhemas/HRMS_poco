@@ -15,16 +15,29 @@
         border-radius: unset !important;
         padding: revert !important;
     }
+    .card.goals-card-div{
+        border-radius: unset !important;
+    }
+    .nav-primary .nav-link.active{
+        background-color: #80cf00;
+        color: #fff;
+    }
+    .nav-primary .nav-link.nav-link-pms-1{
+        background-color: #80cf00;
+        color: #fff;        
+    }
+    .nav-primary .nav-link.nav-link-pms-2{
+        background-color: #fd517d;
+        color: #fff;        
+    }
 </style>
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Goal Setting<span>Process</span></h2>
+	<h2>Permanace Management<span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
-  <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
-
 @endsection
 
 @section('content')
@@ -32,21 +45,37 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
+
             <div class="card">
                 <div class="card-body">
-                    <!-- <a href="hr_add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a> -->
-                    <div class="table-responsive">
-                        <table class="table" id="goal_data">
-                            <thead>
-                                <tr>
-                                  <th scope="col">No</th>
-                                  <th scope="col">Goal list</th>
-                                  <th scope="col">Action </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <ul class="nav nav-tabs nav-primary" id="pills-warningtab" role="tablist">
+                        <li class="nav-item"><a class="nav-link nav-link-pms-1" id="pills-warninghome-tab" data-toggle="pill" href="#pills-warninghome" role="tab" aria-controls="pills-warninghome" aria-selected="true"><i class="icofont icofont-ui-home"></i>PMS 2021-2022</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-pms-2 disabled" id="pills-warningprofile-tab" data-toggle="pill" href="#pills-warningprofile" role="tab" aria-controls="pills-warningprofile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>PMS 2022-2023</a></li>
+                    </ul>
+                    <div class="tab-content" id="pills-warningtabContent">
+                        <div class="tab-pane fade show active" id="pills-warninghome" role="tabpanel" aria-labelledby="pills-warninghome-tab">
+                            <div class="card goals-card-div">
+                                <div class="card-body">
+                                    <!-- <a href="hr_add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a> -->
+                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn btn-primary-gradien mb-5 float-right" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Sheet</button></a>
+                                    <div class="table-responsive">
+                                        <table class="table" id="goal_data">
+                                            <thead>
+                                                <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Goal list</th>
+                                                <th scope="col">Action </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-warningprofile" role="tabpanel" aria-labelledby="pills-warningprofile-tab">
+                        </div>
                     </div>
                 </div>
             </div>

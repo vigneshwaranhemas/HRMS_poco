@@ -36,7 +36,7 @@ function goal_record(){
 
     table_cot = $('#goal_data').DataTable({
 
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {

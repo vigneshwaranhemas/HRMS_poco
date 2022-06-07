@@ -22,9 +22,9 @@
         position: relative;
         display: none;
     }
-	.btn.sup_update_table{
+	/* .btn.sup_update_table{
 		padding: 6px;
-	}
+	} */
 	.select2-container--default{
 		width: 320px !important;
 	}
@@ -41,7 +41,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>View<span>Goals </span></h2>
+	<h2>Performance Management System<span>View </span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -131,17 +131,17 @@
 						</div>
 					</div>
 				</div>
-				<div class="card  card-absolute">
-					<div class="card-header  bg-primary">
+				<div class="card card-absolute">
+					<div class="card-header bg-primary">
 						<h5 class="text-white" id="goals_sheet_head"></h5>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive m-b-15 ">
 							<div class="row">
 								<div class="col-lg-12 m-b-35">
-									<a id="goal_sheet_edit" class="btn btn-warning text-white float-right m-l-10" title="Edit Sheet">Edit</a>
-									<a id="goal_sheet_submit"  onclick="supFormSubmit();" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit For Approval</a>
-									<a id="goal_sheet_submit_no_tb"  onclick="supSubmitDirect();" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit For Approval</a>
+									<a id="goal_sheet_edit" class="btn btn-warning text-white float-right m-l-10" title="Edit Sheet">Edit</a>                                            
+									<a id="goal_sheet_submit"  onclick="supFormSubmit();" class="btn btn-success text-white float-right" title="Submit For Approval">Submit</a>                                            
+									<a id="goal_sheet_submit_no_tb"  onclick="supSubmitDirect();" class="btn btn-success text-white float-right" title="Submit For Approval">Submit</a>                                            
 									<!-- <button type="button" class="btn btn-warning "  >Edit</button> -->
 									<h5>EMPLOYEE CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
 									<h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
@@ -157,7 +157,7 @@
 											<th scope="col">Measurement Criteria (UOM)</th>
 											<th scope="col">Self Assessment</th>
 											<th scope="col">Rating </th>
-											<th scope="col">Supervisor Reamrks </th>
+											<th scope="col">Supervisor Remarks </th>
 											<th scope="col">Supervisor Rating </th>
 											<th scope="col">Reviewer Remarks </th>
 											<th scope="col">HR Remarks </th>
@@ -254,8 +254,8 @@
 											</div>
 										</div>
 										<div class="col-lg-12">
-											<a onclick="supFormSave();" id="sup_save_table" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>
-											<a onclick="supFormSave();" id="sup_update_table" class="btn btn-primary text-white m-t-30 sup_update_table" title="Save Table Value">Update</a>
+											<a onclick="supFormSave();" id="sup_save_table" class="btn btn-primary text-white m-t-30" title="Save For Draft">Save</a>
+											<a onclick="supFormSave();" id="sup_update_table" class="btn btn-primary text-white m-t-30 sup_update_table" title="Save For Draft">Update</a>
 										</div>
 									</div>
 								<!-- </div> -->
@@ -461,14 +461,16 @@
 		$(()=>{
 			$("#goal_sheet_edit").on('click',()=>{
 
-				$("#sup_update_table").css("display","none");
+				$("#sup_update_table").hide();
 				$("#goal_sheet_submit_no_tb").css("display","none");
 				$("#goal_sheet_edit").css("display","none");
 				$("#goal_sheet_submit").css("display","block");
 				$("#save_div").show();
-
+				
 				var i=1;
 				var defined_class1="sup_remark";
+				var defined_class3="sup_rating_div_"+i;				
+				
 				var defined_class2="sup_rating";
 
 				$("#goals_record_tb tbody tr td."+defined_class1+"").each(
@@ -495,7 +497,7 @@
 				);
 
 				//supervisor rating
-				var j = 1;
+				var j = 1;											
 
 				$("#goals_record_tb tbody tr td."+defined_class2+"").each(
 					function(index){
@@ -542,8 +544,55 @@
 					dataType : "JSON",
 					success:function(response)
 					{
+						// alert(response)
 						if(response != ""){
 							$('#supervisor_consolidated_rate').val(response).change();
+						}
+
+					},
+					error: function(error) {
+						console.log(error);
+					}                                              
+						
+				});
+
+				//Pip value
+				$.ajax({                   
+					url:"{{ url('goals_sup_pip_exit_select_op') }}",
+					type:"GET",
+					data:{id:id},
+					dataType : "JSON",
+					success:function(response)
+					{
+						// alert(response)
+						if(response != ""){
+							$('#supervisor_pip_exit').val(response).change();							
+						}
+
+					},
+					error: function(error) {
+						console.log(error);
+
+					}                                              
+						
+				});
+
+				//movement process
+				//Pip value
+				$.ajax({                   
+					url:"{{ url('fecth_goals_sup_movement_process') }}",
+					type:"GET",
+					data:{id:id},
+					dataType : "JSON",
+					success:function(response)
+					{
+						if(response != ""){
+							// alert("response")
+
+							$('#supervisor_pip_exit').val(response).change();							
+						}else{
+							// alert("1")
+
 						}
 
 					},
@@ -559,7 +608,99 @@
 
 		function supFormSave(){
 
-			var error='';
+			var error='';			
+
+			if($("#candicate_checkbox").is(':checked')){
+				// alert("1")
+
+				//movement
+				var supervisor_movement = $("#supervisor_movement").val();
+				var $errmsg5 = $("#supervisor_movement_error");
+				$errmsg5.hide();
+
+				if(supervisor_movement == ""){
+					$errmsg5.html('Movement is required').show();
+					error+="error";
+				}
+
+				//with effect value
+				var pip = $("#with_effect_date").val();
+				var $errmsg6 = $("#with_effect_date_error");
+				$errmsg6.hide();
+
+				if(pip == ""){
+					$errmsg6.html('With effect value is required').show();
+					error+="error";
+				}
+
+				//Team name
+				var pip = $("#team_member_list").val();
+				var $errmsg4 = $("#team_member_list_error");
+				$errmsg4.hide();
+
+				if(pip == ""){
+					$errmsg4.html('Team name is required').show();
+					error+="error";
+				}
+
+				//Superviosr name
+				var pip = $("#supervisor_name_list").val();
+				var $errmsg4 = $("#supervisor_name_list_error");
+				$errmsg4.hide();
+
+				if(pip == ""){
+					$errmsg4.html('Supervisor name is required').show();
+					error+="error";
+				}
+
+				//reamrks
+				var pip = $("#movement_remark").val();
+				var $errmsg4 = $("#movement_remark_error");
+				$errmsg4.hide();
+
+				if(pip == ""){
+					$errmsg4.html('Movement remark is required').show();
+					error+="error";
+				}
+
+				//Designation
+				var mov_designation  = $('input[name="mov_designation"]:checked').val();
+				var $errmsg4 = $("#mov_designation_error");
+				$errmsg4.hide();
+
+				if(mov_designation == "" || mov_designation == undefined){
+					$errmsg4.html('Designation is required').show();
+					error+="error";
+				}
+
+				//Promotiom
+				var mov_promotion  = $('input[name="mov_promotion"]:checked').val();
+				var $errmsg4 = $("#mov_promotion_error");
+				$errmsg4.hide();
+
+				if(mov_promotion == "" || mov_promotion == undefined){
+					$errmsg4.html('Promotion is required').show();
+					error+="error";
+				}			
+				
+			}
+			else{
+				// alert("2")
+                $('#supervisor_movement').val("").change();									
+                $('#with_effect_date').val("");									
+                $('#team_member_list').val("").change();									
+                $('#supervisor_name_list').val("").change();									
+                $('#movement_remark').val("");	
+				var mov_designation  = $('input[name="mov_designation"]:checked').val();
+				var mov_promotion  = $('input[name="mov_promotion"]:checked').val();
+				if(mov_designation != undefined){
+					$("input:radio[name=mov_designation]:checked")[0].checked = false;						
+				}
+				if(mov_promotion != undefined){
+					$("input:radio[name=mov_promotion]:checked")[0].checked = false;							
+				}
+
+			}
 
 			var rate = $("#supervisor_consolidated_rate").val();
 			var $errmsg3 = $(".supervisor_consolidated_rate_error");
@@ -578,9 +719,9 @@
 				$errmsg4.html('Pip or not is required').show();
 				error+="error";
 			}
-
+			
 			if($("#candicate_checkbox").is(':checked')){
-				alert("1")
+				// alert("1")
 
 				//movement
 				var pip = $("#supervisor_pip_exit").val();
@@ -654,7 +795,7 @@
 
 			}
 			else{
-				alert("2")
+				// alert("2")
 
 			}
 
@@ -718,7 +859,7 @@
 						// $("#save_div").hide();
 						$("#sup_save_table").css("display","none");
 						// $("#goal_sheet_submit").css("display","block");
-						$("#sup_update_table").css("display","block");
+						$("#sup_update_table").show();
 
 						// $('button[type="submit"]').attr('disabled' , false);
 

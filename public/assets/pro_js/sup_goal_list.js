@@ -38,7 +38,7 @@ function team_member_goal_record(){
 
     table_cot = $('#team_member_goal_data').DataTable({
 
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -156,7 +156,6 @@ $('#team_member_goal_data').on('click','#employee_summary_show_fn',function(){
     
 });
 
-
 $("#supervisorSummaryForm").submit(function(e) {
     e.preventDefault();
 
@@ -209,7 +208,13 @@ function goal_record(){
 
     table_cot = $('#goal_data').DataTable({
 
-        dom: 'lBfrtip',
+        "searching": false,
+					"paging": false,
+					// "info":     false,
+					"fixedColumns":   {
+							left: 6
+						},
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {

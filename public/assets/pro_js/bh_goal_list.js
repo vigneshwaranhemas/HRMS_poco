@@ -130,7 +130,7 @@ $(()=>{
 
         }
     })
- }
+ }f
 
 
 
@@ -549,7 +549,7 @@ function  get_filtered_reviewer_data(one){
             }
 
             $('#team_member_goal_data').DataTable( {
-                dom: 'Bfrtip',
+                // dom: 'Bfrtip',
                 buttons: [
                     'copyHtml5',
                     'excelHtml5',

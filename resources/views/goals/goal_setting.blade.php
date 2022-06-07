@@ -12,18 +12,15 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>View<span>Goals </span></h2>
+	<h2>Performance Management System<span>View </span></h2>
 @endsection
 
 @section('breadcrumb-items')
-   {{--<li class="breadcrumb-item">Dashboard</li>
-	<li class="breadcrumb-item active">Default</li>--}}
-	<a class="btn btn-success text-white" title="Exceeded Expectations">EE</a>                                            
-	<a class="btn btn-secondary m-l-10 text-white" title="Achieved Expectations">AE</a>                                            
-	<a class="btn btn-info m-l-10 text-white" title="Met Expectations">ME</a>                                            
-	<a class="btn btn-warning m-l-10 text-white" title="Partially Met Expectations">PME</a>                                            
-	<a class="btn btn-dark m-l-10 text-white" title="Needs Development">ND</a>                                            
-	
+	<a class="btn btn-sm text-white" style="background-color: #FFD700;" title="Significantly Exceeds Expectations">SEE</a>                                            
+	<a class="btn btn-sm text-white m-l-10" style="background-color: #008000;" title="Exceeded Expectations">EE</a>                                            
+	<a class="btn btn-sm btn-success m-l-10 text-white" title="Met Expectations">ME</a>                                            
+	<a class="btn btn-sm m-l-10 text-white" style="background-color: #FFA500" title="Partially Met Expectations">PME</a>                                            
+	<a class="btn btn-sm m-l-10 text-white" style="background-color: #FF0000;" title="Needs Development">ND</a>                                            	
 @endsection
 
 @section('content')

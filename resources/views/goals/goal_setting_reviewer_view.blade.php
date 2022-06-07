@@ -451,6 +451,7 @@
 					dataType : "JSON",
 					success:function(response)
 					{
+						// alert(response)
 						if(response == 1){
 							//As supervisor
 

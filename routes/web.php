@@ -173,7 +173,13 @@ Route::get('fecth_goals_sup_movement_process', 'GoalsController@fecth_goals_sup_
 Route::get('get_goal_login_user_details_sup', 'GoalsController@get_goal_login_user_details_sup')->name('get_goal_login_user_details_sup');
 Route::get('get_goal_login_user_details_rev', 'GoalsController@get_goal_login_user_details_rev')->name('get_goal_login_user_details_rev');
 Route::post('update_goals_sup_submit_overall', 'GoalsController@update_goals_sup_submit_overall');
-// Route::get('goals_sup_submit_status_for_rev', 'GoalsController@goals_sup_submit_status_for_rev')->name('goals_sup_submit_status_for_rev');
+
+Route::get('get_goal_setting_sup_dept_name', 'GoalsController@get_goal_setting_sup_dept_name');
+Route::get('get_goal_setting_rev_dept_name', 'GoalsController@get_goal_setting_rev_dept_name');
+Route::get('goal_employee_summary_check', 'GoalsController@goal_employee_summary_check');
+Route::post('update_goals_reviewer_teamleader', 'GoalsController@update_goals_reviewer_teamleader');
+Route::post('update_goals_sup_submit_overall_for_reviewer', 'GoalsController@update_goals_sup_submit_overall_for_reviewer');
+Route::post('update_goals_team_member_submit_direct', 'GoalsController@update_goals_team_member_submit_direct');
 
 //Birthday controller
 Route::get('birthdays', 'BirthdayController@birthdays')->name('birthdays');

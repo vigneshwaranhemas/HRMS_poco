@@ -46,7 +46,7 @@
                                     <p id="empID">{{ Auth::user()->empID }}</p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-ebook"> </i> R.Manager ID :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> R.Manager ID :</h6>
                                 </div>
                                 <div class="col-md-6 m-t-10">
                                     <p id="sup_emp_code">{{ Auth::user()->sup_emp_code }}</p>
@@ -68,7 +68,7 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-7">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Emp Name :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Emp Name :</h6>
                                 </div>
                                 <div class="col-md-5">
                                     <p id="username">{{ Auth::user()->username }}</p>
@@ -86,7 +86,7 @@
                                     <p id="reviewer_name">{{ Auth::user()->reviewer_name }}</p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> HRBP :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
                                     <p>Rajesh M S</p>
@@ -102,19 +102,19 @@
                                     <p id="department">{{ Auth::user()->department }}</p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> R.Manager Dept :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> R.Manager Dept :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
                                     <p id="sup_dept"></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer Dept :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Reviewer Dept :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
                                     <p id="rev_dept"></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP Dept :</h6>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> HRBP Dept :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
                                     <p>HR</p>
@@ -134,11 +134,11 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Key Business Drivers</th>
-                                        <th scope="col">Key Result Areas </th>
+                                        <th scope="col">Key Business Drivers (KBD)</th>
+                                        <th scope="col">Key Result Areas (KRA)</th>
                                         <th scope="col">Measurement Criteria (Quantified Measures)</th>
                                         <th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
-                                        <th scope="col">Rating by Employee</th>
+                                        <th scope="col">Self Rating</th>
                                         <!-- <th scope="col">Actuals </th> -->
                                         <th scope="col"></th>
                                         <th scope="col">
@@ -154,7 +154,7 @@
                             <div class="m-t-40 m-b-30 float-right">
                                 <div class="row">									
                                     <div class="col-lg-8">
-                                        <label>Consolidated Rating</label><br>
+                                        <label>Self Consolidated Rating</label><br>
                                         <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
                                             <option value="" selected>...Select...</option>
                                             <option value="EE">EE</option>
@@ -166,7 +166,7 @@
                                         <div class="text-danger employee_consolidated_rate_error" id=""></div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <a id="datatable_form_update" type="submit" class="btn btn-primary text-white float-right m-t-30" title="Submit For Approval">Update</a>                                            
+                                        <a id="datatable_form_update" type="submit" class="btn btn-primary text-white float-right m-t-30" title="Save As Draft">Update</a>                                            
                                         <!-- <button id="datatable_form_update" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                             -->
                                     </div>
                                 </div>

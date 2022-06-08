@@ -48,6 +48,9 @@
     {
         padding: 28px;
     }
+    #add_goal_btn{
+        display:none;
+    }
 </style>
 @endsection
 
@@ -88,13 +91,13 @@
                                         <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
 
                                                 <div class="card-body">
-                                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none:"><button class="btn float-right btn-primary-gradien m-b-10" type="button" style="margin-top:-30px;" data-original-title="Add Sheet" title="Add Sheet">Add Sheet</button></a>
+                                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none:"><button class="btn float-right btn-primary-gradien m-b-10" type="button" data-original-title="Add Sheet" title="Add Sheet">Add Sheet</button></a>
                                                     <div class="table-responsive">
                                                         <table class="table" id="goal_data">
                                                             <thead>
                                                                 <tr>
                                                                 <th scope="col">No</th>
-                                                                <th scope="col">Goal list</th>
+                                                                <th scope="col">Title</th>
                                                                 <th scope="col">Action </th>
                                                                 </tr>
                                                             </thead>
@@ -131,8 +134,8 @@
                                                                 <tr>
                                                                 <th scope="col">No</th>
                                                                 <th scope="col">Employee Name</th>
-                                                                <th scope="col">Goal Name</th>
-                                                                <th scope="col">Status</th>
+                                                                <th scope="col">Title</th>
+                                                                <th scope="col">Business Head Status</th>
                                                                 <!-- <th scope="col">Date</th> -->
                                                                 <th scope="col">Action </th>
                                                                 </tr>
@@ -174,6 +177,7 @@
                                                                 <tr>
                                                                 <th scope="col">No</th>
                                                                 <th scope="col">Employee Name</th>
+                                                                <th scope="col">Title</th>
                                                                 <th scope="col">Goal Name</th>
                                                                 <th scope="col">Status</th>
                                                                 <!-- <th scope="col">Date</th> -->

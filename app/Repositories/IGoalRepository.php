@@ -61,4 +61,14 @@ interface IGoalRepository {
     public function get_goal_login_user_details_sup();
     public function get_goal_login_user_details_rev();    
     public function update_goals_hr_reviewer_tm($data);
+
+    public function get_goal_setting_sup_dept_name($id);
+    public function get_goal_setting_rev_dept_name($id);
+    public function goal_employee_summary_check($id);
+    public function getSupEmail();
+    public function goals_supervisor_summary($id, $sup_summary);
+    // public function fetch_reviewer_id_or_not($id);
+    public function update_goals_reviewer_teamleader($data);
+    public function update_goals_sup_submit_overall_for_reviewer($data);
+    public function update_goals_team_member_submit_direct($id);
 }

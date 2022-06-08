@@ -36,6 +36,12 @@ function goal_record(){
 
     table_cot = $('#goal_data').DataTable({
 
+        "searching": false,
+        "paging": false,
+        // "info": false,
+        "fixedColumns":   {
+                left: 6
+        },
         // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [

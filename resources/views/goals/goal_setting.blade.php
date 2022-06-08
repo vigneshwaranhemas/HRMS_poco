@@ -27,18 +27,105 @@
 	<!-- Container-fluid starts-->
     <div class="container-fluid">
 		<div class="row">
-
 			<div class="col-sm-12">
-
+				<div class="ribbon-vertical-right-wrapper card">
+					<div class="card-body">
+						<div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 70px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PMS</span>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="row">
+									<div class="col-md-6">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Emp ID :</h6>
+									</div>
+									<div class="col-md-6">
+										<p id="empID">{{ Auth::user()->empID }}</p>
+									</div>
+									<div class="col-md-6 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> R.Manager ID :</h6>
+									</div>
+									<div class="col-md-6 m-t-10">
+										<p id="sup_emp_code">{{ Auth::user()->sup_emp_code }}</p>
+									</div>
+									<div class="col-md-6 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</h6>
+									</div>
+									<div class="col-md-6 m-t-10">
+										<p id="reviewer_emp_code">{{ Auth::user()->reviewer_emp_code }}</p>
+									</div>
+									<div class="col-md-6 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
+									</div>
+									<div class="col-md-6 m-t-10">
+										<p>900380</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="row">
+									<div class="col-md-7">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Emp Name :</h6>
+									</div>
+									<div class="col-md-5">
+										<p id="username">{{ Auth::user()->username }}</p>
+									</div>
+									<div class="col-md-7 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> R.Manager Name :</h6>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<p id="sup_name">{{ Auth::user()->sup_name }}</p>
+									</div>
+									<div class="col-md-7 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Reveiwer Name :</h6>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<p id="reviewer_name">{{ Auth::user()->reviewer_name }}</p>
+									</div>
+									<div class="col-md-7 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> HRBP :</h6>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<p>Rajesh M S</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="row">
+									<div class="col-md-7">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Emp Dept:</h6>
+									</div>
+									<div class="col-md-5">
+										<p id="department">{{ Auth::user()->department }}</p>
+									</div>
+									<div class="col-md-7 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> R.Manager Dept :</h6>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<p id="sup_dept"></p>
+									</div>
+									<div class="col-md-7 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Reviewer Dept :</h6>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<p id="rev_dept"></p>
+									</div>
+									<div class="col-md-7 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> HRBP Dept :</h6>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<p>HR</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<input type="hidden" id="goals_setting_id">
-
-				<div class="card  card-absolute">
-					
+				<div class="card  card-absolute">				
 					<div class="card-header  bg-primary">
 						<h5 class="text-white" id="goals_sheet_head"></h5>
 					</div>
 					<div class="card-body">
-
 						<div class="table-responsive">
 							<div class="row">
 								<div class="col-lg-12 m-b-35">
@@ -49,17 +136,50 @@
 								<thead>
 									<tr>
 										<th scope="col">No</th>
-										<th scope="col">Key Business Drivers</th>
-										<th scope="col">Key Result Areas </th>
+										<th scope="col">Key Business Drivers (KBD)</th>
+										<th scope="col">Key Result Areas (KRA) </th>
 										<th scope="col">Measurement Criteria (Quantified Measures)</th>
 										<th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
-										<th scope="col">Rating by Employee</th>
+										<th scope="col">Self Rating</th>
 									</tr>
 								</thead>
 								<tbody id="goals_record">									
 								</tbody>
 							</table>
 						</div>
+						<div id="employee_summary_get_div" style="display:none">
+                			<form  id="employeeSummaryForm">
+								<div class="row">
+									<div class="col-lg-12 m-t-30">
+										<h5>Summary :</h5>
+									</div>
+									<div class="col-lg-4">
+										<textarea name="employee_summary" id="employee_summary" class="form-control m-t-5" style="height: 100px;"></textarea>
+										<input type="hidden" name="id" id="goal_sheet_id" class="form-control">
+										<button class="btn btn-primary float-right m-t-10" type="submit">Save</button>
+									</div>
+									<div class="col-lg-8">
+									</div>
+								</div>
+							</form>
+						</div>
+						<div id="employee_summary_get_show" style="display:none">
+							<div class="row">
+								<div class="col-lg-5">
+									<h5>Self Summary :</h5>
+								</div>
+								<div class="col-lg-7">
+									<p id="goal_employee_summary_show"></p>
+								</div>
+								<div class="col-lg-5">
+									<h5>Supervisor Summary :</h5>
+								</div>
+								<div class="col-lg-7">
+									<p id="goal_supervisor_summary_show"></p>
+								</div>
+							</div>
+						</div>
+						
 					</div>
 
 				</div>
@@ -112,7 +232,123 @@
 				// 	'pdfHtml5'
 				// ]
 			} );
+			login_user_details();
+			goal_employee_summary_check();
+			goal_employee_summary_show();
 		});
+
+		//Edit pop-up model and data show
+		function login_user_details(){
+
+			$.ajax({
+				url: "get_goal_login_user_details_sup",
+				method: "GET",
+				dataType: "json",
+				success: function(data) {
+					// console.log(data)
+					if(data.length !=0){                                        
+						$('#sup_dept').html(data[0].department);                    
+					}
+				}
+			});
+
+			$.ajax({
+				url: "get_goal_login_user_details_rev",
+				method: "GET",
+				dataType: "json",
+				success: function(data) {
+					// console.log(data)
+					if(data.length !=0){                                        
+						$('#rev_dept').html(data[0].department);                    
+					}
+				}
+			});
+
+		}
+
+		function goal_employee_summary_check(){
+			var params = new window.URLSearchParams(window.location.search);
+			var id=params.get('id');
+
+			/**********Sheet Head**************/			
+			$.ajax({                   
+				url:"{{ url('goal_employee_summary_check') }}",
+				type:"GET",
+				data:{id:id},
+				dataType : "JSON",
+				success:function(response)
+				{
+					// alert(response)
+					if(response == "1"){
+						$('#goal_sheet_id').val(id);
+						$('#employee_summary_get_div').css('display', 'block');
+					}else if(response == "2"){
+						$('#employee_summary_get_show').css('display', 'block');
+					}
+				},
+				error: function(error) {
+					console.log(error);
+				}                                              
+					
+			});
+		}
+
+		
+		$("#employeeSummaryForm").submit(function(e) {
+			e.preventDefault();
+
+			// $('button[type="submit"]').attr('disabled' , true);
+
+			$.ajax({                   
+				url:"goals_employee_summary",
+				type:"POST",
+				data:$('#employeeSummaryForm').serialize(),
+				dataType : "JSON",
+				success:function(data)
+				{
+					Toastify({
+						text: "Send Sucessfully..!",
+						duration: 3000,
+						close:true,
+						backgroundColor: "#4fbe87",
+					}).showToast();    
+					
+					// $('button[type="submit"]').attr('disabled' , false);
+					$('#employeeSummaryModal').modal('hide');
+					goal_record();
+					window.location.reload();
+					// window.location = "{{ url('goals')}}";                
+					// $("#goal_data").load("{{url('get_goal_list')}}");               
+				},
+				error: function(response) {
+					// alert(response.responseJSON.errors.business_name_option);
+					// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+				}                                              
+					
+			});
+
+		});
+		function goal_employee_summary_show(){
+			var params = new window.URLSearchParams(window.location.search);
+			var id=params.get('id');
+			/**********Sheet Head**************/			
+			$.ajax({                   
+				url:"{{ url('goals_sheet_head') }}",
+				type:"GET",
+				data:{id:id},
+				dataType : "JSON",
+				success:function(response)
+				{
+					$('#goals_sheet_head').append('');
+					// $('#goals_sheet_head').append(response);
+				},
+				error: function(error) {
+					console.log(error);
+
+				}                                              
+					
+			});
+		}
 
 		var params = new window.URLSearchParams(window.location.search);
 		var id=params.get('id')

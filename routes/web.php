@@ -172,6 +172,9 @@ Route::get('fecth_goals_sup_movement_process', 'GoalsController@fecth_goals_sup_
 Route::get('get_goal_login_user_details_sup', 'GoalsController@get_goal_login_user_details_sup')->name('get_goal_login_user_details_sup');
 Route::get('get_goal_login_user_details_rev', 'GoalsController@get_goal_login_user_details_rev')->name('get_goal_login_user_details_rev');
 Route::post('update_goals_sup_submit_overall', 'GoalsController@update_goals_sup_submit_overall');
+Route::get('get_goal_setting_sup_dept_name', 'GoalsController@get_goal_setting_sup_dept_name');
+Route::get('get_goal_setting_rev_dept_name', 'GoalsController@get_goal_setting_rev_dept_name');
+Route::get('goal_employee_summary_check', 'GoalsController@goal_employee_summary_check');
 // Route::get('goals_sup_submit_status_for_rev', 'GoalsController@goals_sup_submit_status_for_rev')->name('goals_sup_submit_status_for_rev');
 
 //Birthday controller

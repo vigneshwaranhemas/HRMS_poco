@@ -267,7 +267,7 @@
 				"info": false,
 				"fixedColumns":   {
 						left: 6
-					}
+				}
 				// dom: 'Bfrtip',
 				// buttons: [
 				// 	'copyHtml5',

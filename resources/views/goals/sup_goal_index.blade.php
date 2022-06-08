@@ -41,14 +41,20 @@
         color: #fff;        
     }
     .nav-primary .nav-link.nav-link-pms-2{
-        background-color: #fd517d;
+        background-color: #ff0000;
         color: #fff;        
+    }
+    ul.nav-primary-style{
+        margin-top: -25px !important;
+    }
+    #add_goal_btn{
+        display:none;
     }
 </style>
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Supervisor Performance Management<span>System</span></h2>
+	<h2>Performance Management<span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -69,11 +75,11 @@
                         <div class="tab-pane fade show active" id="pills-warninghome" role="tabpanel" aria-labelledby="pills-warninghome-tab">
                             <div class="card goals-card-div">
                                 <div class="card-body">
-                                    <ul class="nav  m-t-30 nav-tabs nav-material nav-primary" id="info-tab" role="tablist">
-                                        <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>MySelf</a>
+                                    <ul class="nav nav-tabs nav-material nav-primary nav-primary-style" id="info-tab" role="tablist">
+                                        <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i><b>MySelf</b></a>
                                         <div class="material-border"></div>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>As Reporting Manager</a>
+                                        <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i><b>As Reporting Manager</b></a>
                                         <div class="material-border"></div>
                                         </li>
                                     </ul>
@@ -81,13 +87,13 @@
                                         <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">                        
                                             <div class="goals-card-div-1">
                                                 <div class="">
-                                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none:"><button class="btn float-right btn-primary-gradien m-b-10" type="button" style="margin-top:-30px;" data-original-title="Add Sheet" title="Add Sheet">Add Sheet</button></a>
+                                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none:"><button class="btn float-right btn-primary-gradien m-b-10" type="button" data-original-title="Add Sheet" title="Add Sheet">Add Sheet</button></a>
                                                     <div class="table-responsive">
                                                         <table class="table" id="goal_data">
                                                             <thead>
                                                                 <tr>
                                                                 <th scope="col">No</th>
-                                                                <th scope="col">Goal list</th>
+                                                                <th scope="col">Title</th>
                                                                 <th scope="col">Action </th>
                                                                 </tr>
                                                             </thead>
@@ -99,8 +105,8 @@
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">                                                
-                                            <div class="card">
-                                                <div class="card-body">
+                                            <div class="">
+                                                <div class="">
                                                     <div class="row">
                                                         <div class="col-lg-2 m-t-5">
                                                             <label for="Leader">Select Team Member</label>                                        
@@ -122,8 +128,8 @@
                                                                 <tr>
                                                                 <th scope="col">No</th>
                                                                 <th scope="col">Employee Name</th>
-                                                                <th scope="col">Goal Name</th>
-                                                                <th scope="col">Status</th>
+                                                                <th scope="col">Title</th>
+                                                                <th scope="col">Business Head Status</th>
                                                                 <!-- <th scope="col">Date</th> -->
                                                                 <th scope="col">Action </th>
                                                                 </tr>

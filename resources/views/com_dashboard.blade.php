@@ -99,32 +99,7 @@
             </div> -->
          </div>
       </div>
-
-      <div class="col-xl-7 xl-90 box-col-12">
-         <div class="card">
-            <div class="card-header no-border">
-               <h5>Today's Birthdays</h5>
-               <ul class="creative-dots">
-                  <li class="bg-primary big-dot"></li>
-                  <li class="bg-secondary semi-big-dot"></li>
-                  <li class="bg-warning medium-dot"></li>
-                  <li class="bg-info semi-medium-dot"></li>
-                  <li class="bg-secondary semi-small-dot"></li>
-                  <li class="bg-primary small-dot"></li>
-               </ul>
-               <div class="card-header-right">
-               <i class="icofont icofont-birthday-cake font-primary"  style="font-size: 18px;"></i>
-               </div>
-            </div>
-            <div class="card-body pt-0">
-               <ul class="crm-activity" id="tdy_birthday_card_list">
-               </ul>
-            </div>
-         </div>
-      </div>
-
-
-
+      
       @if ($User_info['worklocation']=='WFH')
       <div class="col-xl-7 xl-90 box-col-12">
         <div class="card">
@@ -169,6 +144,32 @@
         </div>
      </div>
      @endif
+     
+     <div class="col-xl-5 xl-90 box-col-12">
+     </div>
+
+     <div class="col-xl-7 xl-90 box-col-12">
+         <div class="card">
+            <div class="card-header no-border">
+               <h5>Today's Birthdays</h5>
+               <ul class="creative-dots">
+                  <li class="bg-primary big-dot"></li>
+                  <li class="bg-secondary semi-big-dot"></li>
+                  <li class="bg-warning medium-dot"></li>
+                  <li class="bg-info semi-medium-dot"></li>
+                  <li class="bg-secondary semi-small-dot"></li>
+                  <li class="bg-primary small-dot"></li>
+               </ul>
+               <div class="card-header-right">
+               <i class="icofont icofont-birthday-cake font-primary"  style="font-size: 18px;"></i>
+               </div>
+            </div>
+            <div class="card-body pt-0">
+               <ul class="crm-activity" id="tdy_birthday_card_list">
+               </ul>
+            </div>
+         </div>
+      </div>
 
       <div class="col-xl-5 xl-90 box-col-12">
          <div class="card">

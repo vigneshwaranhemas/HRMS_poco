@@ -41,7 +41,7 @@ interface IGoalRepository {
     public function get_hr_goal_list_for_tbl($data);
     public function get_manager_lsit($data);
     public function update_goals_sup($data);
-    public function update_goals_sup_movement($movement_json_data);
+    // public function update_goals_sup_movement($movement_json_data);
     public function update_goals_sup_submit($data);
     public function update_emp_goals_data_submit($data);
     public function update_emp_goals_data($data);
@@ -59,4 +59,9 @@ interface IGoalRepository {
     public function get_goal_login_user_details_sup();
     public function get_goal_login_user_details_rev();    
     public function update_goals_hr_reviewer_tm($data);
+    public function get_goal_setting_sup_dept_name($id);
+    public function get_goal_setting_rev_dept_name($id);
+    public function goal_employee_summary_check($id);
+    public function getSupEmail();
+    public function goals_supervisor_summary($id, $sup_summary);
 }

@@ -37,19 +37,22 @@
 	.selection .select2-selection{
 		border-radius: 5px !important;
 	}
+	#goal_sheet_edit{
+		display: none;
+	}
 </style>
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Performance Management System<span>View </span></h2>
+	<h2>Performance Management <span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
-	<a class="btn btn-sm btn-success text-white" title="Exceeded Expectations">EE</a>
-	<a class="btn btn-sm btn-secondary m-l-10 text-white" title="Achieved Expectations">AE</a>
-	<a class="btn btn-sm btn-info m-l-10 text-white" title="Met Expectations">ME</a>
-	<a class="btn btn-sm btn-warning m-l-10 text-white" title="Partially Met Expectations">PME</a>
-	<a class="btn btn-sm btn-dark m-l-10 text-white" title="Needs Development">ND</a>
+	<a class="btn btn-sm text-white" style="background-color: #FFD700;" title="Significantly Exceeds Expectations">SEE</a>                                            
+	<a class="btn btn-sm text-white m-l-10" style="background-color: #008000;" title="Exceeded Expectations">EE</a>                                            
+	<a class="btn btn-sm btn-success m-l-10 text-white" title="Met Expectations">ME</a>                                            
+	<a class="btn btn-sm m-l-10 text-white" style="background-color: #FFA500" title="Partially Met Expectations">PME</a>                                            
+	<a class="btn btn-sm m-l-10 text-white" style="background-color: #FF0000;" title="Needs Development">ND</a>                                            	
 @endsection
 
 @section('content')
@@ -59,7 +62,7 @@
 			<div class="col-sm-12">
 				<div class="ribbon-vertical-right-wrapper card">
 					<div class="card-body">
-						<div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 50px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PA</span>
+						<div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 70px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PMS</span>
 						</div>
 						<div class="row">
 							<div class="col-md-4">
@@ -71,10 +74,16 @@
 										<p id="empID"></p>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ebook"> </i> Supervisor ID :</h6>
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> R.Manager ID :</h6>
 									</div>
 									<div class="col-md-6 m-t-10">
 										<p id="sup_emp_code"></p>
+									</div>
+									<div class="col-md-6 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</h6>
+									</div>
+									<div class="col-md-6 m-t-10">
+										<p id="reviewer_emp_code"></p>
 									</div>
 									<div class="col-md-6 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
@@ -86,45 +95,57 @@
 							</div>
 							<div class="col-md-4">
 								<div class="row">
-									<div class="col-md-5">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Name :</h6>
-									</div>
 									<div class="col-md-7">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Emp Name :</h6>
+									</div>
+									<div class="col-md-5">
 										<p id="username"></p>
 									</div>
-									<div class="col-md-5 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Supervisor :</h6>
-									</div>
 									<div class="col-md-7 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> R.Manager Name :</h6>
+									</div>
+									<div class="col-md-5 m-t-10">
 										<p id="sup_name"></p>
 									</div>
+									<div class="col-md-7 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Reveiwer Name :</h6>
+									</div>
 									<div class="col-md-5 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP :</h6>
+										<p id="reviewer_name"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> HRBP :</h6>
+									</div>
+									<div class="col-md-5 m-t-10">
 										<p>Rajesh M S</p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="row">
-									<div class="col-md-5">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Department :</h6>
-									</div>
 									<div class="col-md-7">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Emp Dept:</h6>
+									</div>
+									<div class="col-md-5">
 										<p id="department"></p>
 									</div>
-									<div class="col-md-5 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Reviewer :</h6>
-									</div>
 									<div class="col-md-7 m-t-10">
-										<p id="reviewer_name"></p>
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> R.Manager Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer ID :</h6>
+										<p id="sup_dept"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<p id="reviewer_emp_code"></p>
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Reviewer Dept :</h6>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<p id="rev_dept"></p>
+									</div>
+									<div class="col-md-7 m-t-10">
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> HRBP Dept :</h6>
+									</div>
+									<div class="col-md-5 m-t-10">
+										<p>HR</p>
 									</div>
 								</div>
 							</div>
@@ -144,7 +165,7 @@
 									<a id="goal_sheet_submit_no_tb"  onclick="supSubmitDirect();" class="btn btn-success text-white float-right" title="Submit For Approval">Submit</a>                                            
 									<!-- <button type="button" class="btn btn-warning "  >Edit</button> -->
 									<h5>EMPLOYEE CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
-									<h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
+									<h5>REPORTING MANAGER CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
 								</div>
 							</div>
 							<form id="supGoalsForm">
@@ -152,13 +173,13 @@
 									<thead>
 										<tr>
 											<th scope="col">No</th>
-											<th scope="col">Key Business Drivers</th>
-											<th scope="col">Key Result Areas </th>
+											<th scope="col">Key Business Drivers (KBD)</th>
+											<th scope="col">Key Result Areas (KRA)</th>
 											<th scope="col">Measurement Criteria (UOM)</th>
 											<th scope="col">Self Assessment</th>
-											<th scope="col">Rating </th>
-											<th scope="col">Supervisor Remarks </th>
-											<th scope="col">Supervisor Rating </th>
+											<th scope="col">Rating By Employee</th>
+											<th scope="col">R.Manager Remarks </th>
+											<th scope="col">R.Manager Rating </th>
 											<th scope="col">Reviewer Remarks </th>
 											<th scope="col">HR Remarks </th>
 											<th scope="col">BH Remarks </th>
@@ -184,16 +205,16 @@
 											</select>
 											<div class="text-danger supervisor_consolidated_rate_error" id=""></div>
 										</div>
-										<div class="col-lg-3 m-b-20">
+										<div class="col-lg-3 m-b-20" style="display:none">
 											<label>PIP</label><br>
 											<select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_pip_exit" name="supervisor_pip_exit">
-												<option value="" selected>...Select...</option>
-												<option value="Place employee in PIP">Place employee in PIP</option>
+												<option value="">...Select...</option>
+												<option value="Place employee in PIP" selected>Place employee in PIP</option>
 												<option value="Employee Exit on performance grounds">Employee Exit on performance grounds</option>
 											</select>
 											<div class="text-danger supervisor_pip_exit_error" id=""></div>
 										</div>
-										<div class="col-lg-1 m-b-20">
+										<div class="col-lg-1 m-b-20" style="display:none">
 											<label>Movement</label><br>
 											<input class="m-t-10" id="candicate_checkbox" style="font-size:1000px;" name="candicate_checkbox" type="checkbox">
 										</div>
@@ -254,12 +275,56 @@
 											</div>
 										</div>
 										<div class="col-lg-12">
-											<a onclick="supFormSave();" id="sup_save_table" class="btn btn-primary text-white m-t-30" title="Save For Draft">Save</a>
-											<a onclick="supFormSave();" id="sup_update_table" class="btn btn-primary text-white m-t-30 sup_update_table" title="Save For Draft">Update</a>
+											<a onclick="supFormSave();" id="sup_save_table" class="btn btn-primary text-white m-t-5" title="Save As Draft">Save As Draft</a>
+											<a onclick="supFormSave();" id="sup_update_table" class="btn btn-primary text-white m-t-5 sup_update_table" title="Save As Draft">Update</a>
 										</div>
 									</div>
 								<!-- </div> -->
 							</form>
+							<div id="employee_summary_get_div" style="display:none">
+								<form  id="supervisorSummaryForm">
+									<div class="row m-t-10 m-b-10">
+										<div class="col-lg-12">
+											<h5><b>Summary</b></h5>
+										</div>
+										<div class="col-lg-2">
+											<h6>Employee Summary :</h6>
+										</div>
+										<div class="col-lg-10">
+											<p id="goal_employee_summary_div_show"></p>
+										</div>
+										<div class="col-lg-12 m-t-5">
+											<h6>Summary :</h6>
+										</div>
+										<div class="col-lg-4">
+											<textarea name="supervisor_summary" id="supervisor_summary" class="form-control m-t-5" style="height: 100px;"></textarea>
+											<input type="hidden" name="id" id="goal_supervisor_sum_id" class="form-control">
+											<button class="btn btn-primary float-right m-t-10" type="submit">Save</button>
+										</div>
+										<div class="col-lg-8">
+										</div>
+									</div>
+								</form>
+							</div>
+							<div id="employee_summary_get_show" style="display:none">
+								<div class="row m-t-10 m-b-10">
+									<div class="col-lg-12">
+										<h5><b>Summary</b></h5>
+									</div>
+									<div class="col-lg-2">
+										<h6>Employee Summary :</h6>
+									</div>
+									<div class="col-lg-10">
+										<p id="goal_employee_summary_show"></p>
+									</div>
+									<div class="col-lg-2">
+										<h6>Supervisor Summary :</h6>
+									</div>
+									<div class="col-lg-10">
+										<p id="goal_supervisor_summary_show"></p>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 
@@ -302,7 +367,95 @@
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
+			goal_employee_summary_check();
 		});
+
+		function goal_employee_summary_check(){
+			var params = new window.URLSearchParams(window.location.search);
+			var id=params.get('id');
+
+			/**********Sheet Head**************/			
+			$.ajax({                   
+				url:"{{ url('goal_employee_summary_check') }}",
+				type:"GET",
+				data:{id:id},
+				dataType : "JSON",
+				success:function(response)
+				{
+					// alert(response)
+					if(response == "2"){
+						var params = new window.URLSearchParams(window.location.search);
+						var id=params.get('id');
+
+						$.ajax({                   
+							url:"fetch_goals_employee_summary",
+							type:"GET",
+							data:{id: id}, 
+							dataType : "JSON",
+							success:function(data)
+							{      
+								// console.log(data)
+								$('#goal_employee_summary_div_show').html(data); 
+							},
+							error: function(response) {
+								
+								console.log(response);
+								// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+							}                                              
+								
+						});
+
+						$('#employee_summary_get_div').css('display', 'block');
+
+					}else if(response == "3"){
+
+						var params = new window.URLSearchParams(window.location.search);
+						var id=params.get('id');
+
+						$.ajax({                   
+							url:"fetch_goals_employee_summary",
+							type:"GET",
+							data:{id: id}, 
+							dataType : "JSON",
+							success:function(data)
+							{      
+								// console.log(data)
+								$('#goal_employee_summary_show').html(data); 
+							},
+							error: function(response) {
+								
+								console.log(response);
+								// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+							}                                              
+								
+						});
+
+						$.ajax({                   
+							url:"fetch_goals_supervisor_summary",
+							type:"GET",
+							data:{id: id}, 
+							dataType : "JSON",
+							success:function(data)
+							{      
+								$('#goal_supervisor_summary_show').html(data); 
+							},
+							error: function(response) {            
+								console.log(response);
+							}                                              
+								
+						});
+
+						$('#employee_summary_get_show').css('display', 'block');
+					}
+				},
+				error: function(error) {
+					console.log(error);
+				}                                              
+					
+			});
+		}
 
 		$( document ).ready(function() {
 			// goal_record();
@@ -334,7 +487,41 @@
 		var params = new window.URLSearchParams(window.location.search);
 		var id=params.get('id')
 		$('#goals_setting_id').val(id);
-		// $("#goal_sheet_sup_id").val(id);
+		$("#goal_supervisor_sum_id").val(id);
+		
+		$("#supervisorSummaryForm").submit(function(e) {
+			e.preventDefault();
+
+			// $('button[type="submit"]').attr('disabled' , true);
+
+			$.ajax({                   
+				url:"goals_supervisor_summary",
+				type:"POST",
+				data:$('#supervisorSummaryForm').serialize(),
+				dataType : "JSON",
+				success:function(data)
+				{
+					Toastify({
+						text: "Send Sucessfully..!",
+						duration: 3000,
+						close:true,
+						backgroundColor: "#4fbe87",
+					}).showToast();    
+					$('#employee_summary_get_div').css('display', 'none');
+					goal_employee_summary_check();
+					// location.reload();
+					// window.location = "{{ url('goals')}}";                
+					// $("#goal_data").load("{{url('get_goal_list')}}");               
+				},
+				error: function(response) {
+					// alert(response.responseJSON.errors.business_name_option);
+					// $('#business_name_option_error').text(response.responseJSON.errors.business_name);
+
+				}                                              
+					
+			});
+
+		});
 
 		var id = $('#goals_setting_id').val();
 
@@ -1031,8 +1218,40 @@
 						$('#reviewer_name').html(data[0].reviewer_name);
 						$('#reviewer_emp_code').html(data[0].reviewer_emp_code);
 					}
+
+					var sup_empID = data[0].sup_emp_code;
+					var rev_empID = data[0].reviewer_emp_code;
+
+					$.ajax({
+						url: "get_goal_setting_sup_dept_name",
+						method: "GET",
+						data:{"id":sup_empID,},
+						dataType: "json",
+						success: function(data) {
+							// console.log(data)
+
+							if(data.length !=0){
+								$('#sup_dept').html(data[0].department);
+							}
+						}
+					});
+
+					$.ajax({
+						url: "get_goal_setting_rev_dept_name",
+						method: "GET",
+						data:{"id":rev_empID,},
+						dataType: "json",
+						success: function(data) {
+							// console.log(data)
+
+							if(data.length !=0){
+								$('#rev_dept').html(data[0].department);
+							}
+						}
+					});
 				}
-			});
+			});			
+			
 		}
 
 		$('#candicate_checkbox').change(function () {

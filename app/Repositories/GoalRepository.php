@@ -338,44 +338,59 @@ class GoalRepository implements IGoalRepository
                         'goal_status' => $data['goal_status']
                   ]);
       return $response;
-   }
+   }   
    public function add_goal_btn(){
       $logined_empID = Auth::user()->empID;
-      // $logined_doj = Auth::user()->doj;
-      $logined_doj = "2021-11-15";
-      $year = Carbon::createFromFormat('Y-m-d', $logined_doj)->format('Y');
-      $current_year = date("Y");
-
-      if($year < $current_year ){
-         // dd($year);
-         $response1 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Pending')->value('goal_name');
-         $response2 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Revert')->value('goal_name');
-         // dd($response2);
-         if(!empty($response1) || !empty($response2)){
-            // dd("y");
-            $response = "Yes";
-         }else{
-            // dd("n");
-            $response3 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Approved')->where('hr_status', "1")->where('bh_status', "1")->value('goal_name');
-
-            if(!empty($response3)){
-               // dd("y");
-               $response = "No";
-            }else{
-               // dd("n");
-      
-               $response = "Yes";
-            }
-         }
-
-      }else{
+      $response1 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Pending')->value('goal_name');
+      $response2 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Revert')->value('goal_name');
+      // dd($response2);
+      if(!empty($response1) || !empty($response2)){
+         // dd("y");
          $response = "Yes";
-      
-
+      }else{
+         // dd("n");
+         $response = "No";
       }
-            
       return $response;
    }
+   // public function add_goal_btn(){
+   //    $logined_empID = Auth::user()->empID;
+   //    $logined_doj = Auth::user()->doj;
+   //    // $logined_doj = "2021-11-15";
+   //    $year = Carbon::createFromFormat('Y-m-d', $logined_doj)->format('Y');
+   //    $current_year = date("Y");
+
+   //    if($year < $current_year ){
+   //       // dd("1");
+   //       $response1 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Pending')->value('goal_name');
+   //       $response2 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Revert')->value('goal_name');
+   //       // dd($response2);
+   //       if(!empty($response1) || !empty($response2)){
+   //          // dd("12");
+   //          $response = "Yes";
+   //       }else{
+   //          // dd("13");
+   //          $response3 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Approved')->where('hr_status', "1")->where('bh_status', "1")->value('goal_name');
+
+   //          if(!empty($response3)){
+   //             // dd("14");
+   //             $response = "Yes";
+   //          }else{
+   //             // dd("15");
+      
+   //             $response = "No";
+   //          }
+   //       }
+
+   //    }else{
+   //       // dd("2");
+   //       $response = "Yes";
+      
+
+   //    }
+            
+   //    return $response;
+   // }
    public function checkCustomUserList(){
       $logined_empID = Auth::user()->empID;
       $logined_username = Auth::user()->username;
@@ -446,6 +461,14 @@ class GoalRepository implements IGoalRepository
                   ->where('created_by', $logined_empID)
                   ->update([
                         'employee_summary' => $employee_summary
+                  ]);
+      return $response;
+   }
+   public function goals_supervisor_summary($id, $sup_summary){
+        $logined_empID = Auth::user()->empID;
+        $response = Goals::where('goal_unique_code', $id)
+                  ->update([
+                        'supervisor_summary' => $sup_summary
                   ]);
       return $response;
    }
@@ -1397,7 +1420,6 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
 
       return $reviewer_details_tl;
    }
-
    public function update_goals_sup_reviewer_tm($data){
       $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                         ->update([
@@ -1458,32 +1480,75 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
       return $response;
    }
 
- public function update_goals_sup_submit_overall($data){
-    $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
-                      ->update([
-                            'goal_process' => $data['goal_process'],
-                            'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate'],
-                            'supervisor_tb_status' => "1",
-                            'supervisor_status' => "1",
-                      ]);
-    return $response;
- }
+   public function update_goals_sup_submit_overall($data){
+      $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+                        ->update([
+                              'goal_process' => $data['goal_process'],
+                              'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate'],
+                              'supervisor_tb_status' => "1",
+                              'supervisor_status' => "1",
+                        ]);
+      return $response;
+   }
 
-//  public function goals_sup_submit_status_for_rev( $id ){
-//     $tb1 = Goals::where('goal_unique_code', $id)->where('reviewer_tb_status', "1")->value('reviewer_tb_status');
-//     $tb2 = Goals::where('goal_unique_code', $id)->where('reviewer_tb_status', "1")->where('reviewer_status', "1")->value('reviewer_status');
-//     if(!empty($tb1)){
-//        if($tb2 == 1){
-//           $response = "2"; //overall submited
-//        }else{
-//           $response = "1"; //save only not submit
+   //  public function goals_sup_submit_status_for_rev( $id ){
+   //     $tb1 = Goals::where('goal_unique_code', $id)->where('reviewer_tb_status', "1")->value('reviewer_tb_status');
+   //     $tb2 = Goals::where('goal_unique_code', $id)->where('reviewer_tb_status', "1")->where('reviewer_status', "1")->value('reviewer_status');
+   //     if(!empty($tb1)){
+   //        if($tb2 == 1){
+   //           $response = "2"; //overall submited
+   //        }else{
+   //           $response = "1"; //save only not submit
 
-//        }
+   //        }
 
-//     }else{
-//        $response = "0"; //new entry
-//     }
-//     return $response;
-//  }
+   //     }else{
+   //        $response = "0"; //new entry
+   //     }
+   //     return $response;
+   //  }
+
+   public function get_goal_setting_sup_dept_name($id){
+      // dd($id);
+      $response = DB::table('customusers')->where('empID', $id)->get();
+      return $response;
+   }
+   public function get_goal_setting_rev_dept_name($id){
+      $response = DB::table('customusers')->where('empID', $id)->get();
+      return $response;
+   }
+   public function goal_employee_summary_check($id){      
+      $employee_summary = Goals::where('goal_unique_code', $id)->where('goal_status', "Approved")->where('bh_status', "1")->where('hr_status', "1")->value('goal_name');
+      // dd($employee_summary);
+      if(!empty($employee_summary)){
+         $summary = Goals::where('goal_unique_code', $id)->where('goal_status', "Approved")->where('bh_status', "1")->where('hr_status', "1")->value('employee_summary');
+         if(!empty($summary)){
+
+            $sup_summary = Goals::where('goal_unique_code', $id)->where('goal_status', "Approved")->where('bh_status', "1")->where('hr_status', "1")->value('supervisor_summary');
+
+            if(!empty($sup_summary)){
+   
+               $response = "3";
+   
+            }else{
+               $response = "2";
+   
+            }
+
+         }else{
+            $response = "1";
+
+         }
+      }else{
+         $response = "0";
+      }
+      return $response;
+   }
+   public function getSupEmail(){      
+      $logined_sup_emp_code = Auth::user()->sup_emp_code;
+      $response = DB::table('customusers')->where('empID', $logined_sup_emp_code)->value('email');
+      return $response;
+      
+   }
 
 }

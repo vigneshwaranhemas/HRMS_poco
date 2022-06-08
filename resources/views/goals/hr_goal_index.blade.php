@@ -24,7 +24,7 @@
         border: none;
         padding: revert;
         border-radius: revert;
-    }
+    }    
 </style>
 @endsection
 
@@ -81,8 +81,8 @@
                                             <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Employee Name</th>
-                                            <th scope="col">Goal Name</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Business Head Status</th>
                                             <th scope="col">Action </th>
                                             </tr>
                                         </thead>
@@ -121,8 +121,8 @@
                                             <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Employee Name</th>
-                                            <th scope="col">Goal Name</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Business Head Status</th>
                                             <th scope="col">Action </th>
                                             </tr>
                                         </thead>
@@ -187,8 +187,8 @@
                                             <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Employee Name</th>
-                                            <th scope="col">Goal Name</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Business Head Status</th>
                                             <th scope="col">Action </th>
                                             </tr>
                                         </thead>
@@ -209,7 +209,7 @@
                                         <thead>
                                             <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col">Goal list</th>
+                                            <th scope="col">Title</th>
                                             <th scope="col">Action </th>
                                             </tr>
                                         </thead>

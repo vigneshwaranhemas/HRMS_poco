@@ -23,7 +23,7 @@
         background-color: #7e37d8;
         border: none;
         padding: revert;
-        border-radius: revert;    
+        border-radius: revert;
     }
     .card.goals-card-div{
         border-radius: unset !important;
@@ -115,20 +115,6 @@
                                     <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_list" name="supervisor_list">
                                     </select>
                                 </div>
-                                <div class="table-responsive m-t-40">
-                                    <table class="table" id="supervisor_goal_data">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Employee Name</th>
-                                            <th scope="col">Title</th>
-                                            <th scope="col">Business Head Status</th>
-                                            <th scope="col">Action </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
                                 <div class="col-lg-8 m-t-35">
                                     <button type="button" id="supervisor_filter" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
                                     <button type="button" id="reset" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
@@ -178,8 +164,8 @@
                                             <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Employee Name</th>
-                                            <th scope="col">Title</th>
-                                            <th scope="col">Business Head Status</th>
+                                            <th scope="col">Goal Name</th>
+                                            <th scope="col">Status</th>
                                             <th scope="col">Action </th>
                                             </tr>
                                         </thead>
@@ -198,20 +184,6 @@
                                     <select class="js-example-basic-single float-right" style="width:300px;" id="reviewer_filter" name="reviewer_filter">
                                     </select>
                                 </div>
-                                <div class="table-responsive m-t-40">
-                                    <table class="table" id="get_hr_goal">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Employee Name</th>
-                                            <th scope="col">Title</th>
-                                            <th scope="col">Business Head Status</th>
-                                            <th scope="col">Action </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
                                 <div class="col-lg-2 m-t-5">
                                     <label for="Leader">Select R.Manager</label>
                                     <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter_hr" name="team_leader_filter_hr">
@@ -267,28 +239,6 @@
                             </div>
                         </div>
                     </div>      
-                    <!--myself -->
-                    <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
-                        <div class="card">
-                            <div class="card-body">
-                                <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn  float-right btn-primary-gradien" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
-                                <div class="table-responsive">
-                                    <table class="table" id="goal_data">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Title</th>
-                                            <th scope="col">Action </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--listing -->
                     <!--ORG Level review -->
                     <div class="tab-pane fade" id="info-listing" role="tabpanel" aria-labelledby="listing-info-tab">                        
                         <div class="card-body">
@@ -359,7 +309,7 @@
                                     </table>
                                 </div>
                             </div>
-                    </div>
+                        </div>
                     </div>
                 </div>
             </div>

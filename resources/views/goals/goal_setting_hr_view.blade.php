@@ -276,14 +276,15 @@
 	            // console.log(data)
 
 	            if(data.length !=0){
-	                $('#empID').html(data[0].empID);
-	                $('#username').html(data[0].username);
-	                $('#sup_emp_code').html(data[0].sup_emp_code);
-	                $('#sup_name').html(data[0].sup_name);
-	                $('#department').html(data[0].department);
-	                $('#reviewer_name').html(data[0].reviewer_name);
-	                $('#reviewer_emp_code').html(data[0].reviewer_emp_code);
-	            }
+                    $('#empID').html(data.all['0'].empID);
+                    $('#username').html(data.all['0'].username);
+                    $('#sup_emp_code').html(data.all['0'].sup_emp_code);
+                    $('#sup_name').html(data.all['0'].sup_name);
+                    $('#department').html(data.all['0'].department);
+                    $('#reviewer_name').html(data.all['0'].reviewer_name);
+                    $('#reviewer_emp_code').html(data.all['0'].reviewer_emp_code);
+                    $('#sup_department').html(data.only_dept[0].department);
+                }
 	        }
 	    });
 
@@ -372,11 +373,12 @@
 
 		$.ajax({                   
 			url:"{{ url('fetch_goals_hr_details') }}",
-			type:"GET",
+			type:"POST",
 			data:{id:id},
 			dataType : "JSON",
 			success:function(response)
 			{
+				// console.log(response)
 				$('#goals_record_tb').DataTable().clear().destroy();
 				$('#goals_record').empty();
 				$('#goals_record').append(response);

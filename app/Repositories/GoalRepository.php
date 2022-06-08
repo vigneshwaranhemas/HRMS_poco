@@ -203,11 +203,7 @@ class GoalRepository implements IGoalRepository
        // echo "1<pre>";print_r($response);die;
       return $response;
    }
-   public function fetchGoalIdDetailsHR( $id ){
-      $response = Goals::where('goal_unique_code', $id)->value('goal_process');
-       // echo "1<pre>";print_r($response);die;
-      return $response;
-   }
+   
    public function Fetch_goals_user_info($id)
    {
         $user_info=Goals::join('customusers','customusers.empID','=','goals.created_by')
@@ -1599,12 +1595,65 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
         $empID = Goals::where('goal_unique_code', $id)->value('created_by');
         $logined_empID = Auth::user()->empID;
 
-//        }
+        $teamleader = DB::table('customusers')->where('reviewer_emp_code','!=', $logined_empID)->where('sup_emp_code', $logined_empID)->where('empID', $empID)->value('empID');
+        $employee=CustomUser::where('sup_emp_code','!=',$logined_empID)->where('reviewer_emp_code',$logined_empID)->where('empID',$empID)->value('empID');
+        $result=0;
+        if($teamleader){
+            $result=1;
+        }
+        if($employee){
+            $result=2;
+        }
+    //   echo json_encode($empID);die();
+        return $result;
+    }
+     public function update_goals_reviewer_teamleader($data){
 
-//     }else{
-//        $response = "0"; //new entry
-//     }
-//     return $response;
-//  }
+        $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+
+                          ->update([
+
+                                'goal_process' => $data['goal_process'],
+
+                                'reviewer_tb_status' => "1",
+
+                          ]);
+
+        return $response;
+
+     }
+
+     public function update_goals_sup_submit_overall_for_reviewer($data){
+
+        $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+
+                          ->update([
+
+                                'goal_process' => $data['goal_process'],
+
+                                'reviewer_tb_status' => "1",
+
+                                'reviewer_status' => "1",
+
+                          ]);
+
+        return $response;
+
+     }
+     public function update_goals_team_member_submit_direct($id){
+
+        $response = Goals::where('goal_unique_code', $id)
+
+                  ->update([
+
+                       'reviewer_tb_status' => "1",
+
+                       'reviewer_status' => "1",
+
+                  ]);
+
+        return $response;
+
+     }
 
 }

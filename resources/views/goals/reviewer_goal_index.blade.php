@@ -41,21 +41,18 @@
         color: #fff;
     }
     .nav-primary .nav-link.nav-link-pms-2{
-        background-color: #fd517d;
+        background-color: #FF0000 ;
         color: #fff;
     }
     .card .card-body
     {
         padding: 28px;
     }
-    #add_goal_btn{
-        display:none;
-    }
 </style>
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Reviewer Performance Management<span>System</span></h2>
+    <h2>Performance Management<span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -76,14 +73,14 @@
                         <div class="tab-pane fade show active" id="pills-warninghome" role="tabpanel" aria-labelledby="pills-warninghome-tab">
                             <div class="card goals-card-div">
                                 <div class="card-body">
-                                    <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist" style="margin-bottom: -15px;">
-                                        <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>MySelf </a>
+                                    <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist" style="margin-bottom: -15px;margin-top: -25px;">
+                                        <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i><b>MySelf </b></a>
                                         <div class="material-border"></div>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" id="info-reviewer-tab" data-toggle="tab" href="#info-reviewer" role="tab" aria-controls="info-reviewer" aria-selected="true"><i class="fa fa-user" aria-hidden="true"></i>AS Reporting Manager </a>
+                                        <li class="nav-item"><a class="nav-link" id="info-reviewer-tab" data-toggle="tab" href="#info-reviewer" role="tab" aria-controls="info-reviewer" aria-selected="true"><i class="fa fa-user" aria-hidden="true"></i><b>AS Reporting Manager </b></a>
                                         <div class="material-border"></div>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>AS Reviewer </a>
+                                        <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i><b>AS Reviewer </b></a>
                                         <div class="material-border"></div>
                                         </li>
                                     </ul>
@@ -91,13 +88,13 @@
                                         <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
 
                                                 <div class="card-body">
-                                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none:"><button class="btn float-right btn-primary-gradien m-b-10" type="button" data-original-title="Add Sheet" title="Add Sheet">Add Sheet</button></a>
+                                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none:"><button class="btn float-right btn-primary-gradien m-b-10" type="button" style="margin-top:-30px;" data-original-title="Add Sheet" title="Add Sheet">Add Sheet</button></a>
                                                     <div class="table-responsive">
                                                         <table class="table" id="goal_data">
                                                             <thead>
                                                                 <tr>
                                                                 <th scope="col">No</th>
-                                                                <th scope="col">Title</th>
+                                                                <th scope="col">Goal list</th>
                                                                 <th scope="col">Action </th>
                                                                 </tr>
                                                             </thead>
@@ -134,7 +131,7 @@
                                                                 <tr>
                                                                 <th scope="col">No</th>
                                                                 <th scope="col">Employee Name</th>
-                                                                <th scope="col">Title</th>
+                                                                <th scope="col">Goal Name</th>
                                                                 <th scope="col">Business Head Status</th>
                                                                 <!-- <th scope="col">Date</th> -->
                                                                 <th scope="col">Action </th>
@@ -177,9 +174,8 @@
                                                                 <tr>
                                                                 <th scope="col">No</th>
                                                                 <th scope="col">Employee Name</th>
-                                                                <th scope="col">Title</th>
                                                                 <th scope="col">Goal Name</th>
-                                                                <th scope="col">Status</th>
+                                                                <th scope="col">Business Head Status</th>
                                                                 <!-- <th scope="col">Date</th> -->
                                                                 <th scope="col">Action </th>
                                                                 </tr>

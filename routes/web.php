@@ -561,3 +561,7 @@ Route::post('pms_employeee_mail','GoalsController@pms_employeee_mail');
 Route::post('update_goals_hr_reviewer_tm', 'GoalsController@update_goals_hr_reviewer_tm');
 Route::post('save_hr_reviewer', 'GoalsController@save_hr_reviewer');
 Route::post('update_goals_sup_reviewer_tm_save', 'GoalsController@update_goals_sup_reviewer_tm_save');
+
+Route::post('get_goal_setting_hr_details_tl', 'GoalsController@get_goal_setting_hr_details_tl');
+Route::post('fetch_button_base_dt', 'GoalsController@fetch_button_base_dt');
+

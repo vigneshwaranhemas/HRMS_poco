@@ -841,6 +841,7 @@ class GoalsController extends Controller
     {
         $id = $request->id;
         $json = $this->goal->fetchGoalIdDetails($id);
+        
         $datas = json_decode($json);
 
         $html = '';
@@ -4074,6 +4075,16 @@ public function get_all_supervisors_info_bh()
         $get_reviewer_details_tl_result = $this->goal->get_goal_setting_reviewer_details_tl( $input_details );
 
         return response()->json( $get_reviewer_details_tl_result );
+    }
+    public function get_goal_setting_hr_details_tl(Request $req){
+        $input_details = array(
+            'id'=>$req->input('id'),
+        );
+
+        $get_reviewer_hr_tl_result = $this->goal->get_goal_setting_hr_details_tl( $input_details );
+        // echo 'test<pre>';print_r($get_reviewer_hr_tl_result);die();
+
+        return response()->json( $get_reviewer_hr_tl_result );
     }
     public function update_emp_goals_data(Request $request){
         // dd(($request->all()));die();

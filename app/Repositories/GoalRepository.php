@@ -340,41 +340,19 @@ class GoalRepository implements IGoalRepository
       return $response;
    }
    public function add_goal_btn(){
+
       $logined_empID = Auth::user()->empID;
-      // $logined_doj = Auth::user()->doj;
-      $logined_doj = "2021-11-15";
-      $year = Carbon::createFromFormat('Y-m-d', $logined_doj)->format('Y');
-      $current_year = date("Y");
-
-      if($year < $current_year ){
-         // dd($year);
-         $response1 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Pending')->value('goal_name');
-         $response2 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Revert')->value('goal_name');
-         // dd($response2);
-         if(!empty($response1) || !empty($response2)){
-            // dd("y");
-            $response = "Yes";
-         }else{
-            // dd("n");
-            $response3 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Approved')->where('hr_status', "1")->where('bh_status', "1")->value('goal_name');
-
-            if(!empty($response3)){
-               // dd("y");
-               $response = "No";
-            }else{
-               // dd("n");
-      
-               $response = "Yes";
-            }
-         }
-
-      }else{
+      $response1 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Pending')->value('goal_name');
+      $response2 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Revert')->value('goal_name');
+      if(!empty($response1) || !empty($response2)){
+         // dd("y");
          $response = "Yes";
-      
-
+      }else{
+         $response = "No";
       }
-            
+
       return $response;
+
    }
    public function checkCustomUserList(){
       $logined_empID = Auth::user()->empID;

@@ -22,18 +22,14 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>View<span>Goals </span></h2>
+	<h2>Add<span>Performance </span></h2>
 @endsection
 
 @section('breadcrumb-items')
 	<a class="btn btn-sm text-white" style="background-color: #FFD700;" title="Significantly Exceeds Expectations">SEE</a>                                            
-
     <a class="btn btn-sm text-white m-l-10" style="background-color: #008000;" title="Exceeded Expectations">EE</a>                                            
-
-    <a class="btn btn-sm btn-success m-l-10 text-white" title="Met Expectations">ME</a>                                            
-
+    <a class="btn btn-sm btn-success m-l-10 text-white" title="Met Expectations">ME</a>
     <a class="btn btn-sm m-l-10 text-white" style="background-color: #FFA500" title="Partially Met Expectations">PME</a>                                            
-
     <a class="btn btn-sm m-l-10 text-white" style="background-color: #FF0000;" title="Needs Development">ND</a>  
 @endsection
 
@@ -43,78 +39,96 @@
 		<div class="row">
 			<div class="col-sm-12">			
 				<div class="ribbon-vertical-right-wrapper card">
-					<div class="card-body">
-						<div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 50px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PA</span>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<div class="row">
-									<div class="col-md-5">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Emp ID :</h6>
-									</div>
-									<div class="col-md-7">
-										<p>{{ Auth::user()->empID }}</p>
-									</div>
-									<div class="col-md-5 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ebook"> </i> Supervisor ID :</h6>
-									</div>
-									<div class="col-md-7 m-t-10">
-										<p>{{ Auth::user()->sup_emp_code }}</p>
-									</div>
-									<div class="col-md-5 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
-									</div>
-									<div class="col-md-47 m-t-10">
-										<p>900380</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="row">
-									<div class="col-md-5">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Name :</h6>
-									</div>
-									<div class="col-md-7">
-										<p>{{ Auth::user()->username }}</p>
-									</div>
-									<div class="col-md-5 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Supervisor :</h6>
-									</div>
-									<div class="col-md-7 m-t-10">
-										<p>{{ Auth::user()->sup_name }}</p>
-									</div>
-									<div class="col-md-5 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP :</h6>
-									</div>
-									<div class="col-md-7 m-t-10">
-										<p>Rajesh M S</p>
-									</div>
-								</div>
-							</div>                        
-							<div class="col-md-4">
-								<div class="row">
-									<div class="col-md-5">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Department :</h6>
-									</div>
-									<div class="col-md-7">
-										<p>{{ Auth::user()->department }}</p>
-									</div>
-									<div class="col-md-5 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Reviewer :</h6>
-									</div>
-									<div class="col-md-7 m-t-10">
-										<p>{{ Auth::user()->reviewer_name }}</p>
-									</div>
-									<div class="col-md-5 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer ID :</h6>
-									</div>
-									<div class="col-md-7 m-t-10">
-										<p>{{ Auth::user()->reviewer_emp_code }}</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+				    <div class="card-body">
+				        <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 70px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;"> PMS</span>
+				        </div>
+				        <div class="row">
+				            <div class="col-md-4">
+				                <div class="row">
+				                    <div class="col-md-6">
+				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Emp ID :</h6>
+				                    </div>
+				                    <div class="col-md-6">
+				                        <p id="empID"></p>
+				                    </div>
+				                    <div class="col-md-6 m-t-10">
+				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-ebook"> </i> R.Manager ID :</h6>
+				                    </div>
+				                    <div class="col-md-6 m-t-10">
+				                        <p id="sup_emp_code"></p>
+				                    </div>
+				                    <div class="col-md-6 m-t-10">
+				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</h6>
+				                    </div>
+				                    <div class="col-md-6 m-t-10">
+				                        <p id="reviewer_emp_code"></p>
+				                    </div>
+				                    <div class="col-md-6 m-t-10">
+				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
+				                    </div>
+				                    <div class="col-md-6 m-t-10">
+				                        <p>900380</p>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-4">
+				                <div class="row">
+				                    <div class="col-md-7">
+				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Emp Name :</h6>
+				                    </div>
+				                    <div class="col-md-5">
+				                        <p id="username"></p>
+				                    </div>
+				                    <div class="col-md-7 m-t-10">
+				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> R.Manager Name :</h6>
+				                    </div>
+				                    <div class="col-md-5 m-t-10">
+				                        <p id="sup_name"></p>
+				                    </div>
+				                    <div class="col-md-7 m-t-10">
+				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Reveiwer Name :</h6>
+				                    </div>
+				                    <div class="col-md-5 m-t-10">
+				                        <p id="reviewer_name"></p>
+				                    </div>
+				                    <div class="col-md-7 m-t-10">
+				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP :</h6>
+				                    </div>
+				                    <div class="col-md-5 m-t-10">
+				                        <p>Rajesh M S</p>
+				                    </div>
+				                </div>
+				            </div>
+				            <div class="col-md-4">
+				                <div class="row">
+				                    <div class="col-md-7">
+				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Emp Dept:</h6>
+				                    </div>
+				                    <div class="col-md-5">
+				                        <p id="department"></p>
+				                    </div>
+				                    <div class="col-md-7 m-t-10">
+				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> R.Manager Dept :</h6>
+				                    </div>
+				                    <div class="col-md-5 m-t-10">
+				                        <p>IT</p>
+				                    </div>
+				                    <div class="col-md-7 m-t-10">
+				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer Dept :</h6>
+				                    </div>
+				                    <div class="col-md-5 m-t-10">
+				                        <p>IT</p>
+				                    </div>
+				                    <div class="col-md-7 m-t-10">
+				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP Dept :</h6>
+				                    </div>
+				                    <div class="col-md-5 m-t-10">
+				                        <p>HR</p>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
 				</div>				
 				<div class="card  card-absolute">					
 					<div class="card-header  bg-primary">
@@ -156,8 +170,17 @@
 							</table>
 							<input type="hidden" name="goals_setting_id" id="goals_setting_id">
 							<!-- <div class="m-t-20 m-b-30 float-right"> -->
-								<div class="m-t-20 m-b-30 row float-right" id="save_div">									
-									<div class="col-lg-8">
+								<div class="m-t-20 m-b-30 row float-right" id="save_div">
+
+									<div class="col-lg-6">
+										<!-- <label>PIP</label><br>
+                                        <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_pip_exit" name="supervisor_pip_exit">
+                                            <option value="" selected>...Select...</option>
+                                            <option value="Place employee in PIP">Place employee in PIP</option>
+                                            <option value="Employee Exit on performance grounds">Employee Exit on performance grounds</option>
+                                        </select>
+                                        <div class="text-danger supervisor_pip_exit_error" id=""></div> -->
+
 										<label>Consolidated Rating</label><br>
 										<select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_consolidated_rate" name="employee_consolidated_rate">
 											<option value="" selected>...Select...</option>
@@ -169,7 +192,7 @@
 										</select>
 										<div class="text-danger supervisor_consolidated_rate_error" id=""></div>
 									</div>
-									<div class="col-lg-4">
+									<div class="col-lg-6">
 										<a onclick="supFormSave();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save</a>                                            
 									</div>
 								</div>
@@ -227,6 +250,44 @@
 	<!-- login js-->
 	<!-- Plugin used-->
 	<script>
+		$( document ).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        });
+
+		$(document).ready(function() {
+		    get_goal_setting_reviewer_tl();
+		});
+//get info based the sheet in the list page
+	function get_goal_setting_reviewer_tl(){
+
+	        var params = new window.URLSearchParams(window.location.search);
+	        var id=params.get('id')
+	        // alert(id)
+	    $.ajax({
+	        url: "get_goal_setting_reviewer_details_tl",
+	        method: "POST",
+	        data:{"id":id,},
+	        dataType: "json",
+	        success: function(data) {
+	            // console.log(data)
+
+	            if(data.length !=0){
+	                $('#empID').html(data[0].empID);
+	                $('#username').html(data[0].username);
+	                $('#sup_emp_code').html(data[0].sup_emp_code);
+	                $('#sup_name').html(data[0].sup_name);
+	                $('#department').html(data[0].department);
+	                $('#reviewer_name').html(data[0].reviewer_name);
+	                $('#reviewer_emp_code').html(data[0].reviewer_emp_code);
+	            }
+	        }
+	    });
+
+	}
 		$( document ).ready(function() {
 			// goal_record();
 			$("#save_div").hide();
@@ -382,7 +443,7 @@
 							       	function(index){
 									var text_data=$(this).text();
 									if ($(this).text() != ""){
-										$(".super_p"+i+"").remove();
+										$(".sup_remark_p_rev_"+i+"").remove();
 										var tx = '<textarea id="business_head_edit'+i+'" name="sup_remark_[]" style="width:200px;" class="form-control">'+text_data+'</textarea>';
 											tx += '<div class="text-danger sup_remark_'+index+'_error" id="sup_remark_'+index+'_error"></div>';
 										$(this).append(tx)
@@ -402,7 +463,7 @@
 									// console.log("data")
 									if ($(this).text() != ""){
 										var text_data=$(this).text();
-										$('.sup_rating'+j+'').remove();
+										$('.sup_rating_p_rev_'+j+'').remove();
 										var op = '<select class="js-example-basic-single" style="width:150px;" id="employee_consolidated_rate" name="sup_final_output_[]">';
 											op += '<option value="" selected>...Select...</option>';
 											op += '<option value="EE" '+(text_data=="EE" ? "selected" :"")+'>EE</option>';
@@ -483,7 +544,7 @@
 									// console.log("data")
 									if ($(this).text() != ""){
 										var text_data=$(this).text();
-										$('.reviewer_p'+i+'').remove();
+										$('.reviewer_remarks_p_rev_'+i+'').remove();
 										var tx = '<textarea id="business_head_edit'+i+'" style="width:200px;" name="reviewer_remarks_[]" class="form-control">'+text_data+'</textarea>';
 											tx += '<div class="text-danger reviewer_remarks_'+index+'_error" id="reviewer_remarks_'+index+'_error"></div>';
 										$(this).append(tx)
@@ -573,7 +634,6 @@
 /*save supervisor button*/
 	function supFormSave(){
 			var error='';
-
 			var rate = $("#supervisor_consolidated_rate").val();
 			// alert(rate)
 			var $errmsg3 = $(".supervisor_consolidated_rate_error");
@@ -900,7 +960,7 @@
             }
         }
 
-/* hr submit form*/
+/* hr submit button*/
 	function hrFormSubmit() {
 		  var error = "";
 		  var i = 1;
@@ -947,7 +1007,7 @@
 		    });
 		  }
 		}
-/*save hr button*/
+/*hr save button*/
 	function hrFormSave() {
 		  var error = "";
 		  var i = 1;

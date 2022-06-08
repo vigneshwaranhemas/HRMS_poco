@@ -1218,9 +1218,9 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                      'supervisor_tb_status' => "1",
                 ]);
       return $response;
-   }   
+   }
    public function fetchCustomUserList(){
-      $response = DB::table('customusers')     
+      $response = DB::table('customusers')
                      ->get();
       return $response;
    }

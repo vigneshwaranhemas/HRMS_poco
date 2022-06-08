@@ -18,13 +18,19 @@ class GoalsController extends Controller
         $this->middleware('is_admin');
         $this->goal = $goal;
     }
-    public function goal_setting_bh_reviewer_view()
-    {
-        $id=$_GET['id'];
-        $data=$this->goal->Fetch_goals_user_info($id);
-        // return view('goals.goal_setting_reviewer_view')->with('user_info',$data);
-        return view('goals.goal_setting_bh_reviewer_view')->with('user_info',$data);
-    }
+
+
+   public function goal_setting_bh_reviewer_view()
+   {
+            $id=$_GET['id'];
+            $data=$this->goal->Fetch_goals_user_info($id);
+            $new_data['data']=$data;
+            $new_data['sup_emp_code']=CustomUser::where('empID',$data->sup_emp_code)->select('department')->first();
+            $new_data['reviewer_emp_code']=CustomUser::where('empID',$data->reviewer_emp_code)->select('department')->first();
+            return view('goals.goal_setting_bh_reviewer_view')->with('user_info',$new_data);
+   }
+
+
     public function goals()
     {
         $result = $this->goal->checkCustomUserList();
@@ -75,8 +81,7 @@ class GoalsController extends Controller
     }
     public function goal_setting_supervisor_view()
     {
-        $customusers = $this->goal->fetchCustomUserList();
-        return view('goals.goal_setting_supervisor_view')->with('customusers', $customusers);
+        return view('goals.goal_setting_supervisor_view');
     }
     public function goal_setting_reviewer_view()
     {
@@ -952,7 +957,7 @@ class GoalsController extends Controller
                     foreach($row_values->$cell7 as $cell7_value){
                         if($cell7_value != null){
 
-                            $html .= '<p class="super_p'.$cell1.'">'.$cell7_value.'</p>';
+                            $html .= '<p>'.$cell7_value.'</p>';
 
                         }
                     }
@@ -968,7 +973,7 @@ class GoalsController extends Controller
                 $html .= '<td class="sup_rating">';
                     foreach($row_values->$cell8 as $cell8_value){
                         if($cell8_value != null){
-                            $html .= '<p class="sup_rating'.$cell1.'">'.$cell8_value.'</p>';
+                            $html .= '<p>'.$cell8_value.'</p>';
                         }
                     }
                 $html .= '</td>';
@@ -1007,7 +1012,7 @@ class GoalsController extends Controller
                         // dd($cell3_value);
                         if($cell10_value != null){
 
-                            $html .= '<p class="hr_remark_p'.$cell1.'">'.$cell10_value.'</p>';
+                            $html .= '<p>'.$cell10_value.'</p>';
 
                         }
                     }
@@ -2769,51 +2774,47 @@ class GoalsController extends Controller
             }
             $html .= '</td>';
 
-            /*cell 6*/       
-            $html .= '<td>';
-            
-            for($i=0; $i < $sub_row_count; $i++){
-                
-                $code = $cell1.'_'.$i.$i.$i.$i.$i;
+            /*cell 6*/
+            if($row_values->$cell6 != null){
+                $html .= '<td>';
+                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers  m-t-5" name="rating_by_employee_'.$cell1.'[]">';
 
-                if($row_values->$cell6[$i] != null){
-                        $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-20 '.$code.'" name="rating_by_employee_'.$cell1.'[]">';
-    
-                            $html .= '<option value="">...Select...</option>';
-    
-                            if($row_values->$cell6[$i] == "EE"){
-                                $html .= '<option value="EE" selected>EE</option>';
-                            }else{
-                                $html .= '<option value="EE">EE</option>';
-                            }
-    
-                            if($row_values->$cell6[$i] == "AE"){
-                                $html .= '<option value="AE" selected>AE</option>';
-                            }else{
-                                $html .= '<option value="AE">AE</option>';
-                            }
-                            
-                            if($row_values->$cell6[$i] == "ME"){
-                                $html .= '<option value="ME" selected>ME</option>';
-                            }else{
-                                $html .= '<option value="ME">ME</option>';
-                            }
-                            
-                            if($row_values->$cell6[$i] == "PE"){
-                                $html .= '<option value="PE" selected>PE</option>';
-                            }else{
-                                $html .= '<option value="PE">PE</option>';
-                            }
-                            
-                            if($row_values->$cell6[$i] == "ND"){
-                                $html .= '<option value="ND" selected>ND</option>';
-                            }else{
-                                $html .= '<option value="ND">ND</option>';
-                            }
-    
-                        $html .= '</select>';
-                        
-                }else{
+                        $html .= '<option value="">...Select...</option>';
+
+                        if($row_values->$cell6[0] == "EE"){
+                            $html .= '<option value="EE" selected>EE</option>';
+                        }else{
+                            $html .= '<option value="EE">EE</option>';
+                        }
+
+                        if($row_values->$cell6[0] == "AE"){
+                            $html .= '<option value="AE" selected>AE</option>';
+                        }else{
+                            $html .= '<option value="AE">AE</option>';
+                        }
+
+                        if($row_values->$cell6[0] == "ME"){
+                            $html .= '<option value="ME" selected>ME</option>';
+                        }else{
+                            $html .= '<option value="ME">ME</option>';
+                        }
+
+                        if($row_values->$cell6[0] == "PE"){
+                            $html .= '<option value="PE" selected>PE</option>';
+                        }else{
+                            $html .= '<option value="PE">PE</option>';
+                        }
+
+                        if($row_values->$cell6[0] == "ND"){
+                            $html .= '<option value="ND" selected>ND</option>';
+                        }else{
+                            $html .= '<option value="ND">ND</option>';
+                        }
+
+                    $html .= '</select>';
+
+                $html .= '</td>';
+            }else{
                 $html .= '<td>';
                     $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-5" name="rating_by_employee_'.$cell1.'[]">';
                         $html .= '<option value="">...Select...</option>';
@@ -2823,8 +2824,8 @@ class GoalsController extends Controller
                         $html .= '<option value="PE">PE</option>';
                         $html .= '<option value="ND">ND</option>';
                     $html .= '</select>';
-                }
-            }                
+                $html .= '</td>';
+            }
 
             /*Cell 8*/
             $html .= '<td>';
@@ -3264,7 +3265,7 @@ class GoalsController extends Controller
                                         <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary_show_fn" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-file-text-o"></i></button></a>
                                     </div>
                                 </div>' ;
-                    }else{                        
+                    }else{
                         $btn = '<div class="dropup">
                                     <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
                                     <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
@@ -3502,18 +3503,14 @@ class GoalsController extends Controller
         $result = $this->goal->fetch_team_leader_filter($team_leader_filter);
         return json_encode($result);
     }
+
     public function fetch_goals_employee_summary(Request $request){
         $id = $request->id;
         // echo "<pre>as";print_r($id);die;
         $result = $this->goal->fetch_goals_employee_summary($id);
         return json_encode($result);
     }
-    public function fetch_goals_supervisor_summary(Request $request){
-        $id = $request->id;
-        // echo "<pre>as";print_r($id);die;
-        $result = $this->goal->fetch_goals_supervisor_summary($id);
-        return json_encode($result);
-    }
+
     public function goals_supervisor_summary(Request $request){
         $id = $request->id;
         $employee_summary = $request->employee_summary;
@@ -3521,7 +3518,7 @@ class GoalsController extends Controller
         return response($result);
     }
     public function update_goals_sup(Request $request){
-        dd($request->all());
+        // dd($request->all());
         $id = $request->goals_setting_id;
         $json_value = $this->goal->fetchGoalIdDetails($id);
         $datas = json_decode($json_value);
@@ -3862,6 +3859,7 @@ class GoalsController extends Controller
     ->where('customusers.reviewer_emp_code','!=',$logined_empID)
     ->where('goals.supervisor_status','1')
     ->where('goals.reviewer_status','1')
+    ->where('goals.hr_status','1')
     ->select('goals.*')->get();
 
     $result=json_decode($result);
@@ -3968,7 +3966,7 @@ public function get_all_supervisors_info_bh()
 
         $id = $request->goals_setting_id;
 
-        $count = count($request->all())-2;
+        $count = count($request->all())-1;
         $row_count = $count/5;
         // $row_count = count($request->all())/10;
         // dd($row_count);die();
@@ -4010,7 +4008,7 @@ public function get_all_supervisors_info_bh()
 
         $id = $request->goals_setting_id;
 
-        $count = count($request->all())-2;
+        $count = count($request->all())-1;
         $row_count = $count/5;
         // $row_count = count($request->all())/10;
 
@@ -4189,9 +4187,9 @@ public function update_bh_goals(Request $request)
          'bh_tb_status' => '1',
          'goal_status'=>$request->Bh_sheet_approval
      );
-     if($request->reviewer_hidden_id ==1 || $request->reviewer_hidden_id==2){
+    //  if($request->reviewer_hidden_id ==1 || $request->reviewer_hidden_id==2){
            $data['supervisor_consolidated_rate']=$request->supervisor_consolidated_rate;
-    }
+    // }
      $result=Goals::where('goal_unique_code',$id)->update($data);
      if($result){
          $response=array('success'=>1,"message"=>"Data Updated Successfully");
@@ -4270,43 +4268,33 @@ if($request->reviewer_hidden_id==0){
 
 
 
-
-
-
-
-
-
-
-
-
-
-        // if($request->user_type==1){
-        //      $data=array('supervisor_status'=>1,
-        //                 'reviewer_status'=>1,
-        //                 'bh_status'=>1);
-        // }
-        // elseif($request->user_type==2){
-        //     $data=array(
-        //     'reviewer_status'=>1,
-        //     'bh_status'=>1);
-        // }
-        // else{
-        //     $data=array(
-        //         'bh_status'=>1);
-        // }
-
-        // $result=Goals::where('goal_unique_code',$request->id)->update($data);
-        // if($result){
-        //     $response=array('success'=>1,"message"=>"Data Updated Successfully");
-        // }
-        // else{
-        //    $response=array('success'=>1,"message"=>"Problem in Updating Data");
-        // }
-        // echo json_encode($response);
-
  }
+ public function Change_bh_status_only(request $request)
+ {
+      if($request->user_type==1){
+             $data=array('supervisor_status'=>1,
+                        'reviewer_status'=>1,
+                        'bh_status'=>1);
+        }
+        elseif($request->user_type==2){
+            $data=array(
+            'reviewer_status'=>1,
+            'bh_status'=>1);
+        }
+        else{
+            $data=array(
+                'bh_status'=>1);
+        }
 
-
+        $result=Goals::where('goal_unique_code',$request->id)->update($data);
+        if($result){
+            $response=array('success'=>1,"message"=>"Data Updated Successfully");
+        }
+        else{
+           $response=array('success'=>1,"message"=>"Problem in Updating Data");
+        }
+        echo json_encode($response);
+ }
 
 
 }

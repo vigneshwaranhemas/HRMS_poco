@@ -549,4 +549,5 @@ Route::get('goal_setting_bh_reviewer_view','GoalsController@goal_setting_bh_revi
 Route::post('update_bh_goals','GoalsController@update_bh_goals');
 Route::post('Update_bh_status','GoalsController@Change_Bh_status');
 Route::post('add_goals_data_hr_sup', 'GoalsController@add_goals_data_hr_sup');
+Route::post('Update_bh_status_only','GoalsController@Change_bh_status_only');
 

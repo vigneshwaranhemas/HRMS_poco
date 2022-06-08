@@ -25,11 +25,30 @@
         padding: revert;
         border-radius: revert;
     }
+    .card.goals-card-div{
+        border-radius: unset !important;
+    }
+    .card.goals-card-div-1{
+        border-radius: unset !important;
+        margin-bottom: unset !important;
+    }
+    .nav-primary .nav-link.active{
+        background-color: #80cf00;
+        color: #fff;
+    }
+    .nav-primary .nav-link.nav-link-pms-1{
+        background-color: #80cf00;
+        color: #fff;
+    }
+    .nav-primary .nav-link.nav-link-pms-2{
+        background-color: #ff0000;
+        color: #fff;
+    }
 </style>
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Business Head Goal Setting<span>Process</span></h2>
+	<h2>Performance Management System</h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -42,119 +61,131 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>As Supervisor</a>
-                        <div class="material-border"></div>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" id="info-reviewer-tab" data-toggle="tab" href="#info-reviewer" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>As Reviewer</a>
-                        <div class="material-border"></div>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>As Business Head</a>
-                        <div class="material-border"></div>
-                        </li>
+                    <ul class="nav nav-tabs nav-primary" id="pills-warningtab" role="tablist">
+                        <li class="nav-item"><a class="nav-link nav-link-pms-1" id="pills-warninghome-tab" data-toggle="pill" href="#pills-warninghome" role="tab" aria-controls="pills-warninghome" aria-selected="true"><i class="icofont icofont-ui-home"></i>PMS 2021-2022</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-pms-2 disabled" id="pills-warningprofile-tab" data-toggle="pill" href="#pills-warningprofile" role="tab" aria-controls="pills-warningprofile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>PMS 2022-2023</a></li>
                     </ul>
-                    <div class="tab-content" id="info-tabContent">
-                        <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
-                            <div class="card">
+                    <div class="tab-content" id="pills-warningtabContent">
+                        <div class="tab-pane fade show active" id="pills-warninghome" role="tabpanel" aria-labelledby="pills-warninghome-tab">
+                            <div class="card goals-card-div">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-lg-2 m-t-5">
-                                            <label for="Supervisor">Select Supervisor</label>
-                                            <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_filter1" name="reviewer_filter">
-                                                <option value="">...Select...</option>
-                                                @foreach($reviewer_list as $reviewer)
-                                                    <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
-                                                @endforeach
-                                            </select>
+                                    <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist" style="margin-top: -35px;margin-bottom: 6px;">
+                                        <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>As Reviewer </a>
+                                        <div class="material-border"></div>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" id="info-reviewer-tab" data-toggle="tab" href="#info-reviewer" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>As Reporting Manager</a>
+                                        <div class="material-border"></div>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>As Business Head</a>
+                                        <div class="material-border"></div>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="info-tabContent">
+                                        <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
+                                            {{-- <div class="card">
+                                                <div class="card-body"> --}}
+                                                    <div class="row">
+                                                        <div class="col-lg-2 m-t-5">
+                                                            <label for="Supervisor">Select Reviewer</label>
+                                                            <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_filter1" name="reviewer_filter">
+                                                                <option value="">...Select...</option>
+                                                                @foreach($reviewer_list as $reviewer)
+                                                                    <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-lg-6 m-t-35">
+                                                            <button type="submit" id="bh_apply" onclick="bh_supervisor_filter();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
+                                                            <button type="submit" id="bh_reset_1" onclick="bh_supervisor_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                                        </div>
+                                                    </div>
+                                                {{-- </div>
+                                            </div> --}}
                                         </div>
 
-                                        <div class="col-lg-6 m-t-35">
-                                            <button type="submit" id="bh_apply" onclick="bh_supervisor_filter();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
-                                            <button type="submit" id="bh_reset_1" onclick="bh_supervisor_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                        <div class="tab-pane fade" id="info-reviewer" role="tabpanel" aria-labelledby="info-reviewer-tab">
+                                            {{-- <div class="card">
+                                                <div class="card-body"> --}}
+                                                    <div class="row">
+                                                        <div class="col-lg-2 m-t-5">
+                                                            <label for="Supervisor">Select Reporting Manager</label>
+                                                            <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_filter" name="reviewer_filter">
+                                                                <option value="">...Select...</option>
+                                                                @foreach($reviewer_list as $reviewer)
+                                                                    <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-2 m-t-5">
+                                                            <label for="Leader">Select Employee</label>
+                                                            <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter1" name="team_leader_filter">
+                                                                <option value="">...Select...</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6 m-t-35">
+                                                            <button type="submit" id="bh_reviewer_id" onclick="bh_reviewer_filter();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
+                                                            <button type="submit" id="bh_reset_2" onclick="reviewer_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                                        </div>
+                                                    </div>
+                                                {{-- </div>
+                                            </div> --}}
                                         </div>
+                                        <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="info-profile-tab">
+                                            {{-- <div class="card">
+                                                <div class="card-body"> --}}
+                                                    <div class="row">
+                                                        <div class="col-lg-2 m-t-5">
+                                                            <label for="Supervisor">Select Reviewer</label>
+                                                            <select class="js-example-basic-single float-right" style="width:300px;" id="reviewer_filter" name="reviewer_filter">
+                                                                <option value="">...Select...</option>
+                                                                @foreach($reviewer_list as $reviewer)
+                                                                    <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-2 m-t-5">
+                                                            <label for="Leader">Select  Reporting Manager</label>
+                                                            <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter" name="team_leader_filter">
+                                                                <option value="">...Select...</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-2 m-t-5">
+                                                            <label for="Leader">Select Employee</label>
+                                                            <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter" name="team_member_filter">
+                                                                <option value="">...Select...</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6 m-t-35">
+                                                            <button type="submit" id="bh_apply" onclick="bh_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
+                                                            <button type="button" id="testing_one"  class="btn btn-dark"><i class="ti-save"></i> Clear</button>
+                                                        </div>
+                                                    </div>
+                                                {{-- </div> --}}
+                                            {{-- </div> --}}
+                                        {{-- </div> --}}
+                                    </div>
+
+                                    <div class="table-responsive m-t-40">
+                                        <table class="table" id="team_member_goal_data">
+                                            <thead>
+                                                <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Employee Name</th>
+                                                <th scope="col">Goal Name</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Action </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="bh_table_data_id">
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="tab-pane fade" id="info-reviewer" role="tabpanel" aria-labelledby="info-reviewer-tab">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-lg-2 m-t-5">
-                                            <label for="Supervisor">Select Supervisor</label>
-                                            <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_filter" name="reviewer_filter">
-                                                <option value="">...Select...</option>
-                                                @foreach($reviewer_list as $reviewer)
-                                                    <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-2 m-t-5">
-                                            <label for="Leader">Select Team Leader</label>
-                                            <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter1" name="team_leader_filter">
-                                                <option value="">...Select...</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6 m-t-35">
-                                            <button type="submit" id="bh_reviewer_id" onclick="bh_reviewer_filter();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
-                                            <button type="submit" id="bh_reset_2" onclick="reviewer_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="tab-pane fade" id="pills-warningprofile" role="tabpanel" aria-labelledby="pills-warningprofile-tab">
                         </div>
-                        <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="info-profile-tab">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-lg-2 m-t-5">
-                                            <label for="Supervisor">Select Supervisor</label>
-                                            <select class="js-example-basic-single float-right" style="width:300px;" id="reviewer_filter" name="reviewer_filter">
-                                                <option value="">...Select...</option>
-                                                @foreach($reviewer_list as $reviewer)
-                                                    <option value="{{ $reviewer->empID }}">{{ $reviewer->username }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-2 m-t-5">
-                                            <label for="Leader">Select Team Leader</label>
-                                            <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter" name="team_leader_filter">
-                                                <option value="">...Select...</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-2 m-t-5">
-                                            <label for="Leader">Select Team Member</label>
-                                            <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter" name="team_member_filter">
-                                                <option value="">...Select...</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6 m-t-35">
-                                            <button type="submit" id="bh_apply" onclick="bh_filter_apply();" class="btn btn-success"><i class="ti-save"></i> Apply</button>
-                                            <button type="button" id="testing_one"  class="btn btn-dark"><i class="ti-save"></i> Clear</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="table-responsive m-t-40">
-                        <table class="table" id="team_member_goal_data">
-                            <thead>
-                                <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Employee Name</th>
-                                <th scope="col">Goal Name</th>
-                                <th scope="col">Status</th>
-                                <!-- <th scope="col">Date</th> -->
-                                <th scope="col">Action </th>
-                                </tr>
-                            </thead>
-                            <tbody id="bh_table_data_id">
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>

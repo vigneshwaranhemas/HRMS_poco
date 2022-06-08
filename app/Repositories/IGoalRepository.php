@@ -46,13 +46,13 @@ interface IGoalRepository {
     public function update_emp_goals_data_submit($data);
     public function update_emp_goals_data($data);
     public function get_goal_setting_reviewer_details_tl($input_details);
+    public function get_goal_setting_hr_details_tl($input_details);
     public function goals_sup_submit_status($id);
     public function update_goals_sup_submit_direct($id);
     public function gethr_list_tab_record($data);
     public function get_goal_myself_list();
     public function update_goals_sup_reviewer_tm($data);
     public function update_goals_sup_submit_overall($data);
-    // public function goals_sup_submit_status_for_rev($id);
     public function fetchCustomUserList();
     public function goals_sup_pip_exit_select_op($id);
     public function fecth_goals_sup_movement_process($id);
@@ -64,4 +64,8 @@ interface IGoalRepository {
     public function goal_employee_summary_check($id);
     public function getSupEmail();
     public function goals_supervisor_summary($id, $sup_summary);
+    // public function fetch_reviewer_id_or_not($id);
+    public function update_goals_reviewer_teamleader($data);
+    public function update_goals_sup_submit_overall_for_reviewer($data);
+    public function update_goals_team_member_submit_direct($id);
 }

@@ -828,6 +828,13 @@ class GoalsController extends Controller
     {
         $id = $request->id;
         $json = $this->goal->fetchGoalIdDetails($id);
+        $reviewer=$this->goal->fetch_reviewer_id_or_not($id);
+        $get_sheet_status=Goals::where('goal_unique_code',$id)
+                                 ->select('supervisor_status',
+                                        'supervisor_tb_status',
+                                        'reviewer_status',
+                                        'reviewer_tb_status')->first();
+        // echo '<pre>1243';print_r($get_sheet_status);die();
         $datas = json_decode($json);
 
         $html = '';
@@ -1116,9 +1123,13 @@ class GoalsController extends Controller
 
         }
 
+        $new_data['html']=$html;
+        $new_data['result']=$reviewer;
+        $new_data['sheet_status']=$get_sheet_status;
+
         // dd($html);
 
-        return json_encode($html);
+        return json_encode($new_data);
     }
     public function fetch_goals_reviewer_details(Request $request)
     {
@@ -3563,7 +3574,7 @@ class GoalsController extends Controller
         return response($result);
     }
     public function update_goals_sup(Request $request){
-        dd($request->all());
+        // dd($request->all());
         $id = $request->goals_setting_id;
         $json_value = $this->goal->fetchGoalIdDetails($id);
         $datas = json_decode($json_value);
@@ -4152,19 +4163,18 @@ public function get_all_supervisors_info_bh()
         ->make(true);
           }
 
-    public function update_goals_sup_reviewer_tm(Request $request){
-        $id = $request->goals_setting_id;
-        $json_value = $this->goal->fetchGoalIdDetails($id);
-        // echo "<pre>";print_r($json_value);die;
-        $datas = json_decode($json_value);
+        public function update_goals_sup_reviewer_tm(Request $request){
+            $id = $request->goals_setting_id;
+            $json_value = $this->goal->fetchGoalIdDetails($id);
+            // echo "<pre>";print_r($json_value);die;
+            $datas = json_decode($json_value);
+            $json = array();
+            $html = '';
 
-        $json = array();
-
-        $html = '';
-
-        foreach($datas as $key=>$data){
+            foreach($datas as $key=>$data){
             $cell1 = $key+1;
             $row_values = json_decode($data);
+
 
             //Reviewer remarks add
             $reviewer_remarks_value = array($request->reviewer_remarks_[$key]);
@@ -4177,20 +4187,20 @@ public function get_all_supervisors_info_bh()
 
             $json_format = json_encode($row_values);
             array_push($json, $json_format);
+            }
 
-        }
-        $goal_process = json_encode($json);
+            $goal_process = json_encode($json);
 
-        //Data upload to server
-        $data = array(
+            //Data upload to server
+            $data = array(
             'goal_process' => $goal_process,
             'goal_unique_code' => $id
-        );
-        // dd($data);
-        $result = $this->goal->update_goals_sup_reviewer_tm($data);
+            );
+            // dd($data);
+            $result = $this->goal->update_goals_sup_reviewer_tm($data);
+            return response($result);
 
-        return response($result);
-    }
+        }
 
      public function update_goals_sup_reviewer_tm_save(Request $request){
         $id = $request->goals_setting_id;
@@ -4352,16 +4362,6 @@ public function get_all_supervisors_info_bh()
 
         return response($result);
     }
-
-    // public function goals_sup_submit_status_for_rev(Request $request)
-    // {
-    //     $id = $request->id;
-    //     $head = $this->goal->goals_sup_submit_status_for_rev($id);
-    //     return json_encode($head);
-    // }
-
-
-
 
 public function update_bh_goals(Request $request)
 {
@@ -4539,6 +4539,84 @@ public function pms_employeee_mail(request $request)
     echo json_encode($myarr);
 
 }
+
+ public function update_goals_reviewer_teamleader(Request $request){
+    $id = $request->goals_setting_id;
+    $json_value = $this->goal->fetchGoalIdDetails($id);
+    // echo "<pre>";print_r($json_value);die;
+    $datas = json_decode($json_value);
+    $json = array();
+    $html = '';
+
+    foreach($datas as $key=>$data){
+    $cell1 = $key+1;
+    $row_values = json_decode($data);
+
+    //Reviewer remarks add
+    $reviewer_remarks_value = array($request->reviewer_remarks[$key]);
+    $sup_final_op = "reviewer_remarks_".$cell1;
+    $row_values->$sup_final_op = $reviewer_remarks_value;
+
+    $json_format = json_encode($row_values);
+    array_push($json, $json_format);
+    }
+
+    $goal_process = json_encode($json);
+
+    //Data upload to server
+    $data = array(
+    'goal_process' => $goal_process,
+    'goal_unique_code' => $id
+    );
+    // dd($data);
+    $result = $this->goal->update_goals_reviewer_teamleader($data);
+    return response($result);
+
+}
+
+public function update_goals_sup_submit_overall_for_reviewer(Request $request){
+    // dd($request->all());
+    $id = $request->goals_setting_id;
+    $json_value = $this->goal->fetchGoalIdDetails($id);
+    // dd($json_value);
+    $datas = json_decode($json_value);
+
+    $json = array();
+
+    $html = '';
+
+    foreach($datas as $key=>$data){
+        $cell1 = $key+1;
+        $row_values = json_decode($data);
+
+        //Reviewer remark add
+        $rev_remark_value = array($request->reviewer_remarks[$key]);
+        $rev_rem = "reviewer_remarks_".$cell1;
+        $row_values->$rev_rem = $rev_remark_value;
+
+        $json_format = json_encode($row_values);
+        array_push($json, $json_format);
+
+    }
+    $goal_process = json_encode($json);
+
+    //Data upload to server
+    $data = array(
+        'goal_process' => $goal_process,
+        'goal_unique_code' => $id,
+    );
+    //  dd($data);
+     $result = $this->goal->update_goals_sup_submit_overall_for_reviewer($data);
+
+     return response($result);
+ }
+
+ public function update_goals_team_member_submit_direct(Request $request)
+    {
+        $id = $request->id;
+        $head = $this->goal->update_goals_team_member_submit_direct($id);
+        return json_encode($head);
+    }
 
 
 

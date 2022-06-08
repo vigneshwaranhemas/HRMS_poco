@@ -51,7 +51,11 @@ interface IGoalRepository {
     public function get_goal_myself_list();
     public function update_goals_sup_reviewer_tm($data);
     public function update_goals_sup_submit_overall($data);
-    // public function goals_sup_submit_status_for_rev($id);
     public function fetchCustomUserList();
     public function update_goals_hr_reviewer_tm($data);
+    public function fetch_reviewer_id_or_not($id);
+    public function update_goals_reviewer_teamleader($data);
+    public function update_goals_sup_submit_overall_for_reviewer($data);
+    public function update_goals_team_member_submit_direct($id);
+
 }

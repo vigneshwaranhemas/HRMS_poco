@@ -4489,64 +4489,6 @@ public function get_all_supervisors_info_bh()
         return response($result);
     }
 
-    public function update_bh_goals(Request $request)
-    {
-        // echo json_encode($request->all());die();
-        $id = $request->goals_setting_id;
-        $reviewer_id=$request->reviewer_hidden_id;
-        $json_value = $this->goal->fetchGoalIdDetails($id);
-        $datas = json_decode($json_value);
-
-
-
-        $json = array();
-
-
-
-        $html = '';
-
-
-
-        foreach($datas as $key=>$data){
-        $cell1 = $key+1;
-        $row_values = json_decode($data);
-        //Reviewer remarks add
-        $bh_sign_off_value = array($request->bh_sign_off_[$key]);
-        $bh_sign_off = "bh_sign_off_".$cell1;
-        $row_values->$bh_sign_off = $bh_sign_off_value;
-        $supervisor_rating = array($request->sup_final_output_[$key]);
-        $sup_final_op = "sup_final_output_".$cell1;
-        $row_values->$sup_final_op = $supervisor_rating;
-        $json_format = json_encode($row_values);
-        array_push($json, $json_format);
-
-
-
-        }
-        // echo json_encode($json);die();
-        $goal_process = json_encode($json);
-        //Data upload to server
-        $data = array(
-        'goal_process' => $goal_process,
-        'bh_tb_status' => '1',
-        'goal_status'=>$request->Bh_sheet_approval
-        );
-        // if($request->reviewer_hidden_id ==1 || $request->reviewer_hidden_id==2){
-        $data['supervisor_consolidated_rate']=$request->supervisor_consolidated_rate;
-        // }
-        $result=Goals::where('goal_unique_code',$id)->update($data);
-        if($result){
-        $response=array('success'=>1,"message"=>"Data Updated Successfully");
-        }
-        else{
-        $response=array('success'=>1,"message"=>"Problem in Updating Data");
-        }
-
-
-
-        // return response($response);
-        echo json_encode($response);
-    }
     // public function goals_sup_submit_status_for_rev(Request $request)
     // {
     //     $id = $request->id;

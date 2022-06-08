@@ -56,12 +56,17 @@ $('#profile-info-tab').on('click',function() {
     hr_dttable_record();
     get_grade();
     get_department();
+    $('#save_div_rev').hide();
+    $('#save_div_hr').show();
     });
 $('#hr_apply').on('click',function() {
     hr_dttable_record();
     });
 $('#reviewer-info-tab').on('click',function() {
+    // alert("ssss")
     reviewer_goal_record();
+    $('#save_div_rev').show();
+    $('#save_div_hr').hide();
     });
 $('#listing-info-tab').on('click',function() {
     hr_listing_tab_record();
@@ -80,6 +85,8 @@ $('#list_apply').on('click',function() {
     });
 $('#MySelf-info-tab').on('click',function() {
     // alert("sa")
+    $('#save_div_rev').hide();
+    $('#save_div_hr').hide();
    goal_record();
     });
 
@@ -359,7 +366,7 @@ function get_team_member_drop_1(){
 function supervisor_goal_record(){    
     table_cot = $('#supervisor_goal_data').DataTable({
         
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -457,7 +464,7 @@ function reviewer_goal_record(){
     
     table_cot = $('#reviewer_tbl').DataTable({
         
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -549,7 +556,7 @@ function hr_dttable_record(){
     
     table_cot = $('#get_hr_goal').DataTable({
         
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -644,7 +651,7 @@ function goal_record(){
 
     table_cot = $('#goal_data').DataTable({
 
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -736,12 +743,58 @@ function goal_record(){
         ],
     });
 }
+   
+
+   $('#send_mail').on('click', function(){
+         var i=0;
+         var j=0;
+         var selected=[];
+         $('#listing_table tbody>tr').each(function () {
+             var currrow=$(this).closest('tr');
+             var col1=currrow.find('td:eq(0) input[type=checkbox]');
+             if (col1.length) {
+                    var status = col1.prop('checked');
+                     if(status)
+                     {
+                      selected.push({
+                            checkbox:col1.val()
+                         })  
+                     }
+                  }
+             });
+         $.ajax({
+            url:"pms_employeee_mail",
+            type:"POST",
+            data:{gid:selected},
+            success:function(data){
+                console.log(data);
+            }
+         })
+                 // console.log(selected)
+         });        
+
+/*select all*/
+// Handle click on "Select all" control
+   $('#example-select-all').on('click', function(){
+      var rows = table_cot.rows({ 'search': 'applied' }).nodes();
+      $('input[type="checkbox"]', rows).prop('checked', this.checked);
+   });
+
+   $('#example tbody').on('change', 'input[type="checkbox"]', function(){
+      if(!this.checked){
+         var el = $('#example-select-all').get(0);
+         if(el && el.checked && ('indeterminate' in el)){
+            el.indeterminate = true;
+         }
+      }
+   });
+
 function hr_listing_tab_record(){
 
     
     table_cot = $('#listing_table').DataTable({
         
-        dom: 'lBfrtip',
+        // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [
             {
@@ -803,6 +856,9 @@ function hr_listing_tab_record(){
         serverMethod: 'post',
         bDestroy: true,
         scrollCollapse: true,
+        aoColumnDefs: [
+            { "bSortable": false, "aTargets": [ 0, 6, 7, 8] }, 
+        ],
         drawCallback: function() {
         },
         ajax: {
@@ -819,6 +875,7 @@ function hr_listing_tab_record(){
             }
         },
         createdRow: function( row, data, dataIndex ) {
+            $( row ).find('td:eq(0)').html('<input class="mail_class" type="checkbox" name="id[]" value="'+ data.goal_unique_code +'">');   
             $( row ).find('td:eq(0)').attr('data-label', 'Sno');
             $( row ).find('td:eq(1)').attr('data-label', 'Candidate Name');
             $( row ).find('td:eq(2)').attr('data-label', 'Emp ID');           
@@ -827,9 +884,10 @@ function hr_listing_tab_record(){
             $( row ).find('td:eq(5)').attr('data-label', 'Grade');           
             $( row ).find('td:eq(5)').attr('data-label', 'Department');           
             $( row ).find('td:eq(6)').attr('data-label', 'employee_consolidated_rate');           
-            $( row ).find('td:eq(7)').attr('data-label', 'supervisor_consolidated_rate');           
+            $( row ).find('td:eq(7)').attr('data-label', 'supervisor_consolidated_rate');
         },
         columns: [
+           
             {   data: 'DT_RowIndex', name: 'DT_RowIndex'    },
             {   data: 'created_by_name', name: 'created_by_name'  },
             {   data: 'created_by', name: 'created_by'  },
@@ -843,93 +901,3 @@ function hr_listing_tab_record(){
         ],
     });
 }
-
-/*form submit*/
-function supFormSubmit(){
-
-            var error='';
-
-            var rate = $("#supervisor_consolidated_rate").val();
-            var $errmsg3 = $(".supervisor_consolidated_rate_error");
-            $errmsg3.hide();
-
-            if(rate == ""){
-                $errmsg3.html('Consolidated rate is required').show();
-                error+="error";
-            }
-
-            var i=1;
-
-            $('#goals_record_tb > tbody  > tr').each(function(index) {
-                var col0=$(this).find("td:eq(0)").text();
-                var col6=$(this).find("td:eq(5) textarea").val();
-                var col7=$(this).find("td:eq(6) option:selected").val();
-                // console.log(col0)
-                // console.log(col6)
-                // console.log(col7)
-                // console.log(index)
-
-                // Supervisor Remarks
-                var err_div_name = "#sup_remark_"+index+"_error";
-                var $errmsg0 = $(err_div_name);
-                $errmsg0.hide();
-
-                if(col6 == "" || col6 == undefined){
-                    // console.log($errmsg0)
-                    $errmsg0.html('Supervisor remarks is required').show();
-                    error+="error";
-                }
-
-
-                // Supervisor Rate
-                var err_div_name1 = ".sup_rating_"+index+"_error";
-                var $errmsg1 = $(err_div_name1);
-                $errmsg1.hide();
-
-                if(col7 == "" || col7 == undefined){
-                    // console.log($errmsg0)
-                    $errmsg1.html('Supervisor rating is required').show();
-                    error+="error";
-                }
-
-                i++;
-
-
-            });
-
-            //Sending data to database
-            if(error==""){
-                // alert("succes")
-                data_insert();
-            }
-
-
-            function data_insert(){
-
-                $.ajax({
-
-                    url:"{{ url('update_goals_sup') }}",
-                    type:"POST",
-                    data:$('#goalsForm').serialize(),
-                    dataType : "JSON",
-                    success:function(data)
-                    {
-                        Toastify({
-                            text: "Added Sucessfully..!",
-                            duration: 3000,
-                            close:true,
-                            backgroundColor: "#4fbe87",
-                        }).showToast();
-
-                        // $('button[type="submit"]').attr('disabled' , false);
-
-                        window.location = "{{ url('goals')}}";
-                    },
-                    error: function(response) {
-                        // $('#business_name_option_error').text(response.responseJSON.errors.business_name);
-
-                    }
-
-                });
-            }
-         }

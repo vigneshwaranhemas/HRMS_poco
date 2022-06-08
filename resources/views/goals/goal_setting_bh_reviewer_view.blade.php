@@ -1,9 +1,4 @@
 {{-- Divya --}}
-
-
-
-
-
 @extends(Auth::user()->role_type === 'Admin' ? 'layouts.simple.admin_master' : ( Auth::user()->role_type === 'Buddy'? 'layouts.simple.buddy_master ': ( Auth::user()->role_type === 'Employee'? 'layouts.simple.candidate_master ': ( Auth::user()->role_type === 'HR'? 'layouts.simple.hr_master ': ( Auth::user()->role_type === 'IT Infra'? 'layouts.simple.itinfra_master ': ( Auth::user()->role_type === 'Site Admin'? 'layouts.simple.site_admin_master': '' ) ) ) ) ) )
 @section('css')
 <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
@@ -33,7 +28,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Performance Management System</h2>
+	<h2>Performance Management System  View</h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -49,7 +44,7 @@
     <div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-                {{-- <div class="ribbon-vertical-right-wrapper card">
+                <div class="ribbon-vertical-right-wrapper card">
                     <div class="card-body">
                         <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 107px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;">PMS</span></div>
                         <div class="row">
@@ -123,98 +118,6 @@
 
                         </div>
                     </div>
-                    </div> --}}
-                    <div class="ribbon-vertical-right-wrapper card">
-                        <div class="card-body">
-                         <div class="ribbon ribbon-bookmark ribbon-vertical-right ribbon-primary" style="height: 70px !important;"><span style="writing-mode: vertical-rl;text-orientation: upright;margin-left: -25px;">PMS</span>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Emp ID :</h6>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p id="empID">{{ $user_info['data']->empID }}</p>
-                                        </div>
-                                        <div class="col-md-6 m-t-10">
-                                            <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> R.Manager ID :</h6>
-                                        </div>
-                                        <div class="col-md-6 m-t-10">
-                                            <p id="sup_emp_code">{{ $user_info['data']->sup_emp_code }}</p>
-                                        </div>
-                                        <div class="col-md-6 m-t-10">
-                                            <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</h6>
-                                        </div>
-                                        <div class="col-md-6 m-t-10">
-                                            <p id="reviewer_emp_code">{{ $user_info['data']->reviewer_emp_code }}</p>
-                                        </div>
-                                        <div class="col-md-6 m-t-10">
-                                            <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
-                                        </div>
-                                        <div class="col-md-6 m-t-10">
-                                            <p>900380</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Emp Name :</h6>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <p id="username">{{ $user_info['data']->username }}</p>
-                                        </div>
-                                        <div class="col-md-7 m-t-10">
-                                            <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> R.Manager Name :</h6>
-                                        </div>
-                                        <div class="col-md-5 m-t-10">
-                                            <p id="sup_name">{{ $user_info['data']->sup_name }}</p>
-                                        </div>
-                                        <div class="col-md-7 m-t-10">
-                                            <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Reveiwer Name :</h6>
-                                        </div>
-                                        <div class="col-md-5 m-t-10">
-                                            <p id="reviewer_name">{{ $user_info['data']->reviewer_name }}</p>
-                                        </div>
-                                        <div class="col-md-7 m-t-10">
-                                            <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP :</h6>
-                                        </div>
-                                        <div class="col-md-5 m-t-10">
-                                            <p>Rajesh M S</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Emp Dept:</h6>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <p id="department">{{ $user_info['data']->department }}</p>
-                                        </div>
-                                        <div class="col-md-7 m-t-10">
-                                            <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> R.Manager Dept :</h6>
-                                        </div>
-                                        <div class="col-md-5 m-t-10">
-                                            <p>{{ $user_info['sup_emp_code']->department }}</p>
-                                        </div>
-                                        <div class="col-md-7 m-t-10">
-                                            <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Reviewer Dept :</h6>
-                                        </div>
-                                        <div class="col-md-5 m-t-10">
-                                            <p>{{ $user_info['reviewer_emp_code']->department }}</p>
-                                        </div>
-                                        <div class="col-md-7 m-t-10">
-                                            <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> HRBP Dept :</h6>
-                                        </div>
-                                        <div class="col-md-5 m-t-10">
-                                            <p>HR</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
 				<div class="card  card-absolute">
@@ -226,13 +129,12 @@
 					<div class="table-responsive m-b-15 ">
                         <div class="row">
                             <div class="col-lg-12 m-b-35">
-                                {{-- <button type="button" class="btn btn-warning text-white float-right m-l-10" id="goal_sheet_edit" style="display: none;">Edit</button> --}}
-                                <a id="goal_sheet_edit" class="btn btn-warning text-white float-right m-l-10" title="Edit Sheet" style="display: none">Edit</a>
-                                <a id="overall_submit" class="btn btn-success text-white float-right" title="Overall Sheet Submit" style="display: none">Submit</a>
-                                <a id="overall_submit_1" class="btn btn-success text-white float-right" title="Overall Sheet Submit" style="display: none">Submit</a>
+                                <button type="button" class="btn btn-warning text-white float-right m-l-10" id="goal_sheet_edit"  title="Edit" style="display: none;">Edit</button>
+                                <a id="overall_submit" class="btn btn-success text-white float-right" title="Overall Sheet Submit" style="display: none">Submit For Approval</a>
                                 <h5>EMPLOYEE CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
-                                <h5>REPORTING MANAGER CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
-                                <h5>BUSINESS HEAD STATUS : <span id="Sheet_status"></span></h5>
+                                <h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
+                                <h5>STATUS : <span id="Sheet_status"></span></h5>
+
                             </div>
 
                         </div>
@@ -241,13 +143,13 @@
 								<thead>
 									<tr>
 										<th scope="col">No</th>
-										<th scope="col">Key Business Drivers(KBD)</th>
-										<th scope="col">Key Result Areas(KRA)</th>
+										<th scope="col">Key Business Drivers</th>
+										<th scope="col">Key Result Areas </th>
 										<th scope="col">Measurement Criteria (Quantified Measures)</th>
 										<th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
 										<th scope="col">Rating by Employee</th>
 										<th scope="col" class="supervisor_remarks">Supervisors Assessment (Qualitative Remarks by Reporting Manager)</th>
-										<th scope="col" class="supervisor_rating">Rating by Reporting Manager </th>
+										<th scope="col" class="supervisor_rating">Rating by Supervisor </th>
 										<th scope="col" class="reviewer_remarks">Reviewer Remarks </th>
 										<th scope="col">HR Remarks</th>
 										<th scope="col" class="business_head">Business Head assessment and Approval for Release</th>
@@ -257,12 +159,11 @@
 
 								</tbody>
 							</table>
-				             <input type="hidden" id="goals_setting_id" name="goals_setting_id">
+				            <input type="hidden" id="goals_setting_id" name="goals_setting_id">
                              <input type="hidden" id="reviewer_hidden_id" name="reviewer_hidden_id">
-                             <input type="hidden" id="bh_status_hidden_id" name="bh_status_hidden_id">
                             <div class="m-t-20 m-b-30 row float-right" id="save_div">
                                 <div class="col-lg-4" id="consolidated_rating_id" style="display: none">
-                                    <label>R.Manager Consolidated Rating</label><br>
+                                    <label>Consolidated Rating</label><br>
                                     <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_consolidated_rate" name="supervisor_consolidated_rate">
                                         <option value="" selected>...Select...</option>
                                         <option value="EE">EE</option>
@@ -284,8 +185,11 @@
                                     <div class="text-danger bh_sheet_approval_error" id=""></div>
                                 </div>
                                 <div class="col-lg-4">
-                               {{-- <button type="button" class="btn btn-primary text-white float-right m-l-30" id="goal_sheet_add" style="display:none;" onclick="data_insert()">Submit</button> --}}
-                               <a id="goal_sheet_add" class="btn btn-primary text-white float-right m-l-30" title="Save as Draft" style="display: none; margin-top: 31px;" onclick="data_insert()">Save for Draft</a>
+                                {{-- <a class="btn btn-primary text-white m-t-30" title="Overall Submit" id="overall_submit" style="display: none;">Save</a> --}}
+                               <button type="button" class="btn btn-primary text-white float-right m-l-30" id="goal_sheet_add" style="display:none;" onclick="data_insert()">Submit</button>
+
+
+                                {{-- <a class="btn btn-primary text-white m-t-30" id="goal_sheet_edit"  onclick="data_insert()" style="display:none" title="Save">Save</a> --}}
                                 </div>
                                 </div>
 
@@ -401,12 +305,9 @@
                             }
                     } );
                     $("#reviewer_hidden_id").val(response.reviewer)
-                    $("#bh_status_hidden_id").val(response.get_sheet_status.bh_tb_status);
                     if(response.get_sheet_status.bh_tb_status==1){
-                        $("#overall_submit").hide();
+                        $("#overall_submit").show();
                         $("#goal_sheet_edit").show();
-                        $("#overall_submit_1").show();
-
                     }
                     else{
                         $("#overall_submit").hide();
@@ -417,14 +318,14 @@
                      $(".reviewer_remarks").hide();
                      $(".supervisor_rating").show();
                     //  $("#consolidated_rating_id").show();
-                    //  $("#supervisor_consolidated_rate").val(response.get_sheet_status.supervisor_consolidated_rate).trigger('change')
+                     $("#supervisor_consolidated_rate").val(response.get_sheet_status.supervisor_consolidated_rate).trigger('change')
                  }
                  else if(response.reviewer==2){
                      $(".supervisor_remarks").show();
                      $(".reviewer_remarks").hide();
                      $(".supervisor_rating").show();
                     //  $("#consolidated_rating_id").show();
-                    //  $("#supervisor_consolidated_rate").val(response.get_sheet_status.supervisor_consolidated_rate).trigger('change')
+                     $("#supervisor_consolidated_rate").val(response.get_sheet_status.supervisor_consolidated_rate).trigger('change')
                  }
                  else{
                      $(".supervisor_remarks").show();
@@ -433,16 +334,15 @@
                      $("#consolidated_rating_id").hide();
 
                  }
-                 $("#supervisor_consolidated_rate").val(response.get_sheet_status.supervisor_consolidated_rate).trigger('change')
                  $("#user_type").val(response.reviewer);
                  $("#employee_consolidate_rate_show").text(response.get_sheet_status.employee_consolidated_rate);
                  $("#supervisor_consolidate_rate_show").text(response.get_sheet_status.supervisor_consolidated_rate);
                  $("#Sheet_status").text(response.get_sheet_status.goal_status)
 
                  if(response.get_sheet_status.bh_status==1){
+                    //  alert("one")
                      $("#goal_sheet_edit").hide();
                      $('#overall_submit').hide();
-                     $("#overall_submit_1").hide();
                  }
                 //  else{
                 //     $("#goal_sheet_edit").show();
@@ -462,20 +362,14 @@
               var i=1;
               var j=1;
               var user_type=$("#user_type").val();
-              $("#goal_sheet_edit").hide();
-              $("#consolidated_rating_id").show();
-            //   if(user_type==1 || user_type==2){
-            //    $("#consolidated_rating_id").show();
-            //   }
-            //   else{
-            //    $("#consolidated_rating_id").hide();
-            //   }
-              if($("#bh_status_hidden_id").val()==1){
-                  $('#goal_sheet_add').text("Update")
+              if(user_type==1 || user_type==2){
+               $("#consolidated_rating_id").show();
+              }
+              else{
+               $("#consolidated_rating_id").hide();
               }
               $("#goal_sheet_add").show();
               $("#overall_submit").show();
-              $("#overall_submit_1").hide();
               $("#bh_sheet_approval").show();
               if(user_type==1 || user_type==2 || user_type==0)
               {
@@ -528,8 +422,7 @@
       })
 
 function data_insert(){
-    $("#goal_sheet_add").prop('disabled',true);
-    $('.color-hider').hide();
+   $('.color-hider').hide();
      var i=1;
      var j=1;
      var error="";
@@ -559,12 +452,12 @@ function data_insert(){
              $(".bh_sheet_approval_error").html("Goal Sheet Approval Status Is Required");
              error+="error";
          }
-        //  if($("#reviewer_hidden_id").val()==1 || $("#reviewer_hidden_id").val()==2){
+         if($("#reviewer_hidden_id").val()==1 || $("#reviewer_hidden_id").val()==2){
               if($('#supervisor_consolidated_rate').val()==""){
                   $('.supervisor_consolidated_rate_error').html("Supervisor Consolidated Rate Required!...");
                   error+="error";
               }
-        //  }
+         }
 
         if(error==""){
             $.ajax({
@@ -582,7 +475,7 @@ function data_insert(){
                     close:true,
                     backgroundColor: "#4fbe87",
                 }).showToast();
-                 window.location.href='goals';
+                 window.location.reload(true);
                 }
                 else{
                     Toastify({
@@ -591,7 +484,7 @@ function data_insert(){
                     close:true,
                     backgroundColor: "#4fbe87",
                     }).showToast();
-                   window.location.href='goals';
+                   window.location.reload(true);
                 }
 
             }
@@ -635,40 +528,6 @@ function data_insert(){
                 }
             })
        })
-   })
-
-   $('#overall_submit_1').on('click',()=>{
-    $.ajax({
-                url:"Update_bh_status_only",
-                type:"POST",
-                data:{id:$("#goals_setting_id").val(),user_type:$("#user_type").val()},
-                // data:$('#Bh_form_insert').serialize(),
-                beforeSend:function(data){
-                    console.log("loading!...")
-                },
-                success:function(response){
-                    var data=JSON.parse(response);
-                    // console.log(data)
-                    if(data.success==1){
-                     Toastify({
-                    text: data.message,
-                    duration: 3000,
-                    close:true,
-                    backgroundColor: "#4fbe87",
-                }).showToast();
-                 window.location.reload(true);
-                }
-                else{
-                    Toastify({
-                    text: data.message,
-                    duration: 3000,
-                    close:true,
-                    backgroundColor: "#4fbe87",
-                    }).showToast();
-                   window.location.reload(true);
-                }
-                }
-            })
    })
 
 

@@ -203,6 +203,11 @@ class GoalRepository implements IGoalRepository
        // echo "1<pre>";print_r($response);die;
       return $response;
    }
+   public function fetchGoalIdDetailsHR( $id ){
+      $response = Goals::where('goal_unique_code', $id)->value('goal_process');
+       // echo "1<pre>";print_r($response);die;
+      return $response;
+   }
    public function Fetch_goals_user_info($id)
    {
         $user_info=Goals::join('customusers','customusers.empID','=','goals.created_by')
@@ -258,6 +263,10 @@ class GoalRepository implements IGoalRepository
       return $response;
    }
    public function goals_sup_consolidate_rate_head( $id ){
+      $response = Goals::where('goal_unique_code', $id)->value('supervisor_consolidated_rate');
+      return $response;
+   }
+   public function goals_sup_hr_rate_head( $id ){
       $response = Goals::where('goal_unique_code', $id)->value('supervisor_consolidated_rate');
       return $response;
    }
@@ -340,19 +349,18 @@ class GoalRepository implements IGoalRepository
       return $response;
    }
    public function add_goal_btn(){
-
       $logined_empID = Auth::user()->empID;
       $response1 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Pending')->value('goal_name');
       $response2 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Revert')->value('goal_name');
+      // dd($response2);
       if(!empty($response1) || !empty($response2)){
          // dd("y");
          $response = "Yes";
       }else{
+         // dd("n");
          $response = "No";
       }
-
       return $response;
-
    }
    public function checkCustomUserList(){
       $logined_empID = Auth::user()->empID;

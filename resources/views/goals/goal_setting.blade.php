@@ -12,7 +12,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Performance Management System<span>View </span></h2>
+	<h2>Performance Management <span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -129,7 +129,7 @@
 						<div class="table-responsive">
 							<div class="row">
 								<div class="col-lg-12 m-b-35">
-									<h5>CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
+									<h5>SELF CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
 								</div>
 							</div>
 							<table class="table table-border-vertical table-border-horizontal" id="goals_record_tb">

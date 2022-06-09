@@ -133,13 +133,13 @@
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> R.Manager Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="sup_dept"></p>
+										<p id="sup_department"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Reviewer Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="rev_dept"></p>
+										<p id="rev_department"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> HRBP Dept :</h6>
@@ -1207,48 +1207,50 @@
 				data:{"id":id,},
 				dataType: "json",
 				success: function(data) {
-					// console.log(data)
+					console.log(data)
 
 					if(data.length !=0){
-						$('#empID').html(data[0].empID);
-						$('#username').html(data[0].username);
-						$('#sup_emp_code').html(data[0].sup_emp_code);
-						$('#sup_name').html(data[0].sup_name);
-						$('#department').html(data[0].department);
-						$('#reviewer_name').html(data[0].reviewer_name);
-						$('#reviewer_emp_code').html(data[0].reviewer_emp_code);
-					}
+					$('#empID').html(data.all['0'].empID);
+					$('#username').html(data.all['0'].username);
+					$('#sup_emp_code').html(data.all['0'].sup_emp_code);
+					$('#sup_name').html(data.all['0'].sup_name);
+					$('#department').html(data.all['0'].department);
+					$('#reviewer_name').html(data.all['0'].reviewer_name);
+					$('#reviewer_emp_code').html(data.all['0'].reviewer_emp_code);
+					$('#sup_department').html(data.only_dept[0].department);
+					$('#rev_department').html(data.only_dept_reve[0].department);
+				}
 
-					var sup_empID = data[0].sup_emp_code;
-					var rev_empID = data[0].reviewer_emp_code;
+					// var sup_empID = data[0].sup_emp_code;
+					// var rev_empID = data[0].reviewer_emp_code;
 
-					$.ajax({
-						url: "get_goal_setting_sup_dept_name",
-						method: "GET",
-						data:{"id":sup_empID,},
-						dataType: "json",
-						success: function(data) {
-							// console.log(data)
+					// $.ajax({
+					// 	url: "get_goal_setting_sup_dept_name",
+					// 	method: "GET",
+					// 	data:{"id":sup_empID,},
+					// 	dataType: "json",
+					// 	success: function(data) {
+					// 		// console.log(data)
 
-							if(data.length !=0){
-								$('#sup_dept').html(data[0].department);
-							}
-						}
-					});
+					// 		if(data.length !=0){
+					// 			$('#sup_dept').html(data[0].department);
+					// 		}
+					// 	}
+					// });
 
-					$.ajax({
-						url: "get_goal_setting_rev_dept_name",
-						method: "GET",
-						data:{"id":rev_empID,},
-						dataType: "json",
-						success: function(data) {
-							// console.log(data)
+					// $.ajax({
+					// 	url: "get_goal_setting_rev_dept_name",
+					// 	method: "GET",
+					// 	data:{"id":rev_empID,},
+					// 	dataType: "json",
+					// 	success: function(data) {
+					// 		// console.log(data)
 
-							if(data.length !=0){
-								$('#rev_dept').html(data[0].department);
-							}
-						}
-					});
+					// 		if(data.length !=0){
+					// 			$('#rev_dept').html(data[0].department);
+					// 		}
+					// 	}
+					// });
 				}
 			});			
 			

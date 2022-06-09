@@ -470,6 +470,7 @@
 
     //New entry    
     $("#datatable_form_save").on('click',()=>{
+        $('button[type="submit"]').attr('disabled' , true);
         var error='';
         var rate = $("#employee_consolidated_rate").val();
         var $errmsg3 = $(".employee_consolidated_rate_error");
@@ -575,7 +576,7 @@
                         backgroundColor: "#4fbe87",
                     }).showToast();    
                     
-                    // $('button[type="submit"]').attr('disabled' , false);
+                    $('button[type="submit"]').attr('disabled' , false);
 
                     // $("#goals_setting_id").val(data);
                     // $("#datatable_form_save").css('display', 'none');
@@ -594,6 +595,8 @@
 
     //New Submit entry
     $("#goal_sheet_submit").on('click',()=>{        
+
+        $('button[type="submit"]').attr('disabled' , true);
 
         var error='';
 
@@ -715,6 +718,8 @@
     
     //update entry
     $("#datatable_form_update").on('click',()=>{   
+        
+        $('button[type="submit"]').attr('disabled' , true);
         
         var error='';
 
@@ -839,6 +844,7 @@
 
     //update Submit entry
     $("#goal_sheet_submit_update").on('click',()=>{
+        $('button[type="submit"]').attr('disabled' , true);
 
         var error='';
         var rate = $("#employee_consolidated_rate").val();

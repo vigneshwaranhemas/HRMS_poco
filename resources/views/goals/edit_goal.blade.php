@@ -409,6 +409,8 @@
      //update entry
      $("#datatable_form_update").on('click',()=>{   
         
+        $('button[type="submit"]').attr('disabled' , true);
+        
         var error='';
 
         var rate = $("#employee_consolidated_rate").val();

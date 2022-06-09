@@ -132,13 +132,13 @@
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> R.Manager Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p>IT</p>
+										<p id="sup_department"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p>IT</p>
+										<p id="rev_department"></p>
 									</div>
                                     <div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP Dept :</h6>
@@ -594,8 +594,8 @@
 							backgroundColor: "#4fbe87",
 						}).showToast();
 
-						// window.location = "{{ url('goals')}}";
-                        window.location.reload();
+						window.location = "{{ url('goals')}}";
+                        // window.location.reload();
 					},
 					error: function(response) {
 
@@ -605,31 +605,33 @@
          }
 
         //Edit pop-up model and data show
-        function get_goal_setting_reviewer_tl(){
+		function get_goal_setting_reviewer_tl(){
 
-            var params = new window.URLSearchParams(window.location.search);
-            var id=params.get('id')
+			var params = new window.URLSearchParams(window.location.search);
+			var id=params.get('id')
 
-        $.ajax({
-            url: "get_goal_setting_reviewer_details_tl",
-            method: "POST",
-            data:{"id":id,},
-            dataType: "json",
-            success: function(data) {
-                // console.log(data)
+			$.ajax({
+			url: "get_goal_setting_reviewer_details_tl",
+			method: "POST",
+			data:{"id":id,},
+			dataType: "json",
+			success: function(data) {
+				console.log(data.only_dept[0].department)
 
-                if(data.length !=0){
-                    $('#empID').html(data[0].empID);
-                    $('#username').html(data[0].username);
-                    $('#sup_emp_code').html(data[0].sup_emp_code);
-                    $('#sup_name').html(data[0].sup_name);
-                    $('#department').html(data[0].department);
-                    $('#reviewer_name').html(data[0].reviewer_name);
-                    $('#reviewer_emp_code').html(data[0].reviewer_emp_code);
-                }
-            }
-        });
-    }
+				if(data.length !=0){
+					$('#empID').html(data.all['0'].empID);
+					$('#username').html(data.all['0'].username);
+					$('#sup_emp_code').html(data.all['0'].sup_emp_code);
+					$('#sup_name').html(data.all['0'].sup_name);
+					$('#department').html(data.all['0'].department);
+					$('#reviewer_name').html(data.all['0'].reviewer_name);
+					$('#reviewer_emp_code').html(data.all['0'].reviewer_emp_code);
+					$('#sup_department').html(data.only_dept[0].department);
+					$('#rev_department').html(data.only_dept_reve[0].department);
+				}
+			}
+			});
+			}
 
     function revFormSubmit(){
         var error='';
@@ -673,8 +675,8 @@
                                 backgroundColor: "#4fbe87",
                             }).showToast();
 
-                            // window.location = "{{ url('goals')}}";
-                            window.location.reload();
+                            window.location = "{{ url('goals')}}";
+                            // window.location.reload();
                         },
                         error: function(response) {
 
@@ -754,8 +756,8 @@
                             $("#save_div").hide();
                             $("#goal_sheet_edit").css("display","block");
 
-                            // window.location = "{{ url('goals')}}";
-                            window.location.reload();
+                            window.location = "{{ url('goals')}}";
+                            // window.location.reload();
                         },
                         error: function(response) {
 
@@ -784,8 +786,8 @@
                         backgroundColor: "#4fbe87",
                     }).showToast();
 
-                    // window.location = "{{ url('goals')}}";
-                    window.location.reload();
+                    window.location = "{{ url('goals')}}";
+                    // window.location.reload();
                 },
                 error: function(response) {
 
@@ -901,8 +903,8 @@
                         $("#save_div").hide();
                         $("#goal_sheet_edit_for_reviewer").css("display","block");
 
-                        // window.location = "{{ url('goals')}}";
-                        window.location.reload();
+                        window.location = "{{ url('goals')}}";
+                        // window.location.reload();
                     },
                     error: function(response) {
 
@@ -932,8 +934,8 @@
                         backgroundColor: "#4fbe87",
                     }).showToast();
 
-                    // window.location = "{{ url('goals')}}";
-                    window.location.reload();
+                    window.location = "{{ url('goals')}}";
+                    // window.location.reload();
                 },
                 error: function(response) {
 

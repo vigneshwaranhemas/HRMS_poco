@@ -379,6 +379,8 @@
 			dataType : "JSON",
 			success:function(response)
 			{
+				// alert(response.result)
+
 				$('#goals_record_tb').DataTable().clear().destroy();
 				$('#goals_record').empty();
 				$('#goals_record').append(response.html);
@@ -389,15 +391,45 @@
 					"fixedColumns":   {
 							left: 6
 						}
-					// dom: 'Bfrtip',
-					// buttons: [
-					// 	'copyHtml5',
-					// 	'excelHtml5',
-					// 	'csvHtml5',
-					// 	'pdfHtml5'
-					// ]
 				} );
-				
+
+                  if(response.result==1){
+				    	 if(response.sheet_status.supervisor_status==1){
+				    	 	$("#goal_sheet_edit").hide();
+	                        $('#overall_submit').hide();
+	                        $("#overall_submit_1").hide();
+				    	 }
+				    	 else{
+				    	 	$("#goal_sheet_edit").show();
+	                        $('#overall_submit').show();
+	                        $("#overall_submit_1").show();
+				    	 }
+				 }
+				 if(response.result==2){
+				    	 if(response.sheet_status.reviewer_status==1){
+				    	 	$("#goal_sheet_edit").hide();
+	                        $('#overall_submit').hide();
+	                        $("#overall_submit_1").hide();
+				    	 }
+				    	 else{
+				    	 	$("#goal_sheet_edit").show();
+	                        $('#overall_submit').show();
+	                        $("#overall_submit_1").show();
+				    	 }
+				 }
+				 if(response.result==0){
+				    	 if(response.sheet_status.hr_status==1){
+				    	 	$("#goal_sheet_edit").hide();
+	                        $('#overall_submit').hide();
+	                        $("#overall_submit_1").hide();
+				    	 }
+				    	 else{
+				    	 	$("#goal_sheet_edit").show();
+	                        $('#overall_submit').show();
+	                        $("#overall_submit_1").show();
+				    	 }
+				 }
+
 			},
 			error: function(error) {
 				console.log(error);

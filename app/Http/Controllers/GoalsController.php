@@ -3027,7 +3027,7 @@ class GoalsController extends Controller
             'supervisor_consolidated_rate' => $request->employee_consolidated_rate,
         );
         // dd($data);
-        $result = $this->goal->update_goals_sup($data);
+        $result = $this->goal->update_goals_sup_hr($data);
 
         return response($result);
     }
@@ -3071,7 +3071,7 @@ class GoalsController extends Controller
         );
         // dd($data);
         // echo '11<pre>';print_r($data);die();
-        $result = $this->goal->update_goals_sup_save($data);
+        $result = $this->goal->update_goals_sup_save_hr($data);
 
         return response($result);
     }
@@ -3110,6 +3110,7 @@ class GoalsController extends Controller
         $year = substr( $current_year, -2);
         $goal_data_count = Goals::where('created_by', $logined_empID)->get()->count();
         $total_count = $goal_data_count+1;
+        $previous_year = $current_year-1;
         $goal_name = 'PMS-'.$previous_year.'-'.$current_year;
         $rating_option_list_arr =  array("");
 
@@ -4656,24 +4657,26 @@ public function get_all_supervisors_info_bh()
 
         $i=0;
         foreach($request->gid as $data){
-            // DB::enableQueryLog();
+        //     // DB::enableQueryLog();
             $result=Goals::join('customusers','customusers.empID','=','goals.created_by')
-                    ->where('goals.goal_unique_code',$data['checkbox'])->select('email')->get();
-            /*email*/
-            $Mail['email']=$result[$i]['email'];
-                    // echo json_encode($Mail['email']);die;
+                    ->where('goals.goal_unique_code',$data['checkbox'])->select('email')->first();
+            $test[]=$result;
+       
+            $Mail['email']=$result->email;
 
-                        // $Mail['email']='vigneshb@hemas.in';
-                        $Mail['subject']="Thank you for submitting the details.";
+            // $Mail['email']='vigneshb@hemas.in';
+            $Mail['subject']="Thank you for submitting the details.";
 
-                        Mail::send('emails.pms_emp_mail', $Mail, function ($message) use ($Mail) {
-                        $message->from("hr@hemas.in", 'HEPL - HR Team');
-                        $message->to($Mail['email'])->subject($Mail['subject']);
-                        });
-        $i++;
+            Mail::send('emails.pms_emp_mail', $Mail, function ($message) use ($Mail) {
+            $message->from("hr@hemas.in", 'HEPL - HR Team');
+            $message->to($Mail['email'])->subject($Mail['subject']);
+            });
+        // $i++;
+        // echo "<pre>";print_r($i);
         }
-        echo json_encode($myarr);
 
+         // echo json_encode($result->email);die();
+        return response()->json(['response'=>'1']);
     }
 
  public function update_goals_reviewer_teamleader(Request $request){

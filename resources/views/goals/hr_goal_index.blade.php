@@ -48,7 +48,7 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h2>Performance<span> Management System</span></h2>
+    <h2>Performance Management<span>  System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -69,8 +69,11 @@
                         <div class="tab-pane fade show active" id="pills-warninghome" role="tabpanel" aria-labelledby="pills-warninghome-tab">
                             <div class="card goals-card-div"> 
                                 <div class="card-body">
-                <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist">
-                    <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>AS Supervisor</a>
+                <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist" style="margin-top: -25px;">
+                    <li class="nav-item"><a class="nav-link active" id="MySelf-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>MySelf</a>
+                    <div class="material-border"></div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link " id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>AS Supervisor</a>
                     <div class="material-border"></div>
                     </li>
                     <li class="nav-item"><a class="nav-link" id="reviewer-info-tab" data-toggle="tab" href="#info-reviewer" role="tab" aria-controls="info-overall" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>AS Reviewer</a>
@@ -79,50 +82,63 @@
                     <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-overall" role="tab" aria-controls="info-overall" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>AS HR</a>
                     <div class="material-border"></div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" id="MySelf-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>MySelf</a>
-                    <div class="material-border"></div>
-                    </li>
                     <li class="nav-item"><a class="nav-link" id="listing-info-tab" data-toggle="tab" href="#info-listing" role="tab" aria-controls="info-listing" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>ORG Level Review</a>
                     <div class="material-border"></div>
                     </li>
                 </ul>
                 <div class="tab-content" id="info-tabContent">
+                    <!--myself -->
+                    <div class="tab-pane fade show active" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
+                        <div class="card-body">
+                            <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn  float-right btn-primary-gradien" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
+                            <div class="table-responsive">
+                                <table class="table" id="goal_data">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Goal list</th>
+                                        <th scope="col">Action </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <!-- as supervisor -->
-                    <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">                        
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Leader</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_list" name="supervisor_list">
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-8 m-t-35">
-                                        <button type="button" id="supervisor_filter" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
-                                        <button type="button" id="reset" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
-                                    </div>
+                    <div class="tab-pane fade" id="info-home" role="tabpanel" aria-labelledby="info-home-tab" style="margin-top: -30px;">                        
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-2 m-t-5">
+                                    <label for="Leader">Select R.Manager</label>
+                                    <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_list" name="supervisor_list">
+                                    </select>
                                 </div>
-                                <div class="table-responsive m-t-40">
-                                    <table class="table" id="supervisor_goal_data">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Employee Name</th>
-                                            <th scope="col">Goal Name</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Action </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                                <div class="col-lg-8 m-t-35">
+                                    <button type="button" id="supervisor_filter" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                    <button type="button" id="reset" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
                                 </div>
+                            </div>
+                            <div class="table-responsive m-t-40">
+                                <table class="table" id="supervisor_goal_data">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Employee Name</th>
+                                        <th scope="col">Goal Name</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                     <!-- as reviewer -->
                     <div class="tab-pane fade" id="info-reviewer" role="tabpanel" aria-labelledby="reviewer-info-tab">                        
-                        <div class="card">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-2 m-t-5">
@@ -132,7 +148,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Member</label>
+                                        <label for="Leader">Select Employee</label>
                                         <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter" name="team_member_filter">
                                             <option value="">...Select...</option>
                                         </select>
@@ -158,99 +174,74 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
                     </div>
                     <!-- as hr -->
                     <div class="tab-pane fade" id="info-overall" role="tabpanel" aria-labelledby="reviewer-info-tab">                        
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Supervisor">Select Reviewer</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="reviewer_filter" name="reviewer_filter">
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Leader</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter_hr" name="team_leader_filter_hr">
-                                            <option value="">...Select...</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Member</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter_hr" name="team_member_filter_hr">
-                                            <option value="">...Select...</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Gender</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="gender_hr_2" name="gender_hr_2">
-                                            <option value="">...Select...</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Band</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="grade_hr_2" name="grade_hr_2">
-                                            <option value="">...Select...</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Department</label>
-                                        <select class="js-example-basic-single float-right" style="width:300px;" id="department_hr_2" name="department_hr_2">
-                                            <option value="">...Select...</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-6 m-t-35">
-                                        <button type="submit" id="hr_apply" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
-                                        <button type="submit" id="hr_reset" onclick="hr_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
-                                    </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-2 m-t-5">
+                                    <label for="Supervisor">Select Reviewer</label>
+                                    <select class="js-example-basic-single float-right" style="width:300px;" id="reviewer_filter" name="reviewer_filter">
+                                    </select>
                                 </div>
-                                <div class="table-responsive m-t-40">
-                                    <table class="table" id="get_hr_goal">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Employee Name</th>
-                                            <th scope="col">Goal Name</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Action </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                                <div class="col-lg-2 m-t-5">
+                                    <label for="Leader">Select R.Manager</label>
+                                    <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter_hr" name="team_leader_filter_hr">
+                                        <option value="">...Select...</option>
+                                    </select>
                                 </div>
+                                <div class="col-lg-2 m-t-5">
+                                    <label for="Leader">Select Employee</label>
+                                    <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter_hr" name="team_member_filter_hr">
+                                        <option value="">...Select...</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 m-t-5">
+                                    <label for="Leader">Select Gender</label>
+                                    <select class="js-example-basic-single float-right" style="width:300px;" id="gender_hr_2" name="gender_hr_2">
+                                        <option value="">...Select...</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 m-t-5">
+                                    <label for="Leader">Select Band</label>
+                                    <select class="js-example-basic-single float-right" style="width:300px;" id="grade_hr_2" name="grade_hr_2">
+                                        <option value="">...Select...</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2 m-t-5">
+                                    <label for="Leader">Select Department</label>
+                                    <select class="js-example-basic-single float-right" style="width:300px;" id="department_hr_2" name="department_hr_2">
+                                        <option value="">...Select...</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 m-t-35">
+                                    <button type="submit" id="hr_apply" class="btn btn-success"><i class="ti-save"></i> Apply</button>                                            
+                                    <button type="submit" id="hr_reset" onclick="hr_filter_reset();" class="btn btn-dark"><i class="ti-save"></i> Clear</button>                                            
+                                </div>
+                            </div>
+                            <div class="table-responsive m-t-40">
+                                <table class="table" id="get_hr_goal">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Employee Name</th>
+                                        <th scope="col">Goal Name</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>      
-                    <!--myself -->
-                    <div class="tab-pane fade" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
-                        <div class="card">
-                            <div class="card-body">
-                                <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn  float-right btn-primary-gradien" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
-                                <div class="table-responsive">
-                                    <table class="table" id="goal_data">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Goal list</th>
-                                            <th scope="col">Action </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!--ORG Level review -->
                     <div class="tab-pane fade" id="info-listing" role="tabpanel" aria-labelledby="listing-info-tab">                        
-                         <div class="card">
-                            <div class="card-body">
+                        <div class="card-body">
                              <div class="row">
                                     <div class="col-lg-2 m-t-5">
                                         <label for="Supervisor">Select Reviewer</label>
@@ -264,7 +255,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Team Member</label>
+                                        <label for="Leader">Select Employee</label>
                                         <select class="js-example-basic-single float-right" style="width:300px;" id="team_member_filter_hr_1" name="team_member_filter_hr_1">
                                             <option value="">Select</option>
                                         </select>
@@ -295,15 +286,13 @@
                                         <button type="submit" id="myself_reset" class="btn btn-dark "><i class="ti-save"></i> Clear</button>           
                                     </div>
                                 </div>
+                                <button id="send_mail" style="display:none;" name="send_mail" class="btn btn-primary m-t-5 m-b-10 float-right">Send Mail</button>
+
                                 <div class="table-responsive">
-                                    <br>
-                                    <button id="send_mail" name="send_mail" class="btn btn-primary">Send Mail</button>
-                                    <br>
                                     <table id="listing_table" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
                                                 <th><input class="mail_class" type="checkbox" name="select_all" value="1" id="example-select-all"></th>
-                                                <th scope="col">Sno</th>
                                                 <th scope="col">Employee Name</th>
                                                 <th scope="col">Employee ID</th>
                                                 <th scope="col">Goal Name</th>
@@ -322,17 +311,15 @@
                             </div>
                         </div>
                     </div>
-                    
-                </div>
-                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="pills-warningprofile" role="tabpanel" aria-labelledby="pills-warningprofile-tab">
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+                <div class="tab-pane fade" id="pills-warningprofile" role="tabpanel" aria-labelledby="pills-warningprofile-tab">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
         <!-- MOdal Fade -->
         <div class="modal fade" id="goalsDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

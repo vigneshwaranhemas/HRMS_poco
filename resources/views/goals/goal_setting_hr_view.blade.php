@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
+
 @endsection
 
 @section('style')
@@ -371,15 +372,16 @@
 		});
 
 		$.ajax({                   
-			url:"{{ url('fetch_goals_hr_details') }}",
-			type:"GET",
-			data:{id:id},
+			url:"{{ url('fetch_goals_hr_details_hr') }}",
+			type:"POST",
+			data:{id:id,
+				"_token": "{{ csrf_token() }}",},
 			dataType : "JSON",
 			success:function(response)
 			{
 				$('#goals_record_tb').DataTable().clear().destroy();
 				$('#goals_record').empty();
-				$('#goals_record').append(response);
+				$('#goals_record').append(response.html);
 				$('#goals_record_tb').DataTable( {
 					"searching": false,
 					"paging": false,
@@ -411,7 +413,7 @@
 				var id=params.get('id');
 
 				$.ajax({                   
-					url:"{{ url('check_goal_sheet_role_type_hr') }}",
+					url:"{{ url('check_role_type_hr') }}",
 					type:"POST",
 					data:{id:id},
 					dataType : "JSON",

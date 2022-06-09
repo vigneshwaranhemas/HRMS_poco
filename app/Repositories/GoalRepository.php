@@ -203,6 +203,11 @@ class GoalRepository implements IGoalRepository
     //    echo "1<pre>";print_r($response);die;
       return $response;
    }
+   public function fetchGoalIdDetailsHR( $id ){
+      $response = Goals::where('goal_unique_code', $id)->value('goal_process');
+    //    echo "1<pre>";print_r($response);die;
+      return $response;
+   }
    public function Fetch_goals_user_info($id)
    {
         $user_info=Goals::join('customusers','customusers.empID','=','goals.created_by')
@@ -348,41 +353,30 @@ class GoalRepository implements IGoalRepository
       return $response;
    }
    public function add_goal_btn(){
-      $logined_empID = Auth::user()->empID;
-      // $logined_doj = Auth::user()->doj;
-      $logined_doj = "2021-11-15";
-      $year = Carbon::createFromFormat('Y-m-d', $logined_doj)->format('Y');
-      $current_year = date("Y");
+$logined_empID = Auth::user()->empID;
 
-      if($year < $current_year ){
-         // dd($year);
-         $response1 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Pending')->value('goal_name');
-         $response2 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Revert')->value('goal_name');
-         // dd($response2);
-         if(!empty($response1) || !empty($response2)){
-            // dd("y");
-            $response = "Yes";
-         }else{
-            // dd("n");
-            $response3 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Approved')->where('hr_status', "1")->where('bh_status', "1")->value('goal_name');
+      $response1 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Pending')->value('goal_name');
 
-            if(!empty($response3)){
-               // dd("y");
-               $response = "No";
-            }else{
-               // dd("n");
+      $response2 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Revert')->value('goal_name');
 
-               $response = "Yes";
-            }
-         }
+      // dd($response2);
 
-      }else{
+      if(!empty($response1) || !empty($response2)){
+
+         // dd("y");
+
          $response = "Yes";
 
+      }else{
+
+         // dd("n");
+
+         $response = "No";
 
       }
 
       return $response;
+
    }
    public function checkCustomUserList(){
       $logined_empID = Auth::user()->empID;
@@ -1411,6 +1405,21 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
     //   echo json_encode($empID);die();
       return $result;
    }
+   public function checkHrReviewerIDOrNot_hr( $id ){
+      $empID = Goals::where('goal_unique_code', $id)->value('created_by');
+      $logined_empID = Auth::user()->empID;
+      $supervisor = DB::table('customusers')->where('sup_emp_code', $logined_empID)->where('empID', $empID)->value('empID');
+      $teamleader=CustomUser::where('sup_emp_code','!=',$logined_empID)->where('reviewer_emp_code',$logined_empID)->where('empID',$empID)->value('empID');
+      $result=0; //others
+      if($supervisor){
+           $result=1;
+      }
+      if($teamleader){
+          $result=2;
+      }
+    //   echo json_encode($empID);die();
+      return $result;
+   }
 
    public function get_goal_setting_reviewer_details_tl( $input_details ){
 
@@ -1482,8 +1491,7 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
       return $response;
    }
    public function fetchCustomUserList(){
-      $response = DB::table('customusers')
-                     ->get();
+      $response = DB::table('customusers')->get();
       return $response;
    }
    public function get_goal_login_user_details_sup(){
@@ -1513,6 +1521,21 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
  }
 
     public function fetch_reviewer_id_or_not( $id ){
+        $empID = Goals::where('goal_unique_code', $id)->value('created_by');
+        $logined_empID = Auth::user()->empID;
+
+        $teamleader = DB::table('customusers')->where('reviewer_emp_code','!=', $logined_empID)->where('sup_emp_code', $logined_empID)->where('empID', $empID)->value('empID');
+        $employee=CustomUser::where('sup_emp_code','!=',$logined_empID)->where('reviewer_emp_code',$logined_empID)->where('empID',$empID)->value('empID');
+        $result=0;
+        if($teamleader){
+            $result=1;
+        }
+        if($employee){
+            $result=2;
+        }
+    //   echo json_encode($empID);die();
+        return $result;
+    }public function fetch_reviewer_id_or_not_hr( $id ){
         $empID = Goals::where('goal_unique_code', $id)->value('created_by');
         $logined_empID = Auth::user()->empID;
 

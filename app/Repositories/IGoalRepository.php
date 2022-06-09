@@ -17,6 +17,7 @@ interface IGoalRepository {
     public function fetchReviewerList();
     public function checkCustomUserList();
     public function fetchGoalIdDetails($id);
+    public function fetchGoalIdDetailsHR($id);
     public function checkReviewerIDOrNot($id);
     public function checkHrReviewerIDOrNot($id);
     public function checkSupervisorIDOrNot($id);
@@ -59,7 +60,7 @@ interface IGoalRepository {
     public function get_goal_login_user_details_sup();
     public function get_goal_login_user_details_rev();
     public function update_goals_hr_reviewer_tm($data);
-    public function fetch_reviewer_id_or_not($id);
+    // public function fetch_reviewer_id_or_not($id);
     public function update_goals_reviewer_teamleader($data);
     public function update_goals_sup_submit_overall_for_reviewer($data);
     public function update_goals_team_member_submit_direct($id);

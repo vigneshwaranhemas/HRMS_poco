@@ -2937,11 +2937,9 @@ class GoalsController extends Controller
         $logined_empID = Auth::user()->empID;
         $logined_username = Auth::user()->username;
         $current_year = date("Y");
-        $previous_year = $current_year - 1;
         $year = substr( $current_year, -2);
         $goal_data_count = Goals::where('created_by', $logined_empID)->get()->count();
         $total_count = $goal_data_count+1;
-        // $goal_name = 'Goal-'.$year.' '.$total_count;
         $goal_name = 'PMS-'.$previous_year.'-'.$current_year;
         $rating_option_list_arr =  array("");
 
@@ -3109,7 +3107,6 @@ class GoalsController extends Controller
         $logined_empID = Auth::user()->empID;
         $logined_username = Auth::user()->username;
         $current_year = date("Y");
-        $previous_year = $current_year - 1;
         $year = substr( $current_year, -2);
         $goal_data_count = Goals::where('created_by', $logined_empID)->get()->count();
         $total_count = $goal_data_count+1;
@@ -3378,7 +3375,6 @@ class GoalsController extends Controller
                     $btn = '<div class="dropup">
                     <a href="goal_setting_supervisor_view?id='.$row->goal_unique_code.'"><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
                     </div>' ;
-
                 return $btn;
             })
 
@@ -3920,6 +3916,13 @@ class GoalsController extends Controller
 
         return json_encode($result);
     }
+    public function check_role_type_hr(Request $request)
+    {
+        $id = $request->id;
+        $result = $this->goal->checkHrReviewerIDOrNot_hr($id);
+
+        return json_encode($result);
+    }
 
 
 
@@ -4122,9 +4125,7 @@ public function get_all_supervisors_info_bh()
         $new_data['all']=$get_reviewer_details_tl_result;
         $new_data['only_dept']=$customeruser_details_tl;
         $new_data['only_dept_reve']=$reviewer_details_tl;
-
         return response()->json( $new_data );
-
     }
     public function get_goal_setting_hr_details_tl(Request $req){
         $input_details = array(
@@ -4753,5 +4754,232 @@ public function update_goals_sup_submit_overall_for_reviewer(Request $request){
         return json_encode($head);
     }
 
+    public function fetch_goals_hr_details_hr(Request $request)
+    {
+        $id = $request->id;
+        $json = $this->goal->fetchGoalIdDetailsHR($id);
+        $reviewer=$this->goal->fetch_reviewer_id_or_not_hr($id);
+        $get_sheet_status=Goals::where('goal_unique_code',$id)
+                                 ->select('supervisor_status',
+                                        'supervisor_tb_status',
+                                        'reviewer_status',
+                                        'reviewer_tb_status',
+                                        'hr_status',
+                                        'hr_tb_status')->first();
+        $datas = json_decode($json);
+
+        $html = '';
+
+        foreach($datas as $key=>$data){
+            $cell1 = $key+1;
+            $row_values = json_decode($data);
+            $cell2 = "key_bus_drivers_".$cell1;
+            $cell3 = "key_res_areas_".$cell1;
+            $cell4 = "measurement_criteria_".$cell1;
+            $cell5 = "self_assessment_remark_".$cell1;
+            $cell6 = "rating_by_employee_".$cell1;
+            $cell7 = "sup_remarks_".$cell1;
+            $cell8 = "sup_final_output_".$cell1;
+            $cell9 = "reviewer_remarks_".$cell1;
+            $cell10 = "hr_remarks_".$cell1;
+            $cell11 = "bh_sign_off_".$cell1;
+
+            $html .= '<tr  class="border-bottom-primary">';
+            /*cell 1*/
+            $html .= '<th scope="row">'.$cell1.'</th>';
+            
+            /*cell 2*/
+            if($row_values->$cell2 != null){
+                $html .= '<td>';
+
+                    foreach($row_values->$cell2 as $cell2_value){
+                        if($cell2_value != null){
+
+                            $html .= '<p>'.$cell2_value.'</p>';
+
+                        }else{
+                            $html .= '<p></p>';
+
+                        }
+                    }
+
+                    $html .= '</td>';
+            }else{
+                $html .= '<td>';
+                $html .= '</td>';
+            }
+
+            /*cell 3*/
+            if($row_values->$cell3 != null){
+                $html .= '<td>';
+                    foreach($row_values->$cell3 as $cell3_value){
+                        if($cell3_value != null){
+
+                            $html .= '<p>'.$cell3_value.'</p>';
+
+                        }else{
+                            $html .= '<p></p>';
+                        }
+                    }
+
+                $html .= '</td>';
+
+            }else{
+                $html .= '<td>';
+                $html .= '</td>';
+            }
+
+            /*cell 4*/
+            if($row_values->$cell4 != null){
+                $html .= '<td>';
+                    foreach($row_values->$cell4 as $cell4_value){
+                        if($cell4_value != null){
+                            $html .= '<p>'.$cell4_value.'</p>';
+                        }
+                    }
+
+                $html .= '</td>';
+
+            }else{
+                $html .= '<td>';
+                $html .= '</td>';
+            }
+
+            /*cell 5*/
+            if($row_values->$cell5 != null){
+                $html .= '<td>';
+                    foreach($row_values->$cell5 as $cell5_value){
+                        if($cell5_value != null){
+                            $html .= '<p>'.$cell5_value.'</p>';
+                        }
+                    }
+
+                $html .= '</td>';
+
+            }else{
+                $html .= '<td>';
+                $html .= '</td>';
+            }
+
+            /*cell 6*/
+            if($row_values->$cell6 != null){
+                $html .= '<td>';
+                    foreach($row_values->$cell6 as $cell6_value){
+                        if($cell6_value != null){
+                            $html .= '<p>'.$cell6_value.'</p>';
+                        }
+                    }
+
+                $html .= '</td>';
+
+            }else{
+                $html .= '<td>';
+                $html .= '</td>';
+            }
+
+            /*cell 7*/
+            if($row_values->$cell7 != null){
+                $html .= '<td class="sup_remark">';
+
+                    foreach($row_values->$cell7 as $cell7_value){
+                        if($cell7_value != null){
+
+                            $html .= '<p class="sup_remark_p_rev_'.$cell1.'">'.$cell7_value.'</p>';
+
+                        }
+                    }
+                $html .= '</td>';
+
+            }else{
+                $html .= '<td class="sup_remark">';
+                $html .= '</td>';
+            }
+
+            /*cell 8*/
+            if($row_values->$cell8 != null){
+                $html .= '<td class="sup_rating">';
+                    foreach($row_values->$cell8 as $cell8_value){
+                        if($cell8_value != null){
+                            $html .= '<p class="sup_rating_p_rev_'.$cell1.'">'.$cell8_value.'</p>';
+
+                        }
+                    }
+                $html .= '</td>';
+
+            }else{
+                $html .= '<td class="sup_rating">';
+                $html .= '</td>';
+            }
+
+
+            /*cell 9*/
+            if($row_values->$cell9 != null){
+                // echo  json_encode($row_values->$cell9);
+                $html .= '<td class="reviewer_remarks">';
+                    foreach($row_values->$cell9 as $cell9_value){
+                        if($cell9_value != null){
+                            $html .= '<p class="reviewer_remarks_p_rev_'.$cell1.'">'.$cell9_value.'</p>';
+                        }
+                    }
+
+                $html .= '</td>';
+
+            }else{
+                $html .= '<td class="reviewer_remarks">';
+                // $html .= '<p></p>';
+                $html .= '</td>';
+            }
+
+            /*cell 10*/
+            if($row_values->$cell10 != null){
+                //    dd(count($row_values->$cell3));
+                $html .= '<td class="hr_remarks">';
+                    // $html .= '<p>HR Shared Services : </p>';
+
+                    foreach($row_values->$cell10 as $cell10_value){
+                        // dd($cell3_value);
+                        if($cell10_value != null){
+
+                            $html .= '<p class="hr_remark_p'.$cell1.'">'.$cell10_value.'</p>';
+
+                        }
+                    }
+
+                $html .= '</td>';
+
+            }else{
+                $html .= '<td class="hr_remarks">';
+                // $html .= '<p></p>';
+                $html .= '</td>';
+            }
+
+             /*cell 11*/
+             if($row_values->$cell11 != null){
+                $html .= '<td>';
+                    foreach($row_values->$cell11 as $cell11_value){
+                        if($cell11_value != null){
+                            $html .= '<p class="hr_remark_p'.$cell1.'">'.$cell11_value.'</p>';
+                        }
+                    }
+
+                $html .= '</td>';
+
+            }else{
+                $html .= '<td>';
+                $html .= '</td>';
+            }
+
+
+            $html .= '</tr>';
+
+        }
+
+        $new_data['html']=$html;
+        $new_data['result']=$reviewer;
+        $new_data['sheet_status']=$get_sheet_status;
+
+
+        return json_encode($new_data);
+    }
 
 }

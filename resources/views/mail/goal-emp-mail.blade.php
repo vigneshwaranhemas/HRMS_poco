@@ -1,2 +1,2 @@
-<h4>{{ $name }}</h4>
-<p>PMS sheet submitted successfully!</p>
+<h4>Dear {{ $name }}</h4>
+<p>Sheet submitted successfully!</p>

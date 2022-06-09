@@ -6,8 +6,8 @@ $( document ).ready(function() {
     });
 });
 $(document).ready(function() {
-    get_supervisor();
     goal_record();
+    get_supervisor();
     supervisor_goal_record();   
     add_goal_btn();
 });
@@ -112,7 +112,6 @@ function add_goal_btn(){
 
     });
 }
-/*end search*/
 
 /*grade*/
 function get_grade(){
@@ -761,7 +760,9 @@ function goal_record(){
                             checkbox:col1.val()
                          })  
                      }
+                     $("#send_mail").show();
                   }
+                  $("#send_mail").hide();
              });
          $.ajax({
             url:"pms_employeee_mail",
@@ -778,7 +779,12 @@ function goal_record(){
 // Handle click on "Select all" control
    $('#example-select-all').on('click', function(){
       var rows = table_cot.rows({ 'search': 'applied' }).nodes();
+      if (rows !="") {
       $('input[type="checkbox"]', rows).prop('checked', this.checked);
+      $("#send_mail").show();
+      }else{
+        $("#send_mail").hide();
+      }
    });
 
    $('#example tbody').on('change', 'input[type="checkbox"]', function(){
@@ -786,6 +792,7 @@ function goal_record(){
          var el = $('#example-select-all').get(0);
          if(el && el.checked && ('indeterminate' in el)){
             el.indeterminate = true;
+            
          }
       }
    });
@@ -794,7 +801,7 @@ function hr_listing_tab_record(){
 
     
     table_cot = $('#listing_table').DataTable({
-        
+            
         // dom: 'lBfrtip',
         lengthChange: true,
         "buttons": [

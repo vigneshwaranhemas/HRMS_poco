@@ -27,17 +27,14 @@
         color: #fff;        
     }
     .nav-primary .nav-link.nav-link-pms-2{
-        background-color: #ff0000;
+        background-color: #fd517d;
         color: #fff;        
-    }
-    #add_goal_btn{
-        display:none;
     }
 </style>
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Performanace Management<span>System</span></h2>
+	<h2>Permanace Management<span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -60,14 +57,14 @@
                             <div class="card goals-card-div">
                                 <div class="card-body">
                                     <!-- <a href="hr_add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a> -->
-                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn btn-primary-gradien float-right" style="margin-top: -35px;" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Sheet</button></a>
+                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn btn-primary-gradien mb-5 float-right" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Sheet</button></a>
                                     <div class="table-responsive">
                                         <table class="table" id="goal_data">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">No</th>
-                                                    <th scope="col">Title</th>
-                                                    <th scope="col">Action </th>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Goal list</th>
+                                                <th scope="col">Action </th>
                                                 </tr>
                                             </thead>
                                             <tbody>

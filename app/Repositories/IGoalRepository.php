@@ -17,13 +17,13 @@ interface IGoalRepository {
     public function fetchReviewerList();
     public function checkCustomUserList();
     public function fetchGoalIdDetails($id);
+    public function fetchGoalIdDetailsHR($id);
     public function checkReviewerIDOrNot($id);
     public function checkHrReviewerIDOrNot($id);
     public function checkSupervisorIDOrNot($id);
     public function fetchGoalIdHead($id);
     public function goals_consolidate_rate_head($id);
     public function goals_sup_consolidate_rate_head($id);
-    public function goals_sup_hr_rate_head($id);
     public function fetchGoalIdDelete($id);
     public function addGoalEmployeeSummary($id, $employee_summary);
     public function goals_status_update($data);
@@ -54,21 +54,15 @@ interface IGoalRepository {
     public function get_goal_myself_list();
     public function update_goals_sup_reviewer_tm($data);
     public function update_goals_sup_submit_overall($data);
-    // public function goals_sup_submit_status_for_rev($id);
     public function fetchCustomUserList();
     public function goals_sup_pip_exit_select_op($id);
     public function fecth_goals_sup_movement_process($id);
     public function get_goal_login_user_details_sup();
     public function get_goal_login_user_details_rev();    
     public function update_goals_hr_reviewer_tm($data);
-
-    public function get_goal_setting_sup_dept_name($id);
-    public function get_goal_setting_rev_dept_name($id);
-    public function goal_employee_summary_check($id);
-    public function getSupEmail();
-    public function goals_supervisor_summary($id, $sup_summary);
     // public function fetch_reviewer_id_or_not($id);
     public function update_goals_reviewer_teamleader($data);
     public function update_goals_sup_submit_overall_for_reviewer($data);
     public function update_goals_team_member_submit_direct($id);
+
 }

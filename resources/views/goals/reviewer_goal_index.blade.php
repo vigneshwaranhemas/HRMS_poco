@@ -52,7 +52,7 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h2>Performance Management<span>System</span></h2>
+	<h2>Performance Management<span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')

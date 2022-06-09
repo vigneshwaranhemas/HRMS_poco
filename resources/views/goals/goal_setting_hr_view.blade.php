@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
+
 @endsection
 
 @section('style')
@@ -276,15 +277,14 @@
 	            // console.log(data)
 
 	            if(data.length !=0){
-                    $('#empID').html(data.all['0'].empID);
-                    $('#username').html(data.all['0'].username);
-                    $('#sup_emp_code').html(data.all['0'].sup_emp_code);
-                    $('#sup_name').html(data.all['0'].sup_name);
-                    $('#department').html(data.all['0'].department);
-                    $('#reviewer_name').html(data.all['0'].reviewer_name);
-                    $('#reviewer_emp_code').html(data.all['0'].reviewer_emp_code);
-                    $('#sup_department').html(data.only_dept[0].department);
-                }
+	                $('#empID').html(data[0].empID);
+	                $('#username').html(data[0].username);
+	                $('#sup_emp_code').html(data[0].sup_emp_code);
+	                $('#sup_name').html(data[0].sup_name);
+	                $('#department').html(data[0].department);
+	                $('#reviewer_name').html(data[0].reviewer_name);
+	                $('#reviewer_emp_code').html(data[0].reviewer_emp_code);
+	            }
 	        }
 	    });
 
@@ -372,16 +372,16 @@
 		});
 
 		$.ajax({                   
-			url:"{{ url('fetch_goals_hr_details') }}",
+			url:"{{ url('fetch_goals_hr_details_hr') }}",
 			type:"POST",
-			data:{id:id},
+			data:{id:id,
+				"_token": "{{ csrf_token() }}",},
 			dataType : "JSON",
 			success:function(response)
 			{
-				// console.log(response)
 				$('#goals_record_tb').DataTable().clear().destroy();
 				$('#goals_record').empty();
-				$('#goals_record').append(response);
+				$('#goals_record').append(response.html);
 				$('#goals_record_tb').DataTable( {
 					"searching": false,
 					"paging": false,
@@ -413,7 +413,7 @@
 				var id=params.get('id');
 
 				$.ajax({                   
-					url:"{{ url('check_goal_sheet_role_type_hr') }}",
+					url:"{{ url('check_role_type_hr') }}",
 					type:"POST",
 					data:{id:id},
 					dataType : "JSON",

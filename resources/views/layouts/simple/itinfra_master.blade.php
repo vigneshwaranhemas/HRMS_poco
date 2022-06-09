@@ -61,8 +61,8 @@
                        <div class="modal-header"></div>
                        <div class="contain p-30">
                           <div class="text-center">
-                             <h3>Welcome to HRMS</h3>
-                             <p>Enter Your ID Card Information  </p>
+                             <h3>Welcome to BUDGIE</h3>
+                             <h4 style="color:red;">Enter Your ID Card Information  </h4>
                              <a class="btn btn-primary btn-lg txt-white"  href="{{ url('id_card_varification') }}" aria-label="Close">Get Started</a>
                           </div>
                        </div>

@@ -80,19 +80,19 @@
                                     <h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Emp Name :</h6>
                                 </div>
                                 <div class="col-md-5">
-                                    <p id="username">{{ Auth::user()->username }}</p>
+                                    <p id="username" style="text-transform: uppercase;">{{ Auth::user()->username }}</p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
                                     <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> R.Manager Name :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="sup_name">{{ Auth::user()->sup_name }}</p>
+                                    <p id="sup_name" style=text-transform uppercase;>{{ Auth::user()->sup_name }}</p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
                                     <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Reveiwer Name :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="reviewer_name">{{ Auth::user()->reviewer_name }}</p>
+                                    <p id="reviewer_name" style=text-transform uppercase;>{{ Auth::user()->reviewer_name }}</p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
                                     <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP :</h6>
@@ -165,7 +165,7 @@
                             <input type="hidden" name="goals_setting_id" id="goals_setting_id">								
                             <div class="m-t-40 m-b-30 float-right">
                                 <div class="row">									
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-6">
                                         <label>Self Consolidated Rating</label><br>
                                         <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
                                             <option value="" selected>...Select...</option>
@@ -177,9 +177,9 @@
                                         </select>
                                         <div class="text-danger employee_consolidated_rate_error" id=""></div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <a id="datatable_form_save" type="submit" class="btn btn-primary text-white m-t-30" title="Save For Draft">Save</a>                                            
-                                        <a id="datatable_form_update" type="submit" class="btn btn-primary text-white m-t-30" title="Save For Draft">Update</a>                                            
+                                    <div class="col-lg-6">
+                                        <a id="datatable_form_save" type="submit" class="btn btn-primary text-white m-t-30" title="Save As Draft">Save As Draft</a>                                            
+                                        <a id="datatable_form_update" type="submit" class="btn btn-primary text-white m-t-30" title="Save As Draft">Update</a>                                            
                                         <!-- <button type="submit" id="datatable_form_save" class="btn btn-primary m-t-30"><i class="ti-save"></i> Save</button>                                            
                                         <button id="datatable_form_update" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                             -->
                                     </div>
@@ -471,7 +471,7 @@
 
     //New entry    
     $("#datatable_form_save").on('click',()=>{
-        $('button[type="submit"]').attr('disabled' , true);
+        $('#datatable_form_save').attr('disabled' , true);
         var error='';
         var rate = $("#employee_consolidated_rate").val();
         var $errmsg3 = $(".employee_consolidated_rate_error");
@@ -577,7 +577,7 @@
                         backgroundColor: "#4fbe87",
                     }).showToast();    
                     
-                    $('button[type="submit"]').attr('disabled' , false);
+                    $('#datatable_form_save').attr('disabled' , false);
 
                     // $("#goals_setting_id").val(data);
                     // $("#datatable_form_save").css('display', 'none');
@@ -597,7 +597,8 @@
     //New Submit entry
     $("#goal_sheet_submit").on('click',()=>{        
 
-        $('button[type="submit"]').attr('disabled' , true);
+        $('#goal_sheet_submit').attr('disabled' , true);
+        // $('button[type="submit"]').attr('disabled' , true);
 
         var error='';
 
@@ -705,7 +706,7 @@
                         backgroundColor: "#4fbe87",
                     }).showToast();    
                     
-                    $('button[type="submit"]').attr('disabled' , false);
+                    $('#goal_sheet_submit').attr('disabled' , false);
 
                     location = "goals";                
 
@@ -720,7 +721,7 @@
     //update entry
     $("#datatable_form_update").on('click',()=>{   
         
-        $('button[type="submit"]').attr('disabled' , true);
+        $('#datatable_form_update').attr('disabled' , true);
         
         var error='';
 
@@ -828,7 +829,7 @@
                         backgroundColor: "#4fbe87",
                     }).showToast();    
                     
-                    $('button[type="submit"]').attr('disabled' , false);
+                    $('#datatable_form_update').attr('disabled' , false);
 
 					$("#datatable_form_save").css('display', 'none');
 					$("#datatable_form_update").css('display', 'block');

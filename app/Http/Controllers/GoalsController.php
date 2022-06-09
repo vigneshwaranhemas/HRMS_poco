@@ -2940,6 +2940,7 @@ class GoalsController extends Controller
         $year = substr( $current_year, -2);
         $goal_data_count = Goals::where('created_by', $logined_empID)->get()->count();
         $total_count = $goal_data_count+1;
+        $previous_year = $current_year - 1;
         $goal_name = 'PMS-'.$previous_year.'-'.$current_year;
         $rating_option_list_arr =  array("");
 
@@ -3110,7 +3111,7 @@ class GoalsController extends Controller
         $year = substr( $current_year, -2);
         $goal_data_count = Goals::where('created_by', $logined_empID)->get()->count();
         $total_count = $goal_data_count+1;
-        $previous_year = $current_year-1;
+        $previous_year = $current_year - 1;
         $goal_name = 'PMS-'.$previous_year.'-'.$current_year;
         $rating_option_list_arr =  array("");
 
@@ -3143,7 +3144,7 @@ class GoalsController extends Controller
         //     // return json_encode($goal_unique_code);
         // }
         $logined_email = Auth::user()->email;
-        $logined_sup_email = Auth::user()->email;
+        $logined_sup_email = $this->goal->getSupEmail();
         $logined_username = Auth::user()->username;
 
         if($result){
@@ -3158,6 +3159,17 @@ class GoalsController extends Controller
                 $message->to($data['to_email'])->subject
                     ('PMS Sheet');
                 $message->cc($data['sup_to_email']);
+                $message->from("hr@hemas.in", 'HEPL - HR Team');
+            });
+            $sup_data = array(
+                'name'=> $logined_username,
+                'to_email'=> $logined_sup_email,
+            );
+            Mail::send('mail.goal-emp-mail', $sup_data, function($message) use ($sup_data) {
+                // $message->to($todays_birthday->email)->subject
+                //     ('Birthday Mail');
+                $message->to($sup_data['to_email'])->subject
+                    ('PMS Sheet');
                 $message->from("hr@hemas.in", 'HEPL - HR Team');
             });
         }
@@ -3282,32 +3294,33 @@ class GoalsController extends Controller
                     </div>' ;
 
                 }elseif($row->goal_status == "Approved"){
-                    // $btn = '<div class="dropup">
-                    // <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                    // <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                    //     <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                    // </div>
-                    // </div>' ;
-                    $id = $row->goal_unique_code;
-                    $result = $this->goal->check_goals_employee_summary($id);
+                    $btn = '<div class="dropup">
+                    <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                    <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                        <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                    </div>
+                    </div>' ;
 
-                    if($result == "Yes"){
-                        $btn = '<div class="dropup">
-                                <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                                <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                    <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                                    <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary_show" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-file-text-o"></i></button></a>
-                                </div>
-                            </div>' ;
-                    }else{
-                        $btn = '<div class="dropup">
-                                <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
-                                <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
-                                    <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
-                                    <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-edit"></i></button></a>
-                                </div>
-                            </div>' ;
-                    }
+                    // $id = $row->goal_unique_code;
+                    // $result = $this->goal->check_goals_employee_summary($id);
+
+                    // if($result == "Yes"){
+                    //     $btn = '<div class="dropup">
+                    //             <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                    //             <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                    //                 <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                    //                 <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary_show" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-file-text-o"></i></button></a>
+                    //             </div>
+                    //         </div>' ;
+                    // }else{
+                    //     $btn = '<div class="dropup">
+                    //             <button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" data-toggle="dropdown" id="dropdownMenuButton"><i class="fa fa-spin fa-cog"></i></button>
+                    //             <div class="dropdown-menu" style="transform: translate3d(-17px, 21px, 0px) !important; min-width: unset;" aria-labelledby="dropdownMenuButton">
+                    //                 <a href="goal_setting?id='.$row->goal_unique_code.'" class="dropdown-item ditem-gs"><button class="btn btn-primary btn-xs goals_btn" type="button"><i class="fa fa-eye"></i></button></a>
+                    //                 <a class="dropdown-item ditem-gs" ><button class="btn btn-dark btn-xs goals_btn" id="employee_summary" data-id="'.$row->goal_unique_code.'"type="button"><i class="fa fa-edit"></i></button></a>
+                    //             </div>
+                    //         </div>' ;
+                    // }
 
                 }
 
@@ -3611,11 +3624,17 @@ class GoalsController extends Controller
         $result = $this->goal->fetch_goals_employee_summary($id);
         return json_encode($result);
     }
+    public function fetch_goals_supervisor_summary(Request $request){
+        $id = $request->id;
+        // echo "<pre>as";print_r($id);die;
+        $result = $this->goal->fetch_goals_supervisor_summary($id);
+        return json_encode($result);
+    }
 
     public function goals_supervisor_summary(Request $request){
         $id = $request->id;
-        $employee_summary = $request->employee_summary;
-        $result = $this->goal->goals_supervisor_summary($id, $employee_summary);
+        $sup_summary = $request->supervisor_summary;
+        $result = $this->goal->goals_supervisor_summary($id, $sup_summary);
         return response($result);
     }
     public function update_goals_sup(Request $request){

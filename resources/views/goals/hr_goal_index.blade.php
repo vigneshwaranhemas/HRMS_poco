@@ -44,6 +44,9 @@
         background-color: #ff0000;
         color: #fff;        
     }
+    #add_goal_btn{
+        display:none;
+    }
 </style>
 @endsection
 
@@ -60,7 +63,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body"> 
                     <ul class="nav nav-tabs nav-primary" id="pills-warningtab" role="tablist">
                         <li class="nav-item"><a class="nav-link nav-link-pms-1" id="pills-warninghome-tab" data-toggle="pill" href="#pills-warninghome" role="tab" aria-controls="pills-warninghome" aria-selected="true"><i class="icofont icofont-ui-home"></i>PMS 2021-2022</a></li>
                         <li class="nav-item"><a class="nav-link nav-link-pms-2 disabled" id="pills-warningprofile-tab" data-toggle="pill" href="#pills-warningprofile" role="tab" aria-controls="pills-warningprofile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>PMS 2022-2023</a></li>
@@ -69,7 +72,7 @@
                         <div class="tab-pane fade show active" id="pills-warninghome" role="tabpanel" aria-labelledby="pills-warninghome-tab">
                             <div class="card goals-card-div"> 
                                 <div class="card-body">
-                <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist" style="margin-top: -25px;">
+                <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist" style="margin-top: -25px; margin-bottom: -30px;">
                     <li class="nav-item"><a class="nav-link active" id="MySelf-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>MySelf</a>
                     <div class="material-border"></div>
                     </li>
@@ -90,13 +93,13 @@
                     <!--myself -->
                     <div class="tab-pane fade show active" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
                         <div class="card-body">
-                            <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn  float-right btn-primary-gradien" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a>
+                            <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn mb-2 float-right btn-primary-gradien" type="button" data-original-title="Add Sheet" title="Add Sheet">Add Sheet</button></a>
                             <div class="table-responsive">
                                 <table class="table" id="goal_data">
                                     <thead>
                                         <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Goal list</th>
+                                        <th scope="col">Title</th>
                                         <th scope="col">Action </th>
                                         </tr>
                                     </thead>
@@ -126,8 +129,8 @@
                                         <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Employee Name</th>
-                                        <th scope="col">Goal Name</th>
-                                        <th scope="col">Status</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Business Head Status</th>
                                         <th scope="col">Action </th>
                                         </tr>
                                     </thead>
@@ -142,7 +145,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Reporting Manger</label>
+                                        <label for="Leader">Select R.Manger</label>
                                         <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_list_1" name="supervisor_list_1">
                                             <option value="">...Select...</option>
                                         </select>
@@ -164,8 +167,8 @@
                                             <tr>
                                             <th scope="col">No</th>
                                             <th scope="col">Employee Name</th>
-                                            <th scope="col">Goal Name</th>
-                                            <th scope="col">Status</th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Business Head Status</th>
                                             <th scope="col">Action </th>
                                             </tr>
                                         </thead>
@@ -228,8 +231,8 @@
                                         <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Employee Name</th>
-                                        <th scope="col">Goal Name</th>
-                                        <th scope="col">Status</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Business Head Status</th>
                                         <th scope="col">Action </th>
                                         </tr>
                                     </thead>
@@ -249,7 +252,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-2 m-t-5">
-                                        <label for="Leader">Select Reporting Manger</label>
+                                        <label for="Leader">Select R.Manger</label>
                                         <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter_hr_1" name="team_leader_filter_hr_1">
                                             <option value="">Select</option>
                                         </select>
@@ -282,8 +285,8 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-6 m-t-35 float-left">
-                                        <button type="submit" id="list_apply" class="btn btn-success "><i class="ti-save"></i> Apply</button>
-                                        <button type="submit" id="myself_reset" class="btn btn-dark "><i class="ti-save"></i> Clear</button>           
+                                        <button type="submit" id="list_apply" class="btn btn-success m-b-30"><i class="ti-save"></i> Apply</button>
+                                        <button type="submit" id="myself_reset" class="btn btn-dark m-b-30"><i class="ti-save"></i> Clear</button>           
                                     </div>
                                 </div>
                                 <button id="send_mail" style="display:none;" name="send_mail" class="btn btn-primary m-t-5 m-b-10 float-right">Send Mail</button>
@@ -301,7 +304,7 @@
                                                 <th scope="col">Grade</th>
                                                 <th scope="col">Department</th>
                                                 <th scope="col">Employee Consolidated Rate</th>
-                                                <th scope="col">Supervisor Consolidated rate</th>
+                                                <th scope="col">R.Manager Consolidated rate</th>
                                                 
                                             </tr>
                                         </thead>

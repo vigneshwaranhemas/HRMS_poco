@@ -48,7 +48,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Performance Management System</h2>
+	<h2>Performance Management <span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -70,13 +70,13 @@
                             <div class="card goals-card-div">
                                 <div class="card-body">
                                     <ul class="nav nav-tabs nav-material nav-primary" id="info-tab" role="tablist" style="margin-top: -35px;margin-bottom: 6px;">
-                                        <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>As Reviewer </a>
+                                        <li class="nav-item"><a class="nav-link active" id="info-home-tab" data-toggle="tab" href="#info-home" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i><b>As Reporting Manager</b></a>
                                         <div class="material-border"></div>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" id="info-reviewer-tab" data-toggle="tab" href="#info-reviewer" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i>As Reporting Manager</a>
+                                        <li class="nav-item"><a class="nav-link" id="info-reviewer-tab" data-toggle="tab" href="#info-reviewer" role="tab" aria-controls="info-home" aria-selected="true"><i class="icofont icofont-ui-home"></i><b>As Reviewer</b></a>
                                         <div class="material-border"></div>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>As Business Head</a>
+                                        <li class="nav-item"><a class="nav-link" id="profile-info-tab" data-toggle="tab" href="#info-profile" role="tab" aria-controls="info-profile" aria-selected="false"><i class="icofont icofont-man-in-glasses"><b></i>As Business Head</b></a>
                                         <div class="material-border"></div>
                                         </li>
                                     </ul>
@@ -109,7 +109,7 @@
                                                 <div class="card-body"> --}}
                                                     <div class="row">
                                                         <div class="col-lg-2 m-t-5">
-                                                            <label for="Supervisor">Select Reporting Manager</label>
+                                                            <label for="Supervisor">Select R.Manager</label>
                                                             <select class="js-example-basic-single float-right" style="width:300px;" id="supervisor_filter" name="reviewer_filter">
                                                                 <option value="">...Select...</option>
                                                                 @foreach($reviewer_list as $reviewer)
@@ -145,7 +145,7 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-lg-2 m-t-5">
-                                                            <label for="Leader">Select  Reporting Manager</label>
+                                                            <label for="Leader">Select R.Manager</label>
                                                             <select class="js-example-basic-single float-right" style="width:300px;" id="team_leader_filter" name="team_leader_filter">
                                                                 <option value="">...Select...</option>
                                                             </select>
@@ -172,8 +172,8 @@
                                                 <tr>
                                                 <th scope="col">No</th>
                                                 <th scope="col">Employee Name</th>
-                                                <th scope="col">Goal Name</th>
-                                                <th scope="col">Status</th>
+                                                <th scope="col">Title</th>
+                                                <th scope="col">Business Head Status</th>
                                                 <th scope="col">Action </th>
                                                 </tr>
                                             </thead>

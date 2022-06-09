@@ -283,15 +283,23 @@ class GoalRepository implements IGoalRepository
       return $response;
    }
    public function update_goals_sup($data){
-      $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
-                        ->update([
-                              'goal_process' => $data['goal_process'],
-                              'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate'],
-                              // 'supervisor_pip_exit' => $data['supervisor_pip_exit'],
-                              'supervisor_tb_status' => "1",
-                        ]);
-      return $response;
-   }
+    $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
+
+                      ->update([
+
+                            'goal_process' => $data['goal_process'],
+
+                            'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate'],
+
+                            'supervisor_pip_exit' => $data['supervisor_pip_exit'],
+
+                            'supervisor_tb_status' => "1",
+
+                      ]);
+
+    return $response;
+
+ }
    public function update_goals_sup_save($data){
       $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                         ->update([

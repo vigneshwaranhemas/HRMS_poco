@@ -132,13 +132,13 @@
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> R.Manager Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p>IT</p>
+										<p id="sup_department"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p>IT</p>
+										<p id="rev_department"></p>
 									</div>
                                     <div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP Dept :</h6>
@@ -435,7 +435,7 @@
 
 				$.ajax({
 					url:"{{ url('check_goal_sheet_role_type_hr') }}",
-					type:"GET",
+					type:"POST",
 					data:{id:id},
 					dataType : "JSON",
 					success:function(response)
@@ -491,7 +491,7 @@
 											<option value="EE" '+(text_data=="EE" ? "selected" : "")+'>EE</option>\
 											<option value="AE" '+(text_data=="AE" ? "selected" : "")+'>AE</option>\
 											<option value="ME" '+(text_data=="ME" ? "selected" : "")+'>ME</option>\
-											<option value="PE  '+(text_data=="PE" ? "selected" : "")+'>PE</option>\
+											<option value="PE" '+(text_data=="PE" ? "selected" : "")+'>PE</option>\
 											<option value="ND" '+(text_data=="ND" ? "selected" : "")+'>ND</option>\
 											</select>\
 											<div class="text-danger sup_rating_'+index+'_error"></div>')
@@ -616,16 +616,18 @@
             data:{"id":id,},
             dataType: "json",
             success: function(data) {
-                // console.log(data)
+                console.log(data.only_dept[0].department)
 
                 if(data.length !=0){
-                    $('#empID').html(data[0].empID);
-                    $('#username').html(data[0].username);
-                    $('#sup_emp_code').html(data[0].sup_emp_code);
-                    $('#sup_name').html(data[0].sup_name);
-                    $('#department').html(data[0].department);
-                    $('#reviewer_name').html(data[0].reviewer_name);
-                    $('#reviewer_emp_code').html(data[0].reviewer_emp_code);
+                    $('#empID').html(data.all['0'].empID);
+                    $('#username').html(data.all['0'].username);
+                    $('#sup_emp_code').html(data.all['0'].sup_emp_code);
+                    $('#sup_name').html(data.all['0'].sup_name);
+                    $('#department').html(data.all['0'].department);
+                    $('#reviewer_name').html(data.all['0'].reviewer_name);
+                    $('#reviewer_emp_code').html(data.all['0'].reviewer_emp_code);
+                    $('#sup_department').html(data.only_dept[0].department);
+                    $('#rev_department').html(data.only_dept_reve[0].department);
                 }
             }
         });
@@ -803,7 +805,7 @@
 
 				$.ajax({
 					url:"{{ url('check_goal_sheet_role_type_hr') }}",
-					type:"GET",
+					type:"POST",
 					data:{id:id},
 					dataType : "JSON",
 					success:function(response)

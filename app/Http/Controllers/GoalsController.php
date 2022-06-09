@@ -3669,7 +3669,7 @@ class GoalsController extends Controller
             'goal_unique_code' => $id,
         );
 
-        $result = $this->goal->update_goals_sup_movement($movement_json_data);
+        // $result = $this->goal->update_goals_sup_movement($movement_json_data);
 
         //Data upload to server
         $data = array(
@@ -4079,11 +4079,21 @@ public function get_all_supervisors_info_bh()
         $input_details = array(
             'id'=>$req->input('id'),
         );
-        // echo 'test<pre>';print_r($input_details);die();
 
         $get_reviewer_details_tl_result = $this->goal->get_goal_setting_reviewer_details_tl( $input_details );
+        // echo 'test<pre>';print_r($get_reviewer_details_tl_result[0]->reviewer_emp_code);die();
+        $customeruser_details_tl = DB::table('customusers as cu')
+                           ->where('cu.empID', $get_reviewer_details_tl_result[0]->sup_emp_code)
+                           ->get();
+        $reviewer_details_tl = DB::table('customusers as cu')
+                           ->where('cu.empID', $get_reviewer_details_tl_result[0]->reviewer_emp_code)
+                           ->get();
+        // echo '<pre>';print_r($reviewer_details_tl);die();
+        $new_data['all']=$get_reviewer_details_tl_result;
+        $new_data['only_dept']=$customeruser_details_tl;
+        $new_data['only_dept_reve']=$reviewer_details_tl;
 
-        return response()->json( $get_reviewer_details_tl_result );
+        return response()->json( $new_data );
     }
     public function get_goal_setting_hr_details_tl(Request $req){
         $input_details = array(

@@ -57,7 +57,7 @@ interface IGoalRepository {
     public function goals_sup_pip_exit_select_op($id);
     public function fecth_goals_sup_movement_process($id);
     public function get_goal_login_user_details_sup();
-    public function get_goal_login_user_details_rev();    
+    public function get_goal_login_user_details_rev();
     public function update_goals_hr_reviewer_tm($data);
     public function fetch_reviewer_id_or_not($id);
     public function update_goals_reviewer_teamleader($data);

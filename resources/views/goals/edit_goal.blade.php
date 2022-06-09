@@ -166,7 +166,7 @@
                                         <div class="text-danger employee_consolidated_rate_error" id=""></div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <a id="datatable_form_update" type="submit" class="btn btn-primary text-white float-right m-t-30" title="Submit For Approval">Update</a>                                            
+                                        <a id="datatable_form_update" type="submit" class="btn btn-primary text-white float-right m-t-30" title="Submit As Approval">Update</a>                                            
                                         <!-- <button id="datatable_form_update" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                             -->
                                     </div>
                                 </div>

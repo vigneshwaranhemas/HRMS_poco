@@ -98,25 +98,25 @@
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Emp Name :</h6>
 									</div>
 									<div class="col-md-5">
-										<p id="username"></p>
+										<p id="username" style="text-transform: uppercase;"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> R.Manager Name :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="sup_name"></p>
+										<p id="sup_name" style="text-transform: uppercase;"></p>
 									</div>
                                     <div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Reveiwer Name :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="reviewer_name"></p>
+										<p id="reviewer_name" style="text-transform: uppercase;"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p>Rajesh M S</p>
+										<p style="text-transform: uppercase;">Rajesh M S</p>
 									</div>
 								</div>
 							</div>
@@ -126,25 +126,25 @@
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Emp Dept:</h6>
 									</div>
 									<div class="col-md-5">
-										<p id="department"></p>
+										<p id="department" style="text-transform: uppercase;"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> R.Manager Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="sup_department"></p>
+										<p id="sup_department" style="text-transform: uppercase;"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="rev_department"></p>
+										<p id="rev_department" style="text-transform: uppercase;"></p>
 									</div>
                                     <div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p>HR</p>
+										<p style="text-transform: uppercase;">HR</p>
 									</div>
 								</div>
 							</div>

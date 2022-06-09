@@ -296,7 +296,7 @@ class GoalRepository implements IGoalRepository
 
                             'supervisor_consolidated_rate' => $data['supervisor_consolidated_rate'],
 
-                            'supervisor_pip_exit' => $data['supervisor_pip_exit'],
+                            // 'supervisor_pip_exit' => $data['supervisor_pip_exit'],
 
                             'supervisor_tb_status' => "1",
 

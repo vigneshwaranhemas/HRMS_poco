@@ -286,6 +286,41 @@ class GoalRepository implements IGoalRepository
                         'goal_process' => $data['goal_process']
                   ]);
       return $response;
+   }   
+   public function goal_employee_summary_check($id){      
+      $employee_summary = Goals::where('goal_unique_code', $id)->where('goal_status', "Approved")->where('bh_status', "1")->where('hr_status', "1")->value('goal_name');
+      // dd($employee_summary);
+      if(!empty($employee_summary)){
+         $summary = Goals::where('goal_unique_code', $id)->where('goal_status', "Approved")->where('bh_status', "1")->where('hr_status', "1")->value('employee_summary');
+         if(!empty($summary)){
+
+            $sup_summary = Goals::where('goal_unique_code', $id)->where('goal_status', "Approved")->where('bh_status', "1")->where('hr_status', "1")->value('supervisor_summary');
+
+            if(!empty($sup_summary)){
+   
+               $response = "3";
+   
+            }else{
+               $response = "2";
+   
+            }
+
+         }else{
+            $response = "1";
+
+         }
+      }else{
+         $response = "0";
+      }
+      return $response;
+   }
+   public function goals_supervisor_summary($id, $sup_summary){
+        $logined_empID = Auth::user()->empID;
+        $response = Goals::where('goal_unique_code', $id)
+                  ->update([
+                        'supervisor_summary' => $sup_summary
+                  ]);
+      return $response;
    }
    public function update_goals_sup($data){
     $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
@@ -1578,6 +1613,12 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                        'reviewer_status' => "1",
                   ]);
         return $response;
+     }
+     public function getSupEmail(){      
+        $logined_sup_emp_code = Auth::user()->sup_emp_code;
+        $response = DB::table('customusers')->where('empID', $logined_sup_emp_code)->value('email');
+        return $response;
+        
      }
 
 }

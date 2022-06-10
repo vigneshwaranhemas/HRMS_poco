@@ -600,11 +600,12 @@ class AdminController extends Controller
         // $tdy_work_anniversary = DB::table('customusers')->select('*')->where('doj', 'LIKE', '%%-'.$tdy.'%')->get();
 
         $tdy_work_anniversary = DB::table('customusers')
+                                ->distinct()
                                 ->select('*')
                                 ->where('doj', 'LIKE', '%%-'.$tdy.'%')
                                 ->whereNotIn('doj', [$current])
                                 ->get();
-
+        
         $html_tdy_work_annu = '';
 
         foreach($tdy_work_anniversary as $tdy_work_annu){

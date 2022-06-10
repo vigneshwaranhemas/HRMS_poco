@@ -11,6 +11,16 @@ $(document).ready(function() {
     supervisor_goal_record();   
     add_goal_btn();
 });
+
+// $(".mail_class").on('click',function(){
+//     alert('sassa');
+// })
+
+/*$('#listing_table tbody>tr td').on('change' ,'.mail_class', 'input[type="checkbox"]', function(){
+    alert("one")
+})*/
+
+
 /*clear function*/
 $("#reset").on('click', function() {
         $("#supervisor_list").val("").trigger('change'); 
@@ -144,7 +154,7 @@ function get_department(){
         type:"GET",
         dataType : "JSON",
         success: function(data) {
-            console.log(data)
+            // console.log(data)
             var html = '<option value="">Select</option>';
             for (let i = 0; i < data.length; i++) {
                 html += "<option value='" + data[i].department + "'>" + data[i].department + "</option>";
@@ -764,16 +774,29 @@ function goal_record(){
                   }
                   $("#send_mail").hide();
              });
+
          $.ajax({
             url:"pms_employeee_mail",
             type:"POST",
             data:{gid:selected},
             success:function(data){
-                console.log(data);
+                console.log(data.response);
+                if(data.response==1)
+                {
+                 Toastify({
+                   text: "Mail Send Sucessfully..!",
+                   duration: 1000,
+                   close:true,
+                   backgroundColor: "#4fbe87",
+               }).showToast();
+               setTimeout(
+                   function() {
+                       window.location.reload();
+                   }, 1000);
+              } 
             }
          })
-                 // console.log(selected)
-         });        
+    });        
 
 /*select all*/
 // Handle click on "Select all" control

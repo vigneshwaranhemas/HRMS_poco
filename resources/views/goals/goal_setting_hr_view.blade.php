@@ -112,13 +112,13 @@
 				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> R.Manager Dept :</h6>
 				                    </div>
 				                    <div class="col-md-5 m-t-10">
-				                        <p>IT</p>
+				                        <p id="sup_department"></p>
 				                    </div>
 				                    <div class="col-md-7 m-t-10">
 				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer Dept :</h6>
 				                    </div>
 				                    <div class="col-md-5 m-t-10">
-				                        <p>IT</p>
+				                        <p id="rev_department"></p>
 				                    </div>
 				                    <div class="col-md-7 m-t-10">
 				                        <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP Dept :</h6>
@@ -145,7 +145,7 @@
 									<a id="goal_sheet_rev_submit" onclick="revFormSubmit()" style="display: none;" class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit</a>                                            
 									<a id="hr_sheet_submit"  onclick="hrFormSubmit()" style="display: none;"  class="btn btn-success text-white float-right" title="Overall Sheet Submit">Submit</a>                                            
 									<h5>EMPLOYEE CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
-									<h5>SUPERVISOR CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
+									<h5>REPORTING MANAGER CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
 								</div>
 							</div>
 						<form id="goalsForm">
@@ -153,13 +153,13 @@
 								<thead>
 									<tr>
 										<th scope="col">No</th>
-										<th scope="col">Key Business Drivers</th>
-										<th scope="col">Key Result Areas </th>
+										<th scope="col">Key Business Drivers (KBD)</th>
+										<th scope="col">Key Result Areas (KRA)</th>
 										<th scope="col">Measurement Criteria (UOM)</th>
 										<th scope="col">Self Assessment</th>
-										<th scope="col">Rating </th>
-										<th scope="col">Supervisor Reamrks </th>
-										<th scope="col">Supervisor Rating </th>
+										<th scope="col">Rating By Employee</th>
+										<th scope="col">R.Manager Reamrks </th>
+										<th scope="col">R.Manager Rating </th>
 										<th scope="col">Reviewer Remarks </th>
 										<th scope="col">HR Remarks </th>
 										<th scope="col">BH Remarks </th>
@@ -277,14 +277,16 @@
 	            // console.log(data)
 
 	            if(data.length !=0){
-	                $('#empID').html(data[0].empID);
-	                $('#username').html(data[0].username);
-	                $('#sup_emp_code').html(data[0].sup_emp_code);
-	                $('#sup_name').html(data[0].sup_name);
-	                $('#department').html(data[0].department);
-	                $('#reviewer_name').html(data[0].reviewer_name);
-	                $('#reviewer_emp_code').html(data[0].reviewer_emp_code);
-	            }
+                    $('#empID').html(data.all['0'].empID);
+                    $('#username').html(data.all['0'].username);
+                    $('#sup_emp_code').html(data.all['0'].sup_emp_code);
+                    $('#sup_name').html(data.all['0'].sup_name);
+                    $('#department').html(data.all['0'].department);
+                    $('#reviewer_name').html(data.all['0'].reviewer_name);
+                    $('#reviewer_emp_code').html(data.all['0'].reviewer_emp_code);
+                    $('#sup_department').html(data.only_dept[0].department);
+                    $('#rev_department').html(data.only_dept_reve[0].department);
+                }
 	        }
 	    });
 
@@ -379,6 +381,8 @@
 			dataType : "JSON",
 			success:function(response)
 			{
+				// alert(response.result)
+
 				$('#goals_record_tb').DataTable().clear().destroy();
 				$('#goals_record').empty();
 				$('#goals_record').append(response.html);
@@ -389,15 +393,45 @@
 					"fixedColumns":   {
 							left: 6
 						}
-					// dom: 'Bfrtip',
-					// buttons: [
-					// 	'copyHtml5',
-					// 	'excelHtml5',
-					// 	'csvHtml5',
-					// 	'pdfHtml5'
-					// ]
 				} );
-				
+
+                  if(response.result==1){
+				    	 if(response.sheet_status.supervisor_status==1){
+				    	 	$("#goal_sheet_edit").hide();
+	                        $('#overall_submit').hide();
+	                        $("#overall_submit_1").hide();
+				    	 }
+				    	 else{
+				    	 	$("#goal_sheet_edit").show();
+	                        $('#overall_submit').show();
+	                        $("#overall_submit_1").show();
+				    	 }
+				 }
+				 if(response.result==2){
+				    	 if(response.sheet_status.reviewer_status==1){
+				    	 	$("#goal_sheet_edit").hide();
+	                        $('#overall_submit').hide();
+	                        $("#overall_submit_1").hide();
+				    	 }
+				    	 else{
+				    	 	$("#goal_sheet_edit").show();
+	                        $('#overall_submit').show();
+	                        $("#overall_submit_1").show();
+				    	 }
+				 }
+				 if(response.result==0){
+				    	 if(response.sheet_status.hr_status==1){
+				    	 	$("#goal_sheet_edit").hide();
+	                        $('#overall_submit').hide();
+	                        $("#overall_submit_1").hide();
+				    	 }
+				    	 else{
+				    	 	$("#goal_sheet_edit").show();
+	                        $('#overall_submit').show();
+	                        $("#overall_submit_1").show();
+				    	 }
+				 }
+
 			},
 			error: function(error) {
 				console.log(error);

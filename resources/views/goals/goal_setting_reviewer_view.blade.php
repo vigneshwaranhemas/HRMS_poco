@@ -126,25 +126,25 @@
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Emp Dept:</h6>
 									</div>
 									<div class="col-md-5">
-										<p id="department" style="text-transform: uppercase;"></p>
+										<p id="department"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> R.Manager Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="sup_department" style="text-transform: uppercase;"></p>
+										<p id="sup_department"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="rev_department" style="text-transform: uppercase;"></p>
+										<p id="rev_department"></p>
 									</div>
                                     <div class="col-md-7 m-t-10">
 										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p style="text-transform: uppercase;">HR</p>
+										<p>HR</p>
 									</div>
 								</div>
 							</div>

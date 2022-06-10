@@ -125,50 +125,7 @@
 
 
 
-      @if ($User_info['worklocation']=='WFH')
-      <div class="col-xl-7 xl-90 box-col-12">
-        <div class="card">
-           <div class="card-header no-border">
-              <h5>Attendance</h5>
-              @if (isset($attendance_info))
-                  @if ($attendance_info['status']==0)
-                    <?php  $btn_text="Sign Out";
-                           $btn_color="btn-danger";
-                           $id="0";
-                        //    $disabled="";
-                    ?>
-                    @elseif($attendance_info['status']==1)
-                         <?php
-                            // $disabled="disabled";
-                            $btn_text="Sign In";
-                            $btn_color="btn-primary";
-                            $id="1";
-                         ?>
-                   @endif
-                @else
-                    <?php  $btn_text="Sign In";
-                    $btn_color="btn-primary";
-                    $id="1";
-                    //  $disabled="";
-                   ?>
-                @endif
-
-              <span id="txt"></span>
-              <div class="card-header-right">
-                <input type="hidden" id="status_id">
-                <button type="button" class="btn {{$btn_color}}" onclick="show_login_popup({{$id}})" >{{$btn_text}}</button>
-
-              <!-- <i class="icofont icofont-birthday-cake font-primary"  style="font-size: 18px;"></i> -->
-
-              </div>
-           </div>
-           <div class="card-body pt-0">
-              <ul class="crm-activity" id="tdy_birthday_card_list">
-              </ul>
-           </div>
-        </div>
-     </div>
-     @endif
+      
 
       <div class="col-xl-5 xl-90 box-col-12">
          <div class="card">

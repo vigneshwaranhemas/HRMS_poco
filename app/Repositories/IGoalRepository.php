@@ -65,5 +65,6 @@ interface IGoalRepository {
     public function update_goals_sup_submit_overall_for_reviewer($data);
     public function update_goals_team_member_submit_direct($id);
     public function getSupEmail();
+    public function get_goals_reviewer_remarks($id);
 
 }

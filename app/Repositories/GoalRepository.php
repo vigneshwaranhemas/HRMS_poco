@@ -286,8 +286,8 @@ class GoalRepository implements IGoalRepository
                         'goal_process' => $data['goal_process']
                   ]);
       return $response;
-   }   
-   public function goal_employee_summary_check($id){      
+   }
+   public function goal_employee_summary_check($id){
       $employee_summary = Goals::where('goal_unique_code', $id)->where('goal_status', "Approved")->where('bh_status', "1")->where('hr_status', "1")->value('goal_name');
       // dd($employee_summary);
       if(!empty($employee_summary)){
@@ -297,12 +297,12 @@ class GoalRepository implements IGoalRepository
             $sup_summary = Goals::where('goal_unique_code', $id)->where('goal_status', "Approved")->where('bh_status', "1")->where('hr_status', "1")->value('supervisor_summary');
 
             if(!empty($sup_summary)){
-   
+
                $response = "3";
-   
+
             }else{
                $response = "2";
-   
+
             }
 
          }else{
@@ -1592,7 +1592,8 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
     public function update_goals_reviewer_teamleader($data){
         $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                           ->update([
-                                'goal_process' => $data['goal_process'],
+                                // 'goal_process' => $data['goal_process'],
+                                'reviewer_remarks' => $data['reviewer_remarks'],
                                 'reviewer_tb_status' => "1",
                           ]);
         return $response;
@@ -1601,7 +1602,8 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
     public function update_goals_sup_submit_overall_for_reviewer($data){
         $response = Goals::where('goal_unique_code', $data['goal_unique_code'])
                           ->update([
-                                'goal_process' => $data['goal_process'],
+                                // 'goal_process' => $data['goal_process'],
+                                'reviewer_remarks' => $data['reviewer_remarks'],
                                 'reviewer_tb_status' => "1",
                                 'reviewer_status' => "1",
                           ]);
@@ -1616,11 +1618,17 @@ if($input_details['reviewer_filter'] != '' && $input_details['team_leader_filter
                   ]);
         return $response;
      }
-     public function getSupEmail(){      
+     public function getSupEmail(){
         $logined_sup_emp_code = Auth::user()->sup_emp_code;
         $response = DB::table('customusers')->where('empID', $logined_sup_emp_code)->value('email');
         return $response;
-        
+
+     }
+
+     public function get_goals_reviewer_remarks( $id ){
+        $response = Goals::where('goal_unique_code', $id)->value('reviewer_remarks');
+        // echo '23<pre>';print_r($response);die();
+        return $response;
      }
 
 }

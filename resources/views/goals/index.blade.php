@@ -24,11 +24,11 @@
     }
     .nav-primary .nav-link.nav-link-pms-1{
         background-color: #80cf00;
-        color: #fff;        
+        color: #fff;
     }
     .nav-primary .nav-link.nav-link-pms-2{
         background-color: #ff0000;
-        color: #fff;        
+        color: #fff;
     }
     #add_goal_btn{
         display:none;

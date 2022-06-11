@@ -118,7 +118,7 @@ class CommonRepositories implements ICommonRepositories
 
 
     public function check_user_status($id){
-             $result=CustomUser::select('hr_action')->where('empID',$id)->first();
+             $result=CustomUser::select('hr_action','pms_status')->where('empID',$id)->first();
              return $result;
     }
 
@@ -269,6 +269,14 @@ class CommonRepositories implements ICommonRepositories
         //   }
         // $supervisor['employees']=$emp;
         return $supervisor;
+
+    }
+    public function pms_submit($id,$val){
+        // echo "<pre>";print_r($val);die;
+        $update_roletbl = DB::table('customusers')->where( 'empID', '=', $id );
+        $update_roletbl->update( [
+            'pms_status'=>$val,
+        ] );
 
     }
 }

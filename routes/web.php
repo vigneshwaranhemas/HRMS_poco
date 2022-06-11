@@ -574,3 +574,5 @@ Route::post('fetch_button_base_dt', 'GoalsController@fetch_button_base_dt');
 
 Route::post('fetch_goals_hr_details_hr', 'GoalsController@fetch_goals_hr_details_hr');
 Route::post('check_role_type_hr', 'GoalsController@check_role_type_hr');
+Route::get('pms_conformation', 'CommonController@pms_conformation');
+Route::post('pms_conformation_sub', 'CommonController@pms_conformation_sub');

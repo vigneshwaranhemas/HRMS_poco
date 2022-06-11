@@ -63,8 +63,8 @@
                        <div class="contain p-30">
                           <div class="text-center">
                              <h3>Welcome to BUDGIE</h3>
-                             <h4 style="color:red;">Enter Your ID Card Information  </h4>
-                             <a class="btn btn-primary btn-lg txt-white"  href="{{ url('id_card_varification') }}" aria-label="Close">Get Started</a>
+                             <h4 style="color:red;">Please Complete Your PMS Details</h4>
+                             <a class="btn btn-primary btn-lg txt-white"  href="{{ url('pms_conformation') }}" aria-label="Close">Get Started</a>
                           </div>
                        </div>
                     </div>

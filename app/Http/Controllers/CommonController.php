@@ -18,6 +18,8 @@ class CommonController extends Controller
 {
     public function id_card_varification(){
            return view('id_card_verification');
+    }public function pms_conformation(){
+           return view('pms_conformation');
     }public function hr_id_card_verification(){
            return view('hr_id_card_verification');
     }public function change_password(){
@@ -804,5 +806,18 @@ public function my_team_tl_info(Request $request){
             }
     echo json_encode($response);
     }
-
+    public function pms_conformation_sub(Request $request){
+        $session_val = Session::get('session_info');
+        $id= $session_val['empID'];
+        $val = $request->input('check');
+        $result = $this->cmmrpy->pms_submit($id,$val);
+            // echo "1<pre>";print_r($result);die;
+        if($result==""){
+            $response=array('success'=>1);
+        }
+        else{
+            $response=array('success'=>2);
+        }
+        echo json_encode($response);
+    }
 }

@@ -24,11 +24,11 @@
     }
     .nav-primary .nav-link.nav-link-pms-1{
         background-color: #80cf00;
-        color: #fff;        
+        color: #fff;
     }
     .nav-primary .nav-link.nav-link-pms-2{
         background-color: #ff0000;
-        color: #fff;        
+        color: #fff;
     }
     #add_goal_btn{
         display:none;
@@ -37,10 +37,12 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Permanace Management<span>System</span></h2>
+	<h2>Performance Management<span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
+<button class="btn btn-warning-gradien mb-2 float-right" id="pms_instruction" style="margin-top: -30px;" type="button" data-original-title="PMS Instruction" title="PMS Instruction"><i class="fa fa-eye"></i></button>
+<button class="btn btn-info-gradien mb-2 float-right m-l-10" style="margin-top: -30px;" type="button" data-original-title="PMS Instruction" title="Help Desk"><i class="fa fa-info"></i></button>
 @endsection
 
 @section('content')
@@ -53,7 +55,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-
             <div class="card">
                 <div class="card-body">
                     <ul class="nav nav-tabs nav-primary" id="pills-warningtab" role="tablist">
@@ -65,7 +66,7 @@
                             <div class="card goals-card-div">
                                 <div class="card-body">
                                     <!-- <a href="hr_add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a> -->
-                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn btn-primary-gradien mb-2 float-right"style="margin-top: -30px;" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Sheet</button></a>
+                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn btn-primary-gradien mb-2 float-right"style="margin-top: -30px;" type="button" data-original-title="Add Sheet" title="Add Sheet">Add Sheet</button></a>
                                     <div class="table-responsive">
                                         <table class="table" id="goal_data">
                                             <thead>
@@ -111,7 +112,7 @@
             </div>
             </div>
         </div>
-
+-
         <div class="modal fade" id="employeeSummaryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <form  id="employeeSummaryForm">
@@ -162,6 +163,30 @@
             </div>
         </div>
         
+        <!--PMS Instruction -->        
+        <div class="modal fade bd-example-modal-lg" id="pmsInstructionModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myLargeModalLabel">Hello {{ Auth::user()->username }}</h4>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <h5></h5> -->
+                        <p>It is a pleasure to launch the Performance Management System automated module. We are going live with the cycle of PMS 2021-22.</p>
+                        <p>Performance management creates an ongoing dialogue and a climate of trust, support, and encouragement and helps build a relationship between employees and the company.</p>
+                        <p>Continuous performance management enables management to identify activities and efforts that are commendable or rewardable (which in turn fosters the growth spirit of your team members).</p>
+                        <p>Continuous performance management creates a continuous dialogue and a climate of trust, support, and encouragement. It helps to build a relationship between the employee and the company. </p>
+                        <p>Performance management, when it truly involves employees, will boost employee engagement.Effective recognition and reward systems can only work in organizations where there is a visible and accurate process of discussions and performance feedback.</p>
+                        <p>So let us work towards making this PMS exercise a grand success and benefit from the process. Please go through the PPT to ensure you are adequately informed about the exercise. </p>
+                        <p>As we interact with the module, we may come across any difficulties or errors. Please reach out to ganagavathy.k@hemas.in with the screenshots and She will be ready with the solutions for us to complete PMS efficiently.</p>
+                        <h6>Thank you, </h6>
+                        <h6>Human Resources Team - HEPL</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>
 
@@ -193,6 +218,3 @@
 <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
 <script src="../assets/pro_js/goal_list.js"></script>
 @endsection
-
-
-

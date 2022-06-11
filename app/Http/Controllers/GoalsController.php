@@ -1007,22 +1007,22 @@ class GoalsController extends Controller
 
 
             /*cell 9*/
-            if($row_values->$cell9 != null){
-                // echo  json_encode($row_values->$cell9);
-                $html .= '<td class="reviewer_remarks">';
-                    foreach($row_values->$cell9 as $cell9_value){
-                        if($cell9_value != null){
-                            $html .= '<p class="reviewer_remarks_p_rev_'.$cell1.'">'.$cell9_value.'</p>';
-                        }
-                    }
+            // if($row_values->$cell9 != null){
+            //     // echo  json_encode($row_values->$cell9);
+            //     $html .= '<td class="reviewer_remarks">';
+            //         foreach($row_values->$cell9 as $cell9_value){
+            //             if($cell9_value != null){
+            //                 $html .= '<p class="reviewer_remarks_p_rev_'.$cell1.'">'.$cell9_value.'</p>';
+            //             }
+            //         }
 
-                $html .= '</td>';
+            //     $html .= '</td>';
 
-            }else{
-                $html .= '<td class="reviewer_remarks">';
-                // $html .= '<p></p>';
-                $html .= '</td>';
-            }
+            // }else{
+            //     $html .= '<td class="reviewer_remarks">';
+            //     // $html .= '<p></p>';
+            //     $html .= '</td>';
+            // }
 
             /*cell 10*/
             if($row_values->$cell10 != null){
@@ -2694,7 +2694,7 @@ class GoalsController extends Controller
             /*cell 2*/
             if($row_values->$cell2 != null){
                 $html .= '<td>';
-                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers  m-t-5" name="key_bus_drivers_'.$cell1.'[]">';
+                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-5" name="key_bus_drivers_'.$cell1.'[]">';
 
                         $html .= '<option value="">...Select...</option>';
 
@@ -2729,6 +2729,7 @@ class GoalsController extends Controller
                         }
 
                     $html .= '</select>';
+                    $html .= '<div class="text-danger key_bus_drivers_'.$cell1.'_error" id=""></div>';
                 $html .= '</td>';
             }else{
                 $html .= '<td>';
@@ -2740,6 +2741,7 @@ class GoalsController extends Controller
                         $html .= '<option value="People">People</option>';
                         $html .= '<option value="Projects">Projects</option>';
                     $html .= '</select>';
+                    $html .= '<div class="text-danger key_bus_drivers_'.$cell1.'_error" id=""></div>';
                 $html .= '</td>';
             }
 
@@ -2748,15 +2750,19 @@ class GoalsController extends Controller
             // $html .= '<p>HR Shared Services : </p>';
 
             for($i=0; $i < $sub_row_count; $i++){
+                
+                $random_sub_row = mt_rand(10000, 99999);
 
                 $code = $cell1.'_'.$i.$i.$i.$i.$i;
 
                 if($row_values->$cell3[$i] != null){
 
-                    $html .= '<textarea name="key_res_areas_'.$cell1.'[] " id="" class="form-control '.$code.' m-t-5">'.$row_values->$cell3[$i].'</textarea>';
+                    $html .= '<textarea name="key_res_areas_'.$cell1.'[]" id="key_res_areas_'.$code.'" class="form-control key_res_areas_'.$cell1.' '.$code.' m-t-5">'.$row_values->$cell3[$i].'</textarea>';
+                    $html .= '<div class="text-danger text-danger key_res_areas_'.$code.'_error" id=""></div>';
 
                 }else{
-                    $html .= '<textarea name="key_res_areas_'.$cell1.'[]" id="" class="form-control '.$code.' m-t-5"></textarea>';
+                    $html .= '<textarea name="key_res_areas_'.$cell1.'[]" id="key_res_areas_'.$code.'" class="form-control key_res_areas_'.$cell1.' '.$code.' m-t-5"></textarea>';
+                    $html .= '<div class="text-danger key_res_areas_'.$code.'_error" id=""></div>';
 
                 }
 
@@ -2772,10 +2778,12 @@ class GoalsController extends Controller
 
                 if($row_values->$cell4[$i] != null){
 
-                    $html .= '<textarea name="measurement_criteria_'.$cell1.'[] " id="" class="form-control '.$code.' m-t-5">'.$row_values->$cell4[$i].'</textarea>';
+                    $html .= '<textarea name="measurement_criteria_'.$cell1.'[] " id="measurement_criteria_'.$cell1.'" class="form-control measurement_criteria_'.$cell1.' '.$code.' m-t-5">'.$row_values->$cell4[$i].'</textarea>';
+                    // $html .= '<div class="text-danger key_res_areas_'.$cell1.'_error" id=""></div>';
 
                 }else{
-                    $html .= '<textarea name="measurement_criteria_'.$cell1.'[]" id="" class="form-control '.$code.' m-t-5"></textarea>';
+                    $html .= '<textarea name="measurement_criteria_'.$cell1.'[]" id="measurement_criteria_'.$cell1.'" class="form-control measurement_criteria_'.$cell1.' '.$code.' m-t-5"></textarea>';
+                    // $html .= '<div class="text-danger key_res_areas_'.$cell1.'_error" id=""></div>';
 
                 }
 
@@ -2790,10 +2798,12 @@ class GoalsController extends Controller
 
                 if($row_values->$cell5[$i] != null){
 
-                    $html .= '<textarea name="self_assessment_remark_'.$cell1.'[] " id="" class="form-control '.$code.' m-t-5">'.$row_values->$cell5[$i].'</textarea>';
+                    $html .= '<textarea name="self_assessment_remark_'.$cell1.'[] " id="self_assessment_remark_'.$code.'" class="form-control self_assessment_remark_'.$cell1.' '.$code.' m-t-5">'.$row_values->$cell5[$i].'</textarea>';
+                    $html .= '<div class="text-danger self_assessment_remark_'.$code.'_error" id=""></div>';
 
                 }else{
-                    $html .= '<textarea name="self_assessment_remark_'.$cell1.'[]" id="" class="form-control '.$code.' m-t-5"></textarea>';
+                    $html .= '<textarea name="self_assessment_remark_'.$cell1.'[]" id="self_assessment_remark_'.$code.'" class="form-control self_assessment_remark_'.$cell1.' '.$code.' m-t-5"></textarea>';
+                    $html .= '<div class="text-danger self_assessment_remark_'.$code.'_error" id=""></div>';
 
                 }
 
@@ -2808,54 +2818,49 @@ class GoalsController extends Controller
                 $code = $cell1.'_'.$i.$i.$i.$i.$i;
 
                 if($row_values->$cell6[$i] != null){
-                        $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-20 '.$code.'" name="rating_by_employee_'.$cell1.'[]">';
+                        $html .= '<select class="form-control m-t-20 '.$code.' rating_by_employee_'.$cell1.'" id="rating_by_employee_'.$code.'" name="rating_by_employee_'.$cell1.'[]">';
 
                             $html .= '<option value="">...Select...</option>';
 
                             if($row_values->$cell6[$i] == "EE"){
-                                $html .= '<option value="EE" selected>EE</option>';
+                                $html .= '<option value="EE" selected>EE - Exceeded Expectations</option>';
                             }else{
-                                $html .= '<option value="EE">EE</option>';
-                            }
-
-                            if($row_values->$cell6[$i] == "AE"){
-                                $html .= '<option value="AE" selected>AE</option>';
-                            }else{
-                                $html .= '<option value="AE">AE</option>';
+                                $html .= '<option value="EE">EE - Exceeded Expectations</option>';
                             }
 
                             if($row_values->$cell6[$i] == "ME"){
-                                $html .= '<option value="ME" selected>ME</option>';
+                                $html .= '<option value="ME" selected>ME - Met Expectations</option>';
                             }else{
-                                $html .= '<option value="ME">ME</option>';
+                                $html .= '<option value="ME">ME - Met Expectations</option>';
                             }
 
                             if($row_values->$cell6[$i] == "PE"){
-                                $html .= '<option value="PE" selected>PE</option>';
+                                $html .= '<option value="PE" selected>PME - Partially Met Expectations</option>';
                             }else{
-                                $html .= '<option value="PE">PE</option>';
+                                $html .= '<option value="PE">PME - Partially Met Expectations</option>';
                             }
 
                             if($row_values->$cell6[$i] == "ND"){
-                                $html .= '<option value="ND" selected>ND</option>';
+                                $html .= '<option value="ND" selected>ND - Needs Development</option>';
                             }else{
-                                $html .= '<option value="ND">ND</option>';
+                                $html .= '<option value="ND">ND - Needs Development</option>';
                             }
 
                         $html .= '</select>';
+                        $html .= '<div class="text-danger rating_by_employee_'.$code.'_error" id=""></div>';
 
                 }else{
-                $html .= '<td>';
-                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-5" name="rating_by_employee_'.$cell1.'[]">';
-                        $html .= '<option value="">...Select...</option>';
-                        $html .= '<option value="EE">EE</option>';
-                        $html .= '<option value="AE">AE</option>';
-                        $html .= '<option value="ME">ME</option>';
-                        $html .= '<option value="PE">PE</option>';
-                        $html .= '<option value="ND">ND</option>';
-                    $html .= '</select>';
-
-                $html .= '</td>';
+                    $html .= '<td>';
+                        $html .= '<select class="form-control js-example-basic-single m-t-5 rating_by_employee_'.$cell1.'" id="rating_by_employee_'.$code.'" name="rating_by_employee_'.$cell1.'[]">';
+                            $html .= '<option value="">...Select...</option>';
+                            $html .= '<option value="EE">EE</option>';
+                            $html .= '<option value="AE">AE</option>';
+                            $html .= '<option value="ME">ME</option>';
+                            $html .= '<option value="PE">PE</option>';
+                            $html .= '<option value="ND">ND</option>';
+                        $html .= '</select>';
+                        $html .= '<div class="text-danger rating_by_employee_'.$code.'_error" id=""></div>';
+                    $html .= '</td>';
 
                 }
 
@@ -3145,7 +3150,9 @@ class GoalsController extends Controller
         // }
         $logined_email = Auth::user()->email;
         $logined_sup_email = $this->goal->getSupEmail();
-        $logined_username = Auth::user()->username;
+        $logined_sup_name = $this->goal->getSupEmail();
+        $logined_username = Auth::user()->sup_name;
+        $logined_empID = Auth::user()->empID;
 
         if($result){
             $data = array(
@@ -3157,19 +3164,19 @@ class GoalsController extends Controller
                 // $message->to($todays_birthday->email)->subject
                 //     ('Birthday Mail');
                 $message->to($data['to_email'])->subject
-                    ('PMS Sheet');
+                    ('Self Assessment Status - Registered');
                 $message->cc($data['sup_to_email']);
                 $message->from("hr@hemas.in", 'HEPL - HR Team');
             });
             $sup_data = array(
                 'name'=> $logined_username,
+                'sup_name'=> $logined_sup_name,
+                'emp_id'=> $logined_empID,
                 'to_email'=> $logined_sup_email,
             );
-            Mail::send('mail.goal-emp-mail', $sup_data, function($message) use ($sup_data) {
-                // $message->to($todays_birthday->email)->subject
-                //     ('Birthday Mail');
+            Mail::send('mail.goal-sup-mail', $sup_data, function($message) use ($sup_data) {
                 $message->to($sup_data['to_email'])->subject
-                    ('PMS Sheet');
+                    ('Self Assessment Status - Registered');
                 $message->from("hr@hemas.in", 'HEPL - HR Team');
             });
         }
@@ -3714,7 +3721,7 @@ class GoalsController extends Controller
         $result = $this->goal->update_goals_sup($data);
 
         return response($result);
-    }    
+    }
     public function get_goal_setting_rev_dept_name(request $request){
         $id = $request->id;
         $response = $this->goal->get_goal_setting_rev_dept_name($id);
@@ -3914,7 +3921,7 @@ class GoalsController extends Controller
                 return $btn;
             })
             ->addColumn('action', function($row) {
-                   
+
 
                     $btn1 = '<div class="dropup">
                     <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" ><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
@@ -4680,7 +4687,7 @@ public function get_all_supervisors_info_bh()
             $result=Goals::join('customusers','customusers.empID','=','goals.created_by')
                     ->where('goals.goal_unique_code',$data['checkbox'])->select('email')->first();
             $test[]=$result;
-       
+
             $Mail['email']=$result->email;
 
             // $Mail['email']='vigneshb@hemas.in';
@@ -4700,31 +4707,32 @@ public function get_all_supervisors_info_bh()
 
  public function update_goals_reviewer_teamleader(Request $request){
     $id = $request->goals_setting_id;
-    $json_value = $this->goal->fetchGoalIdDetails($id);
+    // $json_value = $this->goal->fetchGoalIdDetails($id);
     // echo "<pre>";print_r($json_value);die;
-    $datas = json_decode($json_value);
-    $json = array();
-    $html = '';
+    // $datas = json_decode($json_value);
+    // $json = array();
+    // $html = '';
 
-    foreach($datas as $key=>$data){
-    $cell1 = $key+1;
-    $row_values = json_decode($data);
+    // foreach($datas as $key=>$data){
+    // $cell1 = $key+1;
+    // $row_values = json_decode($data);
 
-    //Reviewer remarks add
-    $reviewer_remarks_value = array($request->reviewer_remarks[$key]);
-    $sup_final_op = "reviewer_remarks_".$cell1;
-    $row_values->$sup_final_op = $reviewer_remarks_value;
+    // //Reviewer remarks add
+    // $reviewer_remarks_value = array($request->reviewer_remarks[$key]);
+    // $sup_final_op = "reviewer_remarks_".$cell1;
+    // $row_values->$sup_final_op = $reviewer_remarks_value;
 
-    $json_format = json_encode($row_values);
-    array_push($json, $json_format);
-    }
+    // $json_format = json_encode($row_values);
+    // array_push($json, $json_format);
+    // }
 
-    $goal_process = json_encode($json);
+    // $goal_process = json_encode($json);
 
     //Data upload to server
     $data = array(
-    'goal_process' => $goal_process,
-    'goal_unique_code' => $id
+    // 'goal_process' => $goal_process,
+    'goal_unique_code' => $id,
+    'reviewer_remarks' => $request->reviewer_remarks
     );
     // dd($data);
     $result = $this->goal->update_goals_reviewer_teamleader($data);
@@ -4735,33 +4743,33 @@ public function get_all_supervisors_info_bh()
 public function update_goals_sup_submit_overall_for_reviewer(Request $request){
     // dd($request->all());
     $id = $request->goals_setting_id;
-    $json_value = $this->goal->fetchGoalIdDetails($id);
-    // dd($json_value);
-    $datas = json_decode($json_value);
+    // $json_value = $this->goal->fetchGoalIdDetails($id);
+    // $datas = json_decode($json_value);
 
-    $json = array();
+    // $json = array();
 
-    $html = '';
+    // $html = '';
 
-    foreach($datas as $key=>$data){
-        $cell1 = $key+1;
-        $row_values = json_decode($data);
+    // foreach($datas as $key=>$data){
+    //     $cell1 = $key+1;
+    //     $row_values = json_decode($data);
 
-        //Reviewer remark add
-        $rev_remark_value = array($request->reviewer_remarks[$key]);
-        $rev_rem = "reviewer_remarks_".$cell1;
-        $row_values->$rev_rem = $rev_remark_value;
+    //     //Reviewer remark add
+    //     $rev_remark_value = array($request->reviewer_remarks[$key]);
+    //     $rev_rem = "reviewer_remarks_".$cell1;
+    //     $row_values->$rev_rem = $rev_remark_value;
 
-        $json_format = json_encode($row_values);
-        array_push($json, $json_format);
+    //     $json_format = json_encode($row_values);
+    //     array_push($json, $json_format);
 
-    }
-    $goal_process = json_encode($json);
+    // }
+    // $goal_process = json_encode($json);
 
     //Data upload to server
     $data = array(
-        'goal_process' => $goal_process,
+        // 'goal_process' => $goal_process,
         'goal_unique_code' => $id,
+        'reviewer_remarks' => $request->reviewer_remarks,
     );
     //  dd($data);
      $result = $this->goal->update_goals_sup_submit_overall_for_reviewer($data);
@@ -4809,7 +4817,7 @@ public function update_goals_sup_submit_overall_for_reviewer(Request $request){
             $html .= '<tr  class="border-bottom-primary">';
             /*cell 1*/
             $html .= '<th scope="row">'.$cell1.'</th>';
-            
+
             /*cell 2*/
             if($row_values->$cell2 != null){
                 $html .= '<td>';
@@ -5002,6 +5010,18 @@ public function update_goals_sup_submit_overall_for_reviewer(Request $request){
 
 
         return json_encode($new_data);
+    }
+
+    public function get_goals_reviewer_remarks(Request $request)
+    {
+        $id = $request->id;
+        $head = $this->goal->get_goals_reviewer_remarks($id);
+        return json_encode($head);
+    }
+
+    public function goals_help_desk()
+    {
+        return view('goals.goals_help_desk');
     }
 
 }

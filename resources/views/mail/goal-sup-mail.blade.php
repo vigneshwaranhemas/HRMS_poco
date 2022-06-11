@@ -7,8 +7,8 @@
     <title>PMS Mail</title>
 </head>
 <body>
-    <h5>Dear {{ $name }}</h5>
-    <p>Thank you for filling out the KRAs and self-assessment. The process moves forward to the next step of Supervisor Assessment now.</p>
+    <h5>Dear {{ $sup_name }} </h5>
+    <p>Self-assessment by {{ $name }} (#{{ $emp_id }} ) has been completed. Please log in to HRMS to complete Supervisor Assessment.</p>
     <h6>Thank you,</h6>
     <h6>Rajesh MS</h6>
 </body>

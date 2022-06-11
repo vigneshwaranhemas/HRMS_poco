@@ -51,10 +51,12 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h2>Performance Management<span>  System</span></h2>
+    <h2>Performance Management<span> System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
+    <button class="btn btn-warning-gradien m-t-10 float-right" id="pms_instruction" style="margin-top: -30px;" type="button" data-original-title="PMS Instruction" title="PMS Instruction"><i class="fa fa-eye"></i></button>
+    <a href="goals_help_desk"><button class="btn btn-info-gradien m-t-10 float-right m-l-10" style="margin-top: -30px;" type="button" data-original-title="PMS Instruction" title="Help Desk"><i class="fa fa-info"></i></button></a>
 @endsection
 
 @section('content')

@@ -277,11 +277,11 @@
         // $("#resultas").append(id);
     });
 
-    var error='';
 
     $(document).on('change','.key_bus_drivers',function(){        
         var id_name = $(this).prop('id');
         // console.log(this)      
+        var error='';
        
         var new_arr=[];
 
@@ -452,7 +452,11 @@
      //update entry
      $("#datatable_form_update").on('click',()=>{   
         
-        $('button[type="submit"]').attr('disabled' , true);
+        // $('button[type="submit"]').attr('disabled' , true);
+        $('#datatable_form_update"]').attr('disabled' , true);
+        $('#datatable_form_update"]').html("Processing");
+        
+        $(".tb_error").hide();
         
         var error='';
 
@@ -461,7 +465,7 @@
         $errmsg3.hide();
 
         if(rate == ""){
-            $errmsg3.html('Employee Consolidated Rate is required').show();
+            $errmsg3.html('Self Consolidated Rating is required').show();
             error+="error";
         }
 
@@ -542,6 +546,17 @@
         if(error==""){
             // alert("succes")
             update_data_insert();
+            
+            $('#datatable_form_update"]').attr('disabled' , true);
+            $('#datatable_form_update"]').html("Processing");
+
+            // $('button[type="submit"]').attr('disabled' , true);
+        }else{
+            // $('button[type="submit"]').attr('disabled' , false);
+            
+            $('#datatable_form_update"]').attr('disabled' , false);
+            $('#datatable_form_update"]').html("Submit");
+
         }
         
         function update_data_insert(){
@@ -560,8 +575,11 @@
                         backgroundColor: "#4fbe87",
                     }).showToast();    
                     
-                    $('button[type="submit"]').attr('disabled' , false);
-
+                    // $('button[type="submit"]').attr('disabled' , false);                    
+                    
+                    $('#datatable_form_update"]').attr('disabled' , false);
+                    $('#datatable_form_update"]').html("Submit");
+                    
 					$("#datatable_form_save").css('display', 'none');
 					$("#datatable_form_update").css('display', 'block');
 
@@ -578,9 +596,9 @@
     //update Submit entry
     $("#goal_sheet_submit_update").on('click',()=>{
         
-        // $('#goal_sheet_submit_update').attr('disabled' , true);
+        $('#goal_sheet_submit_update').attr('disabled' , true);
         $('#goal_sheet_submit_update').html("Processing");
-        $('button[type="submit"]').attr('disabled' , true);
+        // $('button[type="submit"]').attr('disabled' , true);
 
         var new_arr_cel1=[];
 
@@ -757,16 +775,16 @@
         // console.log(row_index)
         //Sending data to database
         if(error==""){
-            alert("succes")
-            // $('#goal_sheet_submit_update').attr('disabled' , true);
-            
+            // alert("succes")
+            $('#goal_sheet_submit_update').attr('disabled' , true);            
             $('#goal_sheet_submit_update').html("Processing");
-            $('button[type="submit"]').attr('disabled' , true);
-            // update_submit_data_insert();
+            // $('button[type="submit"]').attr('disabled' , true);
+            update_submit_data_insert();
+            
         }else{
-            // $('#goal_sheet_submit_update').attr('disabled' , false);            
+            $('#goal_sheet_submit_update').attr('disabled' , false);            
             $('#goal_sheet_submit_update').html("Submit");
-            $('button[type="submit"]').attr('disabled' , false);
+            // $('button[type="submit"]').attr('disabled' , false);
         }
 
         function update_submit_data_insert(){
@@ -787,7 +805,8 @@
                     }).showToast();    
                     
                     $('#goal_sheet_submit_update').html("Submit");
-                    $('button[type="submit"]').attr('disabled' , false);
+                    $('#goal_sheet_submit_update').attr('disabled' , false);            
+                    // $('button[type="submit"]').attr('disabled' , false);
                     location = "goals";                
 
                 }

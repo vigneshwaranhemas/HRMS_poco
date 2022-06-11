@@ -318,11 +318,10 @@
     //     // });
     // });
 
-    var error='';
-
     $(document).on('change','.key_bus_drivers',function(){        
         var id_name = $(this).prop('id');
         // console.log(this)      
+        var error='';
        
         var new_arr=[];
 
@@ -531,6 +530,10 @@
 
     //New entry    
     $("#datatable_form_save").on('click',()=>{
+
+        var error='';
+        $(".tb_error").hide();
+        
         $('#datatable_form_save').attr('disabled' , true);
         var rate = $("#employee_consolidated_rate").val();
         var $errmsg3 = $(".employee_consolidated_rate_error");
@@ -677,7 +680,7 @@
         $errmsg3.hide();
 
         if(rate == ""){
-            $errmsg3.html('Employee Consolidated Rate is required').show();                
+            $errmsg3.html('Self Consolidated Rating is required').show();                
             error+="error";
         }
        
@@ -973,10 +976,14 @@
 
         });
 
+        console.log(error)
+
         //Sending data to database
         if(error==""){
             // alert("succes")
             update_data_insert();
+        }else{
+            // alert("er")
         }
         
         function update_data_insert(){
@@ -1020,7 +1027,7 @@
         $errmsg3.hide();
 
         if(rate == ""){
-            $errmsg3.html('Employee Consolidated Rate is required').show();                
+            $errmsg3.html('Self Consolidated Rating is required').show();                
             error+="error";
         }
 

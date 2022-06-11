@@ -7,9 +7,10 @@
     <title>PMS Mail</title>
 </head>
 <body>
-    <h5>Dear {{ $sup_name }} </h5>
-    <p>Self-assessment by {{ $name }} (#{{ $emp_id }} ) has been completed. Please log in to HRMS to complete Supervisor Assessment.</p>
-    <h6>Thank you,</h6>
-    <h6>Rajesh MS</h6>
+    <h4>Dear {{ $sup_name }} </h4>
+    <p>Your Team Member (#{{ $emp_id }}) has concluded self-assessment and is available for your assessment as Reporting Manager.</p>
+    <p>Please logon to BUDGIE – PERFORMANCE to complete Reporting Manager assessment.</p>
+    <h5>Have a great day</h5>
+    <h5>Team HR</h5>
 </body>
 </html>

@@ -3150,8 +3150,8 @@ class GoalsController extends Controller
         // }
         $logined_email = Auth::user()->email;
         $logined_sup_email = $this->goal->getSupEmail();
-        $logined_sup_name = $this->goal->getSupEmail();
-        $logined_username = Auth::user()->sup_name;
+        $logined_sup_name = Auth::user()->sup_name;
+        $logined_username = Auth::user()->username;
         $logined_empID = Auth::user()->empID;
 
         if($result){
@@ -4245,6 +4245,38 @@ public function get_all_supervisors_info_bh()
 
         $result = $this->goal->update_emp_goals_data_submit($data);
 
+        $logined_email = Auth::user()->email;
+        $logined_sup_email = $this->goal->getSupEmail();
+        $logined_sup_name = Auth::user()->sup_name;
+        $logined_username = Auth::user()->username;
+        $logined_empID = Auth::user()->empID;
+
+        if($result){
+            $data = array(
+                'name'=> $logined_username,
+                'to_email'=> $logined_email,
+            );
+            Mail::send('mail.goal-emp-mail', $data, function($message) use ($data) {
+                // $message->to($todays_birthday->email)->subject
+                //     ('Birthday Mail');
+                $message->to($data['to_email'])->subject
+                    ('Self Assessment Submitted Successfully - Reg');
+                $message->cc($data['sup_to_email']);
+                $message->from("hr@hemas.in", 'HEPL - HR Team');
+            });
+            $sup_data = array(
+                'name'=> $logined_username,
+                'sup_name'=> $logined_sup_name,
+                'emp_id'=> $logined_empID,
+                'to_email'=> $logined_sup_email,
+            );
+            Mail::send('mail.goal-sup-mail', $sup_data, function($message) use ($sup_data) {
+                $message->to($sup_data['to_email'])->subject
+                    ('Self Assessment  Submitted Successfully - Reg');
+                $message->from("hr@hemas.in", 'HEPL - HR Team');
+            });
+        }
+        
         return json_encode($result);
     }
 

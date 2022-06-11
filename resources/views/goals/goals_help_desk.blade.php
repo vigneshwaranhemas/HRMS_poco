@@ -27,7 +27,7 @@
     <div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12">
-                <iframe src="../goals_help_desk/model.pdf" width="100%" height="500px"></iframe>
+                <iframe src="../goals_help_desk/PMS PPT.pdf" width="100%" height="700px"></iframe>
 			</div>
 		</div>
 	</div>

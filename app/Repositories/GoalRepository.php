@@ -389,7 +389,7 @@ class GoalRepository implements IGoalRepository
    }
    public function add_goal_btn(){
       $logined_empID = Auth::user()->empID;
-      $logined_pms_status = Auth::user()->pms_status;
+      $logined_pms_status = Auth::user()->pms_eligible_status;
       $response1 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Pending')->value('goal_name');
       $response2 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Revert')->value('goal_name');
 

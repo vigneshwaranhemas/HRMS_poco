@@ -2694,7 +2694,7 @@ class GoalsController extends Controller
             /*cell 2*/
             if($row_values->$cell2 != null){
                 $html .= '<td>';
-                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers  m-t-5" name="key_bus_drivers_'.$cell1.'[]">';
+                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-5" name="key_bus_drivers_'.$cell1.'[]">';
 
                         $html .= '<option value="">...Select...</option>';
 
@@ -2729,6 +2729,7 @@ class GoalsController extends Controller
                         }
 
                     $html .= '</select>';
+                    $html .= '<div class="text-danger key_bus_drivers_'.$cell1.'_error" id=""></div>';
                 $html .= '</td>';
             }else{
                 $html .= '<td>';
@@ -2740,6 +2741,7 @@ class GoalsController extends Controller
                         $html .= '<option value="People">People</option>';
                         $html .= '<option value="Projects">Projects</option>';
                     $html .= '</select>';
+                    $html .= '<div class="text-danger key_bus_drivers_'.$cell1.'_error" id=""></div>';
                 $html .= '</td>';
             }
 
@@ -2748,15 +2750,19 @@ class GoalsController extends Controller
             // $html .= '<p>HR Shared Services : </p>';
 
             for($i=0; $i < $sub_row_count; $i++){
+                
+                $random_sub_row = mt_rand(10000, 99999);
 
                 $code = $cell1.'_'.$i.$i.$i.$i.$i;
 
                 if($row_values->$cell3[$i] != null){
 
-                    $html .= '<textarea name="key_res_areas_'.$cell1.'[] " id="" class="form-control '.$code.' m-t-5">'.$row_values->$cell3[$i].'</textarea>';
+                    $html .= '<textarea name="key_res_areas_'.$cell1.'[]" id="key_res_areas_'.$code.'" class="form-control key_res_areas_'.$cell1.' '.$code.' m-t-5">'.$row_values->$cell3[$i].'</textarea>';
+                    $html .= '<div class="text-danger text-danger key_res_areas_'.$code.'_error" id=""></div>';
 
                 }else{
-                    $html .= '<textarea name="key_res_areas_'.$cell1.'[]" id="" class="form-control '.$code.' m-t-5"></textarea>';
+                    $html .= '<textarea name="key_res_areas_'.$cell1.'[]" id="key_res_areas_'.$code.'" class="form-control key_res_areas_'.$cell1.' '.$code.' m-t-5"></textarea>';
+                    $html .= '<div class="text-danger key_res_areas_'.$code.'_error" id=""></div>';
 
                 }
 
@@ -2772,10 +2778,12 @@ class GoalsController extends Controller
 
                 if($row_values->$cell4[$i] != null){
 
-                    $html .= '<textarea name="measurement_criteria_'.$cell1.'[] " id="" class="form-control '.$code.' m-t-5">'.$row_values->$cell4[$i].'</textarea>';
+                    $html .= '<textarea name="measurement_criteria_'.$cell1.'[] " id="measurement_criteria_'.$cell1.'" class="form-control measurement_criteria_'.$cell1.' '.$code.' m-t-5">'.$row_values->$cell4[$i].'</textarea>';
+                    // $html .= '<div class="text-danger key_res_areas_'.$cell1.'_error" id=""></div>';
 
                 }else{
-                    $html .= '<textarea name="measurement_criteria_'.$cell1.'[]" id="" class="form-control '.$code.' m-t-5"></textarea>';
+                    $html .= '<textarea name="measurement_criteria_'.$cell1.'[]" id="measurement_criteria_'.$cell1.'" class="form-control measurement_criteria_'.$cell1.' '.$code.' m-t-5"></textarea>';
+                    // $html .= '<div class="text-danger key_res_areas_'.$cell1.'_error" id=""></div>';
 
                 }
 
@@ -2790,10 +2798,12 @@ class GoalsController extends Controller
 
                 if($row_values->$cell5[$i] != null){
 
-                    $html .= '<textarea name="self_assessment_remark_'.$cell1.'[] " id="" class="form-control '.$code.' m-t-5">'.$row_values->$cell5[$i].'</textarea>';
+                    $html .= '<textarea name="self_assessment_remark_'.$cell1.'[] " id="self_assessment_remark_'.$code.'" class="form-control self_assessment_remark_'.$cell1.' '.$code.' m-t-5">'.$row_values->$cell5[$i].'</textarea>';
+                    $html .= '<div class="text-danger self_assessment_remark_'.$code.'_error" id=""></div>';
 
                 }else{
-                    $html .= '<textarea name="self_assessment_remark_'.$cell1.'[]" id="" class="form-control '.$code.' m-t-5"></textarea>';
+                    $html .= '<textarea name="self_assessment_remark_'.$cell1.'[]" id="self_assessment_remark_'.$code.'" class="form-control self_assessment_remark_'.$cell1.' '.$code.' m-t-5"></textarea>';
+                    $html .= '<div class="text-danger self_assessment_remark_'.$code.'_error" id=""></div>';
 
                 }
 
@@ -2808,54 +2818,49 @@ class GoalsController extends Controller
                 $code = $cell1.'_'.$i.$i.$i.$i.$i;
 
                 if($row_values->$cell6[$i] != null){
-                        $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-20 '.$code.'" name="rating_by_employee_'.$cell1.'[]">';
+                        $html .= '<select class="form-control m-t-20 '.$code.' rating_by_employee_'.$cell1.'" id="rating_by_employee_'.$code.'" name="rating_by_employee_'.$cell1.'[]">';
 
                             $html .= '<option value="">...Select...</option>';
 
                             if($row_values->$cell6[$i] == "EE"){
-                                $html .= '<option value="EE" selected>EE</option>';
+                                $html .= '<option value="EE" selected>EE - Exceeded Expectations</option>';
                             }else{
-                                $html .= '<option value="EE">EE</option>';
-                            }
-
-                            if($row_values->$cell6[$i] == "AE"){
-                                $html .= '<option value="AE" selected>AE</option>';
-                            }else{
-                                $html .= '<option value="AE">AE</option>';
+                                $html .= '<option value="EE">EE - Exceeded Expectations</option>';
                             }
 
                             if($row_values->$cell6[$i] == "ME"){
-                                $html .= '<option value="ME" selected>ME</option>';
+                                $html .= '<option value="ME" selected>ME - Met Expectations</option>';
                             }else{
-                                $html .= '<option value="ME">ME</option>';
+                                $html .= '<option value="ME">ME - Met Expectations</option>';
                             }
 
                             if($row_values->$cell6[$i] == "PE"){
-                                $html .= '<option value="PE" selected>PE</option>';
+                                $html .= '<option value="PE" selected>PME - Partially Met Expectations</option>';
                             }else{
-                                $html .= '<option value="PE">PE</option>';
+                                $html .= '<option value="PE">PME - Partially Met Expectations</option>';
                             }
 
                             if($row_values->$cell6[$i] == "ND"){
-                                $html .= '<option value="ND" selected>ND</option>';
+                                $html .= '<option value="ND" selected>ND - Needs Development</option>';
                             }else{
-                                $html .= '<option value="ND">ND</option>';
+                                $html .= '<option value="ND">ND - Needs Development</option>';
                             }
 
                         $html .= '</select>';
+                        $html .= '<div class="text-danger rating_by_employee_'.$code.'_error" id=""></div>';
 
                 }else{
-                $html .= '<td>';
-                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-5" name="rating_by_employee_'.$cell1.'[]">';
-                        $html .= '<option value="">...Select...</option>';
-                        $html .= '<option value="EE">EE</option>';
-                        $html .= '<option value="AE">AE</option>';
-                        $html .= '<option value="ME">ME</option>';
-                        $html .= '<option value="PE">PE</option>';
-                        $html .= '<option value="ND">ND</option>';
-                    $html .= '</select>';
-
-                $html .= '</td>';
+                    $html .= '<td>';
+                        $html .= '<select class="form-control js-example-basic-single m-t-5 rating_by_employee_'.$cell1.'" id="rating_by_employee_'.$code.'" name="rating_by_employee_'.$cell1.'[]">';
+                            $html .= '<option value="">...Select...</option>';
+                            $html .= '<option value="EE">EE</option>';
+                            $html .= '<option value="AE">AE</option>';
+                            $html .= '<option value="ME">ME</option>';
+                            $html .= '<option value="PE">PE</option>';
+                            $html .= '<option value="ND">ND</option>';
+                        $html .= '</select>';
+                        $html .= '<div class="text-danger rating_by_employee_'.$code.'_error" id=""></div>';
+                    $html .= '</td>';
 
                 }
 
@@ -3145,7 +3150,9 @@ class GoalsController extends Controller
         // }
         $logined_email = Auth::user()->email;
         $logined_sup_email = $this->goal->getSupEmail();
-        $logined_username = Auth::user()->username;
+        $logined_sup_name = $this->goal->getSupEmail();
+        $logined_username = Auth::user()->sup_name;
+        $logined_empID = Auth::user()->empID;
 
         if($result){
             $data = array(
@@ -3157,19 +3164,19 @@ class GoalsController extends Controller
                 // $message->to($todays_birthday->email)->subject
                 //     ('Birthday Mail');
                 $message->to($data['to_email'])->subject
-                    ('PMS Sheet');
+                    ('Self Assessment Status - Registered');
                 $message->cc($data['sup_to_email']);
                 $message->from("hr@hemas.in", 'HEPL - HR Team');
             });
             $sup_data = array(
                 'name'=> $logined_username,
+                'sup_name'=> $logined_sup_name,
+                'emp_id'=> $logined_empID,
                 'to_email'=> $logined_sup_email,
             );
-            Mail::send('mail.goal-emp-mail', $sup_data, function($message) use ($sup_data) {
-                // $message->to($todays_birthday->email)->subject
-                //     ('Birthday Mail');
+            Mail::send('mail.goal-sup-mail', $sup_data, function($message) use ($sup_data) {
                 $message->to($sup_data['to_email'])->subject
-                    ('PMS Sheet');
+                    ('Self Assessment Status - Registered');
                 $message->from("hr@hemas.in", 'HEPL - HR Team');
             });
         }

@@ -388,28 +388,30 @@ class GoalRepository implements IGoalRepository
       return $response;
    }
    public function add_goal_btn(){
-$logined_empID = Auth::user()->empID;
-
+      $logined_empID = Auth::user()->empID;
+      $logined_pms_status = Auth::user()->pms_status;
       $response1 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Pending')->value('goal_name');
-
       $response2 = Goals::where('created_by', $logined_empID)->where('goal_status', 'Revert')->value('goal_name');
 
       // dd($response2);
 
-      if(!empty($response1) || !empty($response2)){
+      if($logined_pms_status == 1){
+         
+         $response = "No"; //show    
+         
+         if(!empty($response1) || !empty($response2)){
+            // dd("y")
+            $response = "Yes";
+         }else{
+            // dd("n");
+            $response = "No";
+         }
+         
 
-         // dd("y");
-
-         $response = "Yes";
-
-      }else{
-
-         // dd("n");
-
-         $response = "No";
-
+      }else{      
+         $response = "Yes"; //not show
       }
-
+      
       return $response;
 
    }

@@ -227,6 +227,14 @@ $('#goal_data').on('click','#employee_summary',function(){
       
 });
 
+
+//Employee Summary
+$('#pms_instruction').on('click',function(){
+    
+    $('#pmsInstructionModal').modal('show');
+      
+});
+
 $('#goal_data').on('click','#employee_summary_show',function(){
     var id = $(this).data('id');
 

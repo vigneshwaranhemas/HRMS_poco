@@ -618,7 +618,7 @@ function data_insert(){
                     backgroundColor: "#4fbe87",
                 }).showToast();
                 //  window.location.reload(true);
-                    window.location.href = "goals";
+                    window.location.href = "goals";     
                 }
                 else{
                     Toastify({

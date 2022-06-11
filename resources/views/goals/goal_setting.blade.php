@@ -16,7 +16,6 @@
 @endsection
 
 @section('breadcrumb-items')
-	<a class="btn btn-sm text-white" style="background-color: #FFD700;" title="Significantly Exceeds Expectations">SEE</a>                                            
 	<a class="btn btn-sm text-white m-l-10" style="background-color: #008000;" title="Exceeded Expectations">EE</a>                                            
 	<a class="btn btn-sm btn-success m-l-10 text-white" title="Met Expectations">ME</a>                                            
 	<a class="btn btn-sm m-l-10 text-white" style="background-color: #FFA500" title="Partially Met Expectations">PME</a>                                            

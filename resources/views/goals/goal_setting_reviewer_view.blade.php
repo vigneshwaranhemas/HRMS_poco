@@ -166,13 +166,11 @@
 									<a id="goal_sheet_submit_no_tb"  onclick="supSubmitDirect();" class="btn btn-success text-white float-right" title="Submit For Approval">Submit</a>
                                     <!-- reporting manager submit button end -->
 
-                                    <!-- reviewer submit button start -->
-                                    <a id="goal_sheet_submit_for_reviewer"  onclick="supFormSubmit_with_status_for_reviewer();" class="btn btn-success text-white float-right" title="Submit For Approval">Submit</a>
-									<a id="goal_sheet_submit_no_tb_for_reviewer"  onclick="supSubmitDirect_for_reviewer();" class="btn btn-success text-white float-right" title="Submit For Approval">Submit</a>
-                                    <!-- reviewer submit button end -->
+
 
 									<h5>EMPLOYEE CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
 									<h5>REPORTING MANAGER CONSOLIDATED RATING : <span id="supervisor_consolidate_rate_show"></span></h5>
+									<h5>REVIEWER REMARKS : <span id="reviewer_remarks_head"></span></h5>
 								</div>
 							</div>
                         <form id="goalsForm">
@@ -187,7 +185,7 @@
 										<th scope="col">Rating </th>
 										<th scope="col">R.Manager Remarks </th>
 										<th scope="col">R.Manager Rating </th>
-										<th scope="col">Reviewer Remarks </th>
+										{{-- <th scope="col">Reviewer Remarks </th> --}}
 										<th scope="col">HR Remarks </th>
 										<th scope="col">BH Remarks </th>
 										<!-- <th scope="col">Business Head</th> -->
@@ -211,15 +209,33 @@
 										</select>
 										<div class="text-danger supervisor_consolidated_rate_error" id=""></div>
 									</div>
+
 									<div class="col-lg-6">
-										<a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save as Draft</a>
+										<a onclick="supFormSubmit();" class="btn btn-primary text-white m-t-30" title="Save as Draft">Save</a>
 									</div>
                                 </div>
-								<div class="m-t-20 m-b-30 row float-right" id="save_div_rev">
-									<div class="col-lg-12 m-b-35">
-										<a onclick="revFormSubmit()" class="btn btn-primary text-white m-t-30" title="Save Table Value">Save as Draft</a>
-									</div>
-								</div>
+
+                                <!-- reviewer submit button start -->
+                                <div class="m-t-20 m-b-30 row float-right" id="save_div_rev_mark">
+                                    <div class="col-lg-12">
+                                        <label>Reviewer Remarks</label><br>
+                                        <textarea id="reviewer_remarks" name="reviewer_remarks" class="form-control"></textarea>
+                                        <div class="text-danger reviewer_remarks_error" id="reviewer_remarks_error"></div>
+                                    </div>
+                                </div>
+
+                                <div class="m-b-30 row float-right" style="margin-top: 101px; margin-right: -19%;" id="save_div_rev">
+                                        <div class="col-lg-6">
+                                            <a onclick="revFormSubmit()" class="btn btn-primary text-white m-t-30" title="Save as Draft">Save</a>
+                                        </div>
+                                        <div class="col-lg-6" style="margin-top: 30px; margin-left: -16px;">
+                                            <a id="goal_sheet_submit_for_reviewers"  onclick="supFormSubmit_with_status_for_reviewer();" class="btn btn-success text-white" title="Submit For Approval">Submit</a>
+                                        </div>
+                                </div>
+
+								<a id="goal_sheet_submit_no_tb_for_reviewer"  onclick="supSubmitDirect_for_reviewer();" class="btn btn-success text-white m-t-20 m-b-30 float-right" title="Submit For Approval">Submit</a>
+                                <!-- reviewer submit button end -->
+
 
 							<!-- </div> -->
 						</form>
@@ -275,8 +291,8 @@
 		$( document ).ready(function() {
 			// goal_record();
 			$("#save_div").hide();
-			$("#save_div_hr").hide();
 			$("#save_div_rev").hide();
+			$("#save_div_rev_mark").hide();
 
 			$('#goals_record_tb').DataTable( {
 				"searching": false,
@@ -358,6 +374,30 @@
 			}
 
 		});
+
+        /********** Reviewer Remarks Get Data **************/
+		$.ajax({
+			url:"{{ url('get_goals_reviewer_remarks') }}",
+			type:"GET",
+			data:{id:id},
+			dataType : "JSON",
+			success:function(response)
+			{
+                // console.log(response);
+                $('#reviewer_remarks_head').append('');
+				$('#reviewer_remarks_head').append(response);
+
+                if(response != ""){
+							$('#reviewer_remarks').val(response);
+						}
+			},
+			error: function(error) {
+				console.log(error);
+
+			}
+
+		});
+
         function tb_data()
         {
 		$.ajax({
@@ -367,7 +407,7 @@
 			dataType : "JSON",
 			success:function(response)
 			{
-                // console.log(response)
+                console.log(response)
 				$('#goals_record_tb').DataTable().clear().destroy();
 				$('#goals_record').empty();
 				$('#goals_record').append(response.html);
@@ -448,7 +488,7 @@
 							$("#goal_sheet_submit").css("display","block");
 							$("#save_div").show();
 							$("#save_div_rev").hide();
-							$("#save_div_hr").hide();
+							$("#save_div_rev_mark").hide();
                             $("#goal_sheet_submit_no_tb").css("display","none");
 
 							var i=1;
@@ -616,7 +656,7 @@
             data:{"id":id,},
             dataType: "json",
             success: function(data) {
-                console.log(data.only_dept[0].department)
+                // console.log(data.only_dept[0].department)
 
                 if(data.length !=0){
                     $('#empID').html(data.all['0'].empID);
@@ -635,26 +675,37 @@
 
 
     function revFormSubmit(){
-        var error='';
-                var i=1;
 
-                $('#goals_record_tb > tbody  > tr').each(function(index) {
-                    var col0=$(this).find("td:eq(0)").text();
-                    var col8=$(this).find("td:eq(7) textarea").val();
+                var error='';
 
-                    // Supervisor Rate
-                    var err_div_name1 = ".reviewer_remarks_"+index+"_error";
-                    var $errmsg1 = $(err_div_name1);
-                    $errmsg1.hide();
+                var reviewer_remarks_val = $("#reviewer_remarks").val();
+                // alert(rate)
+                var $errmsg3 = $(".reviewer_remarks_error");
+                $errmsg3.hide();
 
-                    if(col8 == "" || col8 == undefined){
-                        // console.log($errmsg0)
-                        $errmsg1.html('Reviewer Remarks is required').show();
-                        error+="error";
-                    }
+                if(reviewer_remarks_val == ""){
+                    $errmsg3.html('Reviewer Remarks is required').show();
+                    error+="error";
+                }
+                // var i=1;
 
-                    i++;
-                });
+                // $('#goals_record_tb > tbody  > tr').each(function(index) {
+                //     var col0=$(this).find("td:eq(0)").text();
+                //     var col8=$(this).find("td:eq(7) textarea").val();
+
+                //     // Supervisor Rate
+                //     var err_div_name1 = ".reviewer_remarks_"+index+"_error";
+                //     var $errmsg1 = $(err_div_name1);
+                //     $errmsg1.hide();
+
+                //     if(col8 == "" || col8 == undefined){
+                //         // console.log($errmsg0)
+                //         $errmsg1.html('Reviewer Remarks is required').show();
+                //         error+="error";
+                //     }
+
+                //     i++;
+                // });
                 //Sending data to database
                 if(error==""){
                     data_insert_reviewer();
@@ -817,34 +868,34 @@
 							$("#goal_sheet_edit_rev").css("display","none");
 							$("#goal_sheet_submit_for_reviewer").css("display","block");
 							$("#save_div_rev").show();
+							$("#save_div_rev_mark").show();
 							$("#save_div").hide();
-							$("#save_div_hr").hide();
                             $("#goal_sheet_submit_no_tb_for_reviewer").css("display","none");
 
-							var i=1;
-								var defined_class1="reviewer_remarks";
+							// var i=1;
+							// 	var defined_class1="reviewer_remarks";
 
-							$("#goals_record_tb tbody tr td."+defined_class1+"").each(
-								function(index){
+							// $("#goals_record_tb tbody tr td."+defined_class1+"").each(
+							// 	function(index){
 
-									// console.log("data")
-									if ($(this).text() != ""){
-										// alert("one")
-                                        var text_data=$(this).text();
-							            $(".reviewer_remarks_p_rev_"+i+"").remove();
-                                        var tx = '<textarea id="business_head_edit'+i+'" name="reviewer_remarks[]" style="width:200px;" class="form-control">'+text_data+'</textarea>';
-											tx += '<div class="text-danger reviewer_remarks_'+index+'_error" id="reviewer_remarks_'+index+'_error"></div>';
-										$(this).append(tx)
-									}
-									else{
-										var tx = '<textarea id="business_head_edit'+i+'" name="reviewer_remarks[]" style="width:200px;" class="form-control"></textarea>';
-											tx += '<div class="text-danger reviewer_remarks_'+index+'_error" id="reviewer_remarks_'+index+'_error"></div>';
-										$(this).append(tx)
-										// alert("two")
-									}
-									i++;
-								}
-							);
+							// 		// console.log("data")
+							// 		if ($(this).text() != ""){
+							// 			// alert("one")
+                            //             var text_data=$(this).text();
+							//             $(".reviewer_remarks_p_rev_"+i+"").remove();
+                            //             var tx = '<textarea id="business_head_edit'+i+'" name="reviewer_remarks[]" style="width:200px;" class="form-control">'+text_data+'</textarea>';
+							// 				tx += '<div class="text-danger reviewer_remarks_'+index+'_error" id="reviewer_remarks_'+index+'_error"></div>';
+							// 			$(this).append(tx)
+							// 		}
+							// 		else{
+							// 			var tx = '<textarea id="business_head_edit'+i+'" name="reviewer_remarks[]" style="width:200px;" class="form-control"></textarea>';
+							// 				tx += '<div class="text-danger reviewer_remarks_'+index+'_error" id="reviewer_remarks_'+index+'_error"></div>';
+							// 			$(this).append(tx)
+							// 			// alert("two")
+							// 		}
+							// 		i++;
+							// 	}
+							// );
 						}
 					},
 					error: function(error) {
@@ -859,25 +910,35 @@
 
             var error='';
 
-            var i=1;
+            var reviewer_remarks_val = $("#reviewer_remarks").val();
+            // alert(rate)
+            var $errmsg3 = $(".reviewer_remarks_error");
+            $errmsg3.hide();
 
-            $('#goals_record_tb > tbody  > tr').each(function(index) {
-                var col0=$(this).find("td:eq(0)").text();
-                var col7=$(this).find("td:eq(7) textarea").val();
+            if(reviewer_remarks_val == ""){
+                $errmsg3.html('Reviewer Remarks is required').show();
+                error+="error";
+            }
 
-                // Supervisor Rate
-                var err_div_name1 = ".reviewer_remarks_"+index+"_error";
-                var $errmsg1 = $(err_div_name1);
-                $errmsg1.hide();
+            // var i=1;
 
-                if(col7 == "" || col7 == undefined){
-                    // console.log($errmsg0)
-                    $errmsg1.html('Reviewer remarks is required').show();
-                    error+="error";
-                }
+            // $('#goals_record_tb > tbody  > tr').each(function(index) {
+            //     var col0=$(this).find("td:eq(0)").text();
+            //     var col7=$(this).find("td:eq(7) textarea").val();
 
-                i++;
-            });
+            //     // Supervisor Rate
+            //     var err_div_name1 = ".reviewer_remarks_"+index+"_error";
+            //     var $errmsg1 = $(err_div_name1);
+            //     $errmsg1.hide();
+
+            //     if(col7 == "" || col7 == undefined){
+            //         // console.log($errmsg0)
+            //         $errmsg1.html('Reviewer remarks is required').show();
+            //         error+="error";
+            //     }
+
+            //     i++;
+            // });
 
             //Sending data to database
             if(error==""){

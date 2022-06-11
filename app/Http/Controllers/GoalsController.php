@@ -1007,22 +1007,22 @@ class GoalsController extends Controller
 
 
             /*cell 9*/
-            if($row_values->$cell9 != null){
-                // echo  json_encode($row_values->$cell9);
-                $html .= '<td class="reviewer_remarks">';
-                    foreach($row_values->$cell9 as $cell9_value){
-                        if($cell9_value != null){
-                            $html .= '<p class="reviewer_remarks_p_rev_'.$cell1.'">'.$cell9_value.'</p>';
-                        }
-                    }
+            // if($row_values->$cell9 != null){
+            //     // echo  json_encode($row_values->$cell9);
+            //     $html .= '<td class="reviewer_remarks">';
+            //         foreach($row_values->$cell9 as $cell9_value){
+            //             if($cell9_value != null){
+            //                 $html .= '<p class="reviewer_remarks_p_rev_'.$cell1.'">'.$cell9_value.'</p>';
+            //             }
+            //         }
 
-                $html .= '</td>';
+            //     $html .= '</td>';
 
-            }else{
-                $html .= '<td class="reviewer_remarks">';
-                // $html .= '<p></p>';
-                $html .= '</td>';
-            }
+            // }else{
+            //     $html .= '<td class="reviewer_remarks">';
+            //     // $html .= '<p></p>';
+            //     $html .= '</td>';
+            // }
 
             /*cell 10*/
             if($row_values->$cell10 != null){
@@ -3714,7 +3714,7 @@ class GoalsController extends Controller
         $result = $this->goal->update_goals_sup($data);
 
         return response($result);
-    }    
+    }
     public function get_goal_setting_rev_dept_name(request $request){
         $id = $request->id;
         $response = $this->goal->get_goal_setting_rev_dept_name($id);
@@ -3914,7 +3914,7 @@ class GoalsController extends Controller
                 return $btn;
             })
             ->addColumn('action', function($row) {
-                   
+
 
                     $btn1 = '<div class="dropup">
                     <a href="goal_setting_hr_view?id='.$row->goal_unique_code.'" ><button type="button" class="btn btn-secondary" style="padding:0.37rem 0.8rem !important;" id="dropdownMenuButton"><i class="fa fa-eye"></i></button></a>
@@ -4680,7 +4680,7 @@ public function get_all_supervisors_info_bh()
             $result=Goals::join('customusers','customusers.empID','=','goals.created_by')
                     ->where('goals.goal_unique_code',$data['checkbox'])->select('email')->first();
             $test[]=$result;
-       
+
             $Mail['email']=$result->email;
 
             // $Mail['email']='vigneshb@hemas.in';
@@ -4700,31 +4700,32 @@ public function get_all_supervisors_info_bh()
 
  public function update_goals_reviewer_teamleader(Request $request){
     $id = $request->goals_setting_id;
-    $json_value = $this->goal->fetchGoalIdDetails($id);
+    // $json_value = $this->goal->fetchGoalIdDetails($id);
     // echo "<pre>";print_r($json_value);die;
-    $datas = json_decode($json_value);
-    $json = array();
-    $html = '';
+    // $datas = json_decode($json_value);
+    // $json = array();
+    // $html = '';
 
-    foreach($datas as $key=>$data){
-    $cell1 = $key+1;
-    $row_values = json_decode($data);
+    // foreach($datas as $key=>$data){
+    // $cell1 = $key+1;
+    // $row_values = json_decode($data);
 
-    //Reviewer remarks add
-    $reviewer_remarks_value = array($request->reviewer_remarks[$key]);
-    $sup_final_op = "reviewer_remarks_".$cell1;
-    $row_values->$sup_final_op = $reviewer_remarks_value;
+    // //Reviewer remarks add
+    // $reviewer_remarks_value = array($request->reviewer_remarks[$key]);
+    // $sup_final_op = "reviewer_remarks_".$cell1;
+    // $row_values->$sup_final_op = $reviewer_remarks_value;
 
-    $json_format = json_encode($row_values);
-    array_push($json, $json_format);
-    }
+    // $json_format = json_encode($row_values);
+    // array_push($json, $json_format);
+    // }
 
-    $goal_process = json_encode($json);
+    // $goal_process = json_encode($json);
 
     //Data upload to server
     $data = array(
-    'goal_process' => $goal_process,
-    'goal_unique_code' => $id
+    // 'goal_process' => $goal_process,
+    'goal_unique_code' => $id,
+    'reviewer_remarks' => $request->reviewer_remarks
     );
     // dd($data);
     $result = $this->goal->update_goals_reviewer_teamleader($data);
@@ -4735,33 +4736,33 @@ public function get_all_supervisors_info_bh()
 public function update_goals_sup_submit_overall_for_reviewer(Request $request){
     // dd($request->all());
     $id = $request->goals_setting_id;
-    $json_value = $this->goal->fetchGoalIdDetails($id);
-    // dd($json_value);
-    $datas = json_decode($json_value);
+    // $json_value = $this->goal->fetchGoalIdDetails($id);
+    // $datas = json_decode($json_value);
 
-    $json = array();
+    // $json = array();
 
-    $html = '';
+    // $html = '';
 
-    foreach($datas as $key=>$data){
-        $cell1 = $key+1;
-        $row_values = json_decode($data);
+    // foreach($datas as $key=>$data){
+    //     $cell1 = $key+1;
+    //     $row_values = json_decode($data);
 
-        //Reviewer remark add
-        $rev_remark_value = array($request->reviewer_remarks[$key]);
-        $rev_rem = "reviewer_remarks_".$cell1;
-        $row_values->$rev_rem = $rev_remark_value;
+    //     //Reviewer remark add
+    //     $rev_remark_value = array($request->reviewer_remarks[$key]);
+    //     $rev_rem = "reviewer_remarks_".$cell1;
+    //     $row_values->$rev_rem = $rev_remark_value;
 
-        $json_format = json_encode($row_values);
-        array_push($json, $json_format);
+    //     $json_format = json_encode($row_values);
+    //     array_push($json, $json_format);
 
-    }
-    $goal_process = json_encode($json);
+    // }
+    // $goal_process = json_encode($json);
 
     //Data upload to server
     $data = array(
-        'goal_process' => $goal_process,
+        // 'goal_process' => $goal_process,
         'goal_unique_code' => $id,
+        'reviewer_remarks' => $request->reviewer_remarks,
     );
     //  dd($data);
      $result = $this->goal->update_goals_sup_submit_overall_for_reviewer($data);
@@ -4809,7 +4810,7 @@ public function update_goals_sup_submit_overall_for_reviewer(Request $request){
             $html .= '<tr  class="border-bottom-primary">';
             /*cell 1*/
             $html .= '<th scope="row">'.$cell1.'</th>';
-            
+
             /*cell 2*/
             if($row_values->$cell2 != null){
                 $html .= '<td>';
@@ -5002,6 +5003,18 @@ public function update_goals_sup_submit_overall_for_reviewer(Request $request){
 
 
         return json_encode($new_data);
+    }
+
+    public function get_goals_reviewer_remarks(Request $request)
+    {
+        $id = $request->id;
+        $head = $this->goal->get_goals_reviewer_remarks($id);
+        return json_encode($head);
+    }
+
+    public function goals_help_desk()
+    {
+        return view('goals.goals_help_desk');
     }
 
 }

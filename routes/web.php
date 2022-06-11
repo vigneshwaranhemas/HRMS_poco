@@ -176,6 +176,8 @@ Route::post('update_goals_sup_submit_overall', 'GoalsController@update_goals_sup
 Route::post('update_goals_reviewer_teamleader', 'GoalsController@update_goals_reviewer_teamleader');
 Route::post('update_goals_sup_submit_overall_for_reviewer', 'GoalsController@update_goals_sup_submit_overall_for_reviewer');
 Route::post('update_goals_team_member_submit_direct', 'GoalsController@update_goals_team_member_submit_direct');
+Route::get('get_goals_reviewer_remarks', 'GoalsController@get_goals_reviewer_remarks')->name('get_goals_reviewer_remarks');
+Route::get('goals_help_desk', 'GoalsController@goals_help_desk')->name('goals_help_desk');
 
 
 //Birthday controller

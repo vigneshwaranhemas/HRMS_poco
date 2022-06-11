@@ -24,11 +24,11 @@
     }
     .nav-primary .nav-link.nav-link-pms-1{
         background-color: #80cf00;
-        color: #fff;        
+        color: #fff;
     }
     .nav-primary .nav-link.nav-link-pms-2{
         background-color: #ff0000;
-        color: #fff;        
+        color: #fff;
     }
     #add_goal_btn{
         display:none;
@@ -37,7 +37,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Permanace Management<span>System</span></h2>
+	<h2>Performance Management<span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -156,7 +156,7 @@
             </div>
             </div>
         </div>
-        
+
     </div>
 </div>
 <!-- Container-fluid Ends-->

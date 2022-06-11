@@ -46,7 +46,8 @@ class LoginController extends Controller
                 'active' => auth()->user()->active,
                 'email' => auth()->user()->email,
                 'passcode_status'=>auth()->user()->passcode_status,
-                'worklocation'=>auth()->user()->worklocation
+                'worklocation'=>auth()->user()->worklocation,
+                'pms_status'=>auth()->user()->pms_status
             ];
             // echo "<pre>";print_r($info);die;
             Session::put("session_info",$info);

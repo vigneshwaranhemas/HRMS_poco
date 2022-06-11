@@ -44,6 +44,11 @@
 @endsection
 
 @section('content')
+
+<?php
+        $session_val = Session::get('session_info');
+        $pms_status = $session_val['pms_status'];
+?>
 <!-- Container-fluid starts-->
 <div class="container-fluid">
     <div class="row">
@@ -159,6 +164,8 @@
         
     </div>
 </div>
+
+
 <!-- Container-fluid Ends-->
 @endsection
 
@@ -186,3 +193,6 @@
 <script src="../assets/js/datepicker/date-picker/datepicker.custom.js"></script>
 <script src="../assets/pro_js/goal_list.js"></script>
 @endsection
+
+
+

@@ -19,21 +19,42 @@ class SidebarController extends Controller
          $emp_ID = $session_val['empID'];
          $cdID = $session_val['cdID'];
          $role_id = $session_val['role_id'];
-         // echo "1<pre>";print_r($role_type);die;
+         $pms_status = $session_val['pms_status'];
+         // echo "<pre>";print_r($pms_status);die;
 
          if ($emp_ID !="") {
             $menu_list = DB::table('role_permissions as rp')->select('*')
                             ->leftjoin('menus as m','m.menu_id', '=', 'rp.menu')
                             ->where('rp.role', '=', $role_id)->where('rp.view', '=', '1')->groupBy('rp.menu')->get();
-                            // echo "<pre>";print_r($menu_list);die;
+
+            $menu_list2 = DB::table('customusers')
+                            ->select('pms_status')
+                            ->where('empID', '=', $emp_ID)
+                            ->get();
+         // echo "<pre>";print_r($menu_list2[0]->pms_status);die;
                             $html ='';
                             for ($i=0; $i < count($menu_list) ; $i++) {
-                                // echo "<pre>";print_r($menu_list);die;
                                  if ($menu_list[$i]->child == 0) {
+                                    if ($menu_list[$i]->menu_name == "Performance") {
+                                        if ($menu_list2[0]->pms_status == 1) {
+                                            $html .='<li>';
+                                            $html .='<a class="bar-icons" href="'.$menu_list[$i]->menu_path.'">';
+                                            $html .='<img src="'.$menu_list[$i]->icon_class.'" height="40px"></img><span>'.$menu_list[$i]->menu_name.'</span></a>';
+                                            $html .='</li>';
+                                        }else{
+                                            $html .='<li>';
+                                            $html .='<a class="bar-icons" href="pms_conformation">';
+                                            $html .='<img src="'.$menu_list[$i]->icon_class.'" height="40px"></img><span>'.$menu_list[$i]->menu_name.'</span></a>';
+                                            $html .='</li>';
+                                        }   
+                                    }else{
                                         $html .='<li>';
                                         $html .='<a class="bar-icons" href="'.$menu_list[$i]->menu_path.'">';
                                         $html .='<img src="'.$menu_list[$i]->icon_class.'" height="40px"></img><span>'.$menu_list[$i]->menu_name.'</span></a>';
                                         $html .='</li>';
+
+                                    }
+                                        
                                 }else{
                                         $html .='<li onclick="test(this)">';
                                         $html .='<a class="bar-icons" href="'.$menu_list[$i]->menu_path.'"><img height="40px" src="'.$menu_list[$i]->icon_class.'" ></img><span>'.$menu_list[$i]->menu_name.'</span></a>';

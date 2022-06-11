@@ -636,7 +636,7 @@ $( document ).ready(function() {
         }
     });
 });
-$(()=>{
+/*$(()=>{
     var sess_data=@json(Session::get('session_info'));
     $.ajax({
         url:"{{url('check_user_status')}}",
@@ -649,6 +649,25 @@ $(()=>{
             }
             else{
                 $("#loadModal1").modal('hide');
+
+            }
+        }
+    })
+})*/
+/*show and hide a first popup*/
+$(()=>{
+    var sess_data=@json(Session::get('session_info'));
+    $.ajax({
+        url:"{{url('check_user_status')}}",
+        type:"POST",
+        data:{empID:sess_data['empID']},
+        success:function(data){
+            var res =JSON.parse(data);
+            if(res.pms_status==1){
+                $("#loadModal1").modal('hide');
+            }
+            else{
+                     $("#loadModal1").modal('show');
 
             }
         }

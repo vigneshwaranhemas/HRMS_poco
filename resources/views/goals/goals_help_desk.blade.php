@@ -19,7 +19,8 @@
 @endsection
 
 @section('breadcrumb-items')
-        <a href="{{url('goals')}}" class="btn btn-primary text-white" title="Performance Management System">PMS</a>
+        Home / <a href="{{url('goals')}}"><b style="margin-left: 4px;">Performance Management System</b></a>
+        {{-- <a href="{{url('goals')}}" class="btn btn-primary text-white" title="Performance Management System">PMS</a> --}}
 @endsection
 
 @section('content')

@@ -59,6 +59,9 @@
 @endsection
 
 @section('breadcrumb-items')
+<button style="font-size: 14px; font-weight: 700; padding-left: 9px; padding-right: 9px;" class="btn btn-warning-gradien m-t-10 float-right pms_overview_btn" id="pms_instruction" style="margin-top: -30px;" type="button" data-original-title="PMS Instruction" title="PMS Overview">PMS Overview</button>
+
+<a href="goals_help_desk"><button class="btn btn-info-gradien m-t-10 float-right m-l-10" style="margin-top: -30px; padding-left: 9px; padding-right: 9px;" type="button" data-original-title="PMS Instruction" title="PMS Tutorial">PMS Tutorial</button></a>
 @endsection
 
 @section('content')

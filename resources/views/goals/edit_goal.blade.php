@@ -4,12 +4,11 @@
 @section('title', 'Add Goal Setting')
 
 @section('css')
-<link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
-<!-- Plugins css start-->
-<link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
-
+    <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
+    <!-- Plugins css start-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
 @endsection
 
 @section('style')

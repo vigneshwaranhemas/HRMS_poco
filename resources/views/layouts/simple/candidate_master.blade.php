@@ -64,8 +64,9 @@
                        <div class="contain p-30">
                           <div class="text-center">
                              <h3>Welcome to BUDGIE</h3>
-                             <h4 style="color:red;">Please Complete Your PMS Details</h4>
-                             <a class="btn btn-primary btn-lg txt-white" id="pms_status"  aria-label="Close">Get Started</a>
+                             <h5>PMS 2021-22 is active ! </h5>
+                             <h5 style="color:red;"><b>Please Complete Your Self Assessment</b></h5>
+                             <a class="btn btn-primary btn-lg txt-white"  href="{{ url('pms_conformation') }}" aria-label="Close">Get Started</a>
                           </div>
                        </div>
                     </div>

@@ -15,7 +15,7 @@ $('#pms_status').submit(function(e) {
     // $(".pms_but").text('Processing...');   
     
         e.preventDefault();
-          var formData = new FormData(this);
+        var formData = new FormData(this);
         $.ajax({  
             url:pms_conformation_sub, 
             method:"POST",  
@@ -36,7 +36,7 @@ $('#pms_status').submit(function(e) {
 
                    setTimeout(
                        function() {
-                        window.location.href = "../goals";
+                        window.location.href = "goals";
                        }, 1000);
                }
                else{

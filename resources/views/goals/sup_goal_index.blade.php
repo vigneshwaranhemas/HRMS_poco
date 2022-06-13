@@ -89,7 +89,7 @@
                                         <div class="tab-pane fade show active" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">                        
                                             <div class="goals-card-div-1">
                                                 <div class="">
-                                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none:"><button class="btn float-right btn-primary-gradien m-b-10" type="button" data-original-title="Add Sheet" title="Add Sheet">Add Sheet</button></a>
+                                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none:"><button class="btn float-right btn-primary-gradien m-b-10" type="button" data-original-title="Add Sheet" title="Add Self Assessment Sheet">Add Self Assessment</button></a>
                                                     <div class="table-responsive">
                                                         <table class="table" id="goal_data">
                                                             <thead>
@@ -202,6 +202,38 @@
             </div>
         </div>
         
+        <!--PMS Instruction -->        
+        <div class="modal fade bd-example-modal-lg" id="pmsInstructionModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myLargeModalLabel">Hello {{ Auth::user()->username }}</h4>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <h5></h5> -->
+                        <p style="text-align: justify;font-size:16px">We are delighted to launch the <b>PAPERLESS SELF ASSESSMENT MODULE</b> for Performance Management System 2021-22, through our new HRMS- BUDGIE.</p>
+                        <p style="text-align: justify;font-size:16px">The Self-Assessment Module facilitates eligible employees to summarise <b>individual performance</b> (Self-Assessment) based on <b>management expectations</b> (Goals & Objectives) for the period of evaluation (April 1, 2021, to March 31, 2022).</p>
+                        <p style="text-align: justify;font-size:16px">Employees who are on the rolls of HEPL, last on December 31, 2021, are eligible to participate in this program. Employees who have joined HEPL on January 1, 2022, and later are not eligible.</p>
+                        <p style="text-align: justify;font-size:16px"><b>Why PMS:</b> </p>
+                        <p style="text-align: justify;font-size:16px">A well-defined Performance Management System creates an ongoing dialogue between the employee and reporting manager to define, manage and continually outperform one’s goals and objectives. It also helps to develop a climate of trust, support, and encouragement and builds transparency in the performance evaluation process.</p>
+                        <p style="text-align: justify;font-size:16px">The following is the schedule of PMS 2021-22: </p>                        
+                        <ul class="pl-4 mb-4 list-circle">
+                            <li><p style="text-align: justify;font-size:16px">Self Assessment - By Wednesday, 15th June</p></li>
+                            <li><p style="text-align: justify;font-size:16px">Reporting Manager Assessment - By Saturday, 18th June</h5></li>
+                            <li><p style="text-align: justify;font-size:16px">Reviewer Assessment - By Monday, 20th June</h5></li>
+                            <li><p style="text-align: justify;font-size:16px">PMS Panel Review - By Tuesday, 22nd June</h5></li>
+                        </ul>    
+                        <p style="text-align: justify;font-size:16px">We welcome the eligible employees to participate in the PMS program as defined above and contribute to the robustness of the evaluation exercises.</p>
+                        <p style="text-align: justify;font-size:16px">Please go through the Tutorials on the Module prior to initiating your actions. Throughout this paperless process flow, if you encounter any difficulty or have any unanswered query, please feel free to reach out to your HR Advisor (<span style="color:blue;">dhivya.r@hemas.in</span>) or ping on Teams and we will be more than happy to support. </p>
+                        <p style="text-align: justify;font-size:16px">As we interact with the module, we may come across any difficulties or errors. Please reach out to (<span style="color:blue;">ganagavathy.k@hemas.in</span>) with the screenshots and She will be ready with the solutions for us to complete PMS efficiently.</p>
+                        <h6><b>Thank you,</b></h6>
+                        <h6><b>Human Resources Team - HEPL</b></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 <!-- Container-fluid Ends-->

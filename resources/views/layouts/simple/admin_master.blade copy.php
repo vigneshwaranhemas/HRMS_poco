@@ -10,12 +10,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <title>HRMS</title>
+    <title>HRMS - @yield('title')</title>
     @include('layouts.simple.css')
     @yield('style')
 
   </head>
-
   <body class="@if(url()->current() == route('button-builder'))  button-builder @endif">
     <!-- Loader starts-->
     <div class="loader-wrapper">
@@ -47,7 +46,7 @@
                     </div>
                     <div class="col-lg-6 breadcrumb-right">
                        <ol class="breadcrumb">
-                          <!-- <li class="breadcrumb-item"><a href=".."><i class="pe-7s-home"></i></a></li> -->
+                          {{-- <li class="breadcrumb-item"><a href=".."><i class="pe-7s-home"></i></a></li> --}}
                           @yield('breadcrumb-items')
                        </ol>
                     </div>
@@ -55,7 +54,7 @@
               </div>
             </div>
             @yield('content')
-            <div class="welcome-popup modal fade" id="loadModal1" tabindex="-1" role="dialog" aria-hidden="true">
+             {{-- <div class="welcome-popup modal fade" id="loadModal" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                  <div class="modal-content">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -64,14 +63,14 @@
                        <div class="contain p-30">
                           <div class="text-center">
                              <h3>Welcome to BUDGIE</h3>
-                             <h4 style="color:red;">Please Complete Your PMS Details</h4>
-                             <a class="btn btn-primary btn-lg txt-white" id="pms_status"  aria-label="Close">Get Started</a>
+                             <h4 style="color:red;">Enter Your ID Card Information  </h4>
+                             <a class="btn btn-primary btn-lg txt-white"  href="{{ url('id_card_varification') }}" aria-label="Close">Get Started</a>
                           </div>
                        </div>
                     </div>
                  </div>
               </div>
-            </div>
+            </div> --}}
         </div>
         <!-- footer start-->
         @include('layouts.simple.footer')
@@ -81,26 +80,8 @@
   </body>
 </html>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        pms_page_url();
-    });
-    function pms_page_url(){
-                    $.ajax({
-                    type: "POST",
-                    url: "pms_status_popup",
-                    data: {},
-                    dataType: "json",
-                    success: function (data) {
-                        // console.log(data)
-                        if (data.pms_status == 1) {
-                            url= "goals";
-                            $("#pms_status").attr("href", url);
-                        }else{
-                            url= "pms_conformation";
-                            $("#pms_status").attr("href", url);
-                        }
-                    }
-                });
-            }
-</script>
+
+
+
+
+

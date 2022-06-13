@@ -657,13 +657,6 @@ function hr_dttable_record(){
         ],
     });
 }
-
-
-//PMS Instruction
-$('#pms_instruction').on('click',function(){    
-    $('#pmsInstructionModal').modal('show');      
-});
-
 function goal_record(){
 
     table_cot = $('#goal_data').DataTable({

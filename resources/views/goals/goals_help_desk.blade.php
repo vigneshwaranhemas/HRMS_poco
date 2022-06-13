@@ -10,9 +10,7 @@
 
 @section('style')
 <style>
-.page-wrapper .page-body-wrapper .page-header .row .breadcrumb-right .breadcrumb .breadcrumb-item a.li_breadcrumb_a{
-	background-color: unset !important;
-}
+
 </style>
 @endsection
 
@@ -21,9 +19,7 @@
 @endsection
 
 @section('breadcrumb-items')
-	<li class="breadcrumb-item"><a href="{{ url('com_dashboard') }}"><i class="pe-7s-home"></i></a></li>
-	<li class="breadcrumb-item"><a class="li_breadcrumb_a" href="{{ url('goals') }}">Performance</a></li>
-	<li class="breadcrumb-item active">Help Desk</li>
+        <a href="{{url('goals')}}" class="btn btn-primary text-white" title="Performance Management System">PMS</a>
 @endsection
 
 @section('content')

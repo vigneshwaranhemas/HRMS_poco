@@ -4,11 +4,12 @@
 @section('title', 'Add Goal Setting')
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
-    <!-- Plugins css start-->
-    <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
+<!-- Plugins css start-->
+<link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
+
 @endsection
 
 @section('style')
@@ -38,84 +39,84 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i> Emp ID :</p>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Emp ID :</h6>
                                 </div>
                                 <div class="col-md-6">
-                                    <p id="empID" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->empID }}</b></p>
+                                    <p id="empID">{{ Auth::user()->empID }}</p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i> Rep.Manager ID :</p>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> R.Manager ID :</h6>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <p id="sup_emp_code" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->sup_emp_code }}</b></p>
+                                    <p id="sup_emp_code">{{ Auth::user()->sup_emp_code }}</p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</p>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</h6>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <p id="reviewer_emp_code" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->reviewer_emp_code }}</b></p>
+                                    <p id="reviewer_emp_code">{{ Auth::user()->reviewer_emp_code }}</p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i>  HRBP ID :</p>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <p style="font-size: 16px;" class="f-w-700"><b>900380</b></p>
+                                    <p>900380</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-7">
-                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Emp Name :</p>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Emp Name :</h6>
                                 </div>
                                 <div class="col-md-5">
-                                    <p id="username" class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->username }}</b></p>
+                                    <p id="username" style="text-transform: uppercase;">{{ Auth::user()->username }}</p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Rep.Manager Name :</p>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> R.Manager Name :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="sup_name" class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->sup_name }}</b></p>
+                                    <p id="sup_name" style="text-transform: uppercase;">{{ Auth::user()->sup_name }}</p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Reviewer Name :</p>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Reveiwer Name :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="reviewer_name" class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->reviewer_name }}</b></p>
+                                    <p id="reviewer_name" style="text-transform: uppercase;">{{ Auth::user()->reviewer_name }}</p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> HRBP :</p>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> HRBP :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>Rajesh M S</b></p>
+                                    <p style="text-transform: uppercase;">Rajesh M S</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-7">
-                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Emp Dept:</p>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Emp Dept:</h6>
                                 </div>
                                 <div class="col-md-5">
-                                    <p id="department" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->department }}</b></p>
+                                    <p id="department">{{ Auth::user()->department }}</p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Rep.Manager Dept :</p>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> R.Manager Dept :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="sup_dept" class="f-w-700" style="font-size: 16px;"></p>
+                                    <p id="sup_dept"></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Reviewer Dept :</p>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Reviewer Dept :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="rev_dept" class="f-w-700" style="font-size: 16px;"></p>
+                                    <p id="rev_dept"></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> HRBP Dept :</p>
+                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> HRBP Dept :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p class="f-w-700" style="font-size: 16px;"><b>HR</b></p>
+                                    <p>HR</p>
                                 </div>
                             </div>
                         </div>
@@ -158,20 +159,20 @@
                                             <option value="PME">PME - Partially Met Expectations</option>
                                             <option value="ND">ND - Needs Development</option>
                                         </select>
-                                        <div class="text-danger employee_consolidated_rate_error" id=""></div>
                                     </div>
                                     <div class="col-lg-3">
                                         <!-- <a id="datatable_form_update" type="submit" class="btn btn-primary text-white float-right m-t-30" title="Submit As Approval">Update</a>                                             -->
-                                        <button id="datatable_form_update" title="Save As Draft" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
+                                        <button id="datatable_form_update" title="Save As Draft" type="submit" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
                                     </div>
                                     <div class="col-lg-3">
                                         <!-- <a id="goal_sheet_submit_update" type="submit" class="btn btn-success text-white float-right m-b-30" title="Submit For Approval">Submit</a>                                             -->
-                                        <button id="goal_sheet_submit_update" title="Submit For Approval" type="submit" class="btn btn-success m-l-5 m-t-30"><i class="ti-save"></i> Submit</button>                                            
+                                        <button id="goal_sheet_submit_update" title="Submit For Approval" type="submit" class="btn btn-success float-right m-t-30"><i class="ti-save"></i> Submit</button>                                            
                                         
                                     </div>
                                 <!-- </div> -->
                             </div>
-                            <div class="text-danger tb_error m-t-30" id=""></div> 
+                            <div class="text-danger employee_consolidated_rate_error" id=""></div>
+                            <div class="text-danger tb_error float-right" style="margin-right: -34%;" id=""></div> 
                         </form>
                     </div>
                 </div>
@@ -227,13 +228,8 @@
             dataType: "json",
             success: function(data) {
                 // console.log(data)
-                if(data.length !=0){         
-                    var sup = "<b>";                              
-                     sup += data[0].department;                              
-                     sup += "</b>";  
-                    $('#sup_dept').html(sup);    
-
-                    // $('#sup_dept').html(data[0].department);                    
+                if(data.length !=0){                                        
+                    $('#sup_dept').html(data[0].department);                    
                 }
             }
         });
@@ -245,11 +241,7 @@
             success: function(data) {
                 // console.log(data)
                 if(data.length !=0){                                        
-                    var rev = "<b>";                              
-                        rev += data[0].department;                              
-                        rev += "</b>";  
-
-                    $('#rev_dept').html(rev);    
+                    $('#rev_dept').html(data[0].department);                    
                 }
             }
         });
@@ -419,7 +411,7 @@
                 html +='</td>';     
 
                 html +='<td>';
-                        html +='<div style="margin-top: 70px;"></div>';
+                        html +='<div style="margin-top: 80px;"></div>';
                 html +='</td>';
 
                 html +='<td>';
@@ -458,25 +450,24 @@
 
 
      //update entry
-     $("#datatable_form_update").on('click',(e)=>{ 
-        e.preventDefault();
-
+     $("#datatable_form_update").on('click',()=>{   
+        
         // $('button[type="submit"]').attr('disabled' , true);
-        $('#datatable_form_update').attr('disabled' , true);
-        $('#datatable_form_update').html("Processing");
+        $('#datatable_form_update"]').attr('disabled' , true);
+        $('#datatable_form_update"]').html("Processing");
         
         $(".tb_error").hide();
         
         var error='';
 
-        // var rate = $("#employee_consolidated_rate").val();
-        // var $errmsg3 = $(".employee_consolidated_rate_error");
-        // $errmsg3.hide();
+        var rate = $("#employee_consolidated_rate").val();
+        var $errmsg3 = $(".employee_consolidated_rate_error");
+        $errmsg3.hide();
 
-        // if(rate == ""){
-        //     $errmsg3.html('Self Consolidated Rating is required').show();
-        //     error+="error";
-        // }
+        if(rate == ""){
+            $errmsg3.html('Self Consolidated Rating is required').show();
+            error+="error";
+        }
 
         $('#goal-tb tr').each(function() {
             var col0=$(this).find("td:eq(0)").text();
@@ -553,23 +544,24 @@
 
         //Sending data to database
         if(error==""){
+            // alert("succes")
             update_data_insert();
             
-            $('#datatable_form_update').attr('disabled' , true);
-            $('#datatable_form_update').html("Processing");
+            $('#datatable_form_update"]').attr('disabled' , true);
+            $('#datatable_form_update"]').html("Processing");
 
             // $('button[type="submit"]').attr('disabled' , true);
         }else{
             // $('button[type="submit"]').attr('disabled' , false);
             
-            $('#datatable_form_update').attr('disabled' , false);
-            $('#datatable_form_update').html("Update");
+            $('#datatable_form_update"]').attr('disabled' , false);
+            $('#datatable_form_update"]').html("Submit");
 
         }
         
         function update_data_insert(){
             $.ajax({            
-                url:"update_emp_goals_data",
+                url:"{{ url('update_emp_goals_data') }}",
                 type:"POST",
                 data:$('#goalsFormUpdate').serialize(),
                 dataType : "JSON",
@@ -585,8 +577,8 @@
                     
                     // $('button[type="submit"]').attr('disabled' , false);                    
                     
-                    $('#datatable_form_update').attr('disabled' , false);
-                    $('#datatable_form_update').html("Update");
+                    $('#datatable_form_update"]').attr('disabled' , false);
+                    $('#datatable_form_update"]').html("Submit");
                     
 					$("#datatable_form_save").css('display', 'none');
 					$("#datatable_form_update").css('display', 'block');
@@ -602,9 +594,8 @@
     });
 
     //update Submit entry
-    $("#goal_sheet_submit_update").on('click',(e)=>{
-        e.preventDefault();
-
+    $("#goal_sheet_submit_update").on('click',()=>{
+        
         $('#goal_sheet_submit_update').attr('disabled' , true);
         $('#goal_sheet_submit_update').html("Processing");
         // $('button[type="submit"]').attr('disabled' , true);

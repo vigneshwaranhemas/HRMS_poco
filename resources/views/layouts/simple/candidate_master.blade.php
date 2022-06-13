@@ -81,3 +81,27 @@
     @include('layouts.simple.script')
   </body>
 </html>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        pms_page_url();
+    });
+    function pms_page_url(){
+                    $.ajax({
+                    type: "POST",
+                    url: "pms_status_popup",
+                    data: {},
+                    dataType: "json",
+                    success: function (data) {
+                        // console.log(data)
+                        if (data.pms_status == 1) {
+                            url= "goals";
+                            $("#pms_status").attr("href", url);
+                        }else{
+                            url= "pms_conformation";
+                            $("#pms_status").attr("href", url);
+                        }
+                    }
+                });
+            }
+</script>

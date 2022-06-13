@@ -43,7 +43,7 @@ class SidebarController extends Controller
                                             $html .='</li>';
                                         }else{
                                             $html .='<li>';
-                                            $html .='<a class="bar-icons" href="index.php/pms_conformation">';
+                                            $html .='<a class="bar-icons" href="pms_conformation">';
                                             $html .='<img src="'.$menu_list[$i]->icon_class.'" height="40px"></img><span>'.$menu_list[$i]->menu_name.'</span></a>';
                                             $html .='</li>';
                                         }   

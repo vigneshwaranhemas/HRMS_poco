@@ -3,6 +3,7 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Models\CustomUser;
 use App\Models\StickyNotesModel;
+use App\Goals;
 
 class CommonRepositories implements ICommonRepositories
 {
@@ -121,6 +122,13 @@ class CommonRepositories implements ICommonRepositories
              $result=CustomUser::select('hr_action','pms_status')->where('empID',$id)->first();
              return $result;
     }
+    public function user_status_pms($id){
+        // echo "<pre>";print_r($id);die;
+        // DB::enableQueryLog();
+             $result=Goals::select('employee_status')->where('created_by',$id)->first();
+             // dd(\DB::getQueryLog()); 
+             return $result;
+    }
 
     public function get_organization_info()
     {
@@ -236,6 +244,11 @@ class CommonRepositories implements ICommonRepositories
             return false;
         }
 
+    }
+    public function pms_oneor_not($id)
+    {
+         $result=CustomUser::select('pms_status')->where('empID',$id)->first();
+        return $result;
     }
     public function Delete_Notes_id_wise($coloumn,$id)
     {

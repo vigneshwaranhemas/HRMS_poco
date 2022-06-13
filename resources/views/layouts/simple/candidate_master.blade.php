@@ -65,7 +65,7 @@
                           <div class="text-center">
                              <h3>Welcome to BUDGIE</h3>
                              <h4 style="color:red;">Please Complete Your PMS Details</h4>
-                             <a class="btn btn-primary btn-lg txt-white"  href="{{ url('pms_conformation') }}" aria-label="Close">Get Started</a>
+                             <a class="btn btn-primary btn-lg txt-white" id="pms_status"  aria-label="Close">Get Started</a>
                           </div>
                        </div>
                     </div>
@@ -80,3 +80,27 @@
     @include('layouts.simple.script')
   </body>
 </html>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        pms_page_url();
+    });
+    function pms_page_url(){
+                    $.ajax({
+                    type: "POST",
+                    url: "pms_status_popup",
+                    data: {},
+                    dataType: "json",
+                    success: function (data) {
+                        // console.log(data)
+                        if (data.pms_status == 1) {
+                            url= "goals";
+                            $("#pms_status").attr("href", url);
+                        }else{
+                            url= "pms_conformation";
+                            $("#pms_status").attr("href", url);
+                        }
+                    }
+                });
+            }
+</script>

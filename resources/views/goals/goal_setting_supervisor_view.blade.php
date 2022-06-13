@@ -197,15 +197,14 @@
 											<label>Consolidated Rating</label><br>
 											<select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_consolidated_rate" name="employee_consolidated_rate">
 												<option value="" selected>...Select...</option>
-												<option value="EE">EE</option>
-												<option value="AE">AE</option>
-												<option value="ME">ME</option>
-												<option value="PE">PE</option>
-												<option value="ND">ND</option>
+												<option value="EE">EE - Exceeded Expectations</option>
+												<option value="ME">ME - Met Expectations</option>
+												<option value="PME">PME - Partially Met Expectations</option>
+												<option value="ND">ND - Needs Development</option>
 											</select>
 											<div class="text-danger supervisor_consolidated_rate_error" id=""></div>
 										</div>
-										<div class="col-lg-3 m-b-20" style="display:none">
+										<div class="col-lg-3 m-b-20">
 											<label>PIP</label><br>
 											<select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="supervisor_pip_exit" name="supervisor_pip_exit">
 												<option value="">...Select...</option>
@@ -214,7 +213,7 @@
 											</select>
 											<div class="text-danger supervisor_pip_exit_error" id=""></div>
 										</div>
-										<div class="col-lg-1 m-b-20" style="display:none">
+										<div class="col-lg-1 m-b-20">
 											<label>Movement</label><br>
 											<input class="m-t-10" id="candicate_checkbox" style="font-size:1000px;" name="candicate_checkbox" type="checkbox">
 										</div>

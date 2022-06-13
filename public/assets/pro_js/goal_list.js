@@ -227,6 +227,11 @@ $('#goal_data').on('click','#employee_summary',function(){
       
 });
 
+//PMS Instruction
+$('#pms_instruction').on('click',function(){    
+    $('#pmsInstructionModal').modal('show');      
+});
+
 $('#goal_data').on('click','#employee_summary_show',function(){
     var id = $(this).data('id');
 

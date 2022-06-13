@@ -3,6 +3,7 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Models\CustomUser;
 use App\Models\StickyNotesModel;
+use App\Goals;
 
 class CommonRepositories implements ICommonRepositories
 {
@@ -114,11 +115,19 @@ class CommonRepositories implements ICommonRepositories
         ] );
     }
 
-
-
-
     public function check_user_status($id){
-             $result=CustomUser::select('hr_action')->where('empID',$id)->first();
+        $result=CustomUser::select('hr_action','pms_status')->where('empID',$id)->first();
+        return $result;
+    }
+    public function check_user_status_pms($id){
+        $result=goals::select('employee_status')->where('created_by',$id)->first();
+        return $result;
+    }
+    public function user_status_pms($id){
+        // echo "<pre>";print_r($id);die;
+        // DB::enableQueryLog();
+             $result=Goals::select('employee_status')->where('created_by',$id)->first();
+             // dd(\DB::getQueryLog()); 
              return $result;
     }
 
@@ -237,6 +246,11 @@ class CommonRepositories implements ICommonRepositories
         }
 
     }
+    public function pms_oneor_not($id)
+    {
+         $result=CustomUser::select('pms_status')->where('empID',$id)->first();
+        return $result;
+    }
     public function Delete_Notes_id_wise($coloumn,$id)
     {
         $result = StickyNotesModel::where($coloumn, $id)->delete();
@@ -269,6 +283,14 @@ class CommonRepositories implements ICommonRepositories
         //   }
         // $supervisor['employees']=$emp;
         return $supervisor;
+
+    }
+    public function pms_submit($id,$val){
+        // echo "<pre>";print_r($val);die;
+        $update_roletbl = DB::table('customusers')->where( 'empID', '=', $id );
+        $update_roletbl->update( [
+            'pms_status'=>$val,
+        ] );
 
     }
 }

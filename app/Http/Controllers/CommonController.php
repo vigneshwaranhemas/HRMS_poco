@@ -18,6 +18,8 @@ class CommonController extends Controller
 {
     public function id_card_varification(){
            return view('id_card_verification');
+    }public function pms_conformation(){
+           return view('pms_conformation');
     }public function hr_id_card_verification(){
            return view('hr_id_card_verification');
     }public function change_password(){
@@ -412,8 +414,27 @@ class CommonController extends Controller
 
     public function check_user_status(Request $request){
         $empID=$request->empID;
-        $result = $this->cmmrpy->check_user_status($empID);
+        $result = $this->cmmrpy->check_user_status_pms($empID);
         echo json_encode($result);
+    }
+    public function check_user_pms(Request $request){
+        $empID=$request->empID;
+        $result = $this->cmmrpy->user_status_pms($empID);
+        // echo "oo<pre>";print_r($result);die;
+
+        if ($result == "" || $result->employee_status == 0) {
+            $response = 2;
+        }else if($result->employee_status == 1){
+            $response = 1;
+        }
+
+        /*if ($result->employee_status == 1) {
+            $response = 1;
+        }else{
+
+            $response = 2;
+        }*/
+        echo json_encode($response);
     }
 
     public function change_password_process(Request $req){
@@ -804,5 +825,28 @@ public function my_team_tl_info(Request $request){
             }
     echo json_encode($response);
     }
+    public function pms_conformation_sub(Request $request){
+        $session_val = Session::get('session_info');
+        $id= $session_val['empID'];
+        $val = $request->input('check');
+        $result = $this->cmmrpy->pms_submit($id,$val);
+            // echo "1<pre>";print_r($result);die;
+        if($result==""){
+            $response=array('success'=>1);
+        }
+        else{
+            $response=array('success'=>2);
+        }
+        echo json_encode($response);
+    }
+     public function pms_status_popup()
+   {
+       $session_val = Session::get('session_info');
+        $id= $session_val['empID'];
+        $result = $this->cmmrpy->pms_oneor_not($id);
+        // echo "<pre>";print_r($result);die;
+        
+        echo json_encode($result);
 
+    }
 }

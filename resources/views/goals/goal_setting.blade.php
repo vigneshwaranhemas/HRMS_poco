@@ -12,11 +12,10 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Performance Management System<span>View </span></h2>
+	<h2>Performance Management <span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
-	<a class="btn btn-sm text-white" style="background-color: #FFD700;" title="Significantly Exceeds Expectations">SEE</a>                                            
 	<a class="btn btn-sm text-white m-l-10" style="background-color: #008000;" title="Exceeded Expectations">EE</a>                                            
 	<a class="btn btn-sm btn-success m-l-10 text-white" title="Met Expectations">ME</a>                                            
 	<a class="btn btn-sm m-l-10 text-white" style="background-color: #FFA500" title="Partially Met Expectations">PME</a>                                            
@@ -36,84 +35,84 @@
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-6">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Emp ID :</h6>
+										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i> Emp ID :</p>
 									</div>
 									<div class="col-md-6">
-										<p id="empID">{{ Auth::user()->empID }}</p>
+										<p id="empID" class="f-w-700"style="font-size: 16px;"><b>{{ Auth::user()->empID }}</b></p>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> R.Manager ID :</h6>
+										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i> Rep.Manager ID :</p>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<p id="sup_emp_code">{{ Auth::user()->sup_emp_code }}</p>
+										<p id="sup_emp_code" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->sup_emp_code }}</b></p>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</h6>
+										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</p>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<p id="reviewer_emp_code">{{ Auth::user()->reviewer_emp_code }}</p>
+										<p id="reviewer_emp_code" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->reviewer_emp_code }}</b></p>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
+										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i>  HRBP ID :</p>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<p>900380</p>
+										<p class="f-w-700" style="font-size: 16px;"><b>900380</b></p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-7">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Emp Name :</h6>
+										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Emp Name :</p>
 									</div>
 									<div class="col-md-5">
-										<p id="username">{{ Auth::user()->username }}</p>
+										<p id="username" class="f-w-700"  style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->username }}</b></p>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> R.Manager Name :</h6>
+										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Rep.Manager Name :</p>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="sup_name">{{ Auth::user()->sup_name }}</p>
+										<p id="sup_name" class="f-w-700"  style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->sup_name }}</b></p>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Reveiwer Name :</h6>
+										<p class="mb-0 f-w-600" class="f-w-700" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Reviewer Name :</p>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="reviewer_name">{{ Auth::user()->reviewer_name }}</p>
+										<p id="reviewer_name" class="f-w-700"  style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->reviewer_name }}</b></p>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> HRBP :</h6>
+										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> HRBP :</p>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p>Rajesh M S</p>
+										<p class="f-w-700"  style="text-transform: uppercase;font-size: 16px;"><b>Rajesh M S</b></p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-7">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Emp Dept:</h6>
+										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Emp Dept:</p>
 									</div>
 									<div class="col-md-5">
-										<p id="department">{{ Auth::user()->department }}</p>
+										<p id="department" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->department }}</b></p>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> R.Manager Dept :</h6>
+										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Rep.Manager Dept :</p>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="sup_dept"></p>
+										<p id="sup_dept" class="f-w-700" style="font-size: 16px;"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Reviewer Dept :</h6>
+										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Reviewer Dept :</p>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="rev_dept"></p>
+										<p id="rev_dept" class="f-w-700" style="font-size: 16px;"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> HRBP Dept :</h6>
+										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> HRBP Dept :</p>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p>HR</p>
+										<p class="f-w-700" style="font-size: 16px;"><b>HR</b></p>
 									</div>
 								</div>
 							</div>
@@ -221,19 +220,20 @@
 		$( document ).ready(function() {
 			get_tb_record();
 			$('#goals_record_tb').DataTable( {
-				"searching": false,
-				"paging": false,
-				"info":     false,
-				"fixedColumns":   {
-						left: 6
-					}
-				// dom: 'Bfrtip',
-				// buttons: [
-				// 	'copyHtml5',
-				// 	'excelHtml5',
-				// 	'csvHtml5',
-				// 	'pdfHtml5'
-				// ]
+				// "searching": false,
+				// "paging": false,
+				// "info":     false,
+				// "fixedColumns":   {
+				// 		left: 6
+				// 	},
+				bDestroy: true,
+				dom: 'Bfrtip',
+				buttons: [
+					'copyHtml5',
+					'excelHtml5',
+					'csvHtml5',
+					'pdfHtml5'
+				]
 			} );
 			login_user_details();
 			goal_employee_summary_check();
@@ -249,8 +249,12 @@
 				dataType: "json",
 				success: function(data) {
 					// console.log(data)
-					if(data.length !=0){                                        
-						$('#sup_dept').html(data[0].department);                    
+					if(data.length !=0){       
+						var sup = "<b>";                              
+							sup += data[0].department;                              
+							sup += "</b>";  
+							$('#sup_dept').html(sup);    															
+							// $('#sup_dept').html(data[0].department);                    
 					}
 				}
 			});
@@ -261,8 +265,12 @@
 				dataType: "json",
 				success: function(data) {
 					// console.log(data)
-					if(data.length !=0){                                        
-						$('#rev_dept').html(data[0].department);                    
+					if(data.length !=0){     
+						var rev = "<b>";                              
+                        rev += data[0].department;                              
+                        rev += "</b>";  
+                    	$('#rev_dept').html(rev);                                    
+						// $('#rev_dept').html(data[0].department);                    
 					}
 				}
 			});
@@ -443,24 +451,38 @@
 					dataType : "JSON",
 					success:function(response)
 					{
+						// $('#goals_record_tb tbody').empty();
+
+						// $("#goals_record_tb  tbody").remove();
+
 						$('#goals_record_tb').DataTable().clear().destroy();
-						$('#goals_record').empty();
+						// $('#goals_record_tb').empty();
+						// $('#goals_record').empty();
+
+						
+						// $("#goals_record_tb > tbody").html("");
+
 						$('#goals_record').append(response);
+						// table_rec.ajax.reload();
+						// $('#goals_record_tb').DataTable().ajax.reload();
+
 						$('#goals_record_tb').DataTable( {
-							"searching": false,
-							"paging": false,
-							"info":     false,
-							"fixedColumns":   {
-									left: 6
-								}
-							// dom: 'Bfrtip',
-							// buttons: [
-							// 	'copyHtml5',
-							// 	'excelHtml5',
-							// 	'csvHtml5',
-							// 	'pdfHtml5'
-							// ]
+							// "searching": false,
+							// "paging": false,
+							// "info":     false,
+							// "fixedColumns":   {
+							// 		left: 6
+							// 	},
+							bDestroy: true,
+							dom: 'Bfrtip',
+							buttons: [
+								'copyHtml5',
+								'excelHtml5',
+								'csvHtml5',
+								'pdfHtml5'
+							]
 						} );
+
 						
 					},
 					error: function(error) {

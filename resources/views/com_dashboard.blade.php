@@ -4,8 +4,7 @@
 @section('css')
 {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/prism.css"> --}}
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/prism.css')}}">
-
-    <!-- Plugins css start-->
+<!-- Plugins css start-->
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/chartist.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/date-picker.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/scss/bootstrap/_modal.scss')}}">
@@ -636,7 +635,7 @@ $( document ).ready(function() {
         }
     });
 });
-$(()=>{
+/*$(()=>{
     var sess_data=@json(Session::get('session_info'));
     $.ajax({
         url:"{{url('check_user_status')}}",
@@ -653,7 +652,33 @@ $(()=>{
             }
         }
     })
-})
+})*/
+$(document).ready(function(){
+    psm_status_check();
+});
+/*show and hide a first popup*/
+function psm_status_check(){
+    var sess_data=@json(Session::get('session_info'));
+    // alert(sess_data)
+    $.ajax({
+        url:"{{url('check_user_pms')}}",
+        type:"POST",
+        data:{empID:sess_data['empID']},
+        success:function(data){
+         // console.log(data)
+            var res =JSON.parse(data);
+            if(res.employee_status==1){
+            // if(data==1){
+               // alert("1")
+                $("#loadModal1").modal('hide');
+            }
+            else{
+               // alert("2")
+               $("#loadModal1").modal('show');
+            }
+        }
+    })
+}
 
 
 var ctoday = <?php echo time() * 1000 ?>;

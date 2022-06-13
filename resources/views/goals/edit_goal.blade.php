@@ -4,12 +4,11 @@
 @section('title', 'Add Goal Setting')
 
 @section('css')
-<link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
-<!-- Plugins css start-->
-<link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
-<link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
-
+    <link rel="stylesheet" type="text/css" href="../assets/css/prism.css">
+    <!-- Plugins css start-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
 @endsection
 
 @section('style')
@@ -20,7 +19,6 @@
 @endsection
 
 @section('breadcrumb-items')
-    <a class="btn btn-sm text-white" style="background-color: #FFD700;" title="Significantly Exceeds Expectations">SEE</a>                                            
     <a class="btn btn-sm text-white m-l-10" style="background-color: #008000;" title="Exceeded Expectations">EE</a>                                            
     <a class="btn btn-sm btn-success m-l-10 text-white" title="Met Expectations">ME</a>                                            
     <a class="btn btn-sm m-l-10 text-white" style="background-color: #FFA500" title="Partially Met Expectations">PME</a>                                            
@@ -40,84 +38,84 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Emp ID :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i> Emp ID :</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p id="empID">{{ Auth::user()->empID }}</p>
+                                    <p id="empID" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->empID }}</b></p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-ebook"> </i> R.Manager ID :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i> Rep.Manager ID :</p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <p id="sup_emp_code">{{ Auth::user()->sup_emp_code }}</p>
+                                    <p id="sup_emp_code" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->sup_emp_code }}</b></p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <p id="reviewer_emp_code">{{ Auth::user()->reviewer_emp_code }}</p>
+                                    <p id="reviewer_emp_code" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->reviewer_emp_code }}</b></p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i>  HRBP ID :</p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <p>900380</p>
+                                    <p style="font-size: 16px;" class="f-w-700"><b>900380</b></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-7">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> Emp Name :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Emp Name :</p>
                                 </div>
                                 <div class="col-md-5">
-                                    <p id="username">{{ Auth::user()->username }}</p>
+                                    <p id="username" class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->username }}</b></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> R.Manager Name :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Rep.Manager Name :</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="sup_name">{{ Auth::user()->sup_name }}</p>
+                                    <p id="sup_name" class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->sup_name }}</b></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Reveiwer Name :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Reviewer Name :</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="reviewer_name">{{ Auth::user()->reviewer_name }}</p>
+                                    <p id="reviewer_name" class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->reviewer_name }}</b></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> HRBP :</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p>Rajesh M S</p>
+                                    <p class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>Rajesh M S</b></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-7">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Emp Dept:</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Emp Dept:</p>
                                 </div>
                                 <div class="col-md-5">
-                                    <p id="department">{{ Auth::user()->department }}</p>
+                                    <p id="department" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->department }}</b></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-ui-user"> </i> R.Manager Dept :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Rep.Manager Dept :</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="sup_dept"></p>
+                                    <p id="sup_dept" class="f-w-700" style="font-size: 16px;"></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Reviewer Dept :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Reviewer Dept :</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="rev_dept"></p>
+                                    <p id="rev_dept" class="f-w-700" style="font-size: 16px;"></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-male"> </i> HRBP Dept :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> HRBP Dept :</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p>HR</p>
+                                    <p class="f-w-700" style="font-size: 16px;"><b>HR</b></p>
                                 </div>
                             </div>
                         </div>
@@ -127,18 +125,16 @@
             <div class="card">  
                 <div class="card-body">
                     <div class="table-responsive">
-                        <a id="goal_sheet_submit_update" type="submit" class="btn btn-success text-white float-right m-b-30" title="Submit For Approval">Submit</a>                                            
-                        <!-- <button id="goal_sheet_submit_update" class="btn btn-success  float-right m-b-30"><i class="ti-save"></i> Submit For Approval</button>                                             -->
                         <form id="goalsFormUpdate">
                             <table class="table" id="goal-tb">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Key Business Drivers</th>
-                                        <th scope="col">Key Result Areas </th>
+                                        <th scope="col">Key Business Drivers (KBD)</th>
+                                        <th scope="col">Key Result Areas (KRA)</th>
                                         <th scope="col">Measurement Criteria (Quantified Measures)</th>
                                         <th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
-                                        <th scope="col">Rating by Employee</th>
+                                        <th scope="col">Self Rating</th>
                                         <!-- <th scope="col">Actuals </th> -->
                                         <th scope="col"></th>
                                         <th scope="col">
@@ -151,26 +147,31 @@
                                 </tbody>
                             </table>
                             <input type="hidden" id="edit_goals_setting_id" name="goals_setting_id">
-                            <div class="m-t-40 m-b-30 float-right">
-                                <div class="row">									
-                                    <div class="col-lg-8">
-                                        <label>Consolidated Rating</label><br>
+                            <div class="m-t-40 m-b-30 float-right row">
+                                <!-- <div class="">									 -->
+                                    <div class="col-lg-6">
+                                        <label>Self Consolidated Rating</label><br>
                                         <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
                                             <option value="" selected>...Select...</option>
-                                            <option value="EE">EE</option>
-                                            <option value="AE">AE</option>
-                                            <option value="ME">ME</option>
-                                            <option value="PE">PE</option>
-                                            <option value="ND">ND</option>
+                                            <option value="EE">EE - Exceeded Expectations</option>
+                                            <option value="ME">ME - Met Expectations</option>
+                                            <option value="PME">PME - Partially Met Expectations</option>
+                                            <option value="ND">ND - Needs Development</option>
                                         </select>
                                         <div class="text-danger employee_consolidated_rate_error" id=""></div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <a id="datatable_form_update" type="submit" class="btn btn-primary text-white float-right m-t-30" title="Submit As Approval">Update</a>                                            
-                                        <!-- <button id="datatable_form_update" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                             -->
+                                    <div class="col-lg-3">
+                                        <!-- <a id="datatable_form_update" type="submit" class="btn btn-primary text-white float-right m-t-30" title="Submit As Approval">Update</a>                                             -->
+                                        <button id="datatable_form_update" title="Save As Draft" class="btn btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                            
                                     </div>
-                                </div>
-                            </div>    
+                                    <div class="col-lg-3">
+                                        <!-- <a id="goal_sheet_submit_update" type="submit" class="btn btn-success text-white float-right m-b-30" title="Submit For Approval">Submit</a>                                             -->
+                                        <button id="goal_sheet_submit_update" title="Submit For Approval" type="submit" class="btn btn-success m-l-5 m-t-30"><i class="ti-save"></i> Submit</button>                                            
+                                        
+                                    </div>
+                                <!-- </div> -->
+                            </div>
+                            <div class="text-danger tb_error m-t-30" id=""></div> 
                         </form>
                     </div>
                 </div>
@@ -226,8 +227,13 @@
             dataType: "json",
             success: function(data) {
                 // console.log(data)
-                if(data.length !=0){                                        
-                    $('#sup_dept').html(data[0].department);                    
+                if(data.length !=0){         
+                    var sup = "<b>";                              
+                     sup += data[0].department;                              
+                     sup += "</b>";  
+                    $('#sup_dept').html(sup);    
+
+                    // $('#sup_dept').html(data[0].department);                    
                 }
             }
         });
@@ -239,7 +245,11 @@
             success: function(data) {
                 // console.log(data)
                 if(data.length !=0){                                        
-                    $('#rev_dept').html(data[0].department);                    
+                    var rev = "<b>";                              
+                        rev += data[0].department;                              
+                        rev += "</b>";  
+
+                    $('#rev_dept').html(rev);    
                 }
             }
         });
@@ -275,6 +285,49 @@
         // $("#resultas").append(id);
     });
 
+
+    $(document).on('change','.key_bus_drivers',function(){        
+        var id_name = $(this).prop('id');
+        // console.log(this)      
+        var error='';
+       
+        var new_arr=[];
+
+        $('#goal-tb tr').each(function(index) {
+
+            var col0=$(this).find("td:eq(0)").text();
+            var col1=$(this).find("td:eq(1) option:selected").val();
+            
+            var found = new_arr.find(e => e.name === col1);
+
+            // var found = new_arr.find(e => e.name === verici);
+            console.log(found)   
+
+            if(found == undefined){
+                var err_div_name = ".key_bus_drivers_"+col0+"_error";            
+                var $errmsg0 = $(err_div_name);
+                $errmsg0.hide();
+
+                new_arr.push({
+                    name:col1
+                });
+
+            }else{
+                // alert("2")
+                // Key business drivers
+                var err_div_name = ".key_bus_drivers_"+col0+"_error";            
+                var $errmsg0 = $(err_div_name);
+                $errmsg0.hide();
+                $errmsg0.html('Key business drivers is already entered').show();                
+                error+="error";                
+                
+            }
+            
+        });        
+
+        
+    });
+    
     function additionalKRA(x,cur_rowCount) {
         // alert($(x).closest('td').parent()[0].sectionRowIndex);
         // alert(cur_rowCount)
@@ -289,13 +342,12 @@
             html4 += '<div class="text-danger self_assessment_remark_'+code+'_error" id=""></div>';
        
         var html5 ='';
-            html5 +='<select class="form-control js-example-basic-single key_bus_drivers m-t-30 rating_by_employee_'+cur_rowCount+' '+code+'"  id="rating_by_employee_'+code+'" name="rating_by_employee_'+cur_rowCount+'[]">';
+            html5 +='<select class="form-control js-example-basic-single m-t-30 rating_by_employee_'+cur_rowCount+' '+code+'"  id="rating_by_employee_'+code+'" name="rating_by_employee_'+cur_rowCount+'[]">';
                         html5 +='<option value="">...Select...</option>';
-                        html5 +='<option value="EE">EE</option>';
-                        html5 +='<option value="AE">AE</option>';
-                        html5 +='<option value="ME">ME</option>';
-                        html5 +='<option value="PE">PE</option>';
-                        html5 +='<option value="ND">ND</option>';
+                        html5 +='<option value="EE">EE - Exceeded Expectations</option>';
+                        html5 +='<option value="ME">ME - Met Expectations</option>';
+                        html5 +='<option value="PME">PME - Partially Met Expectations</option>';
+                        html5 +='<option value="ND">ND - Needs Development</option>';
             html5 +='</select>';
             html5 += '<div class="text-danger rating_by_employee_'+code+'_error" id=""></div>';
 
@@ -356,19 +408,18 @@
                 html +='</td>';
                 
                 html +='<td>';                            
-                    html +='<select class="form-control js-example-basic-single key_bus_drivers rating_by_employee_'+cur_rowCount+'" id="rating_by_employee_'+cur_rowCount+'" name="rating_by_employee_'+cur_rowCount+'[]">';
-                        html +='<option value="">...Select...</option>';
-                        html +='<option value="EE">EE</option>';
-                        html +='<option value="AE">AE</option>';
-                        html +='<option value="ME">ME</option>';
-                        html +='<option value="PE">PE</option>';
-                        html +='<option value="ND">ND</option>';
+                    html +='<select class="form-control js-example-basic-single rating_by_employee_'+cur_rowCount+'" id="rating_by_employee_'+cur_rowCount+'" name="rating_by_employee_'+cur_rowCount+'[]">';
+                                html +='<option value="">...Select...</option>';
+                                html +='<option value="EE">EE - Exceeded Expectations</option>';
+                                html +='<option value="ME">ME - Met Expectations</option>';
+                                html +='<option value="PME">PME - Partially Met Expectations</option>';
+                                html +='<option value="ND">ND - Needs Development</option>';
                     html +='</select>';
                     html += '<div class="text-danger rating_by_employee_'+cur_rowCount+'_error" id=""></div>';
                 html +='</td>';     
 
                 html +='<td>';
-                        html +='<div style="margin-top: 80px;"></div>';
+                        html +='<div style="margin-top: 70px;"></div>';
                 html +='</td>';
 
                 html +='<td>';
@@ -407,20 +458,25 @@
 
 
      //update entry
-     $("#datatable_form_update").on('click',()=>{   
+     $("#datatable_form_update").on('click',(e)=>{ 
+        e.preventDefault();
+
+        // $('button[type="submit"]').attr('disabled' , true);
+        $('#datatable_form_update').attr('disabled' , true);
+        $('#datatable_form_update').html("Processing");
         
-        $('button[type="submit"]').attr('disabled' , true);
+        $(".tb_error").hide();
         
         var error='';
 
-        var rate = $("#employee_consolidated_rate").val();
-        var $errmsg3 = $(".employee_consolidated_rate_error");
-        $errmsg3.hide();
+        // var rate = $("#employee_consolidated_rate").val();
+        // var $errmsg3 = $(".employee_consolidated_rate_error");
+        // $errmsg3.hide();
 
-        if(rate == ""){
-            $errmsg3.html('Employee Consolidated Rate is required').show();
-            error+="error";
-        }
+        // if(rate == ""){
+        //     $errmsg3.html('Self Consolidated Rating is required').show();
+        //     error+="error";
+        // }
 
         $('#goal-tb tr').each(function() {
             var col0=$(this).find("td:eq(0)").text();
@@ -487,7 +543,7 @@
                 $errmsg2.hide();
 
                 if(sub_value2 == ""){
-                    $errmsg2.html('Rating by employee is required').show();
+                    $errmsg2.html('Self rating is required').show();
                     error+="error";
                 }
 
@@ -497,13 +553,23 @@
 
         //Sending data to database
         if(error==""){
-            // alert("succes")
             update_data_insert();
+            
+            $('#datatable_form_update').attr('disabled' , true);
+            $('#datatable_form_update').html("Processing");
+
+            // $('button[type="submit"]').attr('disabled' , true);
+        }else{
+            // $('button[type="submit"]').attr('disabled' , false);
+            
+            $('#datatable_form_update').attr('disabled' , false);
+            $('#datatable_form_update').html("Update");
+
         }
         
         function update_data_insert(){
             $.ajax({            
-                url:"{{ url('update_emp_goals_data') }}",
+                url:"update_emp_goals_data",
                 type:"POST",
                 data:$('#goalsFormUpdate').serialize(),
                 dataType : "JSON",
@@ -517,8 +583,11 @@
                         backgroundColor: "#4fbe87",
                     }).showToast();    
                     
-                    $('button[type="submit"]').attr('disabled' , false);
-
+                    // $('button[type="submit"]').attr('disabled' , false);                    
+                    
+                    $('#datatable_form_update').attr('disabled' , false);
+                    $('#datatable_form_update').html("Update");
+                    
 					$("#datatable_form_save").css('display', 'none');
 					$("#datatable_form_update").css('display', 'block');
 
@@ -533,7 +602,14 @@
     });
 
     //update Submit entry
-    $("#goal_sheet_submit_update").on('click',()=>{
+    $("#goal_sheet_submit_update").on('click',(e)=>{
+        e.preventDefault();
+
+        $('#goal_sheet_submit_update').attr('disabled' , true);
+        $('#goal_sheet_submit_update').html("Processing");
+        // $('button[type="submit"]').attr('disabled' , true);
+
+        var new_arr_cel1=[];
 
         var error='';
         var rate = $("#employee_consolidated_rate").val();
@@ -541,18 +617,21 @@
         $errmsg3.hide();
 
         if(rate == ""){
-            $errmsg3.html('Employee Consolidated Rate is required').show();                
+            $errmsg3.html('Self Consolidated Rating is required').show();                
             error+="error";
         }
 
-        $('#goal-tb tr').each(function() {
+        var row_index = [];
+        
+        $('#goal-tb tr').each(function(index) {
             var col0=$(this).find("td:eq(0)").text();
             var col1=$(this).find("td:eq(1) option:selected").val();
             var col2=$(this).find("td:eq(2) textarea").val();
             var col4=$(this).find("td:eq(4) textarea").val();
             var col5=$(this).find("td:eq(5) option:selected").val();
             // console.log(col0)
-            // console.log(col1)
+            row_index = (index);
+            var found = new_arr_cel1.find(e => e.name === col1);
 
             // Key business drivers
             var err_div_name = ".key_bus_drivers_"+col0+"_error";            
@@ -562,10 +641,32 @@
             if(col1 == ""){
                 $errmsg0.html('Key business drivers is required').show();                
                 error+="error";
+            }else if(found == undefined){
+                // alert("1")
+                var err_div_name = ".key_bus_drivers_"+col0+"_error";            
+                var $errmsg0 = $(err_div_name);
+                $errmsg0.hide();
+
+                new_arr_cel1.push({
+                    name:col1
+                });
+            
+            }else{
+                // alert("2")
+                // Key business drivers
+                var err_div_name = ".key_bus_drivers_"+col0+"_error";            
+                var $errmsg0 = $(err_div_name);
+                $errmsg0.css("display", "block");
+
+                // $(this).closet
+                // $errmsg0.html('Key business drivers is already entered').show();                
+                error+="error";                
+                console.log($errmsg0);
+                
             }
             
             //Key result areas
-            var cass_name = ".key_res_areas_"+col0;
+            var cass_name = ".key_res_areas_"+col0;            
 
             $(cass_name).each(function () {                
                 var sub_value = $(this).val();
@@ -618,10 +719,81 @@
 
         });
 
+        if(3 <= row_index){
+            // alert("ss")
+
+            var found_row_val = new_arr_cel1.find(e => e.name === "Customer");
+        
+            if(found_row_val == undefined){                      
+            
+                // alert("cust1, pro, peo")
+                var err_div_name2 = ".tb_error";
+                var $errmsg2 = $(err_div_name2);
+                $errmsg2.hide();
+                $errmsg2.html('Customer, Process & People KBD is required').show();                
+                error+="error";
+                
+            }else{
+            
+                var found_row_val2 = new_arr_cel1.find(e => e.name === "Process");
+
+                if(found_row_val2 == undefined){
+                
+                    var err_div_name2 = ".tb_error";
+                    var $errmsg2 = $(err_div_name2);
+                    $errmsg2.hide();
+                    $errmsg2.html('Customer, Process & People KBD is required').show();                
+                    error+="error";                
+
+                }else{
+
+                    var found_row_val3 = new_arr_cel1.find(e => e.name === "People");
+                    if(found_row_val3 == undefined){
+                        var err_div_name2 = ".tb_error";
+                        var $errmsg2 = $(err_div_name2);
+                        $errmsg2.hide();
+                        $errmsg2.html('Customer, Process & People KBD is required').show();                
+                        error+="error";
+
+                    }else{
+                        var err_div_name2 = ".tb_error";
+                        var $errmsg2 = $(err_div_name2);
+                        $errmsg2.hide();
+                    }
+
+                }
+                // console.log(found_row_val)
+            }
+            
+           
+        }else{
+
+            var err_div_name2 = ".tb_error";
+            var $errmsg2 = $(err_div_name2);
+            $errmsg2.hide();            
+            $errmsg2.html('Min 3 KBD is required').show();                
+            error+="error";
+            // alert("s")
+
+        }
+        // console.log(new_arr_cel1)
+
+        
+        // console.log(new_arr_cel1)
+
+        // console.log(row_index)
         //Sending data to database
         if(error==""){
             // alert("succes")
+            $('#goal_sheet_submit_update').attr('disabled' , true);            
+            $('#goal_sheet_submit_update').html("Processing");
+            // $('button[type="submit"]').attr('disabled' , true);
             update_submit_data_insert();
+            
+        }else{
+            $('#goal_sheet_submit_update').attr('disabled' , false);            
+            $('#goal_sheet_submit_update').html("Submit");
+            // $('button[type="submit"]').attr('disabled' , false);
         }
 
         function update_submit_data_insert(){
@@ -641,8 +813,9 @@
                         backgroundColor: "#4fbe87",
                     }).showToast();    
                     
-                    $('button[type="submit"]').attr('disabled' , false);                    
-
+                    $('#goal_sheet_submit_update').html("Submit");
+                    $('#goal_sheet_submit_update').attr('disabled' , false);            
+                    // $('button[type="submit"]').attr('disabled' , false);
                     location = "goals";                
 
                 }

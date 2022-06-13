@@ -3,6 +3,7 @@ namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 use App\Models\CustomUser;
 use App\Models\StickyNotesModel;
+use App\Goals;
 
 class CommonRepositories implements ICommonRepositories
 {
@@ -114,12 +115,13 @@ class CommonRepositories implements ICommonRepositories
         ] );
     }
 
-
-
-
     public function check_user_status($id){
-             $result=CustomUser::select('hr_action','pms_status')->where('empID',$id)->first();
-             return $result;
+        $result=CustomUser::select('hr_action','pms_status')->where('empID',$id)->first();
+        return $result;
+    }
+    public function check_user_status_pms($id){
+        $result=goals::select('employee_status')->where('created_by',$id)->first();
+        return $result;
     }
 
     public function get_organization_info()

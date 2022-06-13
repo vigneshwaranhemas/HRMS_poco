@@ -463,6 +463,12 @@ function team_member_goal_data_for_reviewer(){
     });
 }
 
+
+//PMS Instruction
+$('#pms_instruction').on('click',function(){    
+    $('#pmsInstructionModal').modal('show');      
+});
+
 function reviewer_filter_apply(){
     team_member_goal_data_for_reviewer();
 }

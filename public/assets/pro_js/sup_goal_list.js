@@ -191,6 +191,12 @@ $("#supervisorSummaryForm").submit(function(e) {
 
 });
 
+
+//PMS Instruction
+$('#pms_instruction').on('click',function(){    
+    $('#pmsInstructionModal').modal('show');      
+});
+
 function supervisor_filter_reset(){
     $("#team_member_filter").val('').trigger('change');
     team_member_goal_record();

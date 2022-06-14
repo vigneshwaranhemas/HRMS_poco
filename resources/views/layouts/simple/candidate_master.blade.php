@@ -63,10 +63,10 @@
                        <div class="modal-header"></div>
                        <div class="contain p-30">
                           <div class="text-center">
-                             <h3>Welcome to BUDGIE</h3>
+                            <h3>Welcome to BUDGIE</h3>
                              <h5>PMS 2021-22 is active ! </h5>
                              <h5 style="color:red;"><b>Please Complete Your Self Assessment</b></h5>
-                             <a class="btn btn-primary btn-lg txt-white"  href="{{ url('pms_conformation') }}" aria-label="Close">Get Started</a>
+                             <a class="btn btn-primary btn-lg txt-white" id="pms_status"  aria-label="Close">Get Started</a>
                           </div>
                        </div>
                     </div>
@@ -95,9 +95,11 @@
                     success: function (data) {
                         // console.log(data)
                         if (data.pms_status == 1) {
+                          // alert("1")
                             url= "goals";
                             $("#pms_status").attr("href", url);
                         }else{
+                          // alert("2")
                             url= "pms_conformation";
                             $("#pms_status").attr("href", url);
                         }

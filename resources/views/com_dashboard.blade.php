@@ -4,7 +4,8 @@
 @section('css')
 {{-- <link rel="stylesheet" type="text/css" href="{{asset('assets/css/prism.css"> --}}
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/prism.css')}}">
-<!-- Plugins css start-->
+
+    <!-- Plugins css start-->
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/chartist.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/date-picker.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/scss/bootstrap/_modal.scss')}}">
@@ -665,10 +666,8 @@ function psm_status_check(){
         type:"POST",
         data:{empID:sess_data['empID']},
         success:function(data){
-         // console.log(data)
-            var res =JSON.parse(data);
-            if(res.employee_status==1){
-            // if(data==1){
+            // console.log(data)
+            if(data==1){
                // alert("1")
                 $("#loadModal1").modal('hide');
             }

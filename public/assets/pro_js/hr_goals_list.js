@@ -658,7 +658,6 @@ function hr_dttable_record(){
     });
 }
 
-
 //PMS Instruction
 $('#pms_instruction').on('click',function(){    
     $('#pmsInstructionModal').modal('show');      

@@ -8,8 +8,8 @@
     <meta name="keywords" content="admin template, Poco admin template, dashboard template, flat admin template, responsive admin template, web app (Laravel 8)">
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
-     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>HRMS - @yield('title')</title>
     @include('layouts.simple.css')
     @yield('style')
@@ -42,7 +42,6 @@
                  <div class="row">
                     <div class="col-lg-6 main-header">
                         @yield('breadcrumb-title')
-                        <!-- <h6 class="mb-0">admin panel</h6> -->
                     </div>
                     <div class="col-lg-6 breadcrumb-right">
                        <ol class="breadcrumb">
@@ -63,7 +62,7 @@
                        <div class="contain p-30">
                           <div class="text-center">
                              <h3>Welcome to BUDGIE</h3>
-                             <h4 style="color:red;">Please Complete Your PMS Details</h4>
+                             <h4 style="color:red;">Please Complete Your Performance Self Assessment Details</h4>
                              <a class="btn btn-primary btn-lg txt-white"  href="{{ url('pms_conformation') }}" aria-label="Close">Get Started</a>
                           </div>
                        </div>

@@ -414,24 +414,26 @@ class CommonController extends Controller
 
     public function check_user_status(Request $request){
         $empID=$request->empID;
-        $result = $this->cmmrpy->check_user_status($empID);
+        $result = $this->cmmrpy->check_user_status_pms($empID);
         echo json_encode($result);
     }
     public function check_user_pms(Request $request){
         $empID=$request->empID;
         $result = $this->cmmrpy->user_status_pms($empID);
-        // echo "<pre>";print_r($result->employee_status);die;
-        // if ($result->employee_status == 1) {
-        //     $response = 1;
-        // }else{
+        // echo "oo<pre>";print_r($result);die;
 
-        //     $response = 2;
-        // }
         if ($result == "" || $result->employee_status == 0) {
             $response = 2;
-            }else if($result->employee_status == 1){
+        }else if($result->employee_status == 1){
             $response = 1;
-            }
+        }
+
+        /*if ($result->employee_status == 1) {
+            $response = 1;
+        }else{
+
+            $response = 2;
+        }*/
         echo json_encode($response);
     }
 

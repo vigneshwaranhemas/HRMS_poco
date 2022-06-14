@@ -249,14 +249,14 @@ class GoalsController extends Controller
                     
                     /*cell 1*/
                     if($k == 0){
-                        $html .= '<th rowspan='.$sub_row_count.' scope="row">'.$cell1.'</th>';
+                        $html .= '<th style="text-align:center" rowspan='.$sub_row_count.' scope="row">'.$cell1.'</th>';
                     }
 
                     /*cell 2*/
                     if($k == 0){
 
                         if($row_values->$cell2[0] != null){
-                            $html .= '<td rowspan='.$sub_row_count.'>';
+                            $html .= '<td style="text-align:center" rowspan='.$sub_row_count.'>';
                                 $html .= $row_values->$cell2[0];                                               
                             $html .= '</td>';
                         }else{
@@ -2600,10 +2600,10 @@ class GoalsController extends Controller
                                 $html .= '<option value="ME">ME - Met Expectations</option>';
                             }
 
-                            if($row_values->$cell6[$i] == "PE"){
-                                $html .= '<option value="PE" selected>PME - Partially Met Expectations</option>';
+                            if($row_values->$cell6[$i] == "PME"){
+                                $html .= '<option value="PME" selected>PME - Partially Met Expectations</option>';
                             }else{
-                                $html .= '<option value="PE">PME - Partially Met Expectations</option>';
+                                $html .= '<option value="PME">PME - Partially Met Expectations</option>';
                             }
 
                             if($row_values->$cell6[$i] == "ND"){

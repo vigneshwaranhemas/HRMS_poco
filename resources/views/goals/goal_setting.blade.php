@@ -5,7 +5,7 @@
     <!-- Plugins css start-->
 <link rel="stylesheet" type="text/css" href="../assets/css/chartist.css">
 <link rel="stylesheet" type="text/css" href="../assets/css/date-picker.css">
-	<link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/select2.css">
 @endsection
 
 @section('style')
@@ -61,29 +61,29 @@
 								</div>
 							</div>
 							<div class="col-md-4">
-								<div class="row">
-									<div class="col-md-7">
+								<div class="row" style="margin-left: -102px;">
+									<div class="col-md-6">
 										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Emp Name :</p>
 									</div>
-									<div class="col-md-5">
+									<div class="col-md-6">
 										<p id="username" class="f-w-700"  style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->username }}</b></p>
 									</div>
-									<div class="col-md-7 m-t-10">
+									<div class="col-md-6 m-t-10">
 										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Rep.Manager Name :</p>
 									</div>
-									<div class="col-md-5 m-t-10">
+									<div class="col-md-6 m-t-10">
 										<p id="sup_name" class="f-w-700"  style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->sup_name }}</b></p>
 									</div>
-									<div class="col-md-7 m-t-10">
+									<div class="col-md-6 m-t-10">
 										<p class="mb-0 f-w-600" class="f-w-700" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Reviewer Name :</p>
 									</div>
-									<div class="col-md-5 m-t-10">
+									<div class="col-md-6 m-t-10">
 										<p id="reviewer_name" class="f-w-700"  style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->reviewer_name }}</b></p>
 									</div>
-									<div class="col-md-7 m-t-10">
+									<div class="col-md-6 m-t-10">
 										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> HRBP :</p>
 									</div>
-									<div class="col-md-5 m-t-10">
+									<div class="col-md-6 m-t-10">
 										<p class="f-w-700"  style="text-transform: uppercase;font-size: 16px;"><b>Rajesh M S</b></p>
 									</div>
 								</div>
@@ -128,7 +128,7 @@
 						<div class="table-responsive">
 							<div class="row">
 								<div class="col-lg-12 m-b-35">
-									<h5>CONSOLIDATED RATING : <span id="employee_consolidate_rate_show"></span></h5>
+									<h5>CONSOLIDATED SELF RATING : <span id="employee_consolidate_rate_show"></span></h5>
 								</div>
 							</div>
 							<table class="table table-border-vertical table-border-horizontal" id="goals_record_tb">

@@ -77,6 +77,11 @@ $(()=>{
       })
  }
 
+//PMS Instruction
+$('#pms_instruction').on('click',function(){    
+    $('#pmsInstructionModal').modal('show');      
+});
+
  function Get_all_team_member_data(){
     $.ajax({
         url:get_all_member_info_url,

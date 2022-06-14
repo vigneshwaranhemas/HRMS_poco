@@ -19,10 +19,7 @@
 @section('style')
 
 @endsection
-<?php
-        $session_val = Session::get('session_info');
-        $pms_eligible_status = $session_val['pms_eligible_status'];
-?>
+
 @section('breadcrumb-title')
 	<h2>Default<span>Dashboard </span></h2>
 @endsection

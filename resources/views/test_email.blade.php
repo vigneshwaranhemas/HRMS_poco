@@ -89,11 +89,15 @@
 <script type="text/javascript">
 
     $( document ).ready(function() {
+         // alert()
+
             $.ajaxSetup({
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+       
+
         });
 
     var login_check_process_link = "{{url('login_check_process')}}";

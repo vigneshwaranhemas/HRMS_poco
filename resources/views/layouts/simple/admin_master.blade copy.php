@@ -63,8 +63,13 @@
                        <div class="contain p-30">
                           <div class="text-center">
                              <h3>Welcome to BUDGIE</h3>
+<<<<<<< HEAD
                              <h4 style="color:red;">Please Complete Your Performance Self Assessment Details</h4>
                              <a class="btn btn-primary btn-lg txt-white"  href="{{ url('pms_conformation') }}" aria-label="Close">Get Started</a>
+=======
+                             <h4 style="color:red;">Enter Your ID Card Information  </h4>
+                             <a class="btn btn-primary btn-lg txt-white"  href="{{ url('id_card_varification') }}" aria-label="Close">Get Started</a>
+>>>>>>> aced725d58902d135da346b8abcb789a7dc11cb7
                           </div>
                        </div>
                     </div>
@@ -82,6 +87,7 @@
 
 
 
+<<<<<<< HEAD
 <script type="text/javascript">
     $(document).ready(function(){
         pms_page_url();
@@ -105,6 +111,8 @@
                 });
             }
 </script>
+=======
+>>>>>>> aced725d58902d135da346b8abcb789a7dc11cb7
 
 
 

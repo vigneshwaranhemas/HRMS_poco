@@ -33,9 +33,6 @@
     #add_goal_btn{
         display:none;
     }
-    /* .btn.pms_overview_btn{
-        padding: -4px !important;
-    } */
 </style>
 @endsection
 
@@ -44,15 +41,15 @@
 @endsection
 
 @section('breadcrumb-items')
-<button style="font-size: 14px; font-weight: 700; padding-left: 9px; padding-right: 9px;" class="btn btn-warning-gradien m-t-10 float-right pms_overview_btn" id="pms_instruction" style="margin-top: -30px;" type="button" data-original-title="PMS Instruction" title="PMS Overview">PMS Overview</button>
-<a href="goals_help_desk"><button class="btn btn-info-gradien m-t-10 float-right m-l-10" style="margin-top: -30px; padding-left: 9px; padding-right: 9px;" type="button" data-original-title="PMS Instruction" title="PMS Tutorial">PMS Tutorial</button></a>
+<button class="btn btn-warning-gradien m-t-10 float-right" id="pms_instruction" style="margin-top: -30px;" type="button" data-original-title="PMS Instruction" title="PMS Instruction"><i class="fa fa-eye"></i></button>
+<a href="goals_help_desk"><button class="btn btn-info-gradien m-t-10 float-right m-l-10" style="margin-top: -30px;" type="button" data-original-title="PMS Instruction" title="Help Desk"><i class="fa fa-info"></i></button></a>
 @endsection
 
 @section('content')
 
 <?php
-    $session_val = Session::get('session_info');
-    $pms_status = $session_val['pms_status'];
+        $session_val = Session::get('session_info');
+        $pms_status = $session_val['pms_status'];
 ?>
 <!-- Container-fluid starts-->
 <div class="container-fluid">
@@ -62,14 +59,14 @@
                 <div class="card-body">
                     <ul class="nav nav-tabs nav-primary" id="pills-warningtab" role="tablist">
                         <li class="nav-item"><a class="nav-link nav-link-pms-1" id="pills-warninghome-tab" data-toggle="pill" href="#pills-warninghome" role="tab" aria-controls="pills-warninghome" aria-selected="true"><i class="icofont icofont-ui-home"></i>PMS 2021-2022</a></li>
-                        <li class="nav-item"><a class="nav-link nav-link-pms-2" id="pills-warningprofile-tab" data-toggle="pill" href="#pills-warningprofile" role="tab" aria-controls="pills-warningprofile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>PMS 2022-2023</a></li>
+                        <li class="nav-item"><a class="nav-link nav-link-pms-2 disabled" id="pills-warningprofile-tab" data-toggle="pill" href="#pills-warningprofile" role="tab" aria-controls="pills-warningprofile" aria-selected="false"><i class="icofont icofont-man-in-glasses"></i>PMS 2022-2023</a></li>
                     </ul>
                     <div class="tab-content" id="pills-warningtabContent">
                         <div class="tab-pane fade show active" id="pills-warninghome" role="tabpanel" aria-labelledby="pills-warninghome-tab">
                             <div class="card goals-card-div">
                                 <div class="card-body">
                                     <!-- <a href="hr_add_goal_setting"><button class="btn btn-primary-gradien mb-5" type="button" data-original-title="Add Goal Sheet" title="Add Goal Sheet">Add Goal Sheet</button></a> -->
-                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn btn-primary-gradien mb-2 float-right"style="margin-top: -30px;" type="button" data-original-title="Add Sheet" title="Add Self Assessment Sheet">Add Self Assessment</button></a>
+                                    <a href="add_goal_setting" id="add_goal_btn" style="display:none"><button class="btn btn-primary-gradien mb-2 float-right"style="margin-top: -30px;" type="button" data-original-title="Add Sheet" title="Add Sheet">Add Sheet</button></a>
                                     <div class="table-responsive">
                                         <table class="table" id="goal_data">
                                             <thead>
@@ -87,8 +84,11 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-warningprofile" role="tabpanel" aria-labelledby="pills-warningprofile-tab">
+<<<<<<< HEAD
                             <div class="" style="height: 400px;">
                             </div>
+=======
+>>>>>>> aced725d58902d135da346b8abcb789a7dc11cb7
                         </div>
                     </div>
                 </div>

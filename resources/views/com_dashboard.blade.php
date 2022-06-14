@@ -19,7 +19,10 @@
 @section('style')
 
 @endsection
-
+<?php
+        $session_val = Session::get('session_info');
+        $pms_eligible_status = $session_val['pms_eligible_status'];
+?>
 @section('breadcrumb-title')
 	<h2>Default<span>Dashboard </span></h2>
 @endsection
@@ -453,6 +456,7 @@ View More&lt;/button&gt;
 <script src="{{asset('assets/js/datepicker/date-picker/datepicker.custom.js')}}"></script>
 <script src="{{asset('pro_js/side_bar.js')}}"></script>
 <script>
+
       var get_session_sidebar_link = "{{url('get_session_sidebar')}}";
 
       fetch_tdys_brd_list();
@@ -629,6 +633,9 @@ View More&lt;/button&gt;
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+
+  
+
 $( document ).ready(function() {
     $.ajaxSetup({
         headers: {
@@ -657,6 +664,7 @@ $( document ).ready(function() {
 $(document).ready(function(){
     psm_status_check();
 });
+
 /*show and hide a first popup*/
 function psm_status_check(){
     var sess_data=@json(Session::get('session_info'));
@@ -666,14 +674,14 @@ function psm_status_check(){
         type:"POST",
         data:{empID:sess_data['empID']},
         success:function(data){
-            // console.log(data)
-            if(data==1){
+         // console.log(data)
+            if(data == 1){
                // alert("1")
-                $("#loadModal1").modal('hide');
+               $("#loadModal1").modal('show');
             }
             else{
-               // alert("2")
-               $("#loadModal1").modal('show');
+                $("#loadModal1").modal('hide');
+               // alert("0")
             }
         }
     })

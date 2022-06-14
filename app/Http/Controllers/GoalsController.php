@@ -19,15 +19,19 @@ class GoalsController extends Controller
         $this->middleware('is_admin');
         $this->goal = $goal;
     }
-    public function goal_setting_bh_reviewer_view()
-    {
-        $id=$_GET['id'];
-        $data=$this->goal->Fetch_goals_user_info($id);
-        $new_data['data']=$data;
-        $new_data['sup_emp_code']=CustomUser::where('empID',$data->sup_emp_code)->select('department')->first();
-        $new_data['reviewer_emp_code']=CustomUser::where('empID',$data->reviewer_emp_code)->select('department')->first();
-        return view('goals.goal_setting_bh_reviewer_view')->with('user_info',$new_data);
-    }
+
+
+   public function goal_setting_bh_reviewer_view()
+   {
+            $id=$_GET['id'];
+            $data=$this->goal->Fetch_goals_user_info($id);
+            $new_data['data']=$data;
+            $new_data['sup_emp_code']=CustomUser::where('empID',$data->sup_emp_code)->select('department')->first();
+            $new_data['reviewer_emp_code']=CustomUser::where('empID',$data->reviewer_emp_code)->select('department')->first();
+            return view('goals.goal_setting_bh_reviewer_view')->with('user_info',$new_data);
+   }
+
+
     public function goals()
     {
         $result = $this->goal->checkCustomUserList();
@@ -225,6 +229,7 @@ class GoalsController extends Controller
         ->make(true);
 
     }
+    
     public function fetch_goals_setting_id_details(Request $request)
     {
         $id = $request->id;
@@ -2460,7 +2465,7 @@ class GoalsController extends Controller
             /*cell 2*/
             if($row_values->$cell2 != null){
                 $html .= '<td>';
-                    $html .= '<select class="form-control key_bus_drivers m-t-5" name="key_bus_drivers_'.$cell1.'[]">';
+                    $html .= '<select class="form-control js-example-basic-single key_bus_drivers m-t-5" name="key_bus_drivers_'.$cell1.'[]">';
 
                         $html .= '<option value="">...Select...</option>';
 
@@ -2636,7 +2641,7 @@ class GoalsController extends Controller
             $html .= '<td>';
             for($i=0; $i < $sub_row_count; $i++){
                 $code = $cell1.'_'.$i.$i.$i.$i.$i;
-                $html .='<div class="dropup m-t-25">';
+                $html .='<div class="dropup m-t-20">';
                     $html .='<button type="button" class="btn btn-xs btn-danger '.$code.'" onclick="removeRow(this,'.$code.');" style="padding:0.37rem 0.8rem !important;" data-original-title="Edit KRA" title="Edit KRA"><i class="fa fa-close"></i></button>';
                 $html .='</div>';
             }
@@ -2924,12 +2929,14 @@ class GoalsController extends Controller
             $data = array(
                 'name'=> $logined_username,
                 'to_email'=> $logined_email,
+                'sup_to_email'=> $logined_email,
             );
             Mail::send('mail.goal-emp-mail', $data, function($message) use ($data) {
                 // $message->to($todays_birthday->email)->subject
                 //     ('Birthday Mail');
                 $message->to($data['to_email'])->subject
-                    ('Self Assessment Submitted Successfully');
+                    ('Self Assessment Status - Registered');
+                $message->cc($data['sup_to_email']);
                 $message->from("hr@hemas.in", 'HEPL - HR Team');
             });
             $sup_data = array(
@@ -2940,7 +2947,7 @@ class GoalsController extends Controller
             );
             Mail::send('mail.goal-sup-mail', $sup_data, function($message) use ($sup_data) {
                 $message->to($sup_data['to_email'])->subject
-                    ('Self Assessment Submitted Successfully');
+                    ('Self Assessment Status - Registered');
                 $message->from("hr@hemas.in", 'HEPL - HR Team');
             });
         }
@@ -4024,7 +4031,8 @@ public function get_all_supervisors_info_bh()
                 // $message->to($todays_birthday->email)->subject
                 //     ('Birthday Mail');
                 $message->to($data['to_email'])->subject
-                    ('Self Assessment Submitted Successfully');
+                    ('Self Assessment Submitted Successfully - Reg');
+                $message->cc($data['sup_to_email']);
                 $message->from("hr@hemas.in", 'HEPL - HR Team');
             });
             $sup_data = array(
@@ -4035,7 +4043,7 @@ public function get_all_supervisors_info_bh()
             );
             Mail::send('mail.goal-sup-mail', $sup_data, function($message) use ($sup_data) {
                 $message->to($sup_data['to_email'])->subject
-                    ('Self Assessment Submitted Successfully');
+                    ('Self Assessment  Submitted Successfully - Reg');
                 $message->from("hr@hemas.in", 'HEPL - HR Team');
             });
         }

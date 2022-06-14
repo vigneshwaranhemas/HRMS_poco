@@ -29,7 +29,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Performance Management <span>System</span></h2>
+    <h2>Performance Management <span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -164,9 +164,9 @@
                                 <tbody id="goals_record">                              
                                 </tbody>
                             </table>
-                            <input type="hidden" name="goals_setting_id" id="goals_setting_id">								
+                            <input type="hidden" name="goals_setting_id" id="goals_setting_id">                             
                             <div class="m-t-40 m-b-30 float-right row">
-                                <!-- <div class="">									 -->
+                                <!-- <div class="">                                  -->
                                     <div class="col-lg-5">
                                         <label>Consolidated Self Rating</label><br>
                                         <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
@@ -1087,8 +1087,8 @@
                     
                     $('#datatable_form_update').attr('disabled' , false);
 
-					$("#datatable_form_save").css('display', 'none');
-					$("#datatable_form_update").css('display', 'block');
+                    $("#datatable_form_save").css('display', 'none');
+                    $("#datatable_form_update").css('display', 'block');
 
                     // location = "goal_setting_edit?id="+data+"";                
 

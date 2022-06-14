@@ -15,7 +15,7 @@ function idcard_info_tvalue(){
         data:{},
         dataType: "json",
         success: function(data) {
-            console.log(data[0])
+            console.log(data[0].dob)
                 if (data !="") {
                    if(data[0].hr_action==0){
                        $("#pro_img_up").show();

@@ -47,7 +47,8 @@ class LoginController extends Controller
                 'email' => auth()->user()->email,
                 'passcode_status'=>auth()->user()->passcode_status,
                 'worklocation'=>auth()->user()->worklocation,
-                'pms_status'=>auth()->user()->pms_status
+                'pms_status'=>auth()->user()->pms_status,
+                'pms_eligible_status'=>auth()->user()->pms_eligible_status,
             ];
             // echo "<pre>";print_r($info);die;
             Session::put("session_info",$info);
@@ -90,12 +91,13 @@ class LoginController extends Controller
 
     function getemail_process(Request $request ){
 
-        // echo "s<pre>";print_r($request->input('data'));die;
+        //echo "s<pre>";print_r($request->input('data'));die;
+
         $emp_id = $request->input('data');
 
-         $user = DB::table( 'customusers' )->where('empID', '=', $emp_id)->first();
+        $user = DB::table( 'customusers' )->where('empID', '=', $emp_id)->first();
 
-         return response()->json( $user );
+        return response()->json( $user );
     }
 
 
@@ -152,11 +154,11 @@ class LoginController extends Controller
 
            $emp_id=  base64_decode($request->input('token'));
            $passcode =  Hash::make($request->input('new_pass'));
-            // echo "c<pre>";print_r($passcode );die;
 
+            // echo "<pre>";print_r($emp_id);die;
 
           $data =array(
-                    'passcode'=> $passcode ,
+                    'passcode'=> $passcode,
                     'emp_id'=>$emp_id );
 
         $update_role_unit_details_result = $this->cmmrpy->update_password( $data );

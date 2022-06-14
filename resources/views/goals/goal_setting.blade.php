@@ -12,7 +12,7 @@
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Performance Management <span>System</span></h2>
+	<h2>Performance Management System<span>View </span></h2>
 @endsection
 
 @section('breadcrumb-items')
@@ -35,28 +35,28 @@
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-6">
-										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i> Emp ID :</p>
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Emp ID :</h6>
 									</div>
 									<div class="col-md-6">
-										<p id="empID" class="f-w-700"style="font-size: 16px;"><b>{{ Auth::user()->empID }}</b></p>
+										<p id="empID">{{ Auth::user()->empID }}</p>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i> Rep.Manager ID :</p>
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> R.Manager ID :</h6>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<p id="sup_emp_code" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->sup_emp_code }}</b></p>
+										<p id="sup_emp_code">{{ Auth::user()->sup_emp_code }}</p>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</p>
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</h6>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<p id="reviewer_emp_code" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->reviewer_emp_code }}</b></p>
+										<p id="reviewer_emp_code">{{ Auth::user()->reviewer_emp_code }}</p>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i>  HRBP ID :</p>
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
 									</div>
 									<div class="col-md-6 m-t-10">
-										<p class="f-w-700" style="font-size: 16px;"><b>900380</b></p>
+										<p>900380</p>
 									</div>
 								</div>
 							</div>
@@ -91,28 +91,28 @@
 							<div class="col-md-4">
 								<div class="row">
 									<div class="col-md-7">
-										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Emp Dept:</p>
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Emp Dept:</h6>
 									</div>
 									<div class="col-md-5">
-										<p id="department" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->department }}</b></p>
+										<p id="department">{{ Auth::user()->department }}</p>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Rep.Manager Dept :</p>
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> R.Manager Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="sup_dept" class="f-w-700" style="font-size: 16px;"></p>
+										<p id="sup_dept"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Reviewer Dept :</p>
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Reviewer Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p id="rev_dept" class="f-w-700" style="font-size: 16px;"></p>
+										<p id="rev_dept"></p>
 									</div>
 									<div class="col-md-7 m-t-10">
-										<p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> HRBP Dept :</p>
+										<h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> HRBP Dept :</h6>
 									</div>
 									<div class="col-md-5 m-t-10">
-										<p class="f-w-700" style="font-size: 16px;"><b>HR</b></p>
+										<p>HR</p>
 									</div>
 								</div>
 							</div>
@@ -220,20 +220,19 @@
 		$( document ).ready(function() {
 			get_tb_record();
 			$('#goals_record_tb').DataTable( {
-				// "searching": false,
-				// "paging": false,
-				// "info":     false,
-				// "fixedColumns":   {
-				// 		left: 6
-				// 	},
-				bDestroy: true,
-				dom: 'Bfrtip',
-				buttons: [
-					'copyHtml5',
-					'excelHtml5',
-					'csvHtml5',
-					'pdfHtml5'
-				]
+				"searching": false,
+				"paging": false,
+				"info":     false,
+				"fixedColumns":   {
+						left: 6
+					}
+				// dom: 'Bfrtip',
+				// buttons: [
+				// 	'copyHtml5',
+				// 	'excelHtml5',
+				// 	'csvHtml5',
+				// 	'pdfHtml5'
+				// ]
 			} );
 			login_user_details();
 			goal_employee_summary_check();
@@ -249,12 +248,8 @@
 				dataType: "json",
 				success: function(data) {
 					// console.log(data)
-					if(data.length !=0){       
-						var sup = "<b>";                              
-							sup += data[0].department;                              
-							sup += "</b>";  
-							$('#sup_dept').html(sup);    															
-							// $('#sup_dept').html(data[0].department);                    
+					if(data.length !=0){                                        
+						$('#sup_dept').html(data[0].department);                    
 					}
 				}
 			});
@@ -265,12 +260,8 @@
 				dataType: "json",
 				success: function(data) {
 					// console.log(data)
-					if(data.length !=0){     
-						var rev = "<b>";                              
-                        rev += data[0].department;                              
-                        rev += "</b>";  
-                    	$('#rev_dept').html(rev);                                    
-						// $('#rev_dept').html(data[0].department);                    
+					if(data.length !=0){                                        
+						$('#rev_dept').html(data[0].department);                    
 					}
 				}
 			});
@@ -451,38 +442,24 @@
 					dataType : "JSON",
 					success:function(response)
 					{
-						// $('#goals_record_tb tbody').empty();
-
-						// $("#goals_record_tb  tbody").remove();
-
 						$('#goals_record_tb').DataTable().clear().destroy();
-						// $('#goals_record_tb').empty();
-						// $('#goals_record').empty();
-
-						
-						// $("#goals_record_tb > tbody").html("");
-
+						$('#goals_record').empty();
 						$('#goals_record').append(response);
-						// table_rec.ajax.reload();
-						// $('#goals_record_tb').DataTable().ajax.reload();
-
 						$('#goals_record_tb').DataTable( {
-							// "searching": false,
-							// "paging": false,
-							// "info":     false,
-							// "fixedColumns":   {
-							// 		left: 6
-							// 	},
-							bDestroy: true,
-							dom: 'Bfrtip',
-							buttons: [
-								'copyHtml5',
-								'excelHtml5',
-								'csvHtml5',
-								'pdfHtml5'
-							]
+							"searching": false,
+							"paging": false,
+							"info":     false,
+							"fixedColumns":   {
+									left: 6
+								}
+							// dom: 'Bfrtip',
+							// buttons: [
+							// 	'copyHtml5',
+							// 	'excelHtml5',
+							// 	'csvHtml5',
+							// 	'pdfHtml5'
+							// ]
 						} );
-
 						
 					},
 					error: function(error) {

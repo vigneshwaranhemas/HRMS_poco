@@ -19,7 +19,6 @@ function employeeid_valid(){
 
     }
 }*/
-
 function password_valid(){
 
     var textInput = document.getElementById("login_password").value;
@@ -45,7 +44,6 @@ function getEmpemail(data){
 
     var data = $("#employee_id").val();
     // alert(data)
-
     $.ajax({
             url:getemail_process_link,
             method:"POST",
@@ -53,7 +51,7 @@ function getEmpemail(data){
             dataType:"json",
 
             success:function(data) {
-                // console.log(data.email)
+                console.log(data)
                 if (data !="") {
                     $('#emp_email').val(data.email);
                 }
@@ -77,7 +75,7 @@ $('#loginForm').submit(function(e) {
             dataType:"json",
 
             success:function(data) {
-                    console.log(data)
+                    // console.log(data)
                 if(data.logstatus =='success'){
                      // window.location = data.url;
                     Toastify({
@@ -176,16 +174,15 @@ $('#forgot_pass').submit(function(e) {
 })
 
 $('#con_pass').submit(function(e) {
-    var params = new window.URLSearchParams(window.location.search);
-    var token  = params.get('token')
 
-    // var token=$("#hidden_id").val();
-    // alert(token)
+    // var params = new window.URLSearchParams(window.location.search);
+    var token  = new_value
+    $(this).attr('disabled','disabled');
+    $("#btnLogin").text('Processing...');
+
     var formData = new FormData(this);
     formData.append( 'token', token );
     e.preventDefault();
-
-
        $.ajax({
             url:con_pass_process_link,
             method:"POST",
@@ -204,6 +201,8 @@ $('#con_pass').submit(function(e) {
                     $("#"+key+'_error').text(value)
                     $("#"+key+'_error').show();
                     });
+                    $(this).removeAttr('disabled');
+                    $("#btnLogin").text('Save');
                }
                 if(data.response =='Updated'){
                    Toastify({

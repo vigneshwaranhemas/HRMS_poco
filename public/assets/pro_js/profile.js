@@ -706,6 +706,7 @@ function profile_info_process(id){
         data:{},
         dataType: "json",
         success: function(data) {
+            console.log(data)
             if((data['image']==null)){
                   $("#profile_img").attr('src',"../uploads/dummy.png");
                 // default_profile

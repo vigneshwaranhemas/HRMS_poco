@@ -25,7 +25,7 @@ $('#pms_status').submit(function(e) {
             contentType:false,
             dataType:"json",
             success:function(data) {
-            console.log(data)
+            //console.log(data)
                 if(data.success ==1){
                    Toastify({
                        text: "Submit Sucessfully..!",
@@ -36,7 +36,7 @@ $('#pms_status').submit(function(e) {
 
                    setTimeout(
                        function() {
-                        window.location.href = "../goals";
+                        window.location.href = "../index.php/goals";
                        }, 1000);
                }
                else{

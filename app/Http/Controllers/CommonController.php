@@ -420,20 +420,14 @@ class CommonController extends Controller
     public function check_user_pms(Request $request){
         $empID=$request->empID;
         $result = $this->cmmrpy->user_status_pms($empID);
-        // echo "oo<pre>";print_r($result);die;
-
-        if ($result == "" || $result->employee_status == 0) {
-            $response = 2;
-        }else if($result->employee_status == 1){
+        // echo "<pre>";print_r($result);die;
+        if ($result['customusers'] == 1 && $result['goals'] == 0 ) {
+        // echo "11<pre>";print_r($result);die;
             $response = 1;
+        }else if($result['customusers'] == 1 && $result['goals'] == 1 || $result['customusers'] == 0 && $result['goals'] == 0){
+            $response = 2;
         }
-
-        /*if ($result->employee_status == 1) {
-            $response = 1;
-        }else{
-
-            $response = 2;
-        }*/
+      
         echo json_encode($response);
     }
 

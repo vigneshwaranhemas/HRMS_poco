@@ -115,19 +115,39 @@ class CommonRepositories implements ICommonRepositories
         ] );
     }
 
-
-
-
     public function check_user_status($id){
              $result=CustomUser::select('hr_action','pms_status')->where('empID',$id)->first();
              return $result;
     }
     public function user_status_pms($id){
-        // echo "<pre>";print_r($id);die;
-        // DB::enableQueryLog();
-             $result=Goals::select('employee_status')->where('created_by',$id)->first();
-             // dd(\DB::getQueryLog()); 
-             return $result;
+         $result['customusers']=CustomUser::select('pms_eligible_status')
+                            ->where('empID',$id)
+                            ->where('pms_eligible_status','=',1)
+                            ->first();
+          if ($result['customusers'] !="") {
+                   $response['customusers'] = 1;
+                }else{
+                   $response['customusers'] = 0;
+                }                  
+
+                $data=Goals::where('created_by',$id)->get();
+                $count=$data->count();
+
+                        if ($count != 0) {
+                        $result['goals']=Goals::select('employee_status')
+                                            ->where('created_by',$id)
+                                            ->where('employee_status','=',0)
+                                            ->first();
+                              if ($result['goals']!="") {
+                                       $response['goals'] = 0;
+                                    }else{
+                                       $response['goals'] = 1;
+                                    }  
+                        }else{
+                            $response['goals'] = 0;
+                        }
+                       
+        return $response;
     }
 
     public function get_organization_info()

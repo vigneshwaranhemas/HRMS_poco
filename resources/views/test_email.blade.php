@@ -63,7 +63,7 @@
                   </div>
                   <div class="form-group form-row mt-3 mb-0">
                     <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                       <button class="btn btn-primary btn-block" id="btnLogin" type="submit">Save</button>
                     </div>
                   </div>
@@ -94,12 +94,13 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
         });
 
     var login_check_process_link = "{{url('login_check_process')}}";
     var con_pass_process_link = "{{url('con_pass_process')}}";
+    var new_value =@json($test);
 
+    
 
 </script>
 

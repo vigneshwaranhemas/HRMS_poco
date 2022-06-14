@@ -21,19 +21,22 @@
     #goal_sheet_submit_update{
         display: none;
     }
+    /* textarea.form-control.key_res_areas_style
+    {
+        width: 100% !important;
+    } */
 </style>
 @endsection
 
 @section('breadcrumb-title')
-	<h2>Performance Management <span>System</span></h2>
+    <h2>Performance Management <span>System</span></h2>
 @endsection
 
 @section('breadcrumb-items')
-    <a class="btn btn-sm text-white" style="background-color: #FFD700;" title="Significantly Exceeds Expectations">SEE</a>
-    <a class="btn btn-sm text-white m-l-10" style="background-color: #008000;" title="Exceeded Expectations">EE</a>
-    <a class="btn btn-sm btn-success m-l-10 text-white" title="Met Expectations">ME</a>
-    <a class="btn btn-sm m-l-10 text-white" style="background-color: #FFA500" title="Partially Met Expectations">PME</a>
-    <a class="btn btn-sm m-l-10 text-white" style="background-color: #FF0000;" title="Needs Development">ND</a>
+    <a class="btn btn-sm text-white m-l-10" style="background-color: #008000;" title="Exceeded Expectations">EE</a>                                            
+    <a class="btn btn-sm btn-success m-l-10 text-white" title="Met Expectations">ME</a>                                            
+    <a class="btn btn-sm m-l-10 text-white" style="background-color: #FFA500" title="Partially Met Expectations">PME</a>                                            
+    <a class="btn btn-sm m-l-10 text-white" style="background-color: #FF0000;" title="Needs Development">ND</a>   
 @endsection
 
 @section('content')
@@ -49,84 +52,84 @@
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> Emp ID :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i> Emp ID :</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p id="empID">{{ Auth::user()->empID }}</p>
+                                    <p id="empID" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->empID }}</b></p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i> R.Manager ID :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i> Rep.Manager ID :</p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <p id="sup_emp_code">{{ Auth::user()->sup_emp_code }}</p>
+                                    <p id="sup_emp_code" class="f-w-700"  style="font-size: 16px;"><b>{{ Auth::user()->sup_emp_code }}</b></p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  Reviewer ID :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;" ><i class="icofont icofont-id-card"> </i>  Reviewer ID :</p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <p id="reviewer_emp_code">{{ Auth::user()->reviewer_emp_code }}</p>
+                                    <p id="reviewer_emp_code" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->reviewer_emp_code }}</b></p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-id-card"> </i>  HRBP ID :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-id-card"> </i>  HRBP ID :</p>
                                 </div>
                                 <div class="col-md-6 m-t-10">
-                                    <p>900380</p>
+                                    <p style="font-size: 16px;" class="f-w-700"><b>900380</b></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-7">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Emp Name :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Emp Name :</p>
                                 </div>
                                 <div class="col-md-5">
-                                    <p id="username" style="text-transform: uppercase;">{{ Auth::user()->username }}</p>
+                                    <p id="username" class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->username }}</b></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> R.Manager Name :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Rep.Manager Name :</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="sup_name" style="text-transform: uppercase;">{{ Auth::user()->sup_name }}</p>
+                                    <p id="sup_name" class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->sup_name }}</b></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> Reveiwer Name :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Reviewer Name :</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="reviewer_name" style="text-transform: uppercase;">{{ Auth::user()->reviewer_name }}</p>
+                                    <p id="reviewer_name" class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->reviewer_name }}</b></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-user-alt-7"> </i> HRBP :</h6>
+                                    <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> HRBP :</p>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p style="text-transform: uppercase;">Rajesh M S</p>
+                                    <p class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>Rajesh M S</b></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-7">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Emp Dept:</h6>
+                                    <h6 class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Emp Dept:</h6>
                                 </div>
                                 <div class="col-md-5">
-                                    <p id="department">{{ Auth::user()->department }}</p>
+                                    <p id="department" class="f-w-700" style="font-size: 16px;"><b>{{ Auth::user()->department }}</b></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> R.Manager Dept :</h6>
+                                    <h6 class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Rep.Manager Dept :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="sup_dept"></p>
+                                    <p id="sup_dept" class="f-w-700" style="font-size: 16px;"></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> Reviewer Dept :</h6>
+                                    <h6 class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> Reviewer Dept :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p id="rev_dept"></p>
+                                    <p id="rev_dept" class="f-w-700" style="font-size: 16px;"></p>
                                 </div>
                                 <div class="col-md-7 m-t-10">
-                                    <h6 class="mb-0 f-w-700"><i class="icofont icofont-building"> </i> HRBP Dept :</h6>
+                                    <h6 class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-building"> </i> HRBP Dept :</h6>
                                 </div>
                                 <div class="col-md-5 m-t-10">
-                                    <p>HR</p>
+                                    <p class="f-w-700" style="font-size: 16px;"><b>HR</b></p>
                                 </div>
                             </div>
                         </div>
@@ -136,20 +139,19 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive">                        
                         <form id="goalsForm">
-                            <!-- <button type="submit" id="goal_sheet_submit" class="btn btn-success  float-right m-b-30"><i class="ti-save"></i> Submit</button>
+                            <!-- <button type="submit" id="goal_sheet_submit" class="btn btn-success  float-right m-b-30"><i class="ti-save"></i> Submit</button>                                            
                             <button id="goal_sheet_submit_update" class="btn btn-success  float-right m-b-30"><i class="ti-save"></i> Submit</button>                                             -->
-                            <a id="goal_sheet_submit" type="submit" class="btn btn-success text-white float-right m-b-30" title="Submit For Approval">Submit</a>
-                            <a id="goal_sheet_submit_update" type="submit" class="btn btn-success text-white float-right m-b-30" title="Submit For Approval">Submit</a>
+                            
                             <table class="table" id="goal-tb">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Key Business Drivers (KBD)</th>
-                                        <th scope="col">Key Result Areas (KRA)</th>
-                                        <th scope="col">Measurement Criteria (Quantified Measures)</th>
-                                        <th scope="col">Self Assessment (Qualitative Remarks) by Employee</th>
+                                        <th scope="col" style="width:280px">Key Result Areas (KRA)</th>
+                                        <th scope="col" style="width:280px">Measurement Criteria (Quantified Measures)</th>
+                                        <th scope="col" style="width:280px">Self Assessment (Qualitative Remarks) by Employee</th>
                                         <th scope="col">Self Rating</th>
                                         <!-- <th scope="col">Actuals </th> -->
                                         <th scope="col"></th>
@@ -159,14 +161,14 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody id="goals_record">
+                                <tbody id="goals_record">                              
                                 </tbody>
                             </table>
-                            <input type="hidden" name="goals_setting_id" id="goals_setting_id">
+                            <input type="hidden" name="goals_setting_id" id="goals_setting_id">                             
                             <div class="m-t-40 m-b-30 float-right row">
-                                <!-- <div class="">									 -->
+                                <!-- <div class="">                                  -->
                                     <div class="col-lg-5">
-                                        <label>Self Consolidated Rating</label><br>
+                                        <label>Consolidated Self Rating</label><br>
                                         <select class="js-example-basic-single" style="width:200px;margin-top:30px !important;" id="employee_consolidated_rate" name="employee_consolidated_rate">
                                             <option value="" selected>...Select...</option>
                                             <option value="EE">EE - Exceeded Expectations</option>
@@ -174,23 +176,23 @@
                                             <option value="PME">PME - Partially Met Expectations</option>
                                             <option value="ND">ND - Needs Development</option>
                                         </select>
+                                        <div class="text-danger employee_consolidated_rate_error m-t-20" id=""></div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <button type="submit" title="Save As Draft" id="datatable_form_save"  class="btn float-right btn-primary m-t-30"><i class="ti-save"></i> Save As Draft</button>
-                                        <button type="submit" id="datatable_form_update" title="Save As Draft"  class="btn float-right btn-primary m-t-30"><i class="ti-save"></i> Update</button>
-                                        <!-- <a id="datatable_form_save" type="submit" class="btn btn-primary text-white m-t-30" title="Save As Draft">Save As Draft</a>
+                                        <button type="submit" title="Save As Draft" id="datatable_form_save"  class="btn float-right btn-primary m-t-30"><i class="ti-save"></i> Save As Draft</button>                                            
+                                        <button type="submit" id="datatable_form_update" title="Save As Draft"  class="btn float-right btn-primary m-t-30"><i class="ti-save"></i> Update</button>                                                                                
+                                        <!-- <a id="datatable_form_save" type="submit" class="btn btn-primary text-white m-t-30" title="Save As Draft">Save As Draft</a>                                            
                                         <a id="datatable_form_update" type="submit" class="btn btn-primary text-white m-t-30" title="Save As Draft">Update</a>                                             -->
                                     </div>
                                     <div class="col-lg-3">
-                                        <!-- <a id="goal_sheet_submit" type="submit" class="btn btn-success text-white float-right m-t-30" title="Submit For Approval">Submit</a>
-                                        <a id="goal_sheet_submit_update" type="submit" class="btn btn-success text-white float-right m-t-30" title="Submit For Approval">Submit</a>
+                                        <!-- <a id="goal_sheet_submit" type="submit" class="btn btn-success text-white float-right m-t-30" title="Submit For Approval">Submit</a>                                            
+                                        <a id="goal_sheet_submit_update" type="submit" class="btn btn-success text-white float-right m-t-30" title="Submit For Approval">Submit</a>                                            
                                          -->
-                                        <button type="submit" title="Submit For Approval" id="goal_sheet_submit"  class="btn float-right btn-success m-t-30"><i class="ti-save"></i> Submit</button>
-                                        <button id="goal_sheet_submit_update" title="Submit For Approval"  class="btn float-right btn-success m-t-30"><i class="ti-save"></i> Submit</button>
-                                    </div>
+                                        <button type="submit" title="Submit For Approval" id="goal_sheet_submit"  class="btn float-right btn-success m-t-30"><i class="ti-save"></i> Submit</button>                                            
+                                        <button id="goal_sheet_submit_update" title="Submit For Approval"  class="btn float-right btn-success m-t-30"><i class="ti-save"></i> Submit</button>                                            
+                                    </div>                                    
                                 <!-- </div> -->
                             </div>    
-                            <div class="text-danger employee_consolidated_rate_error m-t-20" id=""></div>
                             <div class="text-danger tb_error" id=""></div> 
                         </form>
                     </div>
@@ -273,7 +275,7 @@
                         html +='</td>';
 
                         html +='<td>';
-                            html +='<div style="margin-top: 80px;"></div>';
+                            html +='<div style="margin-top: 70px;"></div>';
                         html +='</td>';
 
                         html +='<td>';
@@ -304,11 +306,11 @@
         2000 );
 
         login_user_details();
-
+        
 
     });
 
-
+    
     // $('.key_bus_drivers_1').click(function() {
     //     alert("hi")
     //     // $('#myTable tr:not(:first-child)').each(function(){
@@ -320,25 +322,25 @@
     //     // });
     // });
 
-    $(document).on('change','.key_bus_drivers',function(){
+    $(document).on('change','.key_bus_drivers',function(){        
         var id_name = $(this).prop('id');
-        // console.log(this)
+        // console.log(this)      
         var error='';
-
+       
         var new_arr=[];
 
         $('#goal-tb tr').each(function(index) {
 
             var col0=$(this).find("td:eq(0)").text();
             var col1=$(this).find("td:eq(1) option:selected").val();
-
+            
             var found = new_arr.find(e => e.name === col1);
 
             // var found = new_arr.find(e => e.name === verici);
-            // console.log(new_arr)
+            // console.log(new_arr)   
 
             if(found == undefined){
-                var err_div_name = ".key_bus_drivers_"+col0+"_error";
+                var err_div_name = ".key_bus_drivers_"+col0+"_error";            
                 var $errmsg0 = $(err_div_name);
                 $errmsg0.hide();
 
@@ -349,17 +351,17 @@
             }else{
                 // alert("2")
                 // Key business drivers
-                var err_div_name = ".key_bus_drivers_"+col0+"_error";
+                var err_div_name = ".key_bus_drivers_"+col0+"_error";            
                 var $errmsg0 = $(err_div_name);
                 $errmsg0.hide();
-                $errmsg0.html('Key business drivers is already entered').show();
-                error+="error";
-
+                $errmsg0.html('Key business drivers is already entered').show();                
+                error+="error";                
+                
             }
+            
+        });        
 
-        });
-
-
+        
     });
 
     $(".use-address").click(function() {
@@ -494,22 +496,12 @@
             dataType: "json",
             success: function(data) {
                 // console.log(data)
-<<<<<<< HEAD
-                if(data.length !=0){                                        
-                    $('#sup_dept').html(data[0].department);                    
-=======
-<<<<<<< HEAD
-                if(data.length !=0){
-                    $('#sup_dept').html(data[0].department);
-=======
-                if(data.length !=0){
-                    var sup = "<b>";
-                     sup += data[0].department;
-                     sup += "</b>";
+                if(data.length !=0){          
+                    var sup = "<b>";                              
+                     sup += data[0].department;                              
+                     sup += "</b>";  
 
-                    $('#sup_dept').html(sup);
->>>>>>> main
->>>>>>> f1c179e7b4047a0904d22144b590b7c23ea4235a
+                    $('#sup_dept').html(sup);                    
                 }
             }
         });
@@ -520,22 +512,12 @@
             dataType: "json",
             success: function(data) {
                 // console.log(data)
-<<<<<<< HEAD
-                if(data.length !=0){                                        
-                    $('#rev_dept').html(data[0].department);                    
-=======
-<<<<<<< HEAD
-                if(data.length !=0){
-                    $('#rev_dept').html(data[0].department);
-=======
-                if(data.length !=0){
-                    var rev = "<b>";
-                        rev += data[0].department;
-                        rev += "</b>";
+                if(data.length !=0){  
+                    var rev = "<b>";                              
+                        rev += data[0].department;                              
+                        rev += "</b>";  
 
-                    $('#rev_dept').html(rev);
->>>>>>> main
->>>>>>> f1c179e7b4047a0904d22144b590b7c23ea4235a
+                    $('#rev_dept').html(rev);                    
                 }
             }
         });
@@ -558,39 +540,25 @@
         updatesno();
     });
 
-<<<<<<< HEAD
     //New entry    
-    $("#datatable_form_save").on('click',()=>{
-=======
-<<<<<<< HEAD
-    //New entry
-    $("#datatable_form_save").on('click',()=>{
-        $('#datatable_form_save').attr('disabled' , true);
-=======
-    //New entry
     $("#datatable_form_save").on('click',(e)=>{
         e.preventDefault();
->>>>>>> f1c179e7b4047a0904d22144b590b7c23ea4235a
 
->>>>>>> main
+        var new_arr_cel1=[];
         var error='';
         $(".tb_error").hide();
-
+        
         $('#datatable_form_save').attr('disabled' , true);
         var rate = $("#employee_consolidated_rate").val();
         var $errmsg3 = $(".employee_consolidated_rate_error");
         $errmsg3.hide();
 
         if(rate == ""){
-<<<<<<< HEAD
-            $errmsg3.html('Employee Consolidated Rate is required').show();
-=======
-            $errmsg3.html('Self Consolidated Rating is required').show();
->>>>>>> main
+            $errmsg3.html('Self Consolidated Rating is required').show();                
             error+="error";
         }
 
-        $('#goal-tb tr').each(function() {
+        $('#goal-tb tr').each(function(index) {
             var col0=$(this).find("td:eq(0)").text();
             var col1=$(this).find("td:eq(1) option:selected").val();
             var col2=$(this).find("td:eq(2) textarea").val();
@@ -599,70 +567,101 @@
             // console.log(col0)
             // console.log(col1)
 
+            // // Key business drivers
+            // var err_div_name = ".key_bus_drivers_"+col0+"_error";            
+            // var $errmsg0 = $(err_div_name);
+            // $errmsg0.hide();
+            
+            // if(col1 == ""){
+            //     $errmsg0.html('Key business drivers is required').show();                
+            //     error+="error";
+            // }
+
+            row_index = (index);
+            var found = new_arr_cel1.find(e => e.name === col1);
+
             // Key business drivers
-            var err_div_name = ".key_bus_drivers_"+col0+"_error";
+            var err_div_name = ".key_bus_drivers_"+col0+"_error";            
             var $errmsg0 = $(err_div_name);
             $errmsg0.hide();
-
+            
             if(col1 == ""){
-                $errmsg0.html('Key business drivers is required').show();
+                $errmsg0.html('Key business drivers is required').show();                
                 error+="error";
-            }
+            }else if(found == undefined){
+                var err_div_name = ".key_bus_drivers_"+col0+"_error";            
+                var $errmsg0 = $(err_div_name);
+                $errmsg0.hide();
 
+                new_arr_cel1.push({
+                    name:col1
+                });
+            
+            }else{
+                // alert("2")
+                // Key business drivers
+                var err_div_name = ".key_bus_drivers_"+col0+"_error";            
+                var $errmsg0 = $(err_div_name);
+                $errmsg0.css("display", "block");
+
+                // $(this).closet
+                // $errmsg0.html('Key business drivers is already entered').show();                
+                error+="error";                
+                console.log($errmsg0);
+                
+            }
+            
+            
             //Key result areas
             var cass_name = ".key_res_areas_"+col0;
 
-            $(cass_name).each(function () {
+            $(cass_name).each(function () {                
                 var sub_value = $(this).val();
                 var sub_class_id = $(this).get(0).id;
                 var err_div_name = "."+sub_class_id+"_error";
                 var $errmsg = $(err_div_name);
                 $errmsg.hide();
-
+                
                 if(sub_value == ""){
-                    $errmsg.html('Key result areas is required').show();
+                    $errmsg.html('Key result areas is required').show();                
                     error+="error";
                 }
-
+                    
             });
 
             //Self Assessment (Qualitative Remarks) by Employee
             var cass_name1 = ".self_assessment_remark_"+col0;
 
-            $(cass_name1).each(function () {
+            $(cass_name1).each(function () {          
                 var sub_value1 = $(this).val();
                 var sub_class_id1 = $(this).get(0).id;
                 var err_div_name1 = "."+sub_class_id1+"_error";
                 var $errmsg1 = $(err_div_name1);
                 $errmsg1.hide();
                 console.log(err_div_name1)
-
+                
                 if(sub_value1 == ""){
-                    $errmsg1.html('Self assessment is required').show();
+                    $errmsg1.html('Self assessment is required').show();                
                     error+="error";
                 }
-
+                    
             });
 
             //Rating by Employee
             var cass_name2 = ".rating_by_employee_"+col0;
 
-            $(cass_name2).each(function () {
+            $(cass_name2).each(function () {                
                 var sub_value2 = $(this).val();
                 var sub_class_id2 = $(this).get(0).id;
                 var err_div_name2 = "."+sub_class_id2+"_error";
                 var $errmsg2 = $(err_div_name2);
                 $errmsg2.hide();
-
+                
                 if(sub_value2 == ""){
-<<<<<<< HEAD
-                    $errmsg2.html('Rating by employee is required').show();
-=======
-                    $errmsg2.html('Self rating is required').show();
->>>>>>> main
+                    $errmsg2.html('Self rating is required').show();                
                     error+="error";
                 }
-
+                    
             });
 
         });
@@ -672,30 +671,26 @@
             // alert("succes")
             $('#datatable_form_save').attr('disabled' , true);
             new_data_insert();
-<<<<<<< HEAD
-        }
-=======
         }else{
             $('#datatable_form_save').attr('disabled' , false);
-        }
->>>>>>> main
+        }        
 
         function new_data_insert(){
-            $.ajax({
+            $.ajax({            
                 url:"{{ url('add_goals_data') }}",
                 type:"POST",
                 data:$('#goalsForm').serialize(),
                 dataType : "JSON",
                 success:function(data)
                 {
-
+                    
                     Toastify({
                         text: "Added Sucessfully..!",
                         duration: 3000,
                         close:true,
                         backgroundColor: "#4fbe87",
-                    }).showToast();
-
+                    }).showToast();    
+                    
                     $('#datatable_form_save').attr('disabled' , false);
 
                     // $("#goals_setting_id").val(data);
@@ -704,32 +699,24 @@
                     // $("#goal_sheet_submit").css('display', 'none');
                     // $("#goal_sheet_submit_update").css('display', 'block');
 
-                    location = "goals";
+                    location = "goals";                
 
                 }
             });
-
+                    
         }
-        return false;
-    });
+        return false;        
+    });    
 
     //New Submit entry
-<<<<<<< HEAD
-    $("#goal_sheet_submit").on('click',()=>{      
-=======
-<<<<<<< HEAD
-    $("#goal_sheet_submit").on('click',()=>{
-=======
-    $("#goal_sheet_submit").on('click',(e)=>{
+    $("#goal_sheet_submit").on('click',(e)=>{      
         e.preventDefault();
->>>>>>> f1c179e7b4047a0904d22144b590b7c23ea4235a
 
         var new_arr_cel1=[];
-
-        // console.log(new_arr)
-        // console.log(error)
+  
+        // console.log(new_arr)      
+        // console.log(error)      
         var error='';
->>>>>>> main
 
         $('#goal_sheet_submit').attr('disabled' , true);
         $('#goal_sheet_submit').html("Processing");
@@ -743,14 +730,10 @@
         $errmsg3.hide();
 
         if(rate == ""){
-<<<<<<< HEAD
-            $errmsg3.html('Employee Consolidated Rate is required').show();
-=======
-            $errmsg3.html('Self Consolidated Rating is required').show();
->>>>>>> main
+            $errmsg3.html('Self Consolidated Rating is required').show();                
             error+="error";
         }
-
+       
         var row_index = [];
 
         $('#goal-tb tr').each(function(index) {
@@ -764,98 +747,90 @@
 
             var found = new_arr_cel1.find(e => e.name === col1);
             // console.log(found);
-            // console.log(new_arr_cel1)
-
+            // console.log(new_arr_cel1)                  
+            
             // Key business drivers
-            var err_div_name = ".key_bus_drivers_"+col0+"_error";
+            var err_div_name = ".key_bus_drivers_"+col0+"_error";            
             var $errmsg0 = $(err_div_name);
             $errmsg0.hide();
-
+            
             if(col1 == ""){
-                $errmsg0.html('Key business drivers is required').show();
+                $errmsg0.html('Key business drivers is required').show();                
                 error+="error";
             }else if(found == undefined){
-                var err_div_name = ".key_bus_drivers_"+col0+"_error";
+                var err_div_name = ".key_bus_drivers_"+col0+"_error";            
                 var $errmsg0 = $(err_div_name);
                 $errmsg0.hide();
 
                 new_arr_cel1.push({
                     name:col1
                 });
-
+            
             }else{
                 // alert("2")
                 // Key business drivers
-                var err_div_name = ".key_bus_drivers_"+col0+"_error";
+                var err_div_name = ".key_bus_drivers_"+col0+"_error";            
                 var $errmsg0 = $(err_div_name);
                 $errmsg0.css("display", "block");
 
                 // $(this).closet
-                // $errmsg0.html('Key business drivers is already entered').show();
-                error+="error";
+                // $errmsg0.html('Key business drivers is already entered').show();                
+                error+="error";                
                 console.log($errmsg0);
-
+                
             }
-
+            
             //Key result areas
             var cass_name = ".key_res_areas_"+col0;
 
-            $(cass_name).each(function () {
+            $(cass_name).each(function () {                
                 var sub_value = $(this).val();
                 var sub_class_id = $(this).get(0).id;
                 var err_div_name = "."+sub_class_id+"_error";
                 var $errmsg = $(err_div_name);
                 $errmsg.hide();
-
+                
                 if(sub_value == ""){
-                    $errmsg.html('Key result areas is required').show();
+                    $errmsg.html('Key result areas is required').show();                
                     error+="error";
                 }
-
+                    
             });
 
             //Self Assessment (Qualitative Remarks) by Employee
             var cass_name1 = ".self_assessment_remark_"+col0;
 
-            $(cass_name1).each(function () {
+            $(cass_name1).each(function () {          
                 var sub_value1 = $(this).val();
                 var sub_class_id1 = $(this).get(0).id;
                 var err_div_name1 = "."+sub_class_id1+"_error";
                 var $errmsg1 = $(err_div_name1);
                 $errmsg1.hide();
                 console.log(err_div_name1)
-
+                
                 if(sub_value1 == ""){
-                    $errmsg1.html('Self assessment is required').show();
+                    $errmsg1.html('Self assessment is required').show();                
                     error+="error";
                 }
-
+                    
             });
 
             //Rating by Employee
             var cass_name2 = ".rating_by_employee_"+col0;
 
-            $(cass_name2).each(function () {
+            $(cass_name2).each(function () {                
                 var sub_value2 = $(this).val();
                 var sub_class_id2 = $(this).get(0).id;
                 var err_div_name2 = "."+sub_class_id2+"_error";
                 var $errmsg2 = $(err_div_name2);
                 $errmsg2.hide();
-
+                
                 if(sub_value2 == ""){
-<<<<<<< HEAD
-                    $errmsg2.html('Rating by employee is required').show();
+                    $errmsg2.html('Self rating is required').show();                
                     error+="error";
                 }
-
-            });
-=======
-                    $errmsg2.html('Self rating is required').show();
-                    error+="error";
-                }
-
-            });
->>>>>>> main
+                    
+            });            
 
         });
 
@@ -863,27 +838,27 @@
             // alert("ss")
 
             var found_row_val = new_arr_cel1.find(e => e.name === "Customer");
-
-            if(found_row_val == undefined){
-
+        
+            if(found_row_val == undefined){                      
+            
                 // alert("cust1, pro, peo")
                 var err_div_name2 = ".tb_error";
                 var $errmsg2 = $(err_div_name2);
                 $errmsg2.hide();
-                $errmsg2.html('Customer, Process & People KBD is required').show();
+                $errmsg2.html('Customer, Process & People KBD is required').show();                
                 error+="error";
-
+                
             }else{
-
+            
                 var found_row_val2 = new_arr_cel1.find(e => e.name === "Process");
 
                 if(found_row_val2 == undefined){
-
+                
                     var err_div_name2 = ".tb_error";
                     var $errmsg2 = $(err_div_name2);
                     $errmsg2.hide();
-                    $errmsg2.html('Customer, Process & People KBD is required').show();
-                    error+="error";
+                    $errmsg2.html('Customer, Process & People KBD is required').show();                
+                    error+="error";                
 
                 }else{
 
@@ -892,7 +867,7 @@
                         var err_div_name2 = ".tb_error";
                         var $errmsg2 = $(err_div_name2);
                         $errmsg2.hide();
-                        $errmsg2.html('Customer, Process & People KBD is required').show();
+                        $errmsg2.html('Customer, Process & People KBD is required').show();                
                         error+="error";
 
                     }else{
@@ -904,21 +879,34 @@
                 }
                 // console.log(found_row_val)
             }
-
-
+            
+           
         }else{
 
             var err_div_name2 = ".tb_error";
             var $errmsg2 = $(err_div_name2);
-            $errmsg2.hide();
-            $errmsg2.html('Min 3 KBD is required').show();
+            $errmsg2.hide();            
+            $errmsg2.html('Min 3 KBD is required').show();                
             error+="error";
             // alert("s")
 
         }
+
+        // if(5 < row_index){
+        //     // alert("y")
+        //     var err_div_name2 = ".tb_error";
+        //     var $errmsg2 = $(err_div_name2);
+        //     $errmsg2.hide();            
+        //     $errmsg2.html('Max 5 KBD is required').show();                
+        //     error+="error";
+        // }else{
+        //     var err_div_name2 = ".tb_error";
+        //     var $errmsg2 = $(err_div_name2);
+        //     $errmsg2.hide();    
+        // }
+
         // console.log(new_arr_cel1)
-
-
+        
         // console.log(new_arr_cel1)
 
         // console.log(row_index)
@@ -934,39 +922,39 @@
         }
 
         function new_sub_goal_data_insert(){
-            $.ajax({
+            $.ajax({            
                 url:"{{ url('add_goals_data_submit') }}",
                 type:"POST",
                 data:$('#goalsForm').serialize(),
                 dataType : "JSON",
                 success:function(data)
                 {
-
+                    
                     Toastify({
                         text: "Added Sucessfully..!",
                         duration: 3000,
                         close:true,
                         backgroundColor: "#4fbe87",
-                    }).showToast();
-
+                    }).showToast();    
+                    
                     $('#goal_sheet_submit').attr('disabled' , false);
                     $('#goal_sheet_submit').html("Submit");
 
-                    location = "goals";
+                    location = "goals";                
 
                 }
             });
+                    
+        }        
 
-        }
-
-        return false;
+        return false;        
     });
-
+    
     //update entry
-    $("#datatable_form_update").on('click',()=>{
-
+    $("#datatable_form_update").on('click',()=>{   
+        
         $('#datatable_form_update').attr('disabled' , true);
-
+        
         var error='';
 
         var rate = $("#employee_consolidated_rate").val();
@@ -1060,9 +1048,9 @@
         }else{
             // alert("er")
         }
-
+        
         function update_data_insert(){
-            $.ajax({
+            $.ajax({            
                 url:"{{ url('update_emp_goals_data') }}",
                 type:"POST",
                 data:$('#goalsForm').serialize(),
@@ -1075,21 +1063,21 @@
                         duration: 3000,
                         close:true,
                         backgroundColor: "#4fbe87",
-                    }).showToast();
-
+                    }).showToast();    
+                    
                     $('#datatable_form_update').attr('disabled' , false);
 
-					$("#datatable_form_save").css('display', 'none');
-					$("#datatable_form_update").css('display', 'block');
+                    $("#datatable_form_save").css('display', 'none');
+                    $("#datatable_form_update").css('display', 'block');
 
-                    // location = "goal_setting_edit?id="+data+"";
+                    // location = "goal_setting_edit?id="+data+"";                
 
                 }
             });
+                    
+        }        
 
-        }
-
-        return false;
+        return false;        
     });
 
     //update Submit entry
@@ -1102,11 +1090,7 @@
         $errmsg3.hide();
 
         if(rate == ""){
-<<<<<<< HEAD
-            $errmsg3.html('Employee Consolidated Rate is required').show();
-=======
-            $errmsg3.html('Self Consolidated Rating is required').show();
->>>>>>> main
+            $errmsg3.html('Self Consolidated Rating is required').show();                
             error+="error";
         }
 
@@ -1120,65 +1104,65 @@
             // console.log(col1)
 
             // Key business drivers
-            var err_div_name = ".key_bus_drivers_"+col0+"_error";
+            var err_div_name = ".key_bus_drivers_"+col0+"_error";            
             var $errmsg0 = $(err_div_name);
             $errmsg0.hide();
-
+            
             if(col1 == ""){
-                $errmsg0.html('Key business drivers is required').show();
+                $errmsg0.html('Key business drivers is required').show();                
                 error+="error";
             }
-
+            
             //Key result areas
             var cass_name = ".key_res_areas_"+col0;
 
-            $(cass_name).each(function () {
+            $(cass_name).each(function () {                
                 var sub_value = $(this).val();
                 var sub_class_id = $(this).get(0).id;
                 var err_div_name = "."+sub_class_id+"_error";
                 var $errmsg = $(err_div_name);
                 $errmsg.hide();
-
+                
                 if(sub_value == ""){
-                    $errmsg.html('Key result areas is required').show();
+                    $errmsg.html('Key result areas is required').show();                
                     error+="error";
                 }
-
+                    
             });
 
             //Self Assessment (Qualitative Remarks) by Employee
             var cass_name1 = ".self_assessment_remark_"+col0;
 
-            $(cass_name1).each(function () {
+            $(cass_name1).each(function () {          
                 var sub_value1 = $(this).val();
                 var sub_class_id1 = $(this).get(0).id;
                 var err_div_name1 = "."+sub_class_id1+"_error";
                 var $errmsg1 = $(err_div_name1);
                 $errmsg1.hide();
                 console.log(err_div_name1)
-
+                
                 if(sub_value1 == ""){
-                    $errmsg1.html('Self assessment is required').show();
+                    $errmsg1.html('Self assessment is required').show();                
                     error+="error";
                 }
-
+                    
             });
 
             //Rating by Employee
             var cass_name2 = ".rating_by_employee_"+col0;
 
-            $(cass_name2).each(function () {
+            $(cass_name2).each(function () {                
                 var sub_value2 = $(this).val();
                 var sub_class_id2 = $(this).get(0).id;
                 var err_div_name2 = "."+sub_class_id2+"_error";
                 var $errmsg2 = $(err_div_name2);
                 $errmsg2.hide();
-
+                
                 if(sub_value2 == ""){
-                    $errmsg2.html('Rating by employee is required').show();
+                    $errmsg2.html('Rating by employee is required').show();                
                     error+="error";
                 }
-
+                    
             });
 
         });
@@ -1192,29 +1176,29 @@
         function update_submit_data_insert(){
             var employee_consolidated_rate = $("#employee_consolidated_rate").val();
 
-            $.ajax({
+            $.ajax({            
                 url:"{{ url('update_emp_goals_data_submit') }}",
                 type:"POST",
                 data:$('#goalsForm').serialize(),
                 dataType : "JSON",
                 success:function(data)
-                {
+                {                    
                     Toastify({
                         text: "Added Sucessfully..!",
                         duration: 3000,
                         close:true,
                         backgroundColor: "#4fbe87",
-                    }).showToast();
+                    }).showToast();    
+                    
+                    $('button[type="submit"]').attr('disabled' , false);                    
 
-                    $('button[type="submit"]').attr('disabled' , false);
-
-                    location = "goals";
+                    location = "goals";                
 
                 }
             });
-
-        }
-        return false;
+                    
+        }        
+        return false;        
     });
 
 </script>

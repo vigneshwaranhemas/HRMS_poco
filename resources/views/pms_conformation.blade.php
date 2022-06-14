@@ -48,12 +48,6 @@
                                                     <p style="text-align: justify;font-size:17px"><b>Why PMS:</b></p>
                                                     <p style="text-align: justify;font-size:17px">A well-defined Performance Management System creates an ongoing dialogue between the employee and reporting manager to define, manage and continually outperform one’s goals and objectives. It also helps to develop a climate of trust, support, and encouragement and builds transparency in the performance evaluation process.</h5>
                                                     <p style="text-align: justify;font-size:17px">The following is the schedule of PMS 2021-22:</p>
-                                                    <!-- <table>
-                                                        <tr><td><p style="text-align: justify;font-size:17px">Self Assessment</p></td><td><p style="text-align: justify;font-size:17px">By Wednesday, 15th June</p></td></tr>
-                                                        <tr><td><p style="text-align: justify;font-size:17px">Reporting Manager Assessment</p></td><td><p style="text-align: justify;font-size:17px">By Saturday, 18th June</p></td></tr>
-                                                        <tr><td><p style="text-align: justify;font-size:17px">Reviewer Assessment</p></td><td><p style="text-align: justify;font-size:17px">By Monday, 20th June</p></td></tr>
-                                                        <tr><td><p style="text-align: justify;font-size:17px">PMS Panel Review</p></td><td><p style="text-align: justify;font-size:17px">By Tuesday, 22nd June</p></td></tr>
-                                                    </table> -->
                                                     <ul class="pl-4 mb-4 list-circle">
                                                         <li><p style="text-align: justify;font-size:17px">Self Assessment - By Wednesday, 15th June</p></li>
                                                         <li><p style="text-align: justify;font-size:17px">Reporting Manager Assessment - By Saturday, 18th June</h5></li>

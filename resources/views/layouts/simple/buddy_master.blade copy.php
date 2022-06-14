@@ -7,8 +7,8 @@
     <meta name="description" content="Poco admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Poco admin template, dashboard template, flat admin template, responsive admin template, web app (Laravel 8)">
     <meta name="author" content="pixelstrap">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
     <title>HRMS - @yield('title')</title>
     @include('layouts.simple.css')
@@ -42,11 +42,10 @@
                  <div class="row">
                     <div class="col-lg-6 main-header">
                         @yield('breadcrumb-title')
-                        <!-- <h6 class="mb-0">admin panel</h6> -->
                     </div>
                     <div class="col-lg-6 breadcrumb-right">
                        <ol class="breadcrumb">
-                          {{-- <li class="breadcrumb-item"><a href=".."><i class="pe-7s-home"></i></a></li> --}}
+                          <!-- <li class="breadcrumb-item"><a href=".."><i class="pe-7s-home"></i></a></li> -->
                           @yield('breadcrumb-items')
                        </ol>
                     </div>
@@ -54,7 +53,7 @@
               </div>
             </div>
             @yield('content')
-             {{-- <div class="welcome-popup modal fade" id="loadModal" tabindex="-1" role="dialog" aria-hidden="true">
+             <div class="welcome-popup modal fade" id="loadModal" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                  <div class="modal-content">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -63,19 +62,14 @@
                        <div class="contain p-30">
                           <div class="text-center">
                              <h3>Welcome to BUDGIE</h3>
-<<<<<<< HEAD
                              <h4 style="color:red;">Please Complete Your Performance Self Assessment Details</h4>
                              <a class="btn btn-primary btn-lg txt-white"  href="{{ url('pms_conformation') }}" aria-label="Close">Get Started</a>
-=======
-                             <h4 style="color:red;">Enter Your ID Card Information  </h4>
-                             <a class="btn btn-primary btn-lg txt-white"  href="{{ url('id_card_varification') }}" aria-label="Close">Get Started</a>
->>>>>>> aced725d58902d135da346b8abcb789a7dc11cb7
                           </div>
                        </div>
                     </div>
                  </div>
               </div>
-            </div> --}}
+            </div>
         </div>
         <!-- footer start-->
         @include('layouts.simple.footer')
@@ -84,10 +78,6 @@
     @include('layouts.simple.script')
   </body>
 </html>
-
-
-
-<<<<<<< HEAD
 <script type="text/javascript">
     $(document).ready(function(){
         pms_page_url();
@@ -111,8 +101,3 @@
                 });
             }
 </script>
-=======
->>>>>>> aced725d58902d135da346b8abcb789a7dc11cb7
-
-
-

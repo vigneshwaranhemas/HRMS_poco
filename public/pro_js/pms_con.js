@@ -36,7 +36,11 @@ $('#pms_status').submit(function(e) {
 
                    setTimeout(
                        function() {
+<<<<<<< HEAD
+                            location = "goals";
+=======
                         window.location.href = "../index.php/goals";
+>>>>>>> aced725d58902d135da346b8abcb789a7dc11cb7
                        }, 1000);
                }
                else{

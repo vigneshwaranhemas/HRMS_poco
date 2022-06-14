@@ -10,11 +10,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <title>HRMS - @yield('title')</title>
+    <title>HRMS</title>
     @include('layouts.simple.css')
     @yield('style')
 
   </head>
+
   <body class="@if(url()->current() == route('button-builder'))  button-builder @endif">
     <!-- Loader starts-->
     <div class="loader-wrapper">
@@ -46,7 +47,7 @@
                     </div>
                     <div class="col-lg-6 breadcrumb-right">
                        <ol class="breadcrumb">
-                          {{-- <li class="breadcrumb-item"><a href=".."><i class="pe-7s-home"></i></a></li> --}}
+                          <!-- <li class="breadcrumb-item"><a href=".."><i class="pe-7s-home"></i></a></li> -->
                           @yield('breadcrumb-items')
                        </ol>
                     </div>
@@ -54,7 +55,7 @@
               </div>
             </div>
             @yield('content')
-             {{-- <div class="welcome-popup modal fade" id="loadModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="welcome-popup modal fade" id="loadModal1" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                  <div class="modal-content">
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -63,19 +64,15 @@
                        <div class="contain p-30">
                           <div class="text-center">
                              <h3>Welcome to BUDGIE</h3>
-<<<<<<< HEAD
-                             <h4 style="color:red;">Please Complete Your Performance Self Assessment Details</h4>
+                             <h5>PMS 2021-22 is active ! </h5>
+                             <h5 style="color:red;"><b>Please Complete Your Self Assessment</b></h5>
                              <a class="btn btn-primary btn-lg txt-white"  href="{{ url('pms_conformation') }}" aria-label="Close">Get Started</a>
-=======
-                             <h4 style="color:red;">Enter Your ID Card Information  </h4>
-                             <a class="btn btn-primary btn-lg txt-white"  href="{{ url('id_card_varification') }}" aria-label="Close">Get Started</a>
->>>>>>> aced725d58902d135da346b8abcb789a7dc11cb7
                           </div>
                        </div>
                     </div>
                  </div>
               </div>
-            </div> --}}
+            </div>
         </div>
         <!-- footer start-->
         @include('layouts.simple.footer')
@@ -85,9 +82,6 @@
   </body>
 </html>
 
-
-
-<<<<<<< HEAD
 <script type="text/javascript">
     $(document).ready(function(){
         pms_page_url();
@@ -111,8 +105,3 @@
                 });
             }
 </script>
-=======
->>>>>>> aced725d58902d135da346b8abcb789a7dc11cb7
-
-
-

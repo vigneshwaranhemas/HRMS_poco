@@ -78,29 +78,29 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-7">
+                            <div class="row" style="margin-left: -102px;">
+                                <div class="col-md-6">
                                     <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Emp Name :</p>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <p id="username" class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->username }}</b></p>
                                 </div>
-                                <div class="col-md-7 m-t-10">
+                                <div class="col-md-6 m-t-10">
                                     <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Rep.Manager Name :</p>
                                 </div>
-                                <div class="col-md-5 m-t-10">
+                                <div class="col-md-6 m-t-10">
                                     <p id="sup_name" class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->sup_name }}</b></p>
                                 </div>
-                                <div class="col-md-7 m-t-10">
+                                <div class="col-md-6 m-t-10">
                                     <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> Reviewer Name :</p>
                                 </div>
-                                <div class="col-md-5 m-t-10">
+                                <div class="col-md-6 m-t-10">
                                     <p id="reviewer_name" class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>{{ Auth::user()->reviewer_name }}</b></p>
                                 </div>
-                                <div class="col-md-7 m-t-10">
+                                <div class="col-md-6 m-t-10">
                                     <p class="mb-0 f-w-600" style="font-size: 16px;"><i class="icofont icofont-user-alt-7"> </i> HRBP :</p>
                                 </div>
-                                <div class="col-md-5 m-t-10">
+                                <div class="col-md-6 m-t-10">
                                     <p class="f-w-700" style="text-transform: uppercase;font-size: 16px;"><b>Rajesh M S</b></p>
                                 </div>
                             </div>
@@ -148,11 +148,11 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Key Business Drivers (KBD)</th>
+                                        <th scope="col" style="width:180px">Key Business Drivers (KBD)</th>
                                         <th scope="col" style="width:280px">Key Result Areas (KRA)</th>
                                         <th scope="col" style="width:280px">Measurement Criteria (Quantified Measures)</th>
                                         <th scope="col" style="width:280px">Self Assessment (Qualitative Remarks) by Employee</th>
-                                        <th scope="col">Self Rating</th>
+                                        <th scope="col" style="width:180px">Self Rating</th>
                                         <!-- <th scope="col">Actuals </th> -->
                                         <th scope="col"></th>
                                         <th scope="col">
@@ -306,10 +306,30 @@
         2000 );
 
         login_user_details();
+        login_user_eligible();
+        login_user_sheet_added();
         
-
     });
 
+    function login_user_eligible(){
+        $.ajax({
+            url: "login_user_eligible",
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+                // console.log(data)
+                if(data != 0){          
+                    alert("show")                   
+                }else{
+                    alert("hide")
+                }
+            }
+        });
+    }
+
+    function login_user_sheet_added(){
+        
+    }
     
     // $('.key_bus_drivers_1').click(function() {
     //     alert("hi")

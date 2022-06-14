@@ -84,6 +84,11 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-warningprofile" role="tabpanel" aria-labelledby="pills-warningprofile-tab">
+<<<<<<< HEAD
+                            <div class="" style="height: 400px;">
+                            </div>
+=======
+>>>>>>> aced725d58902d135da346b8abcb789a7dc11cb7
                         </div>
                     </div>
                 </div>
@@ -173,15 +178,25 @@
                     </div>
                     <div class="modal-body">
                         <!-- <h5></h5> -->
-                        <p>It is a pleasure to launch the Performance Management System automated module. We are going live with the cycle of PMS 2021-22.</p>
-                        <p>Performance management creates an ongoing dialogue and a climate of trust, support, and encouragement and helps build a relationship between employees and the company.</p>
-                        <p>Continuous performance management enables management to identify activities and efforts that are commendable or rewardable (which in turn fosters the growth spirit of your team members).</p>
-                        <p>Continuous performance management creates a continuous dialogue and a climate of trust, support, and encouragement. It helps to build a relationship between the employee and the company. </p>
-                        <p>Performance management, when it truly involves employees, will boost employee engagement.Effective recognition and reward systems can only work in organizations where there is a visible and accurate process of discussions and performance feedback.</p>
-                        <p>So let us work towards making this PMS exercise a grand success and benefit from the process. Please go through the PPT to ensure you are adequately informed about the exercise. </p>
-                        <p>As we interact with the module, we may come across any difficulties or errors. Please reach out to ganagavathy.k@hemas.in with the screenshots and She will be ready with the solutions for us to complete PMS efficiently.</p>
-                        <h6>Thank you, </h6>
-                        <h6>Human Resources Team - HEPL</h6>
+                        <p style="text-align: justify;font-size:16px">We are delighted to launch the <b>PAPERLESS SELF ASSESSMENT MODULE</b> for Performance Management System 2021-22, through our new HRMS- BUDGIE.</p>
+                        <p style="text-align: justify;font-size:16px">The Self-Assessment Module facilitates eligible employees to summarise <b>individual performance</b> (Self-Assessment) based on <b>management expectations</b> (Goals & Objectives) for the period of evaluation (April 1, 2021, to March 31, 2022).</p>
+                        <h5 style="text-align: justify;font-size:16px;color:red;"><strong>ELIGIBILITY :</strong></h5>
+                        <p style="text-align: justify;font-size:16px;color:red;"> <strong> Employees who have joined HEPL on January 1, 2022, and later are not eligible.</strong></p>
+                        <p style="text-align: justify;font-size:16px;color:red;"><strong>A Separate performance module is applicable for NAPS trainees . </strong> </p>
+                        <p style="text-align: justify;font-size:16px"><b>Why PMS:</b> </p>
+                        <p style="text-align: justify;font-size:16px">A well-defined Performance Management System creates an ongoing dialogue between the employee and reporting manager to define, manage and continually outperform one’s goals and objectives. It also helps to develop a climate of trust, support, and encouragement and builds transparency in the performance evaluation process.</p>
+                        <p style="text-align: justify;font-size:16px">The following is the schedule of PMS 2021-22: </p>                        
+                        <ul class="pl-4 mb-4 list-circle">
+                            <li><p style="text-align: justify;font-size:16px">Self Assessment - By Wednesday, 15th June</p></li>
+                            <li><p style="text-align: justify;font-size:16px">Reporting Manager Assessment - By Saturday, 18th June</h5></li>
+                            <li><p style="text-align: justify;font-size:16px">Reviewer Assessment - By Monday, 20th June</h5></li>
+                            <li><p style="text-align: justify;font-size:16px">PMS Panel Review - By Tuesday, 22nd June</h5></li>
+                        </ul>    
+                        <p style="text-align: justify;font-size:16px">We welcome the eligible employees to participate in the PMS program as defined above and contribute to the robustness of the evaluation exercises.</p>
+                        <p style="text-align: justify;font-size:16px">Please go through the Tutorials on the Module prior to initiating your actions. Throughout this paperless process flow, if you encounter any difficulty or have any unanswered query, please feel free to reach out to your HR Advisor (<span style="color:blue;">dhivya.r@hemas.in</span>) or ping on Teams and we will be more than happy to support. </p>
+                        <p style="text-align: justify;font-size:16px">As we interact with the module, we may come across any difficulties or errors. Please reach out to (<span style="color:blue;">ganagavathy.k@hemas.in</span>) with the screenshots and She will be ready with the solutions for us to complete PMS efficiently.</p>
+                        <h6><b>Thank you,</b></h6>
+                        <h6><b>Human Resources Team - HEPL</b></h6>
                     </div>
                 </div>
             </div>
